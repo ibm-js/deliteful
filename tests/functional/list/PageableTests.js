@@ -10,29 +10,30 @@ define(["intern",
 		var expectedTextPath = isCategory ? "document.activeElement.textContent"
 				: "document.activeElement.children[1].textContent";
 		return remote.pressKeys(keys.PAGE_DOWN)
-			.findByClassName("d-list-next-loader")
+			.pressKeys(keys.TAB)
+			.getActiveElement()
 				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "Click to load " + pageSize + " more items");
 				})
-			.click()
 			.end()
-			.sleep(100)
+			.pressKeys(keys.SPACE)
 			.then(pollUntil("return " + expectedTextPath + " === '"
 					+ expectedActiveTextAfterLoad + "' ? true : null", [], 5000, intern.config.POLL_INTERVAL));
 	};
 
 	var loadPreviousPage = function (remote, listId, pageSize, expectedActiveTextAfterLoad) {
 		return remote.pressKeys(keys.PAGE_UP)
-			.findByClassName("d-list-previous-loader")
+			.pressKeys(keys.SHIFT + keys.TAB)
+			.pressKeys(keys.SHIFT) // release shift
+			.getActiveElement()
 				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "Click to load " + pageSize + " more items");
 				})
-			.click()
 			.end()
-			.sleep(100)
-			.then(pollUntil("return document.activeElement.children[1].textContent === '"
+			.pressKeys(keys.SPACE)
+				.then(pollUntil("return document.activeElement.children[1].textContent === '"
 					+ expectedActiveTextAfterLoad + "' ? true : null;", [], 5000, intern.config.POLL_INTERVAL));
 	};
 
@@ -54,7 +55,8 @@ define(["intern",
 				.get(require.toUrl("./pageable-prog-1.html"))
 				.then(pollUntil("return ('ready' in window &&  ready "
 						+ "&& document.getElementById('" + listId + "') "
-						+ "&& !document.querySelector('#" + listId + " .d-list-container').getAttribute('aria-busy') === false) ? true : null;",
+						+ "&& !document.querySelector('#" + listId + " .d-list-container')"
+						+	".getAttribute('aria-busy') === false) ? true : null;",
 						[],
 						intern.config.WAIT_TIMEOUT,
 						intern.config.POLL_INTERVAL))
@@ -118,7 +120,8 @@ define(["intern",
 				.get(require.toUrl("./pageable-prog-2.html"))
 				.then(pollUntil("return ('ready' in window &&  ready "
 						+ "&& document.getElementById('" + listId + "') "
-						+ "&& !document.querySelector('#" + listId + " .d-list-container').getAttribute('aria-busy') === false) ? true : null;",
+						+ "&& !document.querySelector('#" + listId + " .d-list-container')"
+						+	".getAttribute('aria-busy') === false) ? true : null;",
 						[],
 						intern.config.WAIT_TIMEOUT,
 						intern.config.POLL_INTERVAL))
@@ -152,46 +155,6 @@ define(["intern",
 					return remote.pressKeys(keys.PAGE_UP)
 							.then(pollUntil("return document.activeElement.textContent === 'Category 0' ? true : null;",
 							[], 5000));
-				});
-		},
-		"page loaders cannot be selected": function () {
-			var remote = this.remote;
-			var listId = "pageable-prog-8";
-			// PageableList not currently supported on IE 10
-			// see https://github.com/ibm-js/deliteful/issues/280
-			if (remote.environmentType.browserName === "internet explorer" &&
-					remote.environmentType.version === "10") {
-				return this.skip("WARNING: PageableList not supported on IE10");
-			}
-			if (/chrome/.test(remote.environmentType.browserName)) {
-				// https://code.google.com/p/selenium/issues/detail?id=2766
-				return this.skip("doesn't work on chrome, apparently");
-			}
-			return remote
-				.get(require.toUrl("./pageable-prog-8.html"))
-				.then(pollUntil("return ('ready' in window &&  ready "
-						+ "&& document.getElementById('" + listId + "') "
-						+ "&& !document.querySelector('#" + listId + " .d-list-container').getAttribute('aria-busy') === false) ? true : null;",
-						[],
-						intern.config.WAIT_TIMEOUT,
-						intern.config.POLL_INTERVAL))
-				.execute("document.querySelector('.d-list-loader').scrollIntoView();")
-				.findByClassName("d-list-loader")
-					.click()
-					.end()
-				.execute("return document.getElementById('" + listId + "').selectedItem;")
-				.then(function (value) {
-					assert.isNull(value, "no item currently selected");
-				})
-				.then(pollUntil(/* jshint maxlen: 147 */
-						"return document.querySelector('.d-list-loader').textContent.indexOf('Click to load 25 more items') != -1 ? true : null;",
-						[], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
-				.findByClassName("d-list-loader")
-					.click()
-					.end()
-				.execute("return document.getElementById('" + listId + "').selectedItem;")
-				.then(function (value) {
-					assert.isNull(value, "no item currently selected");
 				});
 		}
 	});

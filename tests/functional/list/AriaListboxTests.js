@@ -14,7 +14,8 @@ define(["intern",
 			.get(require.toUrl("./listbox-mark-1.html"))
 			.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('" + listId + "') "
-					+ "&& !document.querySelector('#" + listId + " .d-list-container').getAttribute('aria-busy') === false) ? true : null;",
+					+ "&& !document.querySelector('#" + listId + " .d-list-container')"
+					+	".getAttribute('aria-busy') === false) ? true : null;",
 					[],
 					intern.config.WAIT_TIMEOUT,
 					intern.config.POLL_INTERVAL))
@@ -73,7 +74,8 @@ define(["intern",
 			.get(require.toUrl("./listbox-mark-2.html"))
 			.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('" + listId + "') "
-					+ "&& !document.querySelector('#" + listId + " .d-list-container').getAttribute('aria-busy') === false) ? true : null;",
+					+ "&& !document.querySelector('#" + listId + " .d-list-container')"
+					+	".getAttribute('aria-busy') === false) ? true : null;",
 					[],
 					intern.config.WAIT_TIMEOUT,
 					intern.config.POLL_INTERVAL))
@@ -128,7 +130,8 @@ define(["intern",
 			.get(require.toUrl("./listbox-prog-1.html"))
 			.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('list-prog-1') "
-					+ "&& !document.querySelector('#list-prog-1 .d-list-container').getAttribute('aria-busy') === false) ? true : null;",
+					+ "&& !document.querySelector('#list-prog-1 .d-list-container')"
+					+	".getAttribute('aria-busy') === false) ? true : null;",
 					[],
 					intern.config.WAIT_TIMEOUT,
 					intern.config.POLL_INTERVAL))
@@ -203,7 +206,8 @@ define(["intern",
 			.get(require.toUrl("./listbox-mark-3.html"))
 			.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('list-mark-3') "
-					+ "&& !document.querySelector('#list-mark-3 .d-list-container').getAttribute('aria-busy') === false) ? true : null;",
+					+ "&& !document.querySelector('#list-mark-3 .d-list-container')"
+					+	".getAttribute('aria-busy') === false) ? true : null;",
 					[],
 					intern.config.WAIT_TIMEOUT,
 					intern.config.POLL_INTERVAL))
@@ -252,7 +256,8 @@ define(["intern",
 			.get(require.toUrl("./listbox-mark-1.html"))
 			.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('list-mark-1') "
-					+ "&& !document.querySelector('#list-mark-1 .d-list-container').getAttribute('aria-busy') === false) ? true : null;",
+					+ "&& !document.querySelector('#list-mark-1 .d-list-container')"
+					+	".getAttribute('aria-busy') === false) ? true : null;",
 					[],
 					intern.config.WAIT_TIMEOUT,
 					intern.config.POLL_INTERVAL))
@@ -298,7 +303,8 @@ define(["intern",
 			.get(require.toUrl("./listbox-mark-2.html"))
 			.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('list-mark-2') "
-					+ "&& !document.querySelector('#list-mark-2 .d-list-container').getAttribute('aria-busy') === false) ? true : null;",
+					+ "&& !document.querySelector('#list-mark-2 .d-list-container')"
+					+	".getAttribute('aria-busy') === false) ? true : null;",
 					[],
 					intern.config.WAIT_TIMEOUT,
 					intern.config.POLL_INTERVAL))
@@ -403,7 +409,8 @@ define(["intern",
 			.get(require.toUrl("./listbox-mark-1.html"))
 			.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('list-mark-1') "
-					+ "&& !document.querySelector('#list-mark-1 .d-list-container').getAttribute('aria-busy') === false) ? true : null;",
+					+ "&& !document.querySelector('#list-mark-1 .d-list-container')"
+					+	".getAttribute('aria-busy') === false) ? true : null;",
 					[],
 					intern.config.WAIT_TIMEOUT,
 					intern.config.POLL_INTERVAL))

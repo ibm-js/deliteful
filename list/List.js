@@ -182,6 +182,8 @@ define([
 
 		template: template,
 
+		tabindex: 0,
+
 		/**
 		 * Defines the scroll direction: `"vertical"` for a scrollable List, `"none"` for a non scrollable List.
 		 * @member {string} module:deliteful/list/List#scrollDirection
