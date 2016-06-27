@@ -163,7 +163,7 @@ define([
 		_busy: false,
 
 		/**
-		 * Specifies the role of list. It can be one of `grid`, `menu`, `listbox`.
+		 * Specifies the role of list. It can be one of `grid`, `menu`, `listbox` or `list`.
 		 * @type {string}
 		 * @default "grid"
 		 */
@@ -206,15 +206,15 @@ define([
 		},
 
 		/**
-		 * Defines the selection mode: `"none"` (not allowed if `role=listbox`), `"radio"`, `"single"`
-		 *  or `"multiple"`.
+		 * Defines the selection mode: `"none"` (not allowed if `role=listbox` or `role=list`),
+		 * `"radio"`, `"single"` or `"multiple"`.
 		 * @member {string} module:deliteful/list/List#selectionMode
-		 * @default "none", or "single" if `role=listbox`.
+		 * @default "none", or "single" if `role=listbox` or `role=list`.
 		 */
 		_setSelectionModeAttr: dcl.superCall(function (sup) {
 			return function (value) {
-				if (this.type === "listbox" && value === "none") {
-					throw new TypeError("selectionMode 'none' is invalid for an aria listbox, "
+				if ((this.type === "listbox" || this.type === "list") && value === "none") {
+					throw new TypeError("selectionMode 'none' is invalid for an aria listbox/list, "
 							+ "keeping the previous value of '" + this.selectionMode + "'");
 				} else {
 					sup.apply(this, arguments);
@@ -972,7 +972,8 @@ define([
 		// http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid
 
 		/**
-		 * Test if the child is navigable.  Skips category renderers when role=listbox or role=menu.
+		 * Test if the child is navigable.  Skips category renderers when role=listbox,
+		 * role=list or role=menu.
 		 * @private
 		 */
 		descendantSelector: function (child) {
@@ -1032,7 +1033,7 @@ define([
 
 		/**
 		 * Returns the first cell in the list.
-		 * For role=listbox and role=menu, skips category renderers.
+		 * For role=listbox, role=list and role=menu, skips category renderers.
 		 * However, it doesn't skip navigation renderers ("click to load previous rows ...").
 		 * @private
 		 * @returns {Element}
@@ -1048,7 +1049,7 @@ define([
 
 		/**
 		 * Returns the last cell in the list.
-		 * For role=listbox and role=menu, skips category renderers.
+		 * For role=listbox, role=list and role=menu, skips category renderers.
 		 * However, it doesn't skip navigation renderers ("click to load more rows ...").
 		 * @private
 		 * @returns {Element}

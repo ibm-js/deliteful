@@ -6,6 +6,7 @@ define([
 	"./Selection",
 	"./AriaListbox",
 	"./AriaMenu",
+	"./AriaList",
 	"./Categories",
 	"./PageableList",
 	"./PageableList-ObservableArray"
