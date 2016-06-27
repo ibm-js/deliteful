@@ -35,7 +35,7 @@ define([
 			list.type = "listbox";
 			list.deliver();
 			assert.strictEqual(list.type, "listbox", "role");
-			assert.strictEqual(list.containerNode.getAttribute("aria-readonly"), "false",
+			assert.strictEqual(list.containerNode.hasAttribute("aria-readonly"), false,
 				"aria-readonly only for role=grid");
 			assert.strictEqual(list.containerNode.children[0].getAttribute("role"), null, "first renderer role");
 			assert.strictEqual(list.containerNode.children[0].renderNode.getAttribute("role"), "option",

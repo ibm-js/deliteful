@@ -5,7 +5,7 @@
         label="{{this._loadingPreviousPage ? this.loadingMessage : this._previousPageButtonLabel}}" attach-point="previousPageLoader"
         d-shown="{{this._previousRecordsMayExist &amp;&amp; this._displayedPanel === 'list'}}" tabindex="{{tabIndex}}"></d-list-loader>
 
-    <div class="d-list-container" attach-point="containerNode" aria-busy="{{_busy}}" role="{{type}}" aria-readonly="{{type === 'grid'}}"
+    <div class="d-list-container" attach-point="containerNode" aria-busy="{{_busy}}" role="{{type}}"
         d-shown="{{this._displayedPanel === 'list'}}" tabindex="{{tabIndex}}"></div>
 
     <div class="d-list-no-items" d-shown="{{this._displayedPanel === 'no-items'}}" attach-point="noItemsNode">

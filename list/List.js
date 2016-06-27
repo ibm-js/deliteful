@@ -361,6 +361,12 @@ define([
 						renderer.deliver();
 					}
 				}.bind(this));
+				if(this.type === "grid") {
+					this.containerNode.setAttribute("aria-readonly", true);
+				}
+				else {
+					this.containerNode.removeAttribute("aria-readonly");
+				}
 			}
 		},
 
