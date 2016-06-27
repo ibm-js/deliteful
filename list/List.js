@@ -1,6 +1,7 @@
 /** @module deliteful/list/List */
 define([
 	"dcl/dcl",
+	"delite/Widget",
 	"delite/register",
 	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/CustomElement",
@@ -13,8 +14,13 @@ define([
 	"delite/handlebars!./List/List.html",
 	"requirejs-dplugins/i18n!./List/nls/List",
 	"delite/theme!./List/themes/{{theme}}/List.css"
-], function (dcl, register, $, CustomElement,
+], function (dcl, Widget, register, $, CustomElement,
 		Selection, KeyNav, StoreMap, Scrollable, ItemRenderer, CategoryRenderer, template, messages) {
+
+	//Putting tabIndex in mixin class to workaround https://github.com/uhop/dcl/issues/9.
+	var TabbableWidget = register.dcl(Widget, {
+		tabIndex: 0
+	});
 
 	/**
 	 * A widget that renders a scrollable list of items.
@@ -32,7 +38,7 @@ define([
 	 * @augments module:delite/Scrollable
 	 */
 
-	return register("d-list", [HTMLElement, Selection, KeyNav, StoreMap, Scrollable],
+	return register("d-list", [HTMLElement, Selection, KeyNav, StoreMap, Scrollable, TabbableWidget],
 			/** @lends module:deliteful/list/List# */ {
 
 		/**
@@ -181,8 +187,6 @@ define([
 		_displayedPanel: "",
 
 		template: template,
-
-		_tabIndexAttr: 0,
 
 		/**
 		 * Defines the scroll direction: `"vertical"` for a scrollable List, `"none"` for a non scrollable List.
