@@ -7,7 +7,7 @@ define([
 
 	/**
 	 * Default item renderer for the {@link module:deliteful/list/List deliteful/list/List widget}.
-	 * 
+	 *
 	 * This renderer renders generic items that can have any of the following attributes (display
 	 * position of the rendering described for LTR direction):
 	 * - `iconclass`: css class to apply to a DIV element on the left side of the list item in order
@@ -21,8 +21,8 @@ define([
 	 * in order to display an icon.
 	 * Rendered with CSS class `d-list-item-right-icon2` + the value of the attribute;
 	 * By default, none of the nodes that renders the attributes are focusable with keyboard navigation
-	 * (no navindex attribute on the nodes). 
-	 * 
+	 * (no navindex attribute on the nodes).
+	 *
 	 * @class module:deliteful/list/ItemRenderer
 	 * @augments module:deliteful/list/Renderer
 	 */
@@ -48,7 +48,8 @@ define([
 					this.removeAttribute("role");		// alternately, set role=presentation
 					this.renderNode.setAttribute("role", {
 						listbox: "option",
-						menu: "menuitem"	// there's also menuitemcheckbox and menuitemradio
+						menu: "menuitem",	// there's also menuitemcheckbox and menuitemradio
+						list: "listitem"
 					}[this.parentRole]);
 				}
 			}
