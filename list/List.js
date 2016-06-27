@@ -1060,7 +1060,7 @@ define([
 		 * @returns {Element}
 		 */
 		getNext: function (child, dir) {
-			if (child === this) {
+			if (child === this.containerNode) {
 				return dir > 0 ? this._getFirst() : this._getLast();
 			}
 
