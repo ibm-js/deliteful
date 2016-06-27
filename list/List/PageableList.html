@@ -1,7 +1,7 @@
 <!-- Template: deliteful/list/PageableList (d-pageable-list) -->
 <template requires="deliteful/ProgressIndicator, deliteful/list/Loader" >
     <!-- Load previous page button -->
-    <d-list-loader class="d-list-previous-loader d-list-cell" on-click="{{_loadPreviousPage}}" on-keydown="{{_spaceKeydownPreviousLoaderHandler}}" loading={{_loadingPreviousPage}}
+    <d-list-loader class="d-list-previous-loader d-list-cell" on-click="{{_loadPreviousPage}}" on-keydown="{{_spaceKeydownPreviousLoaderHandler}}" loading={{loadingPreviousPage}}
         label="{{this._loadingPreviousPage ? this.loadingMessage : this._previousPageButtonLabel}}" attach-point="previousPageLoader"
         d-shown="{{this._previousRecordsMayExist &amp;&amp; this._displayedPanel === 'list'}}" tabindex="{{_tabIndexAttr}}"></d-list-loader>
 
@@ -21,7 +21,7 @@
     </div>
 
     <!-- Load next page button -->
-    <d-list-loader class="d-list-next-loader d-list-cell" on-click="{{_loadNextPage}}" on-keydown="{{_spaceKeydownNextLoaderHandler}}" loading={{_loadingNextPage}}
+    <d-list-loader class="d-list-next-loader d-list-cell" on-click="{{_loadNextPage}}" on-keydown="{{_spaceKeydownNextLoaderHandler}}" loading={{loadingNextPage}}
         label="{{this._loadingNextPage ? this.loadingMessage : this._nextPageButtonLabel}}" attach-point="nextPageLoader"
         d-shown="{{this._nextRecordsMayExist &amp;&amp; this._displayedPanel === 'list'}}" tabindex="{{_tabIndexAttr}}"></d-list-loader>
 </template>

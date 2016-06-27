@@ -4,7 +4,7 @@ define([
 	"delite/register",
 	"delite/Widget",
 	"delite/handlebars!./List/Loader.html"
-], function (dcl, register,	Widget, template) {
+], function (dcl, register, Widget, template) {
 	"use strict";
 
 	/**
@@ -37,6 +37,6 @@ define([
 		 * @type {Boolean}
 		 * @default false
 		 */
-		loading: false,
+		loading: false
 	});
 });
