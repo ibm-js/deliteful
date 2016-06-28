@@ -13,6 +13,7 @@ define([
 
 	var clickOnStar = function (remote, widgetId, starIndex /*first index is 1*/,
 		firstHalf/*true to click on the first half, false to click the second half*/) {
+
 		var divIndex = starIndex * 2 + (firstHalf ? 0 : 1);
 		return remote
 			.findByXpath("//*[@id='" + widgetId + "']/div/div[" + divIndex + "]")
@@ -166,28 +167,49 @@ define([
 				});
 		},
 		"editable ltr": function () {
-			if (/iOS/.test(this.remote.environmentType.browserName)) {
-				return this.skip("Value not being updated on click on iOS 8.1");
+			if (this.remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/17
+				return this.skip("click() doesn't generate mousedown, so value won't be updated");
+			}
+			if (this.remote.environmentType.platformName === "iOS") {
+				// https://github.com/theintern/leadfoot/issues/61
+				return this.skip("click() doesn't generate touchstart, so value won't be updated");
 			}
 			return defaultEditableRatingTest(this.remote, "editablestar1", false, true, 0);
 		},
 		"editable half values ltr": function () {
-			if (/iOS/.test(this.remote.environmentType.browserName)) {
-				return this.skip("Value not being updated on click on iOS 8.1");
+			if (this.remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/17
+				return this.skip("click() doesn't generate mousedown, so value won't be updated");
+			}
+			if (this.remote.environmentType.platformName === "iOS") {
+				// https://github.com/theintern/leadfoot/issues/61
+				return this.skip("click() doesn't generate touchstart, so value won't be updated");
 			}
 			return defaultEditableRatingTest(this.remote, "editablestar2", true, true, 0);
 		},
 		"editable half values no zero setting ltr": function () {
-			if (/iOS/.test(this.remote.environmentType.browserName)) {
-				return this.skip("Value not being updated on click on iOS 8.1");
+			if (this.remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/17
+				return this.skip("click() doesn't generate mousedown, so value won't be updated");
+			}
+			if (this.remote.environmentType.platformName === "iOS") {
+				// https://github.com/theintern/leadfoot/issues/61
+				return this.skip("click() doesn't generate touchstart, so value won't be updated");
 			}
 			return defaultEditableRatingTest(this.remote, "editablestar5", true, false, 0.5);
 		},
 		"editable programmatic onchange ltr": function () {
-			var remote = this.remote, id = "editablestar6";
-			if (/iOS/.test(remote.environmentType.browserName)) {
-				return this.skip();
+			if (this.remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/17
+				return this.skip("click() doesn't generate mousedown, so value won't be updated");
 			}
+			if (this.remote.environmentType.platformName === "iOS") {
+				// https://github.com/theintern/leadfoot/issues/61
+				return this.skip("click() doesn't generate touchstart, so value won't be updated");
+			}
+
+			var remote = this.remote, id = "editablestar6";
 			return remote
 				.get(require.toUrl("./StarRating.html"))
 				.then(pollUntilStarRatingReady(id, intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
@@ -323,6 +345,14 @@ define([
 			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName)) {
 				return this.skip("SafariDriver doesn't support back.");
 			}
+			if (this.remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/17
+				return this.skip("click() doesn't generate mousedown, so value won't be updated");
+			}
+			if (this.remote.environmentType.platformName === "iOS") {
+				// https://github.com/theintern/leadfoot/issues/61
+				return this.skip("click() doesn't generate touchstart, so value won't be updated");
+			}
 			return remote
 			.get(require.toUrl("./StarRating-formback.html"))
 			.then(pollUntil("return 'ready' in window && ready ? true : null;", [],
@@ -360,8 +390,13 @@ define([
 			});
 		},
 		"form values": function () {
-			if (/iOS/.test(this.remote.environmentType.browserName)) {
-				return this.skip("Value not being updated on click on iOS 8.1");
+			if (this.remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/17
+				return this.skip("click() doesn't generate mousedown, so value won't be updated");
+			}
+			if (this.remote.environmentType.platformName === "iOS") {
+				// https://github.com/theintern/leadfoot/issues/61
+				return this.skip("click() doesn't generate touchstart, so value won't be updated");
 			}
 			var remote = this.remote, id = "starrating1";
 			return remote

@@ -38,20 +38,23 @@ define(["intern",
 			// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
 			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				return this.skip("SafariDriver doesn't support moveTo.");
-			} else {
-				return remote
-					.then(logMessage(remote, this.id, "click on handle..."))
-					.then(clickOnHandle(remote, "singleSlider01"))
-					.then(checkOnChange(remote, "singleSlider01", false))
-
-					.then(logMessage(remote, this.id, "click on progress bar"))
-					.then(clickOnProgressBar(remote, "singleSlider01", 50, 10))
-					.then(checkOnChange(remote, "singleSlider01", true))
-
-					.then(logMessage(remote, this.id, "move handle"))
-					.then(moveHandle(remote, "singleSlider01", 26, 10))
-					.then(checkOnChange(remote, "singleSlider01", true));
 			}
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/83
+				return this.skip("IE uses synthetic mouse events and doesn't fire pointer events");
+			}
+			return remote
+				.then(logMessage(remote, this.id, "click on handle..."))
+				.then(clickOnHandle(remote, "singleSlider01"))
+				.then(checkOnChange(remote, "singleSlider01", false))
+
+				.then(logMessage(remote, this.id, "click on progress bar"))
+				.then(clickOnProgressBar(remote, "singleSlider01", 50, 3))
+				.then(checkOnChange(remote, "singleSlider01", true))
+
+				.then(logMessage(remote, this.id, "move handle"))
+				.then(moveHandle(remote, "singleSlider01", 26, 10))
+				.then(checkOnChange(remote, "singleSlider01", true));
 		},
 		// range
 		"init range slider (default value)": function () {
@@ -83,29 +86,32 @@ define(["intern",
 			// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
 			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				return this.skip("SafariDriver doesn't support moveTo.");
-			} else {
-				return remote
-					.then(logMessage(remote, this.id, "click on handle..."))
-					.then(clickOnHandle(remote, "rangeSlider01"))
-					.then(checkOnChange(remote, "rangeSlider01", false))
-
-					.then(logMessage(remote, this.id, "click on progress bar"))
-					.then(clickOnProgressBar(remote, "rangeSlider01", 50, 10))
-					.then(checkOnChange(remote, "rangeSlider01", false))// no action when slideRange=true
-
-					.then(logMessage(remote, this.id, "move handle"))
-					.then(moveHandle(remote, "rangeSlider01", 26, 10))
-					.then(checkOnChange(remote, "rangeSlider01", true))
-
-					.then(logMessage(remote, this.id, "move range (slideRange=true)"))
-					.then(moveRange(remote, "rangeSlider01", 31, 10))
-					.then(checkOnChange(remote, "rangeSlider01", true))
-
-					.then(logMessage(remote, this.id, "click on progress bar (slideRange=false)"))
-					.then(setSlideRange(remote, "rangeSlider01", false))
-					.then(clickOnProgressBar(remote, "rangeSlider01", 50, 10))
-					.then(checkOnChange(remote, "rangeSlider01", true));
 			}
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/83
+				return this.skip("IE uses synthetic mouse events and doesn't fire pointer events");
+			}
+			return remote
+				.then(logMessage(remote, this.id, "click on handle..."))
+				.then(clickOnHandle(remote, "rangeSlider01"))
+				.then(checkOnChange(remote, "rangeSlider01", false))
+
+				.then(logMessage(remote, this.id, "click on progress bar"))
+				.then(clickOnProgressBar(remote, "rangeSlider01", 50, 3))
+				.then(checkOnChange(remote, "rangeSlider01", false))// no action when slideRange=true
+
+				.then(logMessage(remote, this.id, "move handle"))
+				.then(moveHandle(remote, "rangeSlider01", 26, 10))
+				.then(checkOnChange(remote, "rangeSlider01", true))
+
+				.then(logMessage(remote, this.id, "move range (slideRange=true)"))
+				.then(moveRange(remote, "rangeSlider01", 31, 10))
+				.then(checkOnChange(remote, "rangeSlider01", true))
+
+				.then(logMessage(remote, this.id, "click on progress bar (slideRange=false)"))
+				.then(setSlideRange(remote, "rangeSlider01", false))
+				.then(clickOnProgressBar(remote, "rangeSlider01", 50, 3))
+				.then(checkOnChange(remote, "rangeSlider01", true));
 		},
 		"range slider interaction inside a listening parent": function () {
 			var remote = this.remote;

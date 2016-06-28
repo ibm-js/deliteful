@@ -74,98 +74,101 @@ define([
 			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
 			    return this.skip("SafariDriver doesn't support moveTo.");
-			} else {
-				return remote
-					.findById("sv")
-					.then(function (element) {
-						return remote.moveMouseTo(element, 200, 100);
-					})
-					.end()
-					.pressMouseButton()
-					.sleep(50)
-					.findById("sv")
-					.then(function (element) {
-						return remote.moveMouseTo(element, 195, 100);
-					})
-					.end()
-					.sleep(50)
-					.execute("return document.getElementById('sv').className;")
-					.then(function (v) {
-						assert.notInclude(v, " -d-swap-view-drag", "Swipe started before drag threshold");
-					})
-					.findById("sv")
-					.then(function (element) {
-						return remote.moveMouseTo(element, 189, 100);
-					})
-					.end()
-					.sleep(50)
-					.execute("return document.getElementById('sv').className;")
-					.then(function (v) {
-						assert.include(v, " -d-swap-view-drag", "Swipe not started after drag threshold");
-					})
-					.findById("sv")
-					.then(function (element) {
-						return remote.moveMouseTo(element, 100, 100);
-					}).end()
-					.sleep(50)
-					.execute("return document.getElementById('sv').className;")
-					.then(function (v) {
-						assert.include(v, " -d-swap-view-drag", "Missing -d-swap-view-drag class during swipe");
-					})
-					.execute("var s = window.getComputedStyle(document.getElementById('sv').children[0]);" +
-						"return s.webkitTransform || s.transform;")
-					.then(function (v) {
-						assert.equal(getTransformX(v), "-100", "Wrong transform during swipe");
-					})
-					.execute("var s = window.getComputedStyle(document.getElementById('sv').children[1]);" +
-						"return s.webkitTransform || s.transform;")
-					.then(function (v) {
-						assert.equal(getTransformX(v), "300", "Wrong transform during swipe");
-					})
-					.releaseMouseButton()
-					.sleep(500)
-					.execute("return document.getElementById('sv').className;").then(function (v) {
-						assert.notInclude(v, " -d-swap-view-drag", "-d-swap-view-drag class left after swipe");
-					})
-					.execute("return document.getElementById('sv').children[0].style.visibility;")
-					.then(function (v) {
-						assert.equal(v, "visible", "child 0 should still be visible after swipe 100");
-					})
-					.findById("sv")
-					.then(function (element) {
-						return remote.moveMouseTo(element, 310, 100);
-					})
-					.end()
-					.pressMouseButton()
-					.sleep(50)
-					.findById("sv")
-					.then(function (element) {
-						return remote.moveMouseTo(element, 100, 100);
-					})
-					.end()
-					.sleep(50)
-					.execute("var s = window.getComputedStyle(document.getElementById('sv').children[0]);" +
-						"return s.webkitTransform || s.transform;")
-					.then(function (v) {
-						assert.equal(getTransformX(v), "-208", "Wrong transform during swipe");
-					})
-					.execute("var s = window.getComputedStyle(document.getElementById('sv').children[1]);" +
-						"return s.webkitTransform || s.transform;")
-					.then(function (v) {
-						assert.equal(getTransformX(v), "188", "Wrong transform during swipe");
-					})
-					.releaseMouseButton()
-					.sleep(500)
-					.execute("return document.getElementById('sv').children[0].style.visibility;")
-					.then(function (v) {
-						assert.equal(v, "hidden", "child 0 should be hidden after swipe > 200");
-					})
-					.execute("return document.getElementById('sv').children[1].style.visibility;")
-					.then(function (v) {
-						assert.equal(v, "visible", "child 1 should be visible after swipe > 200");
-					})
-					;
 			}
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/83
+				return this.skip("pointerdown / pointerup events not generated on IE");
+			}
+			return remote
+				.findById("sv")
+				.then(function (element) {
+					return remote.moveMouseTo(element, 200, 100);
+				})
+				.end()
+				.pressMouseButton()
+				.sleep(50)
+				.findById("sv")
+				.then(function (element) {
+					return remote.moveMouseTo(element, 195, 100);
+				})
+				.end()
+				.sleep(50)
+				.execute("return document.getElementById('sv').className;")
+				.then(function (v) {
+					assert.notInclude(v, " -d-swap-view-drag", "Swipe started before drag threshold");
+				})
+				.findById("sv")
+				.then(function (element) {
+					return remote.moveMouseTo(element, 189, 100);
+				})
+				.end()
+				.sleep(50)
+				.execute("return document.getElementById('sv').className;")
+				.then(function (v) {
+					assert.include(v, " -d-swap-view-drag", "Swipe not started after drag threshold");
+				})
+				.findById("sv")
+				.then(function (element) {
+					return remote.moveMouseTo(element, 100, 100);
+				}).end()
+				.sleep(50)
+				.execute("return document.getElementById('sv').className;")
+				.then(function (v) {
+					assert.include(v, " -d-swap-view-drag", "Missing -d-swap-view-drag class during swipe");
+				})
+				.execute("var s = window.getComputedStyle(document.getElementById('sv').children[0]);" +
+					"return s.webkitTransform || s.transform;")
+				.then(function (v) {
+					assert.equal(getTransformX(v), "-100", "Wrong transform during swipe");
+				})
+				.execute("var s = window.getComputedStyle(document.getElementById('sv').children[1]);" +
+					"return s.webkitTransform || s.transform;")
+				.then(function (v) {
+					assert.equal(getTransformX(v), "300", "Wrong transform during swipe");
+				})
+				.releaseMouseButton()
+				.sleep(500)
+				.execute("return document.getElementById('sv').className;").then(function (v) {
+					assert.notInclude(v, " -d-swap-view-drag", "-d-swap-view-drag class left after swipe");
+				})
+				.execute("return document.getElementById('sv').children[0].style.visibility;")
+				.then(function (v) {
+					assert.equal(v, "visible", "child 0 should still be visible after swipe 100");
+				})
+				.findById("sv")
+				.then(function (element) {
+					return remote.moveMouseTo(element, 310, 100);
+				})
+				.end()
+				.pressMouseButton()
+				.sleep(50)
+				.findById("sv")
+				.then(function (element) {
+					return remote.moveMouseTo(element, 100, 100);
+				})
+				.end()
+				.sleep(50)
+				.execute("var s = window.getComputedStyle(document.getElementById('sv').children[0]);" +
+					"return s.webkitTransform || s.transform;")
+				.then(function (v) {
+					assert.equal(getTransformX(v), "-208", "Wrong transform during swipe");
+				})
+				.execute("var s = window.getComputedStyle(document.getElementById('sv').children[1]);" +
+					"return s.webkitTransform || s.transform;")
+				.then(function (v) {
+					assert.equal(getTransformX(v), "188", "Wrong transform during swipe");
+				})
+				.releaseMouseButton()
+				.sleep(500)
+				.execute("return document.getElementById('sv').children[0].style.visibility;")
+				.then(function (v) {
+					assert.equal(v, "hidden", "child 0 should be hidden after swipe > 200");
+				})
+				.execute("return document.getElementById('sv').children[1].style.visibility;")
+				.then(function (v) {
+					assert.equal(v, "visible", "child 1 should be visible after swipe > 200");
+				})
+				;
 		},
 
 		"ViewIndicator update": function () {
@@ -173,25 +176,28 @@ define([
 			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
 				return this.skip("SafariDriver doesn't support moveTo.");
-			} else {
-				return remote
-					.execute("return document.getElementById('vi').children[0].className;")
-					.then(function (v) {
-						assert.include(v, "-d-view-indicator-dot", "Missing class for vi child 0");
-						assert.notInclude(v, "-d-view-indicator-dot-selected", "Extra class for vi child 0");
-					})
-					.execute("return document.getElementById('vi').children[1].className;")
-					.then(function (v) {
-						assert.include(v, "-d-view-indicator-dot", "Missing class for vi child 1");
-						assert.include(v, "-d-view-indicator-dot-selected", "Extra class for vi child 1");
-					})
-					.execute("return document.getElementById('vi').children[2].className;")
-					.then(function (v) {
-						assert.include(v, "-d-view-indicator-dot", "Missing class for vi child 2");
-						assert.notInclude(v, "-d-view-indicator-dot-selected", "Extra class for vi child 2");
-					})
-					;
 			}
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/83
+				return this.skip("pointerdown / pointerup events not generated on IE");
+			}
+			return remote
+				.execute("return document.getElementById('vi').children[0].className;")
+				.then(function (v) {
+					assert.include(v, "-d-view-indicator-dot", "Missing class for vi child 0");
+					assert.notInclude(v, "-d-view-indicator-dot-selected", "Extra class for vi child 0");
+				})
+				.execute("return document.getElementById('vi').children[1].className;")
+				.then(function (v) {
+					assert.include(v, "-d-view-indicator-dot", "Missing class for vi child 1");
+					assert.include(v, "-d-view-indicator-dot-selected", "Extra class for vi child 1");
+				})
+				.execute("return document.getElementById('vi').children[2].className;")
+				.then(function (v) {
+					assert.include(v, "-d-view-indicator-dot", "Missing class for vi child 2");
+					assert.notInclude(v, "-d-view-indicator-dot-selected", "Extra class for vi child 2");
+				})
+				;
 		},
 
 		"SwapView swipe gesture (left->right)": function () {
@@ -199,105 +205,112 @@ define([
 			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
 				return this.skip("SafariDriver doesn't support moveTo.");
-			} else {
-				return remote
-					.findById("sv")
-					.then(function (element) {
-						return remote.moveMouseTo(element, 200, 100);
-					})
-					.end()
-					.pressMouseButton()
-					.sleep(50)
-					.findById("sv")
-					.then(function (element) {
-						return remote.moveMouseTo(element, 205, 100);
-					})
-					.end()
-					.sleep(50)
-					.execute("return document.getElementById('sv').className;")
-					.then(function (v) {
-						assert.notInclude(v, " -d-swap-view-drag", "Swipe started before drag threshold");
-					})
-					.findById("sv")
-					.then(function (element) {
-						return remote.moveMouseTo(element, 211, 100);
-					})
-					.end()
-					.sleep(50)
-					.execute("return document.getElementById('sv').className;")
-					.then(function (v) {
-						assert.include(v, " -d-swap-view-drag", "Swipe not started after drag threshold");
-					})
-					.findById("sv")
-					.then(function (element) {
-						return remote.moveMouseTo(element, 300, 100);
-					}).end()
-					.sleep(50)
-					.execute("return document.getElementById('sv').className;")
-					.then(function (v) {
-						assert.include(v, " -d-swap-view-drag", "Missing -d-swap-view-drag class during swipe");
-					})
-					.execute("var s = window.getComputedStyle(document.getElementById('sv').children[0]);" +
-						"return s.webkitTransform || s.transform;")
-					.then(function (v) {
-						assert.equal(getTransformX(v), "-300", "Wrong transform during swipe");
-					})
-					.execute("var s = window.getComputedStyle(document.getElementById('sv').children[1]);" +
-						"return s.webkitTransform || s.transform;")
-					.then(function (v) {
-						assert.equal(getTransformX(v), "100", "Wrong transform during swipe");
-					})
-					.releaseMouseButton()
-					.sleep(500)
-					.execute("return document.getElementById('sv').className;").then(function (v) {
-						assert.notInclude(v, " -d-swap-view-drag", "-d-swap-view-drag class left after swipe");
-					})
-					.execute("return document.getElementById('sv').children[1].style.visibility;")
-					.then(function (v) {
-						assert.equal(v, "visible", "child 1 should still be visible after swipe 100");
-					})
-					.findById("sv")
-					.then(function (element) {
-						return remote.moveMouseTo(element, 90, 100);
-					})
-					.end()
-					.pressMouseButton()
-					.sleep(50)
-					.findById("sv")
-					.then(function (element) {
-						return remote.moveMouseTo(element, 300, 100);
-					})
-					.end()
-					.sleep(50)
-					.execute("var s = window.getComputedStyle(document.getElementById('sv').children[0]);" +
-						"return s.webkitTransform || s.transform;")
-					.then(function (v) {
-						assert.equal(getTransformX(v), "-188", "Wrong transform during swipe");
-					})
-					.execute("var s = window.getComputedStyle(document.getElementById('sv').children[1]);" +
-						"return s.webkitTransform || s.transform;")
-					.then(function (v) {
-						assert.equal(getTransformX(v), "208", "Wrong transform during swipe");
-					})
-					.releaseMouseButton()
-					.sleep(500)
-					.execute("return document.getElementById('sv').children[0].style.visibility;")
-					.then(function (v) {
-						assert.equal(v, "visible", "child 0 should be visible after swipe > 200");
-					})
-					.execute("return document.getElementById('sv').children[1].style.visibility;")
-					.then(function (v) {
-						assert.equal(v, "hidden", "child 1 should be hidden after swipe > 200");
-					})
-					;
 			}
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/83
+				return this.skip("pointerdown / pointerup events not generated on IE");
+			}
+			return remote
+				.findById("sv")
+				.then(function (element) {
+					return remote.moveMouseTo(element, 200, 100);
+				})
+				.end()
+				.pressMouseButton()
+				.sleep(50)
+				.findById("sv")
+				.then(function (element) {
+					return remote.moveMouseTo(element, 205, 100);
+				})
+				.end()
+				.sleep(50)
+				.execute("return document.getElementById('sv').className;")
+				.then(function (v) {
+					assert.notInclude(v, " -d-swap-view-drag", "Swipe started before drag threshold");
+				})
+				.findById("sv")
+				.then(function (element) {
+					return remote.moveMouseTo(element, 211, 100);
+				})
+				.end()
+				.sleep(50)
+				.execute("return document.getElementById('sv').className;")
+				.then(function (v) {
+					assert.include(v, " -d-swap-view-drag", "Swipe not started after drag threshold");
+				})
+				.findById("sv")
+				.then(function (element) {
+					return remote.moveMouseTo(element, 300, 100);
+				}).end()
+				.sleep(50)
+				.execute("return document.getElementById('sv').className;")
+				.then(function (v) {
+					assert.include(v, " -d-swap-view-drag", "Missing -d-swap-view-drag class during swipe");
+				})
+				.execute("var s = window.getComputedStyle(document.getElementById('sv').children[0]);" +
+					"return s.webkitTransform || s.transform;")
+				.then(function (v) {
+					assert.equal(getTransformX(v), "-300", "Wrong transform during swipe");
+				})
+				.execute("var s = window.getComputedStyle(document.getElementById('sv').children[1]);" +
+					"return s.webkitTransform || s.transform;")
+				.then(function (v) {
+					assert.equal(getTransformX(v), "100", "Wrong transform during swipe");
+				})
+				.releaseMouseButton()
+				.sleep(500)
+				.execute("return document.getElementById('sv').className;").then(function (v) {
+					assert.notInclude(v, " -d-swap-view-drag", "-d-swap-view-drag class left after swipe");
+				})
+				.execute("return document.getElementById('sv').children[1].style.visibility;")
+				.then(function (v) {
+					assert.equal(v, "visible", "child 1 should still be visible after swipe 100");
+				})
+				.findById("sv")
+				.then(function (element) {
+					return remote.moveMouseTo(element, 90, 100);
+				})
+				.end()
+				.pressMouseButton()
+				.sleep(50)
+				.findById("sv")
+				.then(function (element) {
+					return remote.moveMouseTo(element, 300, 100);
+				})
+				.end()
+				.sleep(50)
+				.execute("var s = window.getComputedStyle(document.getElementById('sv').children[0]);" +
+					"return s.webkitTransform || s.transform;")
+				.then(function (v) {
+					assert.equal(getTransformX(v), "-188", "Wrong transform during swipe");
+				})
+				.execute("var s = window.getComputedStyle(document.getElementById('sv').children[1]);" +
+					"return s.webkitTransform || s.transform;")
+				.then(function (v) {
+					assert.equal(getTransformX(v), "208", "Wrong transform during swipe");
+				})
+				.releaseMouseButton()
+				.sleep(500)
+				.execute("return document.getElementById('sv').children[0].style.visibility;")
+				.then(function (v) {
+					assert.equal(v, "visible", "child 0 should be visible after swipe > 200");
+				})
+				.execute("return document.getElementById('sv').children[1].style.visibility;")
+				.then(function (v) {
+					assert.equal(v, "hidden", "child 1 should be hidden after swipe > 200");
+				})
+				;
 		},
 
 		"ViewIndicator click dot": function () {
 			var remote = this.remote;
 			if (/iOS/.test(remote.environmentType.browserName)) {
-				// Test fails on iOS for unknown reasons
+				// https://github.com/theintern/leadfoot/issues/17
 				return this.skip("clicking dot on iOS works manually, but not via webdriver");
+			}
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/83
+				return this.skip("pointerdown / pointerup events not generated on IE");
 			}
 			return remote
 				.findByCssSelector("#vi > *:nth-child(3)")
@@ -326,6 +339,10 @@ define([
 			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
 				return this.skip("SafariDriver doesn't support moveTo.");
+			}
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/83
+				return this.skip("pointerdown / pointerup events not generated on IE");
 			}
 			return remote
 				.findById("vi")
@@ -361,6 +378,10 @@ define([
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
 				return this.skip("SafariDriver doesn't support moveTo.");
 			}
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/83
+				return this.skip("pointerdown / pointerup events not generated on IE");
+			}
 			return remote
 				.findById("vi")
 				.then(function (element) {
@@ -393,6 +414,10 @@ define([
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
+			}
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/83
+				return this.skip("pointerdown / pointerup events not generated on IE");
 			}
 			return remote
 				// keyboard navigation

@@ -139,9 +139,16 @@ define([
 		},
 		"Switch with disabled attribute": function () {
 			var remote = this.remote;
-			if (/iOS/.test(remote.environmentType.browserName)) {
-				return this.skip("Test Fails on iOS 8.1, click is not working");
+
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/17
+				return this.skip("click() doesn't generate mousedown/mouseup, so Switch won't move");
 			}
+			if (remote.environmentType.platformName === "iOS") {
+				// https://github.com/theintern/leadfoot/issues/61
+				return this.skip("click() doesn't generate touchstart/touchend, so Switch won't move");
+			}
+
 			return loadFile(remote, "./Switch.html")
 				
 				// no disabled attribute
