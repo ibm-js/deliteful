@@ -18,7 +18,7 @@
 	-webkit-box-align: @align;
 	-ms-flex-align: @align;
 	align-items: @align;
-	-webkit-align-items: @align;	
+	-webkit-align-items: @align;
 }
 
 .d-list-category {
@@ -83,67 +83,70 @@
 }
 
 .d-list-loader {
-	display: block;
-	.d-list-cell {
-		white-space: nowrap;
-		text-overflow: ellipsis;
-		cursor: pointer;
-		.d-list-loader-style;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	cursor: pointer;
+	padding: 0px 8px;
+ 	.flex-display();
+	.flex-grow(1);
+	.d-list-loader-style;
+	.d-progress-indicator {
+		width: 24px;
+		height: 24px;
+		vertical-align: top;
 	}
-	[role="button"] {
-		.flex-display();
-		.flex-grow(1);
-		margin: 0px 5px;
-		.d-progress-indicator {
-			width: 24px;
-			height: 24px;
-			vertical-align: top;
-		}
-		.d-progress-indicator-lines {
-			.d-progress-indicator-lines-style;
-		}
-		div {
-			padding-left: 10px;
-		}
+	.d-progress-indicator-lines {
+		.d-progress-indicator-lines-style;
 	}
 	&.d-loading {
 		cursor: wait;
 		.d-list-loading-style;
 	}
+	.d-list-loader-label {
+		padding-left: 10px;
+	}
 }
 
 .d-list-loading-panel {
 	display: table;
-	position: absolute;
 	z-index: 2;
 	height: 100%;
 	width: 100%;
 	text-align: center;
 	cursor: wait;
 	.d-list-loading-panel-style;
+
+	.d-list-loading-panel-info {
+		display: table-cell;
+		vertical-align: middle;
+
+		.d-progress-indicator {
+			width: 48px;
+			height: 48px;
+			vertical-align: top;
+		}
+		.d-progress-indicator-lines {
+			.d-progress-indicator-lines-style;
+		}
+		div {
+			vertical-align: middle;
+		}
+		svg {
+			vertical-align: middle;
+		}
+		.d-list-loading-panel-info-label {
+			padding-left: 10px;
+		}
+	}
 }
 
-.d-list-loading-panel-info {
-	display: table-cell;
+.d-list-no-items {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	width: auto;
 	vertical-align: middle;
-
-	.d-progress-indicator {
-		width: 24px;
-		height: 24px;
-		vertical-align: top;
-	}
-	
-	.d-progress-indicator-lines {
-		.d-progress-indicator-lines-style;
-	}
-	
-	span {
-		vertical-align: middle;
-	}
-
-	svg {
-		vertical-align: middle;
-	}
+	line-height: 40px;
+	text-align: center;
 }
 
 .d-selectable, .d-multiselectable {
@@ -182,7 +185,6 @@
 }
 
 .d-round-rect-list > *:last-child {
-	.d-last-renderer-style;
 	border-bottom-left-radius: @round-radius;
 	border-bottom-right-radius: @round-radius;
 }
@@ -199,8 +201,4 @@
 	padding: 0;
 	/* Do not change this margin setting when customizing list in the app css*/
 	margin: 0;
-}
-
-.d-list > *:last-child {
-	.d-last-renderer-style;
 }

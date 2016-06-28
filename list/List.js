@@ -1,6 +1,7 @@
 /** @module deliteful/list/List */
 define([
 	"dcl/dcl",
+	"delite/Widget",
 	"delite/register",
 	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/CustomElement",
@@ -10,10 +11,16 @@ define([
 	"delite/Scrollable",
 	"./ItemRenderer",
 	"./CategoryRenderer",
-	"./_LoadingPanel",
+	"delite/handlebars!./List/List.html",
+	"requirejs-dplugins/i18n!./List/nls/List",
 	"delite/theme!./List/themes/{{theme}}/List.css"
-], function (dcl, register, $, CustomElement,
-		Selection, KeyNav, StoreMap, Scrollable, ItemRenderer, CategoryRenderer, LoadingPanel) {
+], function (dcl, Widget, register, $, CustomElement,
+		Selection, KeyNav, StoreMap, Scrollable, ItemRenderer, CategoryRenderer, template, messages) {
+
+	//Putting tabIndex in mixin class to workaround https://github.com/uhop/dcl/issues/9.
+	var TabbableWidget = register.dcl(Widget, {
+		tabIndex: 0
+	});
 
 	/**
 	 * A widget that renders a scrollable list of items.
@@ -31,7 +38,7 @@ define([
 	 * @augments module:delite/Scrollable
 	 */
 
-	return register("d-list", [HTMLElement, Selection, KeyNav, StoreMap, Scrollable],
+	return register("d-list", [HTMLElement, Selection, KeyNav, StoreMap, Scrollable, TabbableWidget],
 			/** @lends module:deliteful/list/List# */ {
 
 		/**
@@ -132,24 +139,54 @@ define([
 		// the SPACE key to (de)select an item.
 		multiCharSearchDuration: 0,
 
-		setAttribute: dcl.superCall(function (sup) {
-			return function (attr, value) {
-				sup.apply(this, arguments);
-				if (attr === "role") {
-					// Only role=grid should have aria-readonly.  It's meaningless for role=listbox or role=menu.
-					if (value === "grid") {
-						this.setAttribute("aria-readonly", "true");
-					} else {
-						this.removeAttribute("aria-readonly");
-					}
+		/**
+		 * If `true` and the list's store is empty, the NoItemContainer element will be shown.
+		 * @member {boolean}
+		 * @default false
+		 */
+		showNoItems: false,
 
-					// Update roles of existing renderers.
-					this.getRenderers().forEach(function (renderer) {
-						renderer.parentRole = value;
-					});
-				}
-			};
-		}),
+		/**
+		 * Message to display when the d-list-no-items node is shown.
+		 * @member {string}
+		 * @default "Nothing to show."
+		 */
+		noItemsInfo: messages["no-items-info"],
+
+		/**
+		 * Flag set to a truthy value once the items initialization starts.
+		 * It is set to false when the initialization ends.
+		 * Furthermore if `true`, a loading panel will be shown.
+		 * @member {boolean}
+		 * @private
+		 */
+		_busy: false,
+
+		/**
+		 * Specifies the role of list. It can be one of `grid`, `menu`, `listbox`.
+		 * @type {string}
+		 * @default "grid"
+		 */
+		type: "grid",
+
+		/**
+		 * Property responsible for managing the right view of the list. It can be one of
+		 * `loading-panel`, `list`, `no-items`, `none`.
+		 * When it is equal to `loading-panel` (as `busy` is equal to `true`), a `d-list-loading-panel`
+		 * loading panel is shown.
+		 * When it is equal to `list` (as `busy` is equal to `false` and the `containerNode` children length
+		 * is greater than zero), the actual list is shown.
+		 * When it is equal to `no-items` (only if `showNoItems` is set to `true`and the `containerNode`
+		 * children length is equal to zero), a `d-list-no-items` is displayed.
+		 * When it is `none` (as `showNoItems is set to `false` and `busy` not `true` and `containerNode`
+		 * children length is equal to zero, nothing is shown.
+		 * @type {String}
+		 * @default ""
+		 * @private
+		 */
+		_displayedPanel: "",
+
+		template: template,
 
 		/**
 		 * Defines the scroll direction: `"vertical"` for a scrollable List, `"none"` for a non scrollable List.
@@ -176,11 +213,55 @@ define([
 		 */
 		_setSelectionModeAttr: dcl.superCall(function (sup) {
 			return function (value) {
-				if (this.getAttribute("role") === "listbox" && value === "none") {
+				if (this.type === "listbox" && value === "none") {
 					throw new TypeError("selectionMode 'none' is invalid for an aria listbox, "
 							+ "keeping the previous value of '" + this.selectionMode + "'");
 				} else {
 					sup.apply(this, arguments);
+				}
+			};
+		}),
+
+		////////////////////////////////////////////////////////////////////////////////////////////
+		// Override setAttribute(), getAttribute(), hasAttribute() and removeAttribute to move down to
+		// the containerNode any aria attribute set to the root.
+
+		setAttribute: dcl.superCall(function (sup) {
+			return function (name, value) {
+				if (/^aria-/.test(name) && this.containerNode) {
+					this.containerNode.setAttribute(name, value);
+				} else {
+					sup.call(this, name, value);
+				}
+			};
+		}),
+
+		getAttribute: dcl.superCall(function (sup) {
+			return function (name) {
+				if (/^aria-/.test(name) && this.containerNode) {
+					return this.containerNode.getAttribute(name);
+				} else {
+					return sup.call(this, name);
+				}
+			};
+		}),
+
+		hasAttribute: dcl.superCall(function (sup) {
+			return function (name) {
+				if (/^aria-/.test(name) && this.containerNode) {
+					return this.containerNode.hasAttribute(name);
+				} else {
+					return sup.call(this, name);
+				}
+			};
+		}),
+
+		removeAttribute: dcl.superCall(function (sup) {
+			return function (name) {
+				if (/^aria-/.test(name) && this.containerNode) {
+					this.containerNode.removeAttribute(name);
+				} else {
+					sup.call(this, name);
 				}
 			};
 		}),
@@ -209,24 +290,11 @@ define([
 		},
 
 		/**
-		 * A panel that hides the content of the widget when shown, and displays a progress indicator
-		 * and an optional message.
-		 * @member {module:deliteful/list/_LoadingPanel} module:deliteful/list/List#_loadingPanel
-		 * @private
-		 */
-
-		/**
-		 * Handle for the selection click event handler
-		 * @member {Function} module:deliteful/list/List#_selectionClickHandle
-		 * @private
-		 */
-
-		/**
 		 * Previous focus child before the list loose focus
 		 * @member {Element} module:deliteful/list/List#_previousFocusedChild
 		 * @private
 		 */
-		
+
 		/**
 		 * Flag set to a truthy value once the items have been loaded from the store
 		 * @member {boolean} module:deliteful/list/List#_dataLoaded
@@ -234,27 +302,16 @@ define([
 		 */
 
 		createdCallback: function () {
-			this.on("query-error", function () { this._setBusy(false, true); }.bind(this));
-		},
-
-		render: function () {
-			// Aria attributes
-			var currentRole = this.getAttribute("role");
-			if (!currentRole) {
-				this.setAttribute("role", "grid");
-				currentRole = "grid";
-			}
-
-			// role=grid should have aria-disabled, but it's meaningless for role=listbox or role=menu.
-			if (currentRole === "grid") {
-				this.setAttribute("aria-readonly", "true");
-			}
+			this.on("query-error", function () {
+				this._busy = false;
+			}.bind(this));
 		},
 
 		queryStoreAndInitItems: dcl.superCall(function (sup) {
 			return function () {
-				// Display loading icon.  It's removed in initItems(), after the query completes.
-				this._setBusy(true, true);
+				// Setting busy to true and showing the progress indicator.
+				// It's removed in initItems(), after the query completes and busy is set to false.
+				this._busy = true;
 				sup.apply(this, arguments);
 			};
 		}),
@@ -264,13 +321,13 @@ define([
 			/*jshint maxcomplexity:11*/
 			if ("selectionMode" in props) {
 				// Update aria attributes
-				$(this).removeClass(this._cssClasses.selectable);
-				$(this).removeClass(this._cssClasses.multiselectable);
-				this.removeAttribute("aria-multiselectable");
+				$(this.containerNode).removeClass(this._cssClasses.selectable);
+				$(this.containerNode).removeClass(this._cssClasses.multiselectable);
+				this.containerNode.removeAttribute("aria-multiselectable");
 				if (this.selectionMode === "none") {
 					// update aria-selected attribute on unselected items
-					for (var i = 0; i < this.children.length; i++) {
-						var child = this.children[i];
+					for (var i = 0; i < this.containerNode.children.length; i++) {
+						var child = this.containerNode.children[i];
 						if (child.renderNode // no renderNode for the loading panel child
 							&& child.renderNode.hasAttribute("aria-selected")) {
 							child.renderNode.removeAttribute("aria-selected");
@@ -279,14 +336,14 @@ define([
 					}
 				} else {
 					if (this.selectionMode === "single" || this.selectionMode === "radio") {
-						$(this).addClass(this._cssClasses.selectable);
+						$(this.containerNode).addClass(this._cssClasses.selectable);
 					} else {
-						$(this).addClass(this._cssClasses.multiselectable);
-						this.setAttribute("aria-multiselectable", "true");
+						$(this.containerNode).addClass(this._cssClasses.multiselectable);
+						this.containerNode.setAttribute("aria-multiselectable", "true");
 					}
 					// update aria-selected attribute on unselected items
-					for (i = 0; i < this.children.length; i++) {
-						child = this.children[i];
+					for (i = 0; i < this.containerNode.children.length; i++) {
+						child = this.containerNode.children[i];
 						if (child.tagName.toLowerCase() === this.itemRenderer.tag
 								&& child.renderNode // no renderNode for the loading panel child
 								&& !child.renderNode.hasAttribute("aria-selected")) {
@@ -296,32 +353,49 @@ define([
 					}
 				}
 			}
-		},
-		/*jshint maxcomplexity:10*/
 
-		computeProperties: function (props) {
-			//	List attributes have been updated.
-			/*jshint maxcomplexity:12*/
-			if ("selectionMode" in props) {
-				if (this.selectionMode === "none") {
-					if (this._selectionClickHandle) {
-						this._selectionClickHandle.remove();
-						this._selectionClickHandle = null;
+			if ("type" in props) {
+				this.getRenderers().forEach(function (renderer) {
+					renderer.parentRole = this.type;
+					if (renderer.deliver) {
+						renderer.deliver();
 					}
-				} else {
-					if (!this._selectionClickHandle) {
-						this._selectionClickHandle = this.on("click", this.handleSelection.bind(this));
-					}
+				}.bind(this));
+				if(this.type === "grid") {
+					this.containerNode.setAttribute("aria-readonly", true);
+				}
+				else {
+					this.containerNode.removeAttribute("aria-readonly");
 				}
 			}
+		},
+
+		/*jshint maxcomplexity:13*/
+		computeProperties: function (props) {
+			//	List attributes have been updated.
 			if ("itemRenderer" in props
 				|| (this._isCategorized()
 						&& ("categoryAttr" in props || "categoryFunc" in props || "categoryRenderer" in props))) {
 				if (this._dataLoaded) {
-					this._setBusy(true, true);
+					this._busy = true;
 
 					// trigger a reload of the list
 					this.notifyCurrentValue("source");
+				}
+			}
+			if (("renderItems" in props && this.renderItems) || "_busy" in props || "showNoItems" in props) {
+				this._displayedPanel = (this._busy) ? "loading-panel" :
+					(this.containerNode && this.containerNode.children.length > 0) ?
+						"list" : ((this.showNoItems) ? "no-items" : "none");
+			}
+		},
+
+		postRender: function () {
+			// moving down to the containerNode any aria attribute that has been set to the root node.
+			for (var i = 0; i < this.attributes.length; i++) {
+				if (/^aria-/.test(this.attributes[i].name)) {
+					this.containerNode.setAttribute(this.attributes[i].name, this.attributes[i].value);
+					HTMLElement.prototype.removeAttribute.call(this, this.attributes[i].name);
 				}
 			}
 		},
@@ -331,9 +405,8 @@ define([
 			if (this.source && this.source.list) {
 				this.source.list = null;
 			}
-			this._hideLoadingPanel();
 		},
- 
+
 		deliver: dcl.superCall(function (sup) {
 			return function () {
 				// Deliver pending changes to the list and its renderers
@@ -354,7 +427,7 @@ define([
 		 * @private
 		 */
 		getRenderers: function () {
-			return [].slice.call(this.childNodes);
+			return [].slice.call(this.containerNode ? this.containerNode.childNodes : []);
 		},
 
 		/**
@@ -363,7 +436,7 @@ define([
 		 * @private
 		 */
 		getItemAndCategoryRenderers: function () {
-			return Array.prototype.filter.call(this.childNodes, function (node) {
+			return Array.prototype.filter.call(this.containerNode.childNodes, function (node) {
 				return node.tagName.toLowerCase() === this.itemRenderer.tag
 					|| node.tagName.toLowerCase() === this.categoryRenderer.tag;
 			}, this);
@@ -374,7 +447,7 @@ define([
 		 * @returns {module:deliteful/list/ItemRenderer[]}
 		 */
 		getItemRenderers: function () {
-			return Array.prototype.filter.call(this.childNodes, function (node) {
+			return Array.prototype.filter.call(this.containerNode.childNodes, function (node) {
 				return node.tagName.toLowerCase() === this.itemRenderer.tag;
 			}, this);
 		},
@@ -437,7 +510,7 @@ define([
 		getEnclosingRenderer: function (node) {
 			var currentNode = node;
 			while (currentNode) {
-				if (currentNode.parentNode && currentNode.parentNode === this) {
+				if (currentNode.parentNode && currentNode.parentNode === this.containerNode) {
 					break;
 				}
 				currentNode = currentNode.parentNode;
@@ -497,53 +570,6 @@ define([
 		//////////// Private methods ///////////////////////////////////////
 
 		/**
-		 * Sets the "busy" status of the widget.
-		 * @param {boolean} status true if the list is busy loading and rendering its data.
-		 * false otherwise.
-		 * @param {boolean} hideContent true if the list should hide its content when it is busy,
-		 * false otherwise
-		 * @private
-		 */
-		_setBusy: function (status, hideContent) {
-			if (status) {
-				this.setAttribute("aria-busy", "true");
-				if (hideContent) {
-					this._showLoadingPanel();
-				}
-			} else {
-				this.removeAttribute("aria-busy");
-				this._hideLoadingPanel();
-			}
-		},
-
-		/**
-		 * Shows the loading panel
-		 * @private
-		 */
-		_showLoadingPanel: function () {
-			if (!this._loadingPanel) {
-				this._loadingPanel = new LoadingPanel({message: this.loadingMessage});
-				if (this.children[0] !== undefined) {
-					this.insertBefore(this._loadingPanel, this.children[0]);
-				} else {
-					this.appendChild(this._loadingPanel);
-				}
-				this._loadingPanel.attachedCallback();
-			}
-		},
-
-		/**
-		 * Hides the loading panel
-		 * @private
-		 */
-		_hideLoadingPanel: function () {
-			if (this._loadingPanel) {
-				this._loadingPanel.destroy();
-				this._loadingPanel = null;
-			}
-		},
-
-		/**
 		 * Returns whether the list is categorized or not.
 		 * @private
 		 */
@@ -556,12 +582,12 @@ define([
 		 * @private
 		 */
 		_empty: function () {
-			this.findCustomElements(this).forEach(function (w) {
+			this.findCustomElements(this.containerNode).forEach(function (w) {
 				if (w.destroy) {
 					w.destroy();
 				}
 			});
-			this.innerHTML = "";
+			this.containerNode.innerHTML = "";
 			this._previousFocusedChild = null;
 		},
 
@@ -575,8 +601,8 @@ define([
 		 * @private
 		 */
 		_renderNewItems: function (/*Array*/ items, /*boolean*/atTheTop) {
-			if (!this.firstElementChild || this.firstElementChild === this._loadingPanel) {
-				this.appendChild(this._createRenderers(items, 0, items.length, null));
+			if (!this.containerNode.firstElementChild) {
+				this.containerNode.appendChild(this._createRenderers(items, 0, items.length, null));
 			} else {
 				if (atTheTop) {
 					if (this._isCategorized()) {
@@ -587,15 +613,15 @@ define([
 							this._removeRenderer(firstRenderer);
 						}
 					}
-					this.insertBefore(this._createRenderers(items, 0, items.length, null),
-							this.firstElementChild);
+					this.containerNode.insertBefore(this._createRenderers(items, 0, items.length, null),
+							this.containerNode.firstElementChild);
 				} else {
-					this.appendChild(this._createRenderers(items, 0, items.length,
+					this.containerNode.appendChild(this._createRenderers(items, 0, items.length,
 							this._getLastRenderer().item));
 				}
 			}
 			// start renderers
-			this.findCustomElements(this).forEach(function (w) {
+			this.findCustomElements(this.containerNode).forEach(function (w) {
 				w.attachedCallback();
 			});
 		},
@@ -643,18 +669,18 @@ define([
 		_addItemRenderer: function (renderer, atIndex) {
 			var spec = this._getInsertSpec(renderer, atIndex);
 			if (spec.nodeRef) {
-				this.insertBefore(renderer, spec.nodeRef);
+				this.containerNode.insertBefore(renderer, spec.nodeRef);
 				if (spec.addCategoryAfter) {
 					var categoryRenderer = this._createCategoryRenderer(spec.nodeRef.item);
-					this.insertBefore(categoryRenderer, spec.nodeRef);
+					this.containerNode.insertBefore(categoryRenderer, spec.nodeRef);
 					categoryRenderer.attachedCallback();
 				}
 			} else {
-				this.appendChild(renderer);
+				this.containerNode.appendChild(renderer);
 			}
 			if (spec.addCategoryBefore) {
 				categoryRenderer = this._createCategoryRenderer(renderer.item);
-				this.insertBefore(categoryRenderer, renderer);
+				this.containerNode.insertBefore(categoryRenderer, renderer);
 				categoryRenderer.attachedCallback();
 			}
 			renderer.attachedCallback();
@@ -738,7 +764,7 @@ define([
 			if (this._previousFocusedChild && this.getEnclosingRenderer(this._previousFocusedChild) === renderer) {
 				this._previousFocusedChild = null;
 			}
-			this.removeChild(renderer);
+			this.containerNode.removeChild(renderer);
 			renderer.destroy();
 		},
 		/*jshint maxcomplexity:10*/
@@ -752,7 +778,7 @@ define([
 		_createItemRenderer: function (item) {
 			var renderer = new this.itemRenderer({
 				item: item,
-				parentRole: this.getAttribute("role"),
+				parentRole: this.type,
 				tabindex: "-1"
 			});
 			if (this.selectionMode !== "none") {
@@ -773,7 +799,7 @@ define([
 		_createCategoryRenderer: function (item) {
 			var renderer = new this.categoryRenderer({
 				item: item,
-				parentRole: this.getAttribute("role"),
+				parentRole: this.type,
 				tabindex: "-1"
 			});
 			return renderer;
@@ -841,13 +867,15 @@ define([
 		 * @protected
 		 * @fires module:delite/Store#query-success
 		 */
-		initItems: function (items) {
-			this._empty();
-			this._renderNewItems(items, false);
-			this._setBusy(false, true);
-			this._dataLoaded = true;
-			this.emit("query-success", { renderItems: items, cancelable: false, bubbles: true });
-		},
+		initItems: dcl.superCall(function (sup) {
+			return function (items) {
+				this._empty();
+				this._renderNewItems(items, false);
+				this._busy = false;
+				this._dataLoaded = true;
+				return sup.call(this, items);
+			};
+		}),
 
 		/**
 		 * Function to call when an item is removed from the store, to update
@@ -862,6 +890,7 @@ define([
 			if (renderer) {
 				this._removeRenderer(renderer, keepSelection);
 			}
+			this.notifyCurrentValue("renderItems");
 		},
 
 		/**
@@ -875,6 +904,7 @@ define([
 		itemAdded: function (index, renderItem, /*jshint unused:vars*/renderItems) {
 			var newRenderer = this._createItemRenderer(renderItem);
 			this._addItemRenderer(newRenderer, index);
+			this.notifyCurrentValue("renderItems");
 		},
 
 		/**
@@ -913,7 +943,7 @@ define([
 		//////////// delite/Scrollable extension ///////////////////////////////////////
 
 		/**
-		 * Returns the distance between the top of a node and 
+		 * Returns the distance between the top of a node and
 		 * the top of the scrolling container.
 		 * @param {Node} node the node
 		 * @protected
@@ -949,7 +979,7 @@ define([
 		descendantSelector: function (child) {
 			var enclosingRenderer = this.getEnclosingRenderer(child);
 			return enclosingRenderer &&
-				(this.getAttribute("role") === "grid" || !this.isCategoryRenderer(enclosingRenderer)) &&
+				(this.type === "grid" || !this.isCategoryRenderer(enclosingRenderer)) &&
 				($(child).hasClass(this._cssClasses.cell) || child.hasAttribute("navindex"));
 		},
 
@@ -963,7 +993,7 @@ define([
 				if ((evt.key === "Spacebar" && !this._searchTimer)) {
 					this._spaceKeydownHandler(evt);
 				} else {
-					if (this.getAttribute("role") === "grid") {
+					if (this.type === "grid") {
 						this._gridKeydownHandler(evt);
 					}
 				}
@@ -1009,9 +1039,9 @@ define([
 		 * @returns {Element}
 		 */
 		_getFirst: function () {
-			var firstRenderer = this.childNodes[0],
+			var firstRenderer = this.containerNode.childNodes[0],
 				firstCell = firstRenderer && firstRenderer.renderNode;
-			if (this.getAttribute("role") !== "grid" && firstRenderer && this.isCategoryRenderer(firstRenderer)) {
+			if (this.type !== "grid" && firstRenderer && this.isCategoryRenderer(firstRenderer)) {
 				firstCell = this.getNext(firstCell, 1);
 			}
 			return firstCell;
@@ -1025,9 +1055,9 @@ define([
 		 * @returns {Element}
 		 */
 		_getLast: function () {
-			var lastRenderer = this.childNodes[this.childNodes.length - 1],
+			var lastRenderer = this.containerNode.childNodes[this.containerNode.childNodes.length - 1],
 				lastCell = lastRenderer && lastRenderer.renderNode;
-			if (this.getAttribute("role") !== "grid" && lastRenderer && this.isCategoryRenderer(lastRenderer)) {
+			if (this.type !== "grid" && lastRenderer && this.isCategoryRenderer(lastRenderer)) {
 				lastCell = this.getNext(lastCell, -1);
 			}
 			return lastCell || null;
@@ -1040,7 +1070,7 @@ define([
 		 * @returns {Element}
 		 */
 		getNext: function (child, dir) {
-			if (child === this) {
+			if (child === this.containerNode) {
 				return dir > 0 ? this._getFirst() : this._getLast();
 			}
 
@@ -1058,7 +1088,7 @@ define([
 			var next = null;
 			if (focusedRenderer) {
 				next = focusedRenderer.nextElementSibling;
-				if (next && this.getAttribute("role") !== "grid" && this.isCategoryRenderer(next)) {
+				if (next && this.type !== "grid" && this.isCategoryRenderer(next)) {
 					next = next.nextElementSibling;
 				}
 			}
@@ -1073,7 +1103,7 @@ define([
 			var next = null;
 			if (focusedRenderer) {
 				next = focusedRenderer.previousElementSibling;
-				if (next && this.getAttribute("role") !== "grid" && this.isCategoryRenderer(next)) {
+				if (next && this.type !== "grid" && this.isCategoryRenderer(next)) {
 					next = next.previousElementSibling;
 				}
 			}

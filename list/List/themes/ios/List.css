@@ -91,19 +91,10 @@
   padding-left: 4px;
 }
 .d-list-loader {
-  display: block;
-}
-.d-list-loader .d-list-cell {
   white-space: nowrap;
   text-overflow: ellipsis;
   cursor: pointer;
-  font-weight: bold;
-  color: #324f85;
-  height: 43px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #adaaad;
-}
-.d-list-loader [role="button"] {
+  padding: 0px 8px;
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
@@ -114,18 +105,19 @@
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
-  margin: 0px 5px;
+  font-weight: bold;
+  color: #324f85;
+  height: 43px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #adaaad;
 }
-.d-list-loader [role="button"] .d-progress-indicator {
+.d-list-loader .d-progress-indicator {
   width: 24px;
   height: 24px;
   vertical-align: top;
 }
-.d-list-loader [role="button"] .d-progress-indicator-lines {
+.d-list-loader .d-progress-indicator-lines {
   stroke: #808080;
-}
-.d-list-loader [role="button"] div {
-  padding-left: 10px;
 }
 .d-list-loader.d-loading {
   cursor: wait;
@@ -133,9 +125,11 @@
   font-weight: normal;
   font-style: italic;
 }
+.d-list-loader .d-list-loader-label {
+  padding-left: 10px;
+}
 .d-list-loading-panel {
   display: table;
-  position: absolute;
   z-index: 2;
   height: 100%;
   width: 100%;
@@ -146,23 +140,34 @@
   font-size: medium;
   font-style: italic;
 }
-.d-list-loading-panel-info {
+.d-list-loading-panel .d-list-loading-panel-info {
   display: table-cell;
   vertical-align: middle;
 }
-.d-list-loading-panel-info .d-progress-indicator {
-  width: 24px;
-  height: 24px;
+.d-list-loading-panel .d-list-loading-panel-info .d-progress-indicator {
+  width: 48px;
+  height: 48px;
   vertical-align: top;
 }
-.d-list-loading-panel-info .d-progress-indicator-lines {
+.d-list-loading-panel .d-list-loading-panel-info .d-progress-indicator-lines {
   stroke: #808080;
 }
-.d-list-loading-panel-info span {
+.d-list-loading-panel .d-list-loading-panel-info div {
   vertical-align: middle;
 }
-.d-list-loading-panel-info svg {
+.d-list-loading-panel .d-list-loading-panel-info svg {
   vertical-align: middle;
+}
+.d-list-loading-panel .d-list-loading-panel-info .d-list-loading-panel-info-label {
+  padding-left: 10px;
+}
+.d-list-no-items {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: auto;
+  vertical-align: middle;
+  line-height: 40px;
+  text-align: center;
 }
 .d-selectable,
 .d-multiselectable {
@@ -200,11 +205,6 @@
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
 }
-.d-round-rect-list > *:last-child .d-list-cell {
-  border-bottom-width: 0;
-  /* padding-bottom to compensate the fact that the bottom width is 0 instead of 1 */
-  padding-bottom: 1px;
-}
 .d-list {
   /* edit display at your own risk */
   display: block;
@@ -215,9 +215,4 @@
   padding: 0;
   /* Do not change this margin setting when customizing list in the app css*/
   margin: 0;
-}
-.d-list > *:last-child .d-list-cell {
-  border-bottom-width: 0;
-  /* padding-bottom to compensate the fact that the bottom width is 0 instead of 1 */
-  padding-bottom: 1px;
 }
