@@ -47,7 +47,7 @@ define([
 		/**
 		 * The message displayed on the previous page loader when it can be clicked
 		 * to load the previous page and when a loading is not already in progress.
-		 * This message can contains placeholder for the
+		 * This message can contains placeholders for the
 		 * List attributes to be replaced by their runtime value. For example, the
 		 * message can include the value of the pageLength attribute by using the
 		 * placeholder `${pageLength}`.
@@ -59,7 +59,7 @@ define([
 		/**
 		 * The message displayed on the next page loader when it can be clicked
 		 * to load the next page and when a loading is not already in progress.
-		 * This message can contains placeholder for the
+		 * This message can contains placeholders for the
 		 * List attributes to be replaced by their runtime value. For example, the
 		 * message can include the value of the pageLength attribute by using the
 		 * placeholder `${pageLength}`.
@@ -191,14 +191,14 @@ define([
 		_nextRecordsMayExist: false,
 
 		/**
-		 * Previous page loader's status flag
-		 * @type {Boolean}
+		 * Set to true if the previous page is currently being loaded.
+		 * @type {boolean}
 		 */
 		loadingPreviousPage: false,
 
 		/**
-		 * Next page loader's status flag
-		 * @type {Boolean}
+		 * Set to true if the next page is currently being loaded.
+		 * @type {boolean}
 		 */
 		loadingNextPage: false,
 
@@ -218,8 +218,8 @@ define([
 		 */
 		_nextPageButtonLabel: "",
 
-		/*jshint maxcomplexity: 15*/
 		computeProperties: function (props) {
+			/*jshint maxcomplexity: 15*/
 			if (this.pageLength > 0) {
 				if ("_busy" in props || "hideOnPageLoad" in props || "autoPaging" in props || "showNoItems" in props
 					|| "_previousRecordsMayExist" in props || "_nextRecordsMayExist" in props) {
@@ -227,17 +227,15 @@ define([
 						(this.containerNode && this.containerNode.children.length > 0) ?
 							"list" : ((this.showNoItems) ? "no-items" : "none");
 				}
-
-				// we need to update labels if a loader is made visible
-				// or if the loadPreviousMessage and loadNextMessage message change.
-				if ("loadPreviousMessage" in props || "_previousRecordsMayExist" in props) {
-					this._previousPageButtonLabel = string.substitute(this.loadPreviousMessage, this);
-				}
-
-				if ("loadNextMessage" in props || "_nextRecordsMayExist" in props) {
-					this._nextPageButtonLabel = string.substitute(this.loadNextMessage, this);
-				}
 			}
+
+			// Due to the string.substitute(), any change to any property could trigger a change to
+			// _previousPageButtonLabel, _nextPageButtonLabel.
+			this._previousPageButtonLabel = this.loadingPreviousPage ? this.loadingMessage :
+				string.substitute(this.loadPreviousMessage, this);
+
+			this._nextPageButtonLabel = this.loadingNextPage ? this.loadingMessage :
+				string.substitute(this.loadNextMessage, this);
 		},
 
 		refreshRendering: function (props) {
@@ -352,8 +350,7 @@ define([
 				this._rangeSpec.count += this._rangeSpec.start;
 				this._rangeSpec.start = 0;
 			}
-			this.previousPageLoader.loading = this.loadingPreviousPage = this._busy = true;
-			this._previousPageButtonLabel = this.loadingMessage;
+			this.loadingPreviousPage = this._busy = true;
 			var results = this._collection.fetchRange({start: this._rangeSpec.start,
 				end: this._rangeSpec.start + this._rangeSpec.count});
 			return results.then(function (items) {
@@ -396,8 +393,7 @@ define([
 					count: this.pageLength
 				};
 			}
-			this.nextPageLoader.loading = this.loadingNextPage = this._busy = true;
-			this._nextPageButtonLabel = this.loadingMessage;
+			this.loadingNextPage = this._busy = true;
 			if (this._nextRecordsMayExist) {
 				this._rangeSpec.start = this._lastLoaded + 1;
 				this._rangeSpec.count = this.pageLength;
@@ -461,8 +457,7 @@ define([
 					this.scrollBy({y: this.getTopDistance(previous)});
 				}
 			}
-			this.previousPageLoader.loading = this.loadingPreviousPage = this._busy = false;
-			this._previousPageButtonLabel = string.substitute(this.loadPreviousMessage, this);
+			this.loadingPreviousPage = this._busy = false;
 		},
 
 		/*jshint maxcomplexity: 11*/
@@ -504,8 +499,7 @@ define([
 					this.scrollBy({y: this.getBottomDistance(next)});
 				}
 			}
-			this.nextPageLoader.loading = this.loadingNextPage = this._busy = false;
-			this._nextPageButtonLabel = string.substitute(this.loadNextMessage, this);
+			this.loadingNextPage = this._busy = false;
 		},
 		/*jshint maxcomplexity: 10*/
 
@@ -633,14 +627,24 @@ define([
 			};
 		}),
 
-		_spaceKeydownNextLoaderHandler: function (evt) {
+		/**
+		 * Handle keydown on the "next page" button.
+		 * @param evt
+		 * @private
+		 */
+		_keydownNextLoaderHandler: function (evt) {
 			if (evt.key === "Spacebar") {
 				evt.preventDefault();
 				this._loadNextPage();
 			}
 		},
 
-		_spaceKeydownPreviousLoaderHandler: function (evt) {
+		/**
+		 * Handle keydown on the "previous page" button.
+		 * @param evt
+		 * @private
+		 */
+		_keydownPreviousLoaderHandler: function (evt) {
 			if (evt.key === "Spacebar") {
 				evt.preventDefault();
 				this._loadPreviousPage();

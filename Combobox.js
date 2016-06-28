@@ -709,14 +709,8 @@ define([
 				this._selectedItems = this.list.selectedItems;
 				
 				if (!this.opened) {
-					// Temporary workaround for issue with bad pairing in List of the
-					// busy on/off state. The issue appears to go away if List.attachedCallback
-					// wouldn't break the automatic chaining (hence the workaround wouldn't
-					// be necessary if List gets this change), but this requires further
-					// investigation (TODO).
 					this.defer(function () {
-						this.list._hideLoadingPanel();
-						// Avoid loosing focus when clicking the arrow (instead of the input element):
+						// Avoid losing focus when clicking the arrow (instead of the input element):
 						this.focusNode.focus();
 					}.bind(this), 300);
 				}

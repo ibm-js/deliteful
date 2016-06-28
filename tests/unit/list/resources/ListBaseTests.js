@@ -234,9 +234,9 @@ define([
 					var def = this.async(1000);
 					setTimeout(def.callback(function () {
 						assert.isNotNull(queryErrorEvt);
-						assert.strictEqual("Query Error X", queryErrorEvt.error, "error message");
+						assert.strictEqual(queryErrorEvt.error, "Query Error X", "error message");
 						assert.strictEqual(list.containerNode.getAttribute("aria-busy"), "false", "aria-busy");
-					}), 10);
+					}), 100);
 				},
 				"first focus apply to the first visible child": function () {
 					var list = this.parent.list;

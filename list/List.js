@@ -17,7 +17,7 @@ define([
 ], function (dcl, Widget, register, $, CustomElement,
 		Selection, KeyNav, StoreMap, Scrollable, ItemRenderer, CategoryRenderer, template, messages) {
 
-	//Putting tabIndex in mixin class to workaround https://github.com/uhop/dcl/issues/9.
+	// Put tabIndex in mixin class to workaround https://github.com/uhop/dcl/issues/9.
 	var TabbableWidget = register.dcl(Widget, {
 		tabIndex: 0
 	});
@@ -361,17 +361,16 @@ define([
 						renderer.deliver();
 					}
 				}.bind(this));
-				if(this.type === "grid") {
+				if (this.type === "grid") {
 					this.containerNode.setAttribute("aria-readonly", true);
-				}
-				else {
+				} else {
 					this.containerNode.removeAttribute("aria-readonly");
 				}
 			}
 		},
 
-		/*jshint maxcomplexity:13*/
 		computeProperties: function (props) {
+			/*jshint maxcomplexity:13*/
 			//	List attributes have been updated.
 			if ("itemRenderer" in props
 				|| (this._isCategorized()
@@ -1204,6 +1203,5 @@ define([
 		_getFocusedRenderer: function () {
 			return this.navigatedDescendant ? this.getEnclosingRenderer(this.navigatedDescendant) : null;
 		}
-
 	});
 });

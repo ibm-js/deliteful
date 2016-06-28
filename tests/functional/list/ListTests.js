@@ -340,6 +340,12 @@ define(["intern",
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
 			}
+			if (remote.environmentType.browserName === "internet explorer") {
+				// For unknown reasons, the Shift-TAB is getting treated like a normal TAB, and we go
+				// to an unexpected element, leading to a test failure.  Shift-TAB works when manually
+				// tested though, and Shift-TAB works in some other Intern tests too.  Strange.
+				return this.skip("shift-tab getting treated as normal tab, spurious test failure");
+			}
 			return remote
 			.get(require.toUrl("./list-cust-2.html"))
 			.then(pollUntil("return ('ready' in window &&  ready "
