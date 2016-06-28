@@ -24,7 +24,7 @@ define({
 			// 2.40.0, while they pass with 2.41.0.
 			"selenium-version": "2.41.0",
 			name : "deliteful"},
-		{ browserName: "chrome", version: "32", platform: [ /*"OS X 10.6", "Linux", */ "Windows 7" ],
+		{ browserName: "chrome", version: "51", platform: [ /*"OS X 10.6", "Linux", */ "Windows 7" ],
 			name : "deliteful"},
 		{ browserName: "safari", version: "9", name : "deliteful"}
 	],
