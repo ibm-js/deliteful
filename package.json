@@ -3,7 +3,7 @@
 	"version": "0.8.2",
 	"dependencies": {},
 	"devDependencies": {
-		"intern": "3.0.x",
+		"intern": "3.2.x",
 		"grunt": "~0.4.2",
 		"grunt-contrib-jshint": "~0.6.3",
 		"grunt-contrib-less": "~0.8.3",
