@@ -62,12 +62,18 @@ define([
 		 * @private
 		 */
 		_attachViewStack: function () {
+			if (this._afterAttachHandle) {
+				this._afterAttachHandle.remove();
+				this._afterAttachHandle = null;
+			}
 			if (this._afterShowHandle) {
 				this._afterShowHandle.remove();
 				this._afterShowHandle = null;
 			}
 			if (this.viewStack) {
-				this._afterShowHandle = this.on("delite-after-show", this._refreshDots.bind(this), this.viewStack);
+				var rd = this._refreshDots.bind(this);
+				this._afterAttachHandle = this.on("customelement-attached", rd, this.viewStack);
+				this._afterShowHandle = this.on("delite-after-show", rd, this.viewStack);
 			}
 		},
 
