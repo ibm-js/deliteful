@@ -98,7 +98,7 @@ define([
 
 		"scrollBy": function () {
 			var w = document.getElementById("sc1");
-			var d = this.async(1000);
+			var d = this.async(2000);
 			w.scrollDirection = "both";
 			w.deliver();
 			w.scrollBy({x: 10});
@@ -128,7 +128,7 @@ define([
 
 		"scrollTo": function () {
 			var w = document.getElementById("sc1");
-			var d = this.async(1000);
+			var d = this.async(2000);
 			w.scrollDirection = "both";
 			w.deliver();
 			w.scrollTo({x: 10});
