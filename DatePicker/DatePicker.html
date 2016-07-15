@@ -1,0 +1,21 @@
+<template requires="deliteful/Button">
+	<div>
+		<button is="d-button" on-click="{{previousMonthClickHandler}}" label="{{previousMonthButtonLabel}}"
+				showLabel="false" iconClass="{{previousIconClass}}" tabindex="-1"></button>
+		<span class="d-month">{{currentMonthLabel}}</span>
+		<button is="d-button" on-click="{{nextMonthClickHandler}}" label="{{nextMonthButtonLabel}}"
+			showLabel="false" iconClass="{{nextIconClass}}" tabindex="-1"></button>
+	</div>
+	<table attach-point="table" aria-label="{{currentMonthYearLabel}}">
+		<thead><tr attach-point="headerRow"></tr></thead>
+		<tbody attach-point="tbody,keyNavContainerNode" tabindex="0"></tbody>
+	</table>
+	<div class="d-date-picker-spacer"></div>
+	<div>
+		<button is="d-button" on-click="{{previousYearClickHandler}}" label="{{previousYearButtonLabel}}"
+				showLabel="false" iconClass="{{previousIconClass}}" tabindex="-1"></button>
+		<span class="d-year">{{currentYearLabel}}</span>
+		<button is="d-button" on-click="{{nextYearClickHandler}}" label="{{nextYearButtonLabel}}"
+				showLabel="false" iconClass="{{nextIconClass}}" tabindex="-1"></button>
+	</div>
+</template>

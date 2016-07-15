@@ -1,0 +1,66 @@
+.d-date-picker {
+  border: solid black 1px;
+  padding: 5px;
+  min-height: 300px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.d-date-picker div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.d-date-picker div .d-chevron-previous::before {
+  content: "\25C0";
+}
+.d-rtl.d-date-picker div .d-chevron-previous::before {
+  content: "\25B6";
+}
+.d-date-picker div .d-chevron-next::before {
+  content: "\25B6";
+}
+.d-rtl.d-date-picker div .d-chevron-next::before {
+  content: "\25C0";
+}
+.d-date-picker th,
+.d-date-picker td {
+  padding: 5px;
+}
+.d-date-picker td {
+  text-align: right;
+}
+.d-date-picker td:hover {
+  background: lightgray;
+}
+.d-date-picker .d-date-picker-other-month {
+  color: gray;
+}
+.d-date-picker .d-date-picker-today {
+  color: blue;
+}
+.d-date-picker .d-date-picker-selected,
+.d-date-picker .d-date-picker-selected:hover {
+  color: white;
+  background: blue;
+}
+.d-date-picker th,
+.d-date-picker .d-month,
+.d-date-picker .d-year {
+  font-weight: bold;
+}
+.d-date-picker .d-month,
+.d-date-picker .d-year {
+  color: blue;
+  font-size: 18px;
+}
+.d-date-picker button,
+.d-date-picker td {
+  cursor: pointer;
+}
+.d-ie .d-date-picker {
+  height: 300px;
+}
+.d-date-picker .d-date-picker-spacer {
+  flex: 1;
+}

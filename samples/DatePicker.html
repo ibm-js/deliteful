@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<title>DatePicker</title>
+
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+
+	<link rel="stylesheet" href="../../delite/themes/defaultapp.css">
+
+	<script type="text/javascript" src="../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require.config({
+			baseUrl: "../.."
+		});
+
+		require(["deliteful/DatePicker", "requirejs-domready/domReady!"], function(DatePicker){
+			var cal = new DatePicker({
+				id: "cal",
+				value: new Date("1999-12-31")
+			});
+			cal.placeAt("calendar1", "replace");
+			cal.on("change", function (evt) {
+				console.debug("value set to ", cal.value);
+			});
+		});
+	</script>
+</head>
+<body role="application" aria-label="DatePicker Test Application">
+	<h1>DatePicker</h1>
+
+	<label for="before">before:</label><input value="input" id="before">
+	<input id="calendar1">
+	<label for="after">after:</label><input value="input" id="after">
+</body>
+</html>

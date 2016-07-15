@@ -1,0 +1,79 @@
+@import "../../../../delite/themes/bootstrap/includes";
+@import "../../../../delite/themes/bootstrap/variables.less";
+
+.d-date-picker {
+	border: solid black 1px;
+	padding: 5px;
+
+	// Header and footer, for month and year.
+	div {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		.d-chevron-previous::before {
+			content: "\25C0";
+			.d-rtl& {
+				content: "\25B6";
+			}
+		}
+
+		.d-chevron-next::before {
+			content: "\25B6";
+			.d-rtl& {
+				content: "\25C0";
+			}
+		}
+	}
+
+	// Styling of table cells.
+	th, td {
+		padding: 5px;
+	}
+	td {
+		text-align: right;
+		&:hover {
+			background: lightgray;
+		}
+	}
+	.d-date-picker-other-month {
+		color: gray;
+	}
+
+	.d-date-picker-today {
+		color: blue;
+	}
+
+	.d-date-picker-selected, .d-date-picker-selected:hover {
+		color: white;
+		background: blue;
+	}
+
+	th, .d-month, .d-year {
+		font-weight: bold;
+	}
+
+	.d-month, .d-year {
+		color: blue;
+		font-size: 18px;
+	}
+
+	button, td {
+		cursor: pointer;
+	}
+
+	// Prevent jitter when the number of weekse changes from 4 to 5 to 6.
+	// The jitter is only problematic because there are next/previous buttons under the <table>.
+	// Unfortunately flex:1 on the <table> doesn't make it stretch correctly, so using a spacer <div>.
+	// Could alternately always keep the table at 6 rows long (with &nbsp; in the unused cells)
+	min-height: 300px;
+	.d-ie & {
+		height: 300px;	// flex:1 doesn't work in conjunction with min-height on IE11.
+	}
+	display: inline-flex;
+	flex-direction: column;
+	justify-content: space-between;
+	.d-date-picker-spacer {
+		flex: 1;
+	}
+}
