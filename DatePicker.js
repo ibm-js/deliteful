@@ -115,10 +115,6 @@ define([
 		createdCallback: function () {
 			this.on("click", this.clickHandler.bind(this));
 
-			if (!this.value) {
-				this.value = new this.dateClassObj();
-			}
-
 			// Set button labels.  This isn't quite right because it says "last month" and "last year"
 			// rather than "previous month" and "previous year", but it will do for now.
 			var bundle = this.dateLocaleModule._getGregorianBundle();
@@ -139,9 +135,9 @@ define([
 		},
 
 		computeProperties: function (oldVals) {
-			// Start on month containing this.value.
+			// Start on month containing this.value, or if there's no value set, then the current day.
 			if ("value" in oldVals) {
-				this.currentFocus = this.value;
+				this.currentFocus = this.value && !isNaN(this.value) ? this.value : new this.dateClassObj();
 			}
 
 			// If requested date is not in current month, then switch to month with requested date.
@@ -255,9 +251,11 @@ define([
 			// Adjust CSS for the selected date whenever the selected date changes or we switch to another month.
 			if ("value" in oldVals || "dates" in oldVals) {
 				$(".d-date-picker-selected", this.tbody).removeClass("d-date-picker-selected");
-				var newSelectedCell = this._dateToCell(this.value);
-				if (newSelectedCell) {
-					$(newSelectedCell).addClass("d-date-picker-selected");
+				if (this.value && !isNaN(this.value)) {
+					var newSelectedCell = this._dateToCell(this.value);
+					if (newSelectedCell) {
+						$(newSelectedCell).addClass("d-date-picker-selected");
+					}
 				}
 			}
 		},
