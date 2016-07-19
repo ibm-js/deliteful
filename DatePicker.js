@@ -75,13 +75,6 @@ define([
 		currentMonthLabel: "",
 
 		/**
-		 * Current year and month label, ex: "March 2015".
-		 * @member {string}
-		 * @readonly
-		 */
-		currentMonthYearLabel: "",
-
-		/**
 		 * Label for button to go to previous month.
 		 * @member {string}
 		 * @readonly
@@ -165,7 +158,6 @@ define([
 			if ("currentMonth" in oldVals || "currentYear" in oldVals) {
 				this.currentMonthLabel = this.formatMonthLabel(this.currentFocus);
 				this.currentYearLabel = this.formatYearLabel(this.currentFocus);
-				this.currentMonthYearLabel = this.formatMonthYearAriaLabel(this.currentFocus);
 
 				// Compute the Sunday for the week that includes the first day
 				// of the month.
@@ -211,6 +203,19 @@ define([
 				}
 			};
 		}),
+
+		postRender: function () {
+			// Move all initially specified aria- attributes to <table>
+			var attr, idx = 0;
+			while ((attr = this.attributes[idx++])) {
+				if (/^aria-/.test(attr.name)) {
+					this.setAttribute(attr.name, attr.value);
+
+					// force remove from root node not focus nodes
+					HTMLElement.prototype.removeAttribute.call(this, attr.name);
+				}
+			}
+		},
 
 		refreshRendering: function (oldVals) {
 			// Code to run when month (or year) has changed.
@@ -307,21 +312,6 @@ define([
 			return this.dateLocaleModule.format(d, {
 				selector: "date",
 				formatLength: "long"
-			});
-		},
-
-		/**
-		 * Formats the given month/year combo for an aria-label for the calendar grid.
-		 * @param {Date} date - Date to format.
-		 * @returns {string}
-		 */
-		formatMonthYearAriaLabel: function (date) {
-			var bundle = this.dateLocaleModule._getGregorianBundle();
-			var monthYearPattern = bundle["dateFormatItem-yMMM"];
-			monthYearPattern = monthYearPattern.replace("MMM", "MMMM");	// March not Mar
-			return this.dateLocaleModule.format(date, {
-				selector: "date",
-				datePattern: monthYearPattern
 			});
 		},
 
@@ -471,6 +461,50 @@ define([
 			}
 			this.notifyCurrentValue("currentFocus");	// focus it even if same value as before
 			this.deliver();
-		}
+		},
+
+		////////////////////////////////////////////////////////////////////////////////////////////
+		// Override setAttribute() etc. to put aria-label etc. onto the <table> rather than the root
+		// node, so that screen readers work properly.
+
+		setAttribute: register.superCall(function (sup) {
+			return function (name, value) {
+				if (/^aria-/.test(name)) {
+					this.table.setAttribute(name, value);
+				} else {
+					sup.call(this, name, value);
+				}
+			};
+		}),
+
+		getAttribute: register.superCall(function (sup) {
+			return function (name) {
+				if (/^aria-/.test(name)) {
+					return this.table.getAttribute(name);
+				} else {
+					return sup.call(this, name);
+				}
+			};
+		}),
+
+		hasAttribute: register.superCall(function (sup) {
+			return function (name) {
+				if (/^aria-/.test(name)) {
+					return this.table.hasAttribute(name);
+				} else {
+					return sup.call(this, name);
+				}
+			};
+		}),
+
+		removeAttribute: register.superCall(function (sup) {
+			return function (name) {
+				if (/^aria-/.test(name)) {
+					this.table.removeAttribute(name);
+				} else {
+					sup.call(this, name);
+				}
+			};
+		})
 	});
 });

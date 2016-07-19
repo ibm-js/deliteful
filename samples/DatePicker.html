@@ -17,23 +17,24 @@
 			baseUrl: "../.."
 		});
 
-		require(["deliteful/DatePicker", "requirejs-domready/domReady!"], function(DatePicker){
-			var cal = new DatePicker({
-				id: "cal",
-				value: new Date("1999-12-31")
-			});
-			cal.placeAt("calendar1", "replace");
-			cal.on("change", function (evt) {
-				console.debug("value set to ", cal.value);
-			});
-		});
+		require(["deliteful/DatePicker"], function(DatePicker){});
+
+		function onChange(evt) {
+			console.debug("value set to ", evt.target.value);
+		}
 	</script>
 </head>
 <body role="application" aria-label="DatePicker Test Application">
 	<h1>DatePicker</h1>
 
-	<label for="before">before:</label><input value="input" id="before">
-	<input id="calendar1">
-	<label for="after">after:</label><input value="input" id="after">
+	<label for="before">before</label>: <input value="input" id="before">
+	<br><br>
+
+	<span id="calendar1-label">Test calendar</span>:
+	<br>
+	<d-date-picker id="calendar1" aria-labelledby="calendar1-label" on-change="onChange(arguments[0]);"></d-date-picker>
+	<br><br>
+
+	<label for="after">after</label>: <input value="input" id="after">
 </body>
 </html>
