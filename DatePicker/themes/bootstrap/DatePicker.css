@@ -1,6 +1,7 @@
 .d-date-picker {
   border: solid black 1px;
   padding: 5px;
+  background: white;
   min-height: 300px;
   display: inline-flex;
   flex-direction: column;

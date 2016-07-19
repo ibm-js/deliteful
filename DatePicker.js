@@ -1,7 +1,5 @@
 define([
 	"requirejs-dplugins/jquery!attributes/classes",
-	"dojo/date",
-	"dojo/date/locale",
 	"dojo/i18n",
 	"delite/register",
 	"delite/KeyNav",
@@ -11,8 +9,6 @@ define([
 	"delite/uacss"	// CSS has workaround for IE11
 ], function (
 	$,
-	ddate,
-	locale,
 	i18n,
 	register,
 	KeyNav,
@@ -132,7 +128,7 @@ define([
 
 			// Set button labels.  This isn't quite right because it says "last month" and "last year"
 			// rather than "previous month" and "previous year", but it will do for now.
-			var bundle = locale._getGregorianBundle();
+			var bundle = this.dateLocaleModule._getGregorianBundle();
 			this.previousMonthButtonLabel = bundle["field-month-relative+-1"];
 			this.nextMonthButtonLabel = bundle["field-month-relative+1"];
 			this.previousYearButtonLabel = bundle["field-year-relative+-1"];
@@ -161,7 +157,7 @@ define([
 			// buttons.
 			if ("currentFocus" in oldVals && this.currentFocus) {
 				this.currentMonth = this.currentFocus.getMonth();
-				this.currentYear = this.currentFocus.getYear();
+				this.currentYear = this.currentFocus.getFullYear();
 				this.deliverComputing();	// if month/year changed, run next if() block before refreshRendering()
 			}
 
@@ -177,10 +173,10 @@ define([
 				var startDate = this.floorToWeek(startOfMonth);
 
 				// Then, compute the number of weeks to display. Will be between 4 (ex: Feb 2015) and 6 (ex: May 2015).
-				var endDate = ddate.add(startOfMonth, "month", 1);
-				endDate = ddate.add(endDate, "day", 6);
+				var endDate = this.dateModule.add(startOfMonth, "month", 1);
+				endDate = this.dateModule.add(endDate, "day", 6);
 				endDate = this.floorToWeek(endDate);
-				var rowCount = ddate.difference(startDate, endDate, "week");
+				var rowCount = this.dateModule.difference(startDate, endDate, "week");
 
 				// Finally, compute the array of dates that the calendar should show.
 				this.dates = [];
@@ -204,7 +200,7 @@ define([
 				for (var i = 0; i < 7; i++) {
 					var cell = this.headerRow.appendChild(this.ownerDocument.createElement("th"));
 					cell.textContent = this.formatColumnHeaderLabel(d);
-					d = ddate.add(d, "day", 1);
+					d = this.dateModule.add(d, "day", 1);
 				}
 
 				// Create template for normal table rows.
@@ -278,7 +274,7 @@ define([
 		},
 
 		/**
-		 * Compute the label for a grid cell.
+		 * Compute the label for a grid cell.  Should be just the number, ex: 9 not 9日.
 		 * @param {Date} d - The date to format.
 		 * @param {number} row - The row that displays the current date.
 		 * @param {number} col - The column that displays the current date.
@@ -286,10 +282,9 @@ define([
 		 * @protected
 		 */
 		formatGridCellLabel: function (d) {
-			var rb = i18n.getLocalization("dojo.cldr", this._calendar);
 			return this.dateLocaleModule.format(d, {
 				selector: "date",
-				datePattern: rb["dateFormatItem-d"]
+				datePattern: "d"
 			});
 		},
 
@@ -309,7 +304,7 @@ define([
 		 * @returns {string}
 		 */
 		formatDateAriaLabel: function (d) {
-			return locale.format(d, {
+			return this.dateLocaleModule.format(d, {
 				selector: "date",
 				formatLength: "long"
 			});
@@ -321,10 +316,10 @@ define([
 		 * @returns {string}
 		 */
 		formatMonthYearAriaLabel: function (date) {
-			var bundle = locale._getGregorianBundle();
+			var bundle = this.dateLocaleModule._getGregorianBundle();
 			var monthYearPattern = bundle["dateFormatItem-yMMM"];
 			monthYearPattern = monthYearPattern.replace("MMM", "MMMM");	// March not Mar
-			return locale.format(date, {
+			return this.dateLocaleModule.format(date, {
 				selector: "date",
 				datePattern: monthYearPattern
 			});
@@ -336,21 +331,23 @@ define([
 		 * @returns {string}
 		 */
 		formatMonthLabel: function (date) {
-			return locale.format(date, {
+			return this.dateLocaleModule.format(date, {
 				selector: "date",
 				datePattern: "MMMM"
 			});
 		},
 
 		/**
-		 * Formats the given year label.
+		 * Formats the given year label, i.e. in Japanese 2016年 not just 2016.
 		 * @param {Date} date - Date to format.
 		 * @returns {string}
 		 */
 		formatYearLabel: function (date) {
-			return locale.format(date, {
+			var bundle = this.dateLocaleModule._getGregorianBundle();
+			var yearPattern = bundle["dateFormatItem-y"];
+			return this.dateLocaleModule.format(date, {
 				selector: "date",
-				datePattern: "yyyy"
+				datePattern: yearPattern
 			});
 		},
 
