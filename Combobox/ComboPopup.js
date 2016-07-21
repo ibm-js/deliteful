@@ -77,6 +77,21 @@ define([
 		cancelHandler: function () {
 			this.combobox.list.selectedItems = this.combobox._selectedItems;
 			this.combobox.closeDropDown();
-		}
+		},
+
+		/**
+		 * Called by HasDropDown in order to get the focus on the widget's list.
+		 * @protected
+		 */
+		focus: function () {
+			if (this.combobox.list && this.combobox.list.containerNode.children.length > 0) {
+				var id = this.combobox.list.getIdentity(
+					this.combobox.list.selectedItems.length > 0 ? this.combobox.list.selectedItems[0] : "");
+				var renderer = (id && id !== -1) ? this.combobox.list.getRendererByItemId(id) :
+					this.combobox.list.getRenderers()[0];
+				this.combobox.list.navigateTo(renderer);
+			}
+
+		},
 	});
 });
