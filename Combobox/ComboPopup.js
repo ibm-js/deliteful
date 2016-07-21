@@ -15,11 +15,11 @@ define([
 	 * @augments module:delite/Widget
 	 */
 	return register("d-combo-popup", [HTMLElement, Widget], /** @lends module:deliteful/Combobox/ComboPopup# */ {
-		
+
 		baseClass: "d-combo-popup",
-		
+
 		template: template,
-		
+
 		/**
 		 * The instance of `deliteful/Combobox` for which this widget is used.
 		 * This property is set by Combobox when creating the popup, and it
@@ -60,7 +60,7 @@ define([
 				}
 			}
 		},
-		
+
 		/**
 		 * Called when clicking the OK button of the popup.
 		 * @protected
@@ -69,7 +69,7 @@ define([
 			this.combobox._validateMultiple(this.combobox.inputNode);
 			this.combobox.closeDropDown();
 		},
-		
+
 		/**
 		 * Called when clicking the Cancel button of the popup.
 		 * @protected

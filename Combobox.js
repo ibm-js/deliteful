@@ -35,24 +35,24 @@ define([
 	/**
 	 * A form-aware and store-aware multichannel widget leveraging the `deliteful/list/List`
 	 * widget for rendering the options.
-	 * 
+	 *
 	 * The corresponding custom tag is `<d-combobox>`.
-	 * 
+	 *
 	 * The property `list` allows to specify the List instance used by the widget.
 	 * The customization of the mapping of data item attributes into render item
 	 * attributes can be done on the `List` instance using the mapping API of `List`
 	 * inherited from its superclass `delite/StoreMap`.
-	 * 
+	 *
 	 * The property `selectionMode` allows to choose between single and multiple
 	 * choice modes.
-	 *  
+	 *
 	 * In single selection mode, if the property `autoFilter` is set to `true`
 	 * (default is `false`) the widget allows to type one or more characters which
 	 * are used for filtering the shown list items. By default, the filtering is
 	 * case-insensitive, and an item is shown if its label contains the entered
-	 * string. The default filtering policy can be customized thanks to the 
+	 * string. The default filtering policy can be customized thanks to the
 	 * `filterMode` and `ignoreCase` properties.
-	 * 
+	 *
 	 * The widget provides multichannel rendering. Depending on the required channel, which
 	 * is determined by the value of the channel flags of `deliteful/features`, the
 	 * widget displays the popup containing the options in a different manner:
@@ -60,32 +60,32 @@ define([
 	 * - if `has("desktop-like-channel")` is `true`: in a popup below or above the root node.
 	 * - otherwise (that is for `"phone-like-channel"` and `"tablet-like-channel"`): in an
 	 * overlay centered on the screen, filled with an instance of `deliteful/Combobox/ComboPopup`.
-	 * 
+	 *
 	 * The channel flags are set by `deliteful/features` using CSS media queries depending on
 	 * the screen size. See the `deliteful/features` documentation for information about the
 	 * channel flags and about how to configure them statically and how to customize the values
 	 * of the screen size breakpoints used by the media queries.
-	 * 
+	 *
 	 * The `value` property of the widget contains:
 	 *
 	 * - Single selection mode: the value of the selected list items. By default, the
 	 * value of the first item is selected.
 	 * - Multiple selection mode: an array containing the values of the selected items.
 	 * Defaults to `[]`.
-	 * 
+	 *
 	 * If the widget is used in an HTML form, the submitted value contains:
 	 *
 	 * - Single selection mode: the same as widget's `value` property.
 	 * - Multiple selection mode: a string containing a comma-separated list of the values
 	 * of the selected items. Defaults to `""`.
-	 * 
+	 *
 	 * By default, the `label` field of the list render item is used as item value.
 	 * A different field can be specified by using attribute mapping for `value` on the
 	 * List instance.
-	 * 
+	 *
 	 * Remark: the option items must be added, removed or updated exclusively using
 	 * List's store API. Direct operations using the DOM API are not supported.
-	 * 
+	 *
 	 * @example <caption>Markup</caption>
 	 * JS:
 	 * require(["deliteful/Combobox", "requirejs-domready/domReady!"],
@@ -104,7 +104,7 @@ define([
 	 *   { "label": "Japan", "sales": 900, "profit": 100, "region": "Asia" }
 	 *   </d-list>
 	 * </d-combobox>
-	 * 
+	 *
 	 * @example <caption>Programmatic</caption>
 	 * JS:
 	 * require(["deliteful/List",
@@ -115,14 +115,14 @@ define([
 	 *     var combobox = new Combobox({list: list, selectionMode: "multiple"}).
 	 *       placeAt(...);
 	 *   });
-	 * 
+	 *
 	 * @class module:deliteful/Combobox
 	 * @augments module:delite/HasDropDown
 	 * @augments module:delite/FormValueWidget
 	 */
 	return register("d-combobox", [HTMLElement, HasDropDown, FormValueWidget, CssState],
 		/** @lends module:deliteful/Combobox# */ {
-		
+
 		// TODO: handle the situation the list has a null/undefined store.
 		// Would be nice to have a global policy for all subclasses of
 		// delite/Store (in terms of error feedback).
@@ -132,13 +132,13 @@ define([
 		// requires changes in List).
 		// TODO: improve API doc.
 		// TODO: add (optional) placeholder?
-		
+
 		// Note: the property `disabled` is inherited from delite/FormWidget.
-		
+
 		baseClass: "d-combobox",
-		
+
 		template: template,
-		
+
 		/**
 		 * If `true`, the list of options can be filtered thanks to an editable
 		 * input element. Only used if `selectionMode` is "single".
@@ -146,7 +146,7 @@ define([
 		 * @default false
 		 */
 		autoFilter: false,
-		
+
 		/**
 		 * The chosen filter mode. Only used if `autoFilter` is `true` and
 		 * `selectionMode` is `"single"`.
@@ -161,7 +161,7 @@ define([
 		 * @default "startsWith"
 		 */
 		filterMode: "startsWith",
-		
+
 		/**
 		 * If `true`, the filtering of list items ignores case when matching possible items.
 		 * Only used if `autoFilter` is `true` and `selectionMode` is `"single"`.
@@ -169,7 +169,7 @@ define([
 		 * @default true
 		 */
 		ignoreCase: true,
-		
+
 		/**
 		 * The chosen selection mode.
 		 *
@@ -182,8 +182,8 @@ define([
 		 * property of the List instance used by this widget for displaying the options:
 		 * * The value "single" is mapped to "radio".
 		 * * The value "multiple" is mapped to "multiple".
-		 * 
-		 * Note that, regardless of the selection mode, it is always possible to set 
+		 *
+		 * Note that, regardless of the selection mode, it is always possible to set
 		 * several selected items using the `selectedItem` or `selectedItems` properties
 		 * of the List instance.
 		 * The mode will be enforced only when using `setSelected()` and/or
@@ -193,7 +193,7 @@ define([
 		 * @default "single"
 		 */
 		selectionMode: "single",
-		
+
 		/**
 		 * The `deliteful/list/List` element which provides and renders the options
 		 * shown by the popup of the Combobox.
@@ -203,10 +203,10 @@ define([
 		 * @default instance of deliteful/list/List
 		 */
 		list: null,
-		
+
 		// Flag used for binding the readonly attribute of the input element in the template
 		_inputReadOnly: true,
-		
+
 		/**
 		 * The value of the placeholder attribute of the input element used
 		 * for filtering the list of options. The default value is provided by the
@@ -215,7 +215,7 @@ define([
 		 * @default "Search"
 		 */
 		searchPlaceHolder: messages["search-placeholder"],
-		
+
 		/**
 		 * The text displayed in the input element when more than one option is
 		 * selected. The default value is provided by the "search-placeholder" key of
@@ -224,7 +224,7 @@ define([
 		 * @default "Search"
 		 */
 		multipleChoiceMsg: messages["multiple-choice"],
-		
+
 		/**
 		 * The text displayed in the input element when no option is selected.
 		 * The default value is provided by the "multiple-choice-no-selection" key of
@@ -233,7 +233,7 @@ define([
 		 * @default "Select option(s)"
 		 */
 		multipleChoiceNoSelectionMsg: messages["multiple-choice-no-selection"],
-		
+
 		/**
 		 * The text displayed in the OK button when the combobox popup contains such a button.
 		 * The default value is provided by the "ok-button-label" key of
@@ -242,7 +242,7 @@ define([
 		 * @default "OK"
 		 */
 		okMsg: messages["ok-button-label"],
-		
+
 		/**
 		 * The text displayed in the Cancel button when the combobox popup contains such a button.
 		 * The default value is provided by the "cancel-button-label" key of
@@ -251,7 +251,7 @@ define([
 		 * @default "Cancel"
 		 */
 		cancelMsg: messages["cancel-button-label"],
-		
+
 		createdCallback: function () {
 			// Declarative case (list specified declaratively inside the declarative Combobox)
 			var list = this.querySelector("d-list");
@@ -293,11 +293,11 @@ define([
 				this._setSelectable(this.inputNode, !this.inputNode.readOnly);
 			}
 		},
-		
+
 		/**
 		 * Updates the value of the private property on which the Combobox template
 		 * binds the `readonly` attribute of the input element.
-		 * @private 
+		 * @private
 		 */
 		_updateInputReadOnly: function () {
 			var oldValue = this._inputReadOnly;
@@ -314,7 +314,7 @@ define([
 				this.notifyCurrentValue("_inputReadOnly");
 			} // else no need to notify "by hand", rely on automatic notification
 		},
-		
+
 		/**
 		 * Configures inputNode such that the text is selectable or unselectable.
 		 * @private
@@ -391,7 +391,7 @@ define([
 			this._initHandlers();
 			this._initValue();
 		},
-		
+
 		_initHandlers: function () {
 			this.list.on("keynav-child-navigated", function (evt) {
 				var navigatedChild = evt.newValue; // never null
@@ -406,7 +406,7 @@ define([
 				}
 				this._setActiveDescendant();
 			}.bind(this));
-			
+
 			this.list.on("click", function (evt) {
 				if (this.selectionMode === "single") {
 					var rend = this.list.getEnclosingRenderer(evt.target);
@@ -419,7 +419,7 @@ define([
 					}
 				}
 			}.bind(this));
-			
+
 			// React to interactive changes of selected items
 			this.list.on("selection-change", function () {
 				if (this.selectionMode === "single") {
@@ -427,7 +427,7 @@ define([
 				}
 				this.handleOnInput(this.value); // emit "input" event
 			}.bind(this));
-			
+
 			// React to programmatic changes of selected items
 			this.list.observe(function (oldValues) {
 				if ("selectedItems" in oldValues) {
@@ -439,14 +439,14 @@ define([
 					}
 				}
 			}.bind(this));
-			
+
 			this._prepareInput(this.inputNode);
 		},
-		
+
 		/**
 		 * Sets the initial value of the widget. If the widget is inside a form,
 		 * also called when reseting the form.
-		 * @private 
+		 * @private
 		 */
 		_initValue: function () {
 			if (this.selectionMode === "single") {
@@ -477,7 +477,7 @@ define([
 					}
 					return done;
 				}.bind(this);
-				
+
 				if (!initValueSingleMode()) {
 					// List not ready, wait.
 					// TODO: handle case when List is initialized but has no items yet, from "new List()".
@@ -500,41 +500,41 @@ define([
 				this.valueNode.value = "";
 			}
 		},
-		
+
 		/**
 		 * Returns the label of a List item renderer.
-		 * @private 
+		 * @private
 		 */
 		_getItemRendererLabel: function (itemRenderer) {
 			return this._getItemLabel(itemRenderer.item);
 		},
-		
+
 		/**
 		 * Returns the value of a List item renderer. Defaults to its label
-		 * if the underlying data item has no value. 
-		 * @private 
+		 * if the underlying data item has no value.
+		 * @private
 		 */
 		_getItemRendererValue: function (itemRenderer) {
 			return this._getItemValue(itemRenderer.item);
 		},
-		
+
 		/**
 		 * Returns the label of a List render item.
-		 * @private 
+		 * @private
 		 */
 		_getItemLabel: function (item) {
 			return item.label;
 		},
-		
+
 		/**
 		 * Returns the value of a List render item. Defaults to its label
-		 * if the underlying data item has no value. 
-		 * @private 
+		 * if the underlying data item has no value.
+		 * @private
 		 */
 		_getItemValue: function (item) {
 			return "value" in item ? item.value : item.label;
 		},
-		
+
 		/**
 		 * Returns `true` if the dropdown should be centered, and returns
 		 * `false` if it should be displayed below/above the widget.
@@ -546,22 +546,22 @@ define([
 		_useCenteredDropDown: function () {
 			return !!ComboPopup;
 		},
-		
+
 		_createDropDown: function () {
 			this._updateInputReadOnly();
-			
+
 			var centeredDropDown = this._useCenteredDropDown();
 			var dropDown = centeredDropDown ?
 				this.createCenteredDropDown() :
 				this.createAboveBelowDropDown();
-			
+
 			this.dropDownPosition = centeredDropDown ?
 				["center"] :
 				["below", "above"]; // this is the default
-			
+
 			return dropDown;
 		},
-		
+
 		/**
 		 * Factory method which creates the widget used inside above/below drop-down.
 		 * The default implementation simply returns `this.list`.
@@ -574,7 +574,7 @@ define([
 			// issue #382). Hence the List is not wrapped anymore inside a LinearLayout.
 			return this.list;
 		},
-		
+
 		/**
 		 * Factory method which creates the widget used inside centered drop-down.
 		 * The default implementation returns a new instance of deliteful/Combobox/ComboPopup
@@ -586,7 +586,7 @@ define([
 		createCenteredDropDown: function () {
 			return new ComboPopup({combobox: this});
 		},
-		
+
 		_prepareInput: function (inputElement) {
 			this.on("input", function (evt) {
 				// Would be nice to also have an "incrementalFilter" boolean property.
@@ -645,7 +645,7 @@ define([
 				}
 			}.bind(this), inputElement);
 		},
-		
+
 		_validateSingle: function () {
 			var selectedItem = this.list.selectedItem;
 			// selectedItem non-null because List in radio selection mode, but
@@ -653,7 +653,7 @@ define([
 			this.inputNode.value = selectedItem ? this._getItemLabel(selectedItem) : "";
 			this.value = selectedItem ? this._getItemValue(selectedItem) : "";
 		},
-		
+
 		_validateMultiple: function (inputElement) {
 			var selectedItems = this.list.selectedItems;
 			var n = selectedItems ? selectedItems.length : 0;
@@ -676,7 +676,7 @@ define([
 			this.valueNode.value = value;
 			this.handleOnInput(this.value); // emit "input" event
 		},
-		
+
 		/**
 		 * Filters the embedded List to only show the items matching `filterTxt`.
 		 * If `autoFilter` is `true` and `selectionMode` is `"single"`, the method
@@ -694,20 +694,20 @@ define([
 			} else if (this.filterMode === "is") {
 				filterTxt = "^" + filterTxt + "$";
 			} // nothing to add for "contains"
-			
+
 			// TODO: might be nice that, if no item matches the query thus the list is empty,
 			// the popup shows some specific graphic feedback.
 			var rexExp = new RegExp(filterTxt, this.ignoreCase ? "i" : "");
 			this.list.query = (new Filter()).match(this.list.labelAttr, rexExp);
 		},
-		
+
 		openDropDown: dcl.superCall(function (sup) {
 			return function () {
 				// Store the current selection, to be able to restore when pressing the
 				// cancel button. Used by ComboPopup. (Could spare it in situations when
 				// there is no cancel button, but not really worth.)
 				this._selectedItems = this.list.selectedItems;
-				
+
 				if (!this.opened) {
 					this.defer(function () {
 						// Avoid losing focus when clicking the arrow (instead of the input element):
@@ -716,14 +716,14 @@ define([
 				}
 
 				var promise = sup.apply(this, arguments);
-				
+
 				return promise.then(function () {
 					this._updateScroll(undefined, true);	// sets this.list.navigatedDescendant
 					this._setActiveDescendant();
 				}.bind(this));
 			};
 		}),
-		
+
 		closeDropDown: dcl.superCall(function (sup) {
 			return function () {
 				// cleanup
@@ -731,21 +731,21 @@ define([
 
 				var input = this._popupInput || this.inputNode;
 				input.removeAttribute("aria-activedescendant");
-				
+
 				if (this.opened) {
 					// Using the flag `opened` (managed by delite/HasDropDown), avoid
 					// emitting a new change event if closeDropDown is closed more than once
 					// for a closed dropdown.
-					
+
 					// Closing the dropdown represents a commit interaction
 					this.handleOnChange(this.value); // emit "change" event
-				
+
 					// Reinit the query. Necessary such that after closing the dropdown
 					// in autoFilter mode with a text in the input field not matching
 					// any item, when the dropdown will be reopen it shows all items
-					// instead of being empty 
+					// instead of being empty
 					this.list.query = {};
-				
+
 					if (this.selectionMode === "single" && this.autoFilter) {
 						// In autoFilter mode, reset the content of the inputNode when
 						// closing the dropdown, such that next time the dropdown is opened
@@ -761,11 +761,11 @@ define([
 				sup.apply(this, arguments);
 			};
 		}),
-		
+
 		/**
 		 * Scrolls the list inside the popup such that the specified item, or
 		 * the first selected item if no item is specified, is visible.
-		 * @private 
+		 * @private
 		 */
 		_updateScroll: function (item, navigate) {
 			// Since List is in focus-less mode, it does not give focus to
