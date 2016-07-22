@@ -367,17 +367,6 @@ define([
 			this.list.selectionMode = this.selectionMode === "single" ?
 				"radio" : "multiple";
 
-			var dropDown = this._createDropDown();
-
-			// Since the dropdown is not a child of the Combobox, it will not inherit
-			// its dir attribute. Hence:
-			var dir = this.getAttribute("dir");
-			if (dir) {
-				dropDown.setAttribute("dir", dir);
-			}
-
-			this.dropDown = dropDown; // delite/HasDropDown's property
-
 			this._initHandlers();
 			this._initValue();
 		},
@@ -537,7 +526,7 @@ define([
 			return !!ComboPopup;
 		},
 
-		_createDropDown: function () {
+		loadDropDown: function () {
 			this._updateInputReadOnly();
 
 			var centeredDropDown = this._useCenteredDropDown();
@@ -548,6 +537,15 @@ define([
 			this.dropDownPosition = centeredDropDown ?
 				["center"] :
 				["below", "above"]; // this is the default
+
+			// Since the dropdown is not a child of the Combobox, it will not inherit
+			// its dir attribute. Hence:
+			var dir = this.getAttribute("dir");
+			if (dir) {
+				dropDown.setAttribute("dir", dir);
+			}
+
+			this.dropDown = dropDown; // delite/HasDropDown's property
 
 			return dropDown;
 		},
@@ -699,13 +697,12 @@ define([
 				this._selectedItems = this.list.selectedItems;
 
 				if (!this.opened) {
-					if (!this._useCenteredDropDown()) { // If not on mobile
-						// Avoid to execute HasDropDown#_focusDropDownOnOpen's dropDown.focus();
-						this.dropDown.focus = false;
-						// Avoid that List gives focus to list items when navigating, which would
-						// blur the input field used for entering the filtering criteria.
-						this.dropDown.focusDescendants = false;
+					var mobile = this._useCenteredDropDown();
 
+					// On desktop, leave focus in the original <input>.  But on mobile, focus the popup dialog.
+					this.focusOnPointerOpen = this.focusOnKeyboardOpen = mobile;
+
+					if (!mobile) {
 						this.defer(function () {
 							// Avoid losing focus when clicking the arrow (instead of the input element):
 							// TODO: isn't this already handled by delite/HasDropDown#_dropDownPointerUpHandler() ?
@@ -717,6 +714,10 @@ define([
 				var promise = sup.apply(this, arguments);
 
 				return promise.then(function () {
+					// Avoid that List gives focus to list items when navigating, which would
+					// blur the input field used for entering the filtering criteria.
+					this.dropDown.focusDescendants = false;
+
 					this._updateScroll(undefined, true);	// sets this.list.navigatedDescendant
 					this._setActiveDescendant(this.list.navigatedDescendant);
 				}.bind(this));
