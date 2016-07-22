@@ -36,6 +36,85 @@
 		], function (register) {
 			register.deliver();
 
+
+			// Store information for use in the automatic functional test
+			var storeTestingInfo = function (combo) {
+				if (!combo.init) {
+					combo._inputEventCounter = 0;
+					combo._changeEventCounter = 0;
+					combo.on("input", function () {
+						combo._inputEventCounter++;
+						combo._widgetValueAtLatestInputEvent = combo.value;
+						combo._valueNodeValueAtLatestInputEvent = combo.valueNode.value;
+					});
+					combo.on("change", function () {
+						combo._changeEventCounter++;
+						combo._widgetValueAtLatestChangeEvent = combo.value;
+						combo._valueNodeValueAtLatestChangeEvent = combo.valueNode.value;
+					});
+					combo.init = true;
+				}
+				// Store ids for item cells such that the automatic functional test
+				// can retrieve them.
+				var itemRenderers = combo.list.getItemRenderers();
+				var i;
+				for (i = 0; i < itemRenderers.length; i++) {
+					itemRenderers[i].renderNode.id = combo.id + "_item" + i;
+				}
+				var categoryRenderers = combo.list.querySelectorAll("." + combo.list._cssClasses.category);
+				for (i = 0; i < categoryRenderers.length; i++) {
+					categoryRenderers.item(i).renderNode.id = combo.id + "_category" + i;
+				}
+			};
+
+			// single selection mode, autoFilter=true
+			combo = document.getElementById("combo1");
+			storeTestingInfo(document.getElementById("combo1"));
+
+			// single selection mode, autoFilter=true
+			combo = document.getElementById("combo2");
+			storeTestingInfo(document.getElementById("combo2"));
+
+			// multiple selection mode
+			combo = document.getElementById("combo3");
+			storeTestingInfo(document.getElementById("combo3"));
+
+			// Used by the automatic functional test, for comboboxes in both
+			// single and multiple selection modes.
+			getComboState = function (comboId) {
+				var combo = document.getElementById(comboId);
+				var inputEventCounter = combo._inputEventCounter;
+				var changeEventCounter = combo._changeEventCounter;
+				// Reset the counters such that at next call only the new events
+				// are counted. This is convenient, because it allows to change parts of
+				// the automatic test without needing to update the expected values for
+				// counters in the remaining testing sequence.
+				combo._inputEventCounter = 0;
+				combo._changeEventCounter = 0;
+
+				var activeDescendantNode = document.getElementById(
+						combo.inputNode.getAttribute("aria-activedescendant"));
+				return {
+					inputNodeValue: combo.inputNode.value,
+					widgetValue: combo.value,
+					valueNodeValue: combo.valueNode.value,
+					opened: combo.opened,
+					selectedItemsCount: combo.list.selectedItems.length,
+					itemRenderersCount: combo.list.getItemRenderers().length,
+					inputEventCounter: inputEventCounter,
+					changeEventCounter: changeEventCounter,
+					widgetValueAtLatestInputEvent: combo._widgetValueAtLatestInputEvent,
+					valueNodeValueAtLatestInputEvent: combo._valueNodeValueAtLatestInputEvent,
+					widgetValueAtLatestChangeEvent: combo._widgetValueAtLatestChangeEvent,
+					valueNodeValueAtLatestChangeEvent: combo._valueNodeValueAtLatestChangeEvent,
+					selectionMode: combo.selectionMode,
+					autoFilter: combo.autoFilter,
+					multipleChoiceNoSelectionMsg: combo.multipleChoiceNoSelectionMsg,
+					multipleChoiceMsg: combo.multipleChoiceMsg,
+					activeDescendant: activeDescendantNode && activeDescendantNode.textContent.trim()
+				};
+			};
+
 			ready = true;
 		});
 	</script>

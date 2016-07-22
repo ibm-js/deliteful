@@ -394,7 +394,7 @@ define([
 					(evt.triggerEvent.type === "keydown" || evt.triggerEvent.type === "keypress")) {
 					this._updateScroll(item, true);
 				}
-				this._setActiveDescendant();
+				this._setActiveDescendant(navigatedChild);
 			}.bind(this));
 
 			this.list.on("click", function (evt) {
@@ -718,7 +718,7 @@ define([
 
 				return promise.then(function () {
 					this._updateScroll(undefined, true);	// sets this.list.navigatedDescendant
-					this._setActiveDescendant();
+					this._setActiveDescendant(this.list.navigatedDescendant);
 				}.bind(this));
 			};
 		}),
@@ -792,8 +792,7 @@ define([
 			}
 		},
 
-		_setActiveDescendant: function () {
-			var nd = this.list.navigatedDescendant;
+		_setActiveDescendant: function (nd) {
 			if (nd) {
 				if (!nd.id) {
 					nd.id = "d-combobox-item-" + idCounter++;

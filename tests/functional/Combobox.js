@@ -13,7 +13,7 @@ define([
 			.then(pollUntil("return ready ? true : null;", [],
 					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 	};
-	
+
 	var checkComboState = function (comboId, comboState, expectedComboState, stepName) {
 		// comboState is an object retrieved from the browser, containing
 		// the state of the Combobox.
@@ -32,7 +32,7 @@ define([
 				assert.strictEqual(value, expectedValue, msg + " strictEqual");
 			}
 		};
-		
+
 		assert.strictEqual(comboState.inputNodeValue, expectedComboState.inputNodeValue,
 			selectionMode + " combo.inputNode.value " + stepName + " " +
 			comboId + ".inputNode.value");
@@ -44,18 +44,18 @@ define([
 				comboId + ".value");
 		assert.strictEqual(comboState.opened, expectedComboState.opened,
 			selectionMode + " combo.opened " + stepName);
-		
+
 		assert.strictEqual(comboState.selectedItemsCount, expectedComboState.selectedItemsCount,
 			selectionMode + " combo.selectedItemsCount " + stepName);
 		assert.strictEqual(comboState.itemRenderersCount, expectedComboState.itemRenderersCount,
 			selectionMode + " combo.opened " + stepName);
-		
+
 		// The event counters count the new events since the previous check.
 		assert.strictEqual(comboState.inputEventCounter, expectedComboState.inputEventCounter,
 			selectionMode + " combo.inputEventCounter " + stepName);
 		assert.strictEqual(comboState.changeEventCounter, expectedComboState.changeEventCounter,
 			selectionMode + " combo.changeEventCounter " + stepName);
-			
+
 		assertEqualValue(comboState.widgetValueAtLatestInputEvent,
 			expectedComboState.widgetValueAtLatestInputEvent,
 			selectionMode + " combo.value at latest input event " + stepName);
@@ -70,7 +70,7 @@ define([
 			expectedComboState.valueNodeValueAtLatestChangeEvent,
 			selectionMode + " combo.valueNode.value at latest change event " + stepName);
 	};
-	
+
 	// Check the state of the widget after selecting options using the keyboard.
 	var checkKeyboardNavigationSingleSelection = function (remote, comboId, autoFilter) {
 		// Expression executed in the browser for collecting data allowing to
@@ -208,7 +208,7 @@ define([
 						valueNodeValueAtLatestChangeEvent: "Germany"
 					}, "after ESCAPE");
 			});
-			
+
 		// Additional tests for autoFilter=true
 		if (autoFilter) {
 			res = res
@@ -329,7 +329,7 @@ define([
 						}, "after closing with ENTER the filtered list");
 				});
 		}
-		
+
 		return res;
 	};
 
@@ -511,7 +511,7 @@ define([
 			.pressKeys(keys.ARROW_DOWN)
 			.execute(executeExpr)
 			.then(function (comboState) {
-				// Navigates to next item (Germany). 
+				// Navigates to next item (Germany).
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: "France",
@@ -574,7 +574,7 @@ define([
 					}, "after ESCAPE");
 			});
 	};
-	
+
 	// Check the state of the widget after selecting options using the mouse (clicks).
 	var checkMouseNavigationSingleSelection = function (remote, comboId) {
 		// Expression executed in the browser for collecting data allowing to
@@ -628,7 +628,7 @@ define([
 			})
 			.end()
 			// For some reason, using remote.click() for a category leads to this error
-			// (at least with ChromeDriver): 
+			// (at least with ChromeDriver):
 			// "unknown error: Element is not clickable at point (118, 136). Other element
 			// would receive the click". Hence, instead of
 			// .findById(comboId + "_category0") // first item, which is a category
@@ -681,7 +681,7 @@ define([
 			})
 			.end();
 	};
-	
+
 	// Check the state of the widget after selecting options using the mouse (clicks).
 	var checkMouseNavigationMultipleSelection = function (remote, comboId) {
 		// Expression executed in the browser for collecting data allowing to
@@ -733,7 +733,7 @@ define([
 			})
 			.end()
 			// For some reason, using remote.click() for a category leads to this error
-			// (at least with ChromeDriver): 
+			// (at least with ChromeDriver):
 			// "unknown error: Element is not clickable at point (118, 136). Other element
 			// would receive the click". Hence, instead of
 			// .findById(comboId + "_category0") // first item, which is a category
@@ -831,7 +831,7 @@ define([
 			})
 			.end();
 	};
-	
+
 	// Check the autoscroll mechanism
 	var checkKeyboardNavigationAutoscroll = function (remote, comboId) {
 		return loadFile(remote, "./Combobox-decl.html")
@@ -850,7 +850,7 @@ define([
 			})
 			.execute(comboId + ".closeDropDown();");
 	};
-	
+
 	registerSuite({
 		name: "Combobox - functional",
 
@@ -915,7 +915,7 @@ define([
 				})
 				.end();
 		},
-		
+
 		"keyboard navigation selectionMode=single, autoFilter=false": function () {
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
@@ -923,7 +923,7 @@ define([
 			}
 			return checkKeyboardNavigationSingleSelection(remote, "combo1", false);
 		},
-		
+
 		"keyboard navigation selectionMode=single, autoFilter=true": function () {
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
@@ -931,7 +931,7 @@ define([
 			}
 			return checkKeyboardNavigationSingleSelection(remote, "combo2", true);
 		},
-		
+
 		"keyboard navigation selectionMode = multiple": function () {
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
@@ -939,7 +939,7 @@ define([
 			}
 			return checkKeyboardNavigationMultipleSelection(remote, "combo3");
 		},
-		
+
 		"keyboard navigation - autoscroll (single)": function () {
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
@@ -947,7 +947,7 @@ define([
 			}
 			return checkKeyboardNavigationAutoscroll(remote, "combo1");
 		},
-		
+
 		"keyboard navigation - autoscroll (multiple)": function () {
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
@@ -955,7 +955,7 @@ define([
 			}
 			return checkKeyboardNavigationAutoscroll(remote, "combo3");
 		},
-		
+
 		"mouse navigation selectionMode=single, autoFilter=false": function () {
 			var remote = this.remote;
 			if (remote.environmentType.browserName === "internet explorer") {
@@ -968,7 +968,7 @@ define([
 			}
 			return checkMouseNavigationSingleSelection(remote, "combo1");
 		},
-		
+
 		"mouse navigation selectionMode=multiple": function () {
 			var remote = this.remote;
 			if (remote.environmentType.browserName === "internet explorer") {
@@ -980,38 +980,6 @@ define([
 				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
 			}
 			return checkMouseNavigationMultipleSelection(remote, "combo3");
-		},
-
-		mobile: function () {
-			var remote = this.remote;
-
-			if (remote.environmentType.browserName === "internet explorer") {
-				// https://github.com/theintern/leadfoot/issues/17
-				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
-			}
-			if (remote.environmentType.platformName === "iOS") {
-				// https://github.com/theintern/leadfoot/issues/61
-				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
-			}
-
-			// TODO: Test that popup works in general:
-			//	1. Popup shows up with list.
-			//	2. Filtering works
-			//	3. Selecting values works (for all 3 cases in test file)
-
-
-			// Test that popup title shows up correctly.
-			return loadFile(remote, "./ComboPopup.html")
-				.findById("combo1")
-					.click()
-					.end()
-				.setFindTimeout(intern.config.WAIT_TIMEOUT)
-				.findByCssSelector(".d-combo-popup-header")
-					.getVisibleText()
-					.then(function (value) {
-						assert.strictEqual(value, "Simple Combobox popup");
-					})
-					.end();
 		}
 	});
 });
