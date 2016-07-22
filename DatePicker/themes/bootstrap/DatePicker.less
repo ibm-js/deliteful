@@ -2,79 +2,76 @@
 @import "../../../../delite/themes/bootstrap/variables.less";
 
 .d-date-picker {
+	display: inline-block;
 	border: solid black 1px;
 	padding: 5px;
 	background: white;
 
-	// Header and footer, for month and year.
-	div {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-
-		.d-chevron-previous::before {
-			content: "\25C0";
-			.d-rtl& {
-				content: "\25B6";
-			}
-		}
-
-		.d-chevron-next::before {
-			content: "\25B6";
-			.d-rtl& {
-				content: "\25C0";
-			}
-		}
+	tr {
+		min-width: 250px;
 	}
 
-	// Styling of table cells.
 	th, td {
 		padding: 5px;
+		text-align: center;
 	}
-	td {
-		text-align: right;
+
+	// Arrows.
+	.d-date-picker-button {
+		cursor: pointer;
 		&:hover {
 			background: lightgray;
 		}
 	}
-	.d-date-picker-other-month {
-		color: gray;
+	.d-caret-previous::before {
+		content: "\25C0";
+		.d-rtl& {
+			content: "\25B6";
+		}
+	}
+	.d-caret-next::before {
+		content: "\25B6";
+		.d-rtl& {
+			content: "\25C0";
+		}
 	}
 
-	.d-date-picker-today {
-		color: blue;
-	}
-
-	.d-date-picker-selected, .d-date-picker-selected:hover {
-		color: white;
-		background: blue;
-	}
-
-	th, .d-month, .d-year {
-		font-weight: bold;
-	}
-
+	// Label for month and year.
 	.d-month, .d-year {
 		color: blue;
 		font-size: 18px;
 	}
 
-	button, td {
+	// Table cell with date number.
+	.d-date-picker-date {
 		cursor: pointer;
+		&:hover {
+			background: lightgray;
+		}
 	}
 
-	// Prevent jitter when the number of weekse changes from 4 to 5 to 6.
-	// The jitter is only problematic because there are next/previous buttons under the <table>.
-	// Unfortunately flex:1 on the <table> doesn't make it stretch correctly, so using a spacer <div>.
-	// Could alternately always keep the table at 6 rows long (with &nbsp; in the unused cells)
-	min-height: 300px;
-	.d-ie & {
-		height: 300px;	// flex:1 doesn't work in conjunction with min-height on IE11.
+	// Empty <td> just for spacing purposes.
+	.d-date-picker-blank {
+		-webkit-touch-callout: none; // iOS Safari
+		-webkit-user-select: none;   // Chrome/Safari/Opera
+		-moz-user-select: none;      // Firefox
+		-ms-user-select: none;       // Internet Explorer/Edge
+		user-select: none;           // Non-prefixed version, currently not supported by any browser
 	}
-	display: inline-flex;
-	flex-direction: column;
-	justify-content: space-between;
-	.d-date-picker-spacer {
-		flex: 1;
+
+	// Table cell for next or previous month.
+	.d-date-picker-other-month {
+		color: gray;
+	}
+
+	// Table cell for today's date.
+	.d-date-picker-today {
+		color: blue;
+	}
+
+	// Table cell for the selected date (not necessarily the currently focused date).
+	.d-date-picker-selected, .d-date-picker-selected:hover {
+		color: white;
+		background: blue;
 	}
 }

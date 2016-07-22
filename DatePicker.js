@@ -20,7 +20,7 @@ define([
 	/**
 	 * Small calendar to be used as a dropdown, designed for picking a date.
 	 */
-	return register("d-date-picker", [HTMLElement, KeyNav, TimeBase], {
+	return register("d-date-picker", [HTMLTableElement, KeyNav, TimeBase], {
 		baseClass: "d-date-picker",
 
 		template: template,
@@ -105,12 +105,12 @@ define([
 		/**
 		 * CSS class for icon to go to previous month or year.
 		 */
-		previousIconClass: "d-chevron-previous",
+		previousIconClass: "d-caret-previous",
 
 		/**
 		 * CSS class for icon to go to next month or year.
 		 */
-		nextIconClass: "d-chevron-next",
+		nextIconClass: "d-caret-next",
 
 		createdCallback: function () {
 			this.on("click", this.clickHandler.bind(this));
@@ -186,59 +186,53 @@ define([
 				// Create column headers.
 				var d = this.floorToWeek(new this.dateClassObj());
 				for (var i = 0; i < 7; i++) {
-					var cell = this.headerRow.appendChild(this.ownerDocument.createElement("th"));
+					var cell = this.daysRow.appendChild(this.ownerDocument.createElement("th"));
+					cell.id = this.widgetId + "-day-" + i;
 					cell.textContent = this.formatColumnHeaderLabel(d);
 					d = this.dateModule.add(d, "day", 1);
 				}
 
-				// Create template for normal table rows.
-				var tr = this.rowTemplate = this.ownerDocument.createElement("tr");
-				for (var j = 0; j < 7; j++) {
-					var td = tr.insertCell();
-					td.setAttribute("tabIndex", "-1");
+				// Create table rows.
+				for (var row = 0; row < 6; row++) {
+					var tr = this.tbody.insertRow(-1);
+					for (var col = 0; col < 7; col++) {
+						var td = tr.insertCell(-1);
+						td.setAttribute("headers", this.widgetId + "-year " + this.widgetId + "-month " +
+							this.widgetId + "-day-" + col);
+						td.col = col;
+					}
 				}
 			};
 		}),
 
-		postRender: function () {
-			// Move all initially specified aria- attributes to <table>
-			var attr, idx = 0;
-			while ((attr = this.attributes[idx++])) {
-				if (/^aria-/.test(attr.name)) {
-					this.setAttribute(attr.name, attr.value);
-
-					// force remove from root node not focus nodes
-					HTMLElement.prototype.removeAttribute.call(this, attr.name);
-				}
-			}
-		},
-
 		refreshRendering: function (oldVals) {
 			// Code to run when month (or year) has changed.
 			if ("dates" in oldVals && this.dates) {
-				// Adjust number of rows to equal this.dates.length
-				var delta = this.dates.length - this.tbody.children.length;
-				while (delta > 0) {
-					this.tbody.appendChild(this.rowTemplate.cloneNode(true));
-					delta--;
-				}
-				while (delta < 0) {
-					this.tbody.removeChild(this.tbody.lastElementChild);
-					delta++;
-				}
-
 				// Fill in the day numbers and create hash mapping from date string to table cell.
 				this._dayCells = {};
 
+				// Set properties and attributes on table cells, both the cells containing dates,
+				// and the cells that are just for vertical padding.
 				Array.prototype.forEach.call(this.tbody.children, function (tr, rowIdx) {
 					Array.prototype.forEach.call(tr.children, function (td, colIdx) {
-						var d = this.dates[rowIdx][colIdx];
-						td.setAttribute("aria-label", this.formatDateAriaLabel(d));
-						td.col = colIdx;
-						this._dayCells[this._dateToHashKey(d)] = td;
-						td.value = d;
-						td.innerText = this.formatGridCellLabel(d, rowIdx, colIdx);
-						this.styleGridCell(td, d);
+						var d = this.dates[rowIdx] && this.dates[rowIdx][colIdx];
+						if (d) {
+							// This cell contains a date (i.e. a number from 1 - 31).
+							td.setAttribute("aria-label", this.formatDateAriaLabel(d));
+							td.setAttribute("tabindex", "-1");
+							td.className = "d-date-picker-date";
+							this._dayCells[this._dateToHashKey(d)] = td;
+							td.value = d;
+							td.innerText = this.formatGridCellLabel(d, rowIdx, colIdx);
+							this.styleGridCell(td, d);
+						} else {
+							// This cell is just for spacing; it doesn't represent a date.
+							td.removeAttribute("aria-label");
+							td.removeAttribute("tabindex");
+							td.className = "d-date-picker-blank";
+							delete td.value;
+							td.innerHTML = "&nbsp;";
+						}
 					}, this);
 				}, this);
 			}
@@ -396,23 +390,20 @@ define([
 
 		////////////////////////////////////////////
 		//
-		// Keyboard support
+		// Keyboard support.
+		// See https://www.w3.org/TR/wai-aria-practices/#datepicker
 		//
 		///////////////////////////////////////////
 
-		// All the dates cells should be navigable, but not the column header cells.
-		descendantSelector: "td",
+		// All the dates cells should be navigable, but not the column header cells or the blank <td> for spacing.
+		descendantSelector: ".d-date-picker-date",
 
 		previousKeyHandler: function () {
-			var row = this.navigatedDescendant.parentNode;
-			var cell = this.navigatedDescendant.previousElementSibling || row.lastElementChild;
-			this.focus(cell.value);
+			this.focus(this.dateModule.add(this.currentFocus, "day", -1));
 		},
 
 		nextKeyHandler: function () {
-			var row = this.navigatedDescendant.parentNode;
-			var cell = this.navigatedDescendant.nextElementSibling || row.firstElementChild;
-			this.focus(cell.value);
+			this.focus(this.dateModule.add(this.currentFocus, "day", 1));
 		},
 
 		upKeyHandler: function () {
@@ -424,11 +415,11 @@ define([
 		},
 
 		pageUpKeyHandler: function (event) {
-			this.focus(this.dateModule.add(this.currentFocus, event.shiftKey ? "year" : "month", -1));
+			this.focus(this.dateModule.add(this.currentFocus, event.ctrlKey || event.shiftKey ? "year" : "month", -1));
 		},
 
 		pageDownKeyHandler: function (event) {
-			this.focus(this.dateModule.add(this.currentFocus, event.shiftKey ? "year" : "month", 1));
+			this.focus(this.dateModule.add(this.currentFocus,  event.ctrlKey || event.shiftKey ? "year" : "month", 1));
 		},
 
 		homeKeyHandler: function () {
@@ -459,50 +450,6 @@ define([
 			}
 			this.notifyCurrentValue("currentFocus");	// focus it even if same value as before
 			this.deliver();
-		},
-
-		////////////////////////////////////////////////////////////////////////////////////////////
-		// Override setAttribute() etc. to put aria-label etc. onto the <table> rather than the root
-		// node, so that screen readers work properly.
-
-		setAttribute: register.superCall(function (sup) {
-			return function (name, value) {
-				if (/^aria-/.test(name)) {
-					this.table.setAttribute(name, value);
-				} else {
-					sup.call(this, name, value);
-				}
-			};
-		}),
-
-		getAttribute: register.superCall(function (sup) {
-			return function (name) {
-				if (/^aria-/.test(name)) {
-					return this.table.getAttribute(name);
-				} else {
-					return sup.call(this, name);
-				}
-			};
-		}),
-
-		hasAttribute: register.superCall(function (sup) {
-			return function (name) {
-				if (/^aria-/.test(name)) {
-					return this.table.hasAttribute(name);
-				} else {
-					return sup.call(this, name);
-				}
-			};
-		}),
-
-		removeAttribute: register.superCall(function (sup) {
-			return function (name) {
-				if (/^aria-/.test(name)) {
-					this.table.removeAttribute(name);
-				} else {
-					sup.call(this, name);
-				}
-			};
-		})
+		}
 	});
 });

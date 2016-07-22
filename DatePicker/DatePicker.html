@@ -1,21 +1,34 @@
-<template requires="deliteful/Button">
-	<div>
-		<button is="d-button" on-click="{{previousMonthClickHandler}}" label="{{previousMonthButtonLabel}}"
-				showLabel="false" iconClass="{{previousIconClass}}" tabindex="-1"></button>
-		<span class="d-month">{{currentMonthLabel}}</span>
-		<button is="d-button" on-click="{{nextMonthClickHandler}}" label="{{nextMonthButtonLabel}}"
-			showLabel="false" iconClass="{{nextIconClass}}" tabindex="-1"></button>
-	</div>
-	<table attach-point="table">
-		<thead><tr attach-point="headerRow"></tr></thead>
-		<tbody attach-point="tbody,keyNavContainerNode" tabindex="0"></tbody>
-	</table>
-	<div class="d-date-picker-spacer"></div>
-	<div>
-		<button is="d-button" on-click="{{previousYearClickHandler}}" label="{{previousYearButtonLabel}}"
-				showLabel="false" iconClass="{{previousIconClass}}" tabindex="-1"></button>
-		<span class="d-year">{{currentYearLabel}}</span>
-		<button is="d-button" on-click="{{nextYearClickHandler}}" label="{{nextYearButtonLabel}}"
-				showLabel="false" iconClass="{{nextIconClass}}" tabindex="-1"></button>
-	</div>
+<template role="grid" tabindex="0">
+	<thead>
+		<tr>
+			<th class="d-date-picker-button {{previousIconClass}}" on-click="{{previousMonthClickHandler}}"
+				title="{{previousMonthButtonLabel}}" role="presentation"
+				id="{{widgetId}}-prev-month" headers="{{widgetId}}-prev-month">
+			</th>
+			<th class="d-month" colspan="5" id="{{widgetId}}-month">
+				{{currentMonthLabel}}
+			</th>
+			<th class="d-date-picker-button {{nextIconClass}}" on-click="{{nextMonthClickHandler}}"
+				title="{{nextMonthButtonLabel}}" role="presentation"
+				id="{{widgetId}}-next-month" headers="{{widgetId}}-next-month">
+			</th>
+		</tr>
+		<tr class="d-date-picker-days" attach-point="daysRow"></tr>
+	</thead>
+	<tfoot>
+		<tr>
+			<th class="d-date-picker-button {{previousIconClass}}" on-click="{{previousYearClickHandler}}"
+				title="{{previousYearButtonLabel}}" role="presentation"
+				id="{{widgetId}}-prev-year" headers="{{widgetId}}-prev-year">
+			</th>
+			<th class="d-year" colspan="5" id="{{widgetId}}-year">
+				{{currentYearLabel}}
+			</th>
+			<th class="d-date-picker-button {{nextIconClass}}" on-click="{{nextYearClickHandler}}"
+				title="{{nextYearButtonLabel}}" aria-hidden="true" role="presentation"
+				id="{{widgetId}}-next-year" headers="{{widgetId}}-next-year">
+			</th>
+		</tr>
+	</tfoot>
+	<tbody attach-point="tbody"></tbody>
 </template>
