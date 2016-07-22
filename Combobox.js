@@ -362,11 +362,7 @@ define([
 
 			// The role=listbox is required for the list part of a combobox by the
 			// aria spec of role=combobox
-			this.list.setAttribute("role", "listbox");
-
-			// Avoid that List gives focus to list items when navigating, which would
-			// blur the input field used for entering the filtering criteria.
-			this.list.focusDescendants = false;
+			this.list.type = "listbox";
 
 			this.list.selectionMode = this.selectionMode === "single" ?
 				"radio" : "multiple";
@@ -381,12 +377,6 @@ define([
 			}
 
 			this.dropDown = dropDown; // delite/HasDropDown's property
-
-			// Focus stays on the input element
-			this.dropDown.focusOnOpen = false;
-
-			// (temporary?) Workaround for delite #373
-			this.dropDown.focus = null;
 
 			this._initHandlers();
 			this._initValue();
@@ -709,10 +699,17 @@ define([
 				this._selectedItems = this.list.selectedItems;
 
 				if (!this.opened) {
-					this.defer(function () {
-						// Avoid losing focus when clicking the arrow (instead of the input element):
-						this.focusNode.focus();
-					}.bind(this), 300);
+					if(!this._useCenteredDropDown()) { // If not on mobile
+						// Avoid to execute HasDropDown#_focusDropDownOnOpen's dropDown.focus();
+						this.dropDown.focus = false;
+						// Avoid that List gives focus to list items when navigating, which would
+						// blur the input field used for entering the filtering criteria.
+						this.dropDown.focusDescendants = false;
+						this.defer(function () {
+							// Avoid losing focus when clicking the arrow (instead of the input element):
+							this.focusNode.focus();
+						}.bind(this), 300);
+					}
 				}
 
 				var promise = sup.apply(this, arguments);

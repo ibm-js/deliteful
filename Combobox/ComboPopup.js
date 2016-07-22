@@ -2,9 +2,9 @@
 define([
 	"delite/register",
 	"requirejs-dplugins/jquery!attributes/classes",	// addClass()
-	"delite/Widget",
+	"delite/Dialog",
 	"delite/handlebars!./ComboPopup.html"
-], function (register, $, Widget, template) {
+], function (register, $, Dialog, template) {
 	/**
 	 * Auxiliary widget used in some cases by deliteful/Combobox for displaying
 	 * a popup containing conditionally a search field and OK/Cancel buttons.
@@ -14,7 +14,7 @@ define([
 	 * @class module:deliteful/Combobox/ComboPopup
 	 * @augments module:delite/Widget
 	 */
-	return register("d-combo-popup", [HTMLElement, Widget], /** @lends module:deliteful/Combobox/ComboPopup# */ {
+	return register("d-combo-popup", [HTMLElement, Dialog], /** @lends module:deliteful/Combobox/ComboPopup# */ {
 
 		baseClass: "d-combo-popup",
 
@@ -77,6 +77,21 @@ define([
 		cancelHandler: function () {
 			this.combobox.list.selectedItems = this.combobox._selectedItems;
 			this.combobox.closeDropDown();
+		},
+
+		/**
+		 * Called by HasDropDown in order to get the focus on the widget's list.
+		 * @protected
+		 */
+		focus: function () {
+			if (this.combobox.list && this.combobox.list.containerNode.children.length > 0) {
+				var id = this.combobox.list.getIdentity(
+					this.combobox.list.selectedItems.length > 0 ? this.combobox.list.selectedItems[0] : "");
+				var renderer = (id && id !== -1) ? this.combobox.list.getRendererByItemId(id) :
+					this.combobox.list.getRenderers()[0];
+				this.combobox.list.navigateTo(renderer);
+			}
+
 		}
 	});
 });
