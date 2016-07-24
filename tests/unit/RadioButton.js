@@ -13,7 +13,7 @@ define([
 			"<d-radio-button id='rb1' value='rb1' name='choice'></d-radio-button>" +
 			"<d-radio-button id='rb2' value='rb2' name='choice' checked='true'></d-radio-button>" +
 			"<d-radio-button id='rb3' value='rb3' name='choice'></d-radio-button>" +
-			"<label id='lbl4' for='rb3'></label></form>" +
+			"<label id='lbl4' for='rb3-input'></label></form>" +
 			"<d-radio-button id='rb4'></d-radio-button>";
 
 	var suite = {
@@ -165,7 +165,7 @@ define([
 			rb.attachedCallback();
 			var lbl4 = document.createElement("label");
 			lbl4.id = "lbl4";
-			lbl4.setAttribute("for", "rb3");
+			lbl4.setAttribute("for", "rb3-input");
 			lbl4.textContent = "rb3";
 			container.appendChild(lbl4);
 			rb = new RadioButton({id: "rb3", value: "rb3", name: "choice"});
