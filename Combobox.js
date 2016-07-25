@@ -575,6 +575,13 @@ define([
 			return new ComboPopup({combobox: this});
 		},
 
+		/**
+		 * Indicates if a filterin operation is in progress. If so, closeDropDown will perform differently than usual.
+		 * @member {boolean}
+		 * @default false
+		 */
+		filteringInProgress: false,
+
 		_prepareInput: function (inputElement) {
 			this.on("input", function (evt) {
 				// Would be nice to also have an "incrementalFilter" boolean property.
@@ -582,8 +589,19 @@ define([
 				// events, triggered when pressing ENTER. This would also fit for Chrome/Android,
 				// where pressing the search key of the virtual keyboard also triggers a
 				// change event. But there's no equivalent on Safari / iOS...
+				if(this.opened && !this.filteringInProgress) {
+					this.filteringInProgress = true;
+					this.closeDropDown();
+				}
+				// this.filter() call will fire a query-success event. After that, the popup can be opened again.
+				this.own(this.list.on("query-success", function () {
+					if(this.filteringInProgress) {
+						this.filteringInProgress = false;
+						this.openDropDown();
+					}
+				}.bind(this)));
+
 				this.filter(inputElement.value);
-				this.openDropDown(); // reopen if closed
 				// Stop the spurious "input" events emitted while the user types
 				// such that only the "input" events emitted via FormValueWidget.handleOnInput()
 				// bubble to widget's root node.
@@ -683,8 +701,6 @@ define([
 				filterTxt = "^" + filterTxt + "$";
 			} // nothing to add for "contains"
 
-			// TODO: might be nice that, if no item matches the query thus the list is empty,
-			// the popup shows some specific graphic feedback.
 			var rexExp = new RegExp(filterTxt, this.ignoreCase ? "i" : "");
 			this.list.query = (new Filter()).match(this.list.labelAttr, rexExp);
 		},
@@ -726,34 +742,38 @@ define([
 
 		closeDropDown: dcl.superCall(function (sup) {
 			return function () {
-				// cleanup
-				this._selectedItems = null;
 
-				var input = this._popupInput || this.inputNode;
-				input.removeAttribute("aria-activedescendant");
+				// if a filtering operation is not in progress
+				if (!this.filteringInProgress) {
+					// cleanup
+					this._selectedItems = null;
 
-				if (this.opened) {
-					// Using the flag `opened` (managed by delite/HasDropDown), avoid
-					// emitting a new change event if closeDropDown is closed more than once
-					// for a closed dropdown.
+					var input = this._popupInput || this.inputNode;
+					input.removeAttribute("aria-activedescendant");
 
-					// Closing the dropdown represents a commit interaction
-					this.handleOnChange(this.value); // emit "change" event
+					if (this.opened) {
+						// Using the flag `opened` (managed by delite/HasDropDown), avoid
+						// emitting a new change event if closeDropDown is closed more than once
+						// for a closed dropdown.
 
-					// Reinit the query. Necessary such that after closing the dropdown
-					// in autoFilter mode with a text in the input field not matching
-					// any item, when the dropdown will be reopen it shows all items
-					// instead of being empty
-					this.list.query = {};
+						// Closing the dropdown represents a commit interaction
+						this.handleOnChange(this.value); // emit "change" event
 
-					if (this.selectionMode === "single" && this.autoFilter) {
-						// In autoFilter mode, reset the content of the inputNode when
-						// closing the dropdown, such that next time the dropdown is opened
-						// it doesn't show the text the user may have entered for filtering
-						var selItem = this.list.selectedItem;
-						if (selItem) {
-							(this._popupInput || this.inputNode).value =
-								this._getItemLabel(this.list.selectedItem);
+						// Reinit the query. Necessary such that after closing the dropdown
+						// in autoFilter mode with a text in the input field not matching
+						// any item, when the dropdown will be reopen it shows all items
+						// instead of being empty
+						this.list.query = {};
+
+						if (this.selectionMode === "single" && this.autoFilter) {
+							// In autoFilter mode, reset the content of the inputNode when
+							// closing the dropdown, such that next time the dropdown is opened
+							// it doesn't show the text the user may have entered for filtering
+							var selItem = this.list.selectedItem;
+							if (selItem) {
+								(this._popupInput || this.inputNode).value =
+									this._getItemLabel(this.list.selectedItem);
+							}
 						}
 					}
 				}
