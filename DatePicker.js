@@ -2,8 +2,11 @@ define([
 	"requirejs-dplugins/jquery!attributes/classes",
 	"dojo/i18n",
 	"delite/register",
+	"delite/HasDropDown",
 	"delite/KeyNav",
+	"./features",
 	"./TimeBase",
+	"./DatePicker/MonthDropDown",
 	"delite/handlebars!./DatePicker/DatePicker.html",
 	"delite/theme!./DatePicker/themes/{{theme}}/DatePicker.css",
 	"delite/uacss"	// CSS has workaround for IE11
@@ -11,8 +14,11 @@ define([
 	$,
 	i18n,
 	register,
+	HasDropDown,
 	KeyNav,
+	has,
 	TimeBase,
+	MonthDropDown,
 	template
 ) {
 	"use strict";
@@ -20,7 +26,7 @@ define([
 	/**
 	 * Small calendar to be used as a dropdown, designed for picking a date.
 	 */
-	return register("d-date-picker", [HTMLTableElement, KeyNav, TimeBase], {
+	return register("d-date-picker", [HTMLTableElement, KeyNav, TimeBase, HasDropDown], {
 		baseClass: "d-date-picker",
 
 		template: template,
@@ -112,6 +118,11 @@ define([
 		 */
 		nextIconClass: "d-caret-next",
 
+		/**
+		 * CSS class for icon next to month label, to open dropdown.
+		 */
+		downChevronIconClass: "d-chevron-down",
+
 		createdCallback: function () {
 			this.on("click", this.clickHandler.bind(this));
 
@@ -122,6 +133,11 @@ define([
 			this.nextMonthButtonLabel = bundle["field-month-relative+1"];
 			this.previousYearButtonLabel = bundle["field-year-relative+-1"];
 			this.nextYearButtonLabel = bundle["field-year-relative+1"];
+
+			if (!has("desktop-like-channel")) {
+				// By default, match Combobox behavior.  Subclass can override in its createdCallback().
+				this.dropDownPosition = ["center"];
+			}
 		},
 
 		// Helper function to convert date to a hash key.
@@ -268,6 +284,15 @@ define([
 		 */
 		formatColumnHeaderLabel: function (d) {
 			return this.dateLocaleModule.getNames("days", "narrow", "standAlone")[d.getDay()];
+		},
+
+		/**
+		 * Get names of months (for month dropdown)
+		 * @returns {string[]}
+		 * @protected
+		 */
+		getMonthNames: function () {
+			return this.dateLocaleModule.getNames("months", "wide");
 		},
 
 		/**
@@ -450,6 +475,24 @@ define([
 			}
 			this.notifyCurrentValue("currentFocus");	// focus it even if same value as before
 			this.deliver();
+		},
+
+		////////////////////////////////////////////////////////////////////////////////////////
+		// Month dropdown support.
+		// Since there's only one dropdown, DatePicker itself extends HasDropDown.
+		// If there were also a year dropdown, then we would need a Select-type widget.
+		//////////////////////////////////////////// ////////////////////////////////////////////
+
+		loadDropDown: function () {
+			if (!this.dropDown) {
+				this.dropDown = new MonthDropDown({
+					months: this.getMonthNames()
+				});
+				this.dropDown.on("change", function (evt) {
+					this.currentFocus.setMonth(evt.month);
+				}.bind(this));
+			}
+			return this.dropDown;
 		}
 	});
 });

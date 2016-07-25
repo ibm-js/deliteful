@@ -5,8 +5,10 @@
 				title="{{previousMonthButtonLabel}}" role="presentation"
 				id="{{widgetId}}-prev-month" headers="{{widgetId}}-prev-month">
 			</th>
-			<th class="d-month" colspan="5" id="{{widgetId}}-month">
-				{{currentMonthLabel}}
+			<th class="d-month" colspan="5" id="{{widgetId}}-month" attach-point="buttonNode, aroundNode"
+				role="presentation" id="{{widgetId}}-month-dropdown" headers="{{widgetId}}-month-dropdown">
+				<span class="d-month-label">{{currentMonthLabel}}</span><span aria-hidden="true"
+																			  class="{{downChevronIconClass}}"></span>
 			</th>
 			<th class="d-date-picker-button {{nextIconClass}}" on-click="{{nextMonthClickHandler}}"
 				title="{{nextMonthButtonLabel}}" role="presentation"

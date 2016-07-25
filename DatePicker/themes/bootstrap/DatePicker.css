@@ -1,10 +1,12 @@
 .d-date-picker {
-  display: inline-block;
   border: solid black 1px;
   padding: 5px;
   background: white;
-}
-.d-date-picker tr {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   min-width: 250px;
 }
 .d-date-picker th,
@@ -14,6 +16,7 @@
 }
 .d-date-picker .d-date-picker-button {
   cursor: pointer;
+  color: blue;
 }
 .d-date-picker .d-date-picker-button:hover {
   background: lightgray;
@@ -30,23 +33,33 @@
 .d-rtl.d-date-picker .d-caret-next::before {
   content: "\25C0";
 }
-.d-date-picker .d-month,
-.d-date-picker .d-year {
+.d-date-picker .d-month {
+  cursor: pointer;
   color: blue;
+}
+.d-date-picker .d-month:hover {
+  background: lightgray;
+}
+.d-date-picker .d-month .d-month-label {
   font-size: 18px;
+}
+.d-date-picker .d-month .d-chevron-down {
+  display: inline-block;
+  margin-left: 5px;
+}
+.d-rtl.d-date-picker .d-month .d-chevron-down {
+  margin-left: 0px;
+  margin-right: 5px;
+}
+.d-date-picker .d-month .d-chevron-down::after {
+  vertical-align: center;
+  content: "\2228";
 }
 .d-date-picker .d-date-picker-date {
   cursor: pointer;
 }
 .d-date-picker .d-date-picker-date:hover {
   background: lightgray;
-}
-.d-date-picker .d-date-picker-blank {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 .d-date-picker .d-date-picker-other-month {
   color: gray;
@@ -58,4 +71,20 @@
 .d-date-picker .d-date-picker-selected:hover {
   color: white;
   background: blue;
+}
+.d-date-picker .d-year {
+  color: blue;
+  font-size: 18px;
+}
+.d-month-drop-down {
+  display: block;
+  border: solid black 1px;
+}
+.d-month-drop-down > * {
+  cursor: pointer;
+  text-align: center;
+  padding: 2px;
+}
+.d-month-drop-down > *:hover {
+  background: lightgray;
 }

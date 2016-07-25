@@ -1,24 +1,30 @@
 @import "../../../../delite/themes/bootstrap/includes";
 @import "../../../../delite/themes/bootstrap/variables.less";
 
+// The calendar itself.
 .d-date-picker {
-	display: inline-block;
 	border: solid black 1px;
 	padding: 5px;
 	background: white;
 
-	tr {
-		min-width: 250px;
-	}
+	-webkit-touch-callout: none; // iOS Safari
+	-webkit-user-select: none;   // Chrome/Safari/Opera
+	-moz-user-select: none;      // Firefox
+	-ms-user-select: none;       // Internet Explorer/Edge
+	user-select: none;           // Non-prefixed version, currently not supported by any browser
+
+	// Set min-width so DatePicker is constant width regardless of which month is selected.
+	min-width: 250px;
 
 	th, td {
 		padding: 5px;
 		text-align: center;
 	}
 
-	// Arrows.
+	// Arrows to go to next/previous month/year.
 	.d-date-picker-button {
 		cursor: pointer;
+		color: blue;
 		&:hover {
 			background: lightgray;
 		}
@@ -36,10 +42,31 @@
 		}
 	}
 
-	// Label for month and year.
-	.d-month, .d-year {
+	// Label for month (when clicked, opens drop down).
+	.d-month {
+		cursor: pointer;
 		color: blue;
-		font-size: 18px;
+
+		&:hover {
+			background: lightgray;
+		}
+
+		.d-month-label {
+			font-size: 18px;
+		}
+
+		.d-chevron-down {
+			display: inline-block;
+			margin-left: 5px;
+			.d-rtl& {
+				margin-left: 0px;
+				margin-right: 5px;
+			}
+			&::after {
+				vertical-align: center;
+				content: "\2228";    // just because actual caret (\2304) is *tiny*
+			}
+		}
 	}
 
 	// Table cell with date number.
@@ -48,15 +75,6 @@
 		&:hover {
 			background: lightgray;
 		}
-	}
-
-	// Empty <td> just for spacing purposes.
-	.d-date-picker-blank {
-		-webkit-touch-callout: none; // iOS Safari
-		-webkit-user-select: none;   // Chrome/Safari/Opera
-		-moz-user-select: none;      // Firefox
-		-ms-user-select: none;       // Internet Explorer/Edge
-		user-select: none;           // Non-prefixed version, currently not supported by any browser
 	}
 
 	// Table cell for next or previous month.
@@ -73,5 +91,26 @@
 	.d-date-picker-selected, .d-date-picker-selected:hover {
 		color: white;
 		background: blue;
+	}
+
+	// Label for year.
+	.d-year {
+		color: blue;
+		font-size: 18px;
+	}
+}
+
+// The drop down for list of months.
+.d-month-drop-down {
+	display: block;
+	border: solid black 1px;
+	> * {
+		cursor: pointer;
+		text-align: center;
+		padding: 2px;
+
+		&:hover {
+			background: lightgray;
+		}
 	}
 }

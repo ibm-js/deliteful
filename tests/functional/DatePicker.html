@@ -8,16 +8,16 @@
 		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 
-	<link rel="stylesheet" href="../../delite/themes/defaultapp.css">
+	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
 
-	<script type="text/javascript" src="../../requirejs/require.js"></script>
+	<script type="text/javascript" src="../../../requirejs/require.js"></script>
 
 	<script type="text/javascript">
 		require.config({
-			baseUrl: "../.."
+			baseUrl: "../../.."
 		});
 
-		require(["deliteful/DatePicker"], function(DatePicker){});
+		require(["deliteful/DatePicker"], function(){});
 
 		function onChange(evt) {
 			console.debug("value set to ", evt.target.value);
