@@ -20,13 +20,14 @@
 
 		require([
 			"delite/register",
+			"delite/Viewport",
 			"deliteful/list/List",
 			"deliteful/Combobox",
 			"deliteful/RadioButton",
 			"deliteful/Checkbox",
 			"delite/theme!delite/themes/{{theme}}/global.css", // page level CSS
 			"requirejs-domready/domReady!"
-		], function (register) {
+		], function (register, Viewport) {
 			register.deliver();
 
 			startsWith.on("change", function () {
@@ -127,6 +128,28 @@
 					activeDescendant: activeDescendantNode && activeDescendantNode.textContent.trim()
 				};
 			};
+
+			isAligned = function (comboId, pos) {
+				var combo = document.getElementById(comboId);
+				var popup = document.getElementById(comboId +  "_dropdown_wrapper");
+				var comboClientRect = combo.getBoundingClientRect();
+				var popupClientRect = popup.getBoundingClientRect();
+
+				return {
+					popup: popupClientRect,
+					combo: comboClientRect,
+					isAligned: (pos === "below") ?
+						Math.abs(comboClientRect.bottom - popupClientRect.top) <= 3 :
+						Math.abs(comboClientRect.top - popupClientRect.bottom) <= 3
+				}
+			};
+
+			moveToBottom = function (comboId) {
+				var viewport = Viewport.getEffectiveBox();
+				var bottomNode = document.getElementById("bottomNode");
+				bottomNode.style.cssText = "position: fixed; bottom: 0;"
+				document.getElementById(comboId).placeAt(bottomNode);
+			}
 
 			ready = true;
 		});
@@ -665,6 +688,6 @@
 	<input id="submitB" type="submit">
 </fieldset>
 </form>
-
+<div id="bottomNode"></div>
 </body>
 </html>
