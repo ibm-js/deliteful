@@ -851,18 +851,6 @@ define([
 			.execute(comboId + ".closeDropDown();");
 	};
 
-	/*var checkPopupPosition = function (remote, comboId, position) {
-		return loadFile(remote, "./Combobox-decl.html")
-			.findById(comboId)
-			.click() // opens popup
-			.sleep(500)
-			.execute("return isAligned(\"" + comboId + "\", \"" + position + "\")")
-			.then(function (value) {
-				assert.isTrue(value.isAligned, comboId + "'s popup is not aligned as expected.");
-			})
-			.end();
-	};*/
-
 	var checkPopupPosition = function (remote, comboId, position) {
 		return loadFile(remote, "./Combobox-decl.html")
 			.execute("return moveToBottom(\"" + comboId + "\");")
