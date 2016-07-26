@@ -851,47 +851,42 @@ define([
 			.execute(comboId + ".closeDropDown();");
 	};
 
-	var checkPopupPosition = function (remote, comboId, position) {
+	/*var checkPopupPosition = function (remote, comboId, position) {
 		return loadFile(remote, "./Combobox-decl.html")
 			.findById(comboId)
 			.click() // opens popup
 			.sleep(500)
 			.execute("return isAligned(\"" + comboId + "\", \"" + position + "\")")
 			.then(function (value) {
-				assert.strictEqual(value.isAligned, true, comboId + "'s popup is not aligned as expected.");
+				assert.isTrue(value.isAligned, comboId + "'s popup is not aligned as expected.");
 			})
 			.end();
-	};
+	};*/
 
-	var checkPopupPositionAfterFilter = function (remote, comboId, position) {
+	var checkPopupPosition = function (remote, comboId, position) {
 		return loadFile(remote, "./Combobox-decl.html")
+			.execute("return moveToBottom(\"" + comboId + "\");")
 			.findById(comboId)
 			.click() // opens popup
 			.sleep(500)
-			.execute("return isAligned(\"" + comboId + "\", \"above\")")
+			.execute("return isAligned(\"" + comboId + "\", \"" + position + "\")")
 			.then(function (value) {
-				assert.strictEqual(value.isAligned, true, comboId + "'s popup is not aligned as expected.");
+				assert.isTrue(value.isAligned, comboId + "'s popup is not aligned as expected.");
 			})
 			.pressKeys(keys.BACKSPACE) // Delete the 2 chars of "France" -> "Fran"
 			.pressKeys(keys.BACKSPACE)
-			.execute("return isAligned(\"" + comboId + "\", \"above\")")
+			.execute("return isAligned(\"" + comboId + "\", \"" + position + "\")")
 			.then(function (value) {
-				assert.strictEqual(value.isAligned, true, comboId + "'s popup is not aligned as expected.");
+				assert.isTrue(value.isAligned, comboId + "'s popup is not aligned as expected.");
 			})
 			.pressKeys(keys.BACKSPACE)
 			.pressKeys(keys.BACKSPACE)
 			.pressKeys(keys.BACKSPACE)
 			.pressKeys(keys.BACKSPACE) // input field cleared.
-			.pressKeys("c")
-			.execute("return isAligned(\"" + comboId + "\", \"above\")")
+			.pressKeys("c") // Canada & China as result.
+			.execute("return isAligned(\"" + comboId + "\", \"" + position + "\")")
 			.then(function (value) {
-				assert.strictEqual(value.isAligned, true, comboId + "'s popup is not aligned as expected.");
-			})
-			.pressKeys(keys.BACKSPACE) // input field cleared.
-			.pressKeys("fake input") // empy list returned.
-			.execute("return isAligned(\"" + comboId + "\", \"below\")")
-			.then(function (value) {
-				assert.strictEqual(value.isAligned, true, comboId + "'s popup is not aligned as expected.");
+				assert.isTrue(value.isAligned, comboId + "'s popup is not aligned as expected.");
 			})
 			.end();
 	};
@@ -1027,32 +1022,6 @@ define([
 			return checkMouseNavigationMultipleSelection(remote, "combo3");
 		},
 
-		"popup is below" : function () {
-			var remote = this.remote;
-			if (remote.environmentType.browserName === "internet explorer") {
-				// https://github.com/theintern/leadfoot/issues/17
-				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
-			}
-			if (remote.environmentType.platformName === "iOS") {
-				// https://github.com/theintern/leadfoot/issues/61
-				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
-			}
-			return checkPopupPosition(remote, "combo1", "below");
-		},
-
-		"popup is above": function () {
-			var remote = this.remote;
-			if (remote.environmentType.browserName === "internet explorer") {
-				// https://github.com/theintern/leadfoot/issues/17
-				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
-			}
-			if (remote.environmentType.platformName === "iOS") {
-				// https://github.com/theintern/leadfoot/issues/61
-				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
-			}
-			return checkPopupPosition(remote, "combo1-value", "above");
-		},
-
 		"popup position after filter": function () {
 			var remote = this.remote;
 			if (remote.environmentType.browserName === "internet explorer") {
@@ -1063,7 +1032,7 @@ define([
 				// https://github.com/theintern/leadfoot/issues/61
 				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
 			}
-			return checkPopupPositionAfterFilter(remote, "combo1-value");
+			return checkPopupPosition(remote, "combo2-custom-sel-single", "above");
 		}
 	});
 });
