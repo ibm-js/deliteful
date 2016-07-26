@@ -576,7 +576,7 @@ define([
 		},
 
 		/**
-		 * Indicates if a filterin operation is in progress. If so, closeDropDown will perform differently than usual.
+		 * Indicates if a filtering operation is in progress. If so, closeDropDown will perform differently than usual.
 		 * @member {boolean}
 		 * @default false
 		 */
