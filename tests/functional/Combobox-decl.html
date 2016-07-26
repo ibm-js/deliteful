@@ -147,9 +147,7 @@
 			moveToBottom = function (comboId) {
 				var viewport = Viewport.getEffectiveBox();
 				var bottomNode = document.getElementById("bottomNode");
-				bottomNode.style.cssText =
-				"position: absolute; width: 20px; height: 20px; background: yellow; left: 0; top: " +
-				(viewport.h + 80) + "px";
+				bottomNode.style.cssText = "position: fixed; bottom: 0;"
 				document.getElementById(comboId).placeAt(bottomNode);
 			}
 
