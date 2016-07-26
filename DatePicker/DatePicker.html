@@ -1,14 +1,16 @@
-<template role="grid" tabindex="0">
+<template role="grid" tabindex="0" requires="deliteful/DatePicker/MonthSelect">
 	<thead>
 		<tr>
 			<th class="d-date-picker-button {{previousIconClass}}" on-click="{{previousMonthClickHandler}}"
 				title="{{previousMonthButtonLabel}}" role="presentation"
 				id="{{widgetId}}-prev-month" headers="{{widgetId}}-prev-month">
 			</th>
-			<th class="d-month" colspan="5" id="{{widgetId}}-month" attach-point="buttonNode, aroundNode"
+			<th colspan="5" id="{{widgetId}}-month"
 				role="presentation" id="{{widgetId}}-month-dropdown" headers="{{widgetId}}-month-dropdown">
-				<span class="d-month-label">{{currentMonthLabel}}</span><span aria-hidden="true"
-																			  class="{{downChevronIconClass}}"></span>
+				<d-month-select class="d-month" on-change="monthSelectHandler" months="{{months}}" role="button">
+					<span class="d-month-label">{{currentMonthLabel}}</span><span aria-hidden="true"
+							class="{{downChevronIconClass}}"></span>
+				</d-month-select>
 			</th>
 			<th class="d-date-picker-button {{nextIconClass}}" on-click="{{nextMonthClickHandler}}"
 				title="{{nextMonthButtonLabel}}" role="presentation"

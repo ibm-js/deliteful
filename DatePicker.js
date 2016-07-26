@@ -2,11 +2,9 @@ define([
 	"requirejs-dplugins/jquery!attributes/classes",
 	"dojo/i18n",
 	"delite/register",
-	"delite/HasDropDown",
 	"delite/KeyNav",
 	"./features",
 	"./TimeBase",
-	"./DatePicker/MonthDropDown",
 	"delite/handlebars!./DatePicker/DatePicker.html",
 	"delite/theme!./DatePicker/themes/{{theme}}/DatePicker.css",
 	"delite/uacss"	// CSS has workaround for IE11
@@ -14,11 +12,9 @@ define([
 	$,
 	i18n,
 	register,
-	HasDropDown,
 	KeyNav,
 	has,
 	TimeBase,
-	MonthDropDown,
 	template
 ) {
 	"use strict";
@@ -26,7 +22,7 @@ define([
 	/**
 	 * Small calendar to be used as a dropdown, designed for picking a date.
 	 */
-	return register("d-date-picker", [HTMLTableElement, KeyNav, TimeBase, HasDropDown], {
+	return register("d-date-picker", [HTMLTableElement, KeyNav, TimeBase], {
 		baseClass: "d-date-picker",
 
 		template: template,
@@ -123,6 +119,13 @@ define([
 		 */
 		downChevronIconClass: "d-chevron-down",
 
+		/**
+		 * Names of all the months in the year.
+		 * Populated by default from `dojo/date/locale.getNames()` based on locale.
+		 * @member {string[]}
+		 */
+		months: [],
+
 		createdCallback: function () {
 			this.on("click", this.clickHandler.bind(this));
 
@@ -134,10 +137,7 @@ define([
 			this.previousYearButtonLabel = bundle["field-year-relative+-1"];
 			this.nextYearButtonLabel = bundle["field-year-relative+1"];
 
-			if (!has("desktop-like-channel")) {
-				// By default, match Combobox behavior.  Subclass can override in its createdCallback().
-				this.dropDownPosition = ["center"];
-			}
+			this.months = this.dateLocaleModule.getNames("months", "wide");
 		},
 
 		// Helper function to convert date to a hash key.
@@ -287,15 +287,6 @@ define([
 		},
 
 		/**
-		 * Get names of months (for month dropdown)
-		 * @returns {string[]}
-		 * @protected
-		 */
-		getMonthNames: function () {
-			return this.dateLocaleModule.getNames("months", "wide");
-		},
-
-		/**
 		 * Compute the label for a grid cell.  Should be just the number, ex: 9 not 9日.
 		 * @param {Date} d - The date to format.
 		 * @param {number} row - The row that displays the current date.
@@ -413,6 +404,19 @@ define([
 			this.focus(this.dateModule.add(this.currentFocus, "year", -1));
 		},
 
+		/**
+		 * Selection from month drop down.
+		 */
+		monthSelectHandler: function (evt) {
+			var newDate = new this.dateClassObj(this.currentFocus.getFullYear(), evt.month,
+				this.currentFocus.getDate());
+			if (newDate.getMonth() > evt.month) {
+				// Corner case where we try to go from March 31 --> Feb 31, and then end up on March 3.
+				newDate = this.dateModule.add(newDate, "day", -1 * (newDate.getDate() + 1));
+			}
+			this.focus(newDate);
+		},
+
 		////////////////////////////////////////////
 		//
 		// Keyboard support.
@@ -475,24 +479,6 @@ define([
 			}
 			this.notifyCurrentValue("currentFocus");	// focus it even if same value as before
 			this.deliver();
-		},
-
-		////////////////////////////////////////////////////////////////////////////////////////
-		// Month dropdown support.
-		// Since there's only one dropdown, DatePicker itself extends HasDropDown.
-		// If there were also a year dropdown, then we would need a Select-type widget.
-		//////////////////////////////////////////// ////////////////////////////////////////////
-
-		loadDropDown: function () {
-			if (!this.dropDown) {
-				this.dropDown = new MonthDropDown({
-					months: this.getMonthNames()
-				});
-				this.dropDown.on("change", function (evt) {
-					this.currentFocus.setMonth(evt.month);
-				}.bind(this));
-			}
-			return this.dropDown;
 		}
 	});
 });

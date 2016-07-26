@@ -33,25 +33,26 @@
 .d-rtl.d-date-picker .d-caret-next::before {
   content: "\25C0";
 }
-.d-date-picker .d-month {
+.d-date-picker .d-month-select {
   cursor: pointer;
   color: blue;
+  padding: 2px 0;
 }
-.d-date-picker .d-month:hover {
+.d-date-picker .d-month-select:hover {
   background: lightgray;
 }
-.d-date-picker .d-month .d-month-label {
+.d-date-picker .d-month-select .d-month-label {
   font-size: 18px;
 }
-.d-date-picker .d-month .d-chevron-down {
+.d-date-picker .d-month-select .d-chevron-down {
   display: inline-block;
   margin-left: 5px;
 }
-.d-rtl.d-date-picker .d-month .d-chevron-down {
+.d-rtl.d-date-picker .d-month-select .d-chevron-down {
   margin-left: 0px;
   margin-right: 5px;
 }
-.d-date-picker .d-month .d-chevron-down::after {
+.d-date-picker .d-month-select .d-chevron-down::after {
   vertical-align: center;
   content: "\2228";
 }
@@ -82,8 +83,7 @@
 }
 .d-month-drop-down > * {
   cursor: pointer;
-  text-align: center;
-  padding: 2px;
+  padding: 3px 5px;
 }
 .d-month-drop-down > *:hover {
   background: lightgray;
