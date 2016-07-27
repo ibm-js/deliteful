@@ -13,7 +13,7 @@ define([
 		html = "<d-switch id='sw1'></d-switch>" +
 			"<d-switch id='sw2' checked='true' value='foo' name='sw2' disabled='true'" +
 			"checkedLabel='ON' uncheckedLabel='OFF'></d-switch>" +
-			"<d-switch id='sw3'></d-switch><label id='lbl4' for='sw3'>Foo</label>";
+			"<d-switch id='sw3'></d-switch><label id='lbl4' for='sw3-input'>Foo</label>";
 
 	var suite = {
 
@@ -126,7 +126,7 @@ define([
 			container.appendChild(cb);
 			cb.attachedCallback();
 			var lbl = document.createElement("label");
-			lbl.setAttribute("for", "sw3");
+			lbl.setAttribute("for", "sw3-input");
 			lbl.setAttribute("id", "lbl4");
 			container.appendChild(lbl);
 		}
