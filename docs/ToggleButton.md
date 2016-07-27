@@ -13,11 +13,11 @@ and labels for each state. It is a subclass of the `deliteful/Button` class.
 ![ToggleButton (Bootstrap)](images/ToggleButton1.png)
 
 ##### Table of Contents
-[Element Instantiation](#instantiation)  
-[Element Configuration](#configuration)  
-[Element Styling](#styling)  
-[Element Events](#events)  
-[Enterprise Use](#enterprise)  
+[Element Instantiation](#instantiation)
+[Element Configuration](#configuration)
+[Element Styling](#styling)
+[Element Events](#events)
+[Enterprise Use](#enterprise)
 [See also](#seealso)
 
 <a name="instantiation"></a>
@@ -63,7 +63,7 @@ src="http://jsfiddle.net/ibmjs/at8z7abL/embedded/result,js,html">
 <a name="configuration"></a>
 ## Element Configuration
 
-The state of a ToggleButton widget (checked or unchecked) is defined by the `checked` property, inherited from the 
+The state of a ToggleButton widget (checked or unchecked) is defined by the `checked` property, inherited from the
 `deliteful/Toggle` class.
 
 By default, the label of the button is specified in markup as a child of the button element, or via the `label`
@@ -73,6 +73,10 @@ the checked state via the `checkedLabel` property.
 An optional icon can be specified via the `iconClass` property which takes a css class, inherited from the
 `deliteful/Button` class. In addition to this icon, an optional icon can be defined for the checked state via the
 `checkedIconClass` property.
+
+Moreover, a toggle button can show an icon only with no visible text, independently of the toggle button's state,
+checked or unchecked. To accomplish that, set the `showLabel` property (inherited from the `deliteful/Button` class)
+to `false`.
 
 <a name="styling"></a>
 ## Element Styling
