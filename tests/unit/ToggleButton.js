@@ -12,8 +12,11 @@ define([
 			"<button is='d-toggle-button' id='tb2' value='foo'>tb2</button>" +
 			"<button is='d-toggle-button' id='tb3' checked='true' iconClass='ic1'>tb3</button>" +
 			"<button is='d-toggle-button' id='tb4' checked='true' checkedIconClass='ic2'" +
-			" iconClass='ic1' checkedLabel='on'>off</button>";
-
+			" iconClass='ic1' checkedLabel='on'>off</button>" +
+			"<button is='d-toggle-button' id='tb5' checkedIconClass='ic2'" +
+			" iconClass='ic1' checkedLabel='on'>off</button>" +
+			"<button is='d-toggle-button' id='tb6' checkedIconClass='ic2'" +
+			" iconClass='ic1' checkedLabel='on' title='bt title'>off</button>";
 
 	var commonSuite = {
 		"Default State": function () {
@@ -116,6 +119,74 @@ define([
 			}), 10);
 		},
 
+		"title on showLabel and checked values": function () {
+			var tb5 = document.getElementById("tb5");
+			// test title is empty since by default showLabel is equals to true.
+			assert.strictEqual("", tb5.title, "tb5.title");
+			tb5.showLabel = false;
+			tb5.deliver();
+			assert.strictEqual("off", tb5.title, "tb5.title on 'showLabel=false'");
+			tb5.checked = true;
+			tb5.deliver();
+			assert.strictEqual("on", tb5.title, "tb5.title on 'checked=true'");
+			// reverting
+			tb5.checked = false;
+			tb5.deliver();
+			assert.strictEqual("off", tb5.title, "tb5.title on 'checked=false'");
+			tb5.showLabel = false;
+			tb5.deliver();
+			assert.strictEqual("off", tb5.title, "tb5.title on 'showLabel=true'");
+		},
+
+		"title on label/checkedLabel change": function () {
+			var tb5 = document.getElementById("tb5");
+			tb5.showLabel = false;
+			tb5.deliver();
+			tb5.label = "new label";
+			tb5.deliver();
+			assert.strictEqual("new label", tb5.title, "tb5.title on 'label' change");
+			tb5.checked = true;
+			tb5.deliver();
+			assert.strictEqual("on", tb5.title, "tb5.title on 'checked' change");
+			tb5.checkedLabel = "new checked label";
+			tb5.deliver();
+			assert.strictEqual("new checked label", tb5.title, "tb5.title on 'checkedLabel' change");
+		},
+
+		"pre-set title on showLabel and checked values": function () {
+			var tb6 = document.getElementById("tb6");
+			// test title is empty since by default showLabel is equals to true.
+			assert.strictEqual("bt title", tb6.title, "tb6.title");
+			tb6.showLabel = false;
+			tb6.deliver();
+			assert.strictEqual("bt title", tb6.title, "tb6.title on 'showLabel=false'");
+			tb6.checked = true;
+			tb6.deliver();
+			assert.strictEqual("bt title", tb6.title, "tb6.title on 'checked=true'");
+			// reverting
+			tb6.checked = false;
+			tb6.deliver();
+			assert.strictEqual("bt title", tb6.title, "tb6.title on 'checked=false'");
+			tb6.showLabel = false;
+			tb6.deliver();
+			assert.strictEqual("bt title", tb6.title, "tb6.title on 'showLabel=true'");
+		},
+
+		"pre-set title on label/checkedLabel change": function () {
+			var tb6 = document.getElementById("tb6");
+			tb6.showLabel = false;
+			tb6.deliver();
+			tb6.label = "new label";
+			tb6.deliver();
+			assert.strictEqual("bt title", tb6.title, "tb6.title on 'label' change");
+			tb6.checked = true;
+			tb6.deliver();
+			assert.strictEqual("bt title", tb6.title, "tb6.title on 'checked' change");
+			tb6.checkedLabel = "new checked label";
+			tb6.deliver();
+			assert.strictEqual("bt title", tb6.title, "tb6.title on 'checkedLabel' change");
+		},
+
 		afterEach: function () {
 			container.parentNode.removeChild(container);
 		}
@@ -150,6 +221,14 @@ define([
 			tb.attachedCallback();
 			tb = new ToggleButton({id: "tb4", checked: "checked", label: "off", checkedLabel: "on",
 				iconClass: "ic1", checkedIconClass: "ic2"});
+			container.appendChild(tb);
+			tb.attachedCallback();
+			tb = new ToggleButton({id: "tb5", label: "off", checkedLabel: "on",
+				iconClass: "ic1", checkedIconClass: "ic2"});
+			container.appendChild(tb);
+			tb.attachedCallback();
+			tb = new ToggleButton({id: "tb6", label: "off", checkedLabel: "on",
+				iconClass: "ic1", checkedIconClass: "ic2", title: "bt title"});
 			container.appendChild(tb);
 			tb.attachedCallback();
 		}

@@ -22,6 +22,10 @@ define([
 	 * specified by the 'iconClass' property is applied whatever the state is. However, a css class specific to the
 	 * checked state can be specified via the 'checkedIconClass' property.
 	 *
+	 * Moreover, a toggle button can show an icon only with no visible text, independently of
+	 * the toggle button's state, checked or unchecked. To accomplish that,
+	 * set the `showLabel` property (inherited from the `deliteful/Button` class). to `false`.
+	 *
 	 * @example <caption>Creating a checked toggle button</caption>
 	 * <button is="d-toggle-button" checked="true">Foo</button>
 	 * @example <caption>Specify a label for the checked state</caption>
@@ -63,7 +67,16 @@ define([
 		 */
 		checkedIconClass: "",
 
-		template: template
+		template: template,
+
+		refreshRendering: function (props) {
+			/* jshint maxcomplexity: 11 */
+			if (("label" in props || "checkedLabel" in props || "showLabel" in props || "checked" in props) &&
+				(!this.title || this.title === ("label" in props ? props.label : this.label)
+					|| this.title === ("checkedLabel" in props ? props.checkedLabel : this.checkedLabel))) {
+				this.title = this.showLabel ? "" : (this.checked ? this.checkedLabel : this.label);
+			}
+		}
 	});
 
 	return register("d-toggle-button",  has("bidi") ? [HTMLButtonElement, ToggleButton, BidiToggleButton] :
