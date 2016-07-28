@@ -415,6 +415,7 @@ define([
 				newDate = this.dateModule.add(newDate, "day", -1 * (newDate.getDate() + 1));
 			}
 			this.focus(newDate);
+			evt.stopPropagation();	// otherwise DatePicker itself emits a "change" event
 		},
 
 		////////////////////////////////////////////
