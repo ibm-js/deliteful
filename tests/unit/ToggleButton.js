@@ -184,7 +184,7 @@ define([
 			assert.strictEqual(tb6.title, "bt title", "tb6.title on 'checked' change");
 			tb6.checkedLabel = "new checked label";
 			tb6.deliver();
-			assert.strictEqual(tb6.title, "bt title","tb6.title on 'checkedLabel' change");
+			assert.strictEqual(tb6.title, "bt title", "tb6.title on 'checkedLabel' change");
 		},
 
 		afterEach: function () {
