@@ -238,7 +238,7 @@ define([
 
 		/* jshint maxcomplexity: 14 */
 		refreshRendering: function (props) {
-			if ("selectedChildId" in props) {
+			if ("selectedChildId" in props && this.selectedChildId) {
 				var childNode = this.ownerDocument.getElementById(this.selectedChildId);
 				if (childNode) {
 					if (childNode.attached) {
