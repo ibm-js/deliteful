@@ -591,15 +591,17 @@ define([
 				// change event. But there's no equivalent on Safari / iOS...
 				if (this.opened && !this.filteringInProgress) {
 					this.filteringInProgress = true;
-					this.closeDropDown();
+					this.closeDropDown(true);
 				}
 				// this.filter() call will fire a query-success event. After that, the popup can be opened again.
-				this.own(this.list.on("query-success", function () {
+				var cb = this.own(this.list.on("query-success", function (evt) {
+					console.log(evt.renderItems);
 					if (this.filteringInProgress) {
 						this.filteringInProgress = false;
+						cb.remove()
 						this.openDropDown();
 					}
-				}.bind(this)));
+				}.bind(this)))[0];
 
 				this.filter(inputElement.value);
 				// Stop the spurious "input" events emitted while the user types
