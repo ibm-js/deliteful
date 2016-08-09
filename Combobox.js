@@ -595,7 +595,6 @@ define([
 				}
 				// this.filter() call will fire a query-success event. After that, the popup can be opened again.
 				var cb = this.own(this.list.on("query-success", function (evt) {
-					console.log(evt.renderItems);
 					if (this.filteringInProgress) {
 						this.filteringInProgress = false;
 						cb.remove()
