@@ -589,16 +589,26 @@ define([
 				// events, triggered when pressing ENTER. This would also fit for Chrome/Android,
 				// where pressing the search key of the virtual keyboard also triggers a
 				// change event. But there's no equivalent on Safari / iOS...
+				var _previousValue = "";
 				if (this.opened && !this.filteringInProgress) {
 					this.filteringInProgress = true;
+					if (this._useCenteredDropDown()) {
+						_previousValue = this.dropDown.inputNode.value
+					}
 					this.closeDropDown(true);
 				}
 				// this.filter() call will fire a query-success event. After that, the popup can be opened again.
-				var cb = this.own(this.list.on("query-success", function (evt) {
+				var _querySuccessListener = this.own(this.list.on("query-success", function (evt) {
 					if (this.filteringInProgress) {
 						this.filteringInProgress = false;
-						cb.remove()
-						this.openDropDown();
+						_querySuccessListener.remove(_querySuccessListener);
+
+						this.openDropDown().then(function () {
+							if(this._useCenteredDropDown()) {
+								this.dropDown.inputNode.value = _previousValue;
+								this.dropDown.inputNode.focus();
+							}
+						}.bind(this));
 					}
 				}.bind(this)))[0];
 
