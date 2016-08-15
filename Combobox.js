@@ -8,6 +8,7 @@ define([
 	"delite/CssState",
 	"delite/FormValueWidget",
 	"delite/HasDropDown",
+	"delite/popup", // redraw()
 	"./list/List",
 	"./features!desktop-like-channel?:./Combobox/ComboPopup",
 	"delite/handlebars!./Combobox/Combobox.html",
@@ -22,6 +23,7 @@ define([
 	CssState,
 	FormValueWidget,
 	HasDropDown,
+	popup,
 	List,
 	ComboPopup,
 	template,
@@ -589,17 +591,17 @@ define([
 				// events, triggered when pressing ENTER. This would also fit for Chrome/Android,
 				// where pressing the search key of the virtual keyboard also triggers a
 				// change event. But there's no equivalent on Safari / iOS...
-				if (this.opened && !this.filteringInProgress) {
-					this.filteringInProgress = true;
-					this.closeDropDown();
-				}
+
 				// this.filter() call will fire a query-success event. After that, the popup can be opened again.
-				this.own(this.list.on("query-success", function () {
-					if (this.filteringInProgress) {
+				this.filteringInProgress = true;
+				var _querySuccessListener = this.own(this.list.on("query-success", function (evt) {
+					if(this.opened && this.filteringInProgress) {
 						this.filteringInProgress = false;
-						this.openDropDown();
+						_querySuccessListener.remove(_querySuccessListener);
+						popup.redraw(this);
 					}
-				}.bind(this)));
+
+				}.bind(this)))[0];
 
 				this.filter(inputElement.value);
 				// Stop the spurious "input" events emitted while the user types
