@@ -589,17 +589,6 @@ define([
 				// events, triggered when pressing ENTER. This would also fit for Chrome/Android,
 				// where pressing the search key of the virtual keyboard also triggers a
 				// change event. But there's no equivalent on Safari / iOS...
-				if (this.opened && !this.filteringInProgress) {
-					this.filteringInProgress = true;
-					this.closeDropDown();
-				}
-				// this.filter() call will fire a query-success event. After that, the popup can be opened again.
-				this.own(this.list.on("query-success", function () {
-					if (this.filteringInProgress) {
-						this.filteringInProgress = false;
-						this.openDropDown();
-					}
-				}.bind(this)));
 
 				this.filter(inputElement.value);
 				// Stop the spurious "input" events emitted while the user types
@@ -743,41 +732,37 @@ define([
 		closeDropDown: dcl.superCall(function (sup) {
 			return function () {
 
-				// if a filtering operation is not in progress
-				if (!this.filteringInProgress) {
-					// cleanup
-					this._selectedItems = null;
+				// cleanup
+				this._selectedItems = null;
 
-					var input = this._popupInput || this.inputNode;
-					input.removeAttribute("aria-activedescendant");
+				var input = this._popupInput || this.inputNode;
+				input.removeAttribute("aria-activedescendant");
 
-					if (this.opened) {
-						// Using the flag `opened` (managed by delite/HasDropDown), avoid
-						// emitting a new change event if closeDropDown is closed more than once
-						// for a closed dropdown.
+				if (this.opened) {
+					// Using the flag `opened` (managed by delite/HasDropDown), avoid
+					// emitting a new change event if closeDropDown is closed more than once
+					// for a closed dropdown.
 
-						// Closing the dropdown represents a commit interaction
-						this.handleOnChange(this.value); // emit "change" event
+					// Closing the dropdown represents a commit interaction
+					this.handleOnChange(this.value); // emit "change" event
 
-						// Reinit the query. Necessary such that after closing the dropdown
-						// in autoFilter mode with a text in the input field not matching
-						// any item, when the dropdown will be reopen it shows all items
-						// instead of being empty
-						this.list.query = {};
+					// Reinit the query. Necessary such that after closing the dropdown
+					// in autoFilter mode with a text in the input field not matching
+					// any item, when the dropdown will be reopen it shows all items
+					// instead of being empty
+					this.list.query = {};
 
-						if (this.selectionMode === "single" && this.autoFilter) {
-							// In autoFilter mode, reset the content of the inputNode when
-							// closing the dropdown, such that next time the dropdown is opened
-							// it doesn't show the text the user may have entered for filtering
-							var selItem = this.list.selectedItem;
-							if (selItem) {
-								(this._popupInput || this.inputNode).value =
-									this._getItemLabel(this.list.selectedItem);
-							}
+					if (this.selectionMode === "single" && this.autoFilter) {
+						// In autoFilter mode, reset the content of the inputNode when
+						// closing the dropdown, such that next time the dropdown is opened
+						// it doesn't show the text the user may have entered for filtering
+						var selItem = this.list.selectedItem;
+						if (selItem) {
+							(this._popupInput || this.inputNode).value =
+								this._getItemLabel(this.list.selectedItem);
 						}
 					}
 				}
-
 				sup.apply(this, arguments);
 			};
 		}),

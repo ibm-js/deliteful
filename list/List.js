@@ -318,7 +318,7 @@ define([
 
 		refreshRendering: function (props) {
 			//	List attributes have been updated.
-			/*jshint maxcomplexity:11*/
+			/*jshint maxcomplexity:12*/
 			if ("selectionMode" in props) {
 				// Update aria attributes
 				$(this.containerNode).removeClass(this._cssClasses.selectable);
@@ -366,6 +366,11 @@ define([
 				} else {
 					this.containerNode.removeAttribute("aria-readonly");
 				}
+			}
+
+			if ("renderItems" in props && this.renderItems) {
+				// notify the list content changed.
+				this.emit("delite-size-change");
 			}
 		},
 
