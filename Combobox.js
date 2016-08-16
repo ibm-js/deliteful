@@ -272,6 +272,16 @@ define([
 				// default list, may be overridden later by user-defined value or when above event listener fires
 				this.list = new List();
 			}
+
+			this.list.own(this.list.on("query-success", function (evt) {
+				if(this.opened && this.filteringInProgress) {
+					this.filteringInProgress = false;
+					this.defer(function () {
+						popup.redraw(this);
+					}, 0);
+				}
+
+			}.bind(this)))[0];
 		},
 
 		refreshRendering: function (oldValues) {
@@ -594,15 +604,6 @@ define([
 
 				// this.filter() call will fire a query-success event. After that, the popup can be opened again.
 				this.filteringInProgress = true;
-				var _querySuccessListener = this.own(this.list.on("query-success", function (evt) {
-					if(this.opened && this.filteringInProgress) {
-						this.filteringInProgress = false;
-						_querySuccessListener.remove(_querySuccessListener);
-						popup.redraw(this);
-					}
-
-				}.bind(this)))[0];
-
 				this.filter(inputElement.value);
 				// Stop the spurious "input" events emitted while the user types
 				// such that only the "input" events emitted via FormValueWidget.handleOnInput()
@@ -745,41 +746,37 @@ define([
 		closeDropDown: dcl.superCall(function (sup) {
 			return function () {
 
-				// if a filtering operation is not in progress
-				if (!this.filteringInProgress) {
-					// cleanup
-					this._selectedItems = null;
+				// cleanup
+				this._selectedItems = null;
 
-					var input = this._popupInput || this.inputNode;
-					input.removeAttribute("aria-activedescendant");
+				var input = this._popupInput || this.inputNode;
+				input.removeAttribute("aria-activedescendant");
 
-					if (this.opened) {
-						// Using the flag `opened` (managed by delite/HasDropDown), avoid
-						// emitting a new change event if closeDropDown is closed more than once
-						// for a closed dropdown.
+				if (this.opened) {
+					// Using the flag `opened` (managed by delite/HasDropDown), avoid
+					// emitting a new change event if closeDropDown is closed more than once
+					// for a closed dropdown.
 
-						// Closing the dropdown represents a commit interaction
-						this.handleOnChange(this.value); // emit "change" event
+					// Closing the dropdown represents a commit interaction
+					this.handleOnChange(this.value); // emit "change" event
 
-						// Reinit the query. Necessary such that after closing the dropdown
-						// in autoFilter mode with a text in the input field not matching
-						// any item, when the dropdown will be reopen it shows all items
-						// instead of being empty
-						this.list.query = {};
+					// Reinit the query. Necessary such that after closing the dropdown
+					// in autoFilter mode with a text in the input field not matching
+					// any item, when the dropdown will be reopen it shows all items
+					// instead of being empty
+					this.list.query = {};
 
-						if (this.selectionMode === "single" && this.autoFilter) {
-							// In autoFilter mode, reset the content of the inputNode when
-							// closing the dropdown, such that next time the dropdown is opened
-							// it doesn't show the text the user may have entered for filtering
-							var selItem = this.list.selectedItem;
-							if (selItem) {
-								(this._popupInput || this.inputNode).value =
-									this._getItemLabel(this.list.selectedItem);
-							}
+					if (this.selectionMode === "single" && this.autoFilter) {
+						// In autoFilter mode, reset the content of the inputNode when
+						// closing the dropdown, such that next time the dropdown is opened
+						// it doesn't show the text the user may have entered for filtering
+						var selItem = this.list.selectedItem;
+						if (selItem) {
+							(this._popupInput || this.inputNode).value =
+								this._getItemLabel(this.list.selectedItem);
 						}
 					}
 				}
-
 				sup.apply(this, arguments);
 			};
 		}),
