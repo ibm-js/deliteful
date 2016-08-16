@@ -559,8 +559,9 @@ define([
 				// https://github.com/theintern/leadfoot/issues/17
 				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
 			}
-			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
-				return this.skip("no keyboard support");
+			if (remote.environmentType.platformName === "iOS" || remote.environmentType.safari ||
+				remote.environmentType.broserName === "safari") {
+				return this.skip("no keyboard support - brokenSendKeys");
 			}
 
 			return checkTabNavigation(remote, "combo3");
