@@ -273,8 +273,8 @@ define([
 				this.list = new List();
 			}
 
-			this.list.own(this.list.on("query-success", function (evt) {
-				if(this.opened && this.filteringInProgress) {
+			this.list.own(this.list.on("query-success", function () {
+				if (this.opened && this.filteringInProgress) {
 					this.filteringInProgress = false;
 					this.defer(function () {
 						popup.redraw(this);

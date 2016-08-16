@@ -48,7 +48,7 @@ define([
 		assert.strictEqual(comboState.selectedItemsCount, expectedComboState.selectedItemsCount,
 			selectionMode + " combo.selectedItemsCount " + stepName);
 		assert.strictEqual(comboState.itemRenderersCount, expectedComboState.itemRenderersCount,
-			selectionMode + " combo.opened " + stepName);
+			selectionMode + " combo.itemRenderersCount " + stepName);
 
 		// The event counters count the new events since the previous check.
 		assert.strictEqual(comboState.inputEventCounter, expectedComboState.inputEventCounter,
@@ -117,7 +117,9 @@ define([
 					}, "after click on root node");
 			})
 			.findByCssSelector(".d-combo-popup .d-linear-layout .d-combobox-input[d-hidden='false']")
-			.type("japan")
+			.type("j")
+			.type("a")
+			.type("p")
 			.sleep(500)
 			.execute(executeExpr)
 			.then(function (comboState) {
@@ -136,14 +138,14 @@ define([
 						valueNodeValueAtLatestInputEvent: null,
 						widgetValueAtLatestChangeEvent: null,
 						valueNodeValueAtLatestChangeEvent: null
-					}, "after searching `japan` into input field.");
+					}, "after searching `jap` into input field.");
 			})
 			.pressKeys(keys.BACKSPACE) // Delete the 5 chars of "Japan"
+			.sleep(250)
 			.pressKeys(keys.BACKSPACE)
+			.sleep(250)
 			.pressKeys(keys.BACKSPACE)
-			.pressKeys(keys.BACKSPACE)
-			.pressKeys(keys.BACKSPACE)
-			.sleep(500)
+			.sleep(250)
 			.execute(executeExpr)
 			.then(function (comboState) {
 				// Clicking the root node just opens the dropdown. No other state change.
@@ -497,9 +499,9 @@ define([
 				// https://github.com/theintern/leadfoot/issues/17
 				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
 			}
-			if (remote.environmentType.platformName === "iOS") {
-				// https://github.com/theintern/leadfoot/issues/61
-				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
+			if (remote.environmentType.platformName === "iOS" || remote.environmentType.safari ||
+				remote.environmentType.broserName === "safari") {
+				return this.skip("no keyboard support - brokenSendKeys");
 			}
 
 			return checkFilter(remote, "combo2");
@@ -557,9 +559,8 @@ define([
 				// https://github.com/theintern/leadfoot/issues/17
 				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
 			}
-			if (remote.environmentType.platformName === "iOS") {
-				// https://github.com/theintern/leadfoot/issues/61
-				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
+			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support");
 			}
 
 			return checkTabNavigation(remote, "combo3");
