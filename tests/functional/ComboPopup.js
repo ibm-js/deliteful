@@ -433,8 +433,6 @@ define([
 			.getActiveElement()
 			.getVisibleText()
 			.then(function (value) {
-				console.log("after tab")
-				console.log(value);
 				assert(/^France/.test(value), "after third TAB");
 			})
 			.pressKeys(keys.TAB)
