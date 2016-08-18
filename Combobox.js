@@ -8,7 +8,6 @@ define([
 	"delite/CssState",
 	"delite/FormValueWidget",
 	"delite/HasDropDown",
-	"delite/popup", // redraw()
 	"./list/List",
 	"./features!desktop-like-channel?:./Combobox/ComboPopup",
 	"delite/handlebars!./Combobox/Combobox.html",
@@ -23,7 +22,6 @@ define([
 	CssState,
 	FormValueWidget,
 	HasDropDown,
-	popup,
 	List,
 	ComboPopup,
 	template,
@@ -592,7 +590,6 @@ define([
 				// where pressing the search key of the virtual keyboard also triggers a
 				// change event. But there's no equivalent on Safari / iOS...
 
-				// this.filter() call will fire a query-success event. After that, the popup can be opened again.
 				this.filter(inputElement.value);
 				// Stop the spurious "input" events emitted while the user types
 				// such that only the "input" events emitted via FormValueWidget.handleOnInput()
