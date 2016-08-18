@@ -176,7 +176,6 @@ define([
 			header.setAttribute("role", "tab");
 			header.setAttribute("aria-expanded", "false");
 			header.setAttribute("aria-selected", "false");
-			header.setAttribute("aria-controls", panel.id);
 			header.on("click", this._headerClickHandler.bind(this));
 			header.placeAt(panel, "before");
 
@@ -380,6 +379,11 @@ define([
 				widget.headerNode.setAttribute("aria-selected", "" + widget.open);
 				widget.headerNode.setAttribute("aria-expanded", "" + widget.open);
 				widget.setAttribute("aria-hidden", "" + !widget.open);
+				if (params.hide) {
+					widget.headerNode.removeAttribute("aria-controls");
+				} else {
+					widget.headerNode.setAttribute("aria-controls", widget.id);
+				}
 			}
 			return Promise.all(promises);
 		},

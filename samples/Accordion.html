@@ -1,12 +1,12 @@
 <!doctype html>
-<html id="html">
+<html id="html" lang="en">
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
 		<meta name="viewport"
 			  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 		<meta name="apple-mobile-web-app-capable" content="yes"/>
 
-		<title>Accordion</title>
+		<title id="pageTitle">Accordion</title>
 
 		<script src="../../requirejs/require.js"></script>
 		<script type="text/javascript">
@@ -49,7 +49,7 @@
 			}
 		</style>
 	</head>
-	<body style="display:none">
+	<body style="display:none" aria-labelledby="pageTitle" role="application">
         <d-accordion id="accordion" mode="singleOpen" selectedChildId="second" closedIconClass="icon-right" openIconClass="icon-down">
             <d-panel label="First Header" id="first" iconClass="icon-minus" closedIconClass="icon-plus">
                 <h2>First Content</h2>
