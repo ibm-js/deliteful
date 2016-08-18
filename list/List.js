@@ -367,6 +367,11 @@ define([
 					this.containerNode.removeAttribute("aria-readonly");
 				}
 			}
+
+			if ("renderItems" in props && this.renderItems) {
+				// notify the list content changed.
+				this.emit("delite-size-change");
+			}
 		},
 
 		computeProperties: function (props) {

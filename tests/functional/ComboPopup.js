@@ -433,6 +433,8 @@ define([
 			.getActiveElement()
 			.getVisibleText()
 			.then(function (value) {
+				console.log("after tab")
+				console.log(value);
 				assert(/^France/.test(value), "after third TAB");
 			})
 			.pressKeys(keys.TAB)
@@ -500,7 +502,7 @@ define([
 				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
 			}
 			if (remote.environmentType.platformName === "iOS" || remote.environmentType.safari ||
-				remote.environmentType.broserName === "safari") {
+				remote.environmentType.browserName === "safari") {
 				return this.skip("no keyboard support - brokenSendKeys");
 			}
 
@@ -560,7 +562,8 @@ define([
 				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
 			}
 			if (remote.environmentType.platformName === "iOS" || remote.environmentType.safari ||
-				remote.environmentType.broserName === "safari") {
+				remote.environmentType.browserName === "safari" || remote.environmentType.brokenSendKeys
+				|| !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support - brokenSendKeys");
 			}
 

@@ -272,16 +272,6 @@ define([
 				// default list, may be overridden later by user-defined value or when above event listener fires
 				this.list = new List();
 			}
-
-			this.list.own(this.list.on("query-success", function () {
-				if (this.opened && this.filteringInProgress) {
-					this.filteringInProgress = false;
-					this.defer(function () {
-						popup.redraw(this);
-					}, 0);
-				}
-
-			}.bind(this)))[0];
 		},
 
 		refreshRendering: function (oldValues) {
@@ -603,7 +593,6 @@ define([
 				// change event. But there's no equivalent on Safari / iOS...
 
 				// this.filter() call will fire a query-success event. After that, the popup can be opened again.
-				this.filteringInProgress = true;
 				this.filter(inputElement.value);
 				// Stop the spurious "input" events emitted while the user types
 				// such that only the "input" events emitted via FormValueWidget.handleOnInput()
