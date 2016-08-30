@@ -1,9 +1,10 @@
 <template role="grid" tabindex="0" requires="deliteful/DatePicker/MonthSelect">
 	<thead>
 		<tr>
-			<th class="d-date-picker-button {{previousIconClass}}" on-click="{{previousMonthClickHandler}}"
+			<th class="d-date-picker-button" on-click="{{previousMonthClickHandler}}"
 				title="{{previousMonthButtonLabel}}" role="presentation"
 				id="{{widgetId}}-prev-month" headers="{{widgetId}}-prev-month">
+				<span class="{{previousIconClass}}"></span>
 			</th>
 			<th colspan="5" id="{{widgetId}}-month"
 				role="presentation" id="{{widgetId}}-month-dropdown" headers="{{widgetId}}-month-dropdown">
@@ -12,25 +13,28 @@
 							class="{{downChevronIconClass}}"></span>
 				</d-month-select>
 			</th>
-			<th class="d-date-picker-button {{nextIconClass}}" on-click="{{nextMonthClickHandler}}"
+			<th class="d-date-picker-button" on-click="{{nextMonthClickHandler}}"
 				title="{{nextMonthButtonLabel}}" role="presentation"
 				id="{{widgetId}}-next-month" headers="{{widgetId}}-next-month">
+				<span class="{{nextIconClass}}"></span>
 			</th>
 		</tr>
 		<tr class="d-date-picker-days" attach-point="daysRow"></tr>
 	</thead>
 	<tfoot>
 		<tr>
-			<th class="d-date-picker-button {{previousIconClass}}" on-click="{{previousYearClickHandler}}"
+			<th class="d-date-picker-button" on-click="{{previousYearClickHandler}}"
 				title="{{previousYearButtonLabel}}" role="presentation"
 				id="{{widgetId}}-prev-year" headers="{{widgetId}}-prev-year">
+				<span class="{{previousIconClass}}"></span>
 			</th>
 			<th class="d-year" colspan="5" id="{{widgetId}}-year">
 				{{currentYearLabel}}
 			</th>
-			<th class="d-date-picker-button {{nextIconClass}}" on-click="{{nextYearClickHandler}}"
-				title="{{nextYearButtonLabel}}" aria-hidden="true" role="presentation"
+			<th class="d-date-picker-button" on-click="{{nextYearClickHandler}}"
+				title="{{nextYearButtonLabel}}" role="presentation"
 				id="{{widgetId}}-next-year" headers="{{widgetId}}-next-year">
+				<span class="{{nextIconClass}}"></span>
 			</th>
 		</tr>
 	</tfoot>
