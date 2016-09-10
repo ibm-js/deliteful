@@ -103,27 +103,19 @@ define([
 			if (d.getHours() === 23) {
 				d = this.dateModule.add(d, "hour", 2); // go to 1am
 			} else {
-				d = this.floorToDay(d, true);
+				d = this.floorToDay(d);
 			}
 			return d;
 		},
 
-		floorToDay: function (date, reuse) {
+		floorToDay: function (date) {
 			// summary:
 			//		Floors the specified date to the start of day.
 			// date: Date
 			//		The date to floor.
-			// reuse: Boolean
-			//		Whether use the specified instance or create a new one. Default is false.
 			// returns: Date
 
-			if (!reuse) {
-				date = this.newDate(date);
-			}
-
-			date.setHours(0, 0, 0, 0);
-
-			return date;
+			return new this.dateClassObj(date.getFullYear(), date.getMonth(), date.getDate());
 		},
 
 		floorToWeek: function (date) {
@@ -134,31 +126,18 @@ define([
 
 			var fd = this.firstDayOfWeek;
 			var day = date.getDay();
-			if (day === fd) {
-				return date;
-			}
-			return this.floorToDay(
-				this.dateModule.add(date, "day", day > fd ? -day + fd : -day + fd - 7),
-				true, this.dateClassObj);
+			var dayAdjust =  day > fd ? -day + fd : -day + fd - 7;
+			return new this.dateClassObj(date.getFullYear(), date.getMonth(), date.getDate() + dayAdjust);
 		},
 
-		floorToMonth: function (date, reuse) {
+		floorToMonth: function (date) {
 			// summary:
 			//		Floors the specified date to the start of the date's month.
 			// date: Date
 			//		The date to floor.
-			// reuse: Boolean
-			//		Whether use the specified instance or create a new one. Default is false.
 			// returns: Date
 
-			if (!reuse) {
-				date = this.newDate(date);
-			}
-
-			date.setDate(1);
-			date.setHours(0, 0, 0, 0);
-
-			return date;
+			return new this.dateClassObj(date.getFullYear(), date.getMonth(), 1);
 		},
 
 		isToday: function (date) {
@@ -181,7 +160,7 @@ define([
 			//		The date to test.
 			// returns: Boolean
 
-			return this.dateModule.compare(this.floorToDay(date, false, this.dateClassObj), date) === 0;
+			return this.dateModule.compare(this.floorToDay(date), date) === 0;
 		},
 
 		isOverlapping: function (start1, end1, start2, end2, includeLimits) {
