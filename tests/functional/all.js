@@ -14,5 +14,6 @@ define([
 	"./Combobox",
 	"./ComboPopup",
 	"./SwapView",
+	"./Tooltip",
 	"./features"
 ]);

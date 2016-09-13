@@ -1,0 +1,80 @@
+.d-tooltip {
+  padding: 10px;
+  max-width: 300px;
+  position: relative;
+  z-index: 0;
+}
+.d-tooltip-left {
+  margin-right: 15px;
+}
+.d-tooltip-right {
+  margin-left: 15px;
+}
+.d-tooltip-above {
+  margin-bottom: 15px;
+}
+.d-tooltip-below {
+  margin-top: 15px;
+}
+.d-tooltip-connector {
+  overflow: hidden;
+  z-index: 1;
+  background: transparent;
+  position: absolute;
+}
+.d-tooltip-right > .d-tooltip-connector,
+.d-tooltip-left > .d-tooltip-connector {
+  width: 10px;
+  height: 20px;
+}
+.d-tooltip-left > .d-tooltip-connector {
+  right: -10px;
+  top: 20px;
+}
+.d-tooltip-right > .d-tooltip-connector {
+  left: -10px;
+  top: 20px;
+}
+.d-tooltip-above > .d-tooltip-connector,
+.d-tooltip-below > .d-tooltip-connector {
+  width: 20px;
+  height: 10px;
+}
+.d-tooltip-above > .d-tooltip-connector {
+  bottom: -10px;
+  left: 20px;
+}
+.d-tooltip-below > .d-tooltip-connector {
+  top: -10px;
+  left: 20px;
+}
+.d-tooltip-connector:after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  left: 3px;
+  top: 3px;
+  transform: rotate(45deg);
+}
+.d-tooltip-left > .d-tooltip-connector:after {
+  left: auto;
+  right: 3px;
+}
+.d-tooltip-above > .d-tooltip-connector:after {
+  top: auto;
+  bottom: 3px;
+}
+.d-tooltip,
+.d-tooltip-connector:after {
+  display: block;
+  border: solid black 1px;
+  box-shadow: 0 0 1em gold;
+  background: white;
+}
+.d-tooltip-popup {
+  background: transparent;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}

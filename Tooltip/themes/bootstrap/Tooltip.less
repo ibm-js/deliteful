@@ -1,0 +1,104 @@
+// Styling for Tooltip.
+
+// The rectangular part of the tooltip.
+.d-tooltip {
+	padding: 10px;
+	max-width: 300px;
+	position: relative;
+	z-index: 0;
+}
+
+// Set margin to make room for connector plus some space between the connector and the anchor node.
+.d-tooltip-left {
+	margin-right: 15px;
+}
+.d-tooltip-right {
+	margin-left: 15px;
+}
+.d-tooltip-above {
+	margin-bottom: 15px;
+}
+.d-tooltip-below {
+	margin-top: 15px;
+}
+
+// Wrapper for the triangle pointer coming out of the tooltip.
+// It's actually implemented as a square rotated 45 degrees and half hidden.
+// Thanks to https://css-tricks.com/triangle-with-shadow/ for the idea.
+.d-tooltip-connector {
+	position: absolute;
+	overflow: hidden;
+	z-index: 1;
+	background: transparent;
+
+	// Rules to position wrapper on the side of the tooltip next to the anchor.
+	// The position along the side will be set programatically to align
+	// the point of the triangle with the center of the anchor node.
+	position: absolute;
+	.d-tooltip-right > &, .d-tooltip-left > & {
+		width: 10px;
+		height: 20px;
+	}
+	.d-tooltip-left > & {
+		right: -10px;
+		top: 20px;
+	}
+	.d-tooltip-right > & {
+		left: -10px;
+		top: 20px;
+	}
+	.d-tooltip-above > &, .d-tooltip-below > & {
+		width: 20px;
+		height: 10px;
+	}
+	.d-tooltip-above > & {
+		bottom: -10px;
+		left: 20px;
+	}
+	.d-tooltip-below > & {
+		top: -10px;
+		left: 20px;
+	}
+
+	// The rotated square inside the wrapper (half hidden to appear as a triangle).
+	&:after {
+		content: "";
+		position: absolute;
+
+		// Set width and height such that when the box is rotated 45 degrees and half hidden,
+		// it makes a triangle about 20x10.
+		width: 14px;
+		height: 14px;
+
+		left: 3px;
+		.d-tooltip-left > & {
+			left: auto;
+			right: 3px;
+		}
+
+		top: 3px;
+		.d-tooltip-above > & {
+			top: auto;
+			bottom: 3px;
+		}
+
+		transform: rotate(45deg);
+	}
+}
+
+// Styling common to the main rectangle and the triangle pointer.
+.d-tooltip, .d-tooltip-connector:after {
+	display: block;
+	border: solid black 1px;
+	box-shadow: 0 0 1em gold;
+	background: white;
+}
+
+// Disable white background and box shadow on d-popup-wrapper.
+// It doesn't work with the tooltip's irregular shape.
+.d-tooltip-popup {
+	background: transparent;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}

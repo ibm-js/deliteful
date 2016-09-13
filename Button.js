@@ -10,8 +10,8 @@ define([
 ], function (dcl, has, register, Widget, BidiButton, template) {
 
 	/**
-	 * A Non-templated form-aware button widget.
-	 * A Button can display a label, an icon, or both. Icon is specified via the iconClass property that
+	 * A form-aware button widget.
+	 * A Button can display a label, an icon, or both.  Icon is specified via the iconClass property that
 	 * takes the name of the class to apply to the button node to display the icon.
 	 * @example
 	 * <style>
