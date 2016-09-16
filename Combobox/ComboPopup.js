@@ -36,6 +36,12 @@ define([
 		 */
 		header: "",
 
+		/**
+		 * Indicates which node gets the focus when dropDown.focus() is invoked.
+		 * @type {String}
+		 */
+		nodeToFocus: "listNode",
+
 		computeProperties: function (oldValues) {
 			if ("combobox" in oldValues) {
 				// Find Combobox's label and use it as my header.
@@ -84,12 +90,16 @@ define([
 		 * @protected
 		 */
 		focus: function () {
-			if (this.combobox.list && this.combobox.list.containerNode.children.length > 0) {
-				var id = this.combobox.list.getIdentity(
-					this.combobox.list.selectedItems.length > 0 ? this.combobox.list.selectedItems[0] : "");
-				var renderer = (id && id !== -1) ? this.combobox.list.getRendererByItemId(id) :
-					this.combobox.list.getRenderers()[0];
-				this.combobox.list.navigateTo(renderer);
+			if (this.nodeToFocus === "listNode") {
+				if (this.combobox.list && this.combobox.list.containerNode.children.length > 0) {
+					var id = this.combobox.list.getIdentity(
+						this.combobox.list.selectedItems.length > 0 ? this.combobox.list.selectedItems[0] : "");
+					var renderer = (id && id !== -1) ? this.combobox.list.getRendererByItemId(id) :
+						this.combobox.list.getRenderers()[0];
+					this.combobox.list.navigateTo(renderer);
+				}
+			} else {
+				this.inputNode.focus();
 			}
 
 		}

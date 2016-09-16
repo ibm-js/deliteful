@@ -252,6 +252,28 @@ define([
 		 */
 		cancelMsg: messages["cancel-button-label"],
 
+		/**
+		 * Displays or not the down arrow button.
+		 * @type {Boolean}
+		 * @default true
+		 */
+		hasDownArrow: true,
+
+		/**
+		 * Defines if a click on widget itself will show up the list immediately.
+		 * It makes sense only on desktop version, since in mobile, a click on the widget opens the
+		 * popup widget always.
+		 * @type {Boolean}
+		 */
+		openOnPointerDown: true,
+
+		/**
+		 * When using a ComboPopup (hence in mobile), this properties specifies which node gets the focus
+		 * once the popup is open.
+		 * Possibile values are "input" and "list".
+		 */
+		nodeToFocus: "listNode",
+
 		createdCallback: function () {
 			// Declarative case (list specified declaratively inside the declarative Combobox)
 			var list = this.querySelector("d-list");
@@ -420,7 +442,19 @@ define([
 			}.bind(this));
 
 			this._prepareInput(this.inputNode);
+
+			if (this._useCenteredDropDown()) {
+				this.on("click", this.openDropDown.bind(this), this);
+			} else if (this.openOnPointerDown) {
+			 	this.on("mousedown", this.openDropDown.bind(this), this);
+			}
 		},
+
+		/**
+		 * Defines if the input value has to be filled with first List's item option.
+		 * @type {Boolean}
+		 */
+		preSetValue: true,
 
 		/**
 		 * Sets the initial value of the widget. If the widget is inside a form,
@@ -457,7 +491,7 @@ define([
 					return done;
 				}.bind(this);
 
-				if (!initValueSingleMode()) {
+				if (this.preSetValue && !initValueSingleMode()) {
 					// List not ready, wait.
 					// TODO: handle case when List is initialized but has no items yet, from "new List()".
 					// Also, handle when the Combobox's selected item is deleted from the list.
@@ -572,15 +606,23 @@ define([
 		 * @protected
 		 */
 		createCenteredDropDown: function () {
-			return new ComboPopup({combobox: this});
+			var node = (this.selectionMode === "single" && this.autoFilter
+				&& this.nodeToFocus !== "list" ) ?  this.nodeToFocus : "list";
+			return new ComboPopup({combobox: this, nodeToFocus: node});
 		},
 
 		/**
-		 * Indicates if a filtering operation is in progress. If so, closeDropDown will perform differently than usual.
-		 * @member {boolean}
-		 * @default false
+		 * Timeout handle for interrupting previouse .
+		 * @type {Number}
 		 */
-		filteringInProgress: false,
+		_timeoutHandle: null,
+
+		/**
+		 * Defines the milliseconds the widget has to wait until a new filter operation starts.
+		 * @type {Number}
+		 * @default 0
+		 */
+		filterDelay: 0,
 
 		_prepareInput: function (inputElement) {
 			this.on("input", function (evt) {
@@ -589,8 +631,12 @@ define([
 				// events, triggered when pressing ENTER. This would also fit for Chrome/Android,
 				// where pressing the search key of the virtual keyboard also triggers a
 				// change event. But there's no equivalent on Safari / iOS...
-
-				this.filter(inputElement.value);
+				if (this._timeoutHandle !== null) {
+					this._timeoutHandle.remove();
+				}
+				this._timeoutHandle = this.defer(function () {
+					this.filter(inputElement.value);
+				}.bind(this), this.filterDelay);
 				// Stop the spurious "input" events emitted while the user types
 				// such that only the "input" events emitted via FormValueWidget.handleOnInput()
 				// bubble to widget's root node.
@@ -691,6 +737,10 @@ define([
 			} // nothing to add for "contains"
 
 			var rexExp = new RegExp(filterTxt, this.ignoreCase ? "i" : "");
+			var queryListener = this.list.on("query-success", function () {
+					this.openDropDown();
+					queryListener.remove(queryListener);
+			}.bind(this));
 			this.list.query = (new Filter()).match(this.list.labelAttr, rexExp);
 		},
 
@@ -722,9 +772,12 @@ define([
 					// Avoid that List gives focus to list items when navigating, which would
 					// blur the input field used for entering the filtering criteria.
 					this.dropDown.focusDescendants = false;
-
-					this._updateScroll(undefined, true);	// sets this.list.navigatedDescendant
-					this._setActiveDescendant(this.list.navigatedDescendant);
+					if (!this._useCenteredDropDown()) {
+						this._updateScroll(undefined, true);	// sets this.list.navigatedDescendant
+						this._setActiveDescendant(this.list.navigatedDescendant);
+					} else {
+						this.dropDown.focus();
+					}
 				}.bind(this));
 			};
 		}),
