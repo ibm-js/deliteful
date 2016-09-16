@@ -90,7 +90,9 @@ define([
 		 * @protected
 		 */
 		focus: function () {
-			if (this.nodeToFocus === "listNode") {
+			if (this.combobox.autoFilter && this.combobox.selectionMode === "single") {
+				this.inputNode.focus();
+			} else {
 				if (this.combobox.list && this.combobox.list.containerNode.children.length > 0) {
 					var id = this.combobox.list.getIdentity(
 						this.combobox.list.selectedItems.length > 0 ? this.combobox.list.selectedItems[0] : "");
@@ -98,8 +100,6 @@ define([
 						this.combobox.list.getRenderers()[0];
 					this.combobox.list.navigateTo(renderer);
 				}
-			} else {
-				this.inputNode.focus();
 			}
 
 		}

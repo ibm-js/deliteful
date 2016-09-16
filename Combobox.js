@@ -267,13 +267,6 @@ define([
 		 */
 		openOnPointerDown: true,
 
-		/**
-		 * When using a ComboPopup (hence in mobile), this properties specifies which node gets the focus
-		 * once the popup is open.
-		 * Possibile values are "input" and "list".
-		 */
-		nodeToFocus: "listNode",
-
 		createdCallback: function () {
 			// Declarative case (list specified declaratively inside the declarative Combobox)
 			var list = this.querySelector("d-list");
@@ -606,9 +599,7 @@ define([
 		 * @protected
 		 */
 		createCenteredDropDown: function () {
-			var node = (this.selectionMode === "single" && this.autoFilter
-				&& this.nodeToFocus !== "list" ) ?  this.nodeToFocus : "list";
-			return new ComboPopup({combobox: this, nodeToFocus: node});
+			return new ComboPopup({combobox: this});
 		},
 
 		/**

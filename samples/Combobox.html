@@ -57,7 +57,7 @@
 				{ "label": "Japan", "world-cup-victories": 0, "region": "Asia" }
 			];
 
-			comboTeams.list.source = comboTeams2.list.source = comboTeams3.list.source = items;
+			comboTeams.list.source = comboTeams2.list.source = items;
 
 			// custom filter function.
 			var filter = function (filterTxt) {
@@ -162,17 +162,6 @@
 	<span>[hasDownArrow:false, openOnPointerDown:false, filterDelay:1000ms]</span>
 	</p>
 	<d-combobox selectionMode="single" autoFilter="true" id="comboTeams2" preSetValue="false" hasDownArrow="false" openOnPointerDown="false" filterDelay="1000">
-		<d-list righttextAttr="world-cup-victories" categoryAttr="region" showNoItems="true">
-		</d-list>
-	</d-combobox>
-
-	<br/>
-
-	<p>
-	<label for="comboTeams3-input">Your favorite team (single choice)</label><br/>
-	<span>[hasDownArrow:false, openOnPointerDown:false, filterDelay:1000ms, nodeToFocus: "inputNode" (mobile only)]</span>
-	</p>
-	<d-combobox selectionMode="single" autoFilter="true" id="comboTeams3" preSetValue="false" hasDownArrow="false" openOnPointerDown="false" filterDelay="1000" nodeToFocus="inputNode">
 		<d-list righttextAttr="world-cup-victories" categoryAttr="region" showNoItems="true">
 		</d-list>
 	</d-combobox>
