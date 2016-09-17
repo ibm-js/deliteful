@@ -36,12 +36,6 @@ define([
 		 */
 		header: "",
 
-		/**
-		 * Indicates which node gets the focus when dropDown.focus() is invoked.
-		 * @type {String}
-		 */
-		nodeToFocus: "listNode",
-
 		computeProperties: function (oldValues) {
 			if ("combobox" in oldValues) {
 				// Find Combobox's label and use it as my header.

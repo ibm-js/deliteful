@@ -254,7 +254,7 @@ define([
 
 		/**
 		 * Displays or not the down arrow button.
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @default true
 		 */
 		hasDownArrow: true,
@@ -263,9 +263,15 @@ define([
 		 * Defines if a click on widget itself will show up the list immediately.
 		 * It makes sense only on desktop version, since in mobile, a click on the widget opens the
 		 * popup widget always.
-		 * @type {Boolean}
+		 * @type {boolean}
 		 */
 		openOnPointerDown: true,
+
+		/**
+		 * Flag that allows lazy initialization of list's source.
+		 * @type {boolean}
+		 */
+		_listSourceSet: false,
 
 		createdCallback: function () {
 			// Declarative case (list specified declaratively inside the declarative Combobox)
@@ -279,6 +285,10 @@ define([
 					}.bind(this));
 				} else {
 					this.list = list;
+				}
+				if(list.source !== null) {
+					this._source = list.source;
+					list.source = null;
 				}
 			}
 			if (!this.list) {
@@ -359,6 +369,10 @@ define([
 		},
 
 		_initList: function () {
+			if (this.list.source !== null) {
+				this._source = this.list.source;
+				this.list.source = null;
+			}
 			// TODO
 			// This is a workaround waiting for a proper mechanism (at the level
 			// of delite/Store - delite/StoreMap) to allow a store-based widget
@@ -422,8 +436,8 @@ define([
 				this.handleOnInput(this.value); // emit "input" event
 			}.bind(this));
 
-			// React to programmatic changes of selected items
 			this.list.observe(function (oldValues) {
+				// React to programmatic changes of selected items
 				if ("selectedItems" in oldValues) {
 					if (this.selectionMode === "single") {
 						this._validateSingle();
@@ -432,14 +446,22 @@ define([
 						this._validateMultiple(this._popupInput || this.inputNode);
 					}
 				}
+				// Watching if list's source has been set after list initialization.
+				if ("source" in oldValues) {
+					if (!this._listSourceSet && this.list.source && this.list.source !== oldValues.source) {
+						this._source = this.list.source;
+						this.list.source = null;
+						this._listSourceSet = true;
+					}
+				}
 			}.bind(this));
 
 			this._prepareInput(this.inputNode);
 
 			if (this._useCenteredDropDown()) {
-				this.on("click", this.openDropDown.bind(this), this);
+				this.on("click", this.openDropDown.bind(this));
 			} else if (this.openOnPointerDown) {
-			 	this.on("mousedown", this.openDropDown.bind(this), this);
+			 	this.on("mousedown", this.openDropDown.bind(this));
 			}
 		},
 
@@ -490,7 +512,7 @@ define([
 					// Also, handle when the Combobox's selected item is deleted from the list.
 					var waitListener = this.list.on("query-success", function () {
 						initValueSingleMode();
-						waitListener.remove(waitListener);
+						waitListener.remove();
 					});
 				}
 			} else { // selectionMode === "multiple"
@@ -714,10 +736,6 @@ define([
 		 * If `autoFilter` is `true` and `selectionMode` is `"single"`, the method
 		 * is called automatically while the user types into the editable input
 		 * element, with `filterTxt` being the currently entered text.
-		 * The default implementation uses `dstore/Filter.match()`.
-		 * The matching is performed against the `list.labelAttr` attribute of
-		 * the data store items.
-		 * The method can be overridden for implementing other filtering strategies.
 		 * @protected
 		 */
 		filter: function (filterTxt) {
@@ -728,11 +746,31 @@ define([
 			} // nothing to add for "contains"
 
 			var rexExp = new RegExp(filterTxt, this.ignoreCase ? "i" : "");
+
+			// Open popup once list got items loaded
 			var queryListener = this.list.on("query-success", function () {
-					this.openDropDown();
-					queryListener.remove(queryListener);
+				this.openDropDown();
+				queryListener.remove();
 			}.bind(this));
-			this.list.query = (new Filter()).match(this.list.labelAttr, rexExp);
+
+			var args = {}; args.rexExp = rexExp;
+			this._listSourceSet = true;
+			this.list.query = this.setQuery(args);
+			this.list.source = this._source;
+		},
+
+		/**
+		 * Sets the new list's query.
+		 * This method can be overridden when using other store types.
+		 * The default implementation uses `dstore/Filter.match()`.
+		 * The matching is performed against the `list.labelAttr` attribute of
+		 * the data store items.
+		 * The method can be overridden for implementing other filtering strategies.
+		 * @protected
+		 * @returns {Object} New query to set to the list.
+		 */
+		setQuery: function (args) {
+			return (new Filter()).match(this.list.labelAttr, args.rexExp);
 		},
 
 		openDropDown: dcl.superCall(function (sup) {
@@ -741,6 +779,11 @@ define([
 				// cancel button. Used by ComboPopup. (Could spare it in situations when
 				// there is no cancel button, but not really worth.)
 				this._selectedItems = this.list.selectedItems;
+
+				// Set list's source.
+				this._listSourceSet = true;
+				this.list.source = this._source;
+
 
 				if (!this.opened) {
 					var mobile = this._useCenteredDropDown();
@@ -790,11 +833,11 @@ define([
 					// Closing the dropdown represents a commit interaction
 					this.handleOnChange(this.value); // emit "change" event
 
-					// Reinit the query. Necessary such that after closing the dropdown
-					// in autoFilter mode with a text in the input field not matching
-					// any item, when the dropdown will be reopen it shows all items
-					// instead of being empty
-					this.list.query = {};
+					// Reinit the query.
+					if (this.resetQuery !== null) {
+						this.list.query =
+							(typeof this.resetQuery === "function") ? this.resetQuery() : this.resetQuery;
+					}
 
 					if (this.selectionMode === "single" && this.autoFilter) {
 						// In autoFilter mode, reset the content of the inputNode when
@@ -810,6 +853,28 @@ define([
 				sup.apply(this, arguments);
 			};
 		}),
+
+		setAttribute: dcl.superCall(function (sup) {
+			return function (name, value) {
+				if (/^aria-/.test(name)) {
+					this.forEachFocusNode(function (node) {
+						node.setAttribute(name, value);
+					});
+				} else {
+					sup.call(this, name, value);
+				}
+			};
+		}),
+
+		/**
+		 * Reset the list's query.
+		 * If null, the list's query won't be reset.
+		 * It can be a function or an Object. If a fuction, then it's invoked and the return value
+		 * assigned back to this.list.query.
+		 * If an Object, it's assigned to the list's query.
+		 * It can be overriden depending of store used and the strategy to apply.
+		 */
+		resetQuery: null,
 
 		/**
 		 * Scrolls the list inside the popup such that the specified item, or
