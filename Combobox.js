@@ -286,7 +286,7 @@ define([
 				} else {
 					this.list = list;
 				}
-				if(list.source !== null) {
+				if (list.source !== null) {
 					this._source = list.source;
 					list.source = null;
 				}
@@ -461,7 +461,7 @@ define([
 			if (this._useCenteredDropDown()) {
 				this.on("click", this.openDropDown.bind(this));
 			} else if (this.openOnPointerDown) {
-			 	this.on("mousedown", this.openDropDown.bind(this));
+				this.on("mousedown", this.openDropDown.bind(this));
 			}
 		},
 
@@ -753,9 +753,10 @@ define([
 				queryListener.remove();
 			}.bind(this));
 
-			var args = {}; args.rexExp = rexExp;
+			var args = {};
+			args.rexExp = rexExp;
 			this._listSourceSet = true;
-			this.list.query = this.setQuery(args);
+			this.list.query = this.getQuery(args);
 			this.list.source = this._source;
 		},
 
@@ -769,7 +770,7 @@ define([
 		 * @protected
 		 * @returns {Object} New query to set to the list.
 		 */
-		setQuery: function (args) {
+		getQuery: function (args) {
 			return (new Filter()).match(this.list.labelAttr, args.rexExp);
 		},
 
@@ -872,7 +873,7 @@ define([
 		 * It can be a function or an Object. If a fuction, then it's invoked and the return value
 		 * assigned back to this.list.query.
 		 * If an Object, it's assigned to the list's query.
-		 * It can be overriden depending of store used and the strategy to apply.
+		 * It can be overridden depending of store used and the strategy to apply.
 		 */
 		resetQuery: null,
 
