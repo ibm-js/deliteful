@@ -739,6 +739,7 @@ define([
 		 * @protected
 		 */
 		filter: function (filterTxt) {
+			var inputText = filterTxt;
 			if (this.filterMode === "startsWith") {
 				filterTxt = "^" + filterTxt;
 			} else if (this.filterMode === "is") {
@@ -755,6 +756,7 @@ define([
 
 			var args = {};
 			args.rexExp = rexExp;
+			args.inputText = inputText;
 			this._listSourceSet = true;
 			this.list.query = this.getQuery(args);
 			this.list.source = this._source;

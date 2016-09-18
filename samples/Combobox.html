@@ -20,14 +20,14 @@
 	<script type="text/javascript">
 		require([
 			"deliteful/list/List",
-			"dstore/Request",
+			"deliteful/tests/functional/SlowStore",
 			"deliteful/Combobox",
 			"deliteful/Button",
 			"deliteful/RadioButton",
 			"deliteful/Checkbox",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (List, Request) {
+		], function (List, SlowStore) {
 
 			startsWith.on("change", function () {
 				comboTeams.filterMode = "startsWith";
@@ -41,63 +41,6 @@
 			ignoreCase.on("change", function () {
 				comboTeams.ignoreCase = ignoreCase.checked;
 			});
-
-			var items = [
-				{ "label": "France", "world-cup-victories": 1, "region": "EU" },
-				{ "label": "Germany", "world-cup-victories": 4, "region": "EU" },
-				{ "label": "Spain", "world-cup-victories": 1, "region": "EU" },
-				{ "label": "Italy", "world-cup-victories": 4, "region": "EU" },
-				{ "label": "England", "world-cup-victories": 1, "region": "EU" },
-				{ "label": "USA", "world-cup-victories": 0, "region": "America" },
-				{ "label": "Canada", "world-cup-victories": 0, "region": "America" },
-				{ "label": "Brazil", "world-cup-victories": 5, "region": "America" },
-				{ "label": "Argentina", "world-cup-victories": 2, "region": "America" },
-				{ "label": "Uruguay", "world-cup-victories": 2, "region": "America" },
-				{ "label": "China", "world-cup-victories": 0, "region": "Asia" },
-				{ "label": "Japan", "world-cup-victories": 0, "region": "Asia" }
-			];
-
-			comboTeams.list.source = comboTeams2.list.source = items;
-
-			// custom filter function.
-			var filter = function (filterTxt) {
-				if(filterTxt.length !== 0) {
-					if (this.filterMode === "startsWith") {
-						filterTxt = "^" + filterTxt;
-					} else if (this.filterMode === "is") {
-						filterTxt = "^" + filterTxt + "$";
-					}
-					var queryListener = this.list.on("query-success", function () {
-						this.openDropDown();
-						queryListener.remove(queryListener);
-					}.bind(this));
-					this.list.query = {regExp: filterTxt, ignoreCase: this.ignoreCase};
-				} else {
-					this.closeDropDown();
-				}
-			};
-
-			var requestStore = new Request({target: "/foo"});
-			var requestStore2 = new Request({target: "/foo"});
-
-			var list = new List({
-				righttextAttr: "world-cup-victories",
-				categoryAttr: "region",
-				showNoItems: true,
-				source: requestStore
-			});
-
-			var list2 = new List({
-				righttextAttr: "world-cup-victories",
-				categoryAttr: "region",
-				showNoItems: true,
-				source: requestStore2
-			});
-
-			comboTeamsAutoComplete.filter = comboTeamsAutoComplete2.filter = filter;
-			comboTeamsAutoComplete.list = list;
-			comboTeamsAutoComplete2.list = list2;
-
 
 			showResults = function () {
 				var getSelectedItemsTxt = function (combobox) {
@@ -121,6 +64,23 @@
 					"\nYour favorite players: " + getSelectedItemsTxt(comboPlayers));
 			};
 
+			var slowStore = new SlowStore({target: "/foo" /*unsed*/});
+
+			var list = new List({
+				righttextAttr: "world-cup-victories",
+				categoryAttr: "region",
+				showNoItems: true,
+				source: slowStore
+			});
+
+			comboTeamsAutoComplete2.getQuery = function(args) {
+				// don't care about args.
+				// let set my own query
+				//
+				return {inputText: args.inputText, filterMode: this.filterMode, ignoreCase: this.ignoreCase};
+			};
+			comboTeamsAutoComplete2.list = list;
+
 			document.body.style.display = "";
 		});
 	</script>
@@ -137,10 +97,23 @@
 	<b>World Cup Survey</b>
 	<br/><br/>
 	<p>
-		<label for="comboTeams-input">Your favorite team (single choice):</label>
+		<label for="comboTeams-input">Your favorite team (single choice):</label><br/>
+		<span>[options: default.]</span>
 	</p>
 	<d-combobox selectionMode="single" autoFilter="true" id="comboTeams" preSetValue="false">
 		<d-list righttextAttr="world-cup-victories" categoryAttr="region" showNoItems="true">
+			{ "label": "France", "world-cup-victories": 1, "region": "EU" },
+			{ "label": "Germany", "world-cup-victories": 4, "region": "EU" },
+			{ "label": "Spain", "world-cup-victories": 1, "region": "EU" },
+			{ "label": "Italy", "world-cup-victories": 4, "region": "EU" },
+			{ "label": "England", "world-cup-victories": 1, "region": "EU" },
+			{ "label": "USA", "world-cup-victories": 0, "region": "America" },
+			{ "label": "Canada", "world-cup-victories": 0, "region": "America" },
+			{ "label": "Brazil", "world-cup-victories": 5, "region": "America" },
+			{ "label": "Argentina", "world-cup-victories": 2, "region": "America" },
+			{ "label": "Uruguay", "world-cup-victories": 2, "region": "America" },
+			{ "label": "China", "world-cup-victories": 0, "region": "Asia" },
+			{ "label": "Japan", "world-cup-victories": 0, "region": "Asia" }
 		</d-list>
 	</d-combobox>
 	<p>(The number of cups is indicated for each country.)</p>
@@ -159,10 +132,22 @@
 
 	<p>
 	<label for="comboTeams2-input">Your favorite team (single choice)</label><br/>
-	<span>[hasDownArrow:false, openOnPointerDown:false, filterDelay:1000ms]</span>
+	<span>[options: hasDownArrow=false, openOnPointerDown=false, filterDelay=1000ms]</span>
 	</p>
 	<d-combobox selectionMode="single" autoFilter="true" id="comboTeams2" preSetValue="false" hasDownArrow="false" openOnPointerDown="false" filterDelay="1000">
 		<d-list righttextAttr="world-cup-victories" categoryAttr="region" showNoItems="true">
+			{ "label": "France", "world-cup-victories": 1, "region": "EU" },
+			{ "label": "Germany", "world-cup-victories": 4, "region": "EU" },
+			{ "label": "Spain", "world-cup-victories": 1, "region": "EU" },
+			{ "label": "Italy", "world-cup-victories": 4, "region": "EU" },
+			{ "label": "England", "world-cup-victories": 1, "region": "EU" },
+			{ "label": "USA", "world-cup-victories": 0, "region": "America" },
+			{ "label": "Canada", "world-cup-victories": 0, "region": "America" },
+			{ "label": "Brazil", "world-cup-victories": 5, "region": "America" },
+			{ "label": "Argentina", "world-cup-victories": 2, "region": "America" },
+			{ "label": "Uruguay", "world-cup-victories": 2, "region": "America" },
+			{ "label": "China", "world-cup-victories": 0, "region": "Asia" },
+			{ "label": "Japan", "world-cup-victories": 0, "region": "Asia" }
 		</d-list>
 	</d-combobox>
 
@@ -184,21 +169,12 @@
 	<p>
 	<button is="d-button" onclick="showResults()">Done</button>
 	</p>
-
-	<h4>The below are using a `dStore/Request` store and a custom filter function.</h4>
-
-	<p>
-	<label for="comboTeamsAutoComplete-input">Your favorite team (single choice)</label><br/>
-	<span>[hasDropDown:false, openOnPointerDown:true, source: Request, filterDelay:500m]</span>
-	</p>
-	<d-combobox selectionMode="single" autoFilter="true" preSetValue="false" hasDownArrow="false" filterDelay="500" id="comboTeamsAutoComplete" openOnPointerDown="true">
-	</d-combobox>
-
+	<br/><br/>
+	<h4>The below is using a `slowStore`, that mimic a `dStore/Request`</h4>
 	<br/>
-
 	<p>
 	<label for="comboTeamsAutoComplete2-input">Your favorite team (single choice)</label><br/>
-	<span>[hasDropDown:false, openOnPointerDown:false, source: Request, filterDelay:500ms]</span>
+	<span>[hasDropDown:false, openOnPointerDown:false, preSetValue:false, source: SlowStore, filterDelay:500ms]</span>
 	</p>
 	<d-combobox selectionMode="single" autoFilter="true" preSetValue="false" hasDownArrow="false" filterDelay="500" id="comboTeamsAutoComplete2" openOnPointerDown="false">
 	</d-combobox>

@@ -318,7 +318,7 @@ define([
 
 		refreshRendering: function (props) {
 			//	List attributes have been updated.
-			/*jshint maxcomplexity:12*/
+			/*jshint maxcomplexity:13*/
 			if ("selectionMode" in props) {
 				// Update aria attributes
 				$(this.containerNode).removeClass(this._cssClasses.selectable);
@@ -368,7 +368,8 @@ define([
 				}
 			}
 
-			if ("renderItems" in props && this.renderItems) {
+			if (("renderItems" in props && this.renderItems) ||
+				("_displayedPanel" in props && this._displayedPanel !== props._displayedPanel)) {
 				// notify the list content changed.
 				this.emit("delite-size-change");
 			}
