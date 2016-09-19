@@ -27,7 +27,7 @@
 			"deliteful/Checkbox",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (List, SlowStore) {
+		], function (List, SlowStore, Combobox) {
 
 			startsWith.on("change", function () {
 				comboTeams.filterMode = "startsWith";
@@ -65,21 +65,32 @@
 			};
 
 			var slowStore = new SlowStore({target: "/foo" /*unsed*/});
+			var container = document.getElementById("comboTeamsAutoCompleteContainer");
 
 			var list = new List({
 				righttextAttr: "world-cup-victories",
 				categoryAttr: "region",
 				showNoItems: true,
-				source: slowStore
+			});
+			var comboTeamsAutoComplete = new Combobox({
+				id: "comboTeamsAutoComplete",
+				openOnPointerDown: false,
+				selectionMode: "single",
+				autoFilter: true,
+				preSetValue: false,
+				hasDownArrow: false,
+				filterDelay: 500,
+				source: slowStore,
+				list: list
 			});
 
-			comboTeamsAutoComplete2.getQuery = function(args) {
-				// don't care about args.
-				// let set my own query
-				//
+			comboTeamsAutoComplete.getQuery = function(args) {
+				// don't care about args. Let's set my own query
 				return {inputText: args.inputText, filterMode: this.filterMode, ignoreCase: this.ignoreCase};
 			};
-			comboTeamsAutoComplete2.list = list;
+
+			container.appendChild(comboTeamsAutoComplete);
+
 
 			document.body.style.display = "";
 		});
@@ -170,15 +181,12 @@
 	<button is="d-button" onclick="showResults()">Done</button>
 	</p>
 	<br/><br/>
-	<h4>The below is using a `slowStore`, that mimic a `dStore/Request`</h4>
-	<br/>
+	<h4>The below is using a `slowStore`, that mimics a `dStore/Request`</h4>
 	<p>
-	<label for="comboTeamsAutoComplete2-input">Your favorite team (single choice)</label><br/>
+	<label for="comboTeamsAutoComplete-input">Your favorite team (single choice)</label><br/>
 	<span>[hasDropDown:false, openOnPointerDown:false, preSetValue:false, source: SlowStore, filterDelay:500ms]</span>
 	</p>
-	<d-combobox selectionMode="single" autoFilter="true" preSetValue="false" hasDownArrow="false" filterDelay="500" id="comboTeamsAutoComplete2" openOnPointerDown="false">
-	</d-combobox>
-
+	<div id="comboTeamsAutoCompleteContainer"></div>
 	<br/>
 
 </body>

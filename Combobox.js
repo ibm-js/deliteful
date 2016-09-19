@@ -271,7 +271,13 @@ define([
 		 * Flag that allows lazy initialization of list's source.
 		 * @type {boolean}
 		 */
-		_listSourceSet: false,
+		_assignSourceToList: false,
+
+		/**
+		 * Source for the inner list.
+		 * @type {delite/Store} Source set.
+		 */
+		source: null,
 
 		createdCallback: function () {
 			// Declarative case (list specified declaratively inside the declarative Combobox)
@@ -287,7 +293,7 @@ define([
 					this.list = list;
 				}
 				if (list.source !== null) {
-					this._source = list.source;
+					this.source = list.source;
 					list.source = null;
 				}
 			}
@@ -370,7 +376,7 @@ define([
 
 		_initList: function () {
 			if (this.list.source !== null) {
-				this._source = this.list.source;
+				this.source = this.list.source;
 				this.list.source = null;
 			}
 			// TODO
@@ -423,6 +429,13 @@ define([
 							// deferred such that the user can see the selection feedback
 							// before the dropdown closes.
 							this.closeDropDown(true/*refocus*/);
+
+							this.list.source = null;
+							// Reinit the query.
+							if (this.resetQuery !== null) {
+								this.list.query =
+									(typeof this.resetQuery === "function") ? this.resetQuery() : this.resetQuery;
+							}
 						}.bind(this), 100); // worth exposing a property for the delay?
 					}
 				}
@@ -448,10 +461,10 @@ define([
 				}
 				// Watching if list's source has been set after list initialization.
 				if ("source" in oldValues) {
-					if (!this._listSourceSet && this.list.source && this.list.source !== oldValues.source) {
-						this._source = this.list.source;
+					if (!this._assignSourceToList && this.list.source && this.list.source !== oldValues.source) {
+						this.source = this.list.source;
 						this.list.source = null;
-						this._listSourceSet = true;
+						this._assignSourceToList = true;
 					}
 				}
 			}.bind(this));
@@ -747,19 +760,15 @@ define([
 			} // nothing to add for "contains"
 
 			var rexExp = new RegExp(filterTxt, this.ignoreCase ? "i" : "");
-
-			// Open popup once list got items loaded
-			var queryListener = this.list.on("query-success", function () {
-				this.openDropDown();
-				queryListener.remove();
-			}.bind(this));
-
 			var args = {};
 			args.rexExp = rexExp;
 			args.inputText = inputText;
-			this._listSourceSet = true;
+			this._assignSourceToList = true;
 			this.list.query = this.getQuery(args);
-			this.list.source = this._source;
+			this.list.source = this.source;
+
+			// Open popup in order the list's content (loader, no items element or items).
+			this.openDropDown();
 		},
 
 		/**
@@ -776,6 +785,16 @@ define([
 			return (new Filter()).match(this.list.labelAttr, args.rexExp);
 		},
 
+		/**
+		 * Reset the list's query.
+		 * If null, the list's query won't be reset.
+		 * It can be a function or an Object. If a fuction, then it's invoked and the return value
+		 * assigned back to this.list.query.
+		 * If an Object, it's assigned to the list's query.
+		 * It can be overridden depending of store used and the strategy to apply.
+		 */
+		resetQuery: {},
+
 		openDropDown: dcl.superCall(function (sup) {
 			return function () {
 				// Store the current selection, to be able to restore when pressing the
@@ -783,10 +802,9 @@ define([
 				// there is no cancel button, but not really worth.)
 				this._selectedItems = this.list.selectedItems;
 
-				// Set list's source.
-				this._listSourceSet = true;
-				this.list.source = this._source;
-
+				// Assign widget's source to the list's source.
+				this._assignSourceToList = true;
+				this.list.source = this.source;
 
 				if (!this.opened) {
 					var mobile = this._useCenteredDropDown();
@@ -836,12 +854,6 @@ define([
 					// Closing the dropdown represents a commit interaction
 					this.handleOnChange(this.value); // emit "change" event
 
-					// Reinit the query.
-					if (this.resetQuery !== null) {
-						this.list.query =
-							(typeof this.resetQuery === "function") ? this.resetQuery() : this.resetQuery;
-					}
-
 					if (this.selectionMode === "single" && this.autoFilter) {
 						// In autoFilter mode, reset the content of the inputNode when
 						// closing the dropdown, such that next time the dropdown is opened
@@ -869,15 +881,15 @@ define([
 			};
 		}),
 
-		/**
-		 * Reset the list's query.
-		 * If null, the list's query won't be reset.
-		 * It can be a function or an Object. If a fuction, then it's invoked and the return value
-		 * assigned back to this.list.query.
-		 * If an Object, it's assigned to the list's query.
-		 * It can be overridden depending of store used and the strategy to apply.
-		 */
-		resetQuery: null,
+		// HasDropDown#_dropDownKeyUpHandler() override.
+		// Do not call openDropDown if widget does not have a downArrow.
+		_dropDownKeyUpHandler: dcl.superCall(function (sup) {
+			return function () {
+				if (this.hasDownArrow) {
+					sup.call(this);
+				}
+			};
+		}),
 
 		/**
 		 * Scrolls the list inside the popup such that the specified item, or
