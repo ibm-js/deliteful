@@ -158,28 +158,6 @@ define([
 			combo.notifyCurrentValue("source");
 		}
 
-		// Number of options
-		assert.strictEqual(combo.list.getItemRenderers().length, nOptions,
-				"Number of options after adding 10 options on combo.id: " + combo.id);
-
-		// selection API of List
-		// Initially:
-		// value
-		assert.strictEqual(combo.value, "Option 0",
-				"combo.value after adding 10 options on combo.id: " + combo.id);
-		assert.strictEqual(combo.value, combo.valueNode.value,
-				"combo.value equal to combo.valueNode.value after adding 10 options on combo.id: " +
-				combo.id);
-		// By default, the first option is selected for a single-choice (none for a multi-choice)
-		assert.isNotNull(combo.list.selectedItem,
-				"combo.list.selectedItem should not be null after adding 10 options on combo.id: " +
-				combo.id);
-		assert.strictEqual(combo.list.selectedItem.label, "Option 0",
-				"combo.list.selectedItem.label after adding 10 options on combo.id: " +
-				combo.id);
-		assert.strictEqual(combo.list.selectedItems.length, 1,
-				"combo.list.selectedItems after adding 10 options on combo.id: " + combo.id);
-
 		var d = test.async(1000);
 
 		combo.openDropDown().then(d.rejectOnError(function () {
@@ -244,7 +222,7 @@ define([
 
 			combo = document.getElementById("mycombo1");
 
-			if (!combo) { // for the programmatic case 
+			if (!combo) { // for the programmatic case
 				combo = createMyCombobox("mycombo1");
 			} // else the declarative case
 
@@ -324,7 +302,7 @@ define([
 	dcl.mix(declCommonSuite, CommonTestCases);
 	registerSuite(declCommonSuite);
 
-	// Programatic creation 
+	// Programatic creation
 
 	var MyCombobox = register("my-combo-prog", [Combobox], {});
 
@@ -356,26 +334,43 @@ define([
 			var dataSource = new Memory(
 				{idProperty: "name",
 					data: [
+					{ name: "Japan", sales: 900, profit: 100, region: "Asia" },
 					{ name: "France", sales: 500, profit: 50, region: "EU" },
 					{ name: "Germany", sales: 450, profit: 48, region: "EU" },
 					{ name: "UK", sales: 700, profit: 60, region: "EU" },
 					{ name: "USA", sales: 2000, profit: 250, region: "America" },
 					{ name: "Canada", sales: 600, profit: 30, region: "America" },
 					{ name: "Brazil", sales: 450, profit: 30, region: "America" },
-					{ name: "China", sales: 500, profit: 40, region: "Asia" },
-					{ name: "Japan", sales: 900, profit: 100, region: "Asia" }
+					{ name: "China", sales: 500, profit: 40, region: "Asia" }
 				]});
 			combo.list.labelAttr = "name";
-			combo.list.source = dataSource;
 			combo.list.deliver();
+			combo.source = dataSource;
 			container.appendChild(combo);
 			combo.attachedCallback();
 			combo.deliver();
 
-			assert.strictEqual(combo.list.getItemRenderers().length, 8,
+			var d = this.async(2000);
+
+			// need to open the popup so the list gets the source.
+			combo.openDropDown().then(d.rejectOnError(function () {
+				assert.strictEqual(combo.list.getItemRenderers().length, 8,
 					"Number of options after adding 8 options on combo.id: " + combo.id);
-			assert.strictEqual(combo.value, "France",
+				assert.strictEqual(combo.value, "",
 					"combo.value after adding 8 options on combo.id: " + combo.id);
+
+				var item0 = combo.list.getItemRenderers()[0];
+				item0.click();
+
+				// Higher than the 100 delay of Combobox' defer when closing the dropdown
+				var delay = 200;
+				setTimeout(d.callback(function () {
+					assert.strictEqual(combo.value, "Japan",
+						"combo.value after adding 8 options on combo.id: " + combo.id);
+				}), delay);
+			}));
+
+			return d;
 		},
 
 		"widget.value, and change and input events (selectionMode=single)": function () {
@@ -621,7 +616,7 @@ define([
 
 			return d;
 		},
-		
+
 		// Test case for #509: initialization of Combobox after List rendering is ready.
 		"initialization with List rendering after Combobox initialization": function () {
 			var combo = new Combobox(); // single selection mode
@@ -634,13 +629,15 @@ define([
 			combo.list = list;
 			combo.deliver();
 
-			// Check the correct initialization of displayed label, widget value,
-			// and submitted value.
-			assert.strictEqual(combo.inputNode.value, "Option 0", "combo.inputNode.value");
-			assert.strictEqual(combo.value, "Option 0", "combo.value");
-			assert.strictEqual(combo.valueNode.value, "Option 0", "combo.valueNode.value");
+			// Check displayed label, widget value and submitted value are still null.
+			assert.strictEqual(combo.inputNode.value, "", "combo.inputNode.value");
+			assert.strictEqual(combo.value, "", "combo.value");
+			assert.strictEqual(combo.valueNode.value, "", "combo.valueNode.value");
+			// Check widget source got list'source while the latter was set to null.
+			assert.isNotNull(combo.source, "combo.source");
+			assert.isNull(combo.list.source, "combo.list.source");
 		},
-		
+
 		afterEach: function () {
 			container.parentNode.removeChild(container);
 		}

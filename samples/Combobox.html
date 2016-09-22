@@ -109,9 +109,9 @@
 	<br/><br/>
 	<p>
 		<label for="comboTeams-input">Your favorite team (single choice):</label><br/>
-		<span>[options: default.]</span>
+		<span>[options: default; displayedValue:"France" (value: France)]</span>
 	</p>
-	<d-combobox selectionMode="single" autoFilter="true" id="comboTeams" preSetValue="false">
+	<d-combobox selectionMode="single" autoFilter="true" id="comboTeams" displayedValue="France" value="France">
 		<d-list righttextAttr="world-cup-victories" categoryAttr="region" showNoItems="true">
 			{ "label": "France", "world-cup-victories": 1, "region": "EU" },
 			{ "label": "Germany", "world-cup-victories": 4, "region": "EU" },
@@ -145,7 +145,7 @@
 	<label for="comboTeams2-input">Your favorite team (single choice)</label><br/>
 	<span>[options: hasDownArrow=false, openOnPointerDown=false, filterDelay=1000ms]</span>
 	</p>
-	<d-combobox selectionMode="single" autoFilter="true" id="comboTeams2" preSetValue="false" hasDownArrow="false" openOnPointerDown="false" filterDelay="1000">
+	<d-combobox selectionMode="single" autoFilter="true" id="comboTeams2" hasDownArrow="false" openOnPointerDown="false" filterDelay="1000">
 		<d-list righttextAttr="world-cup-victories" categoryAttr="region" showNoItems="true">
 			{ "label": "France", "world-cup-victories": 1, "region": "EU" },
 			{ "label": "Germany", "world-cup-victories": 4, "region": "EU" },
@@ -184,7 +184,7 @@
 	<h4>The below is using a `slowStore`, that mimics a `dStore/Request`</h4>
 	<p>
 	<label for="comboTeamsAutoComplete-input">Your favorite team (single choice)</label><br/>
-	<span>[hasDropDown:false, openOnPointerDown:false, preSetValue:false, source: SlowStore, filterDelay:500ms]</span>
+	<span>[hasDropDown:false, openOnPointerDown:false, source: SlowStore, filterDelay:500ms]</span>
 	</p>
 	<div id="comboTeamsAutoCompleteContainer"></div>
 	<br/>

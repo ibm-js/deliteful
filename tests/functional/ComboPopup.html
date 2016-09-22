@@ -54,17 +54,6 @@
 					});
 					combo.init = true;
 				}
-				// Store ids for item cells such that the automatic functional test
-				// can retrieve them.
-				var itemRenderers = combo.list.getItemRenderers();
-				var i;
-				for (i = 0; i < itemRenderers.length; i++) {
-					itemRenderers[i].renderNode.id = combo.id + "_item" + i;
-				}
-				var categoryRenderers = combo.list.querySelectorAll("." + combo.list._cssClasses.category);
-				for (i = 0; i < categoryRenderers.length; i++) {
-					categoryRenderers.item(i).renderNode.id = combo.id + "_category" + i;
-				}
 			};
 
 			// single selection mode, autoFilter=true
@@ -91,6 +80,18 @@
 				// counters in the remaining testing sequence.
 				combo._inputEventCounter = 0;
 				combo._changeEventCounter = 0;
+
+				// Store ids for item cells such that the automatic functional test
+				// can retrieve them.
+				var itemRenderers = combo.list.getItemRenderers();
+				var i;
+				for (i = 0; i < itemRenderers.length; i++) {
+					itemRenderers[i].renderNode.id = combo.id + "_item" + i;
+				}
+				var categoryRenderers = combo.list.querySelectorAll("." + combo.list._cssClasses.category);
+				for (i = 0; i < categoryRenderers.length; i++) {
+					categoryRenderers.item(i).renderNode.id = combo.id + "_category" + i;
+				}
 
 				var activeDescendantNode = document.getElementById(
 						combo.inputNode.getAttribute("aria-activedescendant"));
@@ -145,7 +146,7 @@
 	<label for="combo1-input">
 		Simple Combobox popup
 	</label>
-	<d-combobox selectionMode="single" autoFilter="false" id="combo1" name="combo1">
+	<d-combobox selectionMode="single" autoFilter="false" id="combo1" name="combo1" value="France">
 		<d-list righttextAttr="sales" categoryAttr="region">
 			{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
 			{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
@@ -190,7 +191,7 @@
 	<label for="combo2-input">
 		Combobox popup with &lt;input&gt; (autoFilter=true)
 	</label>
-	<d-combobox selectionMode="single" autoFilter="true" id="combo2" name="combo2">
+	<d-combobox selectionMode="single" autoFilter="true" id="combo2" name="combo2" value="France">
 		<d-list righttextAttr="sales" categoryAttr="region" showNoItems="true">
 			{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
 			{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },

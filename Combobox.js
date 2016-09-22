@@ -279,6 +279,25 @@ define([
 		 */
 		source: null,
 
+		/**
+		 * Flag to initialize initial widget's value, inputValue's value and valueNode's value.
+		 * @type {Boolean}
+		 */
+		_initValues: true,
+
+		/**
+		 * Initial inputNode's value.
+		 * @type {String}
+		 */
+		displayedValue: "",
+
+		/**
+		 * This flags allow to force the selection of list's items.
+		 * It needs to be set to true right after widget.value has been set with selected items of the list.
+		 * @type {Boolean}
+		 */
+		setSelectedItems: false,
+
 		createdCallback: function () {
 			// Declarative case (list specified declaratively inside the declarative Combobox)
 			var list = this.querySelector("d-list");
@@ -303,6 +322,7 @@ define([
 			}
 		},
 
+		/* jshint maxcomplexity: 17 */
 		refreshRendering: function (oldValues) {
 			var updateReadOnly = false;
 			if ("list" in oldValues) {
@@ -323,6 +343,30 @@ define([
 				this._updateInputReadOnly();
 				this._setSelectable(this.inputNode, !this.inputNode.readOnly);
 			}
+
+			if ("value" in oldValues && (this.setSelectedItems || this._initValues)) {
+				if (this.selectionMode === "single") {
+					this.inputNode.value = ("displayedValue" in oldValues && this.displayedValue !== "") ?
+						this.displayedValue : this.value || "";
+				} else { // multiple
+					this.inputNode.value =
+						(this.value !== "" && this.value instanceof Array) ?
+							(this.value.length > 1 ? this.multipleChoiceMsg : this.value) :
+							this.multipleChoiceNoSelectionMsg;
+				}
+
+				if (this.value !== "") {
+					this.setSelectedItems = true;
+				} else {
+					this.value = (this.selectionMode === "single") ? "" : [];
+				}
+				this.valueNode.value = this.value.toString();
+				this._initValues = false;
+			}
+		},
+
+		_isArrayNotEmpty: function (a) {
+			return a instanceof Array && a.length >= 1;
 		},
 
 		/**
@@ -403,7 +447,7 @@ define([
 				"radio" : "multiple";
 
 			this._initHandlers();
-			this._initValue();
+			//this._initValue();
 		},
 
 		_initHandlers: function () {
@@ -451,14 +495,6 @@ define([
 
 			this.list.observe(function (oldValues) {
 				// React to programmatic changes of selected items
-				if ("selectedItems" in oldValues) {
-					if (this.selectionMode === "single") {
-						this._validateSingle();
-						// do not emit "input" event for programmatic changes
-					} else if (this.selectionMode === "multiple") {
-						this._validateMultiple(this._popupInput || this.inputNode);
-					}
-				}
 				// Watching if list's source has been set after list initialization.
 				if ("source" in oldValues) {
 					if (!this._assignSourceToList && this.list.source && this.list.source !== oldValues.source) {
@@ -467,78 +503,31 @@ define([
 						this._assignSourceToList = true;
 					}
 				}
+				if ("selectedItems" in oldValues) {
+					if (this.selectionMode === "single") {
+						this._validateSingle();
+						// do not emit "input" event for programmatic changes
+					} else if (this.selectionMode === "multiple") {
+						this._validateMultiple(this._popupInput || this.inputNode);
+					}
+				}
 			}.bind(this));
 
 			this._prepareInput(this.inputNode);
 
 			if (this._useCenteredDropDown()) {
-				this.on("click", this.openDropDown.bind(this));
+				this.on("click", function () {
+					if (!this.disabled) {
+						this.openDropDown();
+					}
+				}.bind(this));
 			} else if (this.openOnPointerDown) {
-				this.on("mousedown", this.openDropDown.bind(this));
-			}
-		},
-
-		/**
-		 * Defines if the input value has to be filled with first List's item option.
-		 * @type {Boolean}
-		 */
-		preSetValue: true,
-
-		/**
-		 * Sets the initial value of the widget. If the widget is inside a form,
-		 * also called when reseting the form.
-		 * @private
-		 */
-		_initValue: function () {
-			if (this.selectionMode === "single") {
-				// Returns true if List content already available, false otherwise.
-				var initValueSingleMode = function () {
-					var selectedItem = this.list.selectedItem;
-					var done = false;
-					var value, label;
-					if (selectedItem) {
-						label = this._getItemLabel(selectedItem);
-						value = this._getItemValue(selectedItem);
-						done = true;
-					} else {
-						var firstItemRenderer = this.list.getItemRendererByIndex(0);
-						if (firstItemRenderer) {
-							label = this._getItemRendererLabel(firstItemRenderer);
-							value = this._getItemRendererValue(firstItemRenderer);
-							// Like the native select, the first item is selected.
-							this.list.selectedItem = firstItemRenderer.item;
-							done = true;
-						}
+				this.on("mousedown", function (evt) {
+					// event could be triggered by the down arrow. If so, we do not react to it.
+					if (!this.disabled && evt.srcElement !== this.buttonNode) {
+						(!this.opened) ?  this.openDropDown() : this.closeDropDown(true);
 					}
-					if (done) {
-						this.inputNode.value = label;
-						// Initialize widget's value
-						this._set("value", value);
-						this.valueNode.value = value;
-					}
-					return done;
-				}.bind(this);
-
-				if (this.preSetValue && !initValueSingleMode()) {
-					// List not ready, wait.
-					// TODO: handle case when List is initialized but has no items yet, from "new List()".
-					// Also, handle when the Combobox's selected item is deleted from the list.
-					var waitListener = this.list.on("query-success", function () {
-						initValueSingleMode();
-						waitListener.remove();
-					});
-				}
-			} else { // selectionMode === "multiple"
-				// Differently than in single selection mode, no need to wait for the data,
-				// and do not select the first option, because it would be confusing; the user
-				// may scroll and select some other option, without deselecting the first one.
-				// The native select in multiple mode doesn't select any option by default either.
-				this.inputNode.value = this.multipleChoiceNoSelectionMsg;
-				// widget value: // array, more convenient for client-side usage
-				this.value = [];
-				// submitted form value: string (comma-separated values), more convenient for
-				// server-side usage.
-				this.valueNode.value = "";
+				}.bind(this));
 			}
 		},
 
@@ -800,11 +789,31 @@ define([
 				// Store the current selection, to be able to restore when pressing the
 				// cancel button. Used by ComboPopup. (Could spare it in situations when
 				// there is no cancel button, but not really worth.)
-				this._selectedItems = this.list.selectedItems;
+				this._selectedItems = this.selectedItems;
 
 				// Assign widget's source to the list's source.
 				this._assignSourceToList = true;
 				this.list.source = this.source;
+
+				this.own(this.list.on("query-success", function () {
+					if (this.setSelectedItems) {
+						var selectedItems = [],
+							presetItems = this._isArrayNotEmpty(this.value) ? this.value : [this.value];
+						for (var i = 0; i < presetItems.length; i++) {
+							var val = presetItems[i],
+								data = this.list.source.data || this.list.source;
+							var filtered = data.filter(function (item) {
+								return (this.list.valueAttr in item && item[this.list.valueAttr] === val) ?
+									true : item.label === val;
+							}.bind(this));
+							if (filtered.length > 0) {
+								selectedItems.push(filtered[0]);
+							}
+						}
+						this.list.selectedItems = selectedItems;
+						this.setSelectedItems = false;
+					}
+				}.bind(this)));
 
 				if (!this.opened) {
 					var mobile = this._useCenteredDropDown();
@@ -840,6 +849,7 @@ define([
 		closeDropDown: dcl.superCall(function (sup) {
 			return function () {
 
+				// NOTE: only for ComboPopup.
 				// cleanup
 				this._selectedItems = null;
 
@@ -900,25 +910,27 @@ define([
 			// Since List is in focus-less mode, it does not give focus to
 			// navigated items, thus the browser does not autoscroll.
 			// TODO: see deliteful #498
-
 			if (!item) {
 				var selectedItems = this.list.selectedItems;
 				item = selectedItems && selectedItems.length > 0 ?
 					selectedItems[0] : null;
 			}
+			var renderer = null;
 			if (item) {
 				// Make the first selected item (if any) visible.
 				// Must be done after sup.apply, because List.getBottomDistance
 				// relies on dimensions which are not available if the DOM nodes
 				// are not (yet) visible, hence the popup needs to be shown before.
 				var id = this.list.getIdentity(item);
-				var renderer = this.list.getRendererByItemId(id);
-				if (renderer) {
-					this.list.scrollBy({y: this.list.getBottomDistance(renderer)});
-					if (navigate) {
-						this.list.navigatedDescendant = renderer.childNodes[0];
-					}
-				} // null if the list is empty because no item matches the auto-filtering
+				renderer = this.list.getRendererByItemId(id);
+			} else {
+				renderer = this.list.getItemRenderers()[0];
+			}
+			if (renderer) {
+				this.list.scrollBy({y: this.list.getBottomDistance(renderer)});
+				if (navigate) {
+					this.list.navigatedDescendant = renderer.childNodes[0];
+				}
 			}
 		},
 

@@ -84,8 +84,8 @@ define([
 						widgetValue: "France",
 						valueNodeValue: "France",
 						opened: false,
-						selectedItemsCount: 1,
-						itemRenderersCount: 37,
+						selectedItemsCount: 0,
+						itemRenderersCount: 0,
 						inputEventCounter: 0,
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: undefined, // never received
@@ -235,8 +235,8 @@ define([
 						widgetValue: "France",
 						valueNodeValue: "France",
 						opened: false,
-						selectedItemsCount: 1,
-						itemRenderersCount: 37,
+						selectedItemsCount: 0,
+						itemRenderersCount: 0,
 						inputEventCounter: 0, // no event so far
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: undefined, // never received
@@ -281,14 +281,14 @@ define([
 						valueNodeValue: "Germany",
 						opened: false,
 						selectedItemsCount: 1,
-						itemRenderersCount: 37,
+						itemRenderersCount: 0, // popup was closed
 						inputEventCounter: 1,
 						changeEventCounter: 1,
 						widgetValueAtLatestInputEvent: "Germany",
 						valueNodeValueAtLatestInputEvent: "Germany",
 						widgetValueAtLatestChangeEvent: "Germany",
 						valueNodeValueAtLatestChangeEvent: "Germany"
-					}, "after clicking the third option (Germany))");
+					}, "after clicking the third option (Germany)");
 			})
 			.end();
 	};
@@ -309,7 +309,7 @@ define([
 						valueNodeValue: "",
 						opened: false,
 						selectedItemsCount: 0,
-						itemRenderersCount: 37,
+						itemRenderersCount: 0,
 						inputEventCounter: 0, // no event so far
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: undefined, // never received
@@ -444,6 +444,26 @@ define([
 			.end();
 	};
 
+	var checkFocus = function (remote, comboId, autoFilter) {
+		return loadFile(remote, "./ComboPopup.html").findById(comboId)
+			.click()
+			.sleep(500)
+			.end()
+			.setFindTimeout(intern.config.WAIT_TIMEOUT)
+			.findByXpath("//d-combo-popup")
+			.getActiveElement()
+			.then(function (node) {
+				return node.getTagName().then(function (value) {
+					if (autoFilter) {
+						assert.strictEqual(value, "input", "input node should be focused");
+					}
+					else {
+						assert.strictEqual(value, "d-list-item-renderer", "a d-list node should be focused");
+					}
+				});
+			});
+	};
+
 	registerSuite({
 		name: "ComboPopup - functional",
 
@@ -566,6 +586,38 @@ define([
 			}
 
 			return checkTabNavigation(remote, "combo3");
-		}
+		},
+
+		"check focused element (combo1)": function () {
+			var remote = this.remote;
+
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/17
+				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
+			}
+			if (remote.environmentType.platformName === "iOS" || remote.environmentType.safari ||
+				remote.environmentType.browserName === "safari" || remote.environmentType.brokenSendKeys
+				|| !remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support - brokenSendKeys");
+			}
+
+			return checkFocus(remote, "combo1", false);
+		},
+
+		"check focused element (combo2)": function () {
+			var remote = this.remote;
+
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/17
+				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
+			}
+			if (remote.environmentType.platformName === "iOS" || remote.environmentType.safari ||
+				remote.environmentType.browserName === "safari" || remote.environmentType.brokenSendKeys
+				|| !remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support - brokenSendKeys");
+			}
+
+			return checkFocus(remote, "combo2", true);
+		},
 	});
 });
