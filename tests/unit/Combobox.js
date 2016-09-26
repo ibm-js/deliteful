@@ -93,41 +93,39 @@ define([
 	var hiddenInputCSS = "d-hidden";
 	var nOptions = 10;
 
-	var initCombobox = function (combo, trackable) {
+	var initSource = function (combo, trackable) {
 		var TrackableMemoryStore = Memory.createSubclass(Trackable);
-		var list = new List();
-		list.source = trackable ? new TrackableMemoryStore({}): new Memory();
-		var dataItems = addOptions(combo, list, 0, nOptions - 1);
-		combo.list = list;
-		combo.deliver();
+		var source = trackable ? new TrackableMemoryStore({}): new Memory();
+		combo.source = source;
+		var dataItems = addOptions(combo, 0, nOptions - 1);
 		combo._testDataItems = dataItems; // stored for debugging purposes.
 		return combo;
 	};
 
 	var createCombobox = function (id, trackable, multiple) {
 		var selectionMode = multiple ? "multiple": "single";
-		var combo = new Combobox({ id: id, selectionMode: selectionMode });
-		initCombobox(combo, trackable);
+		var combo = new Combobox({ id: id, selectionMode: selectionMode});
+		initSource(combo, trackable);
 		combo.placeAt(container);
 		return combo;
 	};
 
 	var createMyCombobox = function (id, trackable) {
 		var combo = new MyCombobox({ id: id });
-		initCombobox(combo, trackable);
+		initSource(combo, trackable);
 		//container.appendChild(combo);
 		combo.placeAt(container);
 		return combo;
 	};
 
-	var addOptions = function (combo, list, min, max) {
+	var addOptions = function (combo, min, max) {
 		if (!min && !max) {
-			min = list.getItemRenderers().length + 1;
+			min = combo.source.data.length;
 			max = min;
 		}
 		var dataItems = [];
 		var item;
-		var source = list.source;
+		var source = combo.source;
 		for (var i = min; i <= max; i++) {
 			item = source.addSync({
 				label: "Option " + i
@@ -547,8 +545,8 @@ define([
 		"widget value with item value different than item label (selectionMode=single)": function () {
 			// Set List.valueAttr such that the render items contain the myValue field
 			// of the store data items.
-			var list = new List({source: dataSourceWithValue, valueAttr: "myValue"});
-			var combo = new Combobox({list: list});
+			var list = new List({valueAttr: "myValue"});
+			var combo = new Combobox({list: list, source: dataSourceWithValue});
 			container.appendChild(combo);
 			combo.attachedCallback();
 
@@ -583,8 +581,8 @@ define([
 		"widget value with item value different than item label (selectionMode=multiple)": function () {
 			// Set List.valueAttr such that the render items contain the myValue field
 			// of the store data items.
-			var list = new List({source: dataSourceWithValue, valueAttr: "myValue"});
-			var combo = new Combobox({list: list, selectionMode: "multiple"});
+			var list = new List({valueAttr: "myValue"});
+			var combo = new Combobox({source: dataSourceWithValue, list: list, selectionMode: "multiple"});
 			container.appendChild(combo);
 			combo.attachedCallback();
 
@@ -618,25 +616,25 @@ define([
 		},
 
 		// Test case for #509: initialization of Combobox after List rendering is ready.
-		"initialization with List rendering after Combobox initialization": function () {
-			var combo = new Combobox(); // single selection mode
-			container.appendChild(combo);
-			combo.attachedCallback();
+		// "initialization with List rendering after Combobox initialization": function () {
+		// 	var combo = new Combobox(); // single selection mode
+		// 	container.appendChild(combo);
+		// 	combo.attachedCallback();
 
-			// Add items to the data store after attachedCallback().
-			var list = new List({source: new Memory()});
-			addOptions(null, list, 0, nOptions - 1);
-			combo.list = list;
-			combo.deliver();
+		// 	// Add items to the data store after attachedCallback().
+		// 	var list = new List({source: new Memory()});
+		// 	addOptions(null, list, 0, nOptions - 1);
+		// 	combo.list = list;
+		// 	combo.deliver();
 
-			// Check displayed label, widget value and submitted value are still null.
-			assert.strictEqual(combo.inputNode.value, "", "combo.inputNode.value");
-			assert.strictEqual(combo.value, "", "combo.value");
-			assert.strictEqual(combo.valueNode.value, "", "combo.valueNode.value");
-			// Check widget source got list'source while the latter was set to null.
-			assert.isNotNull(combo.source, "combo.source");
-			assert.isNull(combo.list.source, "combo.list.source");
-		},
+		// 	// Check displayed label, widget value and submitted value are still null.
+		// 	assert.strictEqual(combo.inputNode.value, "", "combo.inputNode.value");
+		// 	assert.strictEqual(combo.value, "", "combo.value");
+		// 	assert.strictEqual(combo.valueNode.value, "", "combo.valueNode.value");
+		// 	// Check widget source got list'source while the latter was set to null.
+		// 	assert.isNotNull(combo.source, "combo.source");
+		// 	assert.isNull(combo.list.source, "combo.list.source");
+		// },
 
 		afterEach: function () {
 			container.parentNode.removeChild(container);

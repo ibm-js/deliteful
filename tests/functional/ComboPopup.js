@@ -85,7 +85,7 @@ define([
 						valueNodeValue: "France",
 						opened: false,
 						selectedItemsCount: 0,
-						itemRenderersCount: 0,
+						itemRenderersCount: 37,
 						inputEventCounter: 0,
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: undefined, // never received
@@ -126,9 +126,9 @@ define([
 				// Clicking the root node just opens the dropdown. No other state change.
 				checkComboState(comboId, comboState,
 					{ // expected combo state
-						inputNodeValue: "France",
-						widgetValue: "France",
-						valueNodeValue: "France",
+						inputNodeValue: "jap",
+						widgetValue: "jap",
+						valueNodeValue: "jap",
 						opened: true,
 						selectedItemsCount: 1,
 						itemRenderersCount: 30,
@@ -140,7 +140,7 @@ define([
 						valueNodeValueAtLatestChangeEvent: null
 					}, "after searching `jap` into input field.");
 			})
-			.pressKeys(keys.BACKSPACE) // Delete the 5 chars of "Japan"
+			.pressKeys(keys.BACKSPACE) // Delete the 3 chars of "Japan"
 			.sleep(250)
 			.pressKeys(keys.BACKSPACE)
 			.sleep(250)
@@ -151,9 +151,9 @@ define([
 				// Clicking the root node just opens the dropdown. No other state change.
 				checkComboState(comboId, comboState,
 					{ // expected combo state
-						inputNodeValue: "France",
-						widgetValue: "France",
-						valueNodeValue: "France",
+						inputNodeValue: "",
+						widgetValue: "",
+						valueNodeValue: "",
 						opened: true,
 						selectedItemsCount: 1,
 						itemRenderersCount: 37,
@@ -172,9 +172,9 @@ define([
 				// Clicking the root node just opens the dropdown. No other state change.
 				checkComboState(comboId, comboState,
 					{ // expected combo state
-						inputNodeValue: "France",
-						widgetValue: "France",
-						valueNodeValue: "France",
+						inputNodeValue: "u",
+						widgetValue: "u",
+						valueNodeValue: "u",
 						opened: true,
 						selectedItemsCount: 1,
 						itemRenderersCount: 2, // USA & UK
@@ -236,7 +236,7 @@ define([
 						valueNodeValue: "France",
 						opened: false,
 						selectedItemsCount: 0,
-						itemRenderersCount: 0,
+						itemRenderersCount: 37,
 						inputEventCounter: 0, // no event so far
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: undefined, // never received
@@ -281,7 +281,7 @@ define([
 						valueNodeValue: "Germany",
 						opened: false,
 						selectedItemsCount: 1,
-						itemRenderersCount: 0, // popup was closed
+						itemRenderersCount: 0,
 						inputEventCounter: 1,
 						changeEventCounter: 1,
 						widgetValueAtLatestInputEvent: "Germany",
@@ -309,7 +309,7 @@ define([
 						valueNodeValue: "",
 						opened: false,
 						selectedItemsCount: 0,
-						itemRenderersCount: 0,
+						itemRenderersCount: 37,
 						inputEventCounter: 0, // no event so far
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: undefined, // never received
