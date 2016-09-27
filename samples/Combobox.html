@@ -70,7 +70,6 @@
 				righttextAttr: "world-cup-victories",
 				categoryAttr: "region",
 				showNoItems: true,
-				source: slowStore
 			});
 			var comboTeamsAutoComplete = new Combobox({
 				id: "comboTeamsAutoComplete",
@@ -79,7 +78,8 @@
 				autoFilter: true,
 				hasDownArrow: false,
 				filterDelay: 500,
-				list: list
+				list: list,
+				source: slowStore
 			});
 
 			comboPlayersWithValuesProg.value = ["Maradona", "Zidane"];

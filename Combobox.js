@@ -688,10 +688,11 @@ define([
 		},
 
 		_validateMultiple: function (userInteraction) {
+			var n;
 			if (userInteraction) {
 				var selectedItems = this.list.selectedItems;
 				var inputElement = this._popupInput || this.inputNode;
-				var n = selectedItems ? selectedItems.length : 0;
+				n = selectedItems ? selectedItems.length : 0;
 				var value = [];
 				if (n > 1) {
 					inputElement.value = this.multipleChoiceMsg;
@@ -716,9 +717,9 @@ define([
 					items = this.value = this.value.split(",");
 					this.valueNode.value = this.value;
 				} else if (this.value instanceof Array) {
-					items = this.value
+					items = this.value;
 				} // else empty array. No pre-set values.
-				var n = items.length;
+				n = items.length;
 				if (n > 1) {
 					this.inputNode.value = this.multipleChoiceMsg;
 				} else if (n === 1) {
@@ -786,8 +787,8 @@ define([
 		_setSelectedItems: function () {
 			if (this.list.source && this.list.renderItems && this.value !== "") {
 				var selectedItems = [],
-					presetItems = this._isArrayNotEmpty(this.value) ? this.value : [this.value];
-					data = this.list.renderItems
+					presetItems = this._isArrayNotEmpty(this.value) ? this.value : [this.value],
+					data = this.list.renderItems;
 				for (var i = 0; i < presetItems.length; i++) {
 					var val = presetItems[i],
 						filtered = data.filter(function (item) {
