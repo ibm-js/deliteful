@@ -41,6 +41,7 @@
 		var ready = false; // set to true when the test page is ready
 		require([
 			"delite/register",
+			"delite/HasDropDown",
 			"deliteful/DropDownButton",
 			"deliteful/Tooltip",
 			"requirejs-domready/domReady!"
@@ -92,16 +93,16 @@
 		<button type="submit">OK</button>
 	</d-tooltip>
 
-	<button is="d-dropdown-button" id="left" style="position: absolute; top: 45%; left: 0;"
-			dropDown="left-tooltip" dropDownPosition="after-centered before-centered">
-		show to right
-	</button>
+	<button id="left" style="position: absolute; top: 45%; left: 0;">show to right</button>
 	<d-tooltip id="left-tooltip" style="display: none">
-		I'm a tooltip.<br>
+		Tooltip launched behaviorally.<br>
 		I appear to the right.<br>
 		<input><br>
 		<button>OK</button>
 	</d-tooltip>
+	<!-- Setup tooltip-opening behavior on non-HasDropDown node -->
+	<d-has-drop-down anchorNode="left" dropDown="left-tooltip" dropDownPosition="after-centered before-centered">
+	</d-has-drop-down>
 
 	<button is="d-dropdown-button" id="right" style="position: absolute; top: 45%; right: 0;"
 			dropDown="right-tooltip" dropDownPosition="before-centered after-centered">
