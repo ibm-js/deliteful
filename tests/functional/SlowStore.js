@@ -21,35 +21,36 @@ define([
 			{ "label": "Japan", "world-cup-victories": 0, "region": "Asia" }
 		],
 
+		_queryLog: [],
+
 		_request: function () {
 			var data = new Deferred();
 			var total = new Deferred();
 			var response = new Deferred();
 
-			var matchingItems = [];
 			var query = this.queryLog[0].arguments[0];
-
+			this._queryLog.push(query);
+			var matchingItems = [];
 			if ("inputText" in query && query.inputText.length > 0) {
-				var filterTxt = query.inputText;
+				// Escape special chars in search string, see
+			    // http://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex.
+			    var filterTxt = query.inputText.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
 				if (query.filterMode === "startsWith") {
 					filterTxt = "^" + filterTxt;
 				} else if (query.filterMode === "is") {
 					filterTxt = "^" + filterTxt + "$";
 				}
 				var regExp = new RegExp(filterTxt, query.ignoreCase ? "i" : "");
-
-				for (var i = 0; i < this.items.length; i++) {
-					if (this.items[i].label.match(regExp)) {
-						matchingItems.push(this.items[i]);
-					}
-				}
+				matchingItems = this.items.filter(function (val) {
+					return regExp.test(val.label);
+				});
 			} else {
 				matchingItems = this.items;
 			}
 
 			var randomWait = Math.floor(Math.random() * 5000) + 250;
 			return {
-				data: this.sleepFor(randomWait, data).then(function (data) {
+				data: this.sleepFor(query.beResponsive ? 0 : randomWait, data).then(function (data) {
 					return data.resolve(matchingItems);
 				}),
 				total: total.resolve(matchingItems.length),

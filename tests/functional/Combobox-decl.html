@@ -20,13 +20,14 @@
 
 		require([
 			"delite/register",
+			"deliteful/tests/functional/SlowStore",
 			"deliteful/list/List",
 			"deliteful/Combobox",
 			"deliteful/RadioButton",
 			"deliteful/Checkbox",
 			"delite/theme!delite/themes/{{theme}}/global.css", // page level CSS
 			"requirejs-domready/domReady!"
-		], function (register) {
+		], function (register, SlowStore) {
 			register.deliver();
 
 			startsWith.on("change", function () {
@@ -49,6 +50,15 @@
 			combo = document.getElementById("combo2-custom-sel-multiple");
 			// Appears with its second and fourth options initially selected
 			combo.value = ["Germany", "USA"];
+
+			combo = document.getElementById("combo-slowstore");
+			// Assign a slow store and set a proper query.
+			combo.getQuery = function(args) {
+				return {inputText: args.inputText, rexExp: args.rexExp, beResponsive: true, filterMode: this.filterMode, ignoreCase: this.ignoreCase};
+			};
+			var slowStore = new SlowStore({target: "/foo" /*unsed*/});
+			combo.source = slowStore;
+			combo.deliver();
 
 			// Store information for use in the automatic functional test
 			var storeTestingInfo = function (combo) {
@@ -141,6 +151,11 @@
 						Math.abs(comboClientRect.bottom - popupClientRect.top) <= 3 :
 						Math.abs(comboClientRect.top - popupClientRect.bottom) <= 3
 				}
+			};
+
+			getQueryCount = function (comboId) {
+				var combo = document.getElementById(comboId);
+				return combo.source._queryLog.length;
 			};
 
 			moveToBottom = function (comboId) {
@@ -679,11 +694,11 @@
 		</d-list>
 	</d-combobox>
 
-	<label for="combo-minchars">
-		id: "combo1-minchars", selectionMode: "single", autoFilter: true
+	<label for="combo-minfilterchars">
+		id: "combo-minfilterchars", selectionMode: "single", autoFilter: true
 	</label>
-	<d-combobox selectionMode="single" autoFilter="false" minChars="3"
-		id="combo-minchars" name="combo-minchars" value="France">
+	<d-combobox selectionMode="single" autoFilter="true" minChars="3"
+		id="combo-minfilterchars" name="combo-minfilterchars" value="France">
 		<d-list righttextAttr="sales" categoryAttr="region">
 			{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
 			{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
@@ -723,6 +738,13 @@
 			{ "label": "Japan29", "sales": 900, "profit": 100, "region": "Asia" },
 			{ "label": "Japan30", "sales": 900, "profit": 100, "region": "Asia" }
 		</d-list>
+	</d-combobox>
+
+	<label for="combo-slowstore">
+		id: "combo-slowstore", selectionMode: "single", autoFilter: true, openOnPointerDown: false
+	</label>
+	<d-combobox selectionMode="single" autoFilter="true" openOnPointerDown="false"
+		id="combo-slowstore" name="combo-slowstore" value="Italy">
 	</d-combobox>
 
 	<br/><br/>

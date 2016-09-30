@@ -111,8 +111,7 @@ define([
 	 *   "deliteful/Combobox", ..., "requirejs-domready/domReady!"],
 	 *   function (List, Combobox, ...) {
 	 *     var dataStore = ...; // Create data store
-	 *     var list = new List({source: dataStore});
-	 *     var combobox = new Combobox({list: list, selectionMode: "multiple"}).
+	 *     var combobox = new Combobox({source: dataStore, selectionMode: "multiple"}).
 	 *       placeAt(...);
 	 *   });
 	 *
@@ -268,27 +267,21 @@ define([
 		openOnPointerDown: true,
 
 		/**
-		 * Flag that allows lazy initialization of list's source.
-		 * @type {boolean}
-		 */
-		_assignSourceToList: false,
-
-		/**
 		 * Source for the inner list.
-		 * @type {delite/Store} Source set.
+		 * @type {(dstore/Store|decor/ObservableArray|Array)} Source set.
 		 */
 		source: null,
 
 		/**
-		 * Minimum number of characthers before a filter operation runs.
-		 * @type {Number}
+		 * Minimum number of characters before a filter operation runs.
+		 * @type {number}
 		 * @default 1
 		 */
-		minChars: 1,
+		minFilterChars: 1,
 
 		/**
 		 * Initial inputNode's value.
-		 * @type {String}
+		 * @type {string}
 		 */
 		displayedValue: "",
 
@@ -316,6 +309,17 @@ define([
 			}
 		},
 
+		computeProperties: function (oldValues, justCreated) {
+			// if ("value" in oldValues && (this.value !== oldValues.value || justCreated)) {
+			// 	if (this.attached) {
+			// 		this._validateInput(false);
+			// 		if (this.value === "" && this.selectionMode !== "single") {
+			// 			this.value = [];
+			// 		}
+			// 	}
+			// }
+		},
+
 		/* jshint maxcomplexity: 17 */
 		refreshRendering: function (oldValues, justCreated) {
 			var updateReadOnly = false;
@@ -337,7 +341,6 @@ define([
 				this._updateInputReadOnly();
 				this._setSelectable(this.inputNode, !this.inputNode.readOnly);
 			}
-
 			if ("value" in oldValues && (this.value !== oldValues.value || justCreated))  {
 				this._validateInput(false);
 				if (this.value === "") {
@@ -345,10 +348,6 @@ define([
 				}
 				this.valueNode.value = this.value.toString();
 			}
-		},
-
-		_isArrayNotEmpty: function (a) {
-			return a instanceof Array && a.length >= 1;
 		},
 
 		/**
@@ -451,11 +450,14 @@ define([
 							// before the dropdown closes.
 							this.closeDropDown(true/*refocus*/);
 
-							this.list.source = null;
-							// Reinit the query.
-							if (this.resetQuery !== null) {
+							if (this.source) {
+								this.list.source = null;
+							}
+							// Re-initialize the query.
+							if (this.getInitialQuery !== null) {
 								this.list.query =
-									(typeof this.resetQuery === "function") ? this.resetQuery() : this.resetQuery;
+									(typeof this.resetQuery === "function") ?
+										this.getInitialQuery() : this.getInitialQuery;
 							}
 						}.bind(this), 100); // worth exposing a property for the delay?
 					}
@@ -588,12 +590,6 @@ define([
 		},
 
 		/**
-		 * Timeout handle for interrupting previouse .
-		 * @type {Number}
-		 */
-		_timeoutHandle: null,
-
-		/**
 		 * Defines the milliseconds the widget has to wait until a new filter operation starts.
 		 * @type {Number}
 		 * @default 0
@@ -611,8 +607,9 @@ define([
 
 				// save what user typed at each keystroke.
 				this.value = inputElement.value;
-				if (this._timeoutHandle !== null) {
+				if (this._timeoutHandle !== undefined) {
 					this._timeoutHandle.remove();
+					delete this._timeoutHandle;
 				}
 				this._timeoutHandle = this.defer(function () {
 					this.filter(inputElement.value);
@@ -738,25 +735,26 @@ define([
 		 * element, with `filterTxt` being the currently entered text.
 		 * @protected
 		 */
-		filter: function (filterTxt) {
-			var inputText = filterTxt;
-			if (this.filterMode === "startsWith") {
+		filter: function (inputText) {
+			// Escape special chars in search string, see
+		    // http://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex.
+		    var filterTxt = inputText.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+		    if (this.filterMode === "startsWith") {
 				filterTxt = "^" + filterTxt;
 			} else if (this.filterMode === "is") {
 				filterTxt = "^" + filterTxt + "$";
 			} // nothing to add for "contains"
 
 			var rexExp = new RegExp(filterTxt, this.ignoreCase ? "i" : "");
-			var args = {};
-			args.rexExp = rexExp;
-			args.inputText = inputText;
-
-			this.list.query = this.getQuery(args);
+			this.list.query = this.getQuery({
+				rexExp: rexExp,
+				inputText: inputText
+			});
 			if (this.source) {
 				this.list.source = this.source;
 			}
 
-			// Open popup in order the list's content (loader, no items element or items).
+			// Open popup in order to show the list's content (loading panel, no-items element or items).
 			this.openDropDown();
 		},
 
@@ -764,54 +762,41 @@ define([
 		 * Sets the new list's query.
 		 * This method can be overridden when using other store types.
 		 * The default implementation uses `dstore/Filter.match()`.
-		 * The matching is performed against the `list.labelAttr` attribute of
+		 * The matching is performed against the `list.labelAttr` or `list.labelFunc` attributes of
 		 * the data store items.
 		 * The method can be overridden for implementing other filtering strategies.
 		 * @protected
 		 * @returns {Object} New query to set to the list.
 		 */
 		getQuery: function (args) {
-			return (new Filter()).match(this.list.labelAttr, args.rexExp);
+			return (new Filter()).match(this.list.labelAttr || this.list.labelFunc, args.rexExp);
 		},
 
 		/**
-		 * Reset the list's query.
-		 * If null, the list's query won't be reset.
-		 * It can be a function or an Object. If a fuction, then it's invoked and the return value
-		 * assigned back to this.list.query.
-		 * If an Object, it's assigned to the list's query.
+		 * Sets the initial list's query,
+		 * It can be one of a `function`, an `Object` or `null`.
+		 * If it is a function, then it's invoked and the list's query will get the return value assigned.
+		 * If it is an Object, it's assigned to the list's query directly.
+		 * If it is null, the list's query won't be set to its initial value.
 		 * It can be overridden depending of store used and the strategy to apply.
 		 */
-		resetQuery: {},
+		getInitialQuery: {},
 
 		_setSelectedItems: function () {
 			if (this.list.source && this.list.renderItems && this.value !== "") {
 				var selectedItems = [],
-					presetItems = this._isArrayNotEmpty(this.value) ? this.value : [this.value],
-					data = this.list.renderItems;
-				for (var i = 0; i < presetItems.length; i++) {
-					var val = presetItems[i],
-						filtered = data.filter(function (item) {
-						return this._getItemValue(item) === val;
-					}.bind(this));
-					if (filtered.length > 0) {
-						selectedItems.push(filtered[0]);
-					}
-				}
-				if (selectedItems.length > 0) {
-					this.list.selectedItems = selectedItems;
-					this._validateInput(false);
-				}
+					presetItems = this.value instanceof Array && this.value.length >= 1 ? this.value : [this.value],
+				selectedItems = this.list.renderItems.filter(function (renderItem) {
+				    return presetItems.indexOf(this._getItemValue(renderItem)) >= 0;
+				}.bind(this));
+
+				this.list.selectedItems = selectedItems;
+				this._validateInput(false);
 			}
 		},
 
 		openDropDown: dcl.superCall(function (sup) {
 			return function () {
-				// Store the current selection, to be able to restore when pressing the
-				// cancel button. Used by ComboPopup. (Could spare it in situations when
-				// there is no cancel button, but not really worth.)
-				this._selectedItems = this.selectedItems;
-
 				// Assign widget's source to the list's source.
 				if (this.source) {
 					this.list.source = this.source;
@@ -853,10 +838,6 @@ define([
 		closeDropDown: dcl.superCall(function (sup) {
 			return function () {
 
-				// NOTE: only for ComboPopup.
-				// cleanup
-				this._selectedItems = null;
-
 				var input = this._popupInput || this.inputNode;
 				input.removeAttribute("aria-activedescendant");
 
@@ -880,18 +861,6 @@ define([
 					}
 				}
 				sup.apply(this, arguments);
-			};
-		}),
-
-		setAttribute: dcl.superCall(function (sup) {
-			return function (name, value) {
-				if (/^aria-/.test(name)) {
-					this.forEachFocusNode(function (node) {
-						node.setAttribute(name, value);
-					});
-				} else {
-					sup.call(this, name, value);
-				}
 			};
 		}),
 
