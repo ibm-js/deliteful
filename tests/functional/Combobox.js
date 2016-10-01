@@ -880,6 +880,35 @@ define([
 			.end();
 	};
 
+	var checkRequestCount = function (remote, comboId) {
+		// NOTE: filterDelay = 100ms.
+		return loadFile(remote, "./Combobox-decl.html")
+			.findById(comboId)
+			.execute("return getQueryCount(\"" + comboId + "\");")
+			.then(function (value) {
+				assert.strictEqual(value, 0, comboId + ": after page load");
+			})
+			.click() // not popup opens because openOnPointerDown = false
+			.sleep(250)
+			.execute("return getQueryCount(\"" + comboId + "\");")
+			.then(function (value) {
+				assert.strictEqual(value, 0, comboId + ": after focus");
+			})
+			.pressKeys("c") // Canada & China as expected result.
+			.sleep(250)
+			.execute("return getQueryCount(\"" + comboId + "\");")
+			.then(function (value) {
+				assert.strictEqual(value, 1, comboId + ": after typing 'c'");
+			})
+			.pressKeys("a") // Canada only expected result.
+			.sleep(250)
+			.execute("return getQueryCount(\"" + comboId + "\");")
+			.then(function (value) {
+				assert.strictEqual(value, 2, comboId + ": after typing 'a'");
+			})
+			.end();
+	};
+
 	registerSuite({
 		name: "Combobox - functional",
 
@@ -1022,6 +1051,19 @@ define([
 				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
 			}
 			return checkPopupPosition(remote, "combo2-custom-sel-single", "above");
+		},
+
+		"check for number of request (using SlowStore)": function () {
+			var remote = this.remote;
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/17
+				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
+			}
+			if (remote.environmentType.platformName === "iOS") {
+				// https://github.com/theintern/leadfoot/issues/61
+				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
+			}
+			return checkRequestCount(remote, "combo-slowstore");
 		}
 	});
 });
