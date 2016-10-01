@@ -84,7 +84,7 @@
 
 			comboPlayersWithValuesProg.value = ["Maradona", "Zidane"];
 
-			comboTeamsAutoComplete.getQuery = function(args) {
+			comboTeamsAutoComplete.getQuery = function (args) {
 				// don't care about args. Let's set my own query
 				return {inputText: args.inputText, rexExp: args.rexExp, beResponsive: true, filterMode: this.filterMode, ignoreCase: this.ignoreCase};
 			};
