@@ -36,6 +36,12 @@ define([
 		 */
 		header: "",
 
+		/**
+		 * Specifies the visibility of the inner list
+		 * @type {boolean}
+		 */
+		showList: true,
+
 		computeProperties: function (oldValues) {
 			if ("combobox" in oldValues) {
 				// Find Combobox's label and use it as my header.
@@ -45,6 +51,7 @@ define([
 					(combobox.hasAttribute("aria-labelledby") &&
 					this.ownerDocument.getElementById(combobox.getAttribute("aria-labelledby")));
 				this.header = headerNode ? headerNode.textContent.trim() : (combobox.getAttribute("aria-label") || "");
+				this.showList = this.combobox.hasDownArrow;
 			}
 		},
 
@@ -75,7 +82,6 @@ define([
 		 * @protected
 		 */
 		cancelHandler: function () {
-			this.combobox.list.selectedItems = this.combobox._selectedItems;
 			this.combobox.closeDropDown();
 		},
 

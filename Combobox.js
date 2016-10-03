@@ -258,14 +258,6 @@ define([
 		 */
 		hasDownArrow: true,
 
-		// *
-		//  * Defines if a click on widget itself will show up the list immediately.
-		//  * It makes sense only on desktop version, since in mobile, a click on the widget opens the
-		//  * popup widget always.
-		//  * @type {boolean}
-
-		// openOnPointerDown: true,
-
 		/**
 		 * Source for the inner list.
 		 * @type {dstore/Store|decor/ObservableArray|Array} Source set.
@@ -604,7 +596,11 @@ define([
 				if (!this._useCenteredDropDown() && inputElement.value.length < this.minFilterChars
 						&& this.minFilterChars !== 0) {
 					this.closeDropDown();
+				} else if (this._useCenteredDropDown() && !this.hasDownArrow
+						&& inputElement.value.length < this.minFilterChars) {
+					this.dropDown.showList = false;
 				} else {
+					this.dropDown.showList = true;
 					if (this._timeoutHandle !== undefined) {
 						this._timeoutHandle.remove();
 						delete this._timeoutHandle;

@@ -8,7 +8,9 @@
 			role="combobox" autocomplete="off" autocapitalize="none" autocorrect="off"
 			aria-autocomplete="list" type="text"
 			placeholder="{{combobox.searchPlaceHolder}}">
-		<div attach-point="listNode"></div>
+		<div d-shown="{{showList}}">
+			<div attach-point="listNode""></div>
+		</div>
 		<d-linear-layout d-hidden="{{combobox.selectionMode !== 'multiple'}}"
 			vertical="false">
 			<button is="d-button" class="fill d-combo-cancel-button"
