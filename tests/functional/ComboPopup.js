@@ -130,12 +130,12 @@ define([
 						widgetValue: "jap",
 						valueNodeValue: "jap",
 						opened: true,
-						selectedItemsCount: 1,
+						selectedItemsCount: 0,
 						itemRenderersCount: 30,
-						inputEventCounter: 0,
+						inputEventCounter: 3, // typed "jap"
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: null, // never received
-						valueNodeValueAtLatestInputEvent: null,
+						widgetValueAtLatestInputEvent: "jap",
+						valueNodeValueAtLatestInputEvent: "jap",
 						widgetValueAtLatestChangeEvent: null,
 						valueNodeValueAtLatestChangeEvent: null
 					}, "after searching `jap` into input field.");
@@ -155,12 +155,12 @@ define([
 						widgetValue: "",
 						valueNodeValue: "",
 						opened: true,
-						selectedItemsCount: 1,
+						selectedItemsCount: 0,
 						itemRenderersCount: 37,
-						inputEventCounter: 0,
+						inputEventCounter: 3,
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: null, // never received
-						valueNodeValueAtLatestInputEvent: null,
+						widgetValueAtLatestInputEvent: "",
+						valueNodeValueAtLatestInputEvent: "",
 						widgetValueAtLatestChangeEvent: null,
 						valueNodeValueAtLatestChangeEvent: null
 					}, "after deleting the filter.");
@@ -176,12 +176,12 @@ define([
 						widgetValue: "u",
 						valueNodeValue: "u",
 						opened: true,
-						selectedItemsCount: 1,
+						selectedItemsCount: 0,
 						itemRenderersCount: 2, // USA & UK
-						inputEventCounter: 0,
+						inputEventCounter: 1,
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: null, // never received
-						valueNodeValueAtLatestInputEvent: null,
+						widgetValueAtLatestInputEvent: "u",
+						valueNodeValueAtLatestInputEvent: "u",
 						widgetValueAtLatestChangeEvent: null,
 						valueNodeValueAtLatestChangeEvent: null
 					}, "after typed `u` into input field.");
@@ -281,7 +281,7 @@ define([
 						valueNodeValue: "Germany",
 						opened: false,
 						selectedItemsCount: 1,
-						itemRenderersCount: 0,
+						itemRenderersCount: 37,
 						inputEventCounter: 1,
 						changeEventCounter: 1,
 						widgetValueAtLatestInputEvent: "Germany",

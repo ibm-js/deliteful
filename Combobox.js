@@ -258,22 +258,30 @@ define([
 		 */
 		hasDownArrow: true,
 
-		/**
-		 * Defines if a click on widget itself will show up the list immediately.
-		 * It makes sense only on desktop version, since in mobile, a click on the widget opens the
-		 * popup widget always.
-		 * @type {boolean}
-		 */
-		openOnPointerDown: true,
+		// *
+		//  * Defines if a click on widget itself will show up the list immediately.
+		//  * It makes sense only on desktop version, since in mobile, a click on the widget opens the
+		//  * popup widget always.
+		//  * @type {boolean}
+
+		// openOnPointerDown: true,
 
 		/**
 		 * Source for the inner list.
-		 * @type {(dstore/Store|decor/ObservableArray|Array)} Source set.
+		 * @type {dstore/Store|decor/ObservableArray|Array} Source set.
 		 */
 		source: null,
 
 		/**
 		 * Minimum number of characters before a filter operation runs.
+		 * However, aside the above, depending of its value, the widget behavior changes slightly.
+		 * In fact:
+		 * - if minFilterChars = 0
+		 * -- show the dropdown on pointer down.
+		 * -- show the dropdown even if the user clears the input field.
+		 * - if minFilterChars = 1
+		 * -- do not show the dropdown on pointer down.
+		 * -- clearing the input field will close the dropdown.
 		 * @type {number}
 		 * @default 1
 		 */
@@ -289,10 +297,6 @@ define([
 			// Declarative case (list specified declaratively inside the declarative Combobox)
 			var list = this.querySelector("d-list");
 			if (list) {
-				if (list.source !== null) {
-					// The widget has to get the list's source, if any.
-					this.source = list.source;
-				}
 				if (!list.attached) {
 					list.addEventListener("customelement-attached", this._attachedlistener = function () {
 						list.removeEventListener("customelement-attached", this._attachedlistener);
@@ -307,17 +311,6 @@ define([
 				// default list, may be overridden later by user-defined value or when above event listener fires
 				this.list = new List();
 			}
-		},
-
-		computeProperties: function (oldValues, justCreated) {
-			// if ("value" in oldValues && (this.value !== oldValues.value || justCreated)) {
-			// 	if (this.attached) {
-			// 		this._validateInput(false);
-			// 		if (this.value === "" && this.selectionMode !== "single") {
-			// 			this.value = [];
-			// 		}
-			// 	}
-			// }
 		},
 
 		/* jshint maxcomplexity: 17 */
@@ -480,7 +473,7 @@ define([
 						this.openDropDown();
 					}
 				}.bind(this));
-			} else if (this.openOnPointerDown) {
+			} else if (!this.minFilterChars) {
 				this.on("mousedown", function (evt) {
 					// event could be triggered by the down arrow. If so, we do not react to it.
 					if (!this.disabled && evt.srcElement !== this.buttonNode) {
@@ -607,13 +600,20 @@ define([
 
 				// save what user typed at each keystroke.
 				this.value = inputElement.value;
-				if (this._timeoutHandle !== undefined) {
-					this._timeoutHandle.remove();
-					delete this._timeoutHandle;
+				this.handleOnInput(this.value);
+				if (!this._useCenteredDropDown() && inputElement.value.length < this.minFilterChars
+						&& this.minFilterChars !== 0) {
+					this.closeDropDown();
+				} else {
+					if (this._timeoutHandle !== undefined) {
+						this._timeoutHandle.remove();
+						delete this._timeoutHandle;
+					}
+					this._timeoutHandle = this.defer(function () {
+						this.filter(inputElement.value);
+					}.bind(this), this.filterDelay);
 				}
-				this._timeoutHandle = this.defer(function () {
-					this.filter(inputElement.value);
-				}.bind(this), this.filterDelay);
+
 				// Stop the spurious "input" events emitted while the user types
 				// such that only the "input" events emitted via FormValueWidget.handleOnInput()
 				// bubble to widget's root node.
@@ -865,10 +865,16 @@ define([
 		}),
 
 		// HasDropDown#_dropDownKeyUpHandler() override.
-		// Do not call openDropDown if widget does not have a downArrow.
+		// Do not call openDropDown if widget does not have a down arrow shown.
 		_dropDownKeyUpHandler: dcl.superCall(function (sup) {
 			return function () {
 				if (this.hasDownArrow) {
+					if (this.inputNode.value.length === this.minFilterChars === 0) {
+						this.list.query = this.getInitialQuery;
+					} else if (this.inputNode.value.length < this.minFilterChars) {
+						return;
+					}
+
 					sup.call(this);
 				}
 			};

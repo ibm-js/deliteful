@@ -19,6 +19,7 @@
 
 	<script type="text/javascript">
 		require([
+			"requirejs-dplugins/jquery!event",
 			"deliteful/list/List",
 			"deliteful/tests/functional/SlowStore",
 			"deliteful/Combobox",
@@ -27,7 +28,7 @@
 			"deliteful/Checkbox",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (List, SlowStore, Combobox) {
+		], function ($, List, SlowStore, Combobox) {
 
 			startsWith.on("change", function () {
 				comboTeams.filterMode = "startsWith";
@@ -42,6 +43,9 @@
 				comboTeams.ignoreCase = ignoreCase.checked;
 			});
 
+			$("input[type=number").on('keyup change input', function(evt) {
+				comboTeams.minFilterChars = parseInt(evt.target.value);
+			});
 			showResults = function () {
 				var getSelectedItemsTxt = function (combobox) {
 					var res = "", noOptionSelected = "no option selected";
@@ -136,6 +140,8 @@
 		<label for="is-input">is</label>
 		<d-checkbox id="ignoreCase" checked></d-checkbox>
 		<label for="ignoreCase-input">Ignore Case</label>
+		<label for="minFilterChars" style="padding: 0 10px;">Min Filter chars: </label>
+		<input id="minFilterChars" type="number" style="width: 45px;" />
 	</fieldset>
 	<br/>
 
