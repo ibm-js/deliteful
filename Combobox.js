@@ -435,11 +435,8 @@ define([
 							// before the dropdown closes.
 							this.closeDropDown(true/*refocus*/);
 
-							if (this.source) {
-								this.list.source = null;
-							}
 							// Re-initialize the query.
-							if (this.getInitialQuery !== null) {
+							if (this.getInitialQuery !== null && !this.hasDownArrow) {
 								this.list.query =
 									(typeof this.resetQuery === "function") ?
 										this.getInitialQuery() : this.getInitialQuery;
@@ -462,7 +459,7 @@ define([
 			if (this._useCenteredDropDown()) {
 				this.on("click", function () {
 					if (!this.disabled) {
-						this.openDropDown();
+						this.openDropDown(false);
 					}
 				}.bind(this));
 			} else if (!this.minFilterChars) {
@@ -470,7 +467,7 @@ define([
 					// event could be triggered by the down arrow. If so, we do not react to it.
 					if (!this.disabled && evt.srcElement !== this.buttonNode) {
 						if (!this.opened) {
-							this.openDropDown();
+							this.openDropDown(false);
 						} else {
 							this.closeDropDown(true);
 						}
@@ -574,6 +571,20 @@ define([
 			return new ComboPopup({combobox: this});
 		},
 
+		evaluateFilteringConditions: function (inputElement) {
+			var mobile = this._useCenteredDropDown();
+			if (this.minFilterChars !== inputElement.value.length !== 0 &&
+				inputElement.value.length < this.minFilterChars) {
+				if (!mobile) {
+					this.closeDropDown();
+				} else {
+					return true;
+				}
+				return false;
+			}
+			return true;
+		},
+
 		/**
 		 * Defines the milliseconds the widget has to wait until a new filter operation starts.
 		 * @type {Number}
@@ -592,23 +603,17 @@ define([
 
 				// save what user typed at each keystroke.
 				this.value = inputElement.value;
-				this.handleOnInput(this.value);
-				if (!this._useCenteredDropDown() && inputElement.value.length < this.minFilterChars
-						&& this.minFilterChars !== 0) {
-					this.closeDropDown();
-				} else if (this._useCenteredDropDown() && !this.hasDownArrow
-						&& inputElement.value.length < this.minFilterChars) {
-					this.dropDown.showList = false;
-				} else {
-					this.dropDown.showList = true;
-					if (this._timeoutHandle !== undefined) {
-						this._timeoutHandle.remove();
-						delete this._timeoutHandle;
-					}
-					this._timeoutHandle = this.defer(function () {
-						this.filter(inputElement.value);
-					}.bind(this), this.filterDelay);
+				this.handleOnInput(this.value); // emit "input" event.
+
+				if (this._timeoutHandle !== undefined) {
+					this._timeoutHandle.remove();
+					delete this._timeoutHandle;
 				}
+				this._timeoutHandle = this.defer(function () {
+					if (this.evaluateFilteringConditions(inputElement)) {
+						this.filter(inputElement.value);
+					}
+				}.bind(this), this.filterDelay);
 
 				// Stop the spurious "input" events emitted while the user types
 				// such that only the "input" events emitted via FormValueWidget.handleOnInput()
@@ -751,7 +756,7 @@ define([
 			}
 
 			// Open popup in order to show the list's content (loading panel, no-items element or items).
-			this.openDropDown();
+			this.openDropDown(true);
 		},
 
 		/**
@@ -792,7 +797,7 @@ define([
 		},
 
 		openDropDown: dcl.superCall(function (sup) {
-			return function () {
+			return function (filteringInProgress) {
 				// Assign widget's source to the list's source.
 				if (this.source) {
 					this.list.source = this.source;
@@ -822,9 +827,19 @@ define([
 					// blur the input field used for entering the filtering criteria.
 					this.dropDown.focusDescendants = false;
 					if (!this._useCenteredDropDown()) {
+						// desktop version
 						this._updateScroll(undefined, true);	// sets this.list.navigatedDescendant
 						this._setActiveDescendant(this.list.navigatedDescendant);
 					} else {
+						// mobile version
+						if (!this.hasDownArrow) {
+							if (filteringInProgress && this.inputNode.value.length >= this.minFilterChars) {
+								$(this.list).removeClass("d-combobox-list-hidden");
+							} else {
+								$(this.list).addClass("d-combobox-list-hidden");
+							}
+							this.list.emit("delite-size-change");
+						}
 						this.dropDown.focus();
 					}
 				}.bind(this));

@@ -61,7 +61,8 @@ define([
 					var list = this.combobox.list;
 					if (list) {
 						list.placeAt(this.listNode, "replace");
-						$(list).addClass("fill");
+						$(list).addClass("fill")
+							.removeClass("d-combobox-list-hidden");
 					}
 					this.combobox._prepareInput(this.inputNode);
 				}
@@ -93,7 +94,9 @@ define([
 			if (this.combobox.autoFilter && this.combobox.selectionMode === "single") {
 				this.inputNode.focus();
 			} else {
-				if (this.combobox.list && this.combobox.list.containerNode.children.length > 0) {
+				// first check if list is not hidden.
+				if (!$(this.combobox.list).hasClass("d-combobox-list-hidden")
+						&& this.combobox.list && this.combobox.list.containerNode.children.length > 0) {
 					var id = this.combobox.list.getIdentity(
 						this.combobox.list.selectedItems.length > 0 ? this.combobox.list.selectedItems[0] : "");
 					var renderer = (id && id !== -1) ? this.combobox.list.getRendererByItemId(id) :
