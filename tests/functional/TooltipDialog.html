@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+
+	<title>TooltipDialog</title>
+
+	<style type="text/css">
+		/* set page background to blue just to check the tooltip connector is rendering correctly */
+		body, html {
+			background: lightblue;
+			height: 100%;
+		}
+
+		button[is=d-dropdown-button] {
+			border: solid darkblue 1px;
+			background: white;
+			padding: 5px;
+			color: darkblue;
+			cursor: pointer;
+		}
+
+		/* Just some styling so tooltip contents look nice */
+		.d-tooltip label {
+			display: inline-block;
+			min-width: 60px;
+		}
+		.d-tooltip button {
+			display: block;
+			margin: auto;
+		}
+	</style>
+
+	<!-- For testing purposes.  Real applications should load the AMD loader directly. -->
+	<script type="text/javascript" src="../boilerplate.js"></script>
+
+	<script type="text/javascript">
+		var ready = false; // set to true when the test page is ready
+		require([
+			"delite/register",
+			"deliteful/DropDownButton",
+			"deliteful/TooltipDialog",
+			"requirejs-domready/domReady!"
+		], function (register) {
+			register.deliver();
+			ready = true;
+		});
+	</script>
+</head>
+<body>
+	<h1>TooltipDialog functional test</h1>
+	<button is="d-dropdown-button" id="top"
+			dropDown="top-tooltip" dropDownPosition="below-centered">
+		show below
+	</button>
+	<d-tooltip-dialog id="top-tooltip" label="My Tooltip Dialog" style="display: none">
+		<label for="name">Name:</label> <input id="name"> <br>
+		<label for="age">Age:</label> <input id="age"> <br>
+		<label for="sex">Sex:</label> <input id="sex"> <br><br>
+		<button type="submit">OK</button>
+	</d-tooltip-dialog>
+</body>
+</html>

@@ -25,6 +25,7 @@ define([
 
 		createdCallback: function () {
 			this.on("popup-after-show", this.onOpen.bind(this));
+			this.on("popup-before-hide", this.onClose.bind(this));
 		},
 
 		focus: function () {
@@ -74,6 +75,22 @@ define([
 				this.connectorNode.style.left = aroundNodeCoords.x +
 					((aroundNodeCoords.w - this.connectorNode.offsetWidth) >> 1) - pos.x + "px";
 				this.connectorNode.style.top = "";
+			}
+
+			// Setup aria-described property pointing from anchor-node to this node.
+			var aroundNode = pos.around;
+			if (aroundNode) {
+				this.anchorNode = aroundNode.focusNode || aroundNode;
+				if (!this.id) {
+					this.id = "tooltip" + this.widgetId;
+				}
+				this.anchorNode.setAttribute("aria-describedby", this.id);
+			}
+		},
+
+		onClose: function () {
+			if (this.anchorNode) {
+				this.anchorNode.removeAttribute("aria-describedby");
 			}
 		}
 	});

@@ -1,0 +1,23 @@
+.d-tooltip-dialog {
+	// The top part of the TooltipDialog containing the label and the close icon.
+	.d-header {
+		display: flex;
+		padding-bottom: 5px;
+		border-bottom: 1px solid black;
+		margin-bottom: 10px;
+	}
+
+	.d-label {
+		flex: 1;
+	}
+
+	// The close icon.
+	.d-icon {
+		cursor: pointer;
+	}
+
+	// Default close icon if app does not override "d-close-icon" class name.
+	.d-close-icon::after {
+		content: "\2716";
+	}
+}

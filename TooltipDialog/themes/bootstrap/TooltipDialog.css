@@ -1,0 +1,15 @@
+.d-tooltip-dialog .d-header {
+  display: flex;
+  padding-bottom: 5px;
+  border-bottom: 1px solid black;
+  margin-bottom: 10px;
+}
+.d-tooltip-dialog .d-label {
+  flex: 1;
+}
+.d-tooltip-dialog .d-icon {
+  cursor: pointer;
+}
+.d-tooltip-dialog .d-close-icon::after {
+  content: "\2716";
+}
