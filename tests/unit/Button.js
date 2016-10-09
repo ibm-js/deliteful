@@ -142,7 +142,7 @@ define([
 			assert.strictEqual(b.getAttribute("aria-label"), "on", "b6.aria-label");
 			b.showLabel = true;
 			b.deliver();
-			assert.strictEqual(b.getAttribute("aria-label"), "", "b6.aria-label on showLabel=true");
+			assert.strictEqual(b.getAttribute("aria-label"), null, "b6.aria-label on showLabel=true");
 			b.showLabel = false;
 			b.deliver();
 			assert.strictEqual(b.getAttribute("aria-label"), "on", "b6.aria-label on showLabel=false");
