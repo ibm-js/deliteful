@@ -66,12 +66,10 @@ define([
 		},
 
 		refreshRendering: function (props) {
-			if (("label" in props || "showLabel" in props) &&
-				(!this.title || this.title === ("label" in props ? props.label : this.label))) {
-				this.title = this.showLabel ? "" : this.label;
-
-			}
-			if ("showLabel" in props || "label" in props) {
+			if (("label" in props || "showLabel" in props)) {
+				if (!this.title || this.title === ("label" in props ? props.label : this.label)) {
+					this.title = this.showLabel ? "" : this.label;
+				}
 				if (this.showLabel) {
 					this.removeAttribute("aria-label");
 				} else {
