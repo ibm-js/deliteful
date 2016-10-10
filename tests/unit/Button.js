@@ -138,14 +138,11 @@ define([
 		},
 
 		"aria-label": function () {
-			var b = document.getElementById("b6")
+			var b = document.getElementById("b6");
 			assert.strictEqual(b.getAttribute("aria-label"), "on", "b6.aria-label");
-			b.showLabel = true;
+			b.label = "off";
 			b.deliver();
-			assert.strictEqual(b.getAttribute("aria-label"), null, "b6.aria-label on showLabel=true");
-			b.showLabel = false;
-			b.deliver();
-			assert.strictEqual(b.getAttribute("aria-label"), "on", "b6.aria-label on showLabel=false");
+			assert.strictEqual(b.getAttribute("aria-label"), "off", "b6.aria-label on label change");
 		},
 
 		afterEach: function () {
