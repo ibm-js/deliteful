@@ -137,6 +137,14 @@ define([
 			assert.strictEqual(b.value, "foo", "Unexpected value for 'value' attribute.");
 		},
 
+		"aria-label": function () {
+			var b = document.getElementById("b6");
+			assert.strictEqual(b.getAttribute("aria-label"), "on", "b6.aria-label");
+			b.label = "off";
+			b.deliver();
+			assert.strictEqual(b.getAttribute("aria-label"), "off", "b6.aria-label on label change");
+		},
+
 		afterEach: function () {
 			container.parentNode.removeChild(container);
 		}
