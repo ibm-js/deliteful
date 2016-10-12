@@ -238,10 +238,6 @@ define([
 				resolve();
 			},
 
-			postRender: function () {
-				setVisibility(this, false);
-			},
-
 			preRender: function () {
 				this._transitionTiming = {default: 0, chrome: 20, ios: 20, android: 100, ff: 100};
 				for (var o in this._transitionTiming) {
@@ -251,9 +247,10 @@ define([
 				}
 			},
 
-			render: function () {
+			postRender: function () {
 				pointer.setTouchAction(this, "pan-y");
 				this._resetInteractions();
+				setVisibility(this, false);
 			},
 
 			_refreshMode: function (nextElement) {
