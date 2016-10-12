@@ -738,6 +738,9 @@ define([
 				var input = this._popupInput || this.inputNode;
 				input.removeAttribute("aria-activedescendant");
 
+				// remove tabindex add into _setActiveDescendant()
+				this.removeAttribute("tabindex");
+
 				if (this.opened) {
 					// Using the flag `opened` (managed by delite/HasDropDown), avoid
 					// emitting a new change event if closeDropDown is closed more than once
@@ -792,7 +795,7 @@ define([
 				if (renderer) {
 					this.list.scrollBy({y: this.list.getBottomDistance(renderer)});
 					if (navigate) {
-						this.list.navigatedDescendant = renderer.childNodes[0];
+						this.list.navigatedDescendant = renderer.renderNode;
 					}
 				} // null if the list is empty because no item matches the auto-filtering
 			}
@@ -806,6 +809,7 @@ define([
 
 				var input = this._popupInput || this.inputNode;
 				input.setAttribute("aria-activedescendant", nd.id);
+				this.setAttribute("tabindex", -1);
 			}
 		}
 	});
