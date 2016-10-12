@@ -1,8 +1,8 @@
 <template role="dialog">
 	<div attach-point="connectorNode" class="d-tooltip-connector"></div>
-	<div class="d-header">
-		<div class="d-label">{{label}}</div>
-		<div class="d-icon {{closeButtonIconClass}}" on-click="{{closeButtonClickHandler}}"></div>
+	<div class="d-tooltip-dialog-header">
+		<div class="d-tooltip-dialog-label">{{label}}</div>
+		<div class="d-tooltip-dialog-icon {{closeButtonIconClass}}" on-click="{{closeButtonClickHandler}}"></div>
 	</div>
-	<div attach-point="containerNode"></div>
+	<div attach-point="containerNode" class="d-tooltip-container"></div>
 </template>

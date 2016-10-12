@@ -2,18 +2,19 @@
 define([
 	"delite/register",
 	"delite/Container",
-	"delite/Dialog",
 	"delite/handlebars!./Tooltip/Tooltip.html",
 	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/theme!./Tooltip/themes/{{theme}}/Tooltip.css"
-], function (register, Container, Dialog, template, $) {
+], function (register, Container, template, $) {
 
 	/**
 	 * A tooltip widget, to be used as a popup.
+	 * Meant to contain simple or rich text, but not interactive controls (ex: links and buttons).
+	 *
 	 * @class module:deliteful/Tooltip
 	 * @augments module:delite/Container
 	 */
-	return register("d-tooltip", [HTMLElement, Container, Dialog], /** @lends module:deliteful/Tooltip# */ {
+	return register("d-tooltip", [HTMLElement, Container], /** @lends module:deliteful/Tooltip# */ {
 		/**
 		 * The name of the CSS class of this widget.
 		 * @member {string}
@@ -26,12 +27,6 @@ define([
 		createdCallback: function () {
 			this.on("popup-after-show", this.onOpen.bind(this));
 			this.on("popup-before-hide", this.onClose.bind(this));
-		},
-
-		focus: function () {
-			// Focus on first field
-			this._getFocusItems();
-			this._firstFocusItem.focus();
 		},
 
 		// Configure widget to be displayed in given position relative to the button.

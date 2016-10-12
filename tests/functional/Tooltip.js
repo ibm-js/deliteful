@@ -3,9 +3,8 @@ define([
 	"intern!object",
 	"intern/dojo/node!leadfoot/helpers/pollUntil",
 	"intern/chai!assert",
-	"intern/dojo/node!leadfoot/keys",
 	"require"
-], function (intern, registerSuite, pollUntil, assert, keys, require) {
+], function (intern, registerSuite, pollUntil, assert, require) {
 
 	registerSuite({
 		name: "Tooltip - functional",
@@ -90,27 +89,6 @@ define([
 							"connector vertically centered with anchor (rather than with tooltip)");
 					});
 			}
-
-		},
-
-		accessibility: function () {
-			var remote = this.remote;
-			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
-				// For some reason looping around on firefox works in real life but not via webdriver.
-				return this.skip("keyboard support problems");
-			}
-			return remote
-				.findById("top").click().end()
-				.execute("return document.activeElement.id").then(function (id) {
-					assert.strictEqual(id, "name", "focus moved to first field on open");
-				}).pressKeys(keys.TAB).pressKeys(keys.TAB).pressKeys(keys.TAB)
-				.execute("return document.activeElement.tagName").then(function (tag) {
-					assert.strictEqual(tag.toLowerCase(), "button");
-				}).pressKeys(keys.TAB)
-				.execute("return document.activeElement.id || document.activeElement.tagName").then(function (id) {
-					assert.strictEqual(id, "name", "focus looped back to first field");
-				});
 		}
-
 	});
 });

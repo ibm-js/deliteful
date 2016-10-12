@@ -22,16 +22,6 @@
 			color: darkblue;
 			cursor: pointer;
 		}
-
-		/* Just some styling so tooltip contents look nice */
-		.d-tooltip label {
-			display: inline-block;
-			min-width: 60px;
-		}
-		.d-tooltip button {
-			display: block;
-			margin: auto;
-		}
 	</style>
 
 	<!-- For testing purposes.  Real applications should load the AMD loader directly. -->
@@ -87,18 +77,14 @@
 		show below
 	</button>
 	<d-tooltip id="top-tooltip" style="display: none">
-		<label for="name">Name:</label> <input id="name"> <br>
-		<label for="age">Age:</label> <input id="age"> <br>
-		<label for="sex">Sex:</label> <input id="sex"> <br><br>
-		<button type="submit">OK</button>
+		I'm a tooltip.<br>
+		I appear below the button.<br>
 	</d-tooltip>
 
 	<button id="left" style="position: absolute; top: 45%; left: 0;">show to right</button>
 	<d-tooltip id="left-tooltip" style="display: none">
 		Tooltip launched behaviorally.<br>
 		I appear to the right.<br>
-		<input><br>
-		<button>OK</button>
 	</d-tooltip>
 	<!-- Setup tooltip-opening behavior on non-HasDropDown node -->
 	<d-has-drop-down anchorNode="left" dropDown="left-tooltip" dropDownPosition="after-centered before-centered">
@@ -111,8 +97,6 @@
 	<d-tooltip id="right-tooltip" style="display: none">
 		I'm a tooltip.<br>
 		I appear to the left.<br>
-		<input><br>
-		<button>OK</button>
 	</d-tooltip>
 
 	<!-- Check that tooltip and connector are positioned properly when tooltip can't be centered above/below anchor -->
@@ -123,8 +107,6 @@
 	<d-tooltip id="bottom-left-tooltip" style="display: none">
 		I'm a tooltip.<br>
 		I appear above, but not centered.<br>
-		<input><br>
-		<button>OK</button>
 	</d-tooltip>
 
 	<button is="d-dropdown-button" id="bottom" style="position: absolute; bottom: 0; left: 45%;"
@@ -134,8 +116,6 @@
 	<d-tooltip id="bottom-tooltip" style="display: none">
 		I'm a tooltip.<br>
 		I appear above.<br>
-		<input><br>
-		<button>OK</button>
 	</d-tooltip>
 
 	<!-- Check that tooltip and connector are positioned properly when tooltip can't be centered before/after anchor -->
@@ -146,8 +126,6 @@
 	<d-tooltip id="bottom-right-tooltip" style="display: none">
 		I'm a tooltip.<br>
 		I appear to the left, but not centered.<br>
-		<input><br>
-		<button>OK</button>
 	</d-tooltip>
 </body>
 </html>

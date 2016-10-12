@@ -1,6 +1,4 @@
 .d-tooltip {
-  padding: 10px;
-  max-width: 300px;
   position: relative;
   z-index: 0;
 }
@@ -71,6 +69,9 @@
   border: solid black 1px;
   box-shadow: 0 0 1em gold;
   background: white;
+}
+.d-tooltip-container {
+  padding: 10px;
 }
 .d-tooltip-popup {
   background: transparent;
