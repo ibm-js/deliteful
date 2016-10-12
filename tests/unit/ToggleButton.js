@@ -187,6 +187,14 @@ define([
 			assert.strictEqual(tb6.title, "bt title", "tb6.title on 'checkedLabel' change");
 		},
 
+		"aria-label": function () {
+			var b = document.getElementById("tb5");
+			assert.strictEqual(b.getAttribute("aria-label"), "off", "tb5.aria-label");
+			b.checked = true;
+			b.deliver();
+			assert.strictEqual(b.getAttribute("aria-label"), "on", "tb5.aria-label on checked change");
+		},
+
 		afterEach: function () {
 			container.parentNode.removeChild(container);
 		}
