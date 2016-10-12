@@ -792,7 +792,7 @@ define([
 				if (renderer) {
 					this.list.scrollBy({y: this.list.getBottomDistance(renderer)});
 					if (navigate) {
-						this.list.navigatedDescendant = renderer.childNodes[0];
+						this.list.navigatedDescendant = renderer.renderNode;
 					}
 				} // null if the list is empty because no item matches the auto-filtering
 			}
