@@ -89,6 +89,25 @@ define([
 							"connector vertically centered with anchor (rather than with tooltip)");
 					});
 			}
+		},
+
+		"reposition after content load": function () {
+			return this.remote
+				.findById("right").click().end()
+				.sleep(600)
+				.execute("return getPos('right')").then(function (res) {
+					var anchor = res.anchor,
+						tooltip = res.tooltip,
+						connector = res.connector;
+
+					assert.isBelow(tooltip.right - 0.1, anchor.right, "tooltip to left of anchor");
+					assert.isBelow(Math.abs(anchor.vcenter - tooltip.vcenter),
+						1.1, "tooltip vertically centered with anchor");
+					assert.isBelow(Math.abs(connector.left - tooltip.right), 1.1,
+						"connector to right of tooltip rectangle");
+					assert.isBelow(Math.abs(anchor.vcenter - connector.vcenter), 1.1,
+						"connector vertically centered with anchor");
+				});
 		}
 	});
 });

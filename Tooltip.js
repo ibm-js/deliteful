@@ -26,11 +26,14 @@ define([
 
 		createdCallback: function () {
 			this.on("popup-after-show", this.onOpen.bind(this));
+			this.on("popup-after-position", this.onPosition.bind(this));
 			this.on("popup-before-hide", this.onClose.bind(this));
 		},
 
-		// Configure widget to be displayed in given position relative to the button.
-		// This is called from the dijit.popup code, and should not be called directly.
+		/**
+		 * Configure widget to be displayed in given position relative to the button.
+		 * This is called from the delite/popup code, and should not be called directly.
+		 */
 		orient: function (/*delite/Widget*/ node, /*string*/ aroundCorner, /*string*/ tooltipCorner) {
 			var newC = {
 				// Real around node
@@ -56,9 +59,11 @@ define([
 			this._currentOrientClass = newC;
 		},
 
-		// Called when dialog is displayed.
-		//	This is called from the delite/popup code, and should not be called directly.
-		onOpen: function (/*Object*/ pos) {
+		/**
+		 * Called when tooltip is displayed or repositioned.
+		 * This is called from the delite/popup code, and should not be called directly.
+		 */
+		onPosition: function (/*Object*/ pos) {
 			// Position the tooltip connector for middle alignment.
 			// This could not have been done in orient() since the tooltip wasn't positioned at that time.
 			var aroundNodeCoords = pos.aroundNodePos;
@@ -71,7 +76,13 @@ define([
 					((aroundNodeCoords.w - this.connectorNode.offsetWidth) >> 1) - pos.x + "px";
 				this.connectorNode.style.top = "";
 			}
+		},
 
+		/**
+		 * Called when tooltip is displayed.
+		 * This is called from the delite/popup code, and should not be called directly.
+		 */
+		onOpen: function (/*Object*/ pos) {
 			// Setup aria-described property pointing from anchor-node to this node.
 			var aroundNode = pos.around;
 			if (aroundNode) {
@@ -83,6 +94,10 @@ define([
 			}
 		},
 
+		/**
+		 * Called when tooltip is hidden.
+		 * This is called from the delite/popup code, and should not be called directly.
+		 */
 		onClose: function () {
 			if (this.anchorNode) {
 				this.anchorNode.removeAttribute("aria-describedby");
