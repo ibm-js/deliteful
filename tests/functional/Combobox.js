@@ -11,7 +11,8 @@ define([
 		return remote
 			.get(require.toUrl(fileName))
 			.then(pollUntil("return ready ? true : null;", [],
-					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
+					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
+			.execute("customDownArrowCSS()");
 	};
 
 	var checkComboState = function (comboId, comboState, expectedComboState, stepName) {
@@ -41,14 +42,14 @@ define([
 				comboId + ".value");
 		assertEqualValue(comboState.valueNodeValue, expectedComboState.valueNodeValue,
 				selectionMode + " combo.valueNode.value " + stepName + " " +
-				comboId + ".value");
+				comboId + ".valueNode.value");
 		assert.strictEqual(comboState.opened, expectedComboState.opened,
 			selectionMode + " combo.opened " + stepName);
 
 		assert.strictEqual(comboState.selectedItemsCount, expectedComboState.selectedItemsCount,
 			selectionMode + " combo.selectedItemsCount " + stepName);
 		assert.strictEqual(comboState.itemRenderersCount, expectedComboState.itemRenderersCount,
-			selectionMode + " combo.opened " + stepName);
+			selectionMode + " combo.itemRenderersCount " + stepName);
 
 		// The event counters count the new events since the previous check.
 		assert.strictEqual(comboState.inputEventCounter, expectedComboState.inputEventCounter,
@@ -79,17 +80,17 @@ define([
 		// event counters (inputEventCounter and changeEventCounter).
 		var executeExpr = "return getComboState(\"" + comboId + "\");";
 		var res = loadFile(remote, "./Combobox-decl.html")
-			.execute(comboId + ".focus(); " + executeExpr)
+			.execute(comboId + ".focus();  " + executeExpr)
 			.then(function (comboState) {
-				// The first option is initially selected by default
+				// No selection by default
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: "France",
 						widgetValue: "France",
 						valueNodeValue: "France",
 						opened: false,
-						selectedItemsCount: 1,
-						itemRenderersCount: 37, // full list
+						selectedItemsCount: 0,
+						itemRenderersCount: 37,
 						inputEventCounter: 0, // no event so far
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: undefined, // never received
@@ -98,10 +99,10 @@ define([
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after initial focus");
 			})
-			.pressKeys(keys.ARROW_DOWN)
+			.pressKeys(keys.ARROW_DOWN) // popup should open.
+			.sleep(750)
 			.execute(executeExpr)
 			.then(function (comboState) {
-				// The first option should still be the one selected,
 				// the first ARROW_DOWN only opens the dropdown.
 				checkComboState(comboId, comboState,
 					{ // expected combo state
@@ -250,17 +251,17 @@ define([
 					checkComboState(comboId, comboState,
 						{ // expected combo state
 							inputNodeValue: "u",
-							widgetValue: "Germany",
-							valueNodeValue: "Germany",
+							widgetValue: "u",
+							valueNodeValue: "u",
 							opened: true,
-							selectedItemsCount: 1,
+							selectedItemsCount: 0,
 							itemRenderersCount: 2,
-							inputEventCounter: 0, // unchanged
-							changeEventCounter: 0, // unchanged
-							widgetValueAtLatestInputEvent: "Germany",
-							valueNodeValueAtLatestInputEvent: "Germany",
-							widgetValueAtLatestChangeEvent: "Germany",
-							valueNodeValueAtLatestChangeEvent: "Germany"
+							inputEventCounter: 8,
+							changeEventCounter: 1,
+							widgetValueAtLatestInputEvent: "u",
+							valueNodeValueAtLatestInputEvent: "u",
+							widgetValueAtLatestChangeEvent: "",
+							valueNodeValueAtLatestChangeEvent: ""
 						}, "after filter starting with u character");
 				})
 				.pressKeys(keys.SPACE) // now filtering string is "u " which doesn't match any country
@@ -272,17 +273,17 @@ define([
 					checkComboState(comboId, comboState,
 						{ // expected combo state
 							inputNodeValue: "u ",
-							widgetValue: "Germany",
-							valueNodeValue: "Germany",
+							widgetValue: "u ",
+							valueNodeValue: "u ",
 							opened: true,
-							selectedItemsCount: 1,
+							selectedItemsCount: 0,
 							itemRenderersCount: 0,
-							inputEventCounter: 0, // unchanged
+							inputEventCounter: 1, // incremented
 							changeEventCounter: 0, // unchanged
-							widgetValueAtLatestInputEvent: "Germany",
-							valueNodeValueAtLatestInputEvent: "Germany",
-							widgetValueAtLatestChangeEvent: "Germany",
-							valueNodeValueAtLatestChangeEvent: "Germany"
+							widgetValueAtLatestInputEvent: "u ",
+							valueNodeValueAtLatestInputEvent: "u ",
+							widgetValueAtLatestChangeEvent: "",
+							valueNodeValueAtLatestChangeEvent: ""
 						}, "after filter starting with u plus SPACE character");
 				})
 				.pressKeys(keys.BACKSPACE) // delete the SPACE, back to "u" filter
@@ -298,12 +299,12 @@ define([
 							opened: true,
 							selectedItemsCount: 1,
 							itemRenderersCount: 2, // UK and USA
-							inputEventCounter: 1, // incremented
+							inputEventCounter: 2, // incremented
 							changeEventCounter: 0, // unchanged
 							widgetValueAtLatestInputEvent: "UK",
 							valueNodeValueAtLatestInputEvent: "UK",
-							widgetValueAtLatestChangeEvent: "Germany",
-							valueNodeValueAtLatestChangeEvent: "Germany"
+							widgetValueAtLatestChangeEvent: "",
+							valueNodeValueAtLatestChangeEvent: ""
 						}, "after ARROW_DOWN with filtered list");
 					assert(/^UK/.test(comboState.activeDescendant),
 						"activeDescendant after ARROW_DOWN with filtered list: " + comboState.activeDescendant);
@@ -319,7 +320,7 @@ define([
 							valueNodeValue: "UK",
 							opened: false,
 							selectedItemsCount: 1,
-							itemRenderersCount: 37, // closing resets the filtering
+							itemRenderersCount: 2, // UK and USA. The query was not reset yet.
 							inputEventCounter: 0, // unchanged
 							changeEventCounter: 1, // incremented
 							widgetValueAtLatestInputEvent: "UK",
@@ -594,7 +595,7 @@ define([
 						widgetValue: "France",
 						valueNodeValue: "France",
 						opened: false,
-						selectedItemsCount: 1,
+						selectedItemsCount: 0,
 						itemRenderersCount: 37,
 						inputEventCounter: 0, // no event so far
 						changeEventCounter: 0,
@@ -604,6 +605,8 @@ define([
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "right after load");
 			})
+			.end()
+			.findByCssSelector("#" + comboId + " .d-combobox-arrow")
 			.click()
 			.sleep(500) // wait for List's loading panel to go away
 			.execute(executeExpr)
@@ -662,7 +665,6 @@ define([
 			.sleep(500) // wait for popup to close
 			.execute(executeExpr)
 			.then(function (comboState) {
-				// The click on the first option does not change the state because it is a category
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: "Germany",
@@ -677,7 +679,7 @@ define([
 						valueNodeValueAtLatestInputEvent: "Germany",
 						widgetValueAtLatestChangeEvent: "Germany",
 						valueNodeValueAtLatestChangeEvent: "Germany"
-					}, "after clicking the third option (Germany))");
+					}, "after clicking the third option (Germany)");
 			})
 			.end();
 	};
@@ -690,7 +692,6 @@ define([
 		// event counters (inputEventCounter and changeEventCounter).
 		var executeExpr = "return getComboState(\"" + comboId + "\");";
 		return loadFile(remote, "./Combobox-decl.html")
-			.findById(comboId)
 			.execute(executeExpr)
 			.then(function (comboState) {
 				// No item should be selected, the popup is closed initially.
@@ -710,6 +711,7 @@ define([
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "right after load");
 			})
+			.findByCssSelector("#" + comboId + " .d-combobox-arrow")
 			.click()
 			.sleep(500) // wait for List's loading panel to go away
 			.execute(executeExpr)
@@ -762,7 +764,7 @@ define([
 					}, "after clicking the first item (a category)");
 			})
 			.end()
-		*/	.findById(comboId + "_item0") // second item, which is "France"
+		*/	.findById(comboId + "_item0")  // first item, which is "France"
 			.click()
 			.execute(executeExpr)
 			.then(function (comboState) {
@@ -784,7 +786,7 @@ define([
 					}, "after clicking the second item (France))");
 			})
 			.end()
-			.findById(comboId + "_item1") // third item, which is "Germany"
+			.findById(comboId + "_item1")  // third item, which is "Germany"
 			.click()
 			.sleep(500)
 			.execute(executeExpr)
@@ -807,7 +809,7 @@ define([
 					}, "after clicking the third item (Germany))");
 			})
 			.end()
-			.findById(comboId)
+			.findByCssSelector("#" + comboId + " .d-combobox-arrow")
 			.click()
 			.sleep(500) // wait for the async closing of the popup
 			.execute(executeExpr)
@@ -835,7 +837,9 @@ define([
 	// Check the autoscroll mechanism
 	var checkKeyboardNavigationAutoscroll = function (remote, comboId) {
 		return loadFile(remote, "./Combobox-decl.html")
-			.execute(comboId + ".focus();")
+			.findByCssSelector("#" + comboId + " .d-combobox-arrow")
+			.click()
+			.sleep(500)
 			.pressKeys(keys.END)
 			.sleep(500)
 			// combo1.list.getBottomDistance(combo1.list.getItemRenderers()
@@ -854,7 +858,7 @@ define([
 	var checkPopupPosition = function (remote, comboId, position) {
 		return loadFile(remote, "./Combobox-decl.html")
 			.execute("return moveToBottom(\"" + comboId + "\");")
-			.findById(comboId)
+			.findByCssSelector("#" + comboId + " .d-combobox-arrow")
 			.click() // opens popup
 			.sleep(500)
 			.execute("return isAligned(\"" + comboId + "\", \"" + position + "\")")
@@ -875,6 +879,207 @@ define([
 			.execute("return isAligned(\"" + comboId + "\", \"" + position + "\")")
 			.then(function (value) {
 				assert.isTrue(value.isAligned, comboId + "'s popup is not aligned as expected.");
+			})
+			.end();
+	};
+
+	var checkRequestCount = function (remote, comboId) {
+		// NOTE: filterDelay = 100ms.
+		return loadFile(remote, "./Combobox-decl.html")
+			.findById(comboId)
+			.execute("return getQueryCount(\"" + comboId + "\");")
+			.then(function (value) {
+				assert.strictEqual(value, 0, comboId + ": after page load");
+			})
+			.click() // not popup opens because openOnPointerDown = false
+			.sleep(250)
+			.execute("return getQueryCount(\"" + comboId + "\");")
+			.then(function (value) {
+				assert.strictEqual(value, 0, comboId + ": after focus");
+			})
+			.pressKeys("c") // Canada & China as expected result.
+			.sleep(250)
+			.execute("return getQueryCount(\"" + comboId + "\");")
+			.then(function (value) {
+				assert.strictEqual(value, 1, comboId + ": after typing 'c'");
+			})
+			.pressKeys("a") // Canada only expected result.
+			.sleep(250)
+			.execute("return getQueryCount(\"" + comboId + "\");")
+			.then(function (value) {
+				assert.strictEqual(value, 2, comboId + ": after typing 'a'");
+			})
+			.end();
+	};
+
+	var checkFilteringWithZeroFilterChars = function (remote, comboId) {
+		var executeExpr = "return getComboState(\"" + comboId + "\");";
+		return loadFile(remote, "./Combobox-decl.html")
+			.findById(comboId)
+			.click() // popup opens.
+			.execute(executeExpr)
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "France",
+						widgetValue: "France",
+						valueNodeValue: "France",
+						opened: true,
+						selectedItemsCount: 1,
+						itemRenderersCount: 37,
+						inputEventCounter: 0, // unchanged
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: undefined,
+						valueNodeValueAtLatestInputEvent: undefined,
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after page load.");
+			})
+			.pressKeys(keys.BACKSPACE) // Delete the 1 char of "France"
+			.execute(executeExpr)
+			.then(function (comboState) { // Filtering happened.
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "Franc",
+						widgetValue: "Franc",
+						valueNodeValue: "Franc",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 1,
+						inputEventCounter: 1,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: "Franc",
+						valueNodeValueAtLatestInputEvent: "Franc",
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after removing 1 char.");
+			})
+			.pressKeys(keys.BACKSPACE) // Delete the 1 char of "Franc"
+			.pressKeys(keys.BACKSPACE) // Delete the 1 char of "Fran"
+			.pressKeys(keys.BACKSPACE) // Delete the 1 char of "Fra"
+			.pressKeys(keys.BACKSPACE) // Delete the 1 char of "Fr"
+			.pressKeys(keys.BACKSPACE) // Delete the 1 char of "F" - Empty input node
+			.execute(executeExpr)
+			.then(function (comboState) { // We get full list.
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "",
+						widgetValue: "",
+						valueNodeValue: "",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 37,
+						inputEventCounter: 5,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: "",
+						valueNodeValueAtLatestInputEvent: "",
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after clearing the input.");
+			})
+			.pressKeys("U") // filters all countries but UK and USA
+			.execute(executeExpr)
+			.then(function (comboState) { // We get full list.
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "U",
+						widgetValue: "U",
+						valueNodeValue: "U",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 2,
+						inputEventCounter: 1, // was reset by callling getComboState.
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: "U",
+						valueNodeValueAtLatestInputEvent: "U",
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after typing `U`.");
+			})
+			.end();
+	};
+
+	var checkFilteringWithThreeFilterChars = function (remote, comboId) {
+		var executeExpr = "return getComboState(\"" + comboId + "\");";
+		return loadFile(remote, "./Combobox-decl.html")
+			.findById(comboId)
+			.click()
+			.execute(executeExpr)
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "France",
+						widgetValue: "France",
+						valueNodeValue: "France",
+						opened: false, // click() does not open the popup.
+						selectedItemsCount: 0,
+						itemRenderersCount: 37,
+						inputEventCounter: 0, // unchanged
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: undefined,
+						valueNodeValueAtLatestInputEvent: undefined,
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after page load.");
+			})
+			.pressKeys(keys.BACKSPACE) // Delete the 1 char of "France"
+			.execute(executeExpr)
+			.then(function (comboState) { // Filtering happened.
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "Franc",
+						widgetValue: "Franc",
+						valueNodeValue: "Franc",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 1,
+						inputEventCounter: 1,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: "Franc",
+						valueNodeValueAtLatestInputEvent: "Franc",
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after removing 1 char.");
+			})
+			.pressKeys(keys.BACKSPACE) // Delete the 1 char of "Franc"
+			.pressKeys(keys.BACKSPACE) // Delete the 1 char of "Fran"
+			.pressKeys(keys.BACKSPACE) // Delete the 1 char of "Fra" - popup closes.
+			.execute(executeExpr)
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "Fr",
+						widgetValue: "Fr",
+						valueNodeValue: "Fr",
+						opened: false,
+						selectedItemsCount: 0,
+						itemRenderersCount: 1,
+						inputEventCounter: 3,
+						changeEventCounter: 1, // because the popup closed.
+						widgetValueAtLatestInputEvent: "Fr",
+						valueNodeValueAtLatestInputEvent: "Fr",
+						widgetValueAtLatestChangeEvent: "Fr",
+						valueNodeValueAtLatestChangeEvent: "Fr"
+					}, "after clearing the input partially.");
+			})
+			.pressKeys("a") // filters all countries but France.
+			.execute(executeExpr)
+			.then(function (comboState) { // We get full list.
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "Fra",
+						widgetValue: "Fra",
+						valueNodeValue: "Fra",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 1,
+						inputEventCounter: 1, // was reset by previous getComboState call.
+						changeEventCounter: 0, //
+						widgetValueAtLatestInputEvent: "Fra",
+						valueNodeValueAtLatestInputEvent: "Fra",
+						widgetValueAtLatestChangeEvent: "Fr",
+						valueNodeValueAtLatestChangeEvent: "Fr"
+					}, "after typing `a`.");
 			})
 			.end();
 	};
@@ -933,7 +1138,7 @@ define([
 				.findById("valueFor_combo3-value")
 				.getVisibleText()
 				.then(function (value) {
-					assert.strictEqual(value, "", "Unexpected value for Combobox combo3-value");
+					assert.strictEqual(value, "FR", "Unexpected value for Combobox combo3-value");
 				})
 				.end()
 				.findById("valueFor_combo1-single-rtl")
@@ -1021,6 +1226,45 @@ define([
 				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
 			}
 			return checkPopupPosition(remote, "combo2-custom-sel-single", "above");
+		},
+
+		"check for number of request (using SlowStore)": function () {
+			var remote = this.remote;
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/17
+				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
+			}
+			if (remote.environmentType.platformName === "iOS") {
+				// https://github.com/theintern/leadfoot/issues/61
+				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
+			}
+			return checkRequestCount(remote, "combo-slowstore");
+		},
+
+		"filtering with minimum characters (0)": function () {
+			var remote = this.remote;
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/17
+				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
+			}
+			if (remote.environmentType.platformName === "iOS") {
+				// https://github.com/theintern/leadfoot/issues/61
+				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
+			}
+			return checkFilteringWithZeroFilterChars(remote, "combo-minfilterchars0");
+		},
+
+		"filtering with minimum characters (3)": function () {
+			var remote = this.remote;
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/17
+				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
+			}
+			if (remote.environmentType.platformName === "iOS") {
+				// https://github.com/theintern/leadfoot/issues/61
+				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
+			}
+			return checkFilteringWithThreeFilterChars(remote, "combo-minfilterchars3");
 		}
 	});
 });
