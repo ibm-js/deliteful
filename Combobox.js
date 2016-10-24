@@ -272,6 +272,10 @@ define([
 			}
 		},
 
+		postRender: function () {
+			this._prepareInput(this.inputNode);
+		},
+
 		refreshRendering: function (oldValues) {
 			var updateReadOnly = false;
 			if ("list" in oldValues) {
@@ -372,54 +376,60 @@ define([
 		},
 
 		_initHandlers: function () {
-			this.list.on("keynav-child-navigated", function (evt) {
-				var navigatedChild = evt.newValue; // never null
-				var rend = this.list.getEnclosingRenderer(navigatedChild);
-				var item = rend.item;
-				if (this.selectionMode === "single" && !this.list.isSelected(item)) {
-					this.list.selectFromEvent(evt, item, rend, true);
-				} // else do not change the selection state of an item already selected
-				if (evt.triggerEvent && // only for keyboard navigation
-					(evt.triggerEvent.type === "keydown" || evt.triggerEvent.type === "keypress")) {
-					this._updateScroll(item, true);
-				}
-				this._setActiveDescendant(navigatedChild);
-			}.bind(this));
+			if (this._ListListeners) {
+				this._ListListeners.forEach(function (handle) {
+					handle.remove();
+				});
+			}
 
-			this.list.on("click", function (evt) {
-				if (this.selectionMode === "single") {
-					var rend = this.list.getEnclosingRenderer(evt.target);
-					if (rend && !this.list.isCategoryRenderer(rend)) {
-						this.defer(function () {
-							// deferred such that the user can see the selection feedback
-							// before the dropdown closes.
-							this.closeDropDown(true/*refocus*/);
-						}.bind(this), 100); // worth exposing a property for the delay?
+			this._ListListeners = [
+				this.list.on("keynav-child-navigated", function (evt) {
+					var navigatedChild = evt.newValue; // never null
+					var rend = this.list.getEnclosingRenderer(navigatedChild);
+					var item = rend.item;
+					if (this.selectionMode === "single" && !this.list.isSelected(item)) {
+						this.list.selectFromEvent(evt, item, rend, true);
+					} // else do not change the selection state of an item already selected
+					if (evt.triggerEvent && // only for keyboard navigation
+						(evt.triggerEvent.type === "keydown" || evt.triggerEvent.type === "keypress")) {
+						this._updateScroll(item, true);
 					}
-				}
-			}.bind(this));
+					this._setActiveDescendant(navigatedChild);
+				}.bind(this)),
 
-			// React to interactive changes of selected items
-			this.list.on("selection-change", function () {
-				if (this.selectionMode === "single") {
-					this._validateSingle();
-				}
-				this.handleOnInput(this.value); // emit "input" event
-			}.bind(this));
+				this.list.on("click", function (evt) {
+					if (this.selectionMode === "single") {
+						var rend = this.list.getEnclosingRenderer(evt.target);
+						if (rend && !this.list.isCategoryRenderer(rend)) {
+							this.defer(function () {
+								// deferred such that the user can see the selection feedback
+								// before the dropdown closes.
+								this.closeDropDown(true/*refocus*/);
+							}.bind(this), 100); // worth exposing a property for the delay?
+						}
+					}
+				}.bind(this)),
 
-			// React to programmatic changes of selected items
-			this.list.observe(function (oldValues) {
-				if ("selectedItems" in oldValues) {
+				// React to interactive changes of selected items
+				this.list.on("selection-change", function () {
 					if (this.selectionMode === "single") {
 						this._validateSingle();
-						// do not emit "input" event for programmatic changes
-					} else if (this.selectionMode === "multiple") {
-						this._validateMultiple(this._popupInput || this.inputNode);
 					}
-				}
-			}.bind(this));
+					this.handleOnInput(this.value); // emit "input" event
+				}.bind(this)),
 
-			this._prepareInput(this.inputNode);
+				// React to programmatic changes of selected items
+				this.list.observe(function (oldValues) {
+					if ("selectedItems" in oldValues) {
+						if (this.selectionMode === "single") {
+							this._validateSingle();
+							// do not emit "input" event for programmatic changes
+						} else if (this.selectionMode === "multiple") {
+							this._validateMultiple(this._popupInput || this.inputNode);
+						}
+					}
+				}.bind(this))
+			];
 		},
 
 		/**
