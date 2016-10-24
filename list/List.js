@@ -318,7 +318,7 @@ define([
 
 		refreshRendering: function (props) {
 			//	List attributes have been updated.
-			/*jshint maxcomplexity:12*/
+			/*jshint maxcomplexity:14*/
 			if ("selectionMode" in props) {
 				// Update aria attributes
 				$(this.containerNode).removeClass(this._cssClasses.selectable);
@@ -342,13 +342,15 @@ define([
 						this.containerNode.setAttribute("aria-multiselectable", "true");
 					}
 					// update aria-selected attribute on unselected items
-					for (i = 0; i < this.containerNode.children.length; i++) {
-						child = this.containerNode.children[i];
-						if (child.tagName.toLowerCase() === this.itemRenderer.tag
-								&& child.renderNode // no renderNode for the loading panel child
-								&& !child.renderNode.hasAttribute("aria-selected")) {
-							child.renderNode.setAttribute("aria-selected", "false");
-							$(child).removeClass(this._cssClasses.selected); // TODO: NOT NEEDED ?
+					if (this.type === "grid" || this.type === "listbox") {
+						for (i = 0; i < this.containerNode.children.length; i++) {
+							child = this.containerNode.children[i];
+							if (child.tagName.toLowerCase() === this.itemRenderer.tag
+									&& child.renderNode // no renderNode for the loading panel child
+									&& !child.renderNode.hasAttribute("aria-selected")) {
+								child.renderNode.setAttribute("aria-selected", "false");
+								$(child).removeClass(this._cssClasses.selected); // TODO: NOT NEEDED ?
+							}
 						}
 					}
 				}
@@ -530,7 +532,7 @@ define([
 		 * @protected
 		 */
 		updateRenderers: function (items) {
-			if (this.selectionMode !== "none") {
+			if (this.selectionMode !== "none" && (this.type === "grid" || this.type === "listbox")) {
 				for (var i = 0; i < items.length; i++) {
 					var currentItem = items[i];
 					var renderer = this.getRendererByItemId(this.getIdentity(currentItem));
@@ -785,7 +787,7 @@ define([
 				parentRole: this.type,
 				tabindex: "-1"
 			});
-			if (this.selectionMode !== "none") {
+			if (this.selectionMode !== "none" && (this.type === "grid" || this.type === "listbox")) {
 				var itemSelected = !!this.isSelected(item);
 				renderer.renderNode.setAttribute("aria-selected", itemSelected ? "true" : "false");
 				$(renderer).toggleClass(this._cssClasses.selected, itemSelected);
