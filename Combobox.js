@@ -305,6 +305,27 @@ define([
 			}
 		},
 
+		postRender: function () {
+			this._prepareInput(this.inputNode);
+
+			if (this._useCenteredDropDown()) {
+				this.on("click", function () {
+					if (!this.disabled) {
+						this.openDropDown();
+					}
+				}.bind(this));
+			} else if (!this.minFilterChars || this._inputReadOnly) {
+				this.on("mousedown", function (evt) {
+					// event could be triggered by the down arrow element. If so, we do not react to it.
+					if (evt.srcElement !== this.buttonNode && !this.disabled) {
+						if (!this.opened) {
+							this.openDropDown();
+						}
+					}
+				}.bind(this));
+			}
+		},
+
 		/* jshint maxcomplexity: 17 */
 		refreshRendering: function (oldValues, justCreated) {
 			var updateReadOnly = false;
@@ -412,68 +433,53 @@ define([
 		},
 
 		_initHandlers: function () {
-			this.list.on("keynav-child-navigated", function (evt) {
-				var navigatedChild = evt.newValue; // never null
-				var rend = this.list.getEnclosingRenderer(navigatedChild);
-				var item = rend.item;
-				if (this.selectionMode === "single" && !this.list.isSelected(item)) {
-					this.list.selectFromEvent(evt, item, rend, true);
-				} // else do not change the selection state of an item already selected
-				if (evt.triggerEvent && // only for keyboard navigation
-					(evt.triggerEvent.type === "keydown" || evt.triggerEvent.type === "keypress")) {
-					this._updateScroll(item, true);
-				}
-				this._setActiveDescendant(navigatedChild);
-			}.bind(this));
+			if (this._ListListeners) {
+				this._ListListeners.forEach(function (handle) {
+					handle.remove();
+				});
+			}
 
-			this.list.on("click", function (evt) {
-				if (this.selectionMode === "single") {
-					var rend = this.list.getEnclosingRenderer(evt.target);
-					if (rend && !this.list.isCategoryRenderer(rend)) {
-						this.defer(function () {
-							// deferred such that the user can see the selection feedback
-							// before the dropdown closes.
-							this.closeDropDown(true/*refocus*/);
-
-							// Re-initialize the query, only if we are not in auto-complete mode.
-							if (!this.hasDownArrow) {
-								this.list.query = this._getInitialQuery();
-							}
-						}.bind(this), 100); // worth exposing a property for the delay?
+			this._ListListeners = [
+				this.list.on("keynav-child-navigated", function (evt) {
+					var navigatedChild = evt.newValue; // never null
+					var rend = this.list.getEnclosingRenderer(navigatedChild);
+					var item = rend.item;
+					if (this.selectionMode === "single" && !this.list.isSelected(item)) {
+						this.list.selectFromEvent(evt, item, rend, true);
+					} // else do not change the selection state of an item already selected
+					if (evt.triggerEvent && // only for keyboard navigation
+						(evt.triggerEvent.type === "keydown" || evt.triggerEvent.type === "keypress")) {
+						this._updateScroll(item, true);
 					}
-				}
-			}.bind(this));
+					this._setActiveDescendant(navigatedChild);
+				}.bind(this)),
 
-			// React to interactive changes of selected items
-			this.list.on("selection-change", function () {
-				this._validateInput(true);
-				this.handleOnInput(this.value); // emit "input" event
-			}.bind(this));
+				this.list.on("click", function (evt) {
+					if (this.selectionMode === "single") {
+						var rend = this.list.getEnclosingRenderer(evt.target);
+						if (rend && !this.list.isCategoryRenderer(rend)) {
+							this.defer(function () {
+								// deferred such that the user can see the selection feedback
+								// before the dropdown closes.
+								this.closeDropDown(true/*refocus*/);
 
-			this.list.on("query-success", this._setSelectedItems.bind(this));
-
-			this._prepareInput(this.inputNode);
-
-			if (this._useCenteredDropDown()) {
-				this.on("click", function () {
-					if (!this.disabled) {
-						this.openDropDown(false);
-					}
-				}.bind(this));
-			} else if (!this.minFilterChars) {
-				this.on("mousedown", function (evt) {
-					// event could be triggered by the down arrow element. If so, we do not react to it.
-					if (!this.disabled && evt.srcElement !== this.buttonNode) {
-						if (!this.opened) {
-							this.openDropDown(false);
-						} else {
-							if (this._inputReadOnly)
-								// if the input is readonly, then close the popup.
-								this.closeDropDown(true);
+								// Re-initialize the query, only if we are not in auto-complete mode.
+								if (!this.hasDownArrow) {
+									this.list.query = this._getDefaultQuery();
+								}
+							}.bind(this), 100); // worth exposing a property for the delay?
 						}
 					}
-				}.bind(this));
-			}
+				}.bind(this)),
+
+				// React to interactive changes of selected items
+				this.list.on("selection-change", function () {
+					this._validateInput(true);
+					this.handleOnInput(this.value); // emit "input" event
+				}.bind(this)),
+
+				this.list.on("query-success", this._setSelectedItems.bind(this))
+			];
 		},
 
 		/**
@@ -572,30 +578,42 @@ define([
 		},
 
 		/**
-		 * Establishes if the query has to run or not, depending of different factors.
+		 * Establishes if the query has to run or not, depending of different factors, among
+		 * - mobile version or not
+		 * - hasDownArrown (auto-complete mode)
+		 * - numbers of characters typed into the inputNode element.
 		 * @param  {HTMLElement} inputElement the input element containing chars typed by the user.
 		 * @return {boolean}
 		 */
 		shouldRunQuery: function (inputElement) {
 			var mobile = this._useCenteredDropDown();
-			if (this.minFilterChars === 0) {
-				// Auto complete mode - have to filter.
-				return true;
-			}
-			if (inputElement.value.length !== 0 && inputElement.value.length < this.minFilterChars) {
-				if (mobile) {
-					// in mobile mode and we have enough chars to filter.
-					return true;
-				} else {
-					// not in mobile and no sufficient chars yet. So close the popup
-					// and do not filter.
-					this.closeDropDown();
+			if (inputElement.value.length !== 0) {
+				// inputNode contains text
+				if (inputElement.value.length < this.minFilterChars) {
+					if (!mobile) {
+						this.closeDropDown();
+					}
 					return false;
 				}
-				//
-
 			} else {
-				return false;
+				// inputNode does not contain text
+				if (!this.hasDownArrow) {
+					// in auto complete mode
+					this.closeDropDown();
+					this._toggleComboPopupList();
+					return false;
+				}
+			}
+			return true;
+		},
+
+		/**
+		 * Toggles the list's visibility when ComboPopup is used (so in mobile)
+		 */
+		_toggleComboPopupList: function () {
+			if (this._useCenteredDropDown()) {
+				this.list.setAttribute("d-shown", "" + this.inputNode.value.length >= this.minFilterChars);
+				this.list.emit("delite-size-change");
 			}
 		},
 
@@ -643,7 +661,7 @@ define([
 				evt.preventDefault();
 			}.bind(this), inputElement);
 			this.on("keydown", function (evt) {
-				/* jshint maxcomplexity: 15 */
+				/* jshint maxcomplexity: 16 */
 				// deliteful issue #382: prevent the browser from navigating to
 				// the previous page when typing backspace in a readonly input
 				if (inputElement.readOnly && evt.key === "Backspace") {
@@ -661,7 +679,9 @@ define([
 					// which here is the input element outside the List. TODO: see deliteful #500.
 					if (this.selectionMode === "multiple") {
 						var rend = this.list.getEnclosingRenderer(this.list.navigatedDescendant);
-						this.list.selectFromEvent(evt, rend.item, rend, true);
+						if (rend) {
+							this.list.selectFromEvent(evt, rend.item, rend, true);
+						}
 					}
 					if (this.selectionMode === "multiple" || !this.autoFilter) {
 						evt.stopPropagation();
@@ -770,7 +790,7 @@ define([
 			}
 
 			// Open popup in order to show the list's content (loading panel, no-items element or items).
-			this.openDropDown(true);
+			this.openDropDown();
 		},
 
 		/**
@@ -781,7 +801,8 @@ define([
 		 * the data store items.
 		 * The method can be overridden for implementing other filtering strategies.
 		 * @protected
-		 * @param  {Object.<string, Object>} args Dictionary containing by default the regular expression and the original input text.
+		 * @param  {Object.<string, Object>} args Dictionary containing by default
+		 * the regular expression and the original input text.
 		 * @returns {Object} New query to set to the list.
 		 */
 		getQuery: function (args) {
@@ -790,17 +811,16 @@ define([
 
 		/**
 		 * Consists in the default query to apply to the source.
-		 * It can be one of a `function`, an `Object` or `null`.
-		 * If it is a function, then it's invoked and the list's query will get the return value assigned.
+		 * It can be a `function` or a `Object`.
+		 * If it is a function, then it's invoked and the list's query will get the return value.
 		 * If it is an Object, it's assigned to the list's query directly.
-		 * If it is null, the list's query won't be set to its initial value.
 		 * It can be overridden depending of store used and the strategy to apply.
 		 */
-		initialQuery: {},
+		defaultQuery: {},
 
-		_getInitialQuery: function () {
-			return (typeof this.initialQuery === "function") ?
-				this.initialQuery() : initialQuery;
+		_getDefaultQuery: function () {
+			return (typeof this.defaultQuery === "function") ?
+				this.defaultQuery() : this.defaultQuery;
 		},
 
 		_setSelectedItems: function () {
@@ -817,7 +837,7 @@ define([
 		},
 
 		openDropDown: dcl.superCall(function (sup) {
-			return function (filteringInProgress) {
+			return function () {
 				// Assign widget's source to the list's source.
 				if (this.source) {
 					this.list.source = this.source;
@@ -853,9 +873,7 @@ define([
 					} else {
 						// mobile version
 						if (!this.hasDownArrow) {
-							this.list.setAttribute("d-shown", "" + (filteringInProgress &&
-    							this.inputNode.value.length >= this.minFilterChars));
-							this.list.emit("delite-size-change");
+							this._toggleComboPopupList();
 						}
 						this.dropDown.focus();
 					}
@@ -895,12 +913,12 @@ define([
 		// HasDropDown#_dropDownKeyUpHandler() override.
 		// Do not call openDropDown if widget does not have a down arrow shown.
 		// This means the widget is configured in auto-complete mode.
-		// In this mode the popup will open once the user typed something and text.length > this.minFilterChars.
+		// In this mode the popup will open when the user typed something and text.length > this.minFilterChars.
 		_dropDownKeyUpHandler: dcl.superCall(function (sup) {
 			return function () {
 				if (this.hasDownArrow) {
-					if (this.inputNode.value.length === this.minFilterChars === 0) {
-						this.list.query = this._getInitialQuery();
+					if (this.inputNode.value.length === 0 && this.minFilterChars === 0) {
+						this.list.query = this._getDefaultQuery();
 					} else if (this.inputNode.value.length < this.minFilterChars) {
 						return;
 					}
@@ -935,7 +953,7 @@ define([
 				if (renderer) {
 					this.list.scrollBy({y: this.list.getBottomDistance(renderer)});
 					if (navigate) {
-						this.list.navigatedDescendant = renderer.childNodes[0];
+						this.list.navigatedDescendant = renderer.renderNode;
 					}
 				} // null if the list is empty because no item matches the auto-filtering
 			}

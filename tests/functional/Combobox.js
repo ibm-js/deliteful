@@ -12,7 +12,7 @@ define([
 			.get(require.toUrl(fileName))
 			.then(pollUntil("return ready ? true : null;", [],
 					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
-			.execute("customDownArrowCSS()");
+			.execute("document.body.className = 'webdriver';");
 	};
 
 	var checkComboState = function (comboId, comboState, expectedComboState, stepName) {
@@ -245,7 +245,7 @@ define([
 				.pressKeys("u") // filters all countries but UK and USA
 				.execute(executeExpr)
 				.then(function (comboState) {
-					// Just reopens the dropdown. No other state change, except the
+					// Reopens the dropdown. No other state change, except the
 					// input node now showing just the "u" character, and the list now
 					// has only 2 item renderers (UK and USA).
 					checkComboState(comboId, comboState,
@@ -257,11 +257,11 @@ define([
 							selectedItemsCount: 0,
 							itemRenderersCount: 2,
 							inputEventCounter: 8,
-							changeEventCounter: 1,
+							changeEventCounter: 0, // no commit yet.
 							widgetValueAtLatestInputEvent: "u",
 							valueNodeValueAtLatestInputEvent: "u",
-							widgetValueAtLatestChangeEvent: "",
-							valueNodeValueAtLatestChangeEvent: ""
+							widgetValueAtLatestChangeEvent: "Germany",
+							valueNodeValueAtLatestChangeEvent: "Germany"
 						}, "after filter starting with u character");
 				})
 				.pressKeys(keys.SPACE) // now filtering string is "u " which doesn't match any country
@@ -282,8 +282,8 @@ define([
 							changeEventCounter: 0, // unchanged
 							widgetValueAtLatestInputEvent: "u ",
 							valueNodeValueAtLatestInputEvent: "u ",
-							widgetValueAtLatestChangeEvent: "",
-							valueNodeValueAtLatestChangeEvent: ""
+							widgetValueAtLatestChangeEvent: "Germany",
+							valueNodeValueAtLatestChangeEvent: "Germany"
 						}, "after filter starting with u plus SPACE character");
 				})
 				.pressKeys(keys.BACKSPACE) // delete the SPACE, back to "u" filter
@@ -303,14 +303,14 @@ define([
 							changeEventCounter: 0, // unchanged
 							widgetValueAtLatestInputEvent: "UK",
 							valueNodeValueAtLatestInputEvent: "UK",
-							widgetValueAtLatestChangeEvent: "",
-							valueNodeValueAtLatestChangeEvent: ""
+							widgetValueAtLatestChangeEvent: "Germany",
+							valueNodeValueAtLatestChangeEvent: "Germany"
 						}, "after ARROW_DOWN with filtered list");
 					assert(/^UK/.test(comboState.activeDescendant),
 						"activeDescendant after ARROW_DOWN with filtered list: " + comboState.activeDescendant);
 				})
 				.pressKeys(keys.ENTER) // closes the popup and validates the changes
-				.sleep(1000) // wait for async closing
+				.sleep(500) // wait for async closing
 				.execute(executeExpr)
 				.then(function (comboState) {
 					checkComboState(comboId, comboState,
@@ -364,6 +364,7 @@ define([
 					}, "after initial focus");
 			})
 			.pressKeys(keys.ARROW_DOWN)
+			.sleep(2000)
 			.execute(executeExpr)
 			.then(function (comboState) {
 				// For now there should still be no option selected, the first

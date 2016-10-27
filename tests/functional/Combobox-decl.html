@@ -168,17 +168,6 @@
 				document.getElementById(comboId).style.cssText = "position: fixed; bottom: 0; z-index: 2;";
 			};
 
-			customDownArrowCSS = function () {
-			 	var node = document.createElement('style');
-			    node.innerHTML =
-			    	".d-combobox .d-combobox-arrow {" +
-			    		"display: inline-block;" +
-		    		    "width: 10px;" +
-		    		    "height: 10px;" +
-			    	"}"
-			    document.body.appendChild(node);
-			};
-
 			ready = true;
 		});
 	</script>
@@ -191,6 +180,12 @@
 		fieldset label {
 			display: inline;
 		}
+
+		.webdriver .d-combobox-arrow {
+	        display: inline-block;
+	        width: 10px;
+	        height: 10px;
+	    }
 
 		/* Larger margins between the elements inside the list elements */
 		.d-list-item-label {
