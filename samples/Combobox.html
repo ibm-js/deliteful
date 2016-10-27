@@ -43,9 +43,10 @@
 				comboTeams.ignoreCase = ignoreCase.checked;
 			});
 
-			$("input[type=number").on('keyup change input', function(evt) {
-				comboTeams.minFilterChars = parseInt(evt.target.value);
+			$("input[type=number]").on("input", function(evt) {
+				comboTeams.minFilterChars = parseInt(evt.target.value) || 0;
 			});
+
 			showResults = function () {
 				var getSelectedItemsTxt = function (combobox) {
 					var res = "", noOptionSelected = "no option selected";

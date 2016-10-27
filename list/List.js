@@ -316,7 +316,7 @@ define([
 			};
 		}),
 
-		refreshRendering: function (props) {
+		refreshRendering: function (props, isAfterInitialRendering) {
 			//	List attributes have been updated.
 			/*jshint maxcomplexity:13*/
 			if ("selectionMode" in props) {
@@ -368,8 +368,8 @@ define([
 				}
 			}
 
-			if (("renderItems" in props && this.renderItems) ||
-				("_displayedPanel" in props && this._displayedPanel !== props._displayedPanel)) {
+			if ("renderItems" in props && this.renderItems ||
+					"_displayedPanel" in props && !isAfterInitialRendering) {
 				// notify the list content changed.
 				this.emit("delite-size-change");
 			}

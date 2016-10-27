@@ -435,11 +435,9 @@ define([
 							// before the dropdown closes.
 							this.closeDropDown(true/*refocus*/);
 
-							// Re-initialize the query.
-							if (this.getInitialQuery !== null && !this.hasDownArrow) {
-								this.list.query =
-									(typeof this.resetQuery === "function") ?
-										this.getInitialQuery() : this.getInitialQuery;
+							// Re-initialize the query, only if we are not in auto-complete mode.
+							if (!this.hasDownArrow) {
+								this.list.query = this._getInitialQuery();
 							}
 						}.bind(this), 100); // worth exposing a property for the delay?
 					}
@@ -464,12 +462,14 @@ define([
 				}.bind(this));
 			} else if (!this.minFilterChars) {
 				this.on("mousedown", function (evt) {
-					// event could be triggered by the down arrow. If so, we do not react to it.
+					// event could be triggered by the down arrow element. If so, we do not react to it.
 					if (!this.disabled && evt.srcElement !== this.buttonNode) {
 						if (!this.opened) {
 							this.openDropDown(false);
 						} else {
-							this.closeDropDown(true);
+							if (this._inputReadOnly)
+								// if the input is readonly, then close the popup.
+								this.closeDropDown(true);
 						}
 					}
 				}.bind(this));
@@ -571,18 +571,32 @@ define([
 			return new ComboPopup({combobox: this});
 		},
 
-		evaluateFilteringConditions: function (inputElement) {
+		/**
+		 * Establishes if the query has to run or not, depending of different factors.
+		 * @param  {HTMLElement} inputElement the input element containing chars typed by the user.
+		 * @return {boolean}
+		 */
+		shouldRunQuery: function (inputElement) {
 			var mobile = this._useCenteredDropDown();
-			if (this.minFilterChars !== inputElement.value.length !== 0 &&
-				inputElement.value.length < this.minFilterChars) {
-				if (!mobile) {
-					this.closeDropDown();
-				} else {
+			if (this.minFilterChars === 0) {
+				// Auto complete mode - have to filter.
+				return true;
+			}
+			if (inputElement.value.length !== 0 && inputElement.value.length < this.minFilterChars) {
+				if (mobile) {
+					// in mobile mode and we have enough chars to filter.
 					return true;
+				} else {
+					// not in mobile and no sufficient chars yet. So close the popup
+					// and do not filter.
+					this.closeDropDown();
+					return false;
 				}
+				//
+
+			} else {
 				return false;
 			}
-			return true;
 		},
 
 		/**
@@ -610,7 +624,7 @@ define([
 					delete this._timeoutHandle;
 				}
 				this._timeoutHandle = this.defer(function () {
-					if (this.evaluateFilteringConditions(inputElement)) {
+					if (this.shouldRunQuery(inputElement)) {
 						this.filter(inputElement.value);
 					}
 				}.bind(this), this.filterDelay);
@@ -738,7 +752,7 @@ define([
 		 */
 		filter: function (inputText) {
 			// Escape special chars in search string, see
-		    // http://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex.
+			// http://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex.
 		    var filterTxt = inputText.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
 		    if (this.filterMode === "startsWith") {
 				filterTxt = "^" + filterTxt;
@@ -767,6 +781,7 @@ define([
 		 * the data store items.
 		 * The method can be overridden for implementing other filtering strategies.
 		 * @protected
+		 * @param  {Object.<string, Object>} args Dictionary containing by default the regular expression and the original input text.
 		 * @returns {Object} New query to set to the list.
 		 */
 		getQuery: function (args) {
@@ -774,14 +789,19 @@ define([
 		},
 
 		/**
-		 * Sets the initial list's query,
+		 * Consists in the default query to apply to the source.
 		 * It can be one of a `function`, an `Object` or `null`.
 		 * If it is a function, then it's invoked and the list's query will get the return value assigned.
 		 * If it is an Object, it's assigned to the list's query directly.
 		 * If it is null, the list's query won't be set to its initial value.
 		 * It can be overridden depending of store used and the strategy to apply.
 		 */
-		getInitialQuery: {},
+		initialQuery: {},
+
+		_getInitialQuery: function () {
+			return (typeof this.initialQuery === "function") ?
+				this.initialQuery() : initialQuery;
+		},
 
 		_setSelectedItems: function () {
 			if (this.list.source && this.list.renderItems && this.value !== "") {
@@ -833,11 +853,8 @@ define([
 					} else {
 						// mobile version
 						if (!this.hasDownArrow) {
-							if (filteringInProgress && this.inputNode.value.length >= this.minFilterChars) {
-								$(this.list).removeClass("d-combobox-list-hidden");
-							} else {
-								$(this.list).addClass("d-combobox-list-hidden");
-							}
+							this.list.setAttribute("d-shown", "" + (filteringInProgress &&
+    							this.inputNode.value.length >= this.minFilterChars));
 							this.list.emit("delite-size-change");
 						}
 						this.dropDown.focus();
@@ -877,11 +894,13 @@ define([
 
 		// HasDropDown#_dropDownKeyUpHandler() override.
 		// Do not call openDropDown if widget does not have a down arrow shown.
+		// This means the widget is configured in auto-complete mode.
+		// In this mode the popup will open once the user typed something and text.length > this.minFilterChars.
 		_dropDownKeyUpHandler: dcl.superCall(function (sup) {
 			return function () {
 				if (this.hasDownArrow) {
 					if (this.inputNode.value.length === this.minFilterChars === 0) {
-						this.list.query = this.getInitialQuery;
+						this.list.query = this._getInitialQuery();
 					} else if (this.inputNode.value.length < this.minFilterChars) {
 						return;
 					}
