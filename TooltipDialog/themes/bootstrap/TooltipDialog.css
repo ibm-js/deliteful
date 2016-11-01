@@ -1,3 +1,7 @@
+.d-tooltip.d-tooltip-dialog {
+  display: flex;
+  flex-direction: column;
+}
 .d-tooltip-dialog-header {
   display: flex;
   align-items: center;
@@ -12,4 +16,8 @@
 }
 .d-tooltip-dialog-close-icon::after {
   content: "\2716";
+}
+.d-tooltip-container {
+  flex: 1;
+  overflow: auto;
 }

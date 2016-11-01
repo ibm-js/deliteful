@@ -54,12 +54,260 @@
 	<h1>TooltipDialog functional test</h1>
 	<button is="d-dropdown-button" id="top"
 			dropDown="top-tooltip" dropDownPosition="below-centered">
-		show below
+		show tooltip dialog
 	</button>
 	<d-tooltip-dialog id="top-tooltip" label="My Tooltip Dialog" style="display: none">
 		<label for="name">Name:</label> <input id="name"> <br>
 		<label for="age">Age:</label> <input id="age"> <br>
 		<label for="sex">Sex:</label> <input id="sex"> <br><br>
+		<button type="submit">OK</button>
+	</d-tooltip-dialog>
+
+	<button is="d-dropdown-button" id="topTall"
+			dropDown="top-tall-tooltip" dropDownPosition="below-centered">
+		show tooltip dialog with scrollbar
+	</button>
+	<d-tooltip-dialog id="top-tall-tooltip" label="Tooltip With Scrollbar" style="display: none">
+		I'm a tall TooltipDialog.<br>
+		I should get a scrollbar and my borders should remain on the screen.<br>
+		<br>
+		<label for="name2">Name:</label> <input id="name2"> <br>
+		<label for="age2">Age:</label> <input id="age2"> <br>
+		<label for="sex2">Sex:</label> <input id="sex2"> <br><br>
+		<br>
+		Ninenty nine bottles of beer on the wall.<br>
+		Ninenty eight bottles of beer on the wall.<br>
+		Ninenty seven bottles of beer on the wall.<br>
+		Ninenty six bottles of beer on the wall.<br>
+		Ninenty five bottles of beer on the wall.<br>
+		Ninenty four bottles of beer on the wall.<br>
+		Ninenty three bottles of beer on the wall.<br>
+		Ninenty two bottles of beer on the wall.<br>
+		Ninenty one bottles of beer on the wall.<br>
+		Ninenty bottles of beer on the wall.<br>
+		<br>
+		Eighty nine bottles of beer on the wall.<br>
+		Eighty eight bottles of beer on the wall.<br>
+		Eighty seven bottles of beer on the wall.<br>
+		Eighty six bottles of beer on the wall.<br>
+		Eighty five bottles of beer on the wall.<br>
+		Eighty four bottles of beer on the wall.<br>
+		Eighty three bottles of beer on the wall.<br>
+		Eighty two bottles of beer on the wall.<br>
+		Eighty one bottles of beer on the wall.<br>
+		Eighty bottles of beer on the wall.<br>
+		<br>
+		Seventy nine bottles of beer on the wall.<br>
+		Seventy eight bottles of beer on the wall.<br>
+		Seventy seven bottles of beer on the wall.<br>
+		Seventy six bottles of beer on the wall.<br>
+		Seventy five bottles of beer on the wall.<br>
+		Seventy four bottles of beer on the wall.<br>
+		Seventy three bottles of beer on the wall.<br>
+		Seventy two bottles of beer on the wall.<br>
+		Seventy one bottles of beer on the wall.<br>
+		Seventy bottles of beer on the wall.<br>
+		<br>
+		Sixty nine bottles of beer on the wall.<br>
+		Sixty eight bottles of beer on the wall.<br>
+		Sixty seven bottles of beer on the wall.<br>
+		Sixty six bottles of beer on the wall.<br>
+		Sixty five bottles of beer on the wall.<br>
+		Sixty four bottles of beer on the wall.<br>
+		Sixty three bottles of beer on the wall.<br>
+		Sixty two bottles of beer on the wall.<br>
+		Sixty one bottles of beer on the wall.<br>
+		Sixty bottles of beer on the wall.<br>
+		<br>
+		Fifty nine bottles of beer on the wall.<br>
+		Fifty eight bottles of beer on the wall.<br>
+		Fifty seven bottles of beer on the wall.<br>
+		Fifty six bottles of beer on the wall.<br>
+		Fifty five bottles of beer on the wall.<br>
+		Fifty four bottles of beer on the wall.<br>
+		Fifty three bottles of beer on the wall.<br>
+		Fifty two bottles of beer on the wall.<br>
+		Fifty one bottles of beer on the wall.<br>
+		Fifty bottles of beer on the wall.<br>
+		<br>
+		Fourty nine bottles of beer on the wall.<br>
+		Fourty eight bottles of beer on the wall.<br>
+		Fourty seven bottles of beer on the wall.<br>
+		Fourty six bottles of beer on the wall.<br>
+		Fourty five bottles of beer on the wall.<br>
+		Fourty four bottles of beer on the wall.<br>
+		Fourty three bottles of beer on the wall.<br>
+		Fourty two bottles of beer on the wall.<br>
+		Fourty one bottles of beer on the wall.<br>
+		Fourty bottles of beer on the wall.<br>
+		<br>
+		Thirty nine bottles of beer on the wall.<br>
+		Thirty eight bottles of beer on the wall.<br>
+		Thirty seven bottles of beer on the wall.<br>
+		Thirty six bottles of beer on the wall.<br>
+		Thirty five bottles of beer on the wall.<br>
+		Thirty four bottles of beer on the wall.<br>
+		Thirty three bottles of beer on the wall.<br>
+		Thirty two bottles of beer on the wall.<br>
+		Thirty one bottles of beer on the wall.<br>
+		Thirty bottles of beer on the wall.<br>
+		<br>
+		Twenty nine bottles of beer on the wall.<br>
+		Twenty eight bottles of beer on the wall.<br>
+		Twenty seven bottles of beer on the wall.<br>
+		Twenty six bottles of beer on the wall.<br>
+		Twenty five bottles of beer on the wall.<br>
+		Twenty four bottles of beer on the wall.<br>
+		Twenty three bottles of beer on the wall.<br>
+		Twenty two bottles of beer on the wall.<br>
+		Twenty one bottles of beer on the wall.<br>
+		Twenty bottles of beer on the wall.<br>
+		<br>
+		Nineteen bottles of beer on the wall.<br>
+		Eighteen bottles of beer on the wall.<br>
+		Seventeen bottles of beer on the wall.<br>
+		Sixteen bottles of beer on the wall.<br>
+		Fifteen bottles of beer on the wall.<br>
+		Fourteen bottles of beer on the wall.<br>
+		Thirteen bottles of beer on the wall.<br>
+		Twelve bottles of beer on the wall.<br>
+		Eleven bottles of beer on the wall.<br>
+		Ten bottles of beer on the wall.<br>
+		<br>
+		Nine bottles of beer on the wall.<br>
+		Eight bottles of beer on the wall.<br>
+		Seven bottles of beer on the wall.<br>
+		Six bottles of beer on the wall.<br>
+		Five bottles of beer on the wall.<br>
+		Four bottles of beer on the wall.<br>
+		Three bottles of beer on the wall.<br>
+		Two bottles of beer on the wall.<br>
+		One bottle of beer on the wall.<br>
+		<br>
+		<button type="submit">OK</button>
+	</d-tooltip-dialog>
+
+	<button is="d-dropdown-button" id="bottomTall" style="position: absolute; left: 20px; bottom: 10px;"
+			dropDown="bottom-tall-tooltip" dropDownPosition="above-centered">
+		show tooltip dialog above with scrollbar
+	</button>
+	<d-tooltip-dialog id="bottom-tall-tooltip" label="Tooltip With Scrollbar" style="display: none">
+		I'm a tall TooltipDialog.<br>
+		I should get a scrollbar and my borders should remain on the screen.<br>
+		<br>
+		<label for="name3">Name:</label> <input id="name3"> <br>
+		<label for="age3">Age:</label> <input id="age3"> <br>
+		<label for="sex3">Sex:</label> <input id="sex3"> <br><br>
+		<br>
+		Ninenty nine bottles of beer on the wall.<br>
+		Ninenty eight bottles of beer on the wall.<br>
+		Ninenty seven bottles of beer on the wall.<br>
+		Ninenty six bottles of beer on the wall.<br>
+		Ninenty five bottles of beer on the wall.<br>
+		Ninenty four bottles of beer on the wall.<br>
+		Ninenty three bottles of beer on the wall.<br>
+		Ninenty two bottles of beer on the wall.<br>
+		Ninenty one bottles of beer on the wall.<br>
+		Ninenty bottles of beer on the wall.<br>
+		<br>
+		Eighty nine bottles of beer on the wall.<br>
+		Eighty eight bottles of beer on the wall.<br>
+		Eighty seven bottles of beer on the wall.<br>
+		Eighty six bottles of beer on the wall.<br>
+		Eighty five bottles of beer on the wall.<br>
+		Eighty four bottles of beer on the wall.<br>
+		Eighty three bottles of beer on the wall.<br>
+		Eighty two bottles of beer on the wall.<br>
+		Eighty one bottles of beer on the wall.<br>
+		Eighty bottles of beer on the wall.<br>
+		<br>
+		Seventy nine bottles of beer on the wall.<br>
+		Seventy eight bottles of beer on the wall.<br>
+		Seventy seven bottles of beer on the wall.<br>
+		Seventy six bottles of beer on the wall.<br>
+		Seventy five bottles of beer on the wall.<br>
+		Seventy four bottles of beer on the wall.<br>
+		Seventy three bottles of beer on the wall.<br>
+		Seventy two bottles of beer on the wall.<br>
+		Seventy one bottles of beer on the wall.<br>
+		Seventy bottles of beer on the wall.<br>
+		<br>
+		Sixty nine bottles of beer on the wall.<br>
+		Sixty eight bottles of beer on the wall.<br>
+		Sixty seven bottles of beer on the wall.<br>
+		Sixty six bottles of beer on the wall.<br>
+		Sixty five bottles of beer on the wall.<br>
+		Sixty four bottles of beer on the wall.<br>
+		Sixty three bottles of beer on the wall.<br>
+		Sixty two bottles of beer on the wall.<br>
+		Sixty one bottles of beer on the wall.<br>
+		Sixty bottles of beer on the wall.<br>
+		<br>
+		Fifty nine bottles of beer on the wall.<br>
+		Fifty eight bottles of beer on the wall.<br>
+		Fifty seven bottles of beer on the wall.<br>
+		Fifty six bottles of beer on the wall.<br>
+		Fifty five bottles of beer on the wall.<br>
+		Fifty four bottles of beer on the wall.<br>
+		Fifty three bottles of beer on the wall.<br>
+		Fifty two bottles of beer on the wall.<br>
+		Fifty one bottles of beer on the wall.<br>
+		Fifty bottles of beer on the wall.<br>
+		<br>
+		Fourty nine bottles of beer on the wall.<br>
+		Fourty eight bottles of beer on the wall.<br>
+		Fourty seven bottles of beer on the wall.<br>
+		Fourty six bottles of beer on the wall.<br>
+		Fourty five bottles of beer on the wall.<br>
+		Fourty four bottles of beer on the wall.<br>
+		Fourty three bottles of beer on the wall.<br>
+		Fourty two bottles of beer on the wall.<br>
+		Fourty one bottles of beer on the wall.<br>
+		Fourty bottles of beer on the wall.<br>
+		<br>
+		Thirty nine bottles of beer on the wall.<br>
+		Thirty eight bottles of beer on the wall.<br>
+		Thirty seven bottles of beer on the wall.<br>
+		Thirty six bottles of beer on the wall.<br>
+		Thirty five bottles of beer on the wall.<br>
+		Thirty four bottles of beer on the wall.<br>
+		Thirty three bottles of beer on the wall.<br>
+		Thirty two bottles of beer on the wall.<br>
+		Thirty one bottles of beer on the wall.<br>
+		Thirty bottles of beer on the wall.<br>
+		<br>
+		Twenty nine bottles of beer on the wall.<br>
+		Twenty eight bottles of beer on the wall.<br>
+		Twenty seven bottles of beer on the wall.<br>
+		Twenty six bottles of beer on the wall.<br>
+		Twenty five bottles of beer on the wall.<br>
+		Twenty four bottles of beer on the wall.<br>
+		Twenty three bottles of beer on the wall.<br>
+		Twenty two bottles of beer on the wall.<br>
+		Twenty one bottles of beer on the wall.<br>
+		Twenty bottles of beer on the wall.<br>
+		<br>
+		Nineteen bottles of beer on the wall.<br>
+		Eighteen bottles of beer on the wall.<br>
+		Seventeen bottles of beer on the wall.<br>
+		Sixteen bottles of beer on the wall.<br>
+		Fifteen bottles of beer on the wall.<br>
+		Fourteen bottles of beer on the wall.<br>
+		Thirteen bottles of beer on the wall.<br>
+		Twelve bottles of beer on the wall.<br>
+		Eleven bottles of beer on the wall.<br>
+		Ten bottles of beer on the wall.<br>
+		<br>
+		Nine bottles of beer on the wall.<br>
+		Eight bottles of beer on the wall.<br>
+		Seven bottles of beer on the wall.<br>
+		Six bottles of beer on the wall.<br>
+		Five bottles of beer on the wall.<br>
+		Four bottles of beer on the wall.<br>
+		Three bottles of beer on the wall.<br>
+		Two bottles of beer on the wall.<br>
+		One bottle of beer on the wall.<br>
+		<br>
 		<button type="submit">OK</button>
 	</d-tooltip-dialog>
 </body>

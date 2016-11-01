@@ -1,11 +1,12 @@
 /** @module deliteful/Tooltip */
 define([
+	"delite/place",
 	"delite/register",
 	"delite/Container",
 	"delite/handlebars!./Tooltip/Tooltip.html",
 	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/theme!./Tooltip/themes/{{theme}}/Tooltip.css"
-], function (register, Container, template, $) {
+], function (place, register, Container, template, $) {
 
 	/**
 	 * A tooltip widget, to be used as a popup.
@@ -31,10 +32,14 @@ define([
 		},
 
 		/**
-		 * Configure widget to be displayed in given position relative to the button.
+		 * Called when tooltip is displayed or repositioned.
 		 * This is called from the delite/popup code, and should not be called directly.
 		 */
-		orient: function (/*delite/Widget*/ node, /*string*/ aroundCorner, /*string*/ tooltipCorner) {
+		onPosition: function (/*Object*/ pos) {
+			var tooltipCorner = pos.corner,
+				aroundCorner = pos.aroundCorner;
+
+			// Set appropriate class.
 			var newC = {
 				// Real around node
 				"MR-ML": "d-tooltip-right",
@@ -54,26 +59,26 @@ define([
 				"TL-BR": "d-tooltip-above d-tooltip-AB-right",
 				"TR-BL": "d-tooltip-above d-tooltip-AB-left"
 			}[aroundCorner + "-" + tooltipCorner];
-
 			$(this).removeClass(this._currentOrientClass || "").addClass(newC);
 			this._currentOrientClass = newC;
-		},
 
-		/**
-		 * Called when tooltip is displayed or repositioned.
-		 * This is called from the delite/popup code, and should not be called directly.
-		 */
-		onPosition: function (/*Object*/ pos) {
 			// Position the tooltip connector for middle alignment.
-			// This could not have been done in orient() since the tooltip wasn't positioned at that time.
+			var myPos = place.position(this);
 			var aroundNodeCoords = pos.aroundNodePos;
-			if (pos.corner.charAt(0) === "M" && pos.aroundCorner.charAt(0) === "M") {
-				this.connectorNode.style.top = aroundNodeCoords.y +
-					((aroundNodeCoords.h - this.connectorNode.offsetHeight) >> 1) - pos.y + "px";
+			function clamp(value, min, max) {
+				return Math.max(min, Math.min(max, value));
+			}
+			if (tooltipCorner.charAt(0) === "M" && aroundCorner.charAt(0) === "M") {
+				this.connectorNode.style.top = clamp(
+					aroundNodeCoords.y + ((aroundNodeCoords.h - this.connectorNode.offsetHeight) >> 1) - myPos.y,
+					3,
+					this.offsetHeight - this.connectorNode.offsetHeight - 3) + "px";
 				this.connectorNode.style.left = "";
-			} else if (pos.corner.charAt(1) === "M" && pos.aroundCorner.charAt(1) === "M") {
-				this.connectorNode.style.left = aroundNodeCoords.x +
-					((aroundNodeCoords.w - this.connectorNode.offsetWidth) >> 1) - pos.x + "px";
+			} else if (tooltipCorner.charAt(1) === "M" && aroundCorner.charAt(1) === "M") {
+				this.connectorNode.style.left = clamp(
+					aroundNodeCoords.x + ((aroundNodeCoords.w - this.connectorNode.offsetWidth) >> 1) - myPos.x,
+					3,
+					this.offsetWidth - this.connectorNode.offsetWidth - 3) + "px";
 				this.connectorNode.style.top = "";
 			}
 		},

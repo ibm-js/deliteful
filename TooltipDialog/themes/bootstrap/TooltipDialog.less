@@ -1,3 +1,9 @@
+.d-tooltip.d-tooltip-dialog {
+	// Override setting from Tooltip.less so container section gets scrollbar if necessary.
+	display: flex;
+	flex-direction: column;
+}
+
 // The top part of the TooltipDialog containing the label and the close icon.
 .d-tooltip-dialog-header {
 	display: flex;
@@ -17,4 +23,10 @@
 // Default close icon if app does not override "d-close-icon" class name.
 .d-tooltip-dialog-close-icon::after {
 	content: "\2716";
+}
+
+.d-tooltip-container {
+	// Show scrollbar on this node if necessary.
+	flex: 1;
+	overflow: auto;
 }

@@ -1,18 +1,7 @@
 .d-tooltip {
   position: relative;
   z-index: 0;
-}
-.d-tooltip-left {
-  margin-right: 15px;
-}
-.d-tooltip-right {
-  margin-left: 15px;
-}
-.d-tooltip-above {
-  margin-bottom: 15px;
-}
-.d-tooltip-below {
-  margin-top: 15px;
+  margin: 15px;
 }
 .d-tooltip-connector {
   overflow: hidden;
