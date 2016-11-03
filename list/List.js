@@ -368,8 +368,7 @@ define([
 				}
 			}
 
-			if ("renderItems" in props && this.renderItems ||
-					"_displayedPanel" in props && !isAfterInitialRendering) {
+			if ("renderItems" in props && this.renderItems) {
 				// notify the list content changed.
 				this.emit("delite-size-change");
 			}
