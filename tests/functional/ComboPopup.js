@@ -84,7 +84,7 @@ define([
 						widgetValue: "France",
 						valueNodeValue: "France",
 						opened: false,
-						selectedItemsCount: 1,
+						selectedItemsCount: 0,
 						itemRenderersCount: 37,
 						inputEventCounter: 0,
 						changeEventCounter: 0,
@@ -126,21 +126,21 @@ define([
 				// Clicking the root node just opens the dropdown. No other state change.
 				checkComboState(comboId, comboState,
 					{ // expected combo state
-						inputNodeValue: "France",
-						widgetValue: "France",
-						valueNodeValue: "France",
+						inputNodeValue: "jap",
+						widgetValue: "jap",
+						valueNodeValue: "jap",
 						opened: true,
-						selectedItemsCount: 1,
+						selectedItemsCount: 0,
 						itemRenderersCount: 30,
-						inputEventCounter: 0,
+						inputEventCounter: 3, // typed "jap"
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: null, // never received
-						valueNodeValueAtLatestInputEvent: null,
+						widgetValueAtLatestInputEvent: "jap",
+						valueNodeValueAtLatestInputEvent: "jap",
 						widgetValueAtLatestChangeEvent: null,
 						valueNodeValueAtLatestChangeEvent: null
 					}, "after searching `jap` into input field.");
 			})
-			.pressKeys(keys.BACKSPACE) // Delete the 5 chars of "Japan"
+			.pressKeys(keys.BACKSPACE) // Delete the 3 chars of "Japan"
 			.sleep(250)
 			.pressKeys(keys.BACKSPACE)
 			.sleep(250)
@@ -151,16 +151,16 @@ define([
 				// Clicking the root node just opens the dropdown. No other state change.
 				checkComboState(comboId, comboState,
 					{ // expected combo state
-						inputNodeValue: "France",
-						widgetValue: "France",
-						valueNodeValue: "France",
+						inputNodeValue: "",
+						widgetValue: "",
+						valueNodeValue: "",
 						opened: true,
-						selectedItemsCount: 1,
+						selectedItemsCount: 0,
 						itemRenderersCount: 37,
-						inputEventCounter: 0,
+						inputEventCounter: 3,
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: null, // never received
-						valueNodeValueAtLatestInputEvent: null,
+						widgetValueAtLatestInputEvent: "",
+						valueNodeValueAtLatestInputEvent: "",
 						widgetValueAtLatestChangeEvent: null,
 						valueNodeValueAtLatestChangeEvent: null
 					}, "after deleting the filter.");
@@ -172,16 +172,16 @@ define([
 				// Clicking the root node just opens the dropdown. No other state change.
 				checkComboState(comboId, comboState,
 					{ // expected combo state
-						inputNodeValue: "France",
-						widgetValue: "France",
-						valueNodeValue: "France",
+						inputNodeValue: "u",
+						widgetValue: "u",
+						valueNodeValue: "u",
 						opened: true,
-						selectedItemsCount: 1,
+						selectedItemsCount: 0,
 						itemRenderersCount: 2, // USA & UK
-						inputEventCounter: 0,
+						inputEventCounter: 1,
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: null, // never received
-						valueNodeValueAtLatestInputEvent: null,
+						widgetValueAtLatestInputEvent: "u",
+						valueNodeValueAtLatestInputEvent: "u",
 						widgetValueAtLatestChangeEvent: null,
 						valueNodeValueAtLatestChangeEvent: null
 					}, "after typed `u` into input field.");
@@ -235,7 +235,7 @@ define([
 						widgetValue: "France",
 						valueNodeValue: "France",
 						opened: false,
-						selectedItemsCount: 1,
+						selectedItemsCount: 0,
 						itemRenderersCount: 37,
 						inputEventCounter: 0, // no event so far
 						changeEventCounter: 0,
@@ -288,7 +288,7 @@ define([
 						valueNodeValueAtLatestInputEvent: "Germany",
 						widgetValueAtLatestChangeEvent: "Germany",
 						valueNodeValueAtLatestChangeEvent: "Germany"
-					}, "after clicking the third option (Germany))");
+					}, "after clicking the third option (Germany)");
 			})
 			.end();
 	};
@@ -444,6 +444,26 @@ define([
 			.end();
 	};
 
+	var checkFocus = function (remote, comboId, autoFilter) {
+		return loadFile(remote, "./ComboPopup.html").findById(comboId)
+			.click()
+			.sleep(500)
+			.end()
+			.setFindTimeout(intern.config.WAIT_TIMEOUT)
+			.findByXpath("//d-combo-popup")
+			.getActiveElement()
+			.then(function (node) {
+				return node.getTagName().then(function (value) {
+					if (autoFilter) {
+						assert.strictEqual(value, "input", "input node should be focused");
+					}
+					else {
+						assert.strictEqual(value, "d-list-item-renderer", "a d-list node should be focused");
+					}
+				});
+			});
+	};
+
 	registerSuite({
 		name: "ComboPopup - functional",
 
@@ -566,6 +586,38 @@ define([
 			}
 
 			return checkTabNavigation(remote, "combo3");
-		}
+		},
+
+		"check focused element (combo1)": function () {
+			var remote = this.remote;
+
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/17
+				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
+			}
+			if (remote.environmentType.platformName === "iOS" || remote.environmentType.safari ||
+				remote.environmentType.browserName === "safari" || remote.environmentType.brokenSendKeys
+				|| !remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support - brokenSendKeys");
+			}
+
+			return checkFocus(remote, "combo1", false);
+		},
+
+		"check focused element (combo2)": function () {
+			var remote = this.remote;
+
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/17
+				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
+			}
+			if (remote.environmentType.platformName === "iOS" || remote.environmentType.safari ||
+				remote.environmentType.browserName === "safari" || remote.environmentType.brokenSendKeys
+				|| !remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support - brokenSendKeys");
+			}
+
+			return checkFocus(remote, "combo2", true);
+		},
 	});
 });

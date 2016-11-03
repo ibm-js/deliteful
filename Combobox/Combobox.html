@@ -1,4 +1,4 @@
-<template class="d-combobox" role="presentation" attach-point="buttonNode">
+<template class="d-combobox" role="presentation">
 	<input class="d-combobox-input"
 		role="combobox"
 		attach-point="inputNode,focusNode"
@@ -9,5 +9,6 @@
 	<input class="d-hidden"
 		attach-point="valueNode"
 		readonly name="{{name}}" value="{{value}}">
-	<span class="d-combobox-arrow" aria-hidden="true"></span>
+	<span class="d-combobox-arrow" d-shown="{{hasDownArrow}}"
+		attach-point="buttonNode" aria-hidden="true"></span>
 </template>

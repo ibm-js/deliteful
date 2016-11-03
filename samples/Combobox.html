@@ -19,14 +19,16 @@
 
 	<script type="text/javascript">
 		require([
+			"requirejs-dplugins/jquery!event",
 			"deliteful/list/List",
+			"deliteful/tests/functional/SlowStore",
 			"deliteful/Combobox",
 			"deliteful/Button",
 			"deliteful/RadioButton",
 			"deliteful/Checkbox",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (List) {
+		], function ($, List, SlowStore, Combobox) {
 
 			startsWith.on("change", function () {
 				comboTeams.filterMode = "startsWith";
@@ -41,6 +43,10 @@
 				comboTeams.ignoreCase = ignoreCase.checked;
 			});
 
+			$("input[type=number]").on("input", function(evt) {
+				comboTeams.minFilterChars = parseInt(evt.target.value) || 0;
+			});
+
 			showResults = function () {
 				var getSelectedItemsTxt = function (combobox) {
 					var res = "", noOptionSelected = "no option selected";
@@ -52,7 +58,7 @@
 						for (var i = 0; i < n; i++) {
 							res += "\n  " + list.selectedItems[i].label;
 						}
-						if (n == 0) {
+						if (n === 0) {
 							res = noOptionSelected;
 						}
 					}
@@ -62,6 +68,31 @@
 					"Your favorite team: " + getSelectedItemsTxt(comboTeams) +
 					"\nYour favorite players: " + getSelectedItemsTxt(comboPlayers));
 			};
+
+			var slowStore = new SlowStore({target: "/foo" /*unsed*/});
+			var container = document.getElementById("comboTeamsAutoCompleteContainer");
+			var list = new List({
+				righttextAttr: "world-cup-victories",
+				categoryAttr: "region",
+				showNoItems: true
+			});
+			var comboTeamsAutoComplete = new Combobox({
+				id: "comboTeamsAutoComplete",
+				selectionMode: "single",
+				autoFilter: true,
+				hasDownArrow: false,
+				filterDelay: 500,
+				list: list,
+				source: slowStore
+			});
+
+			comboPlayersWithValuesProg.value = ["Maradona", "Zidane"];
+
+			comboTeamsAutoComplete.getQuery = function (args) {
+				// Let's set our own query
+				return {inputText: args.inputText, rexExp: args.rexExp, beResponsive: false, filterMode: this.filterMode, ignoreCase: this.ignoreCase};
+			};
+			container.appendChild(comboTeamsAutoComplete);
 
 			document.body.style.display = "";
 		});
@@ -75,60 +106,142 @@
 </head>
 <body style="display: none">
 
-<br/>
-<b>World Cup Survey</b>
-<br/><br/>
-<p>
-<label for="comboTeams-input">Your favorite team (single choice):</label>
-</p>
-<d-combobox selectionMode="single" autoFilter="true" id="comboTeams">
-	<d-list righttextAttr="world-cup-victories" categoryAttr="region" showNoItems="true">
-		{ "label": "France", "world-cup-victories": 1, "region": "EU" },
-		{ "label": "Germany", "world-cup-victories": 4, "region": "EU" },
-		{ "label": "Spain", "world-cup-victories": 1, "region": "EU" },
-		{ "label": "Italy", "world-cup-victories": 4, "region": "EU" },
-		{ "label": "England", "world-cup-victories": 1, "region": "EU" },
-		{ "label": "USA", "world-cup-victories": 0, "region": "America" },
-		{ "label": "Canada", "world-cup-victories": 0, "region": "America" },
-		{ "label": "Brazil", "world-cup-victories": 5, "region": "America" },
-		{ "label": "Argentina", "world-cup-victories": 2, "region": "America" },
-		{ "label": "Uruguay", "world-cup-victories": 2, "region": "America" },
-		{ "label": "China", "world-cup-victories": 0, "region": "Asia" },
-		{ "label": "Japan", "world-cup-victories": 0, "region": "Asia" }
-	</d-list>
-</d-combobox>
-<p>
-(The number of cups is indicated for each country.)
-</p>
+	<br/>
+	<b>World Cup Survey</b>
+	<br/><br/>
+	<p>
+		<label for="comboTeams-input">Your favorite team (single choice):</label><br/>
+		<span>[options: default; displayedValue:"Italy" (value: Italy)]</span>
+	</p>
+	<d-combobox selectionMode="single" autoFilter="true" id="comboTeams" value="Italy">
+		<d-list righttextAttr="world-cup-victories" categoryAttr="region" showNoItems="true">
+			{ "label": "France", "world-cup-victories": 1, "region": "EU" },
+			{ "label": "Germany", "world-cup-victories": 4, "region": "EU" },
+			{ "label": "Spain", "world-cup-victories": 1, "region": "EU" },
+			{ "label": "Italy", "world-cup-victories": 4, "region": "EU" },
+			{ "label": "England", "world-cup-victories": 1, "region": "EU" },
+			{ "label": "USA", "world-cup-victories": 0, "region": "America" },
+			{ "label": "Canada", "world-cup-victories": 0, "region": "America" },
+			{ "label": "Brazil", "world-cup-victories": 5, "region": "America" },
+			{ "label": "Argentina", "world-cup-victories": 2, "region": "America" },
+			{ "label": "Uruguay", "world-cup-victories": 2, "region": "America" },
+			{ "label": "China", "world-cup-victories": 0, "region": "Asia" },
+			{ "label": "Japan", "world-cup-victories": 0, "region": "Asia" }
+		</d-list>
+	</d-combobox>
+	<p>(The number of cups is indicated for each country.)</p>
+	<fieldset>
+		<legend>Filtering options</legend>
+		<d-radio-button name="radio" id="startsWith" checked="true"></d-radio-button>
+		<label for="startsWith-input">startsWith</label>
+		<d-radio-button name="radio" id="contains" checked="false"></d-radio-button>
+		<label for="contains-input">contains</label>
+		<d-radio-button name="radio" id="is" checked="false"></d-radio-button>
+		<label for="is-input">is</label>
+		<d-checkbox id="ignoreCase" checked></d-checkbox>
+		<label for="ignoreCase-input">Ignore Case</label>
+		<label for="minFilterChars" style="padding: 0 10px;">Min Filter chars: </label>
+		<input id="minFilterChars" type="number" style="width: 45px;" />
+	</fieldset>
+	<br/>
 
-<fieldset>
-	<legend>Filtering options</legend>
-	<d-radio-button name="radio" id="startsWith" checked="true"></d-radio-button>
-	<label for="startsWith-input">startsWith</label>
-	<d-radio-button name="radio" id="contains" checked="false"></d-radio-button>
-	<label for="contains-input">contains</label>
-	<d-radio-button name="radio" id="is" checked="false"></d-radio-button>
-	<label for="is-input">is</label>
-	<d-checkbox id="ignoreCase" checked></d-checkbox>
-	<label for="ignoreCase-input">Ignore Case</label>
-</fieldset>
-<br/>
-<p>
-<label for="comboPlayers-input">Your favorite players (multiple choice):</label>
-</p>
-<d-combobox selectionMode="multiple" id="comboPlayers">
-	<d-list>
-		{ "label": "Zidane" },
-		{ "label": "Platini" },
-		{ "label": "Maradona" },
-		{ "label": "Hagi" },
-		{ "label": "Buffon" }
-	</d-list>
-</d-combobox>
+	<p>
+	<label for="comboTeams2-input">Your favorite team (single choice):</label><br/>
+	<span>[options: hasDownArrow=false, filterDelay=750ms, minFilterChars=3]</span>
+	</p>
+	<d-combobox selectionMode="single" autoFilter="true" id="comboTeams2" hasDownArrow="false" filterDelay="750" minFilterChars="3">
+		<d-list righttextAttr="world-cup-victories" categoryAttr="region" showNoItems="true">
+			{ "label": "France", "world-cup-victories": 1, "region": "EU" },
+			{ "label": "Germany", "world-cup-victories": 4, "region": "EU" },
+			{ "label": "Spain", "world-cup-victories": 1, "region": "EU" },
+			{ "label": "Italy", "world-cup-victories": 4, "region": "EU" },
+			{ "label": "England", "world-cup-victories": 1, "region": "EU" },
+			{ "label": "USA", "world-cup-victories": 0, "region": "America" },
+			{ "label": "Canada", "world-cup-victories": 0, "region": "America" },
+			{ "label": "Brazil", "world-cup-victories": 5, "region": "America" },
+			{ "label": "Argentina", "world-cup-victories": 2, "region": "America" },
+			{ "label": "Uruguay", "world-cup-victories": 2, "region": "America" },
+			{ "label": "China", "world-cup-victories": 0, "region": "Asia" },
+			{ "label": "Japan", "world-cup-victories": 0, "region": "Asia" }
+		</d-list>
+	</d-combobox>
 
-<p>
-<button is="d-button" onclick="showResults()">Done</button>
-</p>
+	<br/><br/>
 
+	<p>
+	<label for="comboTeams3-input">Your favorite team (single choice):</label><br/>
+	<span>[options: hasDownArrow=false, filterDelay=750ms, minFilterChars=0]</span>
+	</p>
+	<d-combobox selectionMode="single" autoFilter="true" id="comboTeams3" hasDownArrow="true" filterDelay="750" minFilterChars="0">
+		<d-list righttextAttr="world-cup-victories" categoryAttr="region" showNoItems="true">
+			{ "label": "France", "world-cup-victories": 1, "region": "EU" },
+			{ "label": "Germany", "world-cup-victories": 4, "region": "EU" },
+			{ "label": "Spain", "world-cup-victories": 1, "region": "EU" },
+			{ "label": "Italy", "world-cup-victories": 4, "region": "EU" },
+			{ "label": "England", "world-cup-victories": 1, "region": "EU" },
+			{ "label": "USA", "world-cup-victories": 0, "region": "America" },
+			{ "label": "Canada", "world-cup-victories": 0, "region": "America" },
+			{ "label": "Brazil", "world-cup-victories": 5, "region": "America" },
+			{ "label": "Argentina", "world-cup-victories": 2, "region": "America" },
+			{ "label": "Uruguay", "world-cup-victories": 2, "region": "America" },
+			{ "label": "China", "world-cup-victories": 0, "region": "Asia" },
+			{ "label": "Japan", "world-cup-victories": 0, "region": "Asia" }
+		</d-list>
+	</d-combobox>
+
+	<br/><br/>
+
+	<p>
+	<label for="comboPlayers-input">Your favorite players (multiple choice):</label>
+	</p>
+	<d-combobox selectionMode="multiple" id="comboPlayers">
+		<d-list>
+			{ "label": "Zidane" },
+			{ "label": "Platini" },
+			{ "label": "Maradona" },
+			{ "label": "Hagi" },
+			{ "label": "Buffon" }
+		</d-list>
+	</d-combobox>
+
+	<p>
+	<label for="comboPlayersWithValuesProg-input">Your favorite players (multiple choice - programmatically):</label>
+	<br/>Pre-set values = Maradona, Platini
+	</p>
+	<d-combobox selectionMode="multiple" id="comboPlayersWithValuesProg">
+		<d-list>
+			{ "label": "Zidane" },
+			{ "label": "Platini" },
+			{ "label": "Maradona" },
+			{ "label": "Hagi" },
+			{ "label": "Buffon" }
+		</d-list>
+	</d-combobox>
+
+	<p>
+	<label for="comboPlayersWithValuesDecl-input">Your favorite players (multiple choice - declaratively ):</label>
+	<br/>Pre-set values = Hagi, Buffon
+	</p>
+	<d-combobox selectionMode="multiple" id="comboPlayersWithValuesDecl" value="Hagi,Buffon">
+		<d-list>
+			{ "label": "Zidane" },
+			{ "label": "Platini" },
+			{ "label": "Maradona" },
+			{ "label": "Hagi" },
+			{ "label": "Buffon" }
+		</d-list>
+	</d-combobox>
+
+	<p>
+	<button is="d-button" onclick="showResults()">Done</button>
+	</p>
+	<br/><br/>
+	<h4>The below is using a `slowStore`, that mimics a `dStore/Request`</h4>
+	<p>
+	<label for="comboTeamsAutoComplete-input">Your favorite team (single choice)</label><br/>
+	<span>[hasDropDown:false, source: SlowStore, filterDelay:500ms]</span>
+	</p>
+	<div id="comboTeamsAutoCompleteContainer"></div>
+	<br/>
 </body>
 </html>

@@ -111,8 +111,7 @@ define([
 	 *   "deliteful/Combobox", ..., "requirejs-domready/domReady!"],
 	 *   function (List, Combobox, ...) {
 	 *     var dataStore = ...; // Create data store
-	 *     var list = new List({source: dataStore});
-	 *     var combobox = new Combobox({list: list, selectionMode: "multiple"}).
+	 *     var combobox = new Combobox({source: dataStore, selectionMode: "multiple"}).
 	 *       placeAt(...);
 	 *   });
 	 *
@@ -252,6 +251,40 @@ define([
 		 */
 		cancelMsg: messages["cancel-button-label"],
 
+		/**
+		 * Displays or not the down arrow button.
+		 * @type {boolean}
+		 * @default true
+		 */
+		hasDownArrow: true,
+
+		/**
+		 * Source for the inner list.
+		 * @type {dstore/Store|decor/ObservableArray|Array} Source set.
+		 */
+		source: null,
+
+		/**
+		 * Minimum number of characters before a filter operation runs.
+		 * However, aside the above, depending of its value, the widget behavior changes slightly.
+		 * In fact:
+		 * - if minFilterChars = 0
+		 * -- show the dropdown on pointer down.
+		 * -- show the dropdown even if the user clears the input field.
+		 * - if minFilterChars = 1
+		 * -- do not show the dropdown on pointer down.
+		 * -- clearing the input field will close the dropdown.
+		 * @type {number}
+		 * @default 1
+		 */
+		minFilterChars: 1,
+
+		/**
+		 * Initial inputNode's value.
+		 * @type {string}
+		 */
+		displayedValue: "",
+
 		createdCallback: function () {
 			// Declarative case (list specified declaratively inside the declarative Combobox)
 			var list = this.querySelector("d-list");
@@ -274,9 +307,27 @@ define([
 
 		postRender: function () {
 			this._prepareInput(this.inputNode);
+
+			if (this._useCenteredDropDown()) {
+				this.on("click", function () {
+					if (!this.disabled) {
+						this.openDropDown();
+					}
+				}.bind(this));
+			} else if (!this.minFilterChars || this._inputReadOnly) {
+				this.on("mousedown", function (evt) {
+					// event could be triggered by the down arrow element. If so, we do not react to it.
+					if (evt.srcElement !== this.buttonNode && !this.disabled) {
+						if (!this.opened) {
+							this.openDropDown();
+						}
+					}
+				}.bind(this));
+			}
 		},
 
-		refreshRendering: function (oldValues) {
+		/* jshint maxcomplexity: 17 */
+		refreshRendering: function (oldValues, justCreated) {
 			var updateReadOnly = false;
 			if ("list" in oldValues) {
 				this._initList();
@@ -295,6 +346,13 @@ define([
 			if (updateReadOnly) {
 				this._updateInputReadOnly();
 				this._setSelectable(this.inputNode, !this.inputNode.readOnly);
+			}
+			if ("value" in oldValues && (this.value !== oldValues.value || justCreated))  {
+				this._validateInput(false);
+				if (this.value === "") {
+					this.value = (this.selectionMode === "single") ? "" : [];
+				}
+				this.valueNode.value = this.value.toString();
 			}
 		},
 
@@ -338,12 +396,12 @@ define([
 		},
 
 		afterFormResetCallback: function () {
-			if (this.value !== this.valueNode.value ||
-					// In multiple mode, with no option selected before reset,
-					// valueNode.value is the same but still needs the reinit to get
-					// the correct initial inputNode.value.
-					this.selectionMode === "multiple") {
-				this._initValue();
+			if (this.value !== this.valueNode.value) {
+				if (this.selectionMode === "single") {
+					this.value = this.valueNode.value || "";
+				} else if (this.selectionMode === "multiple") {
+					this.value = this.valueNode.value.split(",");
+				}
 			}
 		},
 
@@ -372,7 +430,6 @@ define([
 				"radio" : "multiple";
 
 			this._initHandlers();
-			this._initValue();
 		},
 
 		_initHandlers: function () {
@@ -405,6 +462,11 @@ define([
 								// deferred such that the user can see the selection feedback
 								// before the dropdown closes.
 								this.closeDropDown(true/*refocus*/);
+
+								// Re-initialize the query, only if we are not in auto-complete mode.
+								if (!this.hasDownArrow) {
+									this.list.query = this._getDefaultQuery();
+								}
 							}.bind(this), 100); // worth exposing a property for the delay?
 						}
 					}
@@ -412,82 +474,12 @@ define([
 
 				// React to interactive changes of selected items
 				this.list.on("selection-change", function () {
-					if (this.selectionMode === "single") {
-						this._validateSingle();
-					}
+					this._validateInput(true);
 					this.handleOnInput(this.value); // emit "input" event
 				}.bind(this)),
 
-				// React to programmatic changes of selected items
-				this.list.observe(function (oldValues) {
-					if ("selectedItems" in oldValues) {
-						if (this.selectionMode === "single") {
-							this._validateSingle();
-							// do not emit "input" event for programmatic changes
-						} else if (this.selectionMode === "multiple") {
-							this._validateMultiple(this._popupInput || this.inputNode);
-						}
-					}
-				}.bind(this))
+				this.list.on("query-success", this._setSelectedItems.bind(this))
 			];
-		},
-
-		/**
-		 * Sets the initial value of the widget. If the widget is inside a form,
-		 * also called when reseting the form.
-		 * @private
-		 */
-		_initValue: function () {
-			if (this.selectionMode === "single") {
-				// Returns true if List content already available, false otherwise.
-				var initValueSingleMode = function () {
-					var selectedItem = this.list.selectedItem;
-					var done = false;
-					var value, label;
-					if (selectedItem) {
-						label = this._getItemLabel(selectedItem);
-						value = this._getItemValue(selectedItem);
-						done = true;
-					} else {
-						var firstItemRenderer = this.list.getItemRendererByIndex(0);
-						if (firstItemRenderer) {
-							label = this._getItemRendererLabel(firstItemRenderer);
-							value = this._getItemRendererValue(firstItemRenderer);
-							// Like the native select, the first item is selected.
-							this.list.selectedItem = firstItemRenderer.item;
-							done = true;
-						}
-					}
-					if (done) {
-						this.inputNode.value = label;
-						// Initialize widget's value
-						this._set("value", value);
-						this.valueNode.value = value;
-					}
-					return done;
-				}.bind(this);
-
-				if (!initValueSingleMode()) {
-					// List not ready, wait.
-					// TODO: handle case when List is initialized but has no items yet, from "new List()".
-					// Also, handle when the Combobox's selected item is deleted from the list.
-					var waitListener = this.list.on("query-success", function () {
-						initValueSingleMode();
-						waitListener.remove(waitListener);
-					});
-				}
-			} else { // selectionMode === "multiple"
-				// Differently than in single selection mode, no need to wait for the data,
-				// and do not select the first option, because it would be confusing; the user
-				// may scroll and select some other option, without deselecting the first one.
-				// The native select in multiple mode doesn't select any option by default either.
-				this.inputNode.value = this.multipleChoiceNoSelectionMsg;
-				// widget value: // array, more convenient for client-side usage
-				this.value = [];
-				// submitted form value: string (comma-separated values), more convenient for
-				// server-side usage.
-				this.valueNode.value = "";
-			}
 		},
 
 		/**
@@ -586,21 +578,75 @@ define([
 		},
 
 		/**
-		 * Indicates if a filtering operation is in progress. If so, closeDropDown will perform differently than usual.
-		 * @member {boolean}
-		 * @default false
+		 * Establishes if the query has to run or not, depending of different factors, among
+		 * - mobile version or not
+		 * - hasDownArrown (auto-complete mode)
+		 * - numbers of characters typed into the inputNode element.
+		 * @param  {HTMLElement} inputElement the input element containing chars typed by the user.
+		 * @return {boolean}
 		 */
-		filteringInProgress: false,
+		shouldRunQuery: function (inputElement) {
+			var mobile = this._useCenteredDropDown();
+			if (inputElement.value.length !== 0) {
+				// inputNode contains text
+				if (inputElement.value.length < this.minFilterChars) {
+					if (!mobile) {
+						this.closeDropDown();
+					}
+					return false;
+				}
+			} else {
+				// inputNode does not contain text
+				if (!this.hasDownArrow) {
+					// in auto complete mode
+					this.closeDropDown();
+					this._toggleComboPopupList();
+					return false;
+				}
+			}
+			return true;
+		},
+
+		/**
+		 * Toggles the list's visibility when ComboPopup is used (so in mobile)
+		 */
+		_toggleComboPopupList: function () {
+			if (this._useCenteredDropDown()) {
+				this.list.setAttribute("d-shown", "" + this.inputNode.value.length >= this.minFilterChars);
+				this.list.emit("delite-size-change");
+			}
+		},
+
+		/**
+		 * Defines the milliseconds the widget has to wait until a new filter operation starts.
+		 * @type {Number}
+		 * @default 0
+		 */
+		filterDelay: 0,
 
 		_prepareInput: function (inputElement) {
 			this.on("input", function (evt) {
+				// TODO
 				// Would be nice to also have an "incrementalFilter" boolean property.
 				// On desktop, this would allow to redo the filtering only for "change"
 				// events, triggered when pressing ENTER. This would also fit for Chrome/Android,
 				// where pressing the search key of the virtual keyboard also triggers a
 				// change event. But there's no equivalent on Safari / iOS...
 
-				this.filter(inputElement.value);
+				// save what user typed at each keystroke.
+				this.value = inputElement.value;
+				this.handleOnInput(this.value); // emit "input" event.
+
+				if (this._timeoutHandle !== undefined) {
+					this._timeoutHandle.remove();
+					delete this._timeoutHandle;
+				}
+				this._timeoutHandle = this.defer(function () {
+					if (this.shouldRunQuery(inputElement)) {
+						this.filter(inputElement.value);
+					}
+				}.bind(this), this.filterDelay);
+
 				// Stop the spurious "input" events emitted while the user types
 				// such that only the "input" events emitted via FormValueWidget.handleOnInput()
 				// bubble to widget's root node.
@@ -615,7 +661,7 @@ define([
 				evt.preventDefault();
 			}.bind(this), inputElement);
 			this.on("keydown", function (evt) {
-				/* jshint maxcomplexity: 15 */
+				/* jshint maxcomplexity: 16 */
 				// deliteful issue #382: prevent the browser from navigating to
 				// the previous page when typing backspace in a readonly input
 				if (inputElement.readOnly && evt.key === "Backspace") {
@@ -633,7 +679,9 @@ define([
 					// which here is the input element outside the List. TODO: see deliteful #500.
 					if (this.selectionMode === "multiple") {
 						var rend = this.list.getEnclosingRenderer(this.list.navigatedDescendant);
-						this.list.selectFromEvent(evt, rend.item, rend, true);
+						if (rend) {
+							this.list.selectFromEvent(evt, rend.item, rend, true);
+						}
 					}
 					if (this.selectionMode === "multiple" || !this.autoFilter) {
 						evt.stopPropagation();
@@ -651,35 +699,68 @@ define([
 			}.bind(this), inputElement);
 		},
 
-		_validateSingle: function () {
-			var selectedItem = this.list.selectedItem;
-			// selectedItem non-null because List in radio selection mode, but
-			// the List can be empty, so:
-			this.inputNode.value = selectedItem ? this._getItemLabel(selectedItem) : "";
-			this.value = selectedItem ? this._getItemValue(selectedItem) : "";
+		_validateInput: function (userInteraction) {
+			if (this.selectionMode === "single") {
+				this._validateSingle(userInteraction);
+			} else {
+				this._validateMultiple(userInteraction);
+			}
 		},
 
-		_validateMultiple: function (inputElement) {
-			var selectedItems = this.list.selectedItems;
-			var n = selectedItems ? selectedItems.length : 0;
-			var value = [];
-			if (n > 1) {
-				inputElement.value = this.multipleChoiceMsg;
-				for (var i = 0; i < n; i++) {
-					value.push(selectedItems[i] ? this._getItemValue(selectedItems[i]) : "");
-				}
-			} else if (n === 1) {
+		_validateSingle: function (userInteraction) {
+			if (userInteraction) {
 				var selectedItem = this.list.selectedItem;
-				inputElement.value = this._getItemLabel(selectedItem);
-				value.push(this._getItemValue(selectedItem));
-			} else { // no option selected
-				inputElement.value = this.multipleChoiceNoSelectionMsg;
+				// selectedItem non-null because List in radio selection mode, but
+				// the List can be empty, so:
+				this.inputNode.value = selectedItem ? this._getItemLabel(selectedItem) : "";
+				this.value = selectedItem ? this._getItemValue(selectedItem) : "";
+			} else {
+				this.inputNode.value = this.displayedValue !== "" ? this.displayedValue : this.value;
 			}
-			this._set("value", value);
-			// FormWidget.refreshRendering() also updates valueNode.value, but we need to
-			// make sure this is already done when FormValueWidget.handleOnInput() runs.
-			this.valueNode.value = value;
-			this.handleOnInput(this.value); // emit "input" event
+		},
+
+		_validateMultiple: function (userInteraction) {
+			var n;
+			if (userInteraction) {
+				var selectedItems = this.list.selectedItems;
+				var inputElement = this._popupInput || this.inputNode;
+				n = selectedItems ? selectedItems.length : 0;
+				var value = [];
+				if (n > 1) {
+					inputElement.value = this.multipleChoiceMsg;
+					for (var i = 0; i < n; i++) {
+						value.push(selectedItems[i] ? this._getItemValue(selectedItems[i]) : "");
+					}
+				} else if (n === 1) {
+					var selectedItem = this.list.selectedItem;
+					inputElement.value = this._getItemLabel(selectedItem);
+					value.push(this._getItemValue(selectedItem));
+				} else { // no option selected
+					inputElement.value = this.multipleChoiceNoSelectionMsg;
+				}
+				this._set("value", value);
+				// FormWidget.refreshRendering() also updates valueNode.value, but we need to
+				// make sure this is already done when FormValueWidget.handleOnInput() runs.
+				this.valueNode.value = value;
+				this.handleOnInput(this.value); // emit "input" event
+			} else {
+				var items = [];
+				if (typeof this.value === "string" && this.value.length > 0) {
+					items = this.value = this.value.split(",");
+					this.valueNode.value = this.value;
+				} else if (this.value instanceof Array) {
+					items = this.value;
+				} // else empty array. No pre-set values.
+				n = items.length;
+				if (n > 1) {
+					this.inputNode.value = this.multipleChoiceMsg;
+				} else if (n === 1) {
+					this.inputNode.value = this.displayedValue !== "" ? this.displayedValue : items[0];
+				} else {
+					this.inputNode.value = this.multipleChoiceNoSelectionMsg;
+				}
+			}
+
 		},
 
 		/**
@@ -687,29 +768,82 @@ define([
 		 * If `autoFilter` is `true` and `selectionMode` is `"single"`, the method
 		 * is called automatically while the user types into the editable input
 		 * element, with `filterTxt` being the currently entered text.
-		 * The default implementation uses `dstore/Filter.match()`.
-		 * The matching is performed against the `list.labelAttr` attribute of
-		 * the data store items.
-		 * The method can be overridden for implementing other filtering strategies.
 		 * @protected
 		 */
-		filter: function (filterTxt) {
-			if (this.filterMode === "startsWith") {
+		filter: function (inputText) {
+			// Escape special chars in search string, see
+			// http://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex.
+		    var filterTxt = inputText.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+		    if (this.filterMode === "startsWith") {
 				filterTxt = "^" + filterTxt;
 			} else if (this.filterMode === "is") {
 				filterTxt = "^" + filterTxt + "$";
 			} // nothing to add for "contains"
 
 			var rexExp = new RegExp(filterTxt, this.ignoreCase ? "i" : "");
-			this.list.query = (new Filter()).match(this.list.labelAttr, rexExp);
+			this.list.query = this.getQuery({
+				rexExp: rexExp,
+				inputText: inputText
+			});
+			if (this.source) {
+				this.list.source = this.source;
+			}
+
+			// Open popup in order to show the list's content (loading panel, no-items element or items).
+			this.openDropDown();
+		},
+
+		/**
+		 * Sets the new list's query.
+		 * This method can be overridden when using other store types.
+		 * The default implementation uses `dstore/Filter.match()`.
+		 * The matching is performed against the `list.labelAttr` or `list.labelFunc` attributes of
+		 * the data store items.
+		 * The method can be overridden for implementing other filtering strategies.
+		 * @protected
+		 * @param  {Object.<string, Object>} args Dictionary containing by default
+		 * the regular expression and the original input text.
+		 * @returns {Object} New query to set to the list.
+		 */
+		getQuery: function (args) {
+			return (new Filter()).match(this.list.labelAttr || this.list.labelFunc, args.rexExp);
+		},
+
+		/**
+		 * Consists in the default query to apply to the source.
+		 * It can be a `function` or a `Object`.
+		 * If it is a function, then it's invoked and the list's query will get the return value.
+		 * If it is an Object, it's assigned to the list's query directly.
+		 * It can be overridden depending of store used and the strategy to apply.
+		 */
+		defaultQuery: {},
+
+		_getDefaultQuery: function () {
+			return (typeof this.defaultQuery === "function") ?
+				this.defaultQuery() : this.defaultQuery;
+		},
+
+		_setSelectedItems: function () {
+			if (this.list.source && this.list.renderItems && this.value !== "") {
+				var selectedItems = [],
+					presetItems = this.value instanceof Array && this.value.length >= 1 ? this.value : [this.value];
+				selectedItems = this.list.renderItems.filter(function (renderItem) {
+				    return presetItems.indexOf(this._getItemValue(renderItem)) >= 0;
+				}.bind(this));
+
+				this.list.selectedItems = selectedItems;
+				this._validateInput(false);
+			}
 		},
 
 		openDropDown: dcl.superCall(function (sup) {
 			return function () {
-				// Store the current selection, to be able to restore when pressing the
-				// cancel button. Used by ComboPopup. (Could spare it in situations when
-				// there is no cancel button, but not really worth.)
-				this._selectedItems = this.list.selectedItems;
+				// Assign widget's source to the list's source.
+				if (this.source) {
+					this.list.source = this.source;
+				}
+
+				this._setSelectedItems();
 
 				if (!this.opened) {
 					var mobile = this._useCenteredDropDown();
@@ -732,18 +866,23 @@ define([
 					// Avoid that List gives focus to list items when navigating, which would
 					// blur the input field used for entering the filtering criteria.
 					this.dropDown.focusDescendants = false;
-
-					this._updateScroll(undefined, true);	// sets this.list.navigatedDescendant
-					this._setActiveDescendant(this.list.navigatedDescendant);
+					if (!this._useCenteredDropDown()) {
+						// desktop version
+						this._updateScroll(undefined, true);	// sets this.list.navigatedDescendant
+						this._setActiveDescendant(this.list.navigatedDescendant);
+					} else {
+						// mobile version
+						if (!this.hasDownArrow) {
+							this._toggleComboPopupList();
+						}
+						this.dropDown.focus();
+					}
 				}.bind(this));
 			};
 		}),
 
 		closeDropDown: dcl.superCall(function (sup) {
 			return function () {
-
-				// cleanup
-				this._selectedItems = null;
 
 				var input = this._popupInput || this.inputNode;
 				input.removeAttribute("aria-activedescendant");
@@ -755,12 +894,6 @@ define([
 
 					// Closing the dropdown represents a commit interaction
 					this.handleOnChange(this.value); // emit "change" event
-
-					// Reinit the query. Necessary such that after closing the dropdown
-					// in autoFilter mode with a text in the input field not matching
-					// any item, when the dropdown will be reopen it shows all items
-					// instead of being empty
-					this.list.query = {};
 
 					if (this.selectionMode === "single" && this.autoFilter) {
 						// In autoFilter mode, reset the content of the inputNode when
@@ -774,6 +907,24 @@ define([
 					}
 				}
 				sup.apply(this, arguments);
+			};
+		}),
+
+		// HasDropDown#_dropDownKeyUpHandler() override.
+		// Do not call openDropDown if widget does not have a down arrow shown.
+		// This means the widget is configured in auto-complete mode.
+		// In this mode the popup will open when the user typed something and text.length > this.minFilterChars.
+		_dropDownKeyUpHandler: dcl.superCall(function (sup) {
+			return function () {
+				if (this.hasDownArrow) {
+					if (this.inputNode.value.length === 0 && this.minFilterChars === 0) {
+						this.list.query = this._getDefaultQuery();
+					} else if (this.inputNode.value.length < this.minFilterChars) {
+						return;
+					}
+
+					sup.call(this);
+				}
 			};
 		}),
 
