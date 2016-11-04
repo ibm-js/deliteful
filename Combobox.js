@@ -303,27 +303,29 @@ define([
 				// default list, may be overridden later by user-defined value or when above event listener fires
 				this.list = new List();
 			}
-		},
 
-		postRender: function () {
-			this._prepareInput(this.inputNode);
+			this.on("click", function () {
+				// NOTE: This runs only when in mobile mode
+				if (this._useCenteredDropDown() && !this.disabled) {
+					this.openDropDown();
+				}
+			}.bind(this));
 
-			if (this._useCenteredDropDown()) {
-				this.on("click", function () {
-					if (!this.disabled) {
-						this.openDropDown();
-					}
-				}.bind(this));
-			} else if (!this.minFilterChars || this._inputReadOnly) {
-				this.on("mousedown", function (evt) {
+			this.on("mousedown", function (evt) {
+				// NOTE: This runs only when in desktop mode
+				if (!this._useCenteredDropDown() && (!this.minFilterChars || this._inputReadOnly)) {
 					// event could be triggered by the down arrow element. If so, we do not react to it.
 					if (evt.srcElement !== this.buttonNode && !this.disabled) {
 						if (!this.opened) {
 							this.openDropDown();
 						}
 					}
-				}.bind(this));
-			}
+				}
+			}.bind(this));
+		},
+
+		postRender: function () {
+			this._prepareInput(this.inputNode);
 		},
 
 		/* jshint maxcomplexity: 17 */

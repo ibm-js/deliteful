@@ -34,7 +34,7 @@ define([
 			if ("inputText" in query && query.inputText.length > 0) {
 				// Escape special chars in search string, see
 				// http://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex.
-			    var filterTxt = query.inputText.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+				var filterTxt = query.inputText.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
 				if (query.filterMode === "startsWith") {
 					filterTxt = "^" + filterTxt;
 				} else if (query.filterMode === "is") {
@@ -62,9 +62,8 @@ define([
 			var d = new Deferred();
 			setTimeout(function () {
 				d.resolve(k);
-		    }, time);
-		    return d.promise;
-		},
-
+			}, time);
+			return d.promise;
+		}
 	});
 });
