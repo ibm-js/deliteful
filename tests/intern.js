@@ -20,9 +20,7 @@ define({
 		{ browserName: "internet explorer", version: "11", platform: "Windows 8.1", requireWindowFocus: "true",
 			name : "deliteful"},
 		{ browserName: "firefox", version: "31", platform: [ /*"OS X 10.6", "Linux", */ "Windows 7" ],
-			// default selenium-version is currently 2.40.0; some Combobox functional tests fail with
-			// 2.40.0, while they pass with 2.41.0.
-			"selenium-version": "2.41.0",
+			"selenium-version": "2.53.0",
 			name : "deliteful"},
 		{ browserName: "chrome", version: "51", platform: [ /*"OS X 10.6", "Linux", */ "Windows 7" ],
 			name : "deliteful"},
@@ -34,13 +32,13 @@ define({
 
 	// Whether or not to start Sauce Connect before running tests
 	tunnel: "SauceLabsTunnel",
-	
+
 	// Maximum duration of a test, in milliseconds
 	defaultTimeout: 300000, // 5 minutes
-	
+
 	// Maximum time to wait for someting (pollUntil, etc...)
 	WAIT_TIMEOUT: 180000, // 3 minutes
-	
+
 	// Interval between two polling request, in milliseconds (for pollUntil)
 	POLL_INTERVAL: 500, // 0.5 seconds
 
