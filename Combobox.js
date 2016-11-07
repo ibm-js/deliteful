@@ -318,6 +318,10 @@ define([
 					if (evt.srcElement !== this.buttonNode && !this.disabled) {
 						if (!this.opened) {
 							this.openDropDown();
+						} else {
+							if (this.selectionMode === "multiple") {
+								this.closeDropDown();
+							}
 						}
 					}
 				}

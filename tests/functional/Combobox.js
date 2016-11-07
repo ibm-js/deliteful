@@ -810,7 +810,7 @@ define([
 					}, "after clicking the third item (Germany))");
 			})
 			.end()
-			.findByCssSelector("#" + comboId + " .d-combobox-arrow")
+			.findByCssSelector("#" + comboId)
 			.click()
 			.sleep(500) // wait for the async closing of the popup
 			.execute(executeExpr)
@@ -1235,9 +1235,8 @@ define([
 				// https://github.com/theintern/leadfoot/issues/17
 				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
 			}
-			if (remote.environmentType.platformName === "iOS") {
-				// https://github.com/theintern/leadfoot/issues/61
-				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
+			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support");
 			}
 			return checkRequestCount(remote, "combo-slowstore");
 		},
@@ -1248,9 +1247,8 @@ define([
 				// https://github.com/theintern/leadfoot/issues/17
 				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
 			}
-			if (remote.environmentType.platformName === "iOS") {
-				// https://github.com/theintern/leadfoot/issues/61
-				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
+			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support");
 			}
 			return checkFilteringWithZeroFilterChars(remote, "combo-minfilterchars0");
 		},
@@ -1261,9 +1259,8 @@ define([
 				// https://github.com/theintern/leadfoot/issues/17
 				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
 			}
-			if (remote.environmentType.platformName === "iOS") {
-				// https://github.com/theintern/leadfoot/issues/61
-				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
+			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support");
 			}
 			return checkFilteringWithThreeFilterChars(remote, "combo-minfilterchars3");
 		}
