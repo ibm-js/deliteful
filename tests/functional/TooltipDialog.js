@@ -34,6 +34,10 @@ define([
 			}
 			return remote
 				.findById("top").click().end()
+				.execute("return document.getElementById('top-tooltip').hasAttribute('aria-describedby');")
+				.then(function (val) {
+					assert.isFalse(val, "no aria-describedby for TooltipDialog (only for Tooltip)");
+				})
 				.execute("return document.activeElement.id").then(function (id) {
 					assert.strictEqual(id, "name", "focus moved to first field on open");
 				})

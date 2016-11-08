@@ -48,6 +48,11 @@ define([
 
 		closeButtonClickHandler: function () {
 			this.emit("cancel");
-		}
+		},
+
+		// Override Toolip#onOpen() and onClose() to *not* set aria-describedby,
+		// because it shouldn't be set for TooltipDialog, but only for Tooltip
+		onOpen: function () {},
+		onClose: function () {}
 	});
 });

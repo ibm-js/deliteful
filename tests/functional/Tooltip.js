@@ -108,6 +108,23 @@ define([
 					assert.isBelow(Math.abs(anchor.vcenter - connector.vcenter), 1.1,
 						"connector vertically centered with anchor");
 				});
+		},
+
+		aria: function () {
+			return this.remote
+				// Open drop down.
+				.findById("top").click().end()
+				.execute("return document.getElementById('top').getAttribute('aria-describedby');")
+						.then(function (val) {
+					assert.strictEqual(val, "top-tooltip", "aria-describedby value");
+				})
+
+				// And then close it.
+				.findById("top").click().end()
+				.execute("return document.getElementById('top').hasAttribute('aria-describedby');")
+						.then(function (val) {
+					assert.isFalse(val,  "aria-describedby attribute removed");
+				});
 		}
 	});
 });
