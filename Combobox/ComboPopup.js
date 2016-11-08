@@ -55,7 +55,7 @@ define([
 					if (list) {
 						list.placeAt(this.listNode, "replace");
 						$(list).addClass("fill")
-							.removeClass("d-combobox-list-hidden");
+							.removeClass("d-hidden");
 					}
 					this.combobox._prepareInput(this.inputNode);
 				}
@@ -88,7 +88,7 @@ define([
 				this.inputNode.focus();
 			} else {
 				// first check if list is not hidden.
-				if (!$(this.combobox.list).hasClass("d-combobox-list-hidden")
+				if (!$(this.combobox.list).hasClass("d-hidden")
 						&& this.combobox.list && this.combobox.list.containerNode.children.length > 0) {
 					var id = this.combobox.list.getIdentity(
 						this.combobox.list.selectedItems.length > 0 ? this.combobox.list.selectedItems[0] : "");
