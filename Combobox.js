@@ -362,7 +362,7 @@ define([
 			$(this.list).addClass("d-combobox-list");
 
 			// The drop-down is hidden initially
-			$(this.list).addClass("d-combobox-list-hidden");
+			$(this.list).addClass("d-hidden");
 
 			// The role=listbox is required for the list part of a combobox by the
 			// aria spec of role=combobox

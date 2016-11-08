@@ -74,9 +74,6 @@ fieldset[disabled] .d-combobox-input {
   /* due to the presence of the hidden input which stores the submitted value.*/
   margin: 0;
 }
-.d-combobox .d-combobox-list-hidden {
-  display: none;
-}
 .d-combobox-list .d-active-descendant {
   /* defined in delite/themes/bootstrap/mixins.less */
   outline: thin dotted;
