@@ -38,6 +38,12 @@ define([
 				.then(function (val) {
 					assert.isFalse(val, "no aria-describedby for TooltipDialog (only for Tooltip)");
 				})
+				.execute("var tooltipRootNode = document.getElementById('top-tooltip'); " +
+					"var labelNode = document.getElementById(tooltipRootNode.getAttribute('aria-labelledby')); " +
+					"return labelNode.textContent;")
+				.then(function (val) {
+					assert.strictEqual(val, "My Tooltip Dialog");
+				})
 				.execute("return document.activeElement.id").then(function (id) {
 					assert.strictEqual(id, "name", "focus moved to first field on open");
 				})

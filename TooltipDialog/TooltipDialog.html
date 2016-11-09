@@ -1,7 +1,7 @@
-<template role="dialog">
+<template role="dialog" aria-labelledby="{{widgetId}}-label">
 	<div attach-point="connectorNode" class="d-tooltip-connector"></div>
 	<div attach-point="headerNode" class="d-tooltip-dialog-header">
-		<div attach-point="labelNode" class="d-tooltip-dialog-label">{{label}}</div>
+		<div attach-point="labelNode" id="{{widgetId}}-label" class="d-tooltip-dialog-label">{{label}}</div>
 		<div attach-point="closeButtonNode" class="d-tooltip-dialog-icon {{closeButtonIconClass}}"
 			 on-click="{{closeButtonClickHandler}}"></div>
 	</div>
