@@ -4,8 +4,9 @@ define([
 	"intern/dojo/node!leadfoot/helpers/pollUntil",
 	"intern/chai!assert",
 	"intern/dojo/node!leadfoot/keys",
-	"require"
-], function (intern, registerSuite, pollUntil, assert, keys, require) {
+	"require",
+	"dojo/string"
+], function (intern, registerSuite, pollUntil, assert, keys, require, string) {
 
 	var loadFile = function (remote, fileName) {
 		return remote
@@ -538,7 +539,7 @@ define([
 				// Now the first item should be selected
 				checkComboState(comboId, comboState,
 					{ // expected combo state
-						inputNodeValue: comboState.multipleChoiceMsg,
+						inputNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
 						widgetValue: ["Germany", "France"],
 						valueNodeValue: "Germany,France",
 						opened: true,
@@ -561,7 +562,7 @@ define([
 				// Now the selected items are Germany and France
 				checkComboState(comboId, comboState,
 					{ // expected combo state
-						inputNodeValue: comboState.multipleChoiceMsg,
+						inputNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
 						widgetValue: ["Germany", "France"],
 						valueNodeValue: "Germany,France",
 						opened: false,
@@ -795,7 +796,7 @@ define([
 				// The click on the third item adds "Germany" to the selected items
 				checkComboState(comboId, comboState,
 					{ // expected combo state
-						inputNodeValue: comboState.multipleChoiceMsg,
+						inputNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
 						widgetValue: ["Germany", "France"],
 						valueNodeValue: "Germany,France",
 						opened: true,
@@ -818,7 +819,7 @@ define([
 				// The click on the root node closes the popup
 				checkComboState(comboId, comboState,
 					{ // expected combo state
-						inputNodeValue: comboState.multipleChoiceMsg,
+						inputNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
 						widgetValue: ["Germany", "France"],
 						valueNodeValue: "Germany,France",
 						opened: false,

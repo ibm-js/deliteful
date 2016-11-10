@@ -1,12 +1,12 @@
 define([
 	"intern",
 	"intern!object",
+	"dojo/string",
 	"intern/dojo/node!leadfoot/helpers/pollUntil",
 	"intern/chai!assert",
 	"intern/dojo/node!leadfoot/keys",
 	"require"
-], function (intern, registerSuite, pollUntil, assert, keys, require) {
-
+], function (intern, registerSuite, string, pollUntil, assert, keys, require) {
 	var loadFile = function (remote, fileName) {
 		return remote
 			.get(require.toUrl(fileName))
@@ -293,7 +293,6 @@ define([
 			.end();
 	};
 
-
 	var checkMultiSelection = function (remote, comboId) {
 		var executeExpr = "return getComboState(\"" + comboId + "\");";
 		return loadFile(remote, "./ComboPopup.html")
@@ -370,7 +369,7 @@ define([
 			.then(function (comboState) {
 				checkComboState(comboId, comboState,
 					{ // expected combo state
-						inputNodeValue: comboState.multipleChoiceMsg,
+						inputNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
 						widgetValue: ["China", "Germany"],
 						valueNodeValue: "China,Germany",
 						opened: true,
@@ -381,7 +380,7 @@ define([
 						widgetValueAtLatestInputEvent: ["China", "Germany"],
 						valueNodeValueAtLatestInputEvent: "China,Germany",
 						widgetValueAtLatestChangeEvent: undefined,
-						valueNodeValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after clicking option (China))");
 			})
 			.end()
@@ -392,7 +391,7 @@ define([
 			.then(function (comboState) {
 				checkComboState(comboId, comboState,
 					{ // expected combo state
-						inputNodeValue: comboState.multipleChoiceMsg,
+						inputNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
 						widgetValue: ["China", "Germany"],
 						valueNodeValue: "China,Germany",
 						opened: false,
@@ -456,8 +455,7 @@ define([
 				return node.getTagName().then(function (value) {
 					if (autoFilter) {
 						assert.strictEqual(value, "input", "input node should be focused");
-					}
-					else {
+					} else {
 						assert.strictEqual(value, "d-list-item-renderer", "a d-list node should be focused");
 					}
 				});
@@ -580,8 +578,8 @@ define([
 				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
 			}
 			if (remote.environmentType.platformName === "iOS" || remote.environmentType.safari ||
-				remote.environmentType.browserName === "safari" || remote.environmentType.brokenSendKeys
-				|| !remote.environmentType.nativeEvents) {
+				remote.environmentType.browserName === "safari" || remote.environmentType.brokenSendKeys ||
+				!remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support - brokenSendKeys");
 			}
 
@@ -596,8 +594,8 @@ define([
 				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
 			}
 			if (remote.environmentType.platformName === "iOS" || remote.environmentType.safari ||
-				remote.environmentType.browserName === "safari" || remote.environmentType.brokenSendKeys
-				|| !remote.environmentType.nativeEvents) {
+				remote.environmentType.browserName === "safari" || remote.environmentType.brokenSendKeys ||
+				!remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support - brokenSendKeys");
 			}
 
@@ -612,12 +610,12 @@ define([
 				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
 			}
 			if (remote.environmentType.platformName === "iOS" || remote.environmentType.safari ||
-				remote.environmentType.browserName === "safari" || remote.environmentType.brokenSendKeys
-				|| !remote.environmentType.nativeEvents) {
+				remote.environmentType.browserName === "safari" || remote.environmentType.brokenSendKeys ||
+				!remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support - brokenSendKeys");
 			}
 
 			return checkFocus(remote, "combo2", true);
-		},
+		}
 	});
 });

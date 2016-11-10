@@ -3,7 +3,7 @@ define([
 	"dcl/dcl",
 	"requirejs-dplugins/jquery!attributes/classes,event",	// addClass(), css(), on(), off()
 	"dstore/Filter",
-	"decor/sniff",
+	"dojo/string",
 	"delite/register",
 	"delite/CssState",
 	"delite/FormValueWidget",
@@ -17,7 +17,7 @@ define([
 	dcl,
 	$,
 	Filter,
-	has,
+	string,
 	register,
 	CssState,
 	FormValueWidget,
@@ -216,11 +216,14 @@ define([
 		searchPlaceHolder: messages["search-placeholder"],
 
 		/**
-		 * The text displayed in the input element when more than one option is
-		 * selected. The default value is provided by the "search-placeholder" key of
-		 * the message bundle.
+		 * The text displayed in the input element when no option is selected.
+		 * The default value is provided by the "multiple-choice-no-selection" key of
+		 * the message bundle. This message can contains placeholders for the
+		 * Combobox attributes to be replaced by their runtime value. For example, the
+		 * message can include the number of selected items by using the
+		 * placeholder `${items}`.
 		 * @member {string}
-		 * @default "Search"
+		 * @default localized version of "{items} selected"
 		 */
 		multipleChoiceMsg: messages["multiple-choice"],
 
@@ -280,7 +283,7 @@ define([
 		minFilterChars: 1,
 
 		/**
-		 * Initial inputNode's value.
+		 * Displayed value, when Combobox.value is set at the creation time.
 		 * @type {string}
 		 */
 		displayedValue: "",
@@ -319,9 +322,7 @@ define([
 						if (!this.opened) {
 							this.openDropDown();
 						} else {
-							if (this.selectionMode === "multiple") {
-								this.closeDropDown();
-							}
+							this.closeDropDown(true);
 						}
 					}
 				}
@@ -353,7 +354,7 @@ define([
 				this._updateInputReadOnly();
 				this._setSelectable(this.inputNode, !this.inputNode.readOnly);
 			}
-			if ("value" in oldValues && (this.value !== oldValues.value || justCreated))  {
+			if ("value" in oldValues && justCreated) {
 				this._validateInput(false);
 				if (this.value === "") {
 					this.value = (this.selectionMode === "single") ? "" : [];
@@ -641,6 +642,9 @@ define([
 
 				// save what user typed at each keystroke.
 				this.value = inputElement.value;
+				if (this._useCenteredDropDown()) {
+					this.inputNode.value = inputElement.value;
+				}
 				this.handleOnInput(this.value); // emit "input" event.
 
 				if (this._timeoutHandle !== undefined) {
@@ -733,7 +737,7 @@ define([
 				n = selectedItems ? selectedItems.length : 0;
 				var value = [];
 				if (n > 1) {
-					inputElement.value = this.multipleChoiceMsg;
+					inputElement.value = string.substitute(this.multipleChoiceMsg, {items: n});
 					for (var i = 0; i < n; i++) {
 						value.push(selectedItems[i] ? this._getItemValue(selectedItems[i]) : "");
 					}
@@ -759,14 +763,13 @@ define([
 				} // else empty array. No pre-set values.
 				n = items.length;
 				if (n > 1) {
-					this.inputNode.value = this.multipleChoiceMsg;
+					this.inputNode.value = string.substitute(this.multipleChoiceMsg, {items: n});
 				} else if (n === 1) {
 					this.inputNode.value = this.displayedValue !== "" ? this.displayedValue : items[0];
 				} else {
 					this.inputNode.value = this.multipleChoiceNoSelectionMsg;
 				}
 			}
-
 		},
 
 		/**
@@ -779,8 +782,8 @@ define([
 		filter: function (inputText) {
 			// Escape special chars in search string, see
 			// http://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex.
-		    var filterTxt = inputText.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-		    if (this.filterMode === "startsWith") {
+			var filterTxt = inputText.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+			if (this.filterMode === "startsWith") {
 				filterTxt = "^" + filterTxt;
 			} else if (this.filterMode === "is") {
 				filterTxt = "^" + filterTxt + "$";
@@ -834,11 +837,11 @@ define([
 				var selectedItems = [],
 					presetItems = this.value instanceof Array && this.value.length >= 1 ? this.value : [this.value];
 				selectedItems = this.list.renderItems.filter(function (renderItem) {
-				    return presetItems.indexOf(this._getItemValue(renderItem)) >= 0;
+					return presetItems.indexOf(this._getItemValue(renderItem)) >= 0;
 				}.bind(this));
 
 				this.list.selectedItems = selectedItems;
-				this._validateInput(false);
+				this._validateInput(Boolean(selectedItems.length));
 			}
 		},
 
@@ -889,7 +892,6 @@ define([
 
 		closeDropDown: dcl.superCall(function (sup) {
 			return function () {
-
 				var input = this._popupInput || this.inputNode;
 				input.removeAttribute("aria-activedescendant");
 
@@ -900,17 +902,6 @@ define([
 
 					// Closing the dropdown represents a commit interaction
 					this.handleOnChange(this.value); // emit "change" event
-
-					if (this.selectionMode === "single" && this.autoFilter) {
-						// In autoFilter mode, reset the content of the inputNode when
-						// closing the dropdown, such that next time the dropdown is opened
-						// it doesn't show the text the user may have entered for filtering
-						var selItem = this.list.selectedItem;
-						if (selItem) {
-							(this._popupInput || this.inputNode).value =
-								this._getItemLabel(this.list.selectedItem);
-						}
-					}
 				}
 				sup.apply(this, arguments);
 			};
@@ -928,7 +919,6 @@ define([
 					} else if (this.inputNode.value.length < this.minFilterChars) {
 						return;
 					}
-
 					sup.call(this);
 				}
 			};
