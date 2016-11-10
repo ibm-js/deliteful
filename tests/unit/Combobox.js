@@ -328,7 +328,7 @@ define([
 
 		"Attribute mapping for label": function () {
 			// Check the attribute mapping for label
-			var combo = new Combobox();
+			var combo = new Combobox({labelAttr: "name"});
 			var dataSource = new Memory(
 				{idProperty: "name",
 					data: [
@@ -341,8 +341,6 @@ define([
 					{ name: "Brazil", sales: 450, profit: 30, region: "America" },
 					{ name: "China", sales: 500, profit: 40, region: "Asia" }
 				]});
-			combo.list.labelAttr = "name";
-			combo.list.deliver();
 			combo.source = dataSource;
 			container.appendChild(combo);
 			combo.attachedCallback();
@@ -545,8 +543,7 @@ define([
 		"widget value with item value different than item label (selectionMode=single)": function () {
 			// Set List.valueAttr such that the render items contain the myValue field
 			// of the store data items.
-			var list = new List({valueAttr: "myValue"});
-			var combo = new Combobox({list: list, source: dataSourceWithValue});
+			var combo = new Combobox({valueAttr: "myValue", source: dataSourceWithValue});
 			container.appendChild(combo);
 			combo.attachedCallback();
 
@@ -581,8 +578,7 @@ define([
 		"widget value with item value different than item label (selectionMode=multiple)": function () {
 			// Set List.valueAttr such that the render items contain the myValue field
 			// of the store data items.
-			var list = new List({valueAttr: "myValue"});
-			var combo = new Combobox({source: dataSourceWithValue, list: list, selectionMode: "multiple"});
+			var combo = new Combobox({valueAttr: "myValue", source: dataSourceWithValue, selectionMode: "multiple"});
 			container.appendChild(combo);
 			combo.attachedCallback();
 

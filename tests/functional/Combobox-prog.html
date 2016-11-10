@@ -18,12 +18,11 @@
 			"dstore/Memory",
 			"delite/register",
 			"deliteful/Combobox",
-			"deliteful/list/List",
 			"deliteful/RadioButton",
 			"deliteful/Checkbox",
 			"delite/theme!delite/themes/{{theme}}/global.css", // page level CSS
 			"requirejs-domready/domReady!"
-		], function (Memory, register, Combobox, List) {
+		], function (Memory, register, Combobox) {
 			register.deliver();
 
 			var dataSource = new Memory(
@@ -50,27 +49,26 @@
 					{ label: "China", myValue: "CN", sales: 500, profit: 40, region: "Asia" },
 					{ label: "Japan", myValue: "JP", sales: 900, profit: 100, region: "Asia" }
 			]});
-
-			var list = new List({righttextAttr: "sales", categoryAttr: "region"});
-			var combobox = new Combobox({ list: list, id: "combo-single", value: "France", source: dataSource})
+			var combobox = new Combobox({id: "combo-single", value: "France", source: dataSource,
+				righttextAttr: "sales", categoryAttr: "region"}) // list's attributes
 				.placeAt("combo-single", "replace");
 			// default selectionMode: "single"
 			combo1 = combobox; // for debug
 			combobox.name = combobox.id; // for Form
 
-			list = new List({valueAttr: "myValue", righttextAttr: "sales", categoryAttr: "region"});
-			combobox = new Combobox({list: list, id: "combo-single-value",
-				displayedValue: "France", value:"FR", source: dataSourceWithValue}).
-				placeAt("combo-single-value", "replace");
+			combobox = new Combobox({id: "combo-single-value",
+				displayedValue: "France", value: "FR", source: dataSourceWithValue,
+				valueAttr: "myValue", righttextAttr: "sales", categoryAttr: "region"}) // list's attributes
+				.placeAt("combo-single-value", "replace");
 			// default selectionMode: "single"
 			combo1value = combobox; // for debug
 			combobox.name = combobox.id; // for Form
 
-			list = new List({righttextAttr: "sales", categoryAttr: "region"});
 			combo2 = combobox; // for debug
-			combobox = new Combobox({autoFilter: true, list: list, source: dataSource,
-				id: "combo-single-autoFilter", value: "France"}).
-				placeAt("combo-single-autoFilter", "replace");
+			combobox = new Combobox({autoFilter: true, source: dataSource,
+				id: "combo-single-autoFilter", value: "France",
+				righttextAttr: "sales", categoryAttr: "region"}) // list's attributes
+				.placeAt("combo-single-autoFilter", "replace");
 			combo2 = combobox; // for debug
 			// default selectionMode: "single"
 			combobox.name = combobox.id; // for Form
@@ -88,49 +86,48 @@
 				combo2.ignoreCase = ignoreCase.checked;
 			});
 
-			list = new List({righttextAttr: "sales", categoryAttr: "region"});
 			combo3 = combobox; // for debug
-			combobox = new Combobox({list: list, selectionMode: "multiple", id: "combo-multiple", source: dataSource}).
-				placeAt("combo-multiple", "replace");
+			combobox = new Combobox({selectionMode: "multiple", id: "combo-multiple", source: dataSource,
+				righttextAttr: "sales", categoryAttr: "region"}) // list's attributes
+				.placeAt("combo-multiple", "replace");
 			combo3 = combobox; // for debug
 			combobox.name = combobox.id; // for Form
 
-			list = new List({valueAttr: "myValue", righttextAttr: "sales", categoryAttr: "region"});
-			combobox = new Combobox({list: list, selectionMode: "multiple",
-				id: "combo-multiple-value", source: dataSourceWithValue}).
-				placeAt("combo-multiple-value", "replace");
+			combobox = new Combobox({selectionMode: "multiple",
+				id: "combo-multiple-value", source: dataSourceWithValue,
+				valueAttr: "myValue", righttextAttr: "sales", categoryAttr: "region"})
+				.placeAt("combo-multiple-value", "replace");
 			combo3value = combobox; // for debug
 			combobox.name = combobox.id; // for Form
 
 			// Now the same but disabled
-			//
-			list = new List({righttextAttr: "sales", categoryAttr: "region"});
-			combobox = new Combobox({list: list, disabled: true, id: "combo-single-disabled",
-				source: dataSource, value: "France"}).
-				placeAt("combo-single-disabled", "replace");
+			combobox = new Combobox({disabled: true, id: "combo-single-disabled",
+				source: dataSource, value: "France",
+				righttextAttr: "sales", categoryAttr: "region"}) // list's attributes
+				.placeAt("combo-single-disabled", "replace");
 			// default selectionMode: "single"
 			combo4 = combobox; // for debug
 			combobox.name = combobox.id; // for Form
 
-			list = new List({righttextAttr: "sales", categoryAttr: "region"});
-			combobox = new Combobox({autoFilter: true, list: list, value: "France", source: dataSource,
-				disabled: true, id: "combo-single-autoFilter-disabled"}).
-				placeAt("combo-single-autoFilter-disabled", "replace");
+			combobox = new Combobox({autoFilter: true, value: "France", source: dataSource,
+				disabled: true, id: "combo-single-autoFilter-disabled",
+				righttextAttr: "sales", categoryAttr: "region"}) // list's attributes
+				.placeAt("combo-single-autoFilter-disabled", "replace");
 			// default selectionMode: "single"
 			combo5 = combobox; // for debug
 			combobox.name = combobox.id; // for Form
 
-			list = new List({source: dataSource, righttextAttr: "sales", categoryAttr: "region"});
-			combobox = new Combobox({list: list, selectionMode: "multiple",
-				id: "combo-multiple-disabled", disabled: true, source: dataSource}).
-				placeAt("combo-multiple-disabled", "replace");
+			combobox = new Combobox({source: dataSource, selectionMode: "multiple",
+				id: "combo-multiple-disabled", disabled: true,
+				righttextAttr: "sales", categoryAttr: "region"}) // list's attributes
+				.placeAt("combo-multiple-disabled", "replace");
 			combo6 = combobox; // for debug
 			combobox.name = combobox.id; // for Form
 
 			// Combobox in single mode with custom initial selection
-			list = new List({righttextAttr: "sales", categoryAttr: "region"});
-			combobox = new Combobox({list: list, autoFilter: true, source: dataSource,	id: "combo-custom-sel-single"}).
-				placeAt("combo-custom-sel-single", "replace");
+			combobox = new Combobox({autoFilter: true, source: dataSource, id: "combo-custom-sel-single",
+				righttextAttr: "sales", categoryAttr: "region"}) // list's attributes
+				.placeAt("combo-custom-sel-single", "replace");
 			// default selectionMode: "single"
 			combo5customSelSingle = combobox; // for debug
 			combobox.name = combobox.id; // for Form
@@ -139,10 +136,10 @@
 			combobox.deliver();
 
 			// Combobox in multiple mode with custom initial selection
-			list = new List({righttextAttr: "sales", categoryAttr: "region"});
-			combobox = new Combobox({list: list, selectionMode: "multiple",
-				id: "combo-custom-sel-multiple", source: dataSource}).
-				placeAt("combo-custom-sel-multiple", "replace");
+			combobox = new Combobox({selectionMode: "multiple",
+				id: "combo-custom-sel-multiple", source: dataSource,
+				righttextAttr: "sales", categoryAttr: "region"}) // list's attributes
+				.placeAt("combo-custom-sel-multiple", "replace");
 			combo5customSelMultiple = combobox; // for debug
 			combobox.name = combobox.id; // for Form
 			// Configure with its second and fourth options initially selected
@@ -150,26 +147,24 @@
 			combobox.deliver();
 
 			// Now the same but readOnly
-			//
-			list = new List({righttextAttr: "sales", categoryAttr: "region"});
-			combobox = new Combobox({list: list, readOnly: true, autoFilter: true, readOnly: true, value: "France",
-				id: "combo-single-readonly", source: dataSource}).
-				placeAt("combo-single-autoFilter-readonly", "replace");
+			combobox = new Combobox({readOnly: true, autoFilter: true, value: "France",
+				id: "combo-single-readonly", source: dataSource,
+				righttextAttr: "sales", categoryAttr: "region"}) // list's attributes
+				.placeAt("combo-single-autoFilter-readonly", "replace");
 			// default selectionMode: "single"
 			combo5readonly = combobox; // for debug
 			combobox.name = combobox.id; // for Form
 
-			list = new List({righttextAttr: "sales", categoryAttr: "region"});
-			combobox = new Combobox({list: list, dir: "rtl", id: "combo-single", value: "France", source: dataSource}).
-				placeAt("combo-single-rtl", "replace");
+			combobox = new Combobox({dir: "rtl", id: "combo-single", value: "France", source: dataSource,
+				righttextAttr: "sales", categoryAttr: "region"}) // list's attributes
+				.placeAt("combo-single-rtl", "replace");
 			// default selectionMode: "single"
 			combo7 = combobox; // for debug
 			combobox.name = combobox.id; // for Form
 
 			// Using the default instance of List created by Combobox
-			combobox = new Combobox({id: "combo-single-default-list", value: "France"});
+			combobox = new Combobox({id: "combo-single-default-list", value: "France", source: dataSource});
 			combo8 = combobox; // for debug
-			combobox.list.source = dataSource;
 			combobox.placeAt("combo-single-default-list", "replace");
 			combobox.name = combobox.id; // for Form
 		});
