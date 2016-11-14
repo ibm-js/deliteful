@@ -21,3 +21,6 @@
   flex: 1;
   overflow: auto;
 }
+.d-ie .d-tooltip-container {
+  flex: 1 1 auto;
+}

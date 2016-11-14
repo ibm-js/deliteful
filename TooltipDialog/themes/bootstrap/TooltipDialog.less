@@ -28,5 +28,10 @@
 .d-tooltip-container {
 	// Show scrollbar on this node if necessary.
 	flex: 1;
+	.d-ie & {
+		// IE11 needs special CSS so natural sizing works (otherwise this node collapses completely.
+		// It breaks Chrome a little bit though (header is squashed), so doing conditionally for IE only.
+		flex: 1 1 auto;
+	}
 	overflow: auto;
 }
