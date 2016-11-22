@@ -87,7 +87,6 @@ define([
 			assert.strictEqual(panel.headerNode.getAttribute("role"), "tab");
 			assert.strictEqual(panel.headerNode.getAttribute("aria-expanded"), "false");
 			assert.strictEqual(panel.headerNode.getAttribute("aria-selected"), "false");
-			assert.strictEqual(panel.headerNode.getAttribute("aria-controls"), panel.id);
 			assert.strictEqual(panel.headerNode.getAttribute("tabindex"), "-1");
 			assert.strictEqual(panel.getAttribute("role"), "tabpanel");
 			assert.strictEqual(panel.getAttribute("aria-hidden"), "true");
