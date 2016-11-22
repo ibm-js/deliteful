@@ -2,7 +2,8 @@
 define([
 	"delite/register",
 	"delite/Widget",
-	"delite/handlebars!./AccordionHeader/AccordionHeader.html"
+	"delite/handlebars!./AccordionHeader/AccordionHeader.html",
+	"delite/activationTracker"
 ], function (
 	register,
 	Widget,
