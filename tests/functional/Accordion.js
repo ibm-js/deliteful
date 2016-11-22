@@ -7,6 +7,8 @@ define(["intern",
 ], function (intern, registerSuite, pollUntil, keys, assert, require) {
 	var PAGE = "./Accordion.html";
 
+	var panelHeaderStr = "_panelHeader";
+
 	function checkPanelIsOpen(remote, panel) {
 		return remote
 			.findById(panel)
@@ -19,7 +21,7 @@ define(["intern",
 					assert.isTrue(displayed, panel + " visible");
 				})
 				.end()
-			.findByCssSelector("[aria-controls=" + panel + "]")
+			.findByCssSelector("#" + panel + panelHeaderStr)
 				.getProperty("open")
 				.then(function (checked) {
 					assert.isTrue(checked, panel + ".header.open");
@@ -48,7 +50,7 @@ define(["intern",
 					assert.isFalse(displayed, panel + " hidden");
 				})
 				.end()
-			.findByCssSelector("[aria-controls=" + panel + "]")
+			.findByCssSelector("#" + panel + panelHeaderStr)
 				.getProperty("open")
 				.then(function (checked) {
 					assert.isFalse(checked, panel + ".header.open");
@@ -90,7 +92,7 @@ define(["intern",
 			"Open panel": function () {
 				var remote = this.remote;
 				return remote
-					.findByCssSelector("[aria-controls=panel2]")
+					.findByCssSelector("#panel2" + panelHeaderStr)
 						.click()
 						.end()
 					.sleep(500)
@@ -107,7 +109,7 @@ define(["intern",
 			"Open panel by clicking on the label": function () {
 				var remote = this.remote;
 				return remote
-					.findByCssSelector("[aria-controls=panel3] > span:last-child")
+					.findByCssSelector("#panel3" + panelHeaderStr + " > span:last-child")
 						.click()
 						.end()
 					.sleep(500)
@@ -124,7 +126,7 @@ define(["intern",
 			"Open panel by clicking on the icon": function () {
 				var remote = this.remote;
 				return remote
-					.findByCssSelector("[aria-controls=panel2] > span:last-child")
+					.findByCssSelector("#panel2" + panelHeaderStr + " > span:first-child")
 						.click()
 						.end()
 					.sleep(500)
@@ -141,7 +143,7 @@ define(["intern",
 			"Try to close the open panel": function () {
 				var remote = this.remote;
 				return remote
-					.findByCssSelector("[aria-controls=panel2]")
+					.findByCssSelector("#panel2" + panelHeaderStr + " > span:last-child")
 						.click()
 						.end()
 					.sleep(500)
@@ -165,7 +167,7 @@ define(["intern",
 				}
 				return remote
 					// TODO: tab into accordion instead
-					.execute("document.querySelector('[aria-controls=panel1]').focus();")
+					.execute("document.querySelector('#panel1" + panelHeaderStr + "').focus();")
 					.pressKeys(keys.ENTER)
 					.sleep(500)
 					.then(function () {
@@ -198,14 +200,14 @@ define(["intern",
 				return remote
 					// Change focus to first and last panel
 					.pressKeys(keys.HOME)
-					.execute("return document.activeElement.getAttribute('aria-controls');")
+					.execute("return document.activeElement.getAttribute('id');")
 					.then(function (value) {
-						assert.strictEqual(value, "panel1");
+						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel1");
 					})
 					.pressKeys(keys.END)
-					.execute("return document.activeElement.getAttribute('aria-controls');")
+					.execute("return document.activeElement.getAttribute('id');")
 					.then(function (value) {
-						assert.strictEqual(value, "panel3");
+						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel3");
 					});
 			},
 			"Arrow keys": function () {
@@ -216,23 +218,25 @@ define(["intern",
 				}
 				return remote
 					.pressKeys(keys.ARROW_LEFT)
-					.execute("return document.activeElement.getAttribute('aria-controls');")
+					.execute("return document.activeElement.getAttribute('id');")
 					.then(function (value) {
-						assert.strictEqual(value, "panel2");
-					}).pressKeys(keys.ARROW_RIGHT)
-					.execute("return document.activeElement.getAttribute('aria-controls');")
+						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel2");
+					})
+					.pressKeys(keys.ARROW_RIGHT)
+					.execute("return document.activeElement.getAttribute('id');")
 					.then(function (value) {
-						assert.strictEqual(value, "panel3");
+						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel3");
 					})
 					.pressKeys(keys.ARROW_UP)
-					.execute("return document.activeElement.getAttribute('aria-controls');")
+					.execute("return document.activeElement.getAttribute('id');")
 					.then(function (value) {
-						assert.strictEqual(value, "panel2");
-					}).pressKeys(keys.ARROW_DOWN)
-					.execute("return document.activeElement.getAttribute('aria-controls');")
+						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel2");
+					})
+					.pressKeys(keys.ARROW_DOWN)
+					.execute("return document.activeElement.getAttribute('id');")
 					.then(function (value) {
-						assert.strictEqual(value, "panel3");
-					});
+						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel3");
+					})
 			},
 			"Arrow keys - cyclic": function () {
 				var remote = this.remote;
@@ -242,23 +246,25 @@ define(["intern",
 				return remote
 					// From last to first and from first to last
 					.pressKeys(keys.ARROW_RIGHT)
-					.execute("return document.activeElement.getAttribute('aria-controls');")
+					.execute("return document.activeElement.getAttribute('id');")
 					.then(function (value) {
-						assert.strictEqual(value, "panel1");
-					}).pressKeys(keys.ARROW_LEFT)
-					.execute("return document.activeElement.getAttribute('aria-controls');")
+						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel1");
+					})
+					.pressKeys(keys.ARROW_LEFT)
+					.execute("return document.activeElement.getAttribute('id');")
 					.then(function (value) {
-						assert.strictEqual(value, "panel3");
+						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel3");
 					})
 					.pressKeys(keys.ARROW_DOWN)
-					.execute("return document.activeElement.getAttribute('aria-controls');")
+					.execute("return document.activeElement.getAttribute('id');")
 					.then(function (value) {
-						assert.strictEqual(value, "panel1");
-					}).pressKeys(keys.ARROW_UP)
-					.execute("return document.activeElement.getAttribute('aria-controls');")
+						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel1");
+					})
+					.pressKeys(keys.ARROW_UP)
+					.execute("return document.activeElement.getAttribute('id');")
 					.then(function (value) {
-						assert.strictEqual(value, "panel3");
-					});
+						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel3");
+					})
 			}
 		},
 
@@ -272,11 +278,11 @@ define(["intern",
 			"Open all panels": function () {
 				var remote = this.remote;
 				return remote
-					.findByCssSelector("[aria-controls=panel22]")
+					.findByCssSelector("#panel22" + panelHeaderStr)
 						.click()
 						.end()
 					.sleep(500)
-					.findByCssSelector("[aria-controls=panel23]")
+					.findByCssSelector("#panel23" + panelHeaderStr)
 						.click()
 						.end()
 					.sleep(500)
@@ -293,7 +299,7 @@ define(["intern",
 			"Close panel": function () {
 				var remote = this.remote;
 				return remote
-					.findByCssSelector("[aria-controls=panel22]")
+					.findByCssSelector("#panel22" + panelHeaderStr)
 						.click()
 						.end()
 					.sleep(500)
@@ -310,7 +316,7 @@ define(["intern",
 			"Close panel by clicking on the label": function () {
 				var remote = this.remote;
 				return remote
-					.findByCssSelector("[aria-controls=panel23] span:last-child")
+					.findByCssSelector("#panel23" + panelHeaderStr + " > span:last-child")
 						.click()
 						.end()
 					.sleep(500)
@@ -327,7 +333,7 @@ define(["intern",
 			"Try to close last open panel": function () {
 				var remote = this.remote;
 				return remote
-					.findByCssSelector("[aria-controls=panel21]")
+					.findByCssSelector("#panel21" + panelHeaderStr)
 						.click()
 						.end()
 					.sleep(500)
