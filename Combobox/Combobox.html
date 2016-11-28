@@ -5,10 +5,11 @@
 		autocomplete="off" autocorrect="off" autocapitalize="none"
 		aria-autocomplete="list"
 		type="text"
-		readonly="{{this._inputReadOnly ? 'readonly' : ''}}">
+		readonly="{{this._inputReadOnly ? 'readonly' : ''}}"
+		placeholder="{{searchPlaceHolder}}">
 	<input class="d-hidden"
 		attach-point="valueNode"
-		readonly name="{{name}}" value="{{value}}">
+		readonly name="{{name}}">
 	<span class="d-combobox-arrow" d-shown="{{hasDownArrow}}"
 		attach-point="buttonNode" aria-hidden="true"></span>
 </template>

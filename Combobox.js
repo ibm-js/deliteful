@@ -283,10 +283,17 @@ define([
 		minFilterChars: 1,
 
 		/**
-		 * Displayed value, when Combobox.value is set at the creation time.
+		 * InputNode's value. Can be used to display something at the creation time. After that,
+		 * each user interaction will override this with the selected item label.
 		 * @type {string}
 		 */
 		displayedValue: "",
+
+		// Flag used for skipping consecutive validations, if one already run.
+		_justValidated: false,
+
+		// Flag used for post initializing the widget value, if the list has not been created yet.
+		_processValueAfterListInit: false,
 
 		createdCallback: function () {
 			// Declarative case (list specified declaratively inside the declarative Combobox)
@@ -375,7 +382,7 @@ define([
 		/* jshint maxcomplexity: 17 */
 		refreshRendering: function (oldValues) {
 			var updateReadOnly = false;
-			if ("list" in oldValues) {
+			if ("list" in oldValues && this.list) {
 				this._initList();
 			}
 			if ("selectionMode" in oldValues) {
@@ -395,10 +402,22 @@ define([
 			}
 			if ("value" in oldValues) {
 				if (!this._justValidated) {
-					this._validateInput(false, true);
-				} else {
-					delete this._justValidated;
+					if (this.list) {
+						// INFO: if list is already created and attached, then we can validate the `value` value
+						this._validateInput(false);
+					} else {
+						// INFO: otherwise we have to delay its evaluation.
+						this._processValueAfterListInit = true;
+					}
 				}
+			}
+			if ("_justValidated" in oldValues) {
+				if (this._justValidated) {
+					this._justValidated = false;
+				}
+			}
+			if ("displayedValue" in oldValues) {
+				this.inputNode.value = this.displayedValue;
 			}
 		},
 
@@ -452,31 +471,34 @@ define([
 		},
 
 		_initList: function () {
-			if (this.list) {
-				// TODO
-				// This is a workaround waiting for a proper mechanism (at the level
-				// of delite/Store - delite/StoreMap) to allow a store-based widget
-				// to delegate the store-related functions to a parent widget (delite#323).
-				if (!this.list.attached) {
-					this.list.attachedCallback();
-				}
+			// TODO
+			// This is a workaround waiting for a proper mechanism (at the level
+			// of delite/Store - delite/StoreMap) to allow a store-based widget
+			// to delegate the store-related functions to a parent widget (delite#323).
+			if (!this.list.attached) {
+				this.list.attachedCallback();
+			}
 
-				// Class added on the list such that Combobox' theme can have a specific
-				// CSS selector for elements inside the List when used as dropdown in
-				// the combo.
-				$(this.list).addClass("d-combobox-list");
+			// Class added on the list such that Combobox' theme can have a specific
+			// CSS selector for elements inside the List when used as dropdown in
+			// the combo.
+			$(this.list).addClass("d-combobox-list");
 
-				// The drop-down is hidden initially
-				$(this.list).addClass("d-hidden");
+			// The drop-down is hidden initially
+			$(this.list).addClass("d-hidden");
 
-				// The role=listbox is required for the list part of a combobox by the
-				// aria spec of role=combobox
-				this.list.type = "listbox";
+			// The role=listbox is required for the list part of a combobox by the
+			// aria spec of role=combobox
+			this.list.type = "listbox";
 
-				this.list.selectionMode = this.selectionMode === "single" ?
-					"radio" : "multiple";
+			this.list.selectionMode = this.selectionMode === "single" ?
+				"radio" : "multiple";
 
-				this._initHandlers();
+			this._initHandlers();
+
+			if (this._processValueAfterListInit) {
+				this.notifyCurrentValue("value");
+				delete this._processValueAfterListInit;
 			}
 		},
 
@@ -684,7 +706,7 @@ define([
 				// save what user typed at each keystroke.
 				this.value = inputElement.value;
 				if (this._useCenteredDropDown()) {
-					this.inputNode.value = inputElement.value;
+					this.displayedValue = inputElement.value;
 				}
 				this.handleOnInput(this.value); // emit "input" event.
 
@@ -750,28 +772,30 @@ define([
 			}.bind(this), inputElement);
 		},
 
-		_validateInput: function (userInteraction, init) {
+		_validateInput: function (userInteraction) {
 			if (this.selectionMode === "single") {
-				this._validateSingle(userInteraction, init);
+				this._validateSingle(userInteraction);
 			} else {
-				this._validateMultiple(userInteraction, init);
+				this._validateMultiple(userInteraction);
 			}
 			this._justValidated = true;
+			this.notifyCurrentValue("_justValidated");
 		},
 
-		_validateSingle: function (userInteraction, init) {
+		_validateSingle: function (userInteraction) {
 			if (userInteraction) {
 				var selectedItem = this.list.selectedItem;
 				// selectedItem non-null because List in radio selection mode, but
 				// the List can be empty, so:
-				this.inputNode.value = selectedItem ? this._getItemLabel(selectedItem) : "";
+				this.displayedValue = selectedItem ? this._getItemLabel(selectedItem) : "";
 				this.value = selectedItem ? this._getItemValue(selectedItem) : "";
-			} else if (init) {
-				this.inputNode.value = this.displayedValue !== "" ? this.displayedValue : this.value;
+			} else {
+				var item = this._retrieveItemFromSource(this.value);
+				this.displayedValue = item ? item[this.list.labelAttr || this.list.labelFunc] : this.value;
 			}
 		},
 
-		_validateMultiple: function (userInteraction, init) {
+		_validateMultiple: function (userInteraction) {
 			var n;
 			if (userInteraction) {
 				var selectedItems = this.list.selectedItems;
@@ -795,7 +819,7 @@ define([
 				// make sure this is already done when FormValueWidget.handleOnInput() runs.
 				this.valueNode.value = value;
 				this.handleOnInput(this.value); // emit "input" event
-			} else if (init) {
+			} else {
 				var items = [];
 				if (typeof this.value === "string") {
 					if (this.value.length > 0) {
@@ -809,11 +833,12 @@ define([
 				} // else empty array. No pre-set values.
 				n = items.length;
 				if (n > 1) {
-					this.inputNode.value = string.substitute(this.multipleChoiceMsg, {items: n});
+					this.displayedValue = string.substitute(this.multipleChoiceMsg, {items: n});
 				} else if (n === 1) {
-					this.inputNode.value = this.displayedValue !== "" ? this.displayedValue : items[0];
+					var item = this._retrieveItemFromSource(items[0]);
+					this.displayedValue = item ? item[this.list.labelAttr || this.list.labelFunc] : this.value;
 				} else {
-					this.inputNode.value = this.multipleChoiceNoSelectionMsg;
+					this.displayedValue = this.multipleChoiceNoSelectionMsg;
 				}
 			}
 		},
@@ -846,6 +871,21 @@ define([
 
 			// Open popup in order to show the list's content (loading panel, no-items element or items).
 			this.openDropDown();
+		},
+
+		_retrieveItemFromSource: function (key) {
+			var item = null,
+				_source = this.source || (this.list && this.list.source);
+			if (_source) {
+				if (Array.isArray(_source)) {
+					item = _source.filter(function (i) {
+						return i[this.list.valueAttr || this.list.labelAttr] === key;
+					}.bind(this))[0];
+				} else {
+					item = _source.getSync && _source.getSync(key);
+				}
+			}
+			return item;
 		},
 
 		/**
@@ -960,8 +1000,10 @@ define([
 		_dropDownKeyUpHandler: dcl.superCall(function (sup) {
 			return function () {
 				if (this.hasDownArrow) {
-					if (this.inputNode.value.length === 0 && this.minFilterChars === 0) {
-						this.list.query = this._getDefaultQuery();
+					if (this.inputNode.value.length === 0) {
+						if (this.minFilterChars === 0) {
+							this.list.query = this._getDefaultQuery();
+						}
 					} else if (this.inputNode.value.length < this.minFilterChars) {
 						return;
 					}

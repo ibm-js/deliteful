@@ -203,6 +203,7 @@ define([
 		assert.strictEqual(combo.baseClass, outerCSS, "combo.baseClass");
 		assert.strictEqual(combo.filterMode, "startsWith", "combo.filterMode");
 		assert.isTrue(combo.ignoreCase, "combo.ignoreCase");
+		assert.strictEqual(combo.inputNode.placeholder, "Search", combo.inputNode.placeholder);
 	};
 
 	var CommonTestCases = {
