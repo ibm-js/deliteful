@@ -5,29 +5,35 @@
 	margin: 0;
 	padding: 0;
 
-	.d-combobox-styles();
+	.d-combobox-styles;
+}
 
-	.d-combobox-arrow {
-		// set cursor on the <span> rather than ::after since the ::after doesn't work on IE.
-		cursor: pointer;
+.d-combobox-arrow {
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-size: inherit;
+	text-align: center;
+	line-height: normal;
 
-		&::after {
-			content: "\25BC";
-			display: inline-block;
-			position: absolute;
-			padding: 0;
-			line-height: normal;
-			.d-combobox-arrow-styles();
+	.d-combobox-arrow-styles;
 
-			.d-rtl& {
-				.d-combobox-arrow-styles-rtl();
-			}
+	&::after {
+		content: "\25BC";
+		display: inline-block;
+		padding: 0;
+		line-height: normal;
 
-			.d-disabled& {
-				opacity: 0.5;
-				cursor: auto;
-			}
+		.d-disabled& {
+			opacity: 0.5;
+			cursor: auto;
 		}
+	}
+
+	.d-combobox.d-rtl & {
+		left: 0;
+		right: auto;
 	}
 }
 

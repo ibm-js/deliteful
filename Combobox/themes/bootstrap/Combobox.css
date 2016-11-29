@@ -8,29 +8,32 @@
   font-size: 14px;
   line-height: 1.428571429;
 }
-.d-combobox .d-combobox-arrow {
+.d-combobox-arrow {
   cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: inherit;
+  text-align: center;
+  line-height: normal;
+  padding: 7px 12px;
 }
-.d-combobox .d-combobox-arrow::after {
+.d-combobox-arrow::after {
+  font-size: 10px;
+}
+.d-combobox-arrow::after {
   content: "\25BC";
   display: inline-block;
-  position: absolute;
   padding: 0;
   line-height: normal;
-  font-size: .7em;
-  right: 1em;
-  top: 50%;
-  height: 1em;
-  margin-top: -0.6em;
 }
-.d-rtl.d-combobox .d-combobox-arrow::after {
-  left: 1em;
-  /* restore default */
-  right: auto;
-}
-.d-disabled.d-combobox .d-combobox-arrow::after {
+.d-disabled.d-combobox-arrow::after {
   opacity: 0.5;
   cursor: auto;
+}
+.d-combobox.d-rtl .d-combobox-arrow {
+  left: 0;
+  right: auto;
 }
 .d-combo-popup {
   /* Needed for the correct layout of its LinearLayout child */
@@ -45,7 +48,7 @@
 /* Applies to both the input inside the root node and the input */
 /* conditionally present inside the popup */
 .d-combobox-input {
-  padding: 6px 1.7em 6px 12px;
+  padding: 6px 34px 6px 12px;
   border: 1px solid #cccccc;
   border-radius: 4px;
   color: inherit;
@@ -59,6 +62,9 @@
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
+}
+.d-combobox.d-rtl .d-combobox-input {
+  padding: 6px 12px 6px 34px;
 }
 .d-combobox-input[disabled],
 fieldset[disabled] .d-combobox-input {
