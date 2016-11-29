@@ -403,7 +403,127 @@ define([
 						valueNodeValueAtLatestInputEvent: "China,Germany",
 						widgetValueAtLatestChangeEvent: ["China", "Germany"],
 						valueNodeValueAtLatestChangeEvent: "China,Germany"
-					}, "after clicking again the root node (close)");
+					}, "after clicking on the 'Ok' button (close)");
+			})
+			.end();
+	};
+
+	var checkMultiSelectionCancel = function (remote, comboId) {
+		var executeExpr = "return getComboState(\"" + comboId + "\");";
+		return loadFile(remote, "./ComboPopup.html")
+			.findById(comboId)
+			.execute(executeExpr)
+			.then(function (comboState) {
+				// The first option should be the one selected,
+				// the popup is closed initially
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
+						popupInputNodeValue: "", // invisible!
+						widgetValue: [],
+						valueNodeValue: "",
+						opened: false,
+						selectedItemsCount: 0,
+						itemRenderersCount: 37,
+						inputEventCounter: 0, // no event so far
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: undefined, // never received
+						valueNodeValueAtLatestInputEvent: undefined,
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "right after load");
+			})
+			.click()
+			.sleep(500) // wait for List's loading panel to go away
+			.execute(executeExpr)
+			.then(function (comboState) {
+				// The first option should be the one selected,
+				// the first click just opens the dropdown.
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
+						popupInputNodeValue: "", // invisible
+						widgetValue: [],
+						valueNodeValue: "",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 37,
+						inputEventCounter: 0, // no event so far
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: undefined, // never received
+						valueNodeValueAtLatestInputEvent: undefined,
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after click on root node");
+			})
+			.end()
+			.findById(comboId + "_item1") // "Germany"
+			.click()
+			.sleep(500) // wait for popup to close
+			.execute(executeExpr)
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "Germany",
+						popupInputNodeValue: "", // invisible
+						widgetValue: ["Germany"],
+						valueNodeValue: "Germany",
+						opened: true,
+						selectedItemsCount: 1,
+						itemRenderersCount: 37,
+						inputEventCounter: 1,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: ["Germany"],
+						valueNodeValueAtLatestInputEvent: "Germany",
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after clicking option (Germany))");
+			})
+			.end()
+			.findById(comboId + "_item6") // "China"
+			.click()
+			.sleep(500) // wait for popup to close
+			.execute(executeExpr)
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
+						popupInputNodeValue: "", // invisible
+						widgetValue: ["China", "Germany"],
+						valueNodeValue: "China,Germany",
+						opened: true,
+						selectedItemsCount: 2,
+						itemRenderersCount: 37,
+						inputEventCounter: 1,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: ["China", "Germany"],
+						valueNodeValueAtLatestInputEvent: "China,Germany",
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after clicking option (China))");
+			})
+			.end()
+			.findByCssSelector(".d-combo-cancel-button")
+			.click()
+			.sleep(500) // wait for the async closing of the popup
+			.execute(executeExpr)
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
+						popupInputNodeValue: "", // invisible
+						widgetValue: [],
+						valueNodeValue: "",
+						opened: false,
+						selectedItemsCount: 0,
+						itemRenderersCount: 37,
+						inputEventCounter: 1,
+						changeEventCounter: 1, // incremented
+						widgetValueAtLatestInputEvent: [],
+						valueNodeValueAtLatestInputEvent: "",
+						widgetValueAtLatestChangeEvent: [],
+						valueNodeValueAtLatestChangeEvent: ""
+					}, "after clicking on the 'Cancel' button (close)");
 			})
 			.end();
 	};
@@ -568,6 +688,21 @@ define([
 			}
 
 			return checkMultiSelection(remote, "combo3");
+		},
+
+		"multi selection selection (combo3)": function () {
+			var remote = this.remote;
+
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/17
+				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
+			}
+			if (remote.environmentType.platformName === "iOS") {
+				// https://github.com/theintern/leadfoot/issues/61
+				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
+			}
+
+			return checkMultiSelectionCancel(remote, "combo3");
 		},
 
 		"tab navigation (combo3)": function () {
