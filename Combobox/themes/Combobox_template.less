@@ -10,18 +10,19 @@
 	.d-combobox-arrow {
 		// set cursor on the <span> rather than ::after since the ::after doesn't work on IE.
 		cursor: pointer;
+		position: absolute;
+		.d-combobox-arrow-styles;
+
+		.d-rtl & {
+			.d-combobox-arrow-styles-rtl;
+		}
 
 		&::after {
 			content: "\25BC";
 			display: inline-block;
-			position: absolute;
 			padding: 0;
 			line-height: normal;
-			.d-combobox-arrow-styles();
-
-			.d-rtl& {
-				.d-combobox-arrow-styles-rtl();
-			}
+			font-size: .7em;
 
 			.d-disabled& {
 				opacity: 0.5;
@@ -70,3 +71,4 @@
 	/* due to the presence of the hidden input which stores the submitted value.*/
 	margin: 0;
 }
+
