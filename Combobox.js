@@ -746,7 +746,7 @@ define([
 					if (this.opened) {
 						this.closeDropDown(true/*refocus*/);
 					}
-				} else if (evt.key === "Spacebar") {
+				} else if (evt.key === "Spacebar" && this.opened) {
 					// Simply forwarding the key event to List doesn't allow toggling
 					// the selection, because List's mechanism is based on the event target
 					// which here is the input element outside the List. TODO: see deliteful #500.
