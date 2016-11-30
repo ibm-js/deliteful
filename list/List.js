@@ -564,10 +564,10 @@ define([
 		 * @protected
 		 */
 		handleSelection: function (/*Event*/event) {
-			var eventRenderer = this.getEnclosingRenderer(event.target);
-			if (eventRenderer) {
-				if (!this.isCategoryRenderer(eventRenderer)) {
-					this.selectFromEvent(event, eventRenderer.item, eventRenderer, true);
+			var renderer = this.getEnclosingRenderer(this.navigatedDescendant);
+			if (renderer) {
+				if (!this.isCategoryRenderer(renderer)) {
+					this.selectFromEvent(event, renderer.item, renderer, true);
 				}
 				return true;
 			}
