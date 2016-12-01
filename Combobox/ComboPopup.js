@@ -88,7 +88,7 @@ define([
 		 * @protected
 		 */
 		focus: function () {
-			if (this.combobox.autoFilter && this.combobox.selectionMode === "single") {
+			if (!this.combobox._inputReadOnly) {
 				this.inputNode.focus();
 			} else {
 				// first check if list is not hidden.
@@ -97,7 +97,7 @@ define([
 					var id = this.combobox.list.getIdentity(
 						this.combobox.list.selectedItems.length > 0 ? this.combobox.list.selectedItems[0] : "");
 					var renderer = (id && id !== -1) ? this.combobox.list.getRendererByItemId(id) :
-						this.combobox.list.getRenderers()[0];
+						this.combobox.list.getItemRenderers()[0];
 					this.combobox.list.navigateTo(renderer);
 				}
 			}

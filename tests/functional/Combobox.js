@@ -1059,6 +1059,48 @@ define([
 			.end();
 	};
 
+	var checkReadonlyForEmptyStore = function (remote, comboId) {
+		return loadFile(remote, "./Combobox-decl.html")
+			.findByCssSelector("#" + comboId + " .d-combobox-input")
+			.getAttribute("readonly")
+			.then(function (value) {
+				assert.strictEqual(value, "", comboId + ":readonly attribute after page load");
+			})
+			.end()
+			.findByCssSelector("#" + comboId + " .d-combobox-arrow")
+			.click() // popup opens
+			.sleep(250)
+			.end()
+			.findById(comboId + "_dropdown")
+			.getVisibleText()
+			.then(function (visibleText) {
+				assert(/^Nothing to show./.test(visibleText),
+					"The popup should show `Nothing to show.`");
+			})
+			.end();
+	};
+
+	var checkReadonlyForNotEmptyStore = function (remote, comboId) {
+		return loadFile(remote, "./Combobox-decl.html")
+			.findByCssSelector("#" + comboId + " .d-combobox-input")
+			.getAttribute("readonly")
+			.then(function (value) {
+				assert.strictEqual(value, null, comboId + ":readonly attribute after page load");
+			})
+			.end()
+			.findByCssSelector("#" + comboId + " .d-combobox-arrow")
+			.click() // popup opens
+			.sleep(250)
+			.end()
+			.findById(comboId + "_dropdown")
+			.getVisibleText()
+			.then(function (visibleText) {
+				assert.isFalse(/^Nothing to show./.test(visibleText),
+					"The popup should not show `Nothing to show.`");
+			})
+			.end();
+	};
+
 	var checkFilteringWithZeroFilterChars = function (remote, comboId) {
 		var executeExpr = "return getComboState(\"" + comboId + "\");";
 		return loadFile(remote, "./Combobox-decl.html")
@@ -1227,6 +1269,111 @@ define([
 						widgetValueAtLatestChangeEvent: "Fr",
 						valueNodeValueAtLatestChangeEvent: "Fr"
 					}, "after typing `a`.");
+			})
+			.end();
+	};
+
+	var checkFilteringAutoCompleteMode = function (remote, comboId) {
+		var executeExpr = "return getComboState(\"" + comboId + "\");";
+		return loadFile(remote, "./Combobox-decl.html")
+			.findByCssSelector("#" + comboId + " .d-combobox-input")
+			.getAttribute("readonly")
+			.then(function (value) {
+				assert.strictEqual(value, null, comboId + ":readonly attribute after page load");
+			})
+			.click()
+			.execute(executeExpr)
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "",
+						widgetValue: "",
+						valueNodeValue: "",
+						opened: false, // click() does not open the popup.
+						selectedItemsCount: 0,
+						itemRenderersCount: 37, // the source is already attached, so items are already rendered.
+						inputEventCounter: 0, // unchanged
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: undefined,
+						valueNodeValueAtLatestInputEvent: undefined,
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after page load.");
+			})
+			.pressKeys("g")
+			.pressKeys("e")
+			.pressKeys("r")
+			.pressKeys("m")
+			.execute(executeExpr)
+			.then(function (comboState) { // Filtering happened.
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "germ",
+						widgetValue: "germ",
+						valueNodeValue: "germ",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 1,
+						inputEventCounter: 4,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: "germ",
+						valueNodeValueAtLatestInputEvent: "germ",
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after typing `germ` chars.");
+			})
+			.pressKeys("w") // germw -> not maching items
+			.execute(executeExpr)
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "germw",
+						widgetValue: "germw",
+						valueNodeValue: "germw",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 0,
+						inputEventCounter: 1,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: "germw",
+						valueNodeValueAtLatestInputEvent: "germw",
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after typing `w`.");
+			})
+			.end()
+			.findById(comboId + "_dropdown") // List's showNoItems is true.
+			.getVisibleText()
+			.then(function (visibleText) {
+				assert(/^Nothing to show./.test(visibleText),
+					"The popup should show `Nothing to show.`");
+			})
+			.end()
+			.findByCssSelector("#" + comboId + " .d-combobox-input")
+			.pressKeys(keys.BACKSPACE) // clearing `w`.
+			.sleep(250)
+			.end()
+			.execute("storeTestingInfo(document.getElementById(\"" + comboId + "\"));")
+			.findByCssSelector("#" + comboId + "_item0")
+			.click() // Germany selected
+			.sleep(250)
+			.execute(executeExpr)
+			.then(function (comboState) { // We get full list.
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "Germany",
+						widgetValue: "Germany",
+						valueNodeValue: "Germany",
+						opened: false,
+						selectedItemsCount: 1,
+						itemRenderersCount: 37, // query gets reset
+						inputEventCounter: 2, // incremented.
+						changeEventCounter: 1, // there was a commit/
+						widgetValueAtLatestInputEvent: "Germany",
+						valueNodeValueAtLatestInputEvent: "Germany",
+						widgetValueAtLatestChangeEvent: "Germany",
+						valueNodeValueAtLatestChangeEvent: "Germany"
+					}, "after selecting `Germany` item.");
 			})
 			.end();
 	};
@@ -1411,6 +1558,31 @@ define([
 			return checkRequestCount(remote, "combo-slowstore");
 		},
 
+		"check readonly (empty store)": function () {
+			var remote = this.remote;
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/17
+				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
+			}
+			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support");
+			}
+			return checkReadonlyForEmptyStore(remote, "combo-empty-store");
+		},
+
+		"check readonly (non-empty store and autoFilter = true) ": function () {
+			var remote = this.remote;
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/17
+				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
+			}
+			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support");
+			}
+			// combo2 has autoFilter true and a non-empty store. Readonly attr has to be false.
+			return checkReadonlyForNotEmptyStore(remote, "combo2");
+		},
+
 		"filtering with minimum characters (0)": function () {
 			var remote = this.remote;
 			if (remote.environmentType.browserName === "internet explorer") {
@@ -1433,6 +1605,18 @@ define([
 				return this.skip("no keyboard support");
 			}
 			return checkFilteringWithThreeFilterChars(remote, "combo-minfilterchars3");
+		},
+
+		"filtering in auto complete mode": function () {
+			var remote = this.remote;
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/17
+				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
+			}
+			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support");
+			}
+			return checkFilteringAutoCompleteMode(remote, "combo-autocomplete");
 		}
 	});
 });

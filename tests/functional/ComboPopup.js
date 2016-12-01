@@ -36,6 +36,11 @@ define([
 		assert.strictEqual(comboState.inputNodeValue, expectedComboState.inputNodeValue,
 			selectionMode + " combo.inputNode.value " + stepName + " " +
 			comboId + ".inputNode.value");
+
+		assert.strictEqual(comboState.popupInputNodeValue, expectedComboState.popupInputNodeValue,
+			selectionMode + " combo.popupInputNodeValue.value " + stepName + " " +
+			comboId + ".popupInputNodeValue.value");
+
 		assertEqualValue(comboState.widgetValue, expectedComboState.widgetValue,
 				selectionMode + " combo.value " + stepName + " " +
 				comboId + ".value");
@@ -81,6 +86,7 @@ define([
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: "France",
+						popupInputNodeValue: "",
 						widgetValue: "France",
 						valueNodeValue: "France",
 						opened: false,
@@ -103,6 +109,7 @@ define([
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: "France",
+						popupInputNodeValue: "France",
 						widgetValue: "France",
 						valueNodeValue: "France",
 						opened: true,
@@ -139,6 +146,7 @@ define([
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: "jap",
+						popupInputNodeValue: "jap",
 						widgetValue: "jap",
 						valueNodeValue: "jap",
 						opened: true,
@@ -164,6 +172,7 @@ define([
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: "",
+						popupInputNodeValue: "",
 						widgetValue: "",
 						valueNodeValue: "",
 						opened: true,
@@ -185,6 +194,7 @@ define([
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: "u",
+						popupInputNodeValue: "u",
 						widgetValue: "u",
 						valueNodeValue: "u",
 						opened: true,
@@ -233,7 +243,7 @@ define([
 			.end();
 	};
 
-	var checkSingleSelection = function (remote, comboId) {
+	var checkSingleSelection = function (remote, comboId, autoFilter) {
 		var executeExpr = "return getComboState(\"" + comboId + "\");";
 		return loadFile(remote, "./ComboPopup.html")
 			.findById(comboId)
@@ -244,6 +254,7 @@ define([
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: "France",
+						popupInputNodeValue: "", // popup closed
 						widgetValue: "France",
 						valueNodeValue: "France",
 						opened: false,
@@ -266,6 +277,7 @@ define([
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: "France",
+						popupInputNodeValue: autoFilter ? "France" : "",
 						widgetValue: "France",
 						valueNodeValue: "France",
 						opened: true,
@@ -289,6 +301,7 @@ define([
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: "Germany",
+						popupInputNodeValue: "", // popup closed
 						widgetValue: "Germany",
 						valueNodeValue: "Germany",
 						opened: false,
@@ -316,6 +329,7 @@ define([
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
+						popupInputNodeValue: "", // invisible!
 						widgetValue: [],
 						valueNodeValue: "",
 						opened: false,
@@ -338,6 +352,7 @@ define([
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
+						popupInputNodeValue: "", // invisible
 						widgetValue: [],
 						valueNodeValue: "",
 						opened: true,
@@ -360,6 +375,7 @@ define([
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: "Germany",
+						popupInputNodeValue: "", // invisible
 						widgetValue: ["Germany"],
 						valueNodeValue: "Germany",
 						opened: true,
@@ -382,6 +398,7 @@ define([
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
+						popupInputNodeValue: "", // invisible
 						widgetValue: ["China", "Germany"],
 						valueNodeValue: "China,Germany",
 						opened: true,
@@ -404,6 +421,7 @@ define([
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
+						popupInputNodeValue: "", // invisible
 						widgetValue: ["China", "Germany"],
 						valueNodeValue: "China,Germany",
 						opened: false,
@@ -594,53 +612,436 @@ define([
 			});
 	};
 
+	var checkAutoCompleteFilteringWithThreeFilterChars = function (remote, comboId) {
+		var executeExpr = "return getComboState(\"" + comboId + "\");";
+		return loadFile(remote, "./ComboPopup.html")
+			.findById(comboId)
+			.execute(executeExpr)
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "",
+						popupInputNodeValue: "",
+						widgetValue: "",
+						valueNodeValue: "",
+						opened: false,
+						selectedItemsCount: 0,
+						itemRenderersCount: 37,
+						inputEventCounter: 0,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: undefined, // never received
+						valueNodeValueAtLatestInputEvent: undefined,
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "right after load");
+			})
+			.click()
+			.sleep(250)
+			.end()
+			.execute(executeExpr) // when the popup opens, focus goes into the inputNode.
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "",
+						popupInputNodeValue: "",
+						widgetValue: "",
+						valueNodeValue: "",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 37,
+						inputEventCounter: 0,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: undefined, // never received
+						valueNodeValueAtLatestInputEvent: undefined,
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after click on root node");
+			})
+			.findByCssSelector("#" + comboId + "_dropdown")
+			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
+			.pressKeys("j")
+			.sleep(100)
+			.execute(executeExpr)
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "j",
+						popupInputNodeValue: "j",
+						widgetValue: "j",
+						valueNodeValue: "j",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 37,
+						inputEventCounter: 1,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: "j",
+						valueNodeValueAtLatestInputEvent: "j",
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after typing `j` - no query run yet.");
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='false']") // list not visible
+			.then(function (list) {
+				assert.isNotNull(list, "list should be invisible at this stage.")
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
+			.pressKeys("a")
+			.sleep(100)
+			.execute(executeExpr)
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "ja",
+						popupInputNodeValue: "ja",
+						widgetValue: "ja",
+						valueNodeValue: "ja",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 37,
+						inputEventCounter: 1,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: "ja",
+						valueNodeValueAtLatestInputEvent: "ja",
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after typing `a` (ja) - no query run yet.");
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='false']") // list not visible
+			.then(function (list) {
+				assert.isNotNull(list, "list should be invisible at this stage.")
+			})
+			.end()
+			.pressKeys("p")
+			.sleep(100)
+			.execute(executeExpr)
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "jap",
+						popupInputNodeValue: "jap",
+						widgetValue: "jap",
+						valueNodeValue: "jap",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 30, // showing only `jap` matching items.
+						inputEventCounter: 1,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: "jap",
+						valueNodeValueAtLatestInputEvent: "jap",
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after typing `jap` - query did run.");
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='true']") // list visible
+			.then(function (list) {
+				assert.isNotNull(list, "list should be visible at this stage.")
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
+			.pressKeys(keys.BACKSPACE) // removing one chars, list must disappear.
+			.sleep(100)
+			.execute(executeExpr)
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "ja",
+						popupInputNodeValue: "ja",
+						widgetValue: "ja",
+						valueNodeValue: "ja",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 30, // showing only `jap` matching items.
+						inputEventCounter: 1,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: "ja",
+						valueNodeValueAtLatestInputEvent: "ja",
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after deleting `p` from `jap` - query did not run.");
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='false']") // list not visible
+			.then(function (list) {
+				assert.isNotNull(list, "list should be visible at this stage.")
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
+			.pressKeys(keys.BACKSPACE) // removing remaing two chars, list must disappear.
+			.pressKeys(keys.BACKSPACE)
+			.sleep(100)
+			.execute(executeExpr)
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "",
+						popupInputNodeValue: "",
+						widgetValue: "",
+						valueNodeValue: "",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 30, // showing only `jap` matching items.
+						inputEventCounter: 2,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: "",
+						valueNodeValueAtLatestInputEvent: "",
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after deleting `ja` from the inputNode - query did not run.");
+			})
+			.isDisplayed() // check if popup is still visible.
+			.then(function (isVisible) {
+				assert.isTrue(isVisible, "popup must be visible at this stage.")
+			})
+			.end()
+	};
+	var checkAutoCompleteFilteringWithZeroFilterChars = function (remote, comboId) {
+		var executeExpr = "return getComboState(\"" + comboId + "\");";
+		return loadFile(remote, "./ComboPopup.html")
+			.findById(comboId)
+			.execute(executeExpr)
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "",
+						popupInputNodeValue: "",
+						widgetValue: "",
+						valueNodeValue: "",
+						opened: false,
+						selectedItemsCount: 0,
+						itemRenderersCount: 37,
+						inputEventCounter: 0,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: undefined, // never received
+						valueNodeValueAtLatestInputEvent: undefined,
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "right after load");
+			})
+			.click()
+			.sleep(250)
+			.end()
+			.execute(executeExpr) // when the popup opens, focus goes into the inputNode.
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "",
+						popupInputNodeValue: "",
+						widgetValue: "",
+						valueNodeValue: "",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 37,
+						inputEventCounter: 0,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: undefined, // never received
+						valueNodeValueAtLatestInputEvent: undefined,
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after click on root node");
+			})
+			.findByCssSelector("#" + comboId + "_dropdown")
+			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
+			.pressKeys("j")
+			.sleep(250)
+			.execute(executeExpr)
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "j",
+						popupInputNodeValue: "j",
+						widgetValue: "j",
+						valueNodeValue: "j",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 30,
+						inputEventCounter: 1,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: "j",
+						valueNodeValueAtLatestInputEvent: "j",
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after typing `j` - query did run.");
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='true']") // list visible
+			.then(function (list) {
+				assert.isNotNull(list, "list should be invisible at this stage.")
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
+			.pressKeys("a")
+			.sleep(250)
+			.execute(executeExpr)
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "ja",
+						popupInputNodeValue: "ja",
+						widgetValue: "ja",
+						valueNodeValue: "ja",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 30,
+						inputEventCounter: 1,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: "ja",
+						valueNodeValueAtLatestInputEvent: "ja",
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after typing `a` (ja) - no query run yet.");
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='true']") // list visible
+			.then(function (list) {
+				assert.isNotNull(list, "list should be invisible at this stage.")
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
+			.pressKeys(keys.BACKSPACE) // removing two chars, list must disappear.
+			.pressKeys(keys.BACKSPACE)
+			.sleep(250)
+			.execute(executeExpr)
+			.then(function (comboState) {
+				// Clicking the root node just opens the dropdown. No other state change.
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "",
+						popupInputNodeValue: "",
+						widgetValue: "",
+						valueNodeValue: "",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 30,
+						inputEventCounter: 2,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: "",
+						valueNodeValueAtLatestInputEvent: "",
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after deleting `ja` from the inputNode - query did not run.");
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='false']") // list not visible
+			.then(function (list) {
+				assert.isNotNull(list, "list should be visible at this stage.")
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
+			.pressKeys("g") // 'Germany' item visibile, list must show.
+			.sleep(100)
+			.execute(executeExpr)
+			.then(function (comboState) {
+				// Clicking the root node just opens the dropdown. No other state change.
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "g",
+						popupInputNodeValue: "g",
+						widgetValue: "g",
+						valueNodeValue: "g",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 1, // showing only `g` matching items.
+						inputEventCounter: 1,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: "g",
+						valueNodeValueAtLatestInputEvent: "g",
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after typing `g` from the inputNode - query did run.");
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='true']") // list visible
+			.then(function (list) {
+				assert.isNotNull(list, "list should be visible at this stage.")
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
+			.pressKeys(keys.BACKSPACE) // removing two chars, list must disappear.
+			.sleep(250)
+			.execute(executeExpr)
+			.then(function (comboState) {
+				// Clicking the root node just opens the dropdown. No other state change.
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "",
+						popupInputNodeValue: "",
+						widgetValue: "",
+						valueNodeValue: "",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 1,
+						inputEventCounter: 1,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: "",
+						valueNodeValueAtLatestInputEvent: "",
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after deleting `g` from the inputNode - query did not run.");
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='false']") // list not visible
+			.then(function (list) {
+				assert.isNotNull(list, "list should be visible at this stage.")
+			})
+			.end()
+			.isDisplayed() // check if popup is still visible.
+			.then(function (isVisible) {
+				assert.isTrue(isVisible, "popup must be visible at this stage.")
+			})
+			.end()
+	};
+
 	registerSuite({
 		name: "ComboPopup - functional",
 
-		// "list in popup (combo1)": function () {
-		// 	var remote = this.remote;
+		"list in popup (combo1)": function () {
+			var remote = this.remote;
 
-		// 	if (remote.environmentType.browserName === "internet explorer") {
-		// 		// https://github.com/theintern/leadfoot/issues/17
-		// 		return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
-		// 	}
-		// 	if (remote.environmentType.platformName === "iOS") {
-		// 		// https://github.com/theintern/leadfoot/issues/61
-		// 		return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
-		// 	}
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/17
+				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
+			}
+			if (remote.environmentType.platformName === "iOS") {
+				// https://github.com/theintern/leadfoot/issues/61
+				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
+			}
 
-		// 	return checkListInPopup(remote, "combo1", false, false);
-		// },
+			return checkListInPopup(remote, "combo1", false, false);
+		},
 
-		// "list in popup (combo2)": function () {
-		// 	var remote = this.remote;
+		"list in popup (combo2)": function () {
+			var remote = this.remote;
 
-		// 	if (remote.environmentType.browserName === "internet explorer") {
-		// 		// https://github.com/theintern/leadfoot/issues/17
-		// 		return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
-		// 	}
-		// 	if (remote.environmentType.platformName === "iOS") {
-		// 		// https://github.com/theintern/leadfoot/issues/61
-		// 		return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
-		// 	}
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/17
+				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
+			}
+			if (remote.environmentType.platformName === "iOS") {
+				// https://github.com/theintern/leadfoot/issues/61
+				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
+			}
 
-		// 	return checkListInPopup(remote, "combo2", true, false);
-		// },
+			return checkListInPopup(remote, "combo2", true, false);
+		},
 
-		// "list in popup (combo3)": function () {
-		// 	var remote = this.remote;
+		"list in popup (combo3)": function () {
+			var remote = this.remote;
 
-		// 	if (remote.environmentType.browserName === "internet explorer") {
-		// 		// https://github.com/theintern/leadfoot/issues/17
-		// 		return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
-		// 	}
-		// 	if (remote.environmentType.platformName === "iOS") {
-		// 		// https://github.com/theintern/leadfoot/issues/61
-		// 		return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
-		// 	}
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/17
+				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
+			}
+			if (remote.environmentType.platformName === "iOS") {
+				// https://github.com/theintern/leadfoot/issues/61
+				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
+			}
 
-		// 	return checkListInPopup(remote, "combo3", false, true);
-		// },
+			return checkListInPopup(remote, "combo3", false, true);
+		},
 
 		"filtering (combo2)": function () {
 			var remote = this.remote;
@@ -669,7 +1070,7 @@ define([
 				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
 			}
 
-			return checkSingleSelection(remote, "combo1");
+			return checkSingleSelection(remote, "combo1", false);
 		},
 
 		"single selection (combo2)": function () {
@@ -684,7 +1085,7 @@ define([
 				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
 			}
 
-			return checkSingleSelection(remote, "combo2");
+			return checkSingleSelection(remote, "combo2", true);
 		},
 
 		"multi selection selection (combo3)": function () {
@@ -763,6 +1164,38 @@ define([
 			}
 
 			return checkFocus(remote, "combo2", true);
+		},
+
+		"autocomplete filtering - minFilterChars = 3 (combo4)": function () {
+			var remote = this.remote;
+
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/17
+				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
+			}
+			if (remote.environmentType.platformName === "iOS" || remote.environmentType.safari ||
+				remote.environmentType.browserName === "safari" || remote.environmentType.brokenSendKeys ||
+				!remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support - brokenSendKeys");
+			}
+
+			return checkAutoCompleteFilteringWithThreeFilterChars(remote, "combo4");
+		},
+
+		"autocomplete filtering - minFilterChars = 0 (combo5)": function () {
+						var remote = this.remote;
+
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/17
+				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
+			}
+			if (remote.environmentType.platformName === "iOS" || remote.environmentType.safari ||
+				remote.environmentType.browserName === "safari" || remote.environmentType.brokenSendKeys ||
+				!remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support - brokenSendKeys");
+			}
+
+			return checkAutoCompleteFilteringWithZeroFilterChars(remote, "combo5");
 		}
 	});
 });
