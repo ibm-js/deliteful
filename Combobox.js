@@ -669,8 +669,11 @@ define([
 				// inputNode does not contain text
 				if (!this.hasDownArrow) {
 					// in auto complete mode
-					this.closeDropDown();
-					this._toggleComboPopupList();
+					if (this._isMobile) {
+						this._toggleComboPopupList();
+					} else {
+						this.closeDropDown();
+					}
 					return false;
 				}
 			}
