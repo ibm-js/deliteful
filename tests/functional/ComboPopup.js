@@ -117,6 +117,18 @@ define([
 					}, "after click on root node");
 			})
 			.findByCssSelector(".d-combo-popup .d-linear-layout .d-combobox-input[d-hidden='false']")
+			.pressKeys(keys.BACKSPACE) // Delete the 6 chars of "France"
+			.sleep(100)
+			.pressKeys(keys.BACKSPACE)
+			.sleep(100)
+			.pressKeys(keys.BACKSPACE)
+			.sleep(100)
+			.pressKeys(keys.BACKSPACE)
+			.sleep(100)
+			.pressKeys(keys.BACKSPACE)
+			.sleep(100)
+			.pressKeys(keys.BACKSPACE)
+			.sleep(100)
 			.type("j")
 			.type("a")
 			.type("p")
@@ -132,7 +144,7 @@ define([
 						opened: true,
 						selectedItemsCount: 0,
 						itemRenderersCount: 30,
-						inputEventCounter: 3, // typed "jap"
+						inputEventCounter: 9, // removed "france" and typed "jap"
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: "jap",
 						valueNodeValueAtLatestInputEvent: "jap",
@@ -585,50 +597,50 @@ define([
 	registerSuite({
 		name: "ComboPopup - functional",
 
-		"list in popup (combo1)": function () {
-			var remote = this.remote;
+		// "list in popup (combo1)": function () {
+		// 	var remote = this.remote;
 
-			if (remote.environmentType.browserName === "internet explorer") {
-				// https://github.com/theintern/leadfoot/issues/17
-				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
-			}
-			if (remote.environmentType.platformName === "iOS") {
-				// https://github.com/theintern/leadfoot/issues/61
-				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
-			}
+		// 	if (remote.environmentType.browserName === "internet explorer") {
+		// 		// https://github.com/theintern/leadfoot/issues/17
+		// 		return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
+		// 	}
+		// 	if (remote.environmentType.platformName === "iOS") {
+		// 		// https://github.com/theintern/leadfoot/issues/61
+		// 		return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
+		// 	}
 
-			return checkListInPopup(remote, "combo1", false, false);
-		},
+		// 	return checkListInPopup(remote, "combo1", false, false);
+		// },
 
-		"list in popup (combo2)": function () {
-			var remote = this.remote;
+		// "list in popup (combo2)": function () {
+		// 	var remote = this.remote;
 
-			if (remote.environmentType.browserName === "internet explorer") {
-				// https://github.com/theintern/leadfoot/issues/17
-				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
-			}
-			if (remote.environmentType.platformName === "iOS") {
-				// https://github.com/theintern/leadfoot/issues/61
-				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
-			}
+		// 	if (remote.environmentType.browserName === "internet explorer") {
+		// 		// https://github.com/theintern/leadfoot/issues/17
+		// 		return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
+		// 	}
+		// 	if (remote.environmentType.platformName === "iOS") {
+		// 		// https://github.com/theintern/leadfoot/issues/61
+		// 		return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
+		// 	}
 
-			return checkListInPopup(remote, "combo2", true, false);
-		},
+		// 	return checkListInPopup(remote, "combo2", true, false);
+		// },
 
-		"list in popup (combo3)": function () {
-			var remote = this.remote;
+		// "list in popup (combo3)": function () {
+		// 	var remote = this.remote;
 
-			if (remote.environmentType.browserName === "internet explorer") {
-				// https://github.com/theintern/leadfoot/issues/17
-				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
-			}
-			if (remote.environmentType.platformName === "iOS") {
-				// https://github.com/theintern/leadfoot/issues/61
-				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
-			}
+		// 	if (remote.environmentType.browserName === "internet explorer") {
+		// 		// https://github.com/theintern/leadfoot/issues/17
+		// 		return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
+		// 	}
+		// 	if (remote.environmentType.platformName === "iOS") {
+		// 		// https://github.com/theintern/leadfoot/issues/61
+		// 		return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
+		// 	}
 
-			return checkListInPopup(remote, "combo3", false, true);
-		},
+		// 	return checkListInPopup(remote, "combo3", false, true);
+		// },
 
 		"filtering (combo2)": function () {
 			var remote = this.remote;

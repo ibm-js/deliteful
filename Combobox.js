@@ -684,8 +684,9 @@ define([
 		 * Toggles the list's visibility when ComboPopup is used (so in mobile)
 		 */
 		_toggleComboPopupList: function () {
-			if (this._useCenteredDropDown()) {
-				this.list.setAttribute("d-shown", "" + this.inputNode.value.length >= this.minFilterChars);
+			if (this._isMobile) {
+				this.list.setAttribute("d-shown",
+					"" + this.dropDown.inputNode.value.length >= this.minFilterChars);
 				this.list.emit("delite-size-change");
 			}
 		},
@@ -972,6 +973,12 @@ define([
 						// mobile version
 						if (!this.hasDownArrow) {
 							this._toggleComboPopupList();
+						} else {
+							// INFO: display into the popup inputNode any pre-selected item,
+							// only if the inputNode is visible, though.
+							if (!this._inputReadOnly) {
+								this.dropDown.inputNode.value = this.displayedValue;
+							}
 						}
 						this.dropDown.focus();
 					}
