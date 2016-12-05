@@ -236,7 +236,7 @@ define(["intern",
 					.execute("return document.activeElement.getAttribute('id');")
 					.then(function (value) {
 						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel3");
-					})
+					});
 			},
 			"Arrow keys - cyclic": function () {
 				var remote = this.remote;
@@ -264,7 +264,7 @@ define(["intern",
 					.execute("return document.activeElement.getAttribute('id');")
 					.then(function (value) {
 						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel3");
-					})
+					});
 			}
 		},
 
