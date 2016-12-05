@@ -144,6 +144,12 @@
 				};
 			};
 
+			getNavigatedDescendant = function (comboId) {
+				var combo = document.getElementById(comboId);
+				return combo.list && combo.list.navigatedDescendant
+					&& combo.list.navigatedDescendant.textContent.trim();
+			};
+
 			isAligned = function (comboId, pos) {
 				var combo = document.getElementById(comboId);
 				var popup = document.getElementById(comboId +  "_dropdown_wrapper");

@@ -1033,6 +1033,9 @@ define([
 			// Since List is in focus-less mode, it does not give focus to
 			// navigated items, thus the browser does not autoscroll.
 			// TODO: see deliteful #498
+			if (!item) {
+				item = this.list.navigatedDescendant;
+			}
 
 			if (!item) {
 				var selectedItems = this.list.selectedItems;

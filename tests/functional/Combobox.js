@@ -857,6 +857,151 @@ define([
 			.execute(comboId + ".closeDropDown();");
 	};
 
+	var checkNavigatedDescendantNoSelection = function (remote, comboId) {
+		var executeExpr = "return getNavigatedDescendant(\"" + comboId + "\");";
+		return loadFile(remote, "./Combobox-decl.html")
+			.execute(comboId + ".focus();")
+			.pressKeys(keys.ARROW_DOWN)
+			.sleep(500)
+			.execute(executeExpr)
+			.then(function (navigatedDescendant) {
+				assert.isNull(navigatedDescendant, "navigatedDescendant should be still null.");
+			})
+			.pressKeys(keys.ARROW_DOWN)
+			.sleep(500)
+			.execute(executeExpr)
+			.then(function (navigatedDescendant) {
+				assert(/^France/.test(navigatedDescendant),
+					"navigatedDescendant after first ARROW_DOWN: " + navigatedDescendant);
+			})
+			.pressKeys(keys.ARROW_DOWN)
+			.pressKeys(keys.ARROW_DOWN)
+			.pressKeys(keys.ARROW_DOWN)
+			.pressKeys(keys.ARROW_DOWN) // focus on Cananda
+			.sleep(500)
+			.execute(executeExpr)
+			.then(function (navigatedDescendant) {
+				assert(/^Canada/.test(navigatedDescendant),
+					"navigatedDescendant after forth ARROW_DOWN: " + navigatedDescendant);
+			})
+			.pressKeys(keys.ESCAPE)
+			.sleep(500) // wait for async closing
+			.execute(executeExpr)
+			.then(function (navigatedDescendant) {
+				// note: even if the popup it's closed, list should maintain its navigatedDescendant set.
+				assert(/^Canada/.test(navigatedDescendant),
+					"navigatedDescendant after closing the popup: " + navigatedDescendant);
+			})
+			.pressKeys(keys.ARROW_DOWN)
+			.sleep(500) // wait for async opening
+			.execute(executeExpr)
+			.then(function (navigatedDescendant) {
+				assert(/^Canada/.test(navigatedDescendant),
+					"navigatedDescendant after opening the popup: " + navigatedDescendant);
+			})
+			.pressKeys(keys.ARROW_DOWN)
+			.pressKeys(keys.ARROW_DOWN) // focus on Cananda
+			.sleep(500)
+			.execute(executeExpr)
+			.then(function (navigatedDescendant) {
+				assert(/^China/.test(navigatedDescendant),
+					"navigatedDescendant after two ARROW_DOWN: " + navigatedDescendant);
+			});
+	};
+
+	var checkNavigatedDescendantWithSelection = function (remote, comboId) {
+		var executeExpr = "return getNavigatedDescendant(\"" + comboId + "\");";
+		return loadFile(remote, "./Combobox-decl.html")
+			.execute(comboId + ".focus();")
+			.pressKeys(keys.ARROW_DOWN)
+			.sleep(500)
+			.execute(executeExpr)
+			.then(function (navigatedDescendant) {
+				assert.isNull(navigatedDescendant, "navigatedDescendant should be still null.");
+			})
+			.pressKeys(keys.ARROW_DOWN)
+			.sleep(500)
+			.execute(executeExpr)
+			.then(function (navigatedDescendant) {
+				assert(/^France/.test(navigatedDescendant),
+					"navigatedDescendant after first ARROW_DOWN: " + navigatedDescendant);
+			})
+			.pressKeys(keys.ARROW_DOWN)
+			.pressKeys(keys.ARROW_DOWN)
+			.findById(comboId + "_item2")
+			.click() // UK selected
+			.end()
+			.sleep(500)
+			.execute(executeExpr)
+			.then(function (navigatedDescendant) {
+				assert(/^UK/.test(navigatedDescendant),
+					"navigatedDescendant after two ARROW_DOWN: " + navigatedDescendant);
+			})
+			.pressKeys(keys.ARROW_DOWN)
+			.pressKeys(keys.ARROW_DOWN)
+			.sleep(500)
+			.execute(executeExpr)
+			.then(function (navigatedDescendant) {
+				assert(/^Canada/.test(navigatedDescendant),
+					"navigatedDescendant after other two ARROW_DOWN: " + navigatedDescendant);
+			})
+			.pressKeys(keys.ESCAPE)
+			.sleep(500) // wait for async closing
+			.execute(executeExpr)
+			.then(function (navigatedDescendant) {
+				// note: even if the popup it's closed, list should maintain its navigatedDescendant set.
+				assert(/^Canada/.test(navigatedDescendant),
+					"navigatedDescendant after closing the popup: " + navigatedDescendant);
+			})
+			.pressKeys(keys.ARROW_DOWN)
+			.sleep(500) // wait for async opening
+			.execute(executeExpr)
+			.then(function (navigatedDescendant) {
+				// note: on opening, the widget does focus on the navigated descendant
+				assert(/^Canada/.test(navigatedDescendant),
+					"navigatedDescendant after opening the popup: " + navigatedDescendant);
+			})
+			.pressKeys(keys.ARROW_DOWN)
+			.pressKeys(keys.ARROW_DOWN) // focus on Cananda
+			.sleep(500)
+			.execute(executeExpr)
+			.then(function (navigatedDescendant) {
+				assert(/^China/.test(navigatedDescendant),
+					"navigatedDescendant after two ARROW_DOWN: " + navigatedDescendant);
+			})
+	};
+
+	var checkNavigatedDescendantWithPreSelection = function (remote, comboId) {
+		var executeExpr = "return getNavigatedDescendant(\"" + comboId + "\");";
+		return loadFile(remote, "./Combobox-decl.html")
+			.execute("document.getElementById(\"" + comboId + "\").focus();")
+			.pressKeys(keys.ARROW_DOWN)
+			.sleep(500)
+			.execute(executeExpr)
+			.then(function (navigatedDescendant) {
+				// note: Germany is preselected.
+				assert(/^Germany/.test(navigatedDescendant),
+					"navigatedDescendant after first ARROW_DOWN: " + navigatedDescendant);
+			})
+			.pressKeys(keys.ARROW_DOWN)
+			.sleep(500)
+			.execute(executeExpr)
+			.then(function (navigatedDescendant) {
+				assert(/^UK/.test(navigatedDescendant),
+					"navigatedDescendant after second ARROW_DOWN: " + navigatedDescendant);
+			})
+			.pressKeys(keys.ESCAPE)
+			.sleep(500) // wait for async closing
+			.pressKeys(keys.ARROW_DOWN)
+			.sleep(500) // wait for async opening
+			.execute(executeExpr)
+			.then(function (navigatedDescendant) {
+				// note: on opening, the widget does focus on the navigated descendant
+				assert(/^UK/.test(navigatedDescendant),
+					"navigatedDescendant after opening the popup: " + navigatedDescendant);
+			})
+	};
+
 	var checkPopupPosition = function (remote, comboId, position) {
 		return loadFile(remote, "./Combobox-decl.html")
 			.execute("return moveToBottom(\"" + comboId + "\");")
@@ -1189,6 +1334,30 @@ define([
 				return this.skip("no keyboard support");
 			}
 			return checkKeyboardNavigationAutoscroll(remote, "combo3");
+		},
+
+		"check navigatedDescendant (no selection)": function () {
+			var remote = this.remote;
+			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support");
+			}
+			return checkNavigatedDescendantNoSelection(remote, "combo3");
+		},
+
+		"check navigatedDescendant (with selection)": function () {
+			var remote = this.remote;
+			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support");
+			}
+			return checkNavigatedDescendantWithSelection(remote, "combo3");
+		},
+
+		"check navigatedDescendant (with pre-selection)": function () {
+			var remote = this.remote;
+			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support");
+			}
+			return checkNavigatedDescendantWithPreSelection(remote, "combo2-custom-sel-multiple");
 		},
 
 		"mouse navigation selectionMode=single, autoFilter=false": function () {
