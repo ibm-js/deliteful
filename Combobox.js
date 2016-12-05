@@ -539,6 +539,8 @@ define([
 								}
 							}.bind(this), 100); // worth exposing a property for the delay?
 						}
+					} else {
+						this.focusNode.focus(); // put the focus back to the inputNode.
 					}
 				}.bind(this)),
 
