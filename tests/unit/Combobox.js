@@ -612,6 +612,43 @@ define([
 			return d;
 		},
 
+		"inputNode: aria-expanded attribute on open/close popup": function () {
+			var combo = new Combobox({labelAttr: "name"});
+			var dataSource = new Memory(
+				{idProperty: "name",
+					data: [
+					{ name: "Japan", sales: 900, profit: 100, region: "Asia" },
+					{ name: "France", sales: 500, profit: 50, region: "EU" },
+					{ name: "Germany", sales: 450, profit: 48, region: "EU" },
+					{ name: "UK", sales: 700, profit: 60, region: "EU" },
+					{ name: "USA", sales: 2000, profit: 250, region: "America" },
+					{ name: "Canada", sales: 600, profit: 30, region: "America" },
+					{ name: "Brazil", sales: 450, profit: 30, region: "America" },
+					{ name: "China", sales: 500, profit: 40, region: "Asia" }
+				]});
+			combo.source = dataSource;
+			container.appendChild(combo);
+			combo.attachedCallback();
+			combo.deliver();
+
+			var d = this.async(2000);
+			console.log(combo.inputNode);
+			assert.strictEqual(combo.inputNode.getAttribute("aria-expanded"), "false",
+				"aria-expanded - popup is closed: " + combo.id);
+
+			combo.openDropDown().then(d.rejectOnError(function () {
+				assert.strictEqual(combo.inputNode.getAttribute("aria-expanded"), "true",
+				"aria-expanded - popup is open: " + combo.id);
+				combo.closeDropDown();
+				setTimeout(d.callback(function () {
+					assert.strictEqual(combo.inputNode.getAttribute("aria-expanded"), "false",
+					"aria-expanded - popup is closed: " + combo.id);
+				}), 200);
+			}));
+
+			return d;
+		},
+
 		// Test case for #509: initialization of Combobox after List rendering is ready.
 		// "initialization with List rendering after Combobox initialization": function () {
 		// 	var combo = new Combobox(); // single selection mode

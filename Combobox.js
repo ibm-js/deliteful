@@ -984,6 +984,7 @@ define([
 						}
 						this.dropDown.focus();
 					}
+
 				}.bind(this));
 			};
 		}),
