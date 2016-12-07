@@ -31,7 +31,7 @@
   opacity: 0.5;
   cursor: auto;
 }
-.d-rtl .d-combobox-arrow {
+.d-combobox.d-rtl .d-combobox-arrow {
   left: 0;
   right: auto;
 }
@@ -63,7 +63,7 @@
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
-.d-rtl .d-combobox-input {
+.d-combobox.d-rtl .d-combobox-input {
   padding: 6px 12px 6px 34px;
 }
 .d-combobox-input[disabled],
