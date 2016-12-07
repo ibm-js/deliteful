@@ -17,23 +17,23 @@
 	padding: (@padding-base-vertical + @d-combobox-border-size) @padding-base-horizontal;
 
 	&::after {
-		font-size: unit(@d-combobox-arrow-width / @font-size-base) * 1em;
+		font-size: @d-combobox-arrow-width;
 	}
 }
 
-.d-combobox-arrow-styles-rtl() {
-	left: 1em;
-	/* restore default */
-	right: auto;
-}
-
 .d-combobox-input-styles() {
-	padding: @padding-base-vertical ((@padding-base-horizontal * 2) + @d-combobox-arrow-width) @padding-base-vertical @padding-base-horizontal;
+	@arrow-width: ((@padding-base-horizontal * 2) + @d-combobox-arrow-width);
+	padding: @padding-base-vertical @arrow-width @padding-base-vertical @padding-base-horizontal;
 	border: @d-combobox-border-size solid @input-border;
 	border-radius: @input-border-radius;
+	
 	&:focus {
 		/* defined in delite/themes/bootstrap/mixins.less */
 		.tab-focus();
+	}
+
+	.d-rtl & {
+		padding: @padding-base-vertical @padding-base-horizontal @padding-base-vertical @arrow-width;
 	}
 }
 
