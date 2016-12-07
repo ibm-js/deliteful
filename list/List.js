@@ -992,8 +992,7 @@ define([
 		},
 
 		/**
-		 * @method
-		 * Handle keydown events
+		 * Handle keydown events.
 		 * @private
 		 */
 		_keynavKeyDownHandler: dcl.before(function (evt) {
@@ -1027,15 +1026,14 @@ define([
 			}
 		},
 
-		/**
-		 * @method
-		 * Called on "delite-deactivated" event, stores a reference to the focused child.
-		 * @private
-		 */
-		_keynavDeactivatedHandler: dcl.superCall(function (sup) {
-			return function () {
-				this._previousFocusedChild = this.navigatedDescendant;
-				sup.call(this);
+		focusoutHandler: dcl.superCall(function (sup) {
+			return function (evt) {
+				// When focus moves outside of the List, save reference to previously focused child.
+				if (!this.contains(evt.relatedTarget)) {
+					this._previousFocusedChild = this.navigatedDescendant;
+				}
+
+				sup.apply(this, arguments);
 			};
 		}),
 
