@@ -9,26 +9,7 @@
 
 	.d-combobox-arrow {
 		// set cursor on the <span> rather than ::after since the ::after doesn't work on IE.
-		cursor: pointer;
-		position: absolute;
 		.d-combobox-arrow-styles;
-
-		.d-rtl & {
-			.d-combobox-arrow-styles-rtl;
-		}
-
-		&::after {
-			content: "\25BC";
-			display: inline-block;
-			padding: 0;
-			line-height: normal;
-			font-size: .7em;
-
-			.d-disabled& {
-				opacity: 0.5;
-				cursor: auto;
-			}
-		}
 	}
 }
 

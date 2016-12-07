@@ -5,6 +5,7 @@
 @import "../Combobox_template";
 
 @d-combobox-border-size: 1px;
+@d-combobox-arrow-width: 10px;
 
 .d-combobox-styles() {
 	color: @input-color;
@@ -13,12 +14,32 @@
 }
 
 .d-combobox-arrow-styles() {
+	cursor: pointer;
+	position: absolute;
 	padding: (@padding-base-vertical + @d-combobox-border-size) @padding-base-horizontal;
 	top: 0;
 	right: 0;
 	font-size: inherit;
 	text-align: center;
-	line-height: 1em;
+	line-height: normal;
+
+	&::after {
+		content: "\25BC";
+		display: inline-block;
+		padding: 0;
+		line-height: normal;
+		font-size: .7em;
+		width: @d-combobox-arrow-width;
+
+		.d-disabled& {
+			opacity: 0.5;
+			cursor: auto;
+		}
+	}
+
+	.d-rtl & {
+		.d-combobox-arrow-styles-rtl;
+	}
 }
 
 .d-combobox-arrow-styles-rtl() {
@@ -28,7 +49,7 @@
 }
 
 .d-combobox-input-styles() {
-	padding: @padding-base-vertical 1.7em @padding-base-vertical @padding-base-horizontal;
+	padding: @padding-base-vertical ((@padding-base-horizontal * 2) + @d-combobox-arrow-width) @padding-base-vertical @padding-base-horizontal;
 	border: @d-combobox-border-size solid @input-border;
 	border-radius: @input-border-radius;
 	&:focus {
