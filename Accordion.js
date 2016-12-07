@@ -533,10 +533,14 @@ define([
 			this._lastFocusedDescendant ? this.navigateTo(this._lastFocusedDescendant) : this.navigateToFirst();
 		},
 
-		_keynavDeactivatedHandler: dcl.superCall(function (sup) {
-			return function () {
-				this._lastFocusedDescendant = this.navigatedDescendant;
-				sup.call(this);
+		focusoutHandler: dcl.superCall(function (sup) {
+			return function (evt) {
+				// When focus moves outside of the Accordion, save reference to previously focused child.
+				if (!this.contains(evt.relatedTarget)) {
+					this._lastFocusedDescendant = this.navigatedDescendant;
+				}
+
+				sup.apply(this, arguments);
 			};
 		})
 	});

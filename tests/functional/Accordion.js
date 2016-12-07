@@ -238,6 +238,24 @@ define(["intern",
 						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel3");
 					});
 			},
+			"Remembering position": function () {
+				// Assumes that we start on panel3.
+				var remote = this.remote;
+				if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+					return this.skip("no keyboard support");
+				}
+				return remote
+					.execute("return document.activeElement.getAttribute('id');").then(function (value) {
+						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel3", "initial position");
+					})
+					.pressKeys(keys.TAB)
+					.pressKeys(keys.SHIFT + keys.TAB)
+					.pressKeys(keys.SHIFT)	// release shift key
+					.execute("return document.activeElement.getAttribute('id');").then(function (value) {
+						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel3",
+							"returned to previously focused");
+					});
+			},
 			"Arrow keys - cyclic": function () {
 				var remote = this.remote;
 				if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
