@@ -14,31 +14,10 @@
 }
 
 .d-combobox-arrow-styles() {
-	cursor: pointer;
-	position: absolute;
 	padding: (@padding-base-vertical + @d-combobox-border-size) @padding-base-horizontal;
-	top: 0;
-	right: 0;
-	font-size: inherit;
-	text-align: center;
-	line-height: normal;
 
 	&::after {
-		content: "\25BC";
-		display: inline-block;
-		padding: 0;
-		line-height: normal;
-		font-size: .7em;
-		width: @d-combobox-arrow-width;
-
-		.d-disabled& {
-			opacity: 0.5;
-			cursor: auto;
-		}
-	}
-
-	.d-rtl & {
-		.d-combobox-arrow-styles-rtl;
+		font-size: unit(@d-combobox-arrow-width / @font-size-base) * 1em;
 	}
 }
 
