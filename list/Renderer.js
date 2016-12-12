@@ -107,7 +107,7 @@ define([
 		},
 
 		/**
-		 * This method update the list of children of the renderer that can
+		 * This method updates the list of children of the renderer that can
 		 * be focused during keyboard navigation.
 		 * If the list of navigable children of the renderer is updated after the
 		 * render step has been executed, this method must be
@@ -137,9 +137,6 @@ define([
 			for (i = 0; i < this._focusableChildren.length; i++) {
 				var node = this._focusableChildren[i];
 				node.tabIndex = -1;
-				if (!node.id) {
-					node.id = this.id + "-cell-" + i;
-				}
 			}
 		},
 
