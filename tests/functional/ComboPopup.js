@@ -683,7 +683,7 @@ define([
 			.end()
 			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='false']") // list not visible
 			.then(function (list) {
-				assert.isNotNull(list, "list should be invisible at this stage.")
+				assert.isNotNull(list, "list should be invisible at this stage.");
 			})
 			.end()
 			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
@@ -711,7 +711,7 @@ define([
 			.end()
 			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='false']") // list not visible
 			.then(function (list) {
-				assert.isNotNull(list, "list should be invisible at this stage.")
+				assert.isNotNull(list, "list should be invisible at this stage.");
 			})
 			.end()
 			.pressKeys("p")
@@ -738,7 +738,7 @@ define([
 			.end()
 			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='true']") // list visible
 			.then(function (list) {
-				assert.isNotNull(list, "list should be visible at this stage.")
+				assert.isNotNull(list, "list should be visible at this stage.");
 			})
 			.end()
 			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
@@ -766,7 +766,7 @@ define([
 			.end()
 			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='false']") // list not visible
 			.then(function (list) {
-				assert.isNotNull(list, "list should be visible at this stage.")
+				assert.isNotNull(list, "list should be visible at this stage.");
 			})
 			.end()
 			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
@@ -794,10 +794,11 @@ define([
 			})
 			.isDisplayed() // check if popup is still visible.
 			.then(function (isVisible) {
-				assert.isTrue(isVisible, "popup must be visible at this stage.")
+				assert.isTrue(isVisible, "popup must be visible at this stage.");
 			})
-			.end()
+			.end();
 	};
+
 	var checkAutoCompleteFilteringWithZeroFilterChars = function (remote, comboId) {
 		var executeExpr = "return getComboState(\"" + comboId + "\");";
 		return loadFile(remote, "./ComboPopup.html")
@@ -869,7 +870,7 @@ define([
 			.end()
 			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='true']") // list visible
 			.then(function (list) {
-				assert.isNotNull(list, "list should be invisible at this stage.")
+				assert.isNotNull(list, "list should be invisible at this stage.");
 			})
 			.end()
 			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
@@ -897,7 +898,7 @@ define([
 			.end()
 			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='true']") // list visible
 			.then(function (list) {
-				assert.isNotNull(list, "list should be invisible at this stage.")
+				assert.isNotNull(list, "list should be visible at this stage.");
 			})
 			.end()
 			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
@@ -927,7 +928,7 @@ define([
 			.end()
 			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='false']") // list not visible
 			.then(function (list) {
-				assert.isNotNull(list, "list should be visible at this stage.")
+				assert.isNotNull(list, "list should be not visible at this stage.");
 			})
 			.end()
 			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
@@ -956,7 +957,7 @@ define([
 			.end()
 			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='true']") // list visible
 			.then(function (list) {
-				assert.isNotNull(list, "list should be visible at this stage.")
+				assert.isNotNull(list, "list should be visible at this stage.");
 			})
 			.end()
 			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
@@ -985,14 +986,14 @@ define([
 			.end()
 			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='false']") // list not visible
 			.then(function (list) {
-				assert.isNotNull(list, "list should be visible at this stage.")
+				assert.isNotNull(list, "list should be not visible at this stage.");
 			})
 			.end()
 			.isDisplayed() // check if popup is still visible.
 			.then(function (isVisible) {
-				assert.isTrue(isVisible, "popup must be visible at this stage.")
+				assert.isTrue(isVisible, "popup must be visible at this stage.");
 			})
-			.end()
+			.end();
 	};
 
 	registerSuite({
@@ -1088,7 +1089,7 @@ define([
 			return checkSingleSelection(remote, "combo2", true);
 		},
 
-		"multi selection selection (combo3)": function () {
+		"multi selection (combo3)": function () {
 			var remote = this.remote;
 
 			if (remote.environmentType.browserName === "internet explorer") {
@@ -1103,7 +1104,7 @@ define([
 			return checkMultiSelection(remote, "combo3");
 		},
 
-		"multi selection selection (combo3)": function () {
+		"multi selection cancel button (combo3)": function () {
 			var remote = this.remote;
 
 			if (remote.environmentType.browserName === "internet explorer") {
@@ -1183,7 +1184,7 @@ define([
 		},
 
 		"autocomplete filtering - minFilterChars = 0 (combo5)": function () {
-						var remote = this.remote;
+			var remote = this.remote;
 
 			if (remote.environmentType.browserName === "internet explorer") {
 				// https://github.com/theintern/leadfoot/issues/17

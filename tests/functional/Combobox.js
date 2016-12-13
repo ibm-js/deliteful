@@ -968,7 +968,7 @@ define([
 			.then(function (navigatedDescendant) {
 				assert(/^China/.test(navigatedDescendant),
 					"navigatedDescendant after two ARROW_DOWN: " + navigatedDescendant);
-			})
+			});
 	};
 
 	var checkNavigatedDescendantWithPreSelection = function (remote, comboId) {
@@ -999,7 +999,7 @@ define([
 				// note: on opening, the widget does focus on the navigated descendant
 				assert(/^UK/.test(navigatedDescendant),
 					"navigatedDescendant after opening the popup: " + navigatedDescendant);
-			})
+			});
 	};
 
 	var checkPopupPosition = function (remote, comboId, position) {
