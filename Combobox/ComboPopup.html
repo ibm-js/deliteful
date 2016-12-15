@@ -1,8 +1,9 @@
 <template role="presentation"
 	requires="deliteful/LinearLayout, deliteful/Button">
 	<d-linear-layout style="height: 100%">
-        <div class="d-combo-popup-header">{{header}}</div>
+        <div class="d-combo-popup-header" id="{{_tag}}-{{widgetId}}-header">{{header}}</div>
 		<input d-hidden="{{this.combobox._inputReadOnly}}"
+			aria-labelledby="{{_tag}}-{{widgetId}}-header"
 			attach-point="inputNode"
 			class="d-combobox-input"
 			role="combobox" autocomplete="off" autocapitalize="none" autocorrect="off"

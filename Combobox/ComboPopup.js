@@ -58,6 +58,11 @@ define([
 							.removeClass("d-hidden");
 					}
 					this.combobox._prepareInput(this.inputNode);
+					this.combobox.observe(function (oldValues) {
+						if ("opened" in oldValues) {
+							this.inputNode.setAttribute("aria-expanded", this.combobox.opened);
+						}
+					}.bind(this));
 				}
 			}
 		},
