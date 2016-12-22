@@ -528,21 +528,17 @@ define([
 			this.activatePanel(focusedHeader.panel);
 		},
 
-		_lastFocusedDescendant: null,
-
 		focus: function () {
-			this._lastFocusedDescendant ? this.navigateTo(this._lastFocusedDescendant) : this.navigateToFirst();
-		},
-
-		focusoutHandler: dcl.superCall(function (sup) {
-			return function (evt) {
-				// When focus moves outside of the Accordion, save reference to previously focused child.
-				if (!this.contains(evt.relatedTarget)) {
-					this._lastFocusedDescendant = this.navigatedDescendant;
+			// Navigate to the header for the first open panel, or if no open panels, then the first header.
+			var header = this.children[0];
+			for (var i = 0; i < this.children.length; i++) {
+				if (this.children[i].open) {
+					header = this.children[i];
+					break;
 				}
+			}
 
-				sup.apply(this, arguments);
-			};
-		})
+			this.navigateTo(header);
+		}
 	});
 });
