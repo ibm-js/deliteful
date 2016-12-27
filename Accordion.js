@@ -204,9 +204,10 @@ define([
 		},
 
 		_setupNonUpgradedChild: function (panel) {
+			var attachListener;
 			panel.accordion = this;
-			panel.addEventListener("customelement-attached", this._attachedlistener = function () {
-				this.removeEventListener("customelement-attached", this.accordion._attachedlistener);
+			panel.addEventListener("customelement-attached", attachListener = function () {
+				this.removeEventListener("customelement-attached", attachListener);
 				this.accordion._panelList.push(this.accordion._setupUpgradedChild(this));
 			}.bind(panel));
 		},
