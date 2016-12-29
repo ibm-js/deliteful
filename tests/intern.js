@@ -14,7 +14,7 @@ define({
 		// does not default to the latest version of the browser.
 
 		// Mobile
-		{ browserName: "iphone", platform: "OS X 10.10", version: "9.0", deviceName: "iPad Retina", name: "deliteful" },
+		{ browserName: "iphone", platform: "OS X 10.10", version: "9.3", deviceName: "iPad Retina", name: "deliteful" },
 
 		// Desktop.
 		{ browserName: "internet explorer", version: "11", platform: "Windows 8.1", requireWindowFocus: "true",
@@ -36,10 +36,10 @@ define({
 	// Maximum duration of a test, in milliseconds
 	defaultTimeout: 300000, // 5 minutes
 
-	// Maximum time to wait for someting (pollUntil, etc...)
+	// Maximum time to wait for something (pollUntil, etc...)
 	WAIT_TIMEOUT: 180000, // 3 minutes
 
-	// Interval between two polling request, in milliseconds (for pollUntil)
+	// Interval between two polling requests, in milliseconds (for pollUntil)
 	POLL_INTERVAL: 500, // 0.5 seconds
 
 	basePath: "..",
