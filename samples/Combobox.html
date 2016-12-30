@@ -13,13 +13,15 @@
 
 	<script type="text/javascript">
 		require.config({
-			baseUrl: "../.."
+			baseUrl: "../..",
+			waitSeconds: 60 // for debugging...
 		});
 	</script>
 
 	<script type="text/javascript">
 		require([
 			"requirejs-dplugins/jquery!event",
+			"dstore/Memory",
 			"deliteful/list/List",
 			"deliteful/tests/functional/SlowStore",
 			"deliteful/Combobox",
@@ -28,7 +30,7 @@
 			"deliteful/Checkbox",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function ($, List, SlowStore, Combobox) {
+		], function ($, Memory, List, SlowStore, Combobox) {
 
 			startsWith.on("change", function () {
 				comboTeams.filterMode = "startsWith";
@@ -94,6 +96,17 @@
 			};
 			container.appendChild(comboTeamsAutoComplete);
 
+			var comboEmptyStore = new Combobox({
+				id: "comboEmptyStore",
+				selectionMode: "single",
+				autoFilter: true,
+				hasDownArrow: true,
+				list: new List({showNoItems: true}),
+				source: new Memory()
+			});
+
+			document.getElementById("comboEmptyStoreContainer").appendChild(comboEmptyStore);
+
 			document.body.style.display = "";
 		});
 	</script>
@@ -111,7 +124,7 @@
 	<br/><br/>
 	<p>
 		<label for="comboTeams-input">Your favorite team (single choice):</label><br/>
-		<span>[options: default; displayedValue:"Italy" (value: Italy)]</span>
+		<span>[options: default; value: Italy]</span>
 	</p>
 	<d-combobox selectionMode="single" autoFilter="true" id="comboTeams" value="Italy">
 		<d-list righttextAttr="world-cup-victories" categoryAttr="region" showNoItems="true">
@@ -170,7 +183,7 @@
 
 	<p>
 	<label for="comboTeams3-input">Your favorite team (single choice):</label><br/>
-	<span>[options: hasDownArrow=false, filterDelay=750ms, minFilterChars=0]</span>
+	<span>[options: hasDownArrow=true, filterDelay=750ms, minFilterChars=0]</span>
 	</p>
 	<d-combobox selectionMode="single" autoFilter="true" id="comboTeams3" hasDownArrow="true" filterDelay="750" minFilterChars="0">
 		<d-list righttextAttr="world-cup-victories" categoryAttr="region" showNoItems="true">
@@ -219,7 +232,7 @@
 	</d-combobox>
 
 	<p>
-	<label for="comboPlayersWithValuesDecl-input">Your favorite players (multiple choice - declaratively ):</label>
+	<label for="comboPlayersWithValuesDecl-input">Your favorite players (multiple choice - declaratively):</label>
 	<br/>Pre-set values = Hagi, Buffon
 	</p>
 	<d-combobox selectionMode="multiple" id="comboPlayersWithValuesDecl" value="Hagi,Buffon">
@@ -233,6 +246,11 @@
 	</d-combobox>
 
 	<p>
+	<label for="comboEmptyStoreContainer-input">Combobox with an empty store</label>
+	<br/>
+	<div id="comboEmptyStoreContainer"></div>
+
+	<p>
 	<button is="d-button" onclick="showResults()">Done</button>
 	</p>
 	<br/><br/>
@@ -242,6 +260,7 @@
 	<span>[hasDropDown:false, source: SlowStore, filterDelay:500ms]</span>
 	</p>
 	<div id="comboTeamsAutoCompleteContainer"></div>
+
 	<br/>
 </body>
 </html>

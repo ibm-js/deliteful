@@ -203,6 +203,7 @@ define([
 		assert.strictEqual(combo.baseClass, outerCSS, "combo.baseClass");
 		assert.strictEqual(combo.filterMode, "startsWith", "combo.filterMode");
 		assert.isTrue(combo.ignoreCase, "combo.ignoreCase");
+		assert.strictEqual(combo.inputNode.placeholder, "Search", combo.inputNode.placeholder);
 	};
 
 	var CommonTestCases = {
@@ -605,6 +606,106 @@ define([
 								"not ['Canada', 'USA'], as defined in the custom myValue field " +
 								"of the data item");
 					}), delay);
+				}), delay);
+			}));
+
+			return d;
+		},
+
+		"widget.inputNode aria-expanded attribute on open/close popup": function () {
+			var combo = new Combobox({labelAttr: "name"});
+			var dataSource = new Memory(
+				{idProperty: "name",
+					data: [
+					{ name: "Japan", sales: 900, profit: 100, region: "Asia" },
+					{ name: "France", sales: 500, profit: 50, region: "EU" },
+					{ name: "Germany", sales: 450, profit: 48, region: "EU" },
+					{ name: "UK", sales: 700, profit: 60, region: "EU" },
+					{ name: "USA", sales: 2000, profit: 250, region: "America" },
+					{ name: "Canada", sales: 600, profit: 30, region: "America" },
+					{ name: "Brazil", sales: 450, profit: 30, region: "America" },
+					{ name: "China", sales: 500, profit: 40, region: "Asia" }
+				]});
+			combo.source = dataSource;
+			container.appendChild(combo);
+			combo.attachedCallback();
+			combo.deliver();
+
+			var d = this.async(2000);
+			assert.strictEqual(combo.inputNode.getAttribute("aria-expanded"), "false",
+				"aria-expanded - popup is closed: " + combo.id);
+
+			combo.openDropDown().then(d.rejectOnError(function () {
+				assert.strictEqual(combo.inputNode.getAttribute("aria-expanded"), "true",
+				"aria-expanded - popup is open: " + combo.id);
+				combo.closeDropDown();
+				setTimeout(d.callback(function () {
+					assert.strictEqual(combo.inputNode.getAttribute("aria-expanded"), "false",
+					"aria-expanded - popup is closed: " + combo.id);
+				}), 200);
+			}));
+
+			return d;
+		},
+
+		"widget.inputNode readOnly attribute": function () {
+			var combo = new Combobox({labelAttr: "name", autoFilter: true});
+			var dataSource = new Memory(
+				{idProperty: "name",
+					data: [
+					{ name: "Japan", sales: 900, profit: 100, region: "Asia" },
+					{ name: "France", sales: 500, profit: 50, region: "EU" },
+					{ name: "Canada", sales: 600, profit: 30, region: "America" },
+					{ name: "Brazil", sales: 450, profit: 30, region: "America" },
+					{ name: "China", sales: 500, profit: 40, region: "Asia" }
+				]});
+			container.appendChild(combo);
+			combo.attachedCallback();
+			combo.deliver();
+
+			assert.isTrue(combo.inputNode.readOnly,
+				"readOnly should be true, because source is empty.");
+
+			combo.source = dataSource;
+			combo.deliver();
+			assert.isFalse(combo.inputNode.readOnly,
+				"readOnly should be false, because source is not empty.");
+		},
+
+		"widget.inputNode read0nly attribute on list source change.": function () {
+			var combo = new Combobox({labelAttr: "name", autoFilter: true});
+			var dataSource = new Memory(
+				{idProperty: "name",
+					data: [
+					{ name: "Japan", sales: 900, profit: 100, region: "Asia" },
+					{ name: "France", sales: 500, profit: 50, region: "EU" },
+					{ name: "Canada", sales: 600, profit: 30, region: "America" },
+					{ name: "Brazil", sales: 450, profit: 30, region: "America" },
+					{ name: "China", sales: 500, profit: 40, region: "Asia" }
+				]});
+
+			var dataSourceEmpty = new Memory({idProperty: "name", data: []});
+
+			container.appendChild(combo);
+			combo.source = dataSource;
+			combo.attachedCallback();
+			combo.deliver();
+
+			assert.isFalse(combo.inputNode.readOnly,
+				"readOnly should be true, because source is not empty and autoFilter is true.");
+
+			var d = this.async(2000);
+			var delay = 200;
+			// open the dropdown, so the list gets combo's source attached.
+			combo.openDropDown().then(d.rejectOnError(function () {
+				setTimeout(d.callback(function () {
+					combo.closeDropDown();
+					// attaching an empty source to the list.
+					combo.list.source = dataSourceEmpty;
+					combo.list.deliver();
+					combo.deliver();
+					assert.isTrue(combo.inputNode.readOnly,
+						"readOnly should be true, because source is now empty.");
 				}), delay);
 			}));
 

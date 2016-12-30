@@ -204,7 +204,10 @@ define([
 		list: null,
 
 		// Flag used for binding the readonly attribute of the input element in the template
-		_inputReadOnly: true,
+		_inputReadOnly: false,
+
+		// Flag used to track when the inputNode has to be updated in order to set the readonly attribute.
+		_updateInputReadOnly: false,
 
 		/**
 		 * The value of the placeholder attribute of the input element used
@@ -283,10 +286,19 @@ define([
 		minFilterChars: 1,
 
 		/**
-		 * Displayed value, when Combobox.value is set at the creation time.
+		 * InputNode's value. Can be used to display something at the creation time. After that,
+		 * each user interaction will override this with the selected item label.
 		 * @type {string}
 		 */
 		displayedValue: "",
+
+		// Flag used for skipping consecutive validations, if one already run.
+		_justValidated: false,
+
+		// Flag used for post initializing the widget value, if the list has not been created yet.
+		_processValueAfterListInit: false,
+
+		_isMobile: !!ComboPopup,
 
 		createdCallback: function () {
 			// Declarative case (list specified declaratively inside the declarative Combobox)
@@ -305,14 +317,14 @@ define([
 
 			this.on("click", function () {
 				// NOTE: This runs only when in mobile mode
-				if (this._useCenteredDropDown() && !this.disabled) {
+				if (this._isMobile && !this.disabled) {
 					this.openDropDown();
 				}
 			}.bind(this));
 
 			this.on("mousedown", function (evt) {
 				// NOTE: This runs only when in desktop mode
-				if (!this._useCenteredDropDown() && (!this.minFilterChars || this._inputReadOnly)) {
+				if (!this._isMobile && (!this.minFilterChars || this._inputReadOnly)) {
 					// event could be triggered by the down arrow element. If so, we do not react to it.
 					if (evt.srcElement !== this.buttonNode && !this.disabled) {
 						if (!this.opened) {
@@ -374,70 +386,54 @@ define([
 
 		/* jshint maxcomplexity: 17 */
 		refreshRendering: function (oldValues) {
-			var updateReadOnly = false;
-			if ("list" in oldValues) {
+			if ("list" in oldValues && this.list) {
 				this._initList();
 			}
 			if ("selectionMode" in oldValues) {
-				updateReadOnly = true;
 				if (this.list) {
 					this.list.selectionMode = this.selectionMode === "single" ?
 						"radio" : "multiple";
 				}
 			}
-			if ("autoFilter" in oldValues ||
-				"readOnly" in oldValues) {
-				updateReadOnly = true;
-			}
-			if (updateReadOnly) {
-				this._updateInputReadOnly();
-				this._setSelectable(this.inputNode, !this.inputNode.readOnly);
-			}
-			if ("value" in oldValues) {
-				if (!this._justValidated) {
-					this._validateInput(false, true);
+			if ("autoFilter" in oldValues || "selectionMode" in oldValues ||
+				"readOnly" in oldValues || "source" in oldValues || "_updateInputReadOnly" in oldValues) {
+				this._updateInputReadOnly = false;
+
+				this._inputReadOnly = this.hasDownArrow ? this._isSourceEmpty() ||
+					this.readOnly || !this.autoFilter || this.selectionMode === "multiple" : false;
+
+				this.inputNode.readOnly = this._inputReadOnly || this._isMobile ? "readonly" : "";
+
+				if (this._inputReadOnly) {
+					this.inputNode.setAttribute("unselectable", "on");
+					$(this.inputNode)
+						.css("user-select", "none") // maps to WebkitUserSelect, etc.
+						.on("selectstart", false);
 				} else {
-					delete this._justValidated;
+					this.inputNode.removeAttribute("unselectable");
+					$(this.inputNode)
+						.css("user-select", "") // maps to WebkitUserSelect, etc.
+						.off("selectstart", false);
 				}
 			}
 		},
 
-		/**
-		 * Updates the value of the private property on which the Combobox template
-		 * binds the `readonly` attribute of the input element.
-		 * @private
-		 */
-		_updateInputReadOnly: function () {
-			var oldValue = this._inputReadOnly;
-			this._inputReadOnly = this.readOnly || !this.autoFilter ||
-				this._useCenteredDropDown() || this.selectionMode === "multiple";
-			if (this._inputReadOnly === oldValue) {
-				// FormValueWidget.refreshRendering() mirrors the value of widget.readOnly
-				// to focusNode.readOnly, thus competing with the binding of the readOnly
-				// attribute of the input node (which is also the focusNode attach point)
-				// in the template of Combobox. To ensure the refresh of the binding is done
-				// including when the value of the flag _inputReadOnly doesn't change while
-				// FormValueWidget has reset the attribute to a different value, force
-				// the notification:
-				this.notifyCurrentValue("_inputReadOnly");
-			} // else no need to notify "by hand", rely on automatic notification
-		},
-
-		/**
-		 * Configures inputNode such that the text is selectable or unselectable.
-		 * @private
-		 */
-		_setSelectable: function (inputNode, selectable) {
-			if (selectable) {
-				inputNode.removeAttribute("unselectable");
-				$(inputNode)
-					.css("user-select", "") // maps to WebkitUserSelect, etc.
-					.off("selectstart", false);
-			} else {
-				inputNode.setAttribute("unselectable", "on");
-				$(inputNode)
-					.css("user-select", "none") // maps to WebkitUserSelect, etc.
-					.on("selectstart", false);
+		computeProperties: function (oldValues) {
+			if ("value" in oldValues) {
+				if (!this._justValidated) {
+					if (this.list) {
+						// INFO: if list is already created and attached, then we can validate the `value` value
+						this._validateInput(false);
+					} else {
+						// INFO: otherwise we have to delay its evaluation.
+						this._processValueAfterListInit = true;
+					}
+				}
+			}
+			if ("_justValidated" in oldValues) {
+				if (this._justValidated) {
+					this._justValidated = false;
+				}
 			}
 		},
 
@@ -452,31 +448,34 @@ define([
 		},
 
 		_initList: function () {
-			if (this.list) {
-				// TODO
-				// This is a workaround waiting for a proper mechanism (at the level
-				// of delite/Store - delite/StoreMap) to allow a store-based widget
-				// to delegate the store-related functions to a parent widget (delite#323).
-				if (!this.list.attached) {
-					this.list.attachedCallback();
-				}
+			// TODO
+			// This is a workaround waiting for a proper mechanism (at the level
+			// of delite/Store - delite/StoreMap) to allow a store-based widget
+			// to delegate the store-related functions to a parent widget (delite#323).
+			if (!this.list.attached) {
+				this.list.attachedCallback();
+			}
 
-				// Class added on the list such that Combobox' theme can have a specific
-				// CSS selector for elements inside the List when used as dropdown in
-				// the combo.
-				$(this.list).addClass("d-combobox-list");
+			// Class added on the list such that Combobox' theme can have a specific
+			// CSS selector for elements inside the List when used as dropdown in
+			// the combo.
+			$(this.list).addClass("d-combobox-list");
 
-				// The drop-down is hidden initially
-				$(this.list).addClass("d-hidden");
+			// The drop-down is hidden initially
+			$(this.list).addClass("d-hidden");
 
-				// The role=listbox is required for the list part of a combobox by the
-				// aria spec of role=combobox
-				this.list.type = "listbox";
+			// The role=listbox is required for the list part of a combobox by the
+			// aria spec of role=combobox
+			this.list.type = "listbox";
 
-				this.list.selectionMode = this.selectionMode === "single" ?
-					"radio" : "multiple";
+			this.list.selectionMode = this.selectionMode === "single" ?
+				"radio" : "multiple";
 
-				this._initHandlers();
+			this._initHandlers();
+
+			if (this._processValueAfterListInit) {
+				this.notifyCurrentValue("value");
+				delete this._processValueAfterListInit;
 			}
 		},
 
@@ -517,6 +516,8 @@ define([
 								}
 							}.bind(this), 100); // worth exposing a property for the delay?
 						}
+					} else {
+						this.focusNode.focus(); // put the focus back to the inputNode.
 					}
 				}.bind(this)),
 
@@ -524,6 +525,14 @@ define([
 				this.list.on("selection-change", function () {
 					this._validateInput(true);
 					this.handleOnInput(this.value); // emit "input" event
+				}.bind(this)),
+
+				this.list.observe(function (oldValues) {
+					if ("renderItems" in oldValues) {
+						// if the source changes, we may have to update the
+						// inputNode's readOnly attribute
+						this._updateInputReadOnly = true;
+					}
 				}.bind(this)),
 
 				this.list.on("query-success", this._setSelectedItems.bind(this))
@@ -572,19 +581,16 @@ define([
 		 * on the channel has() features set by `deliteful/features`.
 		 * @private
 		 */
-		_useCenteredDropDown: function () {
-			return !!ComboPopup;
-		},
+		// _useCenteredDropDown: function () {
+		// 	return !!ComboPopup;
+		// },
 
 		loadDropDown: function () {
-			this._updateInputReadOnly();
-
-			var centeredDropDown = this._useCenteredDropDown();
-			var dropDown = centeredDropDown ?
+			var dropDown = this._isMobile ?
 				this.createCenteredDropDown() :
 				this.createAboveBelowDropDown();
 
-			this.dropDownPosition = centeredDropDown ?
+			this.dropDownPosition = this._isMobile ?
 				["center"] :
 				["below", "above"]; // this is the default
 
@@ -634,12 +640,13 @@ define([
 		 * @return {boolean}
 		 */
 		shouldRunQuery: function (inputElement) {
-			var mobile = this._useCenteredDropDown();
 			if (inputElement.value.length !== 0) {
 				// inputNode contains text
 				if (inputElement.value.length < this.minFilterChars) {
-					if (!mobile) {
+					if (!this._isMobile) {
 						this.closeDropDown();
+					} else {
+						this._toggleComboPopupList();
 					}
 					return false;
 				}
@@ -647,8 +654,11 @@ define([
 				// inputNode does not contain text
 				if (!this.hasDownArrow) {
 					// in auto complete mode
-					this.closeDropDown();
-					this._toggleComboPopupList();
+					if (this._isMobile) {
+						this._toggleComboPopupList();
+					} else {
+						this.closeDropDown();
+					}
 					return false;
 				}
 			}
@@ -659,8 +669,10 @@ define([
 		 * Toggles the list's visibility when ComboPopup is used (so in mobile)
 		 */
 		_toggleComboPopupList: function () {
-			if (this._useCenteredDropDown()) {
-				this.list.setAttribute("d-shown", "" + this.inputNode.value.length >= this.minFilterChars);
+			if (this._isMobile) {
+				this.list.setAttribute("d-shown",
+					"" + (this.dropDown.inputNode.value.length !== 0 &&
+					this.dropDown.inputNode.value.length >= this.minFilterChars));
 				this.list.emit("delite-size-change");
 			}
 		},
@@ -683,8 +695,8 @@ define([
 
 				// save what user typed at each keystroke.
 				this.value = inputElement.value;
-				if (this._useCenteredDropDown()) {
-					this.inputNode.value = inputElement.value;
+				if (this._isMobile) {
+					this.displayedValue = inputElement.value;
 				}
 				this.handleOnInput(this.value); // emit "input" event.
 
@@ -741,7 +753,7 @@ define([
 				} else if (evt.key === "ArrowDown" || evt.key === "ArrowUp" ||
 					evt.key === "PageDown" || evt.key === "PageUp" ||
 					evt.key === "Home" || evt.key === "End") {
-					if (this._useCenteredDropDown()) {
+					if (this._isMobile) {
 						this.list.emit("keydown", evt);
 					}
 					evt.stopPropagation();
@@ -750,28 +762,30 @@ define([
 			}.bind(this), inputElement);
 		},
 
-		_validateInput: function (userInteraction, init) {
+		_validateInput: function (userInteraction) {
 			if (this.selectionMode === "single") {
-				this._validateSingle(userInteraction, init);
+				this._validateSingle(userInteraction);
 			} else {
-				this._validateMultiple(userInteraction, init);
+				this._validateMultiple(userInteraction);
 			}
 			this._justValidated = true;
+			this.notifyCurrentValue("_justValidated");
 		},
 
-		_validateSingle: function (userInteraction, init) {
+		_validateSingle: function (userInteraction) {
 			if (userInteraction) {
 				var selectedItem = this.list.selectedItem;
 				// selectedItem non-null because List in radio selection mode, but
 				// the List can be empty, so:
-				this.inputNode.value = selectedItem ? this._getItemLabel(selectedItem) : "";
+				this.displayedValue = selectedItem ? this._getItemLabel(selectedItem) : "";
 				this.value = selectedItem ? this._getItemValue(selectedItem) : "";
-			} else if (init) {
-				this.inputNode.value = this.displayedValue !== "" ? this.displayedValue : this.value;
+			} else {
+				var item = this.hasDownArrow ? this._retrieveItemFromSource(this.value) : null;
+				this.displayedValue = item ? item[this.list.labelAttr || this.list.labelFunc] : this.value;
 			}
 		},
 
-		_validateMultiple: function (userInteraction, init) {
+		_validateMultiple: function (userInteraction) {
 			var n;
 			if (userInteraction) {
 				var selectedItems = this.list.selectedItems;
@@ -795,7 +809,7 @@ define([
 				// make sure this is already done when FormValueWidget.handleOnInput() runs.
 				this.valueNode.value = value;
 				this.handleOnInput(this.value); // emit "input" event
-			} else if (init) {
+			} else {
 				var items = [];
 				if (typeof this.value === "string") {
 					if (this.value.length > 0) {
@@ -809,11 +823,12 @@ define([
 				} // else empty array. No pre-set values.
 				n = items.length;
 				if (n > 1) {
-					this.inputNode.value = string.substitute(this.multipleChoiceMsg, {items: n});
+					this.displayedValue = string.substitute(this.multipleChoiceMsg, {items: n});
 				} else if (n === 1) {
-					this.inputNode.value = this.displayedValue !== "" ? this.displayedValue : items[0];
+					var item = this.hasDownArrow ? this._retrieveItemFromSource(items[0]) : null;
+					this.displayedValue = item ? item[this.list.labelAttr || this.list.labelFunc] : this.value;
 				} else {
-					this.inputNode.value = this.multipleChoiceNoSelectionMsg;
+					this.displayedValue = this.multipleChoiceNoSelectionMsg;
 				}
 			}
 		},
@@ -846,6 +861,21 @@ define([
 
 			// Open popup in order to show the list's content (loading panel, no-items element or items).
 			this.openDropDown();
+		},
+
+		_retrieveItemFromSource: function (key) {
+			var item = null,
+				_source = this.source || (this.list && this.list.source);
+			if (_source) {
+				if (Array.isArray(_source)) {
+					item = _source.filter(function (i) {
+						return i[this.list.valueAttr || this.list.labelAttr] === key;
+					}.bind(this))[0];
+				} else {
+					item = _source.getSync && _source.getSync(key);
+				}
+			}
+			return item;
 		},
 
 		/**
@@ -901,12 +931,10 @@ define([
 				this._setSelectedItems();
 
 				if (!this.opened) {
-					var mobile = this._useCenteredDropDown();
-
 					// On desktop, leave focus in the original <input>.  But on mobile, focus the popup dialog.
-					this.focusOnPointerOpen = this.focusOnKeyboardOpen = mobile;
+					this.focusOnPointerOpen = this.focusOnKeyboardOpen = this._isMobile;
 
-					if (!mobile) {
+					if (!this._isMobile) {
 						this.defer(function () {
 							// Avoid losing focus when clicking the arrow (instead of the input element):
 							// TODO: isn't this already handled by delite/HasDropDown#_dropDownPointerUpHandler() ?
@@ -921,17 +949,25 @@ define([
 					// Avoid that List gives focus to list items when navigating, which would
 					// blur the input field used for entering the filtering criteria.
 					this.dropDown.focusDescendants = false;
-					if (!this._useCenteredDropDown()) {
+					if (!this._isMobile) {
 						// desktop version
 						this._updateScroll(undefined, true);	// sets this.list.navigatedDescendant
 						this._setActiveDescendant(this.list.navigatedDescendant);
 					} else {
 						// mobile version
+						// INFO: display into the popup's inputNode any pre-selected item or typed text,
+						// only if the inputNode is visible, though.
+						if (!this._inputReadOnly) {
+							this.dropDown.inputNode.value = this.displayedValue;
+						}
+
 						if (!this.hasDownArrow) {
 							this._toggleComboPopupList();
 						}
+
 						this.dropDown.focus();
 					}
+
 				}.bind(this));
 			};
 		}),
@@ -960,8 +996,10 @@ define([
 		_dropDownKeyUpHandler: dcl.superCall(function (sup) {
 			return function () {
 				if (this.hasDownArrow) {
-					if (this.inputNode.value.length === 0 && this.minFilterChars === 0) {
-						this.list.query = this._getDefaultQuery();
+					if (this.inputNode.value.length === 0) {
+						if (this.minFilterChars === 0) {
+							this.list.query = this._getDefaultQuery();
+						}
 					} else if (this.inputNode.value.length < this.minFilterChars) {
 						return;
 					}
@@ -979,6 +1017,9 @@ define([
 			// Since List is in focus-less mode, it does not give focus to
 			// navigated items, thus the browser does not autoscroll.
 			// TODO: see deliteful #498
+			if (!item) {
+				item = this.list.navigatedDescendant;
+			}
 
 			if (!item) {
 				var selectedItems = this.list.selectedItems;
@@ -1010,6 +1051,18 @@ define([
 				var input = this._popupInput || this.inputNode;
 				input.setAttribute("aria-activedescendant", nd.id);
 			}
+		},
+
+		_isSourceEmpty: function () {
+			var _source = (this.list && this.list.source) || this.source;
+			if (_source) {
+				if (Array.isArray(_source)) {
+					return _source.length === 0;
+				}
+				// not an array.
+				return _source.data && _source.data.length === 0;
+			}
+			return true;
 		}
 	});
 });

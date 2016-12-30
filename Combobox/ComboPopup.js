@@ -58,6 +58,11 @@ define([
 							.removeClass("d-hidden");
 					}
 					this.combobox._prepareInput(this.inputNode);
+					this.combobox.observe(function (oldValues) {
+						if ("opened" in oldValues) {
+							this.inputNode.setAttribute("aria-expanded", this.combobox.opened);
+						}
+					}.bind(this));
 				}
 			}
 		},
@@ -67,7 +72,7 @@ define([
 		 * @protected
 		 */
 		okHandler: function () {
-			this.combobox._validateMultiple(this.combobox.inputNode);
+			// NOTE: no need to validate since it's handled by the `selection-change` listener
 			this.combobox.closeDropDown();
 		},
 
@@ -76,7 +81,11 @@ define([
 		 * @protected
 		 */
 		cancelHandler: function () {
+			// INFO: resetting any selected items.
+			this.combobox.list.selectedItems = [];
 			this.combobox.closeDropDown();
+			// cont: then ask to validate, so widget's value and inputNode get updated as well.
+			this.combobox._validateMultiple(true);
 		},
 
 		/**
@@ -84,7 +93,7 @@ define([
 		 * @protected
 		 */
 		focus: function () {
-			if (this.combobox.autoFilter && this.combobox.selectionMode === "single") {
+			if (!this.combobox._inputReadOnly) {
 				this.inputNode.focus();
 			} else {
 				// first check if list is not hidden.
@@ -93,7 +102,7 @@ define([
 					var id = this.combobox.list.getIdentity(
 						this.combobox.list.selectedItems.length > 0 ? this.combobox.list.selectedItems[0] : "");
 					var renderer = (id && id !== -1) ? this.combobox.list.getRendererByItemId(id) :
-						this.combobox.list.getRenderers()[0];
+						this.combobox.list.getItemRenderers()[0];
 					this.combobox.list.navigateTo(renderer);
 				}
 			}

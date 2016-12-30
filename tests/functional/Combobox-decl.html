@@ -17,6 +17,7 @@
 		// global variables used by the automatic functional tests test:
 		var ready = false; // set to true when the test page is ready
 		var getComboState;
+		var storeTestingInfo;
 
 		require([
 			"delite/register",
@@ -61,7 +62,7 @@
 			combo.deliver();
 
 			// Store information for use in the automatic functional test
-			var storeTestingInfo = function (combo) {
+			storeTestingInfo = function (combo) {
 				if (!combo.init) {
 					combo._inputEventCounter = 0;
 					combo._changeEventCounter = 0;
@@ -91,22 +92,22 @@
 			};
 
 			// single selection mode, autoFilter=true
-			combo = document.getElementById("combo1");
 			storeTestingInfo(document.getElementById("combo1"));
 
 			// single selection mode, autoFilter=true
-			combo = document.getElementById("combo2");
 			storeTestingInfo(document.getElementById("combo2"));
 
 			// multiple selection mode
-			combo = document.getElementById("combo3");
 			storeTestingInfo(document.getElementById("combo3"));
 
-			combo = document.getElementById("combo-minfilterchars0");
+			// single selection mode, autofilter=true, minFilterChars = 0
 			storeTestingInfo(document.getElementById("combo-minfilterchars0"));
 
-			combo = document.getElementById("combo-minfilterchars3");
+			// single selection mode, autofilter=true, minFilterChars = 3
 			storeTestingInfo(document.getElementById("combo-minfilterchars3"));
+
+			// single selection mode, auto-complete mode (hasDownArrow = false)
+			storeTestingInfo(document.getElementById("combo-autocomplete"));
 
 			// Used by the automatic functional test, for comboboxes in both
 			// single and multiple selection modes.
@@ -142,6 +143,12 @@
 					multipleChoiceMsg: combo.multipleChoiceMsg,
 					activeDescendant: activeDescendantNode && activeDescendantNode.textContent.trim()
 				};
+			};
+
+			getNavigatedDescendant = function (comboId) {
+				var combo = document.getElementById(comboId);
+				return combo.list && combo.list.navigatedDescendant
+					&& combo.list.navigatedDescendant.textContent.trim();
 			};
 
 			isAligned = function (comboId, pos) {
@@ -706,14 +713,23 @@
 		</d-list>
 	</d-combobox>
 
-	<label for="combo-slowstore">
+	<label for="combo-slowstore-input">
 		id: "combo-slowstore", selectionMode: "single", autoFilter: true,
 	</label>
 	<d-combobox selectionMode="single" autoFilter="true"
 		id="combo-slowstore" name="combo-slowstore" filterDelay="100">
 	</d-combobox>
 
-	<label for="combo-minfilterchars0">
+	<label for="combo-empty-store-input">
+		id: "combo-empty-store", selectionMode: "single", autoFilter: true, hasDownArrow: false
+	</label>
+	<d-combobox selectionMode="single" hasDownArrow="true" autoFilter="true"
+		id="combo-empty-store" name="combo-empty-store">
+		<d-list righttextAttr="sales" categoryAttr="region" showNoItems="true">
+		</d-list>
+	</d-combobox>
+
+	<label for="combo-minfilterchars0-input">
 		id: "combo-minfilterchars0", selectionMode: "single", autoFilter: true, minFilterChars: 0
 	</label>
 	<d-combobox selectionMode="single" autoFilter="true" minFilterChars="0"
@@ -759,12 +775,57 @@
 		</d-list>
 	</d-combobox>
 
-	<label for="combo-minfilterchars3">
+	<label for="combo-minfilterchars3-input">
 		id: "combo-minfilterchars3", selectionMode: "single", autoFilter: true, minFilterChars: 3
 	</label>
 	<d-combobox selectionMode="single" autoFilter="true" minFilterChars="3"
 		id="combo-minfilterchars3" name="combo-minfilterchars3" value="France">
 		<d-list righttextAttr="sales" categoryAttr="region">
+			{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
+			{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
+			{ "label": "UK", "sales": 700, "profit": 60, "region": "EU" },
+			{ "label": "USA", "sales": 2000, "profit": 250, "region": "America" },
+			{ "label": "Canada", "sales": 600, "profit": 30, "region": "America" },
+			{ "label": "Brazil", "sales": 450, "profit": 30, "region": "America" },
+			{ "label": "China", "sales": 500, "profit": 40, "region": "Asia" },
+			{ "label": "Japan", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan2", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan3", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan4", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan5", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan6", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan7", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan8", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan9", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan10", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan11", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan12", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan13", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan14", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan15", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan16", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan17", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan18", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan19", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan20", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan21", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan22", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan23", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan24", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan25", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan26", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan27", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan28", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan29", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan30", "sales": 900, "profit": 100, "region": "Asia" }
+		</d-list>
+	</d-combobox>
+
+	<label for="combo-autocomplete-input">
+		id: "combo-autocomplete", hasDownArrow: false
+	</label>
+	<d-combobox hasDownArrow="false" id="combo-autocomplete" name="combo-autocomplete">
+		<d-list righttextAttr="sales" categoryAttr="region" showNoItems="true">
 			{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
 			{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
 			{ "label": "UK", "sales": 700, "profit": 60, "region": "EU" },
