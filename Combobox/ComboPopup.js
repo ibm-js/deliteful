@@ -67,7 +67,7 @@ define([
 		 * @protected
 		 */
 		okHandler: function () {
-			this.combobox._validateMultiple(this.combobox.inputNode);
+			// NOTE: no need to validate since it's handled by the `selection-change` listener
 			this.combobox.closeDropDown();
 		},
 
@@ -76,7 +76,11 @@ define([
 		 * @protected
 		 */
 		cancelHandler: function () {
+			// INFO: resetting any selected items.
+			this.combobox.list.selectedItems = [];
 			this.combobox.closeDropDown();
+			// cont: then ask to validate, so widget's value and inputNode get updated as well.
+			this.combobox._validateMultiple(true);
 		},
 
 		/**
