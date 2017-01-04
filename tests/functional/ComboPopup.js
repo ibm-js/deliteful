@@ -293,7 +293,7 @@ define([
 			.end();
 	};
 
-	var checkMultiSelection = function (remote, comboId) {
+	var checkMultiSelection = function (remote, comboId, pressOkButton) {
 		var executeExpr = "return getComboState(\"" + comboId + "\");";
 		return loadFile(remote, "./ComboPopup.html")
 			.findById(comboId)
@@ -342,7 +342,7 @@ define([
 			.end()
 			.findById(comboId + "_item1") // "Germany"
 			.click()
-			.sleep(500) // wait for popup to close
+			.sleep(500)
 			.execute(executeExpr)
 			.then(function (comboState) {
 				checkComboState(comboId, comboState,
@@ -384,12 +384,12 @@ define([
 					}, "after clicking option (China))");
 			})
 			.end()
-			.findByCssSelector(".d-combo-ok-button")
+			.findByCssSelector(pressOkButton ? ".d-combo-ok-button" : ".d-combo-cancel-button")
 			.click()
 			.sleep(500) // wait for the async closing of the popup
 			.execute(executeExpr)
 			.then(function (comboState) {
-				checkComboState(comboId, comboState,
+				checkComboState(comboId, comboState, pressOkButton ?
 					{ // expected combo state
 						inputNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
 						widgetValue: ["China", "Germany"],
@@ -403,7 +403,20 @@ define([
 						valueNodeValueAtLatestInputEvent: "China,Germany",
 						widgetValueAtLatestChangeEvent: ["China", "Germany"],
 						valueNodeValueAtLatestChangeEvent: "China,Germany"
-					}, "after clicking again the root node (close)");
+					} : { // expected combo state
+						inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
+						widgetValue: [],
+						valueNodeValue: "",
+						opened: false,
+						selectedItemsCount: 0,
+						itemRenderersCount: 37,
+						inputEventCounter: 1,
+						changeEventCounter: 1, // incremented
+						widgetValueAtLatestInputEvent: [],
+						valueNodeValueAtLatestInputEvent: "",
+						widgetValueAtLatestChangeEvent: [],
+						valueNodeValueAtLatestChangeEvent: ""
+					}, "after clicking on the " + pressOkButton ? "Ok" : "cancel" + " button (close)");
 			})
 			.end();
 	};
@@ -555,7 +568,7 @@ define([
 			return checkSingleSelection(remote, "combo2");
 		},
 
-		"multi selection selection (combo3)": function () {
+		"multi selection, press ok button (combo3)": function () {
 			var remote = this.remote;
 
 			if (remote.environmentType.browserName === "internet explorer") {
@@ -567,7 +580,22 @@ define([
 				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
 			}
 
-			return checkMultiSelection(remote, "combo3");
+			return checkMultiSelection(remote, "combo3", true);
+		},
+
+		"multi selection, press cancel button (combo3)": function () {
+			var remote = this.remote;
+
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/17
+				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
+			}
+			if (remote.environmentType.platformName === "iOS") {
+				// https://github.com/theintern/leadfoot/issues/61
+				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
+			}
+
+			return checkMultiSelection(remote, "combo3", false);
 		},
 
 		"tab navigation (combo3)": function () {
