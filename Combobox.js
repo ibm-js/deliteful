@@ -288,6 +288,16 @@ define([
 		 */
 		displayedValue: "",
 
+
+		/**
+		 * It's `true` if the dropdown should be centered, and returns
+		 * `false` if it should be displayed below/above the widget.
+		 * It's `true` when the module `deliteful/Combobox/ComboPopup` has
+		 * been loaded. Note that the module is loaded conditionally, depending
+		 * on the channel has() features set by `deliteful/features`.
+		 */
+		_isMobile: !!ComboPopup,
+
 		createdCallback: function () {
 			// Declarative case (list specified declaratively inside the declarative Combobox)
 			var list = this.querySelector("d-list");
@@ -305,14 +315,14 @@ define([
 
 			this.on("click", function () {
 				// NOTE: This runs only when in mobile mode
-				if (this._useCenteredDropDown() && !this.disabled) {
+				if (this._isMobile && !this.disabled) {
 					this.openDropDown();
 				}
 			}.bind(this));
 
 			this.on("mousedown", function (evt) {
 				// NOTE: This runs only when in desktop mode
-				if (!this._useCenteredDropDown() && (!this.minFilterChars || this._inputReadOnly)) {
+				if (!this._isMobile && (!this.minFilterChars || this._inputReadOnly)) {
 					// event could be triggered by the down arrow element. If so, we do not react to it.
 					if (evt.srcElement !== this.buttonNode && !this.disabled) {
 						if (!this.opened) {
@@ -410,7 +420,7 @@ define([
 		_updateInputReadOnly: function () {
 			var oldValue = this._inputReadOnly;
 			this._inputReadOnly = this.readOnly || !this.autoFilter ||
-				this._useCenteredDropDown() || this.selectionMode === "multiple";
+				this._isMobile || this.selectionMode === "multiple";
 			if (this._inputReadOnly === oldValue) {
 				// FormValueWidget.refreshRendering() mirrors the value of widget.readOnly
 				// to focusNode.readOnly, thus competing with the binding of the readOnly
@@ -564,27 +574,14 @@ define([
 			return "value" in item ? item.value : item.label;
 		},
 
-		/**
-		 * Returns `true` if the dropdown should be centered, and returns
-		 * `false` if it should be displayed below/above the widget.
-		 * Returns `true` when the module `deliteful/Combobox/ComboPopup` has
-		 * been loaded. Note that the module is loaded conditionally, depending
-		 * on the channel has() features set by `deliteful/features`.
-		 * @private
-		 */
-		_useCenteredDropDown: function () {
-			return !!ComboPopup;
-		},
-
 		loadDropDown: function () {
 			this._updateInputReadOnly();
 
-			var centeredDropDown = this._useCenteredDropDown();
-			var dropDown = centeredDropDown ?
+			var dropDown = this._isMobile ?
 				this.createCenteredDropDown() :
 				this.createAboveBelowDropDown();
 
-			this.dropDownPosition = centeredDropDown ?
+			this.dropDownPosition = this._isMobile ?
 				["center"] :
 				["below", "above"]; // this is the default
 
@@ -634,11 +631,10 @@ define([
 		 * @return {boolean}
 		 */
 		shouldRunQuery: function (inputElement) {
-			var mobile = this._useCenteredDropDown();
 			if (inputElement.value.length !== 0) {
 				// inputNode contains text
 				if (inputElement.value.length < this.minFilterChars) {
-					if (!mobile) {
+					if (!this._isMobile) {
 						this.closeDropDown();
 					}
 					return false;
@@ -659,7 +655,7 @@ define([
 		 * Toggles the list's visibility when ComboPopup is used (so in mobile)
 		 */
 		_toggleComboPopupList: function () {
-			if (this._useCenteredDropDown()) {
+			if (this._isMobile) {
 				this.list.setAttribute("d-shown", "" + this.inputNode.value.length >= this.minFilterChars);
 				this.list.emit("delite-size-change");
 			}
@@ -683,7 +679,7 @@ define([
 
 				// save what user typed at each keystroke.
 				this.value = inputElement.value;
-				if (this._useCenteredDropDown()) {
+				if (this._isMobile) {
 					this.inputNode.value = inputElement.value;
 				}
 				this.handleOnInput(this.value); // emit "input" event.
@@ -741,7 +737,7 @@ define([
 				} else if (evt.key === "ArrowDown" || evt.key === "ArrowUp" ||
 					evt.key === "PageDown" || evt.key === "PageUp" ||
 					evt.key === "Home" || evt.key === "End") {
-					if (this._useCenteredDropDown()) {
+					if (this._isMobile) {
 						this.list.emit("keydown", evt);
 					}
 					evt.stopPropagation();
@@ -901,12 +897,11 @@ define([
 				this._setSelectedItems();
 
 				if (!this.opened) {
-					var mobile = this._useCenteredDropDown();
 
 					// On desktop, leave focus in the original <input>.  But on mobile, focus the popup dialog.
-					this.focusOnPointerOpen = this.focusOnKeyboardOpen = mobile;
+					this.focusOnPointerOpen = this.focusOnKeyboardOpen = this._isMobile;
 
-					if (!mobile) {
+					if (!this._isMobile) {
 						this.defer(function () {
 							// Avoid losing focus when clicking the arrow (instead of the input element):
 							// TODO: isn't this already handled by delite/HasDropDown#_dropDownPointerUpHandler() ?
@@ -921,7 +916,7 @@ define([
 					// Avoid that List gives focus to list items when navigating, which would
 					// blur the input field used for entering the filtering criteria.
 					this.dropDown.focusDescendants = false;
-					if (!this._useCenteredDropDown()) {
+					if (!this._isMobile) {
 						// desktop version
 						this._updateScroll(undefined, true);	// sets this.list.navigatedDescendant
 						this._setActiveDescendant(this.list.navigatedDescendant);
