@@ -268,7 +268,7 @@ define([
 		source: null,
 
 		/**
-		 * Minimum number of characters before a filter operation runs.
+		 * Minimum number of characters before the dropdown automatically opens.
 		 * However, aside the above, depending of its value, the widget behavior changes slightly.
 		 * In fact:
 		 * - if minFilterChars = 0
@@ -287,7 +287,6 @@ define([
 		 * @type {string}
 		 */
 		displayedValue: "",
-
 
 		/**
 		 * It's `true` if the dropdown should be centered, and returns
@@ -520,11 +519,6 @@ define([
 								// deferred such that the user can see the selection feedback
 								// before the dropdown closes.
 								this.closeDropDown(true/*refocus*/);
-
-								// Re-initialize the query, only if we are not in auto-complete mode.
-								if (!this.hasDownArrow) {
-									this.list.query = this._getDefaultQuery();
-								}
 							}.bind(this), 100); // worth exposing a property for the delay?
 						}
 					}
@@ -623,41 +617,26 @@ define([
 		},
 
 		/**
-		 * Establishes if the query has to run or not, depending of different factors, among
-		 * - mobile version or not
-		 * - hasDownArrown (auto-complete mode)
-		 * - numbers of characters typed into the inputNode element.
-		 * @param  {HTMLElement} inputElement the input element containing chars typed by the user.
-		 * @return {boolean}
+		 * Toggles the popup's visibility.
+		 * If in mobile, toggles list visibility.
+		 * If in desktop, closes or opens the popup.
 		 */
-		shouldRunQuery: function (inputElement) {
-			if (inputElement.value.length !== 0) {
-				// inputNode contains text
-				if (inputElement.value.length < this.minFilterChars) {
-					if (!this._isMobile) {
-						this.closeDropDown();
-					}
-					return false;
-				}
-			} else {
-				// inputNode does not contain text
-				if (!this.hasDownArrow) {
-					// in auto complete mode
-					this.closeDropDown();
-					this._toggleComboPopupList();
-					return false;
-				}
-			}
-			return true;
-		},
-
-		/**
-		 * Toggles the list's visibility when ComboPopup is used (so in mobile)
-		 */
-		_toggleComboPopupList: function () {
+		_togglePopupList: function (inputElement) {
+			var showList = inputElement.value.length >= this.minFilterChars;
 			if (this._isMobile) {
-				this.list.setAttribute("d-shown", "" + this.inputNode.value.length >= this.minFilterChars);
+				// Mobile version.
+				if (showList) {
+					this.filter(inputElement.value);
+				}
+				this.list.setAttribute("d-shown", "" + showList);
 				this.list.emit("delite-size-change");
+			} else {
+				// Desktop version.
+				if (showList) {
+					this.openDropDown();
+				} else {
+					this.closeDropDown(true /*refocus*/);
+				}
 			}
 		},
 
@@ -689,9 +668,7 @@ define([
 					delete this._timeoutHandle;
 				}
 				this._timeoutHandle = this.defer(function () {
-					if (this.shouldRunQuery(inputElement)) {
-						this.filter(inputElement.value);
-					}
+					this._togglePopupList(inputElement);
 				}.bind(this), this.filterDelay);
 
 				// Stop the spurious "input" events emitted while the user types
@@ -822,26 +799,28 @@ define([
 		 * @protected
 		 */
 		filter: function (inputText) {
-			// Escape special chars in search string, see
-			// http://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex.
-			var filterTxt = inputText.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-			if (this.filterMode === "startsWith") {
-				filterTxt = "^" + filterTxt;
-			} else if (this.filterMode === "is") {
-				filterTxt = "^" + filterTxt + "$";
-			} // nothing to add for "contains"
+			if (!this.autoFilter || inputText.length === 0) {
+				this.list.query = this._getDefaultQuery();
+			} else {
+				// Escape special chars in search string, see
+				// http://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex.
+				var filterTxt = inputText.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+				if (this.filterMode === "startsWith") {
+					filterTxt = "^" + filterTxt;
+				} else if (this.filterMode === "is") {
+					filterTxt = "^" + filterTxt + "$";
+				} // nothing to add for "contains"
 
-			var rexExp = new RegExp(filterTxt, this.ignoreCase ? "i" : "");
-			this.list.query = this.getQuery({
-				rexExp: rexExp,
-				inputText: inputText
-			});
+				var rexExp = new RegExp(filterTxt, this.ignoreCase ? "i" : "");
+				this.list.query = this.getQuery({
+					rexExp: rexExp,
+					inputText: inputText
+				});
+			}
+
 			if (this.source) {
 				this.list.source = this.source;
 			}
-
-			// Open popup in order to show the list's content (loading panel, no-items element or items).
-			this.openDropDown();
 		},
 
 		/**
@@ -889,15 +868,11 @@ define([
 
 		openDropDown: dcl.superCall(function (sup) {
 			return function () {
-				// Assign widget's source to the list's source.
-				if (this.source) {
-					this.list.source = this.source;
-				}
+				this.filter(this.inputNode.value);
 
 				this._setSelectedItems();
 
 				if (!this.opened) {
-
 					// On desktop, leave focus in the original <input>.  But on mobile, focus the popup dialog.
 					this.focusOnPointerOpen = this.focusOnKeyboardOpen = this._isMobile;
 
@@ -921,9 +896,8 @@ define([
 						this._updateScroll(undefined, true);	// sets this.list.navigatedDescendant
 						this._setActiveDescendant(this.list.navigatedDescendant);
 					} else {
-						// mobile version
-						if (!this.hasDownArrow) {
-							this._toggleComboPopupList();
+						if (this.hasDownArrow) {
+							this.dropDown.inputNode.value = this.inputNode.value;
 						}
 						this.dropDown.focus();
 					}
@@ -949,17 +923,11 @@ define([
 		}),
 
 		// HasDropDown#_dropDownKeyUpHandler() override.
-		// Do not call openDropDown if widget does not have a down arrow shown.
-		// This means the widget is configured in auto-complete mode.
+		// Do not call openDropDown if widget does not have a down arrow shown (auto-complete mode).
 		// In this mode the popup will open when the user typed something and text.length > this.minFilterChars.
 		_dropDownKeyUpHandler: dcl.superCall(function (sup) {
 			return function () {
 				if (this.hasDownArrow) {
-					if (this.inputNode.value.length === 0 && this.minFilterChars === 0) {
-						this.list.query = this._getDefaultQuery();
-					} else if (this.inputNode.value.length < this.minFilterChars) {
-						return;
-					}
 					sup.call(this);
 				}
 			};

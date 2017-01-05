@@ -121,8 +121,21 @@
 				combo._inputEventCounter = 0;
 				combo._changeEventCounter = 0;
 
+				// Store ids for item cells such that the automatic functional test
+				// can retrieve them.
+
 				var activeDescendantNode = document.getElementById(
 						combo.inputNode.getAttribute("aria-activedescendant"));
+
+				var itemRenderers = combo.list.getItemRenderers();
+				var i;
+				for (i = 0; i < itemRenderers.length; i++) {
+					itemRenderers[i].renderNode.id = combo.id + "_item" + i;
+				}
+				var categoryRenderers = combo.list.querySelectorAll("." + combo.list._cssClasses.category);
+				for (i = 0; i < categoryRenderers.length; i++) {
+					categoryRenderers.item(i).renderNode.id = combo.id + "_category" + i;
+				}
 				return {
 					inputNodeValue: combo.inputNode.value,
 					widgetValue: combo.value,
