@@ -107,7 +107,7 @@ define([
 						valueNodeValue: "France",
 						opened: true,
 						selectedItemsCount: 1,
-						itemRenderersCount: 37,
+						itemRenderersCount: 1, // a filter did run, filtering only `France`
 						inputEventCounter: 0,
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: undefined, // never received
@@ -117,6 +117,13 @@ define([
 					}, "after click on root node");
 			})
 			.findByCssSelector(".d-combo-popup .d-linear-layout .d-combobox-input[d-hidden='false']")
+			.pressKeys(keys.BACKSPACE)
+			.pressKeys(keys.BACKSPACE)
+			.pressKeys(keys.BACKSPACE)
+			.pressKeys(keys.BACKSPACE)
+			.pressKeys(keys.BACKSPACE)
+			.pressKeys(keys.BACKSPACE)
+			// removed France
 			.type("j")
 			.type("a")
 			.type("p")
@@ -132,7 +139,7 @@ define([
 						opened: true,
 						selectedItemsCount: 0,
 						itemRenderersCount: 30,
-						inputEventCounter: 3, // typed "jap"
+						inputEventCounter: 9, // delted France and typed "jap"
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: "jap",
 						valueNodeValueAtLatestInputEvent: "jap",
@@ -156,7 +163,7 @@ define([
 						valueNodeValue: "",
 						opened: true,
 						selectedItemsCount: 0,
-						itemRenderersCount: 37,
+						itemRenderersCount: 30,
 						inputEventCounter: 3,
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: "",
@@ -209,10 +216,10 @@ define([
 					label = null;
 				})
 			.end()
-			.findByXpath("//d-combo-popup//d-list//div//d-list-item-renderer[7]")
+			.findByXpath("//d-combo-popup//d-list//div//d-list-item-renderer[1]")
 				.getVisibleText()
 				.then(function (value) {
-					assert(/^China/.test(value), "item rendender #8 : " + value);
+					assert(/^France/.test(value), "item rendender #8 : " + value);
 				})
 			.end()
 			.findByCssSelector(".d-combo-popup .d-linear-layout .d-combobox-input[d-hidden='" + !hasFilterInput + "']")
