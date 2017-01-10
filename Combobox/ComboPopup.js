@@ -97,7 +97,7 @@ define([
 					var id = this.combobox.list.getIdentity(
 						this.combobox.list.selectedItems.length > 0 ? this.combobox.list.selectedItems[0] : "");
 					var renderer = (id && id !== -1) ? this.combobox.list.getRendererByItemId(id) :
-						this.combobox.list.getRenderers()[0];
+						this.combobox.list.getItemRendererByIndex(0);
 					this.combobox.list.navigateTo(renderer);
 				}
 			}

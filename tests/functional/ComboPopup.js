@@ -429,6 +429,11 @@ define([
 			.end()
 			.setFindTimeout(intern.config.WAIT_TIMEOUT)
 			.findByXpath("//d-combo-popup")
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert(/^France/.test(value), "initial focus");
+			})
 			.pressKeys(keys.TAB)
 			.getActiveElement()
 			.getVisibleText()
