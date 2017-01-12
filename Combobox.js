@@ -622,7 +622,11 @@ define([
 		 * If in desktop, closes or opens the popup.
 		 */
 		_togglePopupList: function (inputElement) {
-			var showList = inputElement.value.length >= this.minFilterChars;
+			// Compute whether or not to show the list.  Note that in mobile mode ComboPopup doesn't display a
+			// down arrow icon to manually show/hide the list, so on mobile,
+			// if the Combobox has a down arrow icon, the list is always shown.
+			var showList = inputElement.value.length >= this.minFilterChars ||
+				(this._isMobile && this.hasDownArrow);
 			if (this._isMobile) {
 				// Mobile version.
 				if (showList) {
@@ -641,6 +645,21 @@ define([
 		},
 
 		/**
+		 * True iff the `<input>`'s value was set by user typing.
+		 * We only filter the dropdown list when the value was set by the user typing into the `<input>`,
+		 * and specifically avoid filtering the list to a single item when the user selects an item from
+		 * list and then reopens the dropdown.
+		 */
+		_valueSetByUserInput: false,
+
+		_setValueAttr: function (val) {
+			if (val !== this.value) {
+				this._set("value", val);
+				this._valueSetByUserInput = false;
+			}
+		},
+			
+		/**
 		 * Defines the milliseconds the widget has to wait until a new filter operation starts.
 		 * @type {Number}
 		 * @default 0
@@ -658,6 +677,7 @@ define([
 
 				// save what user typed at each keystroke.
 				this.value = inputElement.value;
+				this._valueSetByUserInput = true;
 				if (this._isMobile) {
 					this.inputNode.value = inputElement.value;
 				}
@@ -799,9 +819,12 @@ define([
 		 * @protected
 		 */
 		filter: function (inputText) {
-			if (!this.autoFilter || inputText.length === 0) {
+			if (!this.autoFilter || inputText.length === 0 || !this._valueSetByUserInput) {
+				// Display the full list.
 				this.list.query = this._getDefaultQuery();
 			} else {
+				// Display the list filtered by what user typed into <input>.
+
 				// Escape special chars in search string, see
 				// http://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex.
 				var filterTxt = inputText.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
@@ -868,7 +891,15 @@ define([
 
 		openDropDown: dcl.superCall(function (sup) {
 			return function () {
-				this.filter(this.inputNode.value);
+				if (this._isMobile) {
+					// We are opening the ComboPopup but may or may not want to show the list.
+					// TogglePopupList will decide the right thing to do.
+					this._togglePopupList(this.inputNode);
+				} else {
+					// On desktop, we definitely want to display the list.
+					// Adjust the dropdown contents to be filtered by the current value of the <input>.
+					this.filter(this.inputNode.value);
+				}
 
 				this._setSelectedItems();
 

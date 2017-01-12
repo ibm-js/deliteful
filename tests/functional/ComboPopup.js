@@ -107,7 +107,7 @@ define([
 						valueNodeValue: "France",
 						opened: true,
 						selectedItemsCount: 1,
-						itemRenderersCount: 1, // a filter did run, filtering only `France`
+						itemRenderersCount: 37,
 						inputEventCounter: 0,
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: undefined, // never received
@@ -163,7 +163,7 @@ define([
 						valueNodeValue: "",
 						opened: true,
 						selectedItemsCount: 0,
-						itemRenderersCount: 30,
+						itemRenderersCount: 37,
 						inputEventCounter: 3,
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: "",
@@ -542,9 +542,8 @@ define([
 				// https://github.com/theintern/leadfoot/issues/17
 				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
 			}
-			if (remote.environmentType.platformName === "iOS" || remote.environmentType.safari ||
-				remote.environmentType.browserName === "safari") {
-				return this.skip("no keyboard support - brokenSendKeys");
+			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support");
 			}
 
 			return checkFilter(remote, "combo2");

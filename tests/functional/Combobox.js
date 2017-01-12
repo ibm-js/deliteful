@@ -251,7 +251,7 @@ define([
 						valueNodeValue: "France",
 						opened: true,
 						selectedItemsCount: 1,
-						itemRenderersCount: 1, // filtered by "France"
+						itemRenderersCount: 37, // no filtering yet since user hasn't typed into <input>
 						inputEventCounter: 0, // no new event
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: undefined, // never received
@@ -969,7 +969,7 @@ define([
 						valueNodeValue: "France",
 						opened: true,
 						selectedItemsCount: 1,
-						itemRenderersCount: 1,
+						itemRenderersCount: 37,
 						inputEventCounter: 0, // unchanged
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: undefined,
@@ -1003,7 +1003,7 @@ define([
 			.pressKeys(keys.BACKSPACE) // Delete the 1 char of "Fr"
 			.pressKeys(keys.BACKSPACE) // Delete the 1 char of "F" - Empty input node
 			.execute(executeExpr)
-			.then(function (comboState) { // We get full list.
+			.then(function (comboState) { // We get full list again.
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: "",
@@ -1022,7 +1022,7 @@ define([
 			})
 			.pressKeys("U") // filters all countries but UK and USA
 			.execute(executeExpr)
-			.then(function (comboState) { // We get full list.
+			.then(function (comboState) {
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: "U",
