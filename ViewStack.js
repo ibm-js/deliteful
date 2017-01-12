@@ -247,6 +247,8 @@ define([
 			}
 			return Promise.all(promises).then(function () {
 				$(this).removeClass("-d-view-stack-transition");
+				$(target).removeClass("-d-view-stack-transition -d-view-stack-in");
+				$(origin).removeClass("-d-view-stack-transition -d-view-stack-out");
 			}.bind(this));
 		},
 
