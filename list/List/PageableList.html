@@ -3,7 +3,7 @@
     <!-- Load previous page button -->
     <d-list-loader class="d-list-previous-loader d-list-cell" on-click="{{_loadPreviousPage}}" on-keydown="{{_keydownPreviousLoaderHandler}}" loading={{loadingPreviousPage}}
         label="{{_previousPageButtonLabel}}" attach-point="previousPageLoader"
-        d-shown="{{this._previousRecordsMayExist &amp;&amp; this._displayedPanel === 'list'}}" tabindex="{{tabIndex}}"></d-list-loader>
+        d-shown="{{_showPreviousPageButton}}" tabindex="{{tabIndex}}"></d-list-loader>
 
     <div class="d-list-container" attach-point="containerNode" aria-busy="{{_busy}}" role="{{type}}"
         d-shown="{{this._displayedPanel === 'list'}}" tabindex="{{tabIndex}}"></div>
@@ -23,5 +23,5 @@
     <!-- Load next page button -->
     <d-list-loader class="d-list-next-loader d-list-cell" on-click="{{_loadNextPage}}" on-keydown="{{_keydownNextLoaderHandler}}" loading={{loadingNextPage}}
         label="{{_nextPageButtonLabel}}" attach-point="nextPageLoader"
-        d-shown="{{this._nextRecordsMayExist &amp;&amp; this._displayedPanel === 'list'}}" tabindex="{{tabIndex}}"></d-list-loader>
+        d-shown="{{_showNextPageButton}}" tabindex="{{tabIndex}}"></d-list-loader>
 </template>

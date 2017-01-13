@@ -173,22 +173,39 @@ define([
 		_lastLoaded: -1,
 
 		/**
-		 * Flag to hide/show the previousPageLoader widget.
-		 * However the widget is shown only if `diplayedPanel` is equal to `list`.
+		 * Flag to indicate that there is (or may be) more data before the data that's currently
+		 * being shown.
 		 * @member {boolean}
 		 * @default false
 		 * @private
 		 */
 		_previousRecordsMayExist: false,
 
-		 /**
-		 * Flag to hide/show the nextPageLoader widget.
-		 * However the widget is shown only if `diplayedPanel` is equal to `list`.
+		/**
+		 * Flag to hide/show the button to load the previous page.
+		 * @member {boolean}
+		 * @default false
+		 * @private
+		 */
+		_showPreviousPageButton: false,
+
+		/**
+		 * Flag to indicate that there is (or may be) more data after the data that's currently
+		 * being shown.
 		 * @member {boolean}
 		 * @default false
 		 * @private
 		 */
 		_nextRecordsMayExist: false,
+
+		/**
+		 * Flag to hide/show the nextPageLoader widget.
+		 * However the widget is shown only if `displayedPanel` is equal to `list`.
+		 * @member {boolean}
+		 * @default false
+		 * @private
+		 */
+		_showNextPageButton: false,
 
 		/**
 		 * Set to true if the previous page is currently being loaded.
@@ -218,6 +235,18 @@ define([
 		 */
 		_nextPageButtonLabel: "",
 
+		/**
+		 * Flag to make refreshRendering() move focus to first list item.
+		 * @type {boolean}
+		 */
+		_focusFirstListItem: false,
+
+		/**
+		 * Flag to make refreshRendering() move focus to last list item.
+		 * @type {boolean}
+		 */
+		_focusLastListItem: false,
+
 		computeProperties: function (props) {
 			/*jshint maxcomplexity: 15*/
 			if (this.pageLength > 0) {
@@ -236,6 +265,9 @@ define([
 
 			this._nextPageButtonLabel = this.loadingNextPage ? this.loadingMessage :
 				string.substitute(this.loadNextMessage, this);
+
+			this._showNextPageButton = this._nextRecordsMayExist && this._displayedPanel === "list";
+			this._showPreviousPageButton = this._previousRecordsMayExist && this._displayedPanel === "list";
 		},
 
 		refreshRendering: function (props) {
@@ -256,6 +288,21 @@ define([
 						this._queryError(error);
 					}.bind(this));
 				}
+			}
+
+			// If user [keyboard] clicked the "next page" button, move focus to last visible list item.
+			// Important if we just hid that button because there are no more pages.
+			// Likewise if focus was on the "first page" button.
+			// This code is positioned to run after the "next page" / "previous page" buttons are hidden/shown
+			// because hiding/showing buttons can scroll list items in/out of view.
+			var renderer;
+			if ("_focusFirstListItem" in props) {
+				renderer = this._getFirstVisibleRenderer();
+			} else if ("_focusLastListItem" in props) {
+				renderer = this._getLastVisibleRenderer();
+			}
+			if (renderer) {
+				this.navigateTo(renderer.renderNode);
 			}
 		},
 
@@ -426,13 +473,6 @@ define([
 		 * @private
 		 */
 		_previousPageReadyHandler: function (items) {
-			var renderer = this._getFirstVisibleRenderer();
-			var nextRenderer = renderer.nextElementSibling;
-			if (this.navigatedDescendant) {
-				if (renderer) {
-					this.navigateTo(renderer.renderNode);
-				}
-			}
 			this._renderNewItems(items, true);
 			if (this.maxPages && this._idPages.length > this.maxPages) {
 				this._unloadPage(false);
@@ -443,36 +483,22 @@ define([
 			} else {
 				this._previousRecordsMayExist = true;
 			}
-			// the renderer may have been destroyed and replaced by another one (categorized lists)
-			if (renderer._destroyed) {
-				renderer = nextRenderer;
-			}
-			if (renderer) {
-				var previous = renderer.previousElementSibling;
-				if (previous && previous.renderNode) {
-					this.navigateTo(previous.renderNode);
-					// scroll the focused node to the top of the screen.
-					// To avoid flickering, we do not wait for a focus event
-					// to confirm that the child has indeed been focused.
-					this.scrollBy({y: this.getTopDistance(previous)});
-				}
-			}
+
 			this.loadingPreviousPage = this._busy = false;
+
+			// If focus is on the "previous page" button, then set flag to move focus inside the list.
+			// Especially important for the case when the "previous page" button is about to be hidden.
+			if (this.previousPageLoader.contains(this.ownerDocument.activeElement)) {
+				this.notifyCurrentValue("_focusFirstListItem");
+			}
 		},
 
-		/*jshint maxcomplexity: 11*/
 		/**
 		 * Function to call when the next page has been loaded.
 		 * @param {Object[]} items the items in the next page.
 		 * @private
 		 */
 		_nextPageReadyHandler: function (items) {
-			var renderer = this._getLastVisibleRenderer();
-			if (this.navigatedDescendant) {
-				if (renderer) {
-					this.navigateTo(renderer.renderNode);
-				}
-			}
 			this._renderNewItems(items, false);
 			if (this.maxPages && this._idPages.length > this.maxPages) {
 				this._unloadPage(true);
@@ -489,19 +515,15 @@ define([
 					this._nextRecordsMayExist = true;
 				}
 			}
-			if (renderer) {
-				var next = renderer.nextElementSibling;
-				if (next && next.renderNode) {
-					this.navigateTo(next.renderNode);
-					// scroll the focused node to the bottom of the screen.
-					// To avoid flickering, we do not wait for a focus event
-					// to confirm that the child has indeed been focused.
-					this.scrollBy({y: this.getBottomDistance(next)});
-				}
-			}
+
 			this.loadingNextPage = this._busy = false;
+
+			// If focus is on the "next page" button, then set flag to move focus inside the list.
+			// Especially important for the case when the "next page" button is about to be hidden.
+			if (this.nextPageLoader.contains(this.ownerDocument.activeElement)) {
+				this.notifyCurrentValue("_focusLastListItem");
+			}
 		},
-		/*jshint maxcomplexity: 10*/
 
 		/**
 		 * Returns the last renderer that is visible in the scroll viewport.

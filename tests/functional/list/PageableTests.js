@@ -6,9 +6,7 @@ define(["intern",
         "require"
         ], function (intern, registerSuite, pollUntil, keys, assert, require) {
 
-	var loadNextPage = function (remote, listId, pageSize, expectedActiveTextAfterLoad, isCategory) {
-		var expectedTextPath = isCategory ? "document.activeElement.textContent"
-				: "document.activeElement.children[1].textContent";
+	var loadNextPage = function (remote, listId, pageSize, expectedActiveTextAfterLoad) {
 		return remote.pressKeys(keys.PAGE_DOWN)
 			.pressKeys(keys.TAB)
 			.getActiveElement()
@@ -18,8 +16,12 @@ define(["intern",
 				})
 			.end()
 			.pressKeys(keys.SPACE)
-			.then(pollUntil("return " + expectedTextPath + " === '"
-					+ expectedActiveTextAfterLoad + "' ? true : null", [], 5000, intern.config.POLL_INTERVAL));
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, expectedActiveTextAfterLoad);
+			})
+			.end();
 	};
 
 	var loadPreviousPage = function (remote, listId, pageSize, expectedActiveTextAfterLoad) {
@@ -33,8 +35,12 @@ define(["intern",
 				})
 			.end()
 			.pressKeys(keys.SPACE)
-				.then(pollUntil("return document.activeElement.children[1].textContent === '"
-					+ expectedActiveTextAfterLoad + "' ? true : null;", [], 5000, intern.config.POLL_INTERVAL));
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, expectedActiveTextAfterLoad);
+			})
+			.end();
 	};
 
 	registerSuite({
@@ -69,41 +75,28 @@ define(["intern",
 					return loadNextPage(remote, listId, 20, "Programmatic item of order 20");
 				})
 				.then(function () {
-					return loadNextPage(remote, listId, 20, "Programmatic item of order 40");
+					return loadNextPage(remote, listId, 20, "Programmatic item of order 59");
 				})
 				.then(function () {
-					return loadNextPage(remote, listId, 20, "Programmatic item of order 60");
-				})
-				.then(function () {
-					return loadNextPage(remote, listId, 20, "Programmatic item of order 80");
+					return loadNextPage(remote, listId, 20, "Programmatic item of order 79");
 				})
 				.then(function () {
 					return loadNextPage(remote, listId, 20, "Programmatic item of order 99");
 				})
 				.then(function () {
-					return remote.pressKeys(keys.PAGE_DOWN)
-							.then(pollUntil(
-								"return document.activeElement.children[1].textContent === "
-									+ "'Programmatic item of order 99' ? true : null;",
-							[], 5000, intern.config.POLL_INTERVAL));
+					return loadNextPage(remote, listId, 20, "Programmatic item of order 99");
 				})
 				.then(function () {
-					return loadPreviousPage(remote, listId, 20, "Programmatic item of order 59");
+					return loadPreviousPage(remote, listId, 20, "Programmatic item of order 40");
 				})
 				.then(function () {
-					return loadPreviousPage(remote, listId, 20, "Programmatic item of order 39");
+					return loadPreviousPage(remote, listId, 20, "Programmatic item of order 20");
 				})
 				.then(function () {
-					return loadPreviousPage(remote, listId, 20, "Programmatic item of order 19");
-				})
-				.then(function () {
-					return remote.pressKeys(keys.PAGE_UP)
-							.then(pollUntil(
-									"return document.activeElement.children[1].textContent === "
-									+ "'Programmatic item of order 0' ? true : null;",
-							[], 5000, intern.config.POLL_INTERVAL));
+					return loadPreviousPage(remote, listId, 20, "Programmatic item of order 0");
 				});
 		},
+
 		"Pageable categorized list keyboard navigation": function () {
 			var remote = this.remote;
 			// PageableList not currently supported on IE 10
@@ -119,42 +112,30 @@ define(["intern",
 			return remote
 				.get(require.toUrl("./pageable-prog-2.html"))
 				.then(pollUntil("return ('ready' in window &&  ready "
-						+ "&& document.getElementById('" + listId + "') "
-						+ "&& !document.querySelector('#" + listId + " .d-list-container')"
-						+	".getAttribute('aria-busy') === false) ? true : null;",
-						[],
-						intern.config.WAIT_TIMEOUT,
-						intern.config.POLL_INTERVAL))
+					+ "&& document.getElementById('" + listId + "') "
+					+ "&& !document.querySelector('#" + listId + " .d-list-container')"
+					+	".getAttribute('aria-busy') === false) ? true : null;",
+					[],
+					intern.config.WAIT_TIMEOUT,
+					intern.config.POLL_INTERVAL))
 				.pressKeys(keys.TAB)
 				.then(function () {
 					return loadNextPage(remote, listId, 25, "Programmatic item of order 25");
 				})
 				.then(function () {
-					return loadNextPage(remote, listId, 25, "Category 5", true);
-				})
-				.then(function () {
-					return loadNextPage(remote, listId, 25, "Programmatic item of order 75");
+					return loadNextPage(remote, listId, 25, "Programmatic item of order 73");
 				})
 				.then(function () {
 					return loadNextPage(remote, listId, 25, "Programmatic item of order 99");
 				})
 				.then(function () {
-					return remote.pressKeys(keys.PAGE_DOWN)
-							.then(pollUntil(
-								"return document.activeElement.children[1].textContent === "
-									+ "'Programmatic item of order 99' ? true : null;",
-							[], 5000));
+					return loadNextPage(remote, listId, 25, "Programmatic item of order 99");
 				})
 				.then(function () {
-					return loadPreviousPage(remote, listId, 25, "Programmatic item of order 49");
+					return loadPreviousPage(remote, listId, 25, "Category 2");
 				})
 				.then(function () {
-					return loadPreviousPage(remote, listId, 25, "Programmatic item of order 24");
-				})
-				.then(function () {
-					return remote.pressKeys(keys.PAGE_UP)
-							.then(pollUntil("return document.activeElement.textContent === 'Category 0' ? true : null;",
-							[], 5000));
+					return loadPreviousPage(remote, listId, 25, "Category 0");
 				});
 		}
 	});

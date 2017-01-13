@@ -1303,7 +1303,9 @@ define([
 				}, TIMEOUT, INTERVAL).then(def.rejectOnError(function () {
 					list.deliver();
 					assertCategorizedList(list, 50, 0, false, true);
-					assert.strictEqual("item 25", removeTabsAndReturns(list._getLastVisibleRenderer().textContent),
+					assert.strictEqual(
+							removeTabsAndReturns(list._getLastVisibleRenderer().textContent),
+							"item 24",
 							"last visible renderer after first page load");
 					setTimeout(def.rejectOnError(function () {
 						// scroll a little to remove the "_atExtremity" marker
@@ -1318,9 +1320,10 @@ define([
 							}, TIMEOUT, INTERVAL).then(def.rejectOnError(function () {
 								list.deliver();
 								assertCategorizedList(list, 50, 25, true, true);
-								assert.strictEqual("item 48",
-										removeTabsAndReturns(list._getLastVisibleRenderer().textContent),
-										"last visible renderer after second page load");
+								assert.strictEqual(
+									removeTabsAndReturns(list._getLastVisibleRenderer().textContent),
+									"item 73",
+									"last visible renderer after second page load");
 								setTimeout(def.rejectOnError(function () {
 									// scroll a little to remove the "_atExtremity" marker
 									list.scrollTop = 100;
@@ -1331,10 +1334,10 @@ define([
 											return list.textContent.indexOf("item 24") >= 0;
 										}, TIMEOUT, INTERVAL).then(def.callback(function () {
 											assertCategorizedList(list, 50, 0, false, true);
-											assert.strictEqual("item 25",
-													removeTabsAndReturns(
-															list._getFirstVisibleRenderer().textContent),
-														"first visible renderer");
+											assert.strictEqual(
+												removeTabsAndReturns(list._getFirstVisibleRenderer().textContent),
+												"Category 0",
+												"first visible renderer");
 										}));
 									}), 10);
 								}), 10);
