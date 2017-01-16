@@ -375,6 +375,10 @@ define([
 				this.list = new List(listArgs);
 				this.deliver();
 			}
+
+			if (!this.list.id) {
+				this.list.id = this.id ? this.id + "-list" : this.tag + "-" + this.widgetId + "-list";
+			}
 		},
 
 		postRender: function () {
@@ -588,6 +592,11 @@ define([
 
 			this.dropDown = dropDown; // delite/HasDropDown's property
 
+			if (this._isMobile) {
+				// Set correct (initial) value of aria-expanded on ComboPopup <input>.
+				this._togglePopupList(dropDown.inputNode);
+			}
+
 			return dropDown;
 		},
 
@@ -633,7 +642,10 @@ define([
 					this.filter(inputElement.value);
 				}
 				this.list.setAttribute("d-shown", "" + showList);
-				this.list.emit("delite-size-change");
+				if (this.dropDown) {
+					this.dropDown.inputNode.setAttribute("aria-expanded", "" + showList);
+					this.list.emit("delite-size-change");
+				}
 			} else {
 				// Desktop version.
 				if (showList) {

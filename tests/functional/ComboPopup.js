@@ -197,30 +197,33 @@ define([
 	};
 
 	var checkListInPopup = function (remote, comboId, hasFilterInput, isMultiSelect) {
-		var label = null;
 		return loadFile(remote, "./ComboPopup.html")
-			.findById(comboId)
-			.click()
+			.findById(comboId).click().end()
 			.sleep(500) // wait for List's loading panel to go away
-			.end()
-			.findByCssSelector("label[for=" + comboId + "-input]").getVisibleText().then(function (value) {
-				// Get the <label> of the Combobox.
-				label = value;
+
+			// Get the ComboPopup's <input>'s id...
+			.findByCssSelector("#" + comboId + "_dropdown input").getAttribute("id").then(function (inputId) {
+				// And then get the <label> pointing to that <input>...
+				return remote.findByCssSelector("#" + comboId + "_dropdown label[for=" + inputId + "]")
+					.getVisibleText().then(function (popupLabel) {
+						// And then make sure it matches the Combobox's label.
+						return remote.findByCssSelector("label[for=" + comboId + "-input]")
+							.getVisibleText().then(function (comboLabel) {
+								assert.strictEqual(popupLabel, comboLabel, "expected label");
+							}).end();
+					}).end();
 			}).end()
-			.execute("var input = document.querySelector('#" + comboId + "_dropdown input'); " +
-				"var label = document.querySelector('#" + comboId + "_dropdown label[for=' + input.id + ']'); " +
-				"return label.textContent.trim();")
-			.then(function (value) {
-				// Make sure that the ComboPopup has the same header as the Combobox
-				// and that it's a <label> that points to the ComboPopup's <input>.
-				assert.strictEqual(value, label, "expected label");
-			})
-			.findByXpath("//d-combo-popup//d-list//div//d-list-item-renderer[1]")
-				.getVisibleText()
-				.then(function (value) {
-					assert(/^France/.test(value), "item rendender #8 : " + value);
-				})
-			.end()
+
+			.findByCssSelector("#" + comboId + "_dropdown input").getAttribute("aria-owns").then(function (listId) {
+				// Use aria-owns attribute to find the <d-list>, and then spot check that the <d-list>
+				// contents are correct.
+				return remote.findByCssSelector("#" + listId + " d-list-item-renderer:nth-child(2)")
+					.getVisibleText().then(function (value) {
+						// Spot check that the <d-list> contents are OK.
+						assert(/^France/.test(value), "item renderer #1: " + value);
+					}).end();
+			}).end()
+
 			.findByCssSelector(".d-combo-popup .d-linear-layout .d-combobox-input[d-hidden='" + !hasFilterInput + "']")
 			.end()
 			.findByCssSelector(".d-combo-popup .d-linear-layout .d-linear-layout[d-hidden='" + !isMultiSelect + "']")
@@ -654,6 +657,33 @@ define([
 			}
 
 			return checkFocus(remote, "combo2", true);
+		},
+
+		"auto complete (combo4)": function () {
+			var remote = this.remote;
+
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/17
+				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
+			}
+			/*
+			if (remote.environmentType.platformName === "iOS" || remote.environmentType.safari ||
+				remote.environmentType.browserName === "safari" || remote.environmentType.brokenSendKeys ||
+				!remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support - brokenSendKeys");
+			}*/
+
+			return loadFile(remote, "./ComboPopup.html")
+				.findById("combo4").click().end()
+				.sleep(500) // wait for List's loading panel to go away
+				.findByCssSelector("#combo4_dropdown input").getAttribute("aria-expanded").then(function (value) {
+					assert.strictEqual(value, "false", "initially not expanded");
+				}).end()
+				.findByCssSelector("#combo4_dropdown input").type("jap").end()
+				.sleep(500)
+				.findByCssSelector("#combo4_dropdown input").getAttribute("aria-expanded").then(function (value) {
+					assert.strictEqual(value, "true", "expanded after typing 3 chars");
+				}).end();
 		}
 	});
 });

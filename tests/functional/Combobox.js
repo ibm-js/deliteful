@@ -901,8 +901,7 @@ define([
 	var checkPopupPosition = function (remote, comboId, position) {
 		return loadFile(remote, "./Combobox-decl.html")
 			.execute("return moveToBottom(\"" + comboId + "\");")
-			.findByCssSelector("#" + comboId + " .d-combobox-arrow")
-			.click() // opens popup
+			.findByCssSelector("#" + comboId + " .d-combobox-arrow").click().end()  // opens popup
 			.sleep(500)
 			.execute("return isAligned(\"" + comboId + "\", \"" + position + "\")")
 			.then(function (value) {
