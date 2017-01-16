@@ -40,6 +40,8 @@
   display: block;
 }
 .d-combo-popup-header {
+  display: block;
+  margin: 0;
   padding: 2px 8px;
   text-align: center;
   font-size: 16px;

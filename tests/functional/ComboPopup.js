@@ -203,19 +203,18 @@ define([
 			.click()
 			.sleep(500) // wait for List's loading panel to go away
 			.end()
-			.findByCssSelector("#" + comboId + "_dropdown_wrapper .d-combo-popup .d-combo-popup-header")
-				.getVisibleText()
-				.then(function (value) {
-					label = value;
-				})
-			.end()
-			.findByCssSelector("label[for='" + comboId + "-input']")
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, label);
-					label = null;
-				})
-			.end()
+			.findByCssSelector("label[for=" + comboId + "-input]").getVisibleText().then(function (value) {
+				// Get the <label> of the Combobox.
+				label = value;
+			}).end()
+			.execute("var input = document.querySelector('#" + comboId + "_dropdown input'); " +
+				"var label = document.querySelector('#" + comboId + "_dropdown label[for=' + input.id + ']'); " +
+				"return label.textContent.trim();")
+			.then(function (value) {
+				// Make sure that the ComboPopup has the same header as the Combobox
+				// and that it's a <label> that points to the ComboPopup's <input>.
+				assert.strictEqual(value, label, "expected label");
+			})
 			.findByXpath("//d-combo-popup//d-list//div//d-list-item-renderer[1]")
 				.getVisibleText()
 				.then(function (value) {
