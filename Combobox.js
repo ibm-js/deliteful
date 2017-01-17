@@ -283,7 +283,7 @@ define([
 		minFilterChars: 1,
 
 		/**
-		 * Displayed value, when Combobox.value is set at the creation time.
+		 * Text displayed in the Combobox's `<input>`.
 		 * @type {string}
 		 */
 		displayedValue: "",
@@ -385,6 +385,35 @@ define([
 			this._prepareInput(this.inputNode);
 		},
 
+		computeProperties: function (oldValues, justCreated) {
+			if ("value" in oldValues && (!("displayedValue" in oldValues) ||
+					(justCreated && !this.displayedValue))) {
+				if (this.selectionMode === "single") {
+					this.displayedValue = this.value;
+				} else {
+					var items = [];
+					if (typeof this.value === "string") {
+						if (this.value.length > 0) {
+							items = this.value = this.value.split(",");
+						} else {
+							this.value = [];
+						}
+						this.valueNode.value = this.value.toString();
+					} else if (this.value instanceof Array) {
+						items = this.value;
+					} // else empty array. No pre-set values.
+					var n = items.length;
+					if (n > 1) {
+						this.displayedValue = string.substitute(this.multipleChoiceMsg, {items: n});
+					} else if (n === 1) {
+						this.displayedValue = items[0];
+					} else {
+						this.displayedValue = this.multipleChoiceNoSelectionMsg;
+					}
+				}
+			}
+		},
+
 		/* jshint maxcomplexity: 17 */
 		refreshRendering: function (oldValues) {
 			var updateReadOnly = false;
@@ -406,12 +435,12 @@ define([
 				this._updateInputReadOnly();
 				this._setSelectable(this.inputNode, !this.inputNode.readOnly);
 			}
-			if ("value" in oldValues) {
-				if (!this._justValidated) {
-					this._validateInput(false, true);
-				} else {
-					delete this._justValidated;
-				}
+
+			// Update <input>'s value if necessary, but don't update the value because the user
+			// typed a character into the <input> as that will move the caret to the end of the
+			// <input>.
+			if ("displayedValue" in oldValues && this.displayedValue !== this.inputNode.value) {
+				this.inputNode.value = this.displayedValue;
 			}
 		},
 
@@ -530,7 +559,7 @@ define([
 
 				// React to interactive changes of selected items
 				this.list.on("selection-change", function () {
-					this._validateInput(true);
+					this._validateInput();
 					this.handleOnInput(this.value); // emit "input" event
 				}.bind(this)),
 
@@ -688,11 +717,8 @@ define([
 				// change event. But there's no equivalent on Safari / iOS...
 
 				// save what user typed at each keystroke.
-				this.value = inputElement.value;
+				this.value = this.displayedValue = inputElement.value;
 				this._valueSetByUserInput = true;
-				if (this._isMobile) {
-					this.inputNode.value = inputElement.value;
-				}
 				this.handleOnInput(this.value); // emit "input" event.
 
 				if (this._timeoutHandle !== undefined) {
@@ -755,72 +781,45 @@ define([
 			}.bind(this), inputElement);
 		},
 
-		_validateInput: function (userInteraction, init) {
+		_validateInput: function () {
 			if (this.selectionMode === "single") {
-				this._validateSingle(userInteraction, init);
+				this._validateSingle();
 			} else {
-				this._validateMultiple(userInteraction, init);
-			}
-			this._justValidated = true;
-		},
-
-		_validateSingle: function (userInteraction, init) {
-			if (userInteraction) {
-				var selectedItem = this.list.selectedItem;
-				// selectedItem non-null because List in radio selection mode, but
-				// the List can be empty, so:
-				this.inputNode.value = selectedItem ? this._getItemLabel(selectedItem) : "";
-				this.value = selectedItem ? this._getItemValue(selectedItem) : "";
-			} else if (init) {
-				this.inputNode.value = this.displayedValue !== "" ? this.displayedValue : this.value;
+				this._validateMultiple();
 			}
 		},
 
-		_validateMultiple: function (userInteraction, init) {
+		_validateSingle: function () {
+			var selectedItem = this.list.selectedItem;
+			// selectedItem non-null because List in radio selection mode, but
+			// the List can be empty, so:
+			this.displayedValue = selectedItem ? this._getItemLabel(selectedItem) : "";
+			this.value = selectedItem ? this._getItemValue(selectedItem) : "";
+		},
+
+		_validateMultiple: function () {
 			var n;
-			if (userInteraction) {
-				var selectedItems = this.list.selectedItems;
-				var inputElement = this._popupInput || this.inputNode;
-				n = selectedItems ? selectedItems.length : 0;
-				var value = [];
-				if (n > 1) {
-					inputElement.value = string.substitute(this.multipleChoiceMsg, {items: n});
-					for (var i = 0; i < n; i++) {
-						value.push(selectedItems[i] ? this._getItemValue(selectedItems[i]) : "");
-					}
-				} else if (n === 1) {
-					var selectedItem = this.list.selectedItem;
-					inputElement.value = this._getItemLabel(selectedItem);
-					value.push(this._getItemValue(selectedItem));
-				} else { // no option selected
-					inputElement.value = this.multipleChoiceNoSelectionMsg;
+			var selectedItems = this.list.selectedItems;
+			var inputElement = this._popupInput || this.inputNode;
+			n = selectedItems ? selectedItems.length : 0;
+			var value = [];
+			if (n > 1) {
+				inputElement.value = string.substitute(this.multipleChoiceMsg, {items: n});
+				for (var i = 0; i < n; i++) {
+					value.push(selectedItems[i] ? this._getItemValue(selectedItems[i]) : "");
 				}
-				this._set("value", value);
-				// FormWidget.refreshRendering() also updates valueNode.value, but we need to
-				// make sure this is already done when FormValueWidget.handleOnInput() runs.
-				this.valueNode.value = value;
-				this.handleOnInput(this.value); // emit "input" event
-			} else if (init) {
-				var items = [];
-				if (typeof this.value === "string") {
-					if (this.value.length > 0) {
-						items = this.value = this.value.split(",");
-					} else {
-						this.value = [];
-					}
-					this.valueNode.value = this.value.toString();
-				} else if (this.value instanceof Array) {
-					items = this.value;
-				} // else empty array. No pre-set values.
-				n = items.length;
-				if (n > 1) {
-					this.inputNode.value = string.substitute(this.multipleChoiceMsg, {items: n});
-				} else if (n === 1) {
-					this.inputNode.value = this.displayedValue !== "" ? this.displayedValue : items[0];
-				} else {
-					this.inputNode.value = this.multipleChoiceNoSelectionMsg;
-				}
+			} else if (n === 1) {
+				var selectedItem = this.list.selectedItem;
+				inputElement.value = this._getItemLabel(selectedItem);
+				value.push(this._getItemValue(selectedItem));
+			} else { // no option selected
+				inputElement.value = this.multipleChoiceNoSelectionMsg;
 			}
+			this._set("value", value);
+			// FormWidget.refreshRendering() also updates valueNode.value, but we need to
+			// make sure this is already done when FormValueWidget.handleOnInput() runs.
+			this.valueNode.value = value;
+			this.handleOnInput(this.value); // emit "input" event
 		},
 
 		/**
@@ -897,7 +896,9 @@ define([
 				}.bind(this));
 
 				this.list.selectedItems = selectedItems;
-				this._validateInput(Boolean(selectedItems.length));
+				if (selectedItems.length) {
+					this._validateInput();
+				}
 			}
 		},
 
@@ -940,7 +941,7 @@ define([
 						this._setActiveDescendant(this.list.navigatedDescendant);
 					} else {
 						if (this.hasDownArrow) {
-							this.dropDown.inputNode.value = this.inputNode.value;
+							this.dropDown.inputNode.value = this.displayedValue;
 						}
 						this.dropDown.focus();
 					}
