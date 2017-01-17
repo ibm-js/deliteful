@@ -130,6 +130,25 @@ define(["intern",
 					})
 					.end();
 			}
+		},
+		"range slider interaction inside a listening parent": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
+			var remote = this.remote;
+			// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
+			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
+				return this.skip("SafariDriver doesn't support moveTo.");
+			} else {
+				return remote
+					.then(logMessage(remote, this.id, "move handler"))
+					.then(clickOnHandler(remote, "rangeSlider01"))
+					.then(moveHandler(remote, "rangeSlider01", 70, 30))
+					.execute("return rangeSlider01parent")
+					.then(function (rangeSlider01parent) {
+						assert.equal(rangeSlider01parent.pointerdowns, 0, "parent did not detect pointerdown");
+						assert.equal(rangeSlider01parent.pointermoves, 0, "parent did not detect pointermove");
+					})
+					.end();
+			}
 		}
 	});
 
