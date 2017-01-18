@@ -1225,6 +1225,133 @@ define([
 			return checkKeyboardNavigationMultipleSelection(remote, "combo3");
 		},
 
+		"keyboard navigation selectionMode = multiple, initial selection (combo3-value)": function () {
+			var remote = this.remote,
+				comboId = "combo3-value";
+			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support");
+			}
+			var executeExpr = "return getComboState(\"" + comboId + "\");";
+			return loadFile(remote, "./Combobox-decl.html")
+				.execute("document.getElementById('" + comboId + "').focus(); " + executeExpr)
+				.then(function (comboState) {
+					// France initially selcted
+					checkComboState(comboId, comboState, { // expected combo state
+						inputNodeValue: "France",
+						widgetValue: ["FR"],
+						valueNodeValue: "FR",
+						opened: false,
+						selectedItemsCount: 0,
+						itemRenderersCount: 8,
+						inputEventCounter: 0,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: undefined, // never received
+						valueNodeValueAtLatestInputEvent: undefined,
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after initial focus");
+				})
+				.pressKeys(keys.ARROW_DOWN)
+				.sleep(2000)
+				.execute(executeExpr)
+				.then(function (comboState) {
+					// ARROW_DOWN opens the dropdown and focuses France
+					checkComboState(comboId, comboState, { // expected combo state
+						inputNodeValue: "France",
+						widgetValue: ["FR"],
+						valueNodeValue: "FR",
+						opened: true,
+						selectedItemsCount: 1,
+						itemRenderersCount: 8,
+						inputEventCounter: 0,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: undefined, // never received
+						valueNodeValueAtLatestInputEvent: undefined,
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after first ARROW_DOWN");
+				})
+				.pressKeys(keys.ARROW_DOWN)
+				.execute(executeExpr)
+				.then(function (comboState) {
+					// Change the navigated/highlighted item of the List.
+					checkComboState(comboId, comboState, { // expected combo state
+						inputNodeValue: "France",
+						widgetValue: ["FR"],
+						valueNodeValue: "FR",
+						opened: true,
+						selectedItemsCount: 1,
+						itemRenderersCount: 8,
+						inputEventCounter: 0,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: undefined, // never received
+						valueNodeValueAtLatestInputEvent: undefined,
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after second ARROW_DOWN");
+					assert(/^Germany/.test(comboState.activeDescendant),
+						"activeDescendant after second ARROW_DOWN: " + comboState.activeDescendant);
+				})
+				.pressKeys(keys.SPACE)
+				.execute(executeExpr)
+				.then(function (comboState) {
+					// Now France and Germany should be selected.
+					checkComboState(comboId, comboState, { // expected combo state
+						inputNodeValue: "2 selected",
+						widgetValue: ["DE", "FR"],
+						valueNodeValue: "DE,FR",
+						opened: true,
+						selectedItemsCount: 2,
+						itemRenderersCount: 8,
+						inputEventCounter: 1, // incremented
+						changeEventCounter: 0, // still 0 till validation by close popup
+						widgetValueAtLatestInputEvent: ["DE", "FR"],
+						valueNodeValueAtLatestInputEvent: "DE,FR",
+						widgetValueAtLatestChangeEvent: undefined, // never received
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after first SPACE on Germany item");
+				})
+				.pressKeys(keys.SPACE) // unselect Germany
+				.execute(executeExpr)
+				.then(function (comboState) {
+					// Now only France should be selected.
+					checkComboState(comboId, comboState, { // expected combo state
+						inputNodeValue: "France",
+						widgetValue: ["FR"],
+						valueNodeValue: "FR",
+						opened: true,
+						selectedItemsCount: 1,
+						itemRenderersCount: 8,
+						inputEventCounter: 1, // incremented
+						changeEventCounter: 0, // still 0 till validation by close popup
+						widgetValueAtLatestInputEvent: ["FR"],
+						valueNodeValueAtLatestInputEvent: "FR",
+						widgetValueAtLatestChangeEvent: undefined, // never received
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after second SPACE on Germany item");
+				})
+				.pressKeys(keys.ARROW_UP)
+				.pressKeys(keys.SPACE) // deselect France too
+				.execute(executeExpr)
+				.then(function (comboState) {
+					// Now nothing should be selected.
+					checkComboState(comboId, comboState, { // expected combo state
+						inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
+						widgetValue: [],
+						valueNodeValue: "",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 8,
+						inputEventCounter: 1, // incremented
+						changeEventCounter: 0, // still 0 till validation by close popup
+						widgetValueAtLatestInputEvent: [],
+						valueNodeValueAtLatestInputEvent: "",
+						widgetValueAtLatestChangeEvent: undefined, // never received
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after first SPACE on France item");
+				});
+		},
+
 		"keyboard navigation - autoscroll (single)": function () {
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {

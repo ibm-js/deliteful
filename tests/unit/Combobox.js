@@ -370,6 +370,105 @@ define([
 			return d;
 		},
 
+		"programmatically set value and displayedValue": {
+			simple: function () {
+				// Simple Combobox, displayedValue not specified but it defaults to value.
+				var source = new Memory({
+					data: [
+						{name: "Japan", sales: 900, profit: 100, region: "Asia"},
+						{name: "France", sales: 500, profit: 50, region: "EU"},
+						{name: "Germany", sales: 450, profit: 48, region: "EU"},
+						{name: "UK", sales: 700, profit: 60, region: "EU"},
+						{name: "USA", sales: 2000, profit: 250, region: "America"},
+						{name: "Canada", sales: 600, profit: 30, region: "America"},
+						{name: "Brazil", sales: 450, profit: 30, region: "America"},
+						{name: "China", sales: 500, profit: 40, region: "Asia"}
+					]
+				});
+				var combo = new Combobox({
+					source: source,
+					labelAttr: "name",
+					value: "Germany"
+				});
+				assert.strictEqual(combo.displayedValue, "Germany", "initial displayedValue");
+				assert.strictEqual(combo.inputNode.value, "Germany", "initial inputNode.value");
+
+				combo.value = "Japan";
+				combo.deliver();
+				assert.strictEqual(combo.displayedValue, "Japan", "changed displayedValue");
+				assert.strictEqual(combo.inputNode.value, "Japan", "changed inputNode.value");
+			},
+
+			label: function () {
+				// Combobox where value and displayedValue are different, so at creation both
+				// displayedValue and value are specified.
+				var source = new Memory({
+					idProperty: "id",
+					data: [
+						{id: "JP", name: "Japan", sales: 900, profit: 100, region: "Asia"},
+						{id: "FR", name: "France", sales: 500, profit: 50, region: "EU"},
+						{id: "DE", name: "Germany", sales: 450, profit: 48, region: "EU"},
+						{id: "UK", name: "UK", sales: 700, profit: 60, region: "EU"},
+						{id: "US", name: "USA", sales: 2000, profit: 250, region: "America"},
+						{id: "CA", name: "Canada", sales: 600, profit: 30, region: "America"},
+						{id: "BR", name: "Brazil", sales: 450, profit: 30, region: "America"},
+						{id: "CN", name: "China", sales: 500, profit: 40, region: "Asia"}
+					]
+				});
+				var combo = new Combobox({
+					source: source,
+					labelAttr: "name",
+					value: "DE",
+					displayedValue: "Germany"
+				});
+				assert.strictEqual(combo.value, "DE", "initial value");
+				assert.strictEqual(combo.displayedValue, "Germany", "initial displayedValue");
+				assert.strictEqual(combo.inputNode.value, "Germany", "initial inputNode.value");
+
+				combo.value = "CA";
+				combo.displayedValue = "Canada";
+				combo.deliver();
+				assert.strictEqual(combo.value, "CA", "changed value");
+				assert.strictEqual(combo.displayedValue, "Canada", "changed displayedValue");
+				assert.strictEqual(combo.inputNode.value, "Canada", "changed inputNode.value");
+
+			},
+
+			"blank label": function () {
+				// Make sure that you can specify a blank displayedValue and it doesn't default to the value.
+				var source = new Memory({
+					idProperty: "id",
+					data: [
+						{ id: "blank", name: "" },
+						{ id: "M", name: "male" },
+						{ id: "F", name: "female" }
+					]
+				});
+				var combo = new Combobox({
+					source: source,
+					labelAttr: "name",
+					value: "blank",
+					displayedValue: ""
+				});
+				assert.strictEqual(combo.value, "blank", "initial value");
+				assert.strictEqual(combo.displayedValue, "", "initial displayedValue");
+				assert.strictEqual(combo.inputNode.value, "", "initial inputNode.value");
+
+				combo.value = "M";
+				combo.displayedValue = "male";
+				combo.deliver();
+
+				combo.value = "blank";
+				combo.displayedValue = "";
+				combo.deliver();
+
+				assert.strictEqual(combo.value, "blank", "changed value");
+				assert.strictEqual(combo.displayedValue, "", "changed displayedValue");
+				assert.strictEqual(combo.inputNode.value, "", "changed inputNode.value");
+
+			}
+		},
+
 		"widget.value, and change and input events (selectionMode=single)": function () {
 			/* jshint eqeqeq: false */
 			if (has("ie") == "10") {

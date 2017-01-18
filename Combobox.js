@@ -386,22 +386,27 @@ define([
 		},
 
 		computeProperties: function (oldValues, justCreated) {
-			if ("value" in oldValues && (!("displayedValue" in oldValues) ||
-					(justCreated && !this.displayedValue))) {
+			// If value was specified as a string (like during creation from markup),
+			// but selectionMode === multiple, need to convert it to an array.
+			if (this.selectionMode === "multiple" && typeof this.value === "string") {
+				this.value = this.value ? this.value.split(",") : [];
+
+				// So computeProperties doesn't get called again and oldValues contains "value"
+				// but not "displayedValue", which would trigger code below to run.
+				this.discardComputing();
+			}
+
+			// Sometimes, especially during creation, the app will specify a value without specifying a displayedValue.
+			// In that case, copy this.value to this.displayedValue.  This code is fragile though; need to make
+			// sure Combobox itself always sets displayedValue at the same time it sets value.
+			var valueChanged = justCreated ? this.hasOwnProperty("_shadowValueAttr") : "value" in oldValues;
+			var displayedValueChanged = justCreated ? this.hasOwnProperty("_shadowDisplayedValueAttr") :
+				"displayedValue" in oldValues;
+			if (valueChanged && !displayedValueChanged) {
 				if (this.selectionMode === "single") {
 					this.displayedValue = this.value;
 				} else {
-					var items = [];
-					if (typeof this.value === "string") {
-						if (this.value.length > 0) {
-							items = this.value = this.value.split(",");
-						} else {
-							this.value = [];
-						}
-						this.valueNode.value = this.value.toString();
-					} else if (this.value instanceof Array) {
-						items = this.value;
-					} // else empty array. No pre-set values.
+					var items = this.value;
 					var n = items.length;
 					if (n > 1) {
 						this.displayedValue = string.substitute(this.multipleChoiceMsg, {items: n});
@@ -411,6 +416,11 @@ define([
 						this.displayedValue = this.multipleChoiceNoSelectionMsg;
 					}
 				}
+
+				// Call computeProperties() again to flush out the change record for "displayedValue".
+				// That way, all the notifications are processed before the new Combobox() constructor
+				// finishes running.
+				this.deliverComputing();
 			}
 		},
 
@@ -439,8 +449,13 @@ define([
 			// Update <input>'s value if necessary, but don't update the value because the user
 			// typed a character into the <input> as that will move the caret to the end of the
 			// <input>.
-			if ("displayedValue" in oldValues && this.displayedValue !== this.inputNode.value) {
-				this.inputNode.value = this.displayedValue;
+			if ("displayedValue" in oldValues) {
+				if (this.displayedValue !== this.inputNode.value) {
+					this.inputNode.value = this.displayedValue;
+				}
+				if (this._popupInput && this.displayedValue !== this._popupInput.value) {
+					this._popupInput.value = this.displayedValue;
+				}
 			}
 		},
 
@@ -488,8 +503,12 @@ define([
 				if (this.selectionMode === "single") {
 					this.value = this.valueNode.value || "";
 				} else if (this.selectionMode === "multiple") {
-					this.value = this.valueNode.value.split(",");
+					this.value = this.valueNode.value ? this.valueNode.value.split(",") : [];
 				}
+
+				// computeProperties() will do the wrong thing if it thinks value was set without displayedValue
+				// being set.
+				this.notifyCurrentValue("displayedValue");
 			}
 		},
 
@@ -800,25 +819,31 @@ define([
 		_validateMultiple: function () {
 			var n;
 			var selectedItems = this.list.selectedItems;
-			var inputElement = this._popupInput || this.inputNode;
 			n = selectedItems ? selectedItems.length : 0;
 			var value = [];
 			if (n > 1) {
-				inputElement.value = string.substitute(this.multipleChoiceMsg, {items: n});
+				this.displayedValue = string.substitute(this.multipleChoiceMsg, {items: n});
 				for (var i = 0; i < n; i++) {
 					value.push(selectedItems[i] ? this._getItemValue(selectedItems[i]) : "");
 				}
 			} else if (n === 1) {
 				var selectedItem = this.list.selectedItem;
-				inputElement.value = this._getItemLabel(selectedItem);
+				this.displayedValue = this._getItemLabel(selectedItem);
 				value.push(this._getItemValue(selectedItem));
 			} else { // no option selected
-				inputElement.value = this.multipleChoiceNoSelectionMsg;
+				this.displayedValue = this.multipleChoiceNoSelectionMsg;
 			}
-			this._set("value", value);
+
+			// Only set this.value if the value has changed.  Otherwise it's a spurious
+			// notification.  Stateful doesn't detect that two arrays are deep-equal because
+			// ["foo"] !== ["foo"]
+			if (!this.value || this.value.join(",") !== value.join(",")) {
+				this.value = value;
+			}
+
 			// FormWidget.refreshRendering() also updates valueNode.value, but we need to
 			// make sure this is already done when FormValueWidget.handleOnInput() runs.
-			this.valueNode.value = value;
+			this.valueNode.value = value.toString();
 			this.handleOnInput(this.value); // emit "input" event
 		},
 
