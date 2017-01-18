@@ -39,8 +39,8 @@ define(["intern",
 			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				return this.skip("SafariDriver doesn't support moveTo.");
 			}
-			if (remote.environmentType.browserName === "internet explorer") {
-				// https://github.com/theintern/leadfoot/issues/83
+			if (remote.environmentType.brokenMouseEvents) {
+				// https://github.com/theintern/leadfoot/issues/103
 				return this.skip("IE uses synthetic mouse events and doesn't fire pointer events");
 			}
 			return remote
@@ -84,11 +84,12 @@ define(["intern",
 		"range slider interaction": function () {
 			var remote = this.remote;
 			// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
-			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
-				return this.skip("SafariDriver doesn't support moveTo.");
+			if (/safari|iOS|selendroid|internet explorer/.test(remote.environmentType.browserName) ||
+				remote.environmentType.safari) {
+				return this.skip("moveTo not supported");
 			}
-			if (remote.environmentType.browserName === "internet explorer") {
-				// https://github.com/theintern/leadfoot/issues/83
+			if (remote.environmentType.brokenMouseEvents) {
+				// https://github.com/theintern/leadfoot/issues/103
 				return this.skip("IE uses synthetic mouse events and doesn't fire pointer events");
 			}
 			return remote
@@ -115,21 +116,21 @@ define(["intern",
 		},
 		"range slider interaction inside a listening parent": function () {
 			var remote = this.remote;
-			// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
-			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
-				return this.skip("SafariDriver doesn't support moveTo.");
-			} else {
-				return remote
-					.then(logMessage(remote, this.id, "move handle"))
-					.then(clickOnHandle(remote, "rangeSlider01"))
-					.then(moveHandle(remote, "rangeSlider01", 70, 30))
-					.execute("return rangeSlider01parent")
-					.then(function (rangeSlider01parent) {
-						assert.equal(rangeSlider01parent.pointerdowns, 0, "parent did not detect pointerdown");
-						assert.equal(rangeSlider01parent.pointermoves, 0, "parent did not detect pointermove");
-					})
-					.end();
+			if (/safari|iOS|selendroid|internet explorer/.test(remote.environmentType.browserName) ||
+				remote.environmentType.safari) {
+				return this.skip("moveTo not supported");
 			}
+
+			return remote
+				.then(logMessage(remote, this.id, "move handle"))
+				.then(clickOnHandle(remote, "rangeSlider01"))
+				.then(moveHandle(remote, "rangeSlider01", 70, 30))
+				.execute("return rangeSlider01parent")
+				.then(function (rangeSlider01parent) {
+					assert.equal(rangeSlider01parent.pointerdowns, 0, "parent did not detect pointerdown");
+					assert.equal(rangeSlider01parent.pointermoves, 0, "parent did not detect pointermove");
+				})
+				.end();
 		}
 	});
 

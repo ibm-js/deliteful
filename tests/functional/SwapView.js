@@ -71,13 +71,9 @@ define([
 
 		"SwapView swipe gesture (right->left)": function () {
 			var remote = this.remote;
-			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName)) {
+			if (/safari|iOS|selendroid|internet explorer/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
-			    return this.skip("SafariDriver doesn't support moveTo.");
-			}
-			if (remote.environmentType.browserName === "internet explorer") {
-				// https://github.com/theintern/leadfoot/issues/83
-				return this.skip("pointerdown / pointerup events not generated on IE");
+			    return this.skip("moveTo() broken");
 			}
 			return remote
 				.findById("sv")
@@ -173,13 +169,9 @@ define([
 
 		"ViewIndicator update": function () {
 			var remote = this.remote;
-			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName)) {
+			if (/safari|iOS|selendroid|internet explorer/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
-				return this.skip("SafariDriver doesn't support moveTo.");
-			}
-			if (remote.environmentType.browserName === "internet explorer") {
-				// https://github.com/theintern/leadfoot/issues/83
-				return this.skip("pointerdown / pointerup events not generated on IE");
+				return this.skip("moveTo() broken");
 			}
 			return remote
 				.execute("return document.getElementById('vi').children[0].className;")
@@ -202,13 +194,9 @@ define([
 
 		"SwapView swipe gesture (left->right)": function () {
 			var remote = this.remote;
-			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName)) {
+			if (/safari|iOS|selendroid|internet explorer/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
-				return this.skip("SafariDriver doesn't support moveTo.");
-			}
-			if (remote.environmentType.browserName === "internet explorer") {
-				// https://github.com/theintern/leadfoot/issues/83
-				return this.skip("pointerdown / pointerup events not generated on IE");
+				return this.skip("moveTo() broken");
 			}
 			return remote
 				.findById("sv")
@@ -308,10 +296,6 @@ define([
 				// https://github.com/theintern/leadfoot/issues/17
 				return this.skip("clicking dot on iOS works manually, but not via webdriver");
 			}
-			if (remote.environmentType.browserName === "internet explorer") {
-				// https://github.com/theintern/leadfoot/issues/83
-				return this.skip("pointerdown / pointerup events not generated on IE");
-			}
 			return remote
 				.findByCssSelector("#vi > *:nth-child(3)")
 				.click()
@@ -336,13 +320,9 @@ define([
 
 		"ViewIndicator click left": function () {
 			var remote = this.remote;
-			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName)) {
+			if (/safari|iOS|selendroid|internet explorer/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
-				return this.skip("SafariDriver doesn't support moveTo.");
-			}
-			if (remote.environmentType.browserName === "internet explorer") {
-				// https://github.com/theintern/leadfoot/issues/83
-				return this.skip("pointerdown / pointerup events not generated on IE");
+				return this.skip("moveTo() broken");
 			}
 			return remote
 				.findById("vi")
@@ -374,13 +354,9 @@ define([
 
 		"ViewIndicator click right": function () {
 			var remote = this.remote;
-			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName)) {
+			if (/safari|iOS|selendroid|internet explorer/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
-				return this.skip("SafariDriver doesn't support moveTo.");
-			}
-			if (remote.environmentType.browserName === "internet explorer") {
-				// https://github.com/theintern/leadfoot/issues/83
-				return this.skip("pointerdown / pointerup events not generated on IE");
+				return this.skip("moveTo() broken");
 			}
 			return remote
 				.findById("vi")
@@ -414,10 +390,6 @@ define([
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
-			}
-			if (remote.environmentType.browserName === "internet explorer") {
-				// https://github.com/theintern/leadfoot/issues/83
-				return this.skip("pointerdown / pointerup events not generated on IE");
 			}
 			return remote
 				// keyboard navigation

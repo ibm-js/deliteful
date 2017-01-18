@@ -17,7 +17,7 @@ define({
 		{ browserName: "iphone", platform: "OS X 10.10", version: "9.3", deviceName: "iPad Retina", name: "deliteful" },
 
 		// Desktop.
-		{ browserName: "internet explorer", version: "11", platform: "Windows 8.1", requireWindowFocus: "true",
+		{ browserName: "internet explorer", version: "11", platform: "Windows 7", requireWindowFocus: "true",
 			name : "deliteful"},
 		{ browserName: "firefox", version: "31", platform: [ /*"OS X 10.6", "Linux", */ "Windows 7" ],
 			"selenium-version": "2.53.0",

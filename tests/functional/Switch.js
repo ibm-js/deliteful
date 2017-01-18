@@ -140,7 +140,7 @@ define([
 		"Switch with disabled attribute": function () {
 			var remote = this.remote;
 
-			if (remote.environmentType.browserName === "internet explorer") {
+			if (remote.environmentType.brokenMouseEvents) {
 				// https://github.com/theintern/leadfoot/issues/17
 				return this.skip("click() doesn't generate mousedown/mouseup, so Switch won't move");
 			}

@@ -492,13 +492,22 @@ define([
 	registerSuite({
 		name: "ComboPopup - functional",
 
-		"list in popup (combo1)": function () {
+		setup: function () {
 			var remote = this.remote;
 
-			if (remote.environmentType.browserName === "internet explorer") {
+			if (remote.environmentType.brokenMouseEvents) {
 				// https://github.com/theintern/leadfoot/issues/17
 				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
 			}
+
+			if (remote.environmentType.browserName === "internet explorer") {
+				return this.skip("ComboPopup broken on IE");
+			}
+		},
+
+		"list in popup (combo1)": function () {
+			var remote = this.remote;
+
 			if (remote.environmentType.platformName === "iOS") {
 				// https://github.com/theintern/leadfoot/issues/61
 				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
@@ -510,10 +519,6 @@ define([
 		"list in popup (combo2)": function () {
 			var remote = this.remote;
 
-			if (remote.environmentType.browserName === "internet explorer") {
-				// https://github.com/theintern/leadfoot/issues/17
-				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
-			}
 			if (remote.environmentType.platformName === "iOS") {
 				// https://github.com/theintern/leadfoot/issues/61
 				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
@@ -525,10 +530,6 @@ define([
 		"list in popup (combo3)": function () {
 			var remote = this.remote;
 
-			if (remote.environmentType.browserName === "internet explorer") {
-				// https://github.com/theintern/leadfoot/issues/17
-				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
-			}
 			if (remote.environmentType.platformName === "iOS") {
 				// https://github.com/theintern/leadfoot/issues/61
 				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
@@ -540,10 +541,6 @@ define([
 		"filtering (combo2)": function () {
 			var remote = this.remote;
 
-			if (remote.environmentType.browserName === "internet explorer") {
-				// https://github.com/theintern/leadfoot/issues/17
-				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
-			}
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
 			}
@@ -554,10 +551,6 @@ define([
 		"single selection (combo1)": function () {
 			var remote = this.remote;
 
-			if (remote.environmentType.browserName === "internet explorer") {
-				// https://github.com/theintern/leadfoot/issues/17
-				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
-			}
 			if (remote.environmentType.platformName === "iOS") {
 				// https://github.com/theintern/leadfoot/issues/61
 				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
@@ -569,10 +562,6 @@ define([
 		"single selection (combo2)": function () {
 			var remote = this.remote;
 
-			if (remote.environmentType.browserName === "internet explorer") {
-				// https://github.com/theintern/leadfoot/issues/17
-				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
-			}
 			if (remote.environmentType.platformName === "iOS") {
 				// https://github.com/theintern/leadfoot/issues/61
 				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
@@ -584,10 +573,6 @@ define([
 		"multi selection, press ok button (combo3)": function () {
 			var remote = this.remote;
 
-			if (remote.environmentType.browserName === "internet explorer") {
-				// https://github.com/theintern/leadfoot/issues/17
-				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
-			}
 			if (remote.environmentType.platformName === "iOS") {
 				// https://github.com/theintern/leadfoot/issues/61
 				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
@@ -599,10 +584,6 @@ define([
 		"multi selection, press cancel button (combo3)": function () {
 			var remote = this.remote;
 
-			if (remote.environmentType.browserName === "internet explorer") {
-				// https://github.com/theintern/leadfoot/issues/17
-				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
-			}
 			if (remote.environmentType.platformName === "iOS") {
 				// https://github.com/theintern/leadfoot/issues/61
 				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
@@ -614,10 +595,6 @@ define([
 		"tab navigation (combo3)": function () {
 			var remote = this.remote;
 
-			if (remote.environmentType.browserName === "internet explorer") {
-				// https://github.com/theintern/leadfoot/issues/17
-				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
-			}
 			if (remote.environmentType.platformName === "iOS" || remote.environmentType.safari ||
 				remote.environmentType.browserName === "safari" || remote.environmentType.brokenSendKeys ||
 				!remote.environmentType.nativeEvents) {
@@ -630,10 +607,6 @@ define([
 		"check focused element (combo1)": function () {
 			var remote = this.remote;
 
-			if (remote.environmentType.browserName === "internet explorer") {
-				// https://github.com/theintern/leadfoot/issues/17
-				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
-			}
 			if (remote.environmentType.platformName === "iOS" || remote.environmentType.safari ||
 				remote.environmentType.browserName === "safari" || remote.environmentType.brokenSendKeys ||
 				!remote.environmentType.nativeEvents) {
@@ -646,10 +619,6 @@ define([
 		"check focused element (combo2)": function () {
 			var remote = this.remote;
 
-			if (remote.environmentType.browserName === "internet explorer") {
-				// https://github.com/theintern/leadfoot/issues/17
-				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
-			}
 			if (remote.environmentType.platformName === "iOS" || remote.environmentType.safari ||
 				remote.environmentType.browserName === "safari" || remote.environmentType.brokenSendKeys ||
 				!remote.environmentType.nativeEvents) {
@@ -660,20 +629,7 @@ define([
 		},
 
 		"auto complete (combo4)": function () {
-			var remote = this.remote;
-
-			if (remote.environmentType.browserName === "internet explorer") {
-				// https://github.com/theintern/leadfoot/issues/17
-				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
-			}
-			/*
-			if (remote.environmentType.platformName === "iOS" || remote.environmentType.safari ||
-				remote.environmentType.browserName === "safari" || remote.environmentType.brokenSendKeys ||
-				!remote.environmentType.nativeEvents) {
-				return this.skip("no keyboard support - brokenSendKeys");
-			}*/
-
-			return loadFile(remote, "./ComboPopup.html")
+			return loadFile(this.remote, "./ComboPopup.html")
 				.findById("combo4").click().end()
 				.sleep(500) // wait for List's loading panel to go away
 				.findByCssSelector("#combo4_dropdown input").getAttribute("aria-expanded").then(function (value) {

@@ -167,7 +167,7 @@ define([
 				});
 		},
 		"editable ltr": function () {
-			if (this.remote.environmentType.browserName === "internet explorer") {
+			if (this.remote.environmentType.brokenMouseEvents) {
 				// https://github.com/theintern/leadfoot/issues/17
 				return this.skip("click() doesn't generate mousedown, so value won't be updated");
 			}
@@ -178,7 +178,7 @@ define([
 			return defaultEditableRatingTest(this.remote, "editablestar1", false, true, 0);
 		},
 		"editable half values ltr": function () {
-			if (this.remote.environmentType.browserName === "internet explorer") {
+			if (this.remote.environmentType.brokenMouseEvents) {
 				// https://github.com/theintern/leadfoot/issues/17
 				return this.skip("click() doesn't generate mousedown, so value won't be updated");
 			}
@@ -189,7 +189,7 @@ define([
 			return defaultEditableRatingTest(this.remote, "editablestar2", true, true, 0);
 		},
 		"editable half values no zero setting ltr": function () {
-			if (this.remote.environmentType.browserName === "internet explorer") {
+			if (this.remote.environmentType.brokenMouseEvents) {
 				// https://github.com/theintern/leadfoot/issues/17
 				return this.skip("click() doesn't generate mousedown, so value won't be updated");
 			}
@@ -200,7 +200,7 @@ define([
 			return defaultEditableRatingTest(this.remote, "editablestar5", true, false, 0.5);
 		},
 		"editable programmatic onchange ltr": function () {
-			if (this.remote.environmentType.browserName === "internet explorer") {
+			if (this.remote.environmentType.brokenMouseEvents) {
 				// https://github.com/theintern/leadfoot/issues/17
 				return this.skip("click() doesn't generate mousedown, so value won't be updated");
 			}
@@ -345,7 +345,7 @@ define([
 			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName)) {
 				return this.skip("SafariDriver doesn't support back.");
 			}
-			if (this.remote.environmentType.browserName === "internet explorer") {
+			if (this.remote.environmentType.brokenMouseEvents) {
 				// https://github.com/theintern/leadfoot/issues/17
 				return this.skip("click() doesn't generate mousedown, so value won't be updated");
 			}
@@ -390,7 +390,7 @@ define([
 			});
 		},
 		"form values": function () {
-			if (this.remote.environmentType.browserName === "internet explorer") {
+			if (this.remote.environmentType.brokenMouseEvents) {
 				// https://github.com/theintern/leadfoot/issues/17
 				return this.skip("click() doesn't generate mousedown, so value won't be updated");
 			}

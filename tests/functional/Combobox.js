@@ -1210,6 +1210,7 @@ define([
 				// the caret is at the beginning of the <input> rather than the end.  (Note the test is
 				// complicated because it opens the dropdown first and then does backspace.)
 				// Actually I'm not sure how the test is passing on other browsers
+				// https://github.com/ibm-js/deliteful/issues/689
 				return this.skip("caret in wrong position, backspace doesn't work");
 			}
 
@@ -1242,7 +1243,7 @@ define([
 
 		"mouse navigation selectionMode=single, autoFilter=false": function () {
 			var remote = this.remote;
-			if (remote.environmentType.browserName === "internet explorer") {
+			if (remote.environmentType.brokenMouseEvents) {
 				// https://github.com/theintern/leadfoot/issues/17
 				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
 			}
@@ -1255,7 +1256,7 @@ define([
 
 		"mouse navigation selectionMode=multiple": function () {
 			var remote = this.remote;
-			if (remote.environmentType.browserName === "internet explorer") {
+			if (remote.environmentType.brokenMouseEvents) {
 				// https://github.com/theintern/leadfoot/issues/17
 				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
 			}
@@ -1268,7 +1269,7 @@ define([
 
 		"popup position after filter": function () {
 			var remote = this.remote;
-			if (remote.environmentType.browserName === "internet explorer") {
+			if (remote.environmentType.brokenMouseEvents) {
 				// https://github.com/theintern/leadfoot/issues/17
 				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
 			}
@@ -1281,7 +1282,7 @@ define([
 
 		"check for number of request (using SlowStore)": function () {
 			var remote = this.remote;
-			if (remote.environmentType.browserName === "internet explorer") {
+			if (remote.environmentType.brokenMouseEvents) {
 				// https://github.com/theintern/leadfoot/issues/17
 				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
 			}
@@ -1293,7 +1294,7 @@ define([
 
 		"filtering with minimum characters (0)": function () {
 			var remote = this.remote;
-			if (remote.environmentType.browserName === "internet explorer") {
+			if (remote.environmentType.brokenMouseEvents) {
 				// https://github.com/theintern/leadfoot/issues/17
 				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
 			}
@@ -1305,7 +1306,7 @@ define([
 
 		"filtering with minimum characters (3)": function () {
 			var remote = this.remote;
-			if (remote.environmentType.browserName === "internet explorer") {
+			if (remote.environmentType.brokenMouseEvents) {
 				// https://github.com/theintern/leadfoot/issues/17
 				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
 			}
