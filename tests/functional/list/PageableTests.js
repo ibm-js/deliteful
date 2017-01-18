@@ -47,12 +47,6 @@ define(["intern",
 		name: "Pageable tests",
 		"Pageable list keyboard navigation": function () {
 			var remote = this.remote;
-			// PageableList not currently supported on IE 10
-			// see https://github.com/ibm-js/deliteful/issues/280
-			if (remote.environmentType.browserName === "internet explorer" &&
-					remote.environmentType.version === "10") {
-				return this.skip("WARNING: PageableList not supported on IE10");
-			}
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
 			}
@@ -99,12 +93,6 @@ define(["intern",
 
 		"Pageable categorized list keyboard navigation": function () {
 			var remote = this.remote;
-			// PageableList not currently supported on IE 10
-			// see https://github.com/ibm-js/deliteful/issues/280
-			if (remote.environmentType.browserName === "internet explorer" &&
-					remote.environmentType.version === "10") {
-				return this.skip("WARNING: PageableList not supported on IE10");
-			}
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
 			}
