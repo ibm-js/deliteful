@@ -560,6 +560,10 @@ define([
 				this.skip("Problem on Internet Explorer 10");
 			}
 			var combo = createCombobox("combo-d-1", false /* trackable */, true /* selectionMode=multiple */);
+
+			// While we are here, make sure that multiselection Combobox's <input> is readonly.
+			assert(combo.inputNode.readOnly, "readonly");
+
 			var changeCounter = 0, inputCounter = 0;
 			var changeValue = null, inputValue = null;
 			combo.on("change", function () {

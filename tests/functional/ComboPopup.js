@@ -505,6 +505,15 @@ define([
 			}
 		},
 
+		readonly: function () {
+			 // Since clicking the Combobox opens the ComboPopup, the Combobox's <input> should be readonly.
+			return loadFile(this.remote, "./ComboPopup.html").execute(function () {
+				return document.getElementById("combo2").inputNode.readOnly;
+			}).then(function (value) {
+				assert(value, "readonly");
+			});
+		},
+
 		"list in popup (combo1)": function () {
 			var remote = this.remote;
 
