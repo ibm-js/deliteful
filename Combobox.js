@@ -355,7 +355,9 @@ define([
 		attachedCallback: function () {
 			if (!this.list) {
 				var regexp = /^(?!_)(\w)+(?=Attr$|Func$)/;
-				var listArgs = {};
+				var listArgs = {
+					showNoItems: true
+				};
 
 				// attributes
 				this._parsedAttributes.filter(function (attr) {
