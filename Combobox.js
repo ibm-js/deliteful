@@ -444,7 +444,7 @@ define([
 			if ("_inputReadOnly" in oldValues) {
 				// Note: Can't just put readonly={{_inputReadOnly}} in the template because we need to override
 				// when delite/FormWidget sets the <input>'s readonly attribute based on this.readOnly.
-				this.inputNode.readOnly = this._inputReadOnly ? "readonly" : "";
+				this.inputNode.readOnly = this._inputReadOnly;
 				this._setSelectable(this.inputNode, !this._inputReadOnly);
 			}
 
