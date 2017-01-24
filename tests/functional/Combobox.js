@@ -1407,6 +1407,41 @@ define([
 			return checkPopupPosition(remote, "combo2-custom-sel-single", "above");
 		},
 
+		"select item with currently displayed value": function () {
+			var remote = this.remote;
+
+			if (remote.environmentType.browserName === "internet explorer") {
+				// TODO: This test fails on IE because the backspace to clear "France" doesn't work.
+				return this.skip("caret in wrong position, backspace doesn't work");
+			}
+			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support");
+			}
+
+			var comboId = "combo2-value";
+
+			return loadFile(remote, "./Combobox-decl.html")
+				.execute("document.getElementById('" + comboId + "').focus();")
+				.pressKeys(keys.BACKSPACE) // "Franc"
+				.pressKeys(keys.BACKSPACE) // "Fran"
+				.pressKeys(keys.BACKSPACE) // "Fra"
+				.pressKeys(keys.BACKSPACE) // "Fr"
+				.pressKeys(keys.BACKSPACE) // "F"
+				.pressKeys(keys.BACKSPACE) // "" - At this stage the popup should be closed.
+				.pressKeys("Germany")		// At this point popup should be open w/one entry marked Germany.
+				.execute("return document.getElementById('" + comboId + "').inputNode.value;").then(function (value) {
+					assert.strictEqual(value, "Germany", "<input> after typed Germany");
+				})
+				.pressKeys(keys.ARROW_DOWN)
+				.pressKeys(keys.ENTER)		// Select "Germany".
+				.execute("return document.getElementById('" + comboId + "').inputNode.value;").then(function (value) {
+					assert.strictEqual(value, "Germany", "<input> after selected Germany");
+				})
+				.execute("return document.getElementById('" + comboId + "').value;").then(function (value) {
+					assert.strictEqual(value, "DE", "combo.value after selected Germany");
+				});
+		},
+
 		"check for number of request (using SlowStore)": function () {
 			var remote = this.remote;
 			if (remote.environmentType.brokenMouseEvents) {

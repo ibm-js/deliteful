@@ -793,6 +793,11 @@ define([
 			// the List can be empty, so:
 			this.displayedValue = selectedItem ? this._getItemLabel(selectedItem) : "";
 			this.value = selectedItem ? this._getItemValue(selectedItem) : "";
+
+			// If user selects a choice from the dropdown with the same label as what's
+			// currently typed into the <input>, make sure computeProperties() doesn't set
+			// the <input> to the item's value (ex: "DE" rather than "Germany").
+			this.notifyCurrentValue("displayedValue");
 		},
 
 		_validateMultiple: function () {
