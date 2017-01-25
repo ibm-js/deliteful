@@ -657,7 +657,7 @@ define([
 		 * If in mobile, toggles list visibility.
 		 * If in desktop, closes or opens the popup.
 		 */
-		_togglePopupList: function (inputElement) {
+		_togglePopupList: function (inputElement, suppressChangeEvent) {
 			// Compute whether or not to show the list.  Note that in mobile mode ComboPopup doesn't display a
 			// down arrow icon to manually show/hide the list, so on mobile,
 			// if the Combobox has a down arrow icon, the list is always shown.
@@ -678,7 +678,7 @@ define([
 				if (showList) {
 					this.openDropDown();
 				} else {
-					this.closeDropDown(true /*refocus*/);
+					this.closeDropDown(true /*refocus*/, suppressChangeEvent);
 				}
 			}
 		},
@@ -724,7 +724,9 @@ define([
 					delete this._timeoutHandle;
 				}
 				this._timeoutHandle = this.defer(function () {
-					this._togglePopupList(inputElement);
+					// Note: set suppressChangeEvent=true because we shouldn't get a change event because
+					// the dropdown closed just because the user backspaced while typing in the <input>.
+					this._togglePopupList(inputElement, true);
 				}.bind(this), this.filterDelay);
 
 				// Stop the spurious "input" events emitted while the user types
@@ -959,16 +961,16 @@ define([
 		}),
 
 		closeDropDown: dcl.superCall(function (sup) {
-			return function () {
+			return function (focus, suppressChangeEvent) {
 				var input = this._popupInput || this.inputNode;
 				input.removeAttribute("aria-activedescendant");
 
-				if (this.opened) {
-					// Using the flag `opened` (managed by delite/HasDropDown), avoid
-					// emitting a new change event if closeDropDown is closed more than once
-					// for a closed dropdown.
-
-					// Closing the dropdown represents a commit interaction
+				// Closing the dropdown represents a commit interaction, unless the dropdown closes
+				// automatically because the user backspaced, in which case suppressChangeEvent is true.
+				// Also, using the `opened` flag (managed by delite/HasDropDown) to avoid
+				// emitting a duplicate change event if closeDropDown() is called more than once
+				// for a closed dropdown.
+				if (!suppressChangeEvent && this.opened) {
 					this.handleOnChange(this.value); // emit "change" event
 				}
 				sup.apply(this, arguments);

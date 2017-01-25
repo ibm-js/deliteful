@@ -279,11 +279,11 @@ define([
 						selectedItemsCount: 0,
 						itemRenderersCount: 1,
 						inputEventCounter: 6,
-						changeEventCounter: 1, // popup got closed.
+						changeEventCounter: 0, // popup closed automatically, won't generate change event
 						widgetValueAtLatestInputEvent: "",
 						valueNodeValueAtLatestInputEvent: "",
-						widgetValueAtLatestChangeEvent: "",
-						valueNodeValueAtLatestChangeEvent: ""
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after deleted `France`");
 			})
 			.pressKeys("u") // filters all countries but UK and USA
@@ -304,8 +304,8 @@ define([
 						changeEventCounter: 0, // no commit yet.
 						widgetValueAtLatestInputEvent: "u",
 						valueNodeValueAtLatestInputEvent: "u",
-						widgetValueAtLatestChangeEvent: "",
-						valueNodeValueAtLatestChangeEvent: ""
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after filter starting with u character");
 			})
 			.pressKeys(keys.SPACE) // now filtering string is "u " which doesn't match any country
@@ -326,8 +326,8 @@ define([
 						changeEventCounter: 0, // unchanged
 						widgetValueAtLatestInputEvent: "u ",
 						valueNodeValueAtLatestInputEvent: "u ",
-						widgetValueAtLatestChangeEvent: "",
-						valueNodeValueAtLatestChangeEvent: ""
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after filter starting with u plus SPACE character");
 			})
 			.pressKeys(keys.BACKSPACE) // delete the SPACE, back to "u" filter
@@ -347,8 +347,8 @@ define([
 						changeEventCounter: 0, // unchanged
 						widgetValueAtLatestInputEvent: "UK",
 						valueNodeValueAtLatestInputEvent: "UK",
-						widgetValueAtLatestChangeEvent: "",
-						valueNodeValueAtLatestChangeEvent: ""
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after ARROW_DOWN with filtered list");
 				assert(/^UK/.test(comboState.activeDescendant),
 					"activeDescendant after ARROW_DOWN with filtered list: " + comboState.activeDescendant);
@@ -1097,11 +1097,11 @@ define([
 						selectedItemsCount: 0,
 						itemRenderersCount: 1,
 						inputEventCounter: 3,
-						changeEventCounter: 1, // because the popup closed.
+						changeEventCounter: 0, // popup closed automatically, shouldn't generate change event
 						widgetValueAtLatestInputEvent: "Fr",
 						valueNodeValueAtLatestInputEvent: "Fr",
-						widgetValueAtLatestChangeEvent: "Fr",
-						valueNodeValueAtLatestChangeEvent: "Fr"
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after clearing the input partially.");
 			})
 			.pressKeys("a") // filters all countries but France.
@@ -1119,8 +1119,8 @@ define([
 						changeEventCounter: 0, //
 						widgetValueAtLatestInputEvent: "Fra",
 						valueNodeValueAtLatestInputEvent: "Fra",
-						widgetValueAtLatestChangeEvent: "Fr",
-						valueNodeValueAtLatestChangeEvent: "Fr"
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after typing `a`.");
 			})
 			.end();
