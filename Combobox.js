@@ -967,12 +967,10 @@ define([
 
 				// Closing the dropdown represents a commit interaction, unless the dropdown closes
 				// automatically because the user backspaced, in which case suppressChangeEvent is true.
-				// Also, using the `opened` flag (managed by delite/HasDropDown) to avoid
-				// emitting a duplicate change event if closeDropDown() is called more than once
-				// for a closed dropdown.
-				if (!suppressChangeEvent && this.opened) {
+				if (!suppressChangeEvent) {
 					this.handleOnChange(this.value); // emit "change" event
 				}
+
 				sup.apply(this, arguments);
 			};
 		}),
