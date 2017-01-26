@@ -16,6 +16,7 @@
 	<script type="text/javascript">
 		// global variables used by the automatic functional tests test:
 		var ready = false; // set to true when the test page is ready
+		var storeTestingInfo;
 
 		require.config({
 			config: {
@@ -37,7 +38,7 @@
 			register.deliver();
 
 			// Store information for use in the automatic functional test
-			var storeTestingInfo = function (combo) {
+			function storeTestingInfo(combo) {
 				if (!combo.init) {
 					combo._inputEventCounter = 0;
 					combo._changeEventCounter = 0;
@@ -64,19 +65,22 @@
 				for (i = 0; i < categoryRenderers.length; i++) {
 					categoryRenderers.item(i).renderNode.id = combo.id + "_category" + i;
 				}
-			};
+			}
 
 			// single selection mode, autoFilter=true
-			combo = document.getElementById("combo1");
 			storeTestingInfo(document.getElementById("combo1"));
 
 			// single selection mode, autoFilter=true
-			combo = document.getElementById("combo2");
 			storeTestingInfo(document.getElementById("combo2"));
 
 			// multiple selection mode
-			combo = document.getElementById("combo3");
 			storeTestingInfo(document.getElementById("combo3"));
+
+			// auto complete mode, min filter char = 3
+			storeTestingInfo(document.getElementById("combo4"));
+
+			// auto complete mode, min filter char = 0
+			storeTestingInfo(document.getElementById("combo5"));
 
 			// Used by the automatic functional test, for comboboxes in both
 			// single and multiple selection modes.
@@ -108,6 +112,7 @@
 
 				return {
 					inputNodeValue: combo.inputNode.value,
+					popupInputNodeValue: combo.opened ? combo.dropDown.inputNode.value : "",
 					widgetValue: combo.value,
 					valueNodeValue: combo.valueNode.value,
 					opened: combo.opened,
@@ -155,7 +160,7 @@
 	</h1>
 
 	<label for="combo1-input">
-		Simple Combobox popup
+		id = combo1 - Simple Combobox popup
 	</label>
 	<d-combobox selectionMode="single" autoFilter="false" id="combo1" name="combo1" value="France">
 		<d-list righttextAttr="sales" categoryAttr="region">
@@ -200,7 +205,7 @@
 	</d-combobox>
 
 	<label for="combo2-input">
-		Combobox popup with &lt;input&gt; (autoFilter=true)
+		id = combo2 - Combobox popup with &lt;input&gt; (autoFilter=true)
 	</label>
 	<d-combobox selectionMode="single" autoFilter="true" id="combo2" name="combo2" value="France">
 		<d-list righttextAttr="sales" categoryAttr="region" showNoItems="true">
@@ -245,7 +250,7 @@
 	</d-combobox>
 
 	<label for="combo3-input">
-		Combobox with OK/cancel button (multiselect)
+		id = combo3 - Combobox with OK/cancel button (multiselect)
 	</label>
 	<d-combobox selectionMode="multiple" autoFilter="false" id="combo3" name="combo3">
 		<d-list righttextAttr="sales" categoryAttr="region">
@@ -290,7 +295,7 @@
 	</d-combobox>
 
 	<label for="combo4-input">
-		Combobox popup with &lt;input&gt; autoFilter=true, hasDownArrow=false, minFilterChars=3, "AutoComplete" mode
+		id = combo4 - Combobox popup with &lt;input&gt; autoFilter=true, hasDownArrow=false, minFilterChars=3, "AutoComplete" mode
 	</label>
 	<d-combobox selectionMode="single" autoFilter="true" hasDownArrow="false" id="combo4" name="combo4" minFilterChars="3">
 		<d-list righttextAttr="sales" categoryAttr="region" showNoItems="true">
@@ -335,7 +340,7 @@
 	</d-combobox>
 
 	<label for="combo5-input">
-		Combobox popup with &lt;input&gt; (autoFilter=true), hasDownArrow=false, minFilterChars=0, "AutoComplete" mode
+		id = combo5 - Combobox popup with &lt;input&gt; (autoFilter=true), hasDownArrow=false, minFilterChars=0, "AutoComplete" mode
 	</label>
 	<d-combobox selectionMode="single" autoFilter="true" hasDownArrow="false" id="combo5" name="combo5" minFilterChars="0">
 		<d-list righttextAttr="sales" categoryAttr="region" showNoItems="true">

@@ -14,11 +14,12 @@ define([
 					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 	};
 
-	var checkComboState = function (comboId, comboState, expectedComboState, stepName) {
-		// comboState is an object retrieved from the browser, containing
-		// the state of the Combobox.
-		var selectionMode = "(" + comboState.selectionMode + ")";
-		var assertEqualValue = function (value, expectedValue, msg) {
+	function checkComboState(comboId, comboState, expectedComboState, stepName) {
+		// comboState is an object retrieved from the browser, containing the state of the Combobox.
+
+		var msg =  comboId + " " + "(" + comboState.selectionMode + ")" + " " + stepName + " ";
+		for (var propName in expectedComboState) {
+			var expectedValue = expectedComboState[propName];
 			if (expectedValue === undefined) {
 				// Note that, for a variable which is undefined in the browser,
 				// remote.execute() brings a null value, not undefined. Hence,
@@ -26,50 +27,16 @@ define([
 				// and widget.valueNode.value at the latest input/change moment the valueCombobox-decl.html
 				expectedValue = null;
 			}
+			var actualValue = comboState[propName];
 			if (Array.isArray(expectedValue)) {
-				assert.deepEqual(value, expectedValue, msg + " deepEqual");
+				assert.deepEqual(actualValue, expectedValue, msg + propName);
 			} else {
-				assert.strictEqual(value, expectedValue, msg + " strictEqual");
+				assert.strictEqual(actualValue, expectedValue, msg + propName);
 			}
-		};
+		}
 
-		assert.strictEqual(comboState.inputNodeValue, expectedComboState.inputNodeValue,
-			selectionMode + " combo.inputNode.value " + stepName + " " +
-			comboId + ".inputNode.value");
-		assertEqualValue(comboState.widgetValue, expectedComboState.widgetValue,
-				selectionMode + " combo.value " + stepName + " " +
-				comboId + ".value");
-		assertEqualValue(comboState.valueNodeValue, expectedComboState.valueNodeValue,
-				selectionMode + " combo.valueNode.value " + stepName + " " +
-				comboId + ".value");
-		assert.strictEqual(comboState.opened, expectedComboState.opened,
-			selectionMode + " combo.opened " + stepName);
-
-		assert.strictEqual(comboState.selectedItemsCount, expectedComboState.selectedItemsCount,
-			selectionMode + " combo.selectedItemsCount " + stepName);
-		assert.strictEqual(comboState.itemRenderersCount, expectedComboState.itemRenderersCount,
-			selectionMode + " combo.itemRenderersCount " + stepName);
-
-		// The event counters count the new events since the previous check.
-		assert.strictEqual(comboState.inputEventCounter, expectedComboState.inputEventCounter,
-			selectionMode + " combo.inputEventCounter " + stepName);
-		assert.strictEqual(comboState.changeEventCounter, expectedComboState.changeEventCounter,
-			selectionMode + " combo.changeEventCounter " + stepName);
-
-		assertEqualValue(comboState.widgetValueAtLatestInputEvent,
-			expectedComboState.widgetValueAtLatestInputEvent,
-			selectionMode + " combo.value at latest input event " + stepName);
-		assertEqualValue(comboState.valueNodeValueAtLatestInputEvent,
-			expectedComboState.valueNodeValueAtLatestInputEvent,
-			selectionMode + " combo.valueNode.value at latest input event " + stepName);
-
-		assertEqualValue(comboState.widgetValueAtLatestChangeEvent,
-			expectedComboState.widgetValueAtLatestChangeEvent,
-			selectionMode + " combo.value at latest change event " + stepName);
-		assertEqualValue(comboState.valueNodeValueAtLatestChangeEvent,
-			expectedComboState.valueNodeValueAtLatestChangeEvent,
-			selectionMode + " combo.valueNode.value at latest change event " + stepName);
-	};
+		// Note that the event counters count the new events since the previous check.
+	}
 
 	var checkFilter = function (remote, comboId) {
 		var executeExpr = "return getComboState(\"" + comboId + "\");";
@@ -81,6 +48,7 @@ define([
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: "France",
+						popupInputNodeValue: "",
 						widgetValue: "France",
 						valueNodeValue: "France",
 						opened: false,
@@ -103,6 +71,7 @@ define([
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: "France",
+						popupInputNodeValue: "France",
 						widgetValue: "France",
 						valueNodeValue: "France",
 						opened: true,
@@ -117,13 +86,18 @@ define([
 					}, "after click on root node");
 			})
 			.findByCssSelector(".d-combo-popup .d-linear-layout .d-combobox-input[d-hidden='false']")
+			.pressKeys(keys.BACKSPACE) // Delete the 6 chars of "France"
+			.sleep(100)
 			.pressKeys(keys.BACKSPACE)
+			.sleep(100)
 			.pressKeys(keys.BACKSPACE)
+			.sleep(100)
 			.pressKeys(keys.BACKSPACE)
+			.sleep(100)
 			.pressKeys(keys.BACKSPACE)
+			.sleep(100)
 			.pressKeys(keys.BACKSPACE)
-			.pressKeys(keys.BACKSPACE)
-			// removed France
+			.sleep(100)
 			.type("j")
 			.type("a")
 			.type("p")
@@ -134,12 +108,13 @@ define([
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: "jap",
+						popupInputNodeValue: "jap",
 						widgetValue: "jap",
 						valueNodeValue: "jap",
 						opened: true,
 						selectedItemsCount: 0,
 						itemRenderersCount: 30,
-						inputEventCounter: 9, // delted France and typed "jap"
+						inputEventCounter: 9, // removed "france" and typed "jap"
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: "jap",
 						valueNodeValueAtLatestInputEvent: "jap",
@@ -159,6 +134,7 @@ define([
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: "",
+						popupInputNodeValue: "",
 						widgetValue: "",
 						valueNodeValue: "",
 						opened: true,
@@ -180,6 +156,7 @@ define([
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: "u",
+						popupInputNodeValue: "u",
 						widgetValue: "u",
 						valueNodeValue: "u",
 						opened: true,
@@ -220,7 +197,7 @@ define([
 				return remote.findByCssSelector("#" + listId + " d-list-item-renderer:nth-child(2)")
 					.getVisibleText().then(function (value) {
 						// Spot check that the <d-list> contents are OK.
-						assert(/^France/.test(value), "item renderer #1: " + value);
+						assert.match(value, /^France/, "item renderer #1");
 					}).end();
 			}).end()
 
@@ -241,6 +218,7 @@ define([
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: "France",
+						popupInputNodeValue: "", // popup closed
 						widgetValue: "France",
 						valueNodeValue: "France",
 						opened: false,
@@ -252,7 +230,7 @@ define([
 						valueNodeValueAtLatestInputEvent: undefined,
 						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
-					}, "right after load");
+					}, "before open");
 			})
 			.click()
 			.sleep(500) // wait for List's loading panel to go away
@@ -263,6 +241,7 @@ define([
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: "France",
+						popupInputNodeValue: "France",
 						widgetValue: "France",
 						valueNodeValue: "France",
 						opened: true,
@@ -286,6 +265,7 @@ define([
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: "Germany",
+						popupInputNodeValue: "", // popup closed
 						widgetValue: "Germany",
 						valueNodeValue: "Germany",
 						opened: false,
@@ -308,8 +288,6 @@ define([
 			.findById(comboId)
 			.execute(executeExpr)
 			.then(function (comboState) {
-				// The first option should be the one selected,
-				// the popup is closed initially
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
@@ -324,14 +302,12 @@ define([
 						valueNodeValueAtLatestInputEvent: undefined,
 						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
-					}, "right after load");
+					}, "before open");
 			})
 			.click()
 			.sleep(500) // wait for List's loading panel to go away
 			.execute(executeExpr)
 			.then(function (comboState) {
-				// The first option should be the one selected,
-				// the first click just opens the dropdown.
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
@@ -368,7 +344,7 @@ define([
 						valueNodeValueAtLatestInputEvent: "Germany",
 						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after clicking option (Germany))");
+					}, "after clicking option (Germany)");
 			})
 			.end()
 			.findById(comboId + "_item6") // "China"
@@ -390,7 +366,7 @@ define([
 						valueNodeValueAtLatestInputEvent: "China,Germany",
 						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after clicking option (China))");
+					}, "after clicking option (China)");
 			})
 			.end()
 			.findByCssSelector(pressOkButton ? ".d-combo-ok-button" : ".d-combo-cancel-button")
@@ -441,31 +417,31 @@ define([
 			.getActiveElement()
 			.getVisibleText()
 			.then(function (value) {
-				assert(/^France/.test(value), "initial focus");
+				assert.match(value, /^France/, "initial focus");
 			})
 			.pressKeys(keys.TAB)
 			.getActiveElement()
 			.getVisibleText()
 			.then(function (value) {
-				assert(/^Cancel/.test(value), "after first TAB");
+				assert.match(value, /^Cancel/, "after first TAB");
 			})
 			.pressKeys(keys.TAB)
 			.getActiveElement()
 			.getVisibleText()
 			.then(function (value) {
-				assert(/^OK/.test(value), "after second TAB");
+				assert.match(value, /^OK/, "after second TAB");
 			})
 			.pressKeys(keys.TAB)
 			.getActiveElement()
 			.getVisibleText()
 			.then(function (value) {
-				assert(/^France/.test(value), "after third TAB");
+				assert.match(value, /^France/, "after third TAB");
 			})
 			.pressKeys(keys.TAB)
 			.getActiveElement()
 			.getVisibleText()
 			.then(function (value) {
-				assert(/^Cancel/.test(value), "after forth TAB");
+				assert.match(value, /^Cancel/, "after forth TAB");
 			})
 			.end();
 	};
@@ -489,6 +465,388 @@ define([
 			});
 	};
 
+	var checkAutoCompleteFilteringWithThreeFilterChars = function (remote, comboId) {
+		var executeExpr = "return getComboState(\"" + comboId + "\");";
+		return loadFile(remote, "./ComboPopup.html")
+			.findById(comboId)
+			.execute(executeExpr)
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "",
+						popupInputNodeValue: "",
+						widgetValue: "",
+						valueNodeValue: "",
+						opened: false,
+						selectedItemsCount: 0,
+						itemRenderersCount: 37,
+						inputEventCounter: 0,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: undefined, // never received
+						valueNodeValueAtLatestInputEvent: undefined,
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "right after load");
+			})
+			.click()
+			.sleep(250)
+			.end()
+			.execute(executeExpr) // when the popup opens, focus goes into the inputNode.
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "",
+						popupInputNodeValue: "",
+						widgetValue: "",
+						valueNodeValue: "",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 37,
+						inputEventCounter: 0,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: undefined, // never received
+						valueNodeValueAtLatestInputEvent: undefined,
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after click on root node");
+			})
+			.findByCssSelector("#" + comboId + "_dropdown")
+			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
+			.pressKeys("j")
+			.sleep(100)
+			.execute(executeExpr)
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "j",
+						popupInputNodeValue: "j",
+						widgetValue: "j",
+						valueNodeValue: "j",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 37,
+						inputEventCounter: 1,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: "j",
+						valueNodeValueAtLatestInputEvent: "j",
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after typing `j` - no query run yet.");
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='false']") // list not visible
+			.then(function (list) {
+				assert.isNotNull(list, "list should be invisible at this stage.");
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
+			.pressKeys("a")
+			.sleep(100)
+			.execute(executeExpr)
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "ja",
+						popupInputNodeValue: "ja",
+						widgetValue: "ja",
+						valueNodeValue: "ja",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 37,
+						inputEventCounter: 1,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: "ja",
+						valueNodeValueAtLatestInputEvent: "ja",
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after typing `a` (ja) - no query run yet.");
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='false']") // list not visible
+			.then(function (list) {
+				assert.isNotNull(list, "list should be invisible at this stage.");
+			})
+			.end()
+			.pressKeys("p")
+			.sleep(100)
+			.execute(executeExpr)
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "jap",
+						popupInputNodeValue: "jap",
+						widgetValue: "jap",
+						valueNodeValue: "jap",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 30, // showing only `jap` matching items.
+						inputEventCounter: 1,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: "jap",
+						valueNodeValueAtLatestInputEvent: "jap",
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after typing `jap` - query did run.");
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='true']") // list visible
+			.then(function (list) {
+				assert.isNotNull(list, "list should be visible at this stage.");
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
+			.pressKeys(keys.BACKSPACE) // removing one chars, list must disappear.
+			.sleep(100)
+			.execute(executeExpr)
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "ja",
+						popupInputNodeValue: "ja",
+						widgetValue: "ja",
+						valueNodeValue: "ja",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 30, // showing only `jap` matching items.
+						inputEventCounter: 1,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: "ja",
+						valueNodeValueAtLatestInputEvent: "ja",
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after deleting `p` from `jap` - query did not run.");
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='false']") // list not visible
+			.then(function (list) {
+				assert.isNotNull(list, "list should be visible at this stage.");
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
+			.pressKeys(keys.BACKSPACE) // removing remaing two chars, list must disappear.
+			.pressKeys(keys.BACKSPACE)
+			.sleep(100)
+			.execute(executeExpr)
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "",
+						popupInputNodeValue: "",
+						widgetValue: "",
+						valueNodeValue: "",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 30, // showing only `jap` matching items.
+						inputEventCounter: 2,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: "",
+						valueNodeValueAtLatestInputEvent: "",
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after deleting `ja` from the inputNode - query did not run.");
+			})
+			.isDisplayed() // check if popup is still visible.
+			.then(function (isVisible) {
+				assert.isTrue(isVisible, "popup must be visible at this stage.");
+			})
+			.end();
+	};
+
+	var checkAutoCompleteFilteringWithZeroFilterChars = function (remote, comboId) {
+		var executeExpr = "return getComboState(\"" + comboId + "\");";
+		return loadFile(remote, "./ComboPopup.html")
+			.findById(comboId)
+			.execute(executeExpr)
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "",
+						popupInputNodeValue: "",
+						widgetValue: "",
+						valueNodeValue: "",
+						opened: false,
+						selectedItemsCount: 0,
+						itemRenderersCount: 37,
+						inputEventCounter: 0,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: undefined, // never received
+						valueNodeValueAtLatestInputEvent: undefined,
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "right after load");
+			})
+			.click()
+			.sleep(250)
+			.end()
+			.execute(executeExpr) // when the popup opens, focus goes into the inputNode.
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "",
+						popupInputNodeValue: "",
+						widgetValue: "",
+						valueNodeValue: "",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 37,
+						inputEventCounter: 0,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: undefined, // never received
+						valueNodeValueAtLatestInputEvent: undefined,
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after click on root node");
+			})
+			.findByCssSelector("#" + comboId + "_dropdown")
+			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
+			.pressKeys("j")
+			.sleep(250)
+			.execute(executeExpr)
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "j",
+						popupInputNodeValue: "j",
+						widgetValue: "j",
+						valueNodeValue: "j",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 30,
+						inputEventCounter: 1,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: "j",
+						valueNodeValueAtLatestInputEvent: "j",
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after typing `j` - query did run.");
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='true']") // list visible
+			.then(function (list) {
+				assert.isNotNull(list, "list visible #1");
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
+			.pressKeys("a")
+			.sleep(250)
+			.execute(executeExpr)
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "ja",
+						popupInputNodeValue: "ja",
+						widgetValue: "ja",
+						valueNodeValue: "ja",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 30,
+						inputEventCounter: 1,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: "ja",
+						valueNodeValueAtLatestInputEvent: "ja",
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after typing `a` (ja) - query did run.");
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='true']") // list visible
+			.then(function (list) {
+				assert.isNotNull(list, "list visible #2");
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
+			.pressKeys(keys.BACKSPACE) // removing two chars, get full list
+			.pressKeys(keys.BACKSPACE)
+			.sleep(250)
+			.execute(executeExpr)
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "",
+						popupInputNodeValue: "",
+						widgetValue: "",
+						valueNodeValue: "",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 37,
+						inputEventCounter: 2,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: "",
+						valueNodeValueAtLatestInputEvent: "",
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after deleting `ja` from the inputNode - full list shown.");
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='true']") // list should be visible
+			.then(function (list) {
+				assert.isNotNull(list, "list visible #3");
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
+			.pressKeys("g") // 'Germany' item visible
+			.sleep(100)
+			.execute(executeExpr)
+			.then(function (comboState) {
+				// Clicking the root node just opens the dropdown. No other state change.
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "g",
+						popupInputNodeValue: "g",
+						widgetValue: "g",
+						valueNodeValue: "g",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 1, // showing only `g` matching items.
+						inputEventCounter: 1,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: "g",
+						valueNodeValueAtLatestInputEvent: "g",
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after typing `g` from the inputNode - query did run.");
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='true']") // list visible
+			.then(function (list) {
+				assert.isNotNull(list, "list visible #4.");
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
+			.pressKeys(keys.BACKSPACE) // erase "g", list still visible
+			.sleep(250)
+			.execute(executeExpr)
+			.then(function (comboState) {
+				checkComboState(comboId, comboState,
+					{ // expected combo state
+						inputNodeValue: "",
+						popupInputNodeValue: "",
+						widgetValue: "",
+						valueNodeValue: "",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 37,
+						inputEventCounter: 1,
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: "",
+						valueNodeValueAtLatestInputEvent: "",
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
+					}, "after deleting `g` from the inputNode - query did not run.");
+			})
+			.end()
+			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='true']") // list still visible
+			.then(function (list) {
+				assert.isNotNull(list, "list visible #5.");
+			})
+			.end()
+			.isDisplayed() // check if popup is still visible.
+			.then(function (isVisible) {
+				assert.isTrue(isVisible, "popup must be visible at this stage.");
+			})
+			.end();
+	};
+
 	registerSuite({
 		name: "ComboPopup - functional",
 
@@ -506,7 +864,7 @@ define([
 		},
 
 		readonly: function () {
-			 // Since clicking the Combobox opens the ComboPopup, the Combobox's <input> should be readonly.
+			// Since clicking the Combobox opens the ComboPopup, the Combobox's <input> should be readonly.
 			return loadFile(this.remote, "./ComboPopup.html").execute(function () {
 				return document.getElementById("combo2").inputNode.readOnly;
 			}).then(function (value) {
@@ -579,7 +937,7 @@ define([
 			return checkSingleSelection(remote, "combo2");
 		},
 
-		"multi selection, press ok button (combo3)": function () {
+		"multi selection (combo3)": function () {
 			var remote = this.remote;
 
 			if (remote.environmentType.platformName === "iOS") {
@@ -590,7 +948,7 @@ define([
 			return checkMultiSelection(remote, "combo3", true);
 		},
 
-		"multi selection, press cancel button (combo3)": function () {
+		"multi selection cancel button (combo3)": function () {
 			var remote = this.remote;
 
 			if (remote.environmentType.platformName === "iOS") {
@@ -637,7 +995,8 @@ define([
 			return checkFocus(remote, "combo2", true);
 		},
 
-		"auto complete (combo4)": function () {
+		// TODO: merge this into checkAutoCompleteFilteringWithThreeFilterChars().
+		"aria-expanded": function () {
 			return loadFile(this.remote, "./ComboPopup.html")
 				.findById("combo4").click().end()
 				.sleep(500) // wait for List's loading panel to go away
@@ -649,6 +1008,34 @@ define([
 				.findByCssSelector("#combo4_dropdown input").getAttribute("aria-expanded").then(function (value) {
 					assert.strictEqual(value, "true", "expanded after typing 3 chars");
 				}).end();
+		},
+
+		"autocomplete filtering - minFilterChars = 3 (combo4)": function () {
+			var remote = this.remote;
+
+			if (remote.environmentType.platformName === "iOS" || remote.environmentType.safari ||
+				remote.environmentType.browserName === "safari" || remote.environmentType.brokenSendKeys ||
+				!remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support - brokenSendKeys");
+			}
+
+			return checkAutoCompleteFilteringWithThreeFilterChars(remote, "combo4");
+		},
+
+		"autocomplete filtering - minFilterChars = 0 (combo5)": function () {
+			var remote = this.remote;
+
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/17
+				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
+			}
+			if (remote.environmentType.platformName === "iOS" || remote.environmentType.safari ||
+				remote.environmentType.browserName === "safari" || remote.environmentType.brokenSendKeys ||
+				!remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support - brokenSendKeys");
+			}
+
+			return checkAutoCompleteFilteringWithZeroFilterChars(remote, "combo5");
 		}
 	});
 });
