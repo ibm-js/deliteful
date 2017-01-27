@@ -853,11 +853,6 @@ define([
 		setup: function () {
 			var remote = this.remote;
 
-			if (remote.environmentType.brokenMouseEvents) {
-				// https://github.com/theintern/leadfoot/issues/17
-				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
-			}
-
 			if (remote.environmentType.browserName === "internet explorer") {
 				return this.skip("ComboPopup broken on IE");
 			}

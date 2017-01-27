@@ -1282,6 +1282,13 @@ define([
 	registerSuite({
 		name: "Combobox - functional",
 
+		setup: function () {
+			if (this.remote.environmentType.platformName === "iOS") {
+				// Skip all the tests on mobile because they aren't designed to interact w/the ComboPopup.
+				return this.skip("test designed for desktop Combobox, not mobile");
+			}
+		},
+
 		"Combobox Form submit": function () {
 			var remote = this.remote;
 			if (/iOS|selendroid/.test(remote.environmentType.browserName)) {
@@ -1545,42 +1552,15 @@ define([
 		},
 
 		"mouse navigation selectionMode=single, autoFilter=false": function () {
-			var remote = this.remote;
-			if (remote.environmentType.brokenMouseEvents) {
-				// https://github.com/theintern/leadfoot/issues/17
-				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
-			}
-			if (remote.environmentType.platformName === "iOS") {
-				// https://github.com/theintern/leadfoot/issues/61
-				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
-			}
-			return checkMouseNavigationSingleSelection(remote, "combo1");
+			return checkMouseNavigationSingleSelection(this.remote, "combo1");
 		},
 
 		"mouse navigation selectionMode=multiple": function () {
-			var remote = this.remote;
-			if (remote.environmentType.brokenMouseEvents) {
-				// https://github.com/theintern/leadfoot/issues/17
-				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
-			}
-			if (remote.environmentType.platformName === "iOS") {
-				// https://github.com/theintern/leadfoot/issues/61
-				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
-			}
-			return checkMouseNavigationMultipleSelection(remote, "combo3");
+			return checkMouseNavigationMultipleSelection(this.remote, "combo3");
 		},
 
 		"popup position after filter": function () {
-			var remote = this.remote;
-			if (remote.environmentType.brokenMouseEvents) {
-				// https://github.com/theintern/leadfoot/issues/17
-				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
-			}
-			if (remote.environmentType.platformName === "iOS") {
-				// https://github.com/theintern/leadfoot/issues/61
-				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
-			}
-			return checkPopupPosition(remote, "combo2-custom-sel-single", "above");
+			return checkPopupPosition(this.remote, "combo2-custom-sel-single", "above");
 		},
 
 		"select item with currently displayed value": function () {
@@ -1620,10 +1600,6 @@ define([
 
 		"check for number of request (using SlowStore)": function () {
 			var remote = this.remote;
-			if (remote.environmentType.brokenMouseEvents) {
-				// https://github.com/theintern/leadfoot/issues/17
-				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
-			}
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
 			}
@@ -1632,10 +1608,6 @@ define([
 
 		"filtering with minimum characters (0)": function () {
 			var remote = this.remote;
-			if (remote.environmentType.brokenMouseEvents) {
-				// https://github.com/theintern/leadfoot/issues/17
-				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
-			}
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
 			}
@@ -1644,10 +1616,6 @@ define([
 
 		"filtering with minimum characters (3)": function () {
 			var remote = this.remote;
-			if (remote.environmentType.brokenMouseEvents) {
-				// https://github.com/theintern/leadfoot/issues/17
-				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
-			}
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
 			}
@@ -1656,10 +1624,6 @@ define([
 
 		"filtering in auto complete mode": function () {
 			var remote = this.remote;
-			if (remote.environmentType.brokenMouseEvents) {
-				// https://github.com/theintern/leadfoot/issues/17
-				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
-			}
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
 			}
