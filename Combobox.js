@@ -402,32 +402,33 @@ define([
 			this._inputReadOnly = this.readOnly || !this.autoFilter ||
 				this._isMobile || this.selectionMode === "multiple";
 
-			// Sometimes, especially during creation, the app will specify a value without specifying a displayedValue.
-			// In that case, copy this.value to this.displayedValue.  This code is fragile though; need to make
-			// sure Combobox itself always sets displayedValue at the same time it sets value.
-			var valueChanged = justCreated ? this.hasOwnProperty("_shadowValueAttr") : "value" in oldValues;
-			var displayedValueChanged = justCreated ? this.hasOwnProperty("_shadowDisplayedValueAttr") :
-				"displayedValue" in oldValues;
-			if (valueChanged && !displayedValueChanged) {
-				if (this.selectionMode === "single") {
-					this.displayedValue = this.value;
-				} else {
-					var items = this.value;
-					var n = items.length;
-					if (n > 1) {
-						this.displayedValue = string.substitute(this.multipleChoiceMsg, {items: n});
-					} else if (n === 1) {
-						this.displayedValue = items[0];
+			// Set this.displayedValue based on this.value.
+			if (this.selectionMode === "multiple" && this.value.length === 0) {
+				this.displayedValue = this.multipleChoiceNoSelectionMsg;
+			} else if (this.selectionMode === "multiple" && this.value.length > 1) {
+				this.displayedValue = string.substitute(this.multipleChoiceMsg, {items: this.value.length});
+			} else {
+				// Sometimes, especially during creation, the app will specify a value without specifying a
+				// displayedValue.  In that case, copy this.value to this.displayedValue.  This code is fragile though;
+				// need to make sure Combobox itself always sets displayedValue at the same time it sets value.
+				var valueChanged = justCreated ? this.hasOwnProperty("_shadowValueAttr") : "value" in oldValues;
+				var displayedValueChanged = justCreated ? this.hasOwnProperty("_shadowDisplayedValueAttr") :
+					"displayedValue" in oldValues;
+				if (valueChanged && !displayedValueChanged) {
+					if (this.selectionMode === "single") {
+						this.displayedValue = this.value;
 					} else {
-						this.displayedValue = this.multipleChoiceNoSelectionMsg;
+						// If we get here to this branch, this.value is an array with one element.
+						this.displayedValue = this.value[0];
 					}
-				}
 
-				// Call computeProperties() again to flush out the change record for "displayedValue".
-				// That way, all the notifications are processed before the new Combobox() constructor
-				// finishes running.
-				this.deliverComputing();
+				}
 			}
+
+			// Call computeProperties() again to flush out the change record for "displayedValue".
+			// That way, all the notifications are processed before the new Combobox() constructor
+			// finishes running.
+			this.deliverComputing();
 		},
 
 		/* jshint maxcomplexity: 17 */

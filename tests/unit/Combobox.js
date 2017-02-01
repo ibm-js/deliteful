@@ -370,7 +370,7 @@ define([
 			return d;
 		},
 
-		"programmatically set value and displayedValue": {
+		"programmatically set value and displayedValue (selectionMode=single)": {
 			simple: function () {
 				// Simple Combobox, displayedValue not specified but it defaults to value.
 				var source = new Memory({
@@ -431,7 +431,6 @@ define([
 				assert.strictEqual(combo.value, "CA", "changed value");
 				assert.strictEqual(combo.displayedValue, "Canada", "changed displayedValue");
 				assert.strictEqual(combo.inputNode.value, "Canada", "changed inputNode.value");
-
 			},
 
 			"blank label": function () {
@@ -465,7 +464,100 @@ define([
 				assert.strictEqual(combo.value, "blank", "changed value");
 				assert.strictEqual(combo.displayedValue, "", "changed displayedValue");
 				assert.strictEqual(combo.inputNode.value, "", "changed inputNode.value");
+			}
+		},
 
+		"programmatically set value and displayedValue (selectionMode=multiple)": {
+			simple: function () {
+				var source = new Memory({
+					data: [
+						{name: "Japan", sales: 900, profit: 100, region: "Asia"},
+						{name: "France", sales: 500, profit: 50, region: "EU"},
+						{name: "Germany", sales: 450, profit: 48, region: "EU"},
+						{name: "UK", sales: 700, profit: 60, region: "EU"},
+						{name: "USA", sales: 2000, profit: 250, region: "America"},
+						{name: "Canada", sales: 600, profit: 30, region: "America"},
+						{name: "Brazil", sales: 450, profit: 30, region: "America"},
+						{name: "China", sales: 500, profit: 40, region: "Asia"}
+					]
+				});
+
+				// When value is empty array, displayedValue gets set automatically.
+				var combo1 = new Combobox({
+					selectionMode: "multiple",
+					source: source,
+					labelAttr: "name",
+					value: []
+				});
+				assert.strictEqual(combo1.displayedValue, combo1.multipleChoiceNoSelectionMsg, "value = []");
+
+				// When value is ["Japan"] and no displayedValue is set, displayedValue gets set to "Japan".
+				var combo2 = new Combobox({
+					selectionMode: "multiple",
+					source: source,
+					labelAttr: "name",
+					value: ["Japan"]
+				});
+				assert.strictEqual(combo2.displayedValue, "Japan", "value = ['Japan']");
+
+				// When value is array with multiple entries, displayedValue gets set automatically.
+				var combo3 = new Combobox({
+					selectionMode: "multiple",
+					source: source,
+					labelAttr: "name",
+					value: ["Canada", "Brazil"]
+				});
+				assert.strictEqual(combo3.displayedValue, combo3.multipleChoiceMsg.replace("${items}", 2),
+					"value = [a, b]");
+			},
+
+			label: function () {
+				// Combobox where value and displayedValue are different, so at creation both
+				// displayedValue and value are specified.
+				var source = new Memory({
+					idProperty: "id",
+					data: [
+						{id: "JP", name: "Japan", sales: 900, profit: 100, region: "Asia"},
+						{id: "FR", name: "France", sales: 500, profit: 50, region: "EU"},
+						{id: "DE", name: "Germany", sales: 450, profit: 48, region: "EU"},
+						{id: "UK", name: "UK", sales: 700, profit: 60, region: "EU"},
+						{id: "US", name: "USA", sales: 2000, profit: 250, region: "America"},
+						{id: "CA", name: "Canada", sales: 600, profit: 30, region: "America"},
+						{id: "BR", name: "Brazil", sales: 450, profit: 30, region: "America"},
+						{id: "CN", name: "China", sales: 500, profit: 40, region: "Asia"}
+					]
+				});
+
+				// When value is empty array, displayedValue gets set automatically.
+				var combo1 = new Combobox({
+					selectionMode: "multiple",
+					source: source,
+					labelAttr: "name",
+					value: [],
+					displayedValue: "should be ignored"
+				});
+				assert.strictEqual(combo1.displayedValue, combo1.multipleChoiceNoSelectionMsg, "value = []");
+
+				// When value is array with one entry, app should specify displayedValue.
+				var combo2 = new Combobox({
+					selectionMode: "multiple",
+					source: source,
+					labelAttr: "name",
+					value: ["DE"],
+					displayedValue: "Germany"
+				});
+				assert.strictEqual(combo2.displayedValue, "Germany", "initial displayedValue");
+
+				// When value is array with multiple entries, displayedValue gets set automatically.
+				var combo3 = new Combobox({
+					selectionMode: "multiple",
+					source: source,
+					labelAttr: "name",
+					value: ["JP", "FR"],
+					displayedValue: "should be ignored"
+				});
+				assert.strictEqual(combo3.displayedValue, combo3.multipleChoiceMsg.replace("${items}", 2),
+					"value = [a, b]");
 			}
 		},
 
