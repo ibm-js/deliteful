@@ -21,13 +21,13 @@ define(["intern",
 					intern.config.POLL_INTERVAL))
 			.then(function () {
 				return remote
-				.findByXpath("//*[@id='" + listId + "']/div")
+				.findByCssSelector("#" + listId + " div")
 					.getAttribute("role")
 					.then(function (value) {
 						assert.strictEqual(value, "listbox");
 					})
 					.end()
-				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
+				.findByCssSelector("#" + listId + " .d-list-item:nth-child(3) [role=option]")
 					.getAttribute("aria-selected")
 					.then(function (value) {
 						assert.strictEqual(value, "false");
@@ -48,7 +48,7 @@ define(["intern",
 						assert.strictEqual(value, "true");
 					})
 					.end()
-				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[4]/div")
+				.findByCssSelector("#" + listId + " .d-list-item:nth-child(4) [role=option]")
 					.getAttribute("aria-selected")
 					.then(function (value) {
 						assert.strictEqual(value, "false");
@@ -59,7 +59,7 @@ define(["intern",
 						assert.strictEqual(value, "true");
 					})
 					.end()
-				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
+				.findByCssSelector("#" + listId + " .d-list-item:nth-child(3) [role=option]")
 					.getAttribute("aria-selected")
 					.then(function (value) {
 						assert.strictEqual(value, "true");
@@ -81,7 +81,7 @@ define(["intern",
 					intern.config.POLL_INTERVAL))
 			.then(function () {
 				return remote
-				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
+				.findByCssSelector("#" + listId + " .d-list-item:nth-child(3) [role=option]")
 					.getAttribute("aria-selected")
 					.then(function (value) {
 						assert.strictEqual(value, "false", "test 1");
@@ -102,7 +102,7 @@ define(["intern",
 						assert.strictEqual(value, "true", "test 4");
 					})
 					.end()
-				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[4]/div")
+				.findByCssSelector("#" + listId + " .d-list-item:nth-child(4) [role=option]")
 					.getAttribute("aria-selected")
 					.then(function (value) {
 						assert.strictEqual(value, "false", "test 5");
@@ -113,7 +113,7 @@ define(["intern",
 						assert.strictEqual(value, "true", "test 6");
 					})
 					.end()
-				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
+				.findByCssSelector("#" + listId + " .d-list-item:nth-child(3) [role=option]")
 					.getAttribute("aria-selected")
 					.then(function (value) {
 						assert.strictEqual(value, "false", "test 7");

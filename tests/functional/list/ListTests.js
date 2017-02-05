@@ -22,14 +22,14 @@ define(["intern",
 				.findAllByTagName(itemTag)
 					.then(function (result) {
 						assert.strictEqual(result.length, numberOfItemsExpected,
-								listId + " number of list items is not the expected one");
+								listId + " number of list items");
 						// TODO: check the label on each item
 					})
 					.end()
 				.findAllByTagName("d-list-category-renderer")
 					.then(function (result) {
 						assert.strictEqual(result.length, numberOfCategoriesExpected,
-								listId + " number of category headers is not the expected one");
+								listId + " number of category headers");
 					})
 					// TODO: scroll ?
 					.end()
@@ -81,7 +81,7 @@ define(["intern",
 					[],
 					intern.config.WAIT_TIMEOUT,
 					intern.config.POLL_INTERVAL))
-			.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
+			.findByCssSelector("#" + listId + " .d-list-item:nth-child(3) [role=gridcell]")
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, null);
@@ -105,7 +105,7 @@ define(["intern",
 					[],
 					intern.config.WAIT_TIMEOUT,
 					intern.config.POLL_INTERVAL))
-			.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
+			.findByCssSelector("#" + listId + " .d-list-item:nth-child(3) [role=gridcell]")
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, "false");
@@ -126,7 +126,7 @@ define(["intern",
 					assert.strictEqual(value, "true");
 				})
 				.end()
-			.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[4]/div")
+			.findByCssSelector("#" + listId + " .d-list-item:nth-child(4) [role=gridcell]")
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, "false");
@@ -137,7 +137,7 @@ define(["intern",
 					assert.strictEqual(value, "true");
 				})
 				.end()
-			.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
+			.findByCssSelector("#" + listId + " .d-list-item:nth-child(3) [role=gridcell]")
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, "true");
@@ -156,7 +156,7 @@ define(["intern",
 					[],
 					intern.config.WAIT_TIMEOUT,
 					intern.config.POLL_INTERVAL))
-			.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
+			.findByCssSelector("#" + listId + " .d-list-item:nth-child(3) [role=gridcell]")
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, "false");
@@ -177,7 +177,7 @@ define(["intern",
 					assert.strictEqual(value, "true");
 				})
 				.end()
-			.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[4]/div")
+			.findByCssSelector("#" + listId + " .d-list-item:nth-child(4) [role=gridcell]")
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, "false");
@@ -188,7 +188,7 @@ define(["intern",
 					assert.strictEqual(value, "true");
 				})
 				.end()
-			.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
+			.findByCssSelector("#" + listId + " .d-list-item:nth-child(3) [role=gridcell]")
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, "false");
@@ -207,7 +207,7 @@ define(["intern",
 					[],
 					intern.config.WAIT_TIMEOUT,
 					intern.config.POLL_INTERVAL))
-			.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
+			.findByCssSelector("#" + listId + " .d-list-item:nth-child(3) [role=gridcell]")
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, "false");
@@ -223,7 +223,7 @@ define(["intern",
 					assert.strictEqual(value, "true");
 				})
 				.end()
-			.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[4]/div")
+			.findByCssSelector("#" + listId + " .d-list-item:nth-child(4) [role=gridcell]")
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, "false");
@@ -234,7 +234,7 @@ define(["intern",
 					assert.strictEqual(value, "true");
 				})
 				.end()
-			.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
+			.findByCssSelector("#" + listId + " .d-list-item:nth-child(3) [role=gridcell]")
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, "false");

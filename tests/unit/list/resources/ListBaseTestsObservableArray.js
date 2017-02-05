@@ -244,7 +244,7 @@ define([
 					list.deliver();
 					var renderer = list.containerNode.children[0];
 					assert.strictEqual(renderer.item.label, "item a");
-					assert.strictEqual(renderer.firstChild.children[1].innerHTML, "item a");
+					assert.strictEqual(renderer.renderNode.children[1].innerHTML, "item a");
 				},
 
 				"update item: add, update and remove icon" : function () {
@@ -264,30 +264,30 @@ define([
 					list.deliver();
 					var renderer = list.containerNode.children[0];
 					assert.strictEqual(renderer.item.label, "item a");
-					assert.strictEqual(renderer.firstChild.getAttribute("role"), "gridcell");
-					assert.strictEqual(renderer.firstChild.firstChild.className, "d-list-item-icon my-icon");
-					assert.strictEqual(renderer.firstChild.children[1].className, "d-list-item-label");
-					assert.strictEqual(renderer.firstChild.children[1].innerHTML, "item a");
+					assert.strictEqual(renderer.renderNode.getAttribute("role"), "gridcell");
+					assert.strictEqual(renderer.renderNode.firstChild.className, "d-list-item-icon my-icon");
+					assert.strictEqual(renderer.renderNode.children[1].className, "d-list-item-label");
+					assert.strictEqual(renderer.renderNode.children[1].innerHTML, "item a");
 
 					// update
 					list.source[0].set("iconclass", "my-other-icon");
 					list.deliver();
 					renderer = list.containerNode.children[0];
 					assert.strictEqual(renderer.item.label, "item a");
-					assert.strictEqual(renderer.firstChild.getAttribute("role"), "gridcell");
-					assert.strictEqual(renderer.firstChild.firstChild.className,
+					assert.strictEqual(renderer.renderNode.getAttribute("role"), "gridcell");
+					assert.strictEqual(renderer.renderNode.firstChild.className,
 						"d-list-item-icon my-other-icon");
-					assert.strictEqual(renderer.firstChild.children[1].className, "d-list-item-label");
-					assert.strictEqual(renderer.firstChild.children[1].innerHTML, "item a");
+					assert.strictEqual(renderer.renderNode.children[1].className, "d-list-item-label");
+					assert.strictEqual(renderer.renderNode.children[1].innerHTML, "item a");
 
 					// remove
 					list.source.set(0, {id: 0, label: "item b"});
 					list.deliver();
 					renderer = list.containerNode.children[0];
 					assert.strictEqual(renderer.item.label, "item b");
-					assert.strictEqual(renderer.firstChild.getAttribute("role"), "gridcell");
-					assert.strictEqual(renderer.firstChild.children[1].className, "d-list-item-label");
-					assert.strictEqual(renderer.firstChild.children[1].innerHTML, "item b");
+					assert.strictEqual(renderer.renderNode.getAttribute("role"), "gridcell");
+					assert.strictEqual(renderer.renderNode.children[1].className, "d-list-item-label");
+					assert.strictEqual(renderer.renderNode.children[1].innerHTML, "item b");
 				},
 
 				"item category attribute is not undefined by StoreMap": function () {
