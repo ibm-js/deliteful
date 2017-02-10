@@ -1,0 +1,16 @@
+<template>
+	<div attach-point="grid" role="grid" on-click="{{yearClickHandler}}" aria-label="{{gridLabel}}"></div>
+	<div class="d-date-picker-footer">
+		<div class="d-date-picker-button" on-click="{{previousYearsClickHandler}}"
+			title="{{previousYearRangeButtonLabel}}">
+			<span class="{{previousIconClass}}"></span>
+		</div>
+		<div class="d-label">
+			<span>{{currentYearsLabel}}</span>
+		</div>
+		<div class="d-date-picker-button" on-click="{{nextYearsClickHandler}}"
+			title="{{nextYearRangeButtonLabel}}" role="presentation">
+			<span class="{{nextIconClass}}"></span>
+		</div>
+	</div>
+</template>

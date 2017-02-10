@@ -13,15 +13,27 @@
 	<script type="text/javascript" src="../../../requirejs/require.js"></script>
 
 	<script type="text/javascript">
+		ready = false;
+
 		require.config({
 			baseUrl: "../../.."
 		});
 
-		require(["deliteful/DatePicker"], function(){});
+		require([
+			"delite/register",
+			"dojo/date/stamp",
+			"deliteful/DatePicker"
+		], function (
+			register,
+			stamp
+		) {
+			register.deliver();
+			ready = true;
 
-		function onChange(evt) {
-			console.debug("value set to ", evt.target.value);
-		}
+			onChange = function (evt) {
+				document.getElementById("value").textContent = stamp.toISOString(evt.target.value, {selector: "date"});
+			};
+		});
 	</script>
 </head>
 <body role="application" aria-label="DatePicker Test Application">
@@ -32,8 +44,11 @@
 
 	<span id="calendar1-label">Test calendar</span>:
 	<br>
-	<table is="d-date-picker" id="calendar1" summary="Test calendar" aria-labelledby="calendar1-label"
-		   on-change="onChange(arguments[0]);"></table>
+	<d-date-picker id="calendar1" aria-labelledby="calendar1-label"
+		   on-change="onChange(arguments[0]);"></d-date-picker>
+	<br><br>
+
+	Value: <span id="value"></span>
 	<br><br>
 
 	<label for="after">after</label>: <input value="input" id="after">

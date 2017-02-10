@@ -2,6 +2,7 @@
 define([
 	"./Accordion",
 	"./Checkbox",
+	"./DatePicker",
 	"./LinearLayout-direction",
 	"./LinearLayout-horizontal",
 	"./LinearLayout-horizontal-3width",

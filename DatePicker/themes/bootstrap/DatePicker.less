@@ -3,8 +3,17 @@
 
 // The calendar itself.
 .d-date-picker {
+	// Override PanelStack's display:block and height:100%
+	// Also set width so DatePicker is constant width regardless of which
+	// panel is displayed (day picker, month picker, year picker), and which month of the day picker
+	// is displayed.
+	&.d-view-stack {
+		display: inline-block;
+		height: 300px;
+		width: 300px;
+	}
+
 	border: solid black 1px;
-	padding: 5px;
 	background: white;
 
 	-webkit-touch-callout: none; // iOS Safari
@@ -13,104 +22,100 @@
 	-ms-user-select: none;       // Internet Explorer/Edge
 	user-select: none;           // Non-prefixed version, currently not supported by any browser
 
-	// Set min-width so DatePicker is constant width regardless of which month is selected.
-	min-width: 250px;
+	// Top level styling for each panel.
+	// Each panel has (optional) header, grid element, and (optional) footer.
+	// The grid element stretches to the remaining width and height, with each element
+	// taking the same amount of width.
+	> * {
+		display: flex;
+		flex-direction: column;
 
-	th, td {
 		padding: 5px;
-		text-align: center;
+
+		// Need to set a background or you can see one panel behind the other (when using "flip" transition).
+		background: white;
 	}
 
-	// Arrows to go to next/previous month/year.
+	// Styling for each panel's header and footer.
+	// Arrows are aligned with the first and last column of the day panel grid.
+	.d-date-picker-header, .d-date-picker-footer {
+		display: flex;
+		justify-content: space-between;
+		color: blue;
+		> * {
+			padding: 5px;
+		}
+		.d-label {
+			text-align: center;
+			flex: 5;	// make next/previous arrows align with first and last column of day grid
+		}
+	}
+
+	// Arrows to go to next/previous month/year/range of years, and also the clickable labels.
 	.d-date-picker-button {
 		cursor: pointer;
-		color: blue;
 		&:hover {
 			background: lightgray;
 		}
+		width: 35px;	// match grid cells
+		text-align: center;
 	}
 	.d-caret-previous::before {
-		content: "\25C0";
+		content: "<";
 		.d-rtl& {
-			content: "\25B6";
+			content: ">";
 		}
 	}
 	.d-caret-next::before {
-		content: "\25B6";
+		content: ">";
 		.d-rtl& {
-			content: "\25C0";
+			content: "<";
 		}
 	}
 
-	// Label for month (when clicked, opens drop down).
-	.d-month-select {
-		cursor: pointer;
-		color: blue;
-		padding: 2px 0;
+	// Styling for each panel's grid (grid of days, months, or years).
+	[role=grid] {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+	[role=row] {
+		display: flex;
+		flex: 1;
+		> * {
+			flex: 1;
+			margin: 0;
 
-		&:hover {
-			background: lightgray;
-		}
-
-		.d-month-label {
-			font-size: 18px;
-		}
-
-		.d-chevron-down {
-			display: inline-block;
-			margin-left: 5px;
-			.d-rtl& {
-				margin-left: 0px;
-				margin-right: 5px;
-			}
-			&::after {
-				vertical-align: center;
-				content: "\2228";    // just because actual caret (\2304) is *tiny*
-			}
+			// Center text horizontally and vertically.  Text must be in a <span>.
+			display: flex;
+			align-items: center;
+			justify-content: center;
 		}
 	}
 
-	// Table cell with date number.
-	.d-date-picker-date {
+	// Table cell with date number for current month (on day panel),
+	// month name (on month panel), or year (on year panel).
+	.d-date-picker-date, .d-month-picker [role=gridcell], .d-year-picker [role=gridcell] {
 		cursor: pointer;
 		&:hover {
 			background: lightgray;
+		}
+
+		// Table cell for the selected day/month/year (not necessarily the currently focused element).
+		&.d-date-picker-selected {
+			color: white;
+			background: blue;
 		}
 	}
 
 	// Table cell for next or previous month.
 	.d-date-picker-other-month {
-		color: gray;
+		color: purple;
 	}
 
 	// Table cell for today's date.
 	.d-date-picker-today {
 		color: blue;
-	}
-
-	// Table cell for the selected date (not necessarily the currently focused date).
-	.d-date-picker-selected, .d-date-picker-selected:hover {
-		color: white;
-		background: blue;
-	}
-
-	// Label for year.
-	.d-year {
-		color: blue;
-		font-size: 18px;
-	}
-}
-
-// The drop down for list of months.
-.d-month-drop-down {
-	display: block;
-	border: solid black 1px;
-	> * {
-		cursor: pointer;
-		padding: 3px 5px;
-
-		&:hover {
-			background: lightgray;
-		}
 	}
 }

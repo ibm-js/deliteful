@@ -5,6 +5,7 @@ define([
 	"./Checkbox",
 	"./Combobox",
 	"./ComboPopup",
+	"./DatePicker",
 	"./features",
 	"./list/all",
 	"./ScrollableContainer",

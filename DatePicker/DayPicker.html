@@ -1,0 +1,31 @@
+<div tabindex="0">
+	<div class="d-date-picker-header">
+		<div class="d-date-picker-button" on-click="{{previousMonthClickHandler}}"
+			title="{{previousMonthButtonLabel}}" role="presentation">
+			<span class="{{previousIconClass}}"></span>
+		</div>
+		<div class="d-label d-date-picker-button" on-click="{{currentMonthClickHandler}}">
+			<span>{{currentMonthLabel}}</span>
+		</div>
+		<div class="d-date-picker-button" on-click="{{nextMonthClickHandler}}"
+			title="{{nextMonthButtonLabel}}" role="presentation">
+			<span class="{{nextIconClass}}"></span>
+		</div>
+	</div>
+	<div attach-point="grid" role="grid" aria-label="{{gridLabel}}">
+		<div role="row" class="d-date-picker-days" attach-point="daysRow"></div>
+	</div>
+	<div class="d-date-picker-footer">
+		<div class="d-date-picker-button" on-click="{{previousYearClickHandler}}"
+			title="{{previousYearButtonLabel}}" role="presentation">
+			<span class="{{previousIconClass}}"></span>
+		</div>
+		<div class="d-label d-date-picker-button" on-click="{{currentYearClickHandler}}">
+			<span>{{currentYearLabel}}</span>
+		</div>
+		<div class="d-date-picker-button" on-click="{{nextYearClickHandler}}"
+			title="{{nextYearButtonLabel}}" role="presentation">
+			<span class="{{nextIconClass}}"></span>
+		</div>
+	</div>
+</div>
