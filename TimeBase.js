@@ -126,7 +126,7 @@ define([
 
 			var fd = this.firstDayOfWeek;
 			var day = date.getDay();
-			var dayAdjust =  day > fd ? -day + fd : -day + fd - 7;
+			var dayAdjust =  day >= fd ? -day + fd : -day + fd - 7;
 			return new this.dateClassObj(date.getFullYear(), date.getMonth(), date.getDate() + dayAdjust);
 		},
 

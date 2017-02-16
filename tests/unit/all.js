@@ -18,6 +18,7 @@ define([
 	"./Slider",
 	"./StarRating",
 	"./Switch",
+	"./TimeBase",
 	"./Toaster",
 	"./ToasterMessage",
 	"./ToasterMessage-insert-show-hide-remove",
