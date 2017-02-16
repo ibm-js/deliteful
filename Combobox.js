@@ -311,27 +311,20 @@ define([
 					this.list = list;
 				}
 			}
+		},
 
-			this.on("click", function () {
-				// NOTE: This runs only when in mobile mode
-				if (this._isMobile && !this.disabled) {
-					this.openDropDown();
-				}
-			}.bind(this));
+		/**
+		 * Handle clicks on the `<input>`.
+		 * Note that HasDropDown handles clicks on the arrow icon.
+		 */
+		inputClickHandler: function () {
+			if (this.disabled) {
+				return;
+			}
 
-			this.on("mousedown", function (evt) {
-				// NOTE: This runs only when in desktop mode
-				if (!this._isMobile && (!this.minFilterChars || this._inputReadOnly)) {
-					// event could be triggered by the down arrow element. If so, we do not react to it.
-					if (evt.srcElement !== this.buttonNode && !this.disabled) {
-						if (!this.opened) {
-							this.openDropDown();
-						} else {
-							this.closeDropDown(true);
-						}
-					}
-				}
-			}.bind(this));
+		    if (this._isMobile || !this.minFilterChars || this._inputReadOnly) {
+				this.toggleDropDown();
+			}
 		},
 
 		parseAttribute: dcl.superCall(function (sup) {

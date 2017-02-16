@@ -41,7 +41,6 @@ define([
 	var checkFilter = function (remote, comboId) {
 		var executeExpr = "return getComboState(\"" + comboId + "\");";
 		return loadFile(remote, "./ComboPopup.html")
-			.findById(comboId)
 			.execute(executeExpr)
 			.then(function (comboState) {
 				// No item should be selected, the popup is closed initially.
@@ -62,9 +61,8 @@ define([
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "right after load");
 			})
-			.click()
+			.findByCssSelector("#" + comboId + " .d-combobox-input").click().end()
 			.sleep(500) // wait for List's loading panel to go away
-			.end()
 			.execute(executeExpr) // when the popup opens, focus goes on list's first item.
 			.then(function (comboState) {
 				// Clicking the root node just opens the dropdown. No other state change.
@@ -85,7 +83,7 @@ define([
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after click on root node");
 			})
-			.findByCssSelector(".d-combo-popup .d-linear-layout .d-combobox-input[d-hidden='false']")
+			.findByCssSelector(".d-combo-popup .d-combobox-input[d-hidden='false']")
 			.pressKeys(keys.BACKSPACE) // Delete the 6 chars of "France"
 			.sleep(100)
 			.pressKeys(keys.BACKSPACE)
@@ -175,7 +173,7 @@ define([
 
 	var checkListInPopup = function (remote, comboId, hasFilterInput, isMultiSelect) {
 		return loadFile(remote, "./ComboPopup.html")
-			.findById(comboId).click().end()
+			.findByCssSelector("#" + comboId + " .d-combobox-arrow").click().end()
 			.sleep(500) // wait for List's loading panel to go away
 
 			// Get the ComboPopup's <input>'s id...
@@ -201,16 +199,15 @@ define([
 					}).end();
 			}).end()
 
-			.findByCssSelector(".d-combo-popup .d-linear-layout .d-combobox-input[d-hidden='" + !hasFilterInput + "']")
+			.findByCssSelector(".d-combo-popup .d-combobox-input[d-hidden='" + !hasFilterInput + "']")
 			.end()
-			.findByCssSelector(".d-combo-popup .d-linear-layout .d-linear-layout[d-hidden='" + !isMultiSelect + "']")
+			.findByCssSelector(".d-combo-popup .d-linear-layout[d-hidden='" + !isMultiSelect + "']")
 			.end();
 	};
 
 	var checkSingleSelection = function (remote, comboId) {
 		var executeExpr = "return getComboState(\"" + comboId + "\");";
 		return loadFile(remote, "./ComboPopup.html")
-			.findById(comboId)
 			.execute(executeExpr)
 			.then(function (comboState) {
 				// The first option should be the one selected,
@@ -232,7 +229,7 @@ define([
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "before open");
 			})
-			.click()
+			.findByCssSelector("#" + comboId + " .d-combobox-input").click().end()
 			.sleep(500) // wait for List's loading panel to go away
 			.execute(executeExpr)
 			.then(function (comboState) {
@@ -255,7 +252,6 @@ define([
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after click on root node");
 			})
-			.end()
 			.findById(comboId + "_item1") // "Germany"
 			.click()
 			.sleep(500) // wait for popup to close
@@ -285,7 +281,6 @@ define([
 	var checkMultiSelection = function (remote, comboId, pressOkButton) {
 		var executeExpr = "return getComboState(\"" + comboId + "\");";
 		return loadFile(remote, "./ComboPopup.html")
-			.findById(comboId)
 			.execute(executeExpr)
 			.then(function (comboState) {
 				checkComboState(comboId, comboState,
@@ -304,7 +299,7 @@ define([
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "before open");
 			})
-			.click()
+			.findByCssSelector("#" + comboId + " .d-combobox-arrow").click().end()
 			.sleep(500) // wait for List's loading panel to go away
 			.execute(executeExpr)
 			.then(function (comboState) {
@@ -324,9 +319,7 @@ define([
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after click on root node");
 			})
-			.end()
-			.findById(comboId + "_item1") // "Germany"
-			.click()
+			.findById(comboId + "_item1").click().end() // "Germany"
 			.sleep(500)
 			.execute(executeExpr)
 			.then(function (comboState) {
@@ -346,9 +339,7 @@ define([
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after clicking option (Germany)");
 			})
-			.end()
-			.findById(comboId + "_item6") // "China"
-			.click()
+			.findById(comboId + "_item6").click().end() // "China"
 			.sleep(500) // wait for popup to close
 			.execute(executeExpr)
 			.then(function (comboState) {
@@ -368,9 +359,7 @@ define([
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after clicking option (China)");
 			})
-			.end()
-			.findByCssSelector(pressOkButton ? ".d-combo-ok-button" : ".d-combo-cancel-button")
-			.click()
+			.findByCssSelector(pressOkButton ? ".d-combo-ok-button" : ".d-combo-cancel-button").click().end()
 			.sleep(500) // wait for the async closing of the popup
 			.execute(executeExpr)
 			.then(function (comboState) {
@@ -402,16 +391,13 @@ define([
 						widgetValueAtLatestChangeEvent: [],
 						valueNodeValueAtLatestChangeEvent: ""
 					}, "after clicking on the " + pressOkButton ? "Ok" : "cancel" + " button (close)");
-			})
-			.end();
+			});
 	};
 
 	var checkTabNavigation = function (remote, comboId) {
 		return loadFile(remote, "./ComboPopup.html")
-			.findById(comboId)
-			.click()
+			.findByCssSelector("#" + comboId + " .d-combobox-input").click().end()
 			.sleep(500)
-			.end()
 			.setFindTimeout(intern.config.WAIT_TIMEOUT)
 			.findByXpath("//d-combo-popup")
 			.getActiveElement()
@@ -447,10 +433,9 @@ define([
 	};
 
 	var checkFocus = function (remote, comboId, autoFilter) {
-		return loadFile(remote, "./ComboPopup.html").findById(comboId)
-			.click()
+		return loadFile(remote, "./ComboPopup.html")
+			.findByCssSelector("#" + comboId + " .d-combobox-arrow").click().end()
 			.sleep(500)
-			.end()
 			.setFindTimeout(intern.config.WAIT_TIMEOUT)
 			.findByXpath("//d-combo-popup")
 			.getActiveElement()
@@ -468,7 +453,6 @@ define([
 	var checkAutoCompleteFilteringWithThreeFilterChars = function (remote, comboId) {
 		var executeExpr = "return getComboState(\"" + comboId + "\");";
 		return loadFile(remote, "./ComboPopup.html")
-			.findById(comboId)
 			.execute(executeExpr)
 			.then(function (comboState) {
 				checkComboState(comboId, comboState,
@@ -488,9 +472,8 @@ define([
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "right after load");
 			})
-			.click()
+			.findByCssSelector("#" + comboId + " .d-combobox-input").click().end()
 			.sleep(250)
-			.end()
 			.execute(executeExpr) // when the popup opens, focus goes into the inputNode.
 			.then(function (comboState) {
 				checkComboState(comboId, comboState,
@@ -510,9 +493,10 @@ define([
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after click on root node");
 			})
-			.findByCssSelector("#" + comboId + "_dropdown")
-			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
+			.findByCssSelector("#" + comboId + "_dropdown")  // context for all following findByCssSelector() calls
+			.findByCssSelector(".d-combobox-input[d-hidden='false']") // inputNode
 			.pressKeys("j")
+			.end()
 			.sleep(100)
 			.execute(executeExpr)
 			.then(function (comboState) {
@@ -533,14 +517,14 @@ define([
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after typing `j` - no query run yet.");
 			})
-			.end()
-			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='false']") // list not visible
+			.findByCssSelector(".d-combobox-list[d-shown='false']") // list not visible
 			.then(function (list) {
 				assert.isNotNull(list, "list should be invisible at this stage.");
 			})
 			.end()
-			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
+			.findByCssSelector(".d-combobox-input[d-hidden='false']") // inputNode
 			.pressKeys("a")
+			.end()
 			.sleep(100)
 			.execute(executeExpr)
 			.then(function (comboState) {
@@ -561,8 +545,7 @@ define([
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after typing `a` (ja) - no query run yet.");
 			})
-			.end()
-			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='false']") // list not visible
+			.findByCssSelector(".d-combobox-list[d-shown='false']") // list not visible
 			.then(function (list) {
 				assert.isNotNull(list, "list should be invisible at this stage.");
 			})
@@ -588,14 +571,14 @@ define([
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after typing `jap` - query did run.");
 			})
-			.end()
-			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='true']") // list visible
+			.findByCssSelector(".d-combobox-list[d-shown='true']") // list visible
 			.then(function (list) {
 				assert.isNotNull(list, "list should be visible at this stage.");
 			})
 			.end()
-			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
+			.findByCssSelector(".d-combobox-input[d-hidden='false']") // inputNode
 			.pressKeys(keys.BACKSPACE) // removing one chars, list must disappear.
+			.end()
 			.sleep(100)
 			.execute(executeExpr)
 			.then(function (comboState) {
@@ -616,15 +599,15 @@ define([
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after deleting `p` from `jap` - query did not run.");
 			})
-			.end()
-			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='false']") // list not visible
+			.findByCssSelector(".d-combobox-list[d-shown='false']") // list not visible
 			.then(function (list) {
 				assert.isNotNull(list, "list should be visible at this stage.");
 			})
 			.end()
-			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
+			.findByCssSelector(".d-combobox-input[d-hidden='false']") // inputNode
 			.pressKeys(keys.BACKSPACE) // removing remaing two chars, list must disappear.
 			.pressKeys(keys.BACKSPACE)
+			.end()
 			.sleep(100)
 			.execute(executeExpr)
 			.then(function (comboState) {
@@ -655,7 +638,6 @@ define([
 	var checkAutoCompleteFilteringWithZeroFilterChars = function (remote, comboId) {
 		var executeExpr = "return getComboState(\"" + comboId + "\");";
 		return loadFile(remote, "./ComboPopup.html")
-			.findById(comboId)
 			.execute(executeExpr)
 			.then(function (comboState) {
 				checkComboState(comboId, comboState,
@@ -675,10 +657,9 @@ define([
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "right after load");
 			})
-			.click()
+			.findByCssSelector("#" + comboId + " .d-combobox-input").click().end()
 			.sleep(250)
-			.end()
-			.execute(executeExpr) // when the popup opens, focus goes into the inputNode.
+			.execute(executeExpr) // when the popup opens, focus goes to the inputNode.
 			.then(function (comboState) {
 				checkComboState(comboId, comboState,
 					{ // expected combo state
@@ -697,9 +678,10 @@ define([
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after click on root node");
 			})
-			.findByCssSelector("#" + comboId + "_dropdown")
-			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
+			.findByCssSelector("#" + comboId + "_dropdown") // context for all following findByCssSelector() calls
+			.findByCssSelector(".d-combobox-input[d-hidden='false']") // inputNode
 			.pressKeys("j")
+			.end()
 			.sleep(250)
 			.execute(executeExpr)
 			.then(function (comboState) {
@@ -720,14 +702,14 @@ define([
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after typing `j` - query did run.");
 			})
-			.end()
-			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='true']") // list visible
+			.findByCssSelector(".d-combobox-list[d-shown='true']") // list visible
 			.then(function (list) {
 				assert.isNotNull(list, "list visible #1");
 			})
 			.end()
-			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
+			.findByCssSelector(".d-combobox-input[d-hidden='false']") // inputNode
 			.pressKeys("a")
+			.end()
 			.sleep(250)
 			.execute(executeExpr)
 			.then(function (comboState) {
@@ -748,15 +730,15 @@ define([
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after typing `a` (ja) - query did run.");
 			})
-			.end()
-			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='true']") // list visible
+			.findByCssSelector(".d-combobox-list[d-shown='true']") // list visible
 			.then(function (list) {
 				assert.isNotNull(list, "list visible #2");
 			})
 			.end()
-			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
+			.findByCssSelector(".d-combobox-input[d-hidden='false']") // inputNode
 			.pressKeys(keys.BACKSPACE) // removing two chars, get full list
 			.pressKeys(keys.BACKSPACE)
+			.end()
 			.sleep(250)
 			.execute(executeExpr)
 			.then(function (comboState) {
@@ -777,14 +759,14 @@ define([
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after deleting `ja` from the inputNode - full list shown.");
 			})
-			.end()
-			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='true']") // list should be visible
+			.findByCssSelector(".d-combobox-list[d-shown='true']") // list should be visible
 			.then(function (list) {
 				assert.isNotNull(list, "list visible #3");
 			})
 			.end()
-			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
+			.findByCssSelector(".d-combobox-input[d-hidden='false']") // inputNode
 			.pressKeys("g") // 'Germany' item visible
+			.end()
 			.sleep(100)
 			.execute(executeExpr)
 			.then(function (comboState) {
@@ -806,14 +788,14 @@ define([
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after typing `g` from the inputNode - query did run.");
 			})
-			.end()
-			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='true']") // list visible
+			.findByCssSelector(".d-combobox-list[d-shown='true']") // list visible
 			.then(function (list) {
 				assert.isNotNull(list, "list visible #4.");
 			})
 			.end()
-			.findByCssSelector(".d-linear-layout .d-combobox-input[d-hidden='false']") // inputNode
+			.findByCssSelector(".d-combobox-input[d-hidden='false']") // inputNode
 			.pressKeys(keys.BACKSPACE) // erase "g", list still visible
+			.end()
 			.sleep(250)
 			.execute(executeExpr)
 			.then(function (comboState) {
@@ -834,8 +816,7 @@ define([
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after deleting `g` from the inputNode - query did not run.");
 			})
-			.end()
-			.findByCssSelector(".d-linear-layout .d-combobox-list[d-shown='true']") // list still visible
+			.findByCssSelector(".d-combobox-list[d-shown='true']") // list still visible
 			.then(function (list) {
 				assert.isNotNull(list, "list visible #5.");
 			})
@@ -993,7 +974,7 @@ define([
 		// TODO: merge this into checkAutoCompleteFilteringWithThreeFilterChars().
 		"aria-expanded": function () {
 			return loadFile(this.remote, "./ComboPopup.html")
-				.findById("combo4").click().end()
+				.findByCssSelector("#combo4 .d-combobox-input").click().end()
 				.sleep(500) // wait for List's loading panel to go away
 				.findByCssSelector("#combo4_dropdown input").getAttribute("aria-expanded").then(function (value) {
 					assert.strictEqual(value, "false", "initially not expanded");
@@ -1020,10 +1001,6 @@ define([
 		"autocomplete filtering - minFilterChars = 0 (combo5)": function () {
 			var remote = this.remote;
 
-			if (remote.environmentType.browserName === "internet explorer") {
-				// https://github.com/theintern/leadfoot/issues/17
-				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
-			}
 			if (remote.environmentType.platformName === "iOS" || remote.environmentType.safari ||
 				remote.environmentType.browserName === "safari" || remote.environmentType.brokenSendKeys ||
 				!remote.environmentType.nativeEvents) {

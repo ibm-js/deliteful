@@ -773,7 +773,7 @@ define([
 					}, "after clicking the third item (Germany))");
 			})
 			.end()
-			.findByCssSelector("#" + comboId)
+			.findByCssSelector("#" + comboId + " .d-combobox-input")	// try <input> instead of the down arrow
 			.click()
 			.sleep(500) // wait for the async closing of the popup
 			.execute(executeExpr)

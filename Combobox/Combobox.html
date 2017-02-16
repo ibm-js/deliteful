@@ -6,7 +6,8 @@
 		aria-autocomplete="list"
 		type="text"
 		readonly="{{this._inputReadOnly ? 'readonly' : ''}}"
-		placeholder="{{searchPlaceHolder}}">
+		placeholder="{{searchPlaceHolder}}"
+		on-click="{{inputClickHandler}}">
 	<input class="d-hidden"
 		attach-point="valueNode"
 		readonly name="{{name}}" value="{{value}}">
