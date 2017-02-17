@@ -32,19 +32,22 @@ define([
 		 */
 		dateLocaleModule: locale,
 
-		// firstDayOfWeek: Integer
-		//		0 = Sunday, 1 = Monday, 2 = Tuesday, 3 = Wednesday, 4 = Thursday, 5 = Friday, 6 = Saturday.
+		/**
+		 * First day of the week for current locale.
+		 * 0 = Sunday, 1 = Monday, 2 = Tuesday, 3 = Wednesday, 4 = Thursday, 5 = Friday, 6 = Saturday.
+		 */
 		firstDayOfWeek: cldr.getFirstDayOfWeek(),
 
+		/**
+		 * Creates a new Date object.
+		 * @param obj
+		 *		This object can have several values:
+		 *
+		 *		- the time in milliseconds since gregorian epoch.
+		 *		- a Date instance
+		 * @returns {Date}
+		 */
 		newDate: function (obj) {
-			// summary:
-			//		Creates a new Date object.
-			// obj: Object
-			//		This object can have several values:
-			//		- the time in milliseconds since gregorian epoch.
-			//		- a Date instance
-			// returns: Date
-
 			var d;
 
 			if (typeof obj === "number") {
@@ -69,24 +72,21 @@ define([
 			}
 		},
 
+		/**
+		 * Determines whether the specified date is a week-end.
+		 * @param {Date} date
+		 * @returns {boolean}
+		 */
 		isWeekEnd: function (date) {
-			// summary:
-			//		Determines whether the specified date is a week-end.
-			//		This method is using dojo.date.locale.isWeekend() method as
-			//		dojox.date.XXXX calendars are not supporting this method.
-			// date: Date
-			//		The date to test.
-
 			return locale.isWeekend(date);
 		},
 
+		/**
+		 * Returns the week number string from dojo.date.locale.format() method
+		 * @param {Date} date
+		 * @returns {string}
+		 */
 		getWeekNumberLabel: function (date) {
-			// summary:
-			//		Returns the week number string from dojo.date.locale.format() method as
-			//		dojox.date.XXXX calendar are not supporting the "w" pattern.
-			// date: Date
-			//		The date to format.
-
 			if (date.toGregorian) {
 				date = date.toGregorian();
 			}
@@ -108,77 +108,68 @@ define([
 			return d;
 		},
 
+		/**
+		 * Floors the specified date to the start of day.
+		 * @param {Date} date
+		 * @returns {Date}
+		 */
 		floorToDay: function (date) {
-			// summary:
-			//		Floors the specified date to the start of day.
-			// date: Date
-			//		The date to floor.
-			// returns: Date
-
 			return new this.dateClassObj(date.getFullYear(), date.getMonth(), date.getDate());
 		},
 
+		/**
+		 * Floors the specified date to the beginning of week.
+		 * @param {Date} date
+		 * @returns {Date}
+		 */
 		floorToWeek: function (date) {
-			// summary:
-			//		Floors the specified date to the beginning of week.
-			// date: Date
-			//		Date to floor.
-
 			var fd = this.firstDayOfWeek;
 			var day = date.getDay();
 			var dayAdjust =  day >= fd ? -day + fd : -day + fd - 7;
 			return new this.dateClassObj(date.getFullYear(), date.getMonth(), date.getDate() + dayAdjust);
 		},
 
+		/**
+		 * Floors the specified date to the start of the date's month.
+		 * @param {Date} date
+		 * @returns {Date}
+		 */
 		floorToMonth: function (date) {
-			// summary:
-			//		Floors the specified date to the start of the date's month.
-			// date: Date
-			//		The date to floor.
-			// returns: Date
-
 			return new this.dateClassObj(date.getFullYear(), date.getMonth(), 1);
 		},
 
+		/**
+		 * Returns whether the specified date is in the current day.
+		 * @param {Date} date
+		 * @returns {boolean}
+		 */
 		isToday: function (date) {
-			// summary:
-			//		Returns whether the specified date is in the current day.
-			// date: Date
-			//		The date to test.
-			// returns: Boolean
-
 			var today = new this.dateClassObj();
 			return date.getFullYear() === today.getFullYear() &&
 				date.getMonth() === today.getMonth() &&
 				date.getDate() === today.getDate();
 		},
 
+		/**
+		 * Tests if the specified date represents the start of the day.
+		 * @param {Date} date
+		 * @returns {boolean}
+		 */
 		isStartOfDay: function (date) {
-			// summary:
-			//		Tests if the specified date represents the starts of day.
-			// date: Date
-			//		The date to test.
-			// returns: Boolean
-
 			return this.dateModule.compare(this.floorToDay(date), date) === 0;
 		},
 
+		/**
+		 * Computes if the first time range defined by the start1 and end1 parameters
+		 * is overlapping the second time range defined by the start2 and end2 parameters.
+		 * @param {Date} start1 - The start time of the first time range.
+		 * @param {Date} end1 - The end time of the first time range.
+		 * @param {Date} start2 - The start time of the second time range.
+		 * @param {Date} end2 - The end time of the second time range.
+		 * @param {boolean} includeLimits - Whether include the end time or not.
+		 * @returns {boolean}
+		 */
 		isOverlapping: function (start1, end1, start2, end2, includeLimits) {
-			// summary:
-			//		Computes if the first time range defined by the start1 and end1 parameters
-			//		is overlapping the second time range defined by the start2 and end2 parameters.
-			// start1: Date
-			//		The start time of the first time range.
-			// end1: Date
-			//		The end time of the first time range.
-			// start2: Date
-			//		The start time of the second time range.
-			// end2: Date
-			//		The end time of the second time range.
-			// includeLimits: Boolean
-			//		Whether include the end time or not.
-			// returns: Boolean
-
 			if (start1 === null || start2 === null || end1 === null || end2 === null) {
 				return false;
 			}
@@ -196,15 +187,13 @@ define([
 			return true;
 		},
 
+		/**
+		 * Tests if the specified dates are in the same day.
+		 * @param {Date} date1 - The first date.
+		 * @param {Date} date2 - The second date.
+		 * @returns {boolean}
+		 */
 		isSameDay: function (date1, date2) {
-			// summary:
-			//		Tests if the specified dates are in the same day.
-			// date1: Date
-			//		The first date.
-			// date2: Date
-			//		The second date.
-			// returns: Boolean
-
 			if (date1 === null || date2 === null) {
 				return false;
 			}
