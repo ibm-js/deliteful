@@ -315,11 +315,16 @@ define([
 
 		_startNodeTransition: function (node) {
 			return new Promise(function (resolve) {
+				// Set up fail-safe in case we don't get the "transitionend" event below.
+				var failsafe = this.defer(resolve, 1000);
+
+				// Set up listener for when the animation completes.
 				node.addEventListener("transitionend", function after() {
 					node.removeEventListener("transitionend", after);
+					failsafe.remove();
 					resolve();
 				});
-			}).then(this._afterNodeTransitionHandler.bind(this, node));
+			}.bind(this)).then(this._afterNodeTransitionHandler.bind(this, node));
 		},
 
 		_afterNodeTransitionHandler: function (node) {

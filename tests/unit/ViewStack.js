@@ -873,6 +873,19 @@ define([
 			}), 10);
 		},
 
+		"repeated show call": function () {
+			// Test for race condition on firefox where the transition never finishes if you
+			// quickly repeatedly call show() on a node.
+			var d = this.async(3000);
+			node.show(ccc, {transition: "fade"});
+			setTimeout(function () {
+				node.show(ccc, {transition: "fade"});
+			}, 3);
+			setTimeout(d.callback(function () {
+				checkNodeVisibility(node, ccc);
+			}), 1500);
+		},
+
 		// Note: this should be the last test
 		"remove visible node": function () {
 			var d = this.async(1000);
