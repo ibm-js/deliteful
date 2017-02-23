@@ -109,6 +109,18 @@ define([
 		// Override ViewStack's default transition of "slide".
 		transition: "flip",
 
+		/**
+		 * True if the user has explicitly selected a year, or
+		 * a year was selected via the DatePicker's value being set.
+		 */
+		yearSelected: false,
+
+		/**
+		 * True if the user has explicitly selected a month, or
+		 * a month was selected via the DatePicker's value being set.
+		 */
+		monthSelected: false,
+
 		render: function () {
 			// Create the DayPicker initially, and create MonthPicker and YearPicker on demand.
 			this.dayPicker = new DayPicker({
@@ -133,6 +145,11 @@ define([
 				this.showYearPicker();
 				evt.stopPropagation();
 			}.bind(this));
+			this.dayPicker.on("change", function (evt) {
+				evt.stopPropagation();
+				this.value = this.dayPicker.value;
+				this.emit("change");
+			}.bind(this));
 
 			this.appendChild(this.dayPicker);
 		},
@@ -149,12 +166,17 @@ define([
 				});
 
 				this.monthPicker.on("month-selected", function (evt) {
+					this.monthSelected = true;
 					this.dayPicker.setMonth(evt.month);
-					this.show(this.dayPicker);
+					this.show(this.dayPicker).then(function () {
+						// Trigger focus on previously focused day of month.  Setting focus while DayPicker
+						// is hidden doesn't work, so wait until animation completes.
+						this.dayPicker.notifyCurrentValue("currentFocus");
+					}.bind(this));
 				}.bind(this));
 			}
 
-			this.monthPicker.month = this.dayPicker.currentMonth;
+			this.monthPicker.month = this.monthSelected ? this.dayPicker.currentMonth : -1;
 			this.show(this.monthPicker);
 		},
 
@@ -172,19 +194,29 @@ define([
 				});
 
 				this.yearPicker.on("year-selected", function (evt) {
+					this.yearSelected = true;
 					this.dayPicker.setYear(evt.year);
-					this.show(this.dayPicker);
+					this.show(this.dayPicker).then(function () {
+						// Trigger focus on previously focused day of month.  Setting focus while DayPicker
+						// is hidden doesn't work, so wait until animation completes.
+						this.dayPicker.notifyCurrentValue("currentFocus");
+					}.bind(this));
 				}.bind(this));
 			}
 
-			this.yearPicker.year = this.dayPicker.currentYear;
+			this.yearPicker.year = this.yearSelected ? this.dayPicker.currentYear : null;
+			this.yearPicker.centeredYear = this.dayPicker.currentYear;
 			this.show(this.yearPicker);
 		},
 
 		computeProperties: function (oldVals) {
-			// Start on month containing this.value, or if there's no value set, then the current day.
-			if (this.dayPicker && "value" in oldVals) {
-				this.dayPicker.value = this.value;
+			if ("value" in oldVals) {
+				this.yearSelected = this.monthSelected = (this.value !== null);
+
+				// Start on month containing this.value, or if there's no value set, then the current day.
+				if (this.dayPicker) {
+					this.dayPicker.value = this.value;
+				}
 			}
 		},
 

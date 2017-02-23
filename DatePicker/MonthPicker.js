@@ -36,7 +36,7 @@ define([
 		/**
 		 * Currently selected month.  This month gets the d-date-picker-selected class.
 		 */
-		month: 0,
+		month: -1,
 
 		render: function () {
 			// Make 3x4 grid of abbreviated month names (Jan, Feb, Mar, ...).
@@ -68,8 +68,15 @@ define([
 			}
 
 			if ("month" in oldVals) {
-				$(this.cells[oldVals.month]).removeClass("d-date-picker-selected");
-				$(this.cells[this.month]).addClass("d-date-picker-selected");
+				// If there's a selected month, then set the "d-date-picker-selected" class on it.
+				// Otherwise, set the "d-date-picker-today" class on the present month.
+				$(this.cells).removeClass("d-date-picker-selected d-date-picker-today");
+				if (this.month >= 0) {
+					$(this.cells[this.month]).addClass("d-date-picker-selected");
+				} else {
+					var presentMonth = (new this.dateClassObj()).getMonth();
+					$(this.cells[presentMonth]).addClass("d-date-picker-today");
+				}
 			}
 		},
 

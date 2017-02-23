@@ -279,6 +279,9 @@ define([
 						assert.strictEqual(years[0], "1988", "first cell");
 						assert.strictEqual(years[24], "2012", "last cell");
 					}).end()
+					.findByCssSelector(".d-year-picker .d-label").getVisibleText().then(function (label) {
+						assert.strictEqual(label, "1988-2012", "label");
+					}).end()
 
 					// Try clicking currently selected year.
 					.findByCssSelector(".d-year-picker .d-date-picker-selected")
@@ -336,6 +339,9 @@ define([
 						assert.strictEqual(years[0], "2013", "first cell");
 						assert.strictEqual(years[24], "2037", "last cell");
 					}).end()
+					.findByCssSelector(".d-year-picker .d-label").getVisibleText().then(function (label) {
+						assert.strictEqual(label, "2013-2037", "label");
+					}).end()
 
 					// Go back 50 years.
 					.findByCssSelector(".d-year-picker .d-date-picker-footer .d-date-picker-button:nth-child(1)")
@@ -351,6 +357,9 @@ define([
 						assert.strictEqual(years.length, 25, "# of cells");
 						assert.strictEqual(years[0], "1963", "first cell");
 						assert.strictEqual(years[24], "1987", "last cell");
+					}).end()
+					.findByCssSelector(".d-year-picker .d-label").getVisibleText().then(function (label) {
+						assert.strictEqual(label, "1963-1987", "label");
 					}).end()
 
 					// Close by clicking first year.

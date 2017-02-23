@@ -31,7 +31,8 @@
 			ready = true;
 
 			onChange = function (evt) {
-				document.getElementById("value").textContent = stamp.toISOString(evt.target.value, {selector: "date"});
+				var calendar = document.getElementById("calendar1");
+				document.getElementById("value").textContent = stamp.toISOString(calendar.value, {selector: "date"});
 			};
 		});
 	</script>

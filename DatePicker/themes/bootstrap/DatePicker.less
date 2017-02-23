@@ -1,17 +1,17 @@
 @import "../../../../delite/themes/bootstrap/includes";
 @import "../../../../delite/themes/bootstrap/variables.less";
 
-// The calendar itself.
 .d-date-picker {
-	// Override PanelStack's display:block and height:100%
-	// Also set width so DatePicker is constant width regardless of which
-	// panel is displayed (day picker, month picker, year picker), and which month of the day picker
-	// is displayed.
+	// Override ViewStack's display:block and height:100%.
+	// Also set width so DatePicker is constant width regardless of which panel is displayed
+	// (day picker, month picker, year picker), and which month of the day picker is displayed.
 	&.d-view-stack {
 		display: inline-block;
-		height: 300px;
-		width: 300px;
+		height: auto;
 	}
+
+	min-height: 300px;
+	min-width: 300px;
 
 	border: solid black 1px;
 	background: white;
@@ -87,7 +87,7 @@
 			flex: 1;
 			margin: 0;
 
-			// Center text horizontally and vertically.  Text must be in a <span>.
+			// Center text horizontally and vertically.  Text must be nested in a <span>.
 			display: flex;
 			align-items: center;
 			justify-content: center;

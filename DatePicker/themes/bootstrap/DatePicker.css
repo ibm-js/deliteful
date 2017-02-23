@@ -1,4 +1,6 @@
 .d-date-picker {
+  min-height: 300px;
+  min-width: 300px;
   border: solid black 1px;
   background: white;
   -webkit-touch-callout: none;
@@ -9,8 +11,7 @@
 }
 .d-date-picker.d-view-stack {
   display: inline-block;
-  height: 300px;
-  width: 300px;
+  height: auto;
 }
 .d-date-picker > * {
   display: flex;

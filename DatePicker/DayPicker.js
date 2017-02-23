@@ -250,10 +250,16 @@ define([
 			// Adjust CSS for the selected date whenever the selected date changes or we switch to another month.
 			if ("value" in oldVals || "dates" in oldVals) {
 				$(".d-date-picker-selected", this.grid).removeClass("d-date-picker-selected");
+				$(".d-date-picker-today", this.grid).removeClass("d-date-picker-today");
 				if (this.value && !isNaN(this.value)) {
-					var newSelectedCell = this._dateToCell(this.value);
-					if (newSelectedCell) {
-						$(newSelectedCell).addClass("d-date-picker-selected");
+					var selectedCell = this._dateToCell(this.value);
+					if (selectedCell) {
+						$(selectedCell).addClass("d-date-picker-selected");
+					}
+				} else {
+					var todayCell = this._dateToCell(new this.dateClassObj());
+					if (todayCell) {
+						$(todayCell).addClass("d-date-picker-today");
 					}
 				}
 			}
@@ -296,8 +302,7 @@ define([
 		 * @param {Date} date - The date displayed by this cell.
 		 */
 		styleGridCell: function (node, date) {
-			$(node).toggleClass("d-date-picker-today", this.isToday(date))
-				.toggleClass("d-date-picker-other-month", date.getMonth() !== this.currentFocus.getMonth());
+			$(node).toggleClass("d-date-picker-other-month", date.getMonth() !== this.currentFocus.getMonth());
 		},
 
 		/**

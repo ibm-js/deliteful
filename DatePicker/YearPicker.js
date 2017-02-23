@@ -37,21 +37,25 @@ define([
 
 		/**
 		 * The selected year.
+		 * @member {number}
 		 */
-		year: 0,
+		year: null,
 
 		/**
-		 *  First year displayed in grid
+		 *  Year displayed in center of grid.
+		 * @member {number}
 		 */
-		firstYear: 0,
+		centeredYear: 0,
 
 		/**
 		 * CSS class for icon to go to previous month or year.
+		 * @member {string}
 		 */
 		previousIconClass: "d-caret-previous",
 
 		/**
 		 * CSS class for icon to go to next month or year.
+		 * @member {string}
 		 */
 		nextIconClass: "d-caret-next",
 
@@ -73,31 +77,28 @@ define([
 
 		/**
 		 * Number of rows.
+		 * @member {number}
 		 */
 		rows: 5,
 
 		/**
 		 * Number of columns
+		 * @member {number}
 		 */
 		cols: 5,
 
 		/**
-		 * Computed text at the bottom of the screen between the arrows.
-		 */
-		currentYearsLabel: "",
-
-		/**
-		 * Handler when user click button to step back 25 years.
+		 * Handler when user clicks button to step back 25 years.
 		 */
 		previousYearsClickHandler: function () {
-			this.firstYear -= this.rows * this.cols;
+			this.centeredYear -= this.rows * this.cols;
 		},
 
 		/**
-		 * Handler when user click button to step forward 25 years.
+		 * Handler when user clicks button to step forward 25 years.
 		 */
 		nextYearsClickHandler: function () {
-			this.firstYear += this.rows * this.cols;
+			this.centeredYear += this.rows * this.cols;
 		},
 
 		/**
@@ -116,20 +117,6 @@ define([
 
 					return;
 				}
-			}
-		},
-
-		computeProperties: function (oldVals) {
-			// If necessary, adjust years shown in grid so that YearPicker#year is visible.
-			if ("year" in oldVals &&
-					(this.year < this.firstYear || this.year >= this.firstYear + this.rows * this.cols)) {
-				this.firstYear = this.year - Math.floor(this.rows * this.cols / 2);
-			}
-
-			if ("firstYear" in oldVals) {
-				// Display something like "2000 - 2025" in between the arrows.
-				this.currentYearsLabel = this.formatYearRange(this.firstYear, this.firstYear +
-					this.rows * this.cols);
 			}
 		},
 
@@ -153,12 +140,25 @@ define([
 			}
 
 			// Fill in text for each grid cell.
-			if ("rows" in oldVals || "cols" in oldVals || "firstYear" in oldVals || "year" in oldVals) {
+			if ("rows" in oldVals || "cols" in oldVals || "centeredYear" in oldVals || "year" in oldVals) {
+				var firstYear = this.centeredYear - Math.floor(this.rows * this.cols / 2);
+				var presentYear = (new this.dateClassObj()).getFullYear();
 				this.cells.forEach(function (cell, idx) {
-					cell.year = this.firstYear + idx;
-					cell.firstChild.textContent = this.formatYearLabel(cell.year);
-					cell.className = cell.year === this.year ? "d-date-picker-selected" : "";
+					cell.year = firstYear + idx;
+					cell.firstChild.textContent = cell.year;
+
+					if (cell.year === this.year) {
+						cell.className = "d-date-picker-selected";
+					} else if (this.year === null && cell.year === presentYear) {
+						// If there's no selected year, then show the indicator for the present year.
+						cell.className = "d-date-picker-today";
+					} else {
+						// Erase possible previous value.
+						cell.className = "";
+					}
 				}, this);
+				this.currentYearsLabel.textContent = this.formatYearRange(firstYear, firstYear +
+					this.cells.length - 1);
 			}
 		},
 
