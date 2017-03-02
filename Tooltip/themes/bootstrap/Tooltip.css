@@ -62,7 +62,7 @@
 .d-tooltip-container {
   padding: 10px;
 }
-.d-tooltip-popup {
+.d-popup.d-tooltip-popup {
   background: transparent;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
