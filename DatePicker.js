@@ -128,6 +128,7 @@ define([
 				dateClassObj: this.dateClassObj,
 				dateModule: this.dateModule,
 				dateLocaleModule: this.dateLocaleModule,
+				firstDayOfWeek: this.firstDayOfWeek,
 				previousIconClass: this.previousIconClass,
 				nextIconClass: this.nextIconClass,
 				previousMonthButtonLabel: this.previousMonthButtonLabel,
