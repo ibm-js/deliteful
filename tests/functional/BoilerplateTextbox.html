@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+
+	<title>BoilerplateTextbox functional test</title>
+
+	<style>
+		.counter {
+			width: 32px;
+		}
+	</style>
+	<!-- For testing purposes. Real applications should load the AMD loader directly -->
+	<script type="text/javascript" src="../boilerplate.js"></script>
+
+	<script type="text/javascript">
+		var ready = false; // set to true when the test page is ready
+
+		require([
+			"delite/register",
+			"deliteful/BoilerplateTextbox",
+			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+			"requirejs-domready/domReady!"
+		], function (
+			register,
+			BoilerplateTextbox
+		) {
+			register("d-datetextbox", [HTMLElement, BoilerplateTextbox], {
+				render: register.superCall(function (sup) {
+					return function () {
+						sup.apply(this, arguments);
+
+						this.containerNode.appendChild(new BoilerplateTextbox.NumberField({
+							className: "month",
+							placeholder: "mm"
+						}));
+						this.containerNode.appendChild(new BoilerplateTextbox.Boilerplate({
+							textContent: "/"
+						}));
+						this.containerNode.appendChild(new BoilerplateTextbox.NumberField({
+							className: "day",
+							placeholder: "dd"
+						}));
+						this.containerNode.appendChild(new BoilerplateTextbox.Boilerplate({
+							textContent: "/"
+						}));
+						this.containerNode.appendChild(new BoilerplateTextbox.NumberField({
+							className: "year",
+							placeholder: "yyyy"
+						}));
+					};
+				})
+			});
+
+			var AmPmField = register("d-btb-am-pm", [BoilerplateTextbox.Field], {
+				createdCallback: function () {
+					this.on("keydown", this.keydownHandler.bind(this));
+				},
+
+				keydownHandler: function (evt) {
+					var char = evt.key;
+					 switch (char) {
+						 case "a":
+							 this.value = "am";
+							 break;
+						 case "p":
+							 this.value = "pm";
+							 break;
+					 }
+					 evt.preventDefault();
+				}
+			});
+
+			register("d-timetextbox", [HTMLElement, BoilerplateTextbox], {
+				render: register.superCall(function (sup) {
+					return function () {
+						sup.apply(this, arguments);
+
+						this.containerNode.appendChild(new BoilerplateTextbox.NumberField({placeholder: "hh"}));
+						this.containerNode.appendChild(new BoilerplateTextbox.Boilerplate({textContent: ":"}));
+						this.containerNode.appendChild(new BoilerplateTextbox.NumberField({placeholder: "mm"}));
+						this.containerNode.appendChild(new BoilerplateTextbox.Boilerplate({textContent: " "}));
+						this.containerNode.appendChild(new AmPmField({placeholder: "am"}));
+					};
+				})
+			});
+
+			register.deliver();
+
+			ready = true;
+		});
+
+		/**
+		 * Function to get value and selection (aka focused field) of specified BoilerplateTextbox.
+		 * @param node
+		 * @returns {[string,number,number]}
+		 */
+		function state(node) {
+			return {
+				value: node.value,
+				displayed: Array.prototype.map.call(node.containerNode.children, function (chunk) {
+					return "value" in chunk ? (chunk.value || chunk.placeholder) : chunk.textContent;
+				}).join(""),
+				focused: document.activeElement.className
+			};
+		}
+
+		/**
+		 * Reset widgets to original values.
+		 */
+		function resetToOriginalValues() {
+			dt1.value = "";
+			dt1.notifyCurrentValue("value");	// to clear partial input
+
+			dt2.value = "07/04/2008";
+
+			tt1.value = "";
+			tt1.notifyCurrentValue("value");	// to clear partial input
+
+			Array.prototype.forEach.call(document.querySelectorAll(".counter"), function (input) {
+				input.value = "0";
+			});
+		}
+
+		/**
+		 * Helper to keep track of input and change events.
+		 * @param name
+		 */
+		function increment(name) {
+			var input = document.getElementById(name);
+			input.value = +input.value + 1; 		// be sure to do number addition, not string concatenation
+		}
+	</script>
+</head>
+<body>
+	<h1>BoilerplateTextbox functional test</h1>
+
+	<label for="pi">plain input</label>:
+	<input id="pi">
+	<br><br>
+
+	<span id="dt1-label">Date</span>:
+	<d-datetextbox id="dt1" aria-labelledby="dt1-label" name="date1"
+		on-input="increment('dt1-input-events')" on-change="increment('dt1-change-events')"></d-datetextbox>
+	<label for="dt1-input-events">input events</label>: <input id="dt1-input-events" class="counter" value="0" disabled>
+	<label for="dt1-input-events">change events</label>: <input id="dt1-change-events" class="counter" value="0" disabled>
+	<br><br>
+
+	<span id="dt2-label">Date with initial value</span>:
+	<d-datetextbox id="dt2" value="07/04/2008" aria-labelledby="dt2-label" name="date2"
+		on-input="increment('dt2-input-events')" on-change="increment('dt2-change-events')"></d-datetextbox>
+	<label for="dt2-input-events">input events</label>: <input id="dt2-input-events" class="counter" value="0" disabled>
+	<label for="dt2-input-events">change events</label>: <input id="dt2-change-events" class="counter" value="0" disabled>
+	<br><br>
+
+	<span id="tt1-label">Time</span>:
+	<d-timetextbox id="tt1" pattern="hh:mm:ss am" aria-labelledby="tt1-label" name="time1"
+		on-input="increment('tt1-input-events')" on-change="increment('tt1-change-events')"></d-timetextbox>
+	<label for="tt1-input-events">input events</label>: <input id="tt1-input-events" class="counter" value="0" disabled>
+	<label for="tt1-input-events">change events</label>: <input id="tt1-change-events" class="counter" value="0" disabled>
+	<br><br>
+
+	<span id="dt3-label">Disabled Date</span>:
+	<d-datetextbox id="dt3" aria-labelledby="dt3-label" name="date3" disabled></d-datetextbox>
+	<br><br>
+
+	<button id="reset" onclick="resetToOriginalValues();">reset to original values</button>
+</body>

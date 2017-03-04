@@ -1,0 +1,43 @@
+.d-boilerplate-textbox {
+	display: inline-block;
+	border: solid black 1px;
+	padding: 2px 10px;
+
+	// Node used to measure the width of a single character.  Used to size <input> nodes.
+	.d-character-width-measure-node {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+		visibility: hidden;
+	}
+
+	// The <div> that has the <input> nodes and also the boilerplate text nodes.
+	.d-input-container-node {
+		display: inline-block;
+
+		* {
+			border: none;
+			padding: 0;
+			text-align: right;
+
+			// Set the same font for the <input> and boilerplate <div> and also, importantly,
+			// for the <span> used to measure the width of one character.
+			// Overrides settings from user stylesheets.
+			font-family: inherit;
+			font-size: inherit;
+
+			// Prevent weird jiggle effect on IE11 where text sometimes shift up on focus.
+			height: 20px;
+			line-height: 20px;
+		}
+
+		d-btb-boilerplate {
+			margin: 0 2px;
+		}
+
+		// Stop IE from displaying the (x) to clear the field.
+		input::-ms-clear {
+			display: none;
+		}
+	}
+}

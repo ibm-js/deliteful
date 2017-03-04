@@ -1,6 +1,7 @@
 // Listing of all the deliteful functional tests
 define([
 	"./Accordion",
+	"./BoilerplateTextbox",
 	"./Button",
 	"./Checkbox",
 	"./Combobox",
