@@ -7,6 +7,7 @@ define([
 	"delite/handlebars!./BoilerplateTextbox/BoilerplateTextbox.html",
 	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/activationTracker",
+	"delite/uacss",
 	"delite/theme!./BoilerplateTextbox/themes/{{theme}}/BoilerplateTextbox.css"
 ], function (
 	register,
@@ -39,6 +40,22 @@ define([
 	 * Emits "completed" event if caret should automatically move to next element.
 	 */
 	var Field = register("d-btb-field", [HTMLInputElement, Widget], {
+		refreshRendering: function (oldVals) {
+			if ("placeholder" in oldVals) {
+				var computedWidth = this.computeWidth();
+				if (computedWidth) {
+					this.style.width = computedWidth;
+				}
+			}
+		},
+
+		/**
+		 * Figure out the width of this field based on the placeholder.
+		 * If width is specified in CSS then override this method to return null.
+		 */
+		computeWidth: function () {
+			return this.placeholder.length / 1.5 + "em";
+		}
 	});
 
 	/**
@@ -57,9 +74,15 @@ define([
 
 		focusHandler: function () {
 			this.charactersTyped = 0;
-			if (this.value) {
-				this.setSelectionRange(0, this.value.length);
-			}
+			this.selectionStart = this.value.length;		// put caret at end
+		},
+
+		/**
+		 * Returns true if the input is complete and BoilerplateTextbox should
+		 * automatically advance to next field.
+		 */
+		inputComplete: function () {
+			return this.charactersTyped >= this.placeholder.length;
 		},
 
 		keydownHandler: function (evt) {
@@ -86,11 +109,10 @@ define([
 				}
 
 				this.charactersTyped++;
-				this.setSelectionRange(0, this.value.length);
 				this.emit("input");
 
 				// Send "completed" event if focus should automatically move to next field.
-				if (this.charactersTyped >= this.placeholder.length) {
+				if (this.inputComplete()) {
 					this.emit("completed");
 				}
 			}
@@ -135,22 +157,6 @@ define([
 				tabStops.push("field" + tabStops.length);
 			}, this);
 			this.tabStops = tabStops.join(",");
-		},
-
-		attachedCallback: function () {
-			// Set width of each <input>.
-			var cn = this.characterWidthMeasureNode;
-			var inputs = [].slice.call(this.containerNode.querySelectorAll("input"));
-			inputs.forEach(function (input) {
-				if (input.placeholder) {
-					// Set width to maximum of width of placeholder or width of all zeros.
-					cn.textContent = input.placeholder;
-					var width1 = cn.offsetWidth;
-					cn.textContent = input.placeholder.replace(/./g, "0");
-					var width2 = cn.offsetWidth;
-					input.style.width = Math.max(width1, width2) + "px";
-				}
-			}, this);
 		},
 
 		/**

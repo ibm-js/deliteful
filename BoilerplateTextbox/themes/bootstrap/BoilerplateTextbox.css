@@ -16,14 +16,27 @@
   border: none;
   padding: 0;
   text-align: right;
-  font-family: inherit;
+  font-family: monospace;
   font-size: inherit;
   height: 20px;
   line-height: 20px;
+}
+.d-boilerplate-textbox .d-input-container-node input:focus {
+  color: white;
+  background: #9bcbff;
+  outline: none;
 }
 .d-boilerplate-textbox .d-input-container-node d-btb-boilerplate {
   margin: 0 2px;
 }
 .d-boilerplate-textbox .d-input-container-node input::-ms-clear {
   display: none;
+}
+.d-webkit .d-boilerplate-textbox.d-focused {
+  outline-offset: -2px;
+  outline: -webkit-focus-ring-color auto 5px;
+}
+.d-ff.d-mac .d-boilerplate-textbox.d-focused {
+  outline-offset: -2px;
+  outline: #9bcbff auto 2px;
 }
