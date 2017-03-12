@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<meta name="viewport"
@@ -33,24 +33,34 @@
 					return function () {
 						sup.apply(this, arguments);
 
-						this.containerNode.appendChild(new BoilerplateTextbox.NumberField({
+						var month =  new BoilerplateTextbox.NumberField({
 							className: "month",
 							placeholder: "mm"
-						}));
+						});
+						month.setAttribute("aria-label", "month");
+						this.containerNode.appendChild(month);
+
 						this.containerNode.appendChild(new BoilerplateTextbox.Boilerplate({
 							textContent: "/"
 						}));
-						this.containerNode.appendChild(new BoilerplateTextbox.NumberField({
+
+						var day = new BoilerplateTextbox.NumberField({
 							className: "day",
 							placeholder: "dd"
-						}));
+						});
+						day.setAttribute("aria-label", "day");
+						this.containerNode.appendChild(day);
+
 						this.containerNode.appendChild(new BoilerplateTextbox.Boilerplate({
 							textContent: "/"
 						}));
-						this.containerNode.appendChild(new BoilerplateTextbox.NumberField({
+
+						var year = new BoilerplateTextbox.NumberField({
 							className: "year",
 							placeholder: "yyyy"
-						}));
+						});
+						year.setAttribute("aria-label", "year");
+						this.containerNode.appendChild(year);
 					};
 				})
 			});
@@ -79,11 +89,21 @@
 					return function () {
 						sup.apply(this, arguments);
 
-						this.containerNode.appendChild(new BoilerplateTextbox.NumberField({placeholder: "hh"}));
+						var hour = new BoilerplateTextbox.NumberField({placeholder: "hh"});
+						hour.setAttribute("aria-label", "hour");
+						this.containerNode.appendChild(hour);
+
 						this.containerNode.appendChild(new BoilerplateTextbox.Boilerplate({textContent: ":"}));
-						this.containerNode.appendChild(new BoilerplateTextbox.NumberField({placeholder: "mm"}));
+
+						var minute = new BoilerplateTextbox.NumberField({placeholder: "mm"});
+						minute.setAttribute("aria-label", "minute");
+						this.containerNode.appendChild(minute);
+
 						this.containerNode.appendChild(new BoilerplateTextbox.Boilerplate({textContent: " "}));
-						this.containerNode.appendChild(new AmPmField({placeholder: "am"}));
+
+						var ampm = new AmPmField({placeholder: "am"});
+						ampm.setAttribute("aria-label", "am or pm");
+						this.containerNode.appendChild(ampm);
 					};
 				})
 			});
@@ -135,8 +155,8 @@
 		}
 	</script>
 </head>
-<body>
-	<h1>BoilerplateTextbox functional test</h1>
+<body role="application" aria-labelledby="page-label">
+	<h1 id="page-label">BoilerplateTextbox functional test</h1>
 
 	<label for="pi">plain input</label>:
 	<input id="pi">
@@ -146,21 +166,21 @@
 	<d-datetextbox id="dt1" aria-labelledby="dt1-label" name="date1"
 		on-input="increment('dt1-input-events')" on-change="increment('dt1-change-events')"></d-datetextbox>
 	<label for="dt1-input-events">input events</label>: <input id="dt1-input-events" class="counter" value="0" disabled>
-	<label for="dt1-input-events">change events</label>: <input id="dt1-change-events" class="counter" value="0" disabled>
+	<label for="dt1-change-events">change events</label>: <input id="dt1-change-events" class="counter" value="0" disabled>
 	<br><br>
 
 	<span id="dt2-label">Date with initial value</span>:
 	<d-datetextbox id="dt2" value="07/04/2008" aria-labelledby="dt2-label" name="date2"
 		on-input="increment('dt2-input-events')" on-change="increment('dt2-change-events')"></d-datetextbox>
 	<label for="dt2-input-events">input events</label>: <input id="dt2-input-events" class="counter" value="0" disabled>
-	<label for="dt2-input-events">change events</label>: <input id="dt2-change-events" class="counter" value="0" disabled>
+	<label for="dt2-change-events">change events</label>: <input id="dt2-change-events" class="counter" value="0" disabled>
 	<br><br>
 
 	<span id="tt1-label">Time</span>:
 	<d-timetextbox id="tt1" pattern="hh:mm:ss am" aria-labelledby="tt1-label" name="time1"
 		on-input="increment('tt1-input-events')" on-change="increment('tt1-change-events')"></d-timetextbox>
 	<label for="tt1-input-events">input events</label>: <input id="tt1-input-events" class="counter" value="0" disabled>
-	<label for="tt1-input-events">change events</label>: <input id="tt1-change-events" class="counter" value="0" disabled>
+	<label for="tt1-change-events">change events</label>: <input id="tt1-change-events" class="counter" value="0" disabled>
 	<br><br>
 
 	<span id="dt3-label">Disabled Date</span>:
