@@ -380,51 +380,70 @@ define([
 			this._prepareInput(this.inputNode);
 		},
 
-		computeProperties: function (oldValues, justCreated) {
-			/* jshint maxcomplexity: 12 */
-			// If value was specified as a string (like during creation from markup),
-			// but selectionMode === multiple, need to convert it to an array.
-			if (this.selectionMode === "multiple" && typeof this.value === "string") {
-				this.value = this.value ? this.value.split(",") : [];
+		computeProperties: dcl.advise({
+			around: function (sup) {
+				return function (oldValues, justCreated) {
+					/* jshint maxcomplexity: 13 */
 
-				// So computeProperties doesn't get called again and oldValues contains "value"
-				// but not "displayedValue", which would trigger code below to run.
-				this.discardComputing();
-			}
+					// As usual, call superclass method first.
+					sup.apply(this, arguments);
 
-			this._inputReadOnly = this.readOnly || !this.autoFilter ||
-				this._isMobile || this.selectionMode === "multiple";
+					// If value was specified as a string (like during creation from markup),
+					// but selectionMode === multiple, need to convert it to an array.
+					if (this.selectionMode === "multiple" && typeof this.value === "string") {
+						this.value = this.value ? this.value.split(",") : [];
 
-			// Set this.displayedValue based on this.value.
-			if ("value" in oldValues) {
-				if (this.selectionMode === "multiple" && this.value.length === 0) {
-					this.displayedValue = this.multipleChoiceNoSelectionMsg;
-				} else if (this.selectionMode === "multiple" && this.value.length > 1) {
-					this.displayedValue = string.substitute(this.multipleChoiceMsg, {items: this.value.length});
-				} else {
-					// Sometimes, especially during creation, the app will specify a value without specifying a
-					// displayedValue.  In that case, copy this.value to this.displayedValue.  This code is fragile though;
-					// need to make sure Combobox itself always sets displayedValue at the same time it sets value.
-					var valueChanged = justCreated ? this.hasOwnProperty("_shadowValueAttr") : "value" in oldValues;
-					var displayedValueChanged = justCreated ? this.hasOwnProperty("_shadowDisplayedValueAttr") :
-						"displayedValue" in oldValues;
-					if (valueChanged && !displayedValueChanged) {
-						if (this.selectionMode === "single") {
-							this.displayedValue = this.value;
-						} else {
-							// If we get here to this branch, this.value is an array with one element.
-							this.displayedValue = this.value[0];
-						}
-
+						// So computeProperties doesn't get called again and oldValues contains "value"
+						// but not "displayedValue", which would trigger code below to run.
+						this.discardComputing();
 					}
-				}
 
-				// Call computeProperties() again to flush out the change record for "displayedValue".
-				// That way, all the notifications are processed before the new Combobox() constructor
-				// finishes running.
-				this.deliverComputing();
+					this._inputReadOnly = this.readOnly || !this.autoFilter ||
+						this._isMobile || this.selectionMode === "multiple";
+
+					// Set this.displayedValue based on this.value.
+					if ("value" in oldValues) {
+						if (this.selectionMode === "multiple" && this.value.length === 0) {
+							this.displayedValue = this.multipleChoiceNoSelectionMsg;
+						} else if (this.selectionMode === "multiple" && this.value.length > 1) {
+							this.displayedValue = string.substitute(this.multipleChoiceMsg, {items: this.value.length});
+						} else {
+							// Sometimes, especially during creation, the app will specify a value without specifying a
+							// displayedValue.  In that case, copy this.value to this.displayedValue.
+							//
+							// This code is fragile though; need to make sure Combobox itself and subclasses always
+							// set displayedValue at the same time as they set value, and further call
+							// notifyCurrentValue("displayedValue") in case they are setting displayedValue to the
+							// same thing as before.
+							var valueChanged = justCreated ? this.hasOwnProperty("_shadowValueAttr") :
+								"value" in oldValues;
+							var displayedValueChanged = justCreated ? this.hasOwnProperty("_shadowDisplayedValueAttr") :
+								"displayedValue" in oldValues;
+							if (valueChanged && !displayedValueChanged) {
+								if (this.selectionMode === "single") {
+									this.displayedValue = this.value;
+								} else {
+									// If we get here to this branch, this.value is an array with one element.
+									this.displayedValue = this.value[0];
+								}
+							}
+						}
+					}
+				};
+			},
+
+			after: function (args) {
+				var oldValues = args[0];
+				if ("value" in oldValues) {
+					// Call computeProperties() again to flush out the change record for "displayedValue".
+					// That way, all the notifications are processed before the new Combobox() constructor
+					// finishes running.
+					// Do this in "after" advice so it runs after subclasses have had a chance to change
+					// displayedValue.
+					this.deliverComputing();
+				}
 			}
-		},
+		}),
 
 		/* jshint maxcomplexity: 17 */
 		refreshRendering: function (oldValues) {
