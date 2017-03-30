@@ -48,27 +48,29 @@ define([
 		 * @returns {Date}
 		 */
 		newDate: function (obj) {
-			var d;
+			if (obj.toGregorian) {
+				obj = obj.toGregorian();
+			}
 
-			if (typeof obj === "number") {
+			if (obj.getTime) {
+				// obj is a Date.  Standard way to copy a Date is new Date(oldDate.getTime()), but that has problems
+				// with timezone-js around DST when dealing with a timezone different than the machine's timezone.
+				return new this.dateClassObj(obj.getFullYear(), obj.getMonth(), obj.getDate(),
+					obj.getHours(), obj.getMinutes(), obj.getSeconds(), obj.getMilliseconds());
+			} else if (typeof obj === "number") {
+				// obj is a timestamp.
 				return new this.dateClassObj(obj);
-			} else if (obj.getTime) {
-				return new this.dateClassObj(obj.getTime());
-			} else if (obj.toGregorian) {
-				d = obj.toGregorian();
-				if (this.dateClassObj !== Date) {
-					d = new this.dateClassObj(d.getTime());
-				}
-				return d;
 			} else if (typeof obj === "string") {
-				d = stamp.fromISOString(obj);
+				// obj is an ISO string like "2017-10-20".
+				var d = stamp.fromISOString(obj);
 				if (d === null) {
-					throw new Error("Cannot parse date string (" + obj + "), specify a \"decodeDate\" function that " +
-						"translates this string into a Date object"); // cannot build date
-				} else if (this.dateClassObj !== Date) { // from Date to this.dateClassObj
-					d = new this.dateClassObj(d.getTime());
+					throw new Error("Cannot parse date string (" + obj + ")"); // cannot build date
 				}
-				return d;
+				if (this.dateClassObj === Date) {
+					return d;
+				} else {
+					return this.newDate(d);   // from Date to this.dateClassObj
+				}
 			}
 		},
 
