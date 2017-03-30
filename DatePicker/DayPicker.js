@@ -186,7 +186,7 @@ define([
 					cell.id = this.widgetId + "-day-" + i;
 					cell.textContent = this.formatColumnHeaderLabel(d);
 					cell.setAttribute("role", "rowheader");
-					d = this.dateModule.add(d, "day", 1);
+					d.setDate(d.getDate() + 1);
 				}
 
 				// Create table rows.
