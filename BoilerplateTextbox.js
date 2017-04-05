@@ -54,7 +54,7 @@ define([
 		 * If width is specified in CSS then override this method to return null.
 		 */
 		computeWidth: function () {
-			return this.placeholder.length / 1.5 + "em";
+			return this.placeholder.length + "em";
 		}
 	});
 
@@ -70,6 +70,24 @@ define([
 		createdCallback: function () {
 			this.on("focus", this.focusHandler.bind(this));
 			this.on("keydown", this.keydownHandler.bind(this));
+
+			// Set properties so that:
+			// 1. When editing field, numeric virtual keyboard appears on mobile devices.
+			// 2. Up/down spinner *doesn't* appear on Webkit and Firefox desktop (there's no room for it).
+			//    It appears with type=number although it can be hidden with CSS.
+			// 3. Firefox allows display of leading zeros. (It's not allowed for type=number, see
+			//    http://stackoverflow.com/questions/8437529/html5-input-type-number-removes-leading-zero.)
+			// 4. Chrome allows us to move the caret to the end of the text.  (It's not allowed for type=number,
+			//    see https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/setSelectionRange.)
+			// 5. Avoid Android behavior where evt.key = 229 instead of the actual digit typed, see
+			//    http://stackoverflow.com/questions/30743490/
+			//    capture-keys-typed-on-android-virtual-keyboard-using-javascript.
+			//
+			// I know setting type="tel" is weird.  It might only be needed for older browsers,
+			// otherwise setting pattern should be sufficient.
+			this.type = "tel";
+			this.pattern = "[0-9]*";
+			this.autocomplete = "off";
 		},
 
 		focusHandler: function () {
