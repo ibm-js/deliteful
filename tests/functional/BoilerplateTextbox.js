@@ -36,6 +36,10 @@ define([
 				})
 				.execute("return document.querySelector('[name=date2]').value;").then(function (value) {
 					assert.strictEqual(value, "07/04/2008", "dt2 initial value");
+				})
+				.execute("return document.querySelector('#dt1 .d-input-container-node')" +
+					".getAttribute('aria-labelledby');").then(function (value) {
+					assert.strictEqual(value, "dt1-label", "aria-labelledby set on (direct) parent of <input> nodes");
 				});
 		},
 

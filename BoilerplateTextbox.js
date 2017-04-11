@@ -151,11 +151,6 @@ define([
 
 		template: template,
 
-		// Initially set tabStops --> containerNode so that the aria-labelledby attribute gets
-		// moved there (courtesy of FormWidget).  Later on it's changed to point to all the
-		// nested <input> nodes.
-		tabStops: "containerNode",
-
 		createdCallback: function () {
 			this.on("delite-activated", this.activatedHandler.bind(this));
 			this.on("delite-deactivated", this.deactivatedHandler.bind(this));
