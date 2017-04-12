@@ -180,11 +180,11 @@ define([
 						focused: "month"
 					}, "month cleared");
 				})
-				.execute("dt2.emit('keydown', {key: '9'}, document.activeElement);")
+				.execute("dt2.emit('keydown', {key: '1'}, document.activeElement);")
 				.execute("return state(dt2);").then(function (v) {
 					assert.deepEqual(v, {
-						value: "09/04/2008",
-						displayed: "09/04/2008",
+						value: "01/04/2008",
+						displayed: "01/04/2008",
 						focused: "month"
 					}, "month partially typed");
 				})
@@ -233,6 +233,69 @@ define([
 						}, "clicked on slash but month was selected because it's the initial click on the widget");
 					});
 			}
+		},
+
+		max: function () {
+			return this.remote
+				.findByCssSelector("#dt1 .d-input-container-node input").click().end()
+				.execute("return state(dt1);").then(function (v) {
+					assert.deepEqual(v, {
+						value: "",
+						displayed: "mm/dd/yyyy",
+						focused: "month"
+					}, "mm selected");
+				})
+				.execute("dt1.emit('keydown', {key: '1'}, document.activeElement);")
+				.execute("return state(dt1);").then(function (v) {
+					assert.deepEqual(v, {
+						value: "",
+						displayed: "01/dd/yyyy",
+						focused: "month"
+					}, "mm selected, 1 typed");
+				})
+				.execute("dt1.emit('keydown', {key: '5'}, document.activeElement);")
+				.execute("return state(dt1);").then(function (v) {
+					assert.deepEqual(v, {
+						value: "",
+						displayed: "01/dd/yyyy",
+						focused: "month"
+					}, "15 disallowed for month since max is 12, value stays at 1");
+				})
+				.execute("dt1.emit('keydown', {key: '2'}, document.activeElement);")
+				.execute("return state(dt1);").then(function (v) {
+					assert.deepEqual(v, {
+						value: "",
+						displayed: "12/dd/yyyy",
+						focused: "day"
+					}, "month entered as 12, focus moved to day");
+				})
+				.execute("dt1.emit('keydown', {key: '4'}, document.activeElement);")
+				.execute("return state(dt1);").then(function (v) {
+					assert.deepEqual(v, {
+						value: "",
+						displayed: "12/04/yyyy",
+						focused: "year"
+					}, "typing 4 for day automatically advances to year, since 40 > 31");
+				})
+				.execute("dt1.emit('keydown', {key: '1'}, document.activeElement);")
+				.execute("dt1.emit('keydown', {key: '2'}, document.activeElement);")
+				.execute("dt1.emit('keydown', {key: '3'}, document.activeElement);")
+				.execute("dt1.emit('keydown', {key: '4'}, document.activeElement);")
+				.execute("return state(dt1);").then(function (v) {
+					assert.deepEqual(v, {
+						value: "12/04/1234",
+						displayed: "12/04/1234",
+						focused: "year"
+					}, "typed in max digits for year");
+				})
+				.execute("dt1.emit('keydown', {key: '5'}, document.activeElement);")
+				.execute("return state(dt1);").then(function (v) {
+					assert.deepEqual(v, {
+						value: "12/04/1234",
+						displayed: "12/04/1234",
+						focused: "year"
+					}, "typing another digit has no effect");
+				});
 		}
 	});
 });

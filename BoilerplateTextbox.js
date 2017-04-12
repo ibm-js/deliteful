@@ -97,36 +97,49 @@ define([
 
 		/**
 		 * Returns true if the input is complete and BoilerplateTextbox should
-		 * automatically advance to next field.
+		 * automatically advance to next field.  Input is considered complete if:
+		 *
+		 * 1. User has typed the maximum number of digits.
+		 * 2. Typing another digit (any digit) would make the value exceed this.max.
 		 */
 		inputComplete: function () {
-			return this.charactersTyped >= this.placeholder.length;
+			return this.charactersTyped >= this.placeholder.length || parseInt(this.value + "0", 10) > this.max;
 		},
 
 		keydownHandler: function (evt) {
 			var char = evt.key;
 
+			// Let the browser handle tab and shift-tab.
 			if (char === "Tab") {
-				// Let tab and shift-tab be handled by the browser.
 				return;
 			}
+
+			// Handle all other keys programatically, don't let the browser insert the character directly.
+			evt.preventDefault();
 
 			if (char === "Delete" || char === "Backspace") {
 				this.value = "";
 				this.charactersTyped = 0;
 				this.emit("input");
+			} else if (this.charactersTyped >= this.placeholder.length) {
+				return;
 			} else if (/[0-9]/.test(char)) {
 				if (this.charactersTyped === 0) {
 					// For the first character the user types, replace the boilerplate text (ex: "yyyy")
 					// with zeros followed by the character the user typed.
 					this.value = (new Array(this.placeholder.length)).join("0") + char;
+					this.charactersTyped = 1;
 				} else {
 					// Otherwise, slide the other characters over and insert new character at right,
 					// for example if the user types "3" then "0002" is changed to "0023".
-					this.value = this.value.substr(1) + char;
+					var newValue = this.value.substr(1) + char;
+					if (this.max && parseInt(newValue, 10) > parseInt(this.max, 10)) {
+						return;
+					}
+					this.value = newValue;
+					this.charactersTyped++;
 				}
 
-				this.charactersTyped++;
 				this.emit("input");
 
 				// Send "completed" event if focus should automatically move to next field.
@@ -134,8 +147,6 @@ define([
 					this.emit("completed");
 				}
 			}
-
-			evt.preventDefault();
 		}
 	});
 

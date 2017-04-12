@@ -35,7 +35,8 @@
 
 						var month =  new BoilerplateTextbox.NumberField({
 							className: "month",
-							placeholder: "mm"
+							placeholder: "mm",
+							max: 12
 						});
 						month.setAttribute("aria-label", "month");
 						this.containerNode.appendChild(month);
@@ -46,7 +47,8 @@
 
 						var day = new BoilerplateTextbox.NumberField({
 							className: "day",
-							placeholder: "dd"
+							placeholder: "dd",
+							max: 31
 						});
 						day.setAttribute("aria-label", "day");
 						this.containerNode.appendChild(day);
@@ -89,13 +91,19 @@
 					return function () {
 						sup.apply(this, arguments);
 
-						var hour = new BoilerplateTextbox.NumberField({placeholder: "hh"});
+						var hour = new BoilerplateTextbox.NumberField({
+							placeholder: "hh",
+							max: 12
+						});
 						hour.setAttribute("aria-label", "hour");
 						this.containerNode.appendChild(hour);
 
 						this.containerNode.appendChild(new BoilerplateTextbox.Boilerplate({textContent: ":"}));
 
-						var minute = new BoilerplateTextbox.NumberField({placeholder: "mm"});
+						var minute = new BoilerplateTextbox.NumberField({
+							placeholder: "mm",
+							max: 59
+						});
 						minute.setAttribute("aria-label", "minute");
 						this.containerNode.appendChild(minute);
 
