@@ -3,12 +3,6 @@
   border: solid black 1px;
   padding: 2px 10px;
 }
-.d-boilerplate-textbox .d-character-width-measure-node {
-  position: absolute;
-  top: -9999px;
-  left: -9999px;
-  visibility: hidden;
-}
 .d-boilerplate-textbox .d-input-container-node {
   display: inline-block;
 }
