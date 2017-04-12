@@ -59,7 +59,7 @@ define([
 	});
 
 	/**
-	 * Generic number field.
+	 * Generic number field.  Set placeholder, min, and max properties.
 	 */
 	var NumberField = register("d-btb-number-field", [Field], {
 		/**
@@ -124,21 +124,33 @@ define([
 			} else if (this.charactersTyped >= this.placeholder.length) {
 				return;
 			} else if (/[0-9]/.test(char)) {
+				var newValue;
 				if (this.charactersTyped === 0) {
 					// For the first character the user types, replace the boilerplate text (ex: "yyyy")
 					// with zeros followed by the character the user typed.
-					this.value = (new Array(this.placeholder.length)).join("0") + char;
-					this.charactersTyped = 1;
+					newValue = (new Array(this.placeholder.length)).join("0") + char;
 				} else {
 					// Otherwise, slide the other characters over and insert new character at right,
 					// for example if the user types "3" then "0002" is changed to "0023".
-					var newValue = this.value.substr(1) + char;
-					if (this.max && parseInt(newValue, 10) > parseInt(this.max, 10)) {
-						return;
-					}
-					this.value = newValue;
-					this.charactersTyped++;
+					newValue = this.value.substr(1) + char;
 				}
+
+				// If the new value exceeds the maximum value, then ignore the keystroke.
+				if (this.max && parseInt(newValue, 10) > parseInt(this.max, 10)) {
+					return;
+				}
+
+				// If the new digit makes it impossible to meet the minimum value, ignore the
+				// keystroke.  For example, if the field is two characters with a min of
+				// 50 and the first character the user types is 4.
+				var maxPossibleFutureVal = newValue +
+					(new Array(this.placeholder.length - this.charactersTyped)).join("9");
+				if (this.min && parseInt(maxPossibleFutureVal, 10) < parseInt(this.min, 10)) {
+					return;
+				}
+
+				this.value = newValue;
+				this.charactersTyped++;
 
 				this.emit("input");
 

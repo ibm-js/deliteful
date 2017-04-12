@@ -296,6 +296,58 @@ define([
 						focused: "year"
 					}, "typing another digit has no effect");
 				});
+		},
+
+		min: {
+			"12 hour clock": function () {
+				return this.remote
+					.findByCssSelector("#tt1 .d-input-container-node input").click().end()
+					.execute("return state(tt1);").then(function (v) {
+						assert.deepEqual(v, {
+							value: "",
+							displayed: "hh:mm am",
+							focused: "hour"
+						}, "hour selected");
+					})
+					.execute("dt1.emit('keydown', {key: '0'}, document.activeElement);")
+					.execute("dt1.emit('keydown', {key: '0'}, document.activeElement);")
+					.execute("return state(tt1);").then(function (v) {
+						assert.deepEqual(v, {
+							value: "",
+							displayed: "00:mm am",
+							focused: "hour"
+						}, "since min hour is 1, typing 00 doesn't advance to next field");
+					})
+					.execute("dt1.emit('keydown', {key: '1'}, document.activeElement);")
+					.execute("return state(tt1);").then(function (v) {
+						assert.deepEqual(v, {
+							value: "",
+							displayed: "01:mm am",
+							focused: "minute"
+						}, "advanced to minutes");
+					});
+			},
+
+			"24 hour clock": function () {
+				return this.remote
+					.findByCssSelector("#tt2 .d-input-container-node input").click().end()
+					.execute("return state(tt2);").then(function (v) {
+						assert.deepEqual(v, {
+							value: "",
+							displayed: "hh:mm",
+							focused: "hour"
+						}, "hour selected");
+					})
+					.execute("dt1.emit('keydown', {key: '0'}, document.activeElement);")
+					.execute("dt1.emit('keydown', {key: '0'}, document.activeElement);")
+					.execute("return state(tt2);").then(function (v) {
+						assert.deepEqual(v, {
+							value: "",
+							displayed: "00:mm",
+							focused: "minute"
+						}, "24 hour clock so 0 for hour is OK");
+					});
+			}
 		}
 	});
 });

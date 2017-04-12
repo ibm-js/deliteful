@@ -87,13 +87,20 @@
 			});
 
 			register("d-timetextbox", [HTMLElement, BoilerplateTextbox], {
+				/**
+				 * If true, use 24 hour clock
+				 */
+				military: false,
+
 				render: register.superCall(function (sup) {
 					return function () {
 						sup.apply(this, arguments);
 
 						var hour = new BoilerplateTextbox.NumberField({
+							className: "hour",
 							placeholder: "hh",
-							max: 12
+							min: this.military ? 0 : 1,
+							max: this.military ? 12 : 23
 						});
 						hour.setAttribute("aria-label", "hour");
 						this.containerNode.appendChild(hour);
@@ -101,17 +108,20 @@
 						this.containerNode.appendChild(new BoilerplateTextbox.Boilerplate({textContent: ":"}));
 
 						var minute = new BoilerplateTextbox.NumberField({
+							className: "minute",
 							placeholder: "mm",
 							max: 59
 						});
 						minute.setAttribute("aria-label", "minute");
 						this.containerNode.appendChild(minute);
 
-						this.containerNode.appendChild(new BoilerplateTextbox.Boilerplate({textContent: " "}));
+						if (!this.military) {
+							this.containerNode.appendChild(new BoilerplateTextbox.Boilerplate({textContent: " "}));
 
-						var ampm = new AmPmField({placeholder: "am"});
-						ampm.setAttribute("aria-label", "am or pm");
-						this.containerNode.appendChild(ampm);
+							var ampm = new AmPmField({placeholder: "am"});
+							ampm.setAttribute("aria-label", "am or pm");
+							this.containerNode.appendChild(ampm);
+						}
 					};
 				})
 			});
@@ -147,6 +157,9 @@
 
 			tt1.value = "";
 			tt1.notifyCurrentValue("value");	// to clear partial input
+
+			tt2.value = "";
+			tt2.notifyCurrentValue("value");	// to clear partial input
 
 			Array.prototype.forEach.call(document.querySelectorAll(".counter"), function (input) {
 				input.value = "0";
@@ -186,9 +199,16 @@
 
 	<span id="tt1-label">Time</span>:
 	<d-timetextbox id="tt1" pattern="hh:mm:ss am" aria-labelledby="tt1-label" name="time1"
-		on-input="increment('tt1-input-events')" on-change="increment('tt1-change-events')"></d-timetextbox>
+				   on-input="increment('tt1-input-events')" on-change="increment('tt1-change-events')"></d-timetextbox>
 	<label for="tt1-input-events">input events</label>: <input id="tt1-input-events" class="counter" value="0" disabled>
 	<label for="tt1-change-events">change events</label>: <input id="tt1-change-events" class="counter" value="0" disabled>
+	<br><br>
+
+	<span id="tt2-label">Military (24-hour) Time</span>:
+	<d-timetextbox id="tt2" pattern="hh:mm:ss" military="true" aria-labelledby="tt2-label" name="time2"
+				   on-input="increment('tt2-input-events')" on-change="increment('tt2-change-events')"></d-timetextbox>
+	<label for="tt2-input-events">input events</label>: <input id="tt2-input-events" class="counter" value="0" disabled>
+	<label for="tt2-change-events">change events</label>: <input id="tt2-change-events" class="counter" value="0" disabled>
 	<br><br>
 
 	<span id="dt3-label">Disabled Date</span>:
