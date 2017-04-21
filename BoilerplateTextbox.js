@@ -192,7 +192,7 @@ define([
 				this["field" + tabStops.length] = input;
 				tabStops.push("field" + tabStops.length);
 			}, this);
-			this.tabStops = tabStops.join(",");
+			this.tabStops = tabStops;
 		},
 
 		/**

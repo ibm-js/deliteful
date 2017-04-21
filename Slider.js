@@ -152,7 +152,7 @@ define([
 					}
 					this.handleMin.setAttribute("aria-valuemin", this.min);
 					this.focusNode.setAttribute("aria-valuemax", this.max);
-					this.tabStops = "handleMin,focusNode";
+					this.tabStops = ["handleMin", "focusNode"];
 					this.handleMin._isActive = true;
 					// prevent default browser behavior / accept pointer events
 					// todo: use pan-x/pan-y according to this.vertical (once supported by dpointer)
@@ -285,7 +285,7 @@ define([
 				if (!this.handleMin._isActive && currentVal.length === 2) {
 					this.handleMin.setAttribute("aria-valuemin", this.min);
 					this.focusNode.setAttribute("aria-valuemax", this.max);
-					this.tabStops = "handleMin,focusNode";
+					this.tabStops = ["handleMin", "focusNode"];
 					this.handleMin._isActive = true;
 				}
 				if (this.handleMin._isActive && currentVal.length === 1) {
