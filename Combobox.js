@@ -372,7 +372,7 @@ define([
 			}
 
 			if (!this.list.id) {
-				this.list.id = this.id ? this.id + "-list" : this.tag + "-" + this.widgetId + "-list";
+				this.list.id = this.id ? this.id + "-list" : this.widgetId + "-list";
 			}
 		},
 

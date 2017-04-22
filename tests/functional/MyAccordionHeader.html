@@ -1,5 +1,5 @@
-<template role="tab" aria-labelledby="{{this.widgetId + '_label'}}" tabindex="-1">
+<template role="tab" aria-labelledby="{{widgetId}}_label" tabindex="-1">
     <span role="presentation" attach-point="iconNode" class="d-icon {{this.open ? this.openIconClass : this.closedIconClass}}"></span>
-    <span attach-point="labelNode" id="{{this.widgetId + '_label'}}">{{label}}</span>
+    <span attach-point="labelNode" id="{{widgetId}}_label">{{label}}</span>
     <button on-click="{{_buttonClickHandler}}" tabindex="-1">{{clicks}} {{this.clicks === 1 ? "click" : "clicks"}}</button>
 </template>

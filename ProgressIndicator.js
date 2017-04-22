@@ -138,7 +138,7 @@ define([
 
 		postRender: function () {
 			this.lineNodeList = this.linesNode.querySelectorAll("line");
-			var symbolId = this.baseClass + "-" + this.widgetId + "-symbol";
+			var symbolId = this.widgetId + "-symbol";
 			this.symbolNode.id = symbolId;
 			//set unique SVG symbol id
 			this.useNode.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "#" + symbolId);

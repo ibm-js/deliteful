@@ -66,7 +66,7 @@ define([
 				// A set of MediaQueryList
 				this._mqls = [];
 				// Unique class for this widget
-				$(this).addClass("-d-responsive-columns-" + this.widgetId);
+				$(this).addClass(this.widgetId);
 			},
 
 			_removeListeners: function () {
@@ -151,7 +151,7 @@ define([
 					}
 					content += mediaPart + mqHeader + "{";
 					for (var j = 0; j < children.length; j++) {
-						content += ".-d-responsive-columns-" + this.widgetId + " > *:nth-child(" + (j + 1) + "){";
+						content += "." + this.widgetId + " > *:nth-child(" + (j + 1) + "){";
 						val = this._layouts[j][sizeClasses[i]];
 						if (val === "hidden") {
 							content += "display: none;";
@@ -185,7 +185,7 @@ define([
 				}
 				var styleBlockId = "d-responsive-columns-generated-style-" + this.widgetId;
 				var styleBlock = this.ownerDocument.getElementById(styleBlockId);
-				if (! styleBlock) {
+				if (!styleBlock) {
 					styleBlock = this.ownerDocument.createElement("style");
 					styleBlock.id = styleBlockId;
 					this.ownerDocument.head.appendChild(styleBlock);

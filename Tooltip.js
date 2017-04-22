@@ -93,7 +93,7 @@ define([
 			if (aroundNode) {
 				this.anchorNode = aroundNode.focusNode || aroundNode;
 				if (!this.id) {
-					this.id = "tooltip" + this.widgetId;
+					this.id = this.widgetId;
 				}
 				this.anchorNode.setAttribute("aria-describedby", this.id);
 			}
