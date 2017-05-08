@@ -1,16 +1,17 @@
 /** @module delite/BoilerplateTextbox */
 define([
 	"delite/register",
+	"delite/uacss",
 	"delite/Container",
 	"delite/FormValueWidget",
 	"delite/Widget",
 	"delite/handlebars!./BoilerplateTextbox/BoilerplateTextbox.html",
 	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/activationTracker",
-	"delite/uacss",
 	"delite/theme!./BoilerplateTextbox/themes/{{theme}}/BoilerplateTextbox.css"
 ], function (
 	register,
+	has,
 	Container,
 	FormValueWidget,
 	Widget,
@@ -282,7 +283,33 @@ define([
 			if (nextIdx < inputs.length) {
 				inputs[nextIdx].focus();
 			}
-		}
+		},
+
+		setAttribute: register.superCall(function (sup) {
+			return function (name, value) {
+				sup.apply(this, arguments);
+
+				// Workaround iOS limitation where VoiceOver doesn't announce label of container.
+				if(has("ios")) {
+					var label;
+					if (name === "aria-label") {
+						label = value;
+					} else if (name === "aria-labelledby") {
+						var labelNode = this.ownerDocument.getElementById(value);
+						label = labelNode && labelNode.textContent;
+					}
+					if (label) {
+						var inputs = [].slice.call(this.containerNode.querySelectorAll("input"));
+						inputs.forEach(function (field) {
+							if (!field.origAriaLabel) {
+								field.origAriaLabel = field.getAttribute("aria-label");
+							}
+							field.setAttribute("aria-label", label + " " + field.origAriaLabel);
+						});
+					}
+				}
+			};
+		})
 	});
 
 	BoilerplateTextbox.Boilerplate = Boilerplate;
