@@ -78,15 +78,15 @@ define([
 
 	// For testing the ability to deal with item value different than item label
 	var dataSourceWithValue =  [
-			{ label: "France", myValue: "FR", sales: 500, profit: 50, region: "EU" },
-			{ label: "Germany", myValue: "DE", sales: 450, profit: 48, region: "EU" },
-			{ label: "UK", myValue: "UK", sales: 700, profit: 60, region: "EU" },
-			{ label: "USA", myValue: "US", sales: 2000, profit: 250, region: "America" },
-			{ label: "Canada", myValue: "CA", sales: 600, profit: 30, region: "America" },
-			{ label: "Brazil", myValue: "BA", sales: 450, profit: 30, region: "America" },
-			{ label: "China", myValue: "CN", sales: 500, profit: 40, region: "Asia" },
-			{ label: "Japan", myValue: "JP", sales: 900, profit: 100, region: "Asia" }
-		];
+		{ label: "France", myValue: "FR", sales: 500, profit: 50, region: "EU" },
+		{ label: "Germany", myValue: "DE", sales: 450, profit: 48, region: "EU" },
+		{ label: "UK", myValue: "UK", sales: 700, profit: 60, region: "EU" },
+		{ label: "USA", myValue: "US", sales: 2000, profit: 250, region: "America" },
+		{ label: "Canada", myValue: "CA", sales: 600, profit: 30, region: "America" },
+		{ label: "Brazil", myValue: "BA", sales: 450, profit: 30, region: "America" },
+		{ label: "China", myValue: "CN", sales: 500, profit: 40, region: "Asia" },
+		{ label: "Japan", myValue: "JP", sales: 900, profit: 100, region: "Asia" }
+	];
 
 	var outerCSS = "d-combobox";
 	var inputCSS = "d-combobox-input";
@@ -104,7 +104,7 @@ define([
 
 	var createCombobox = function (id, trackable, multiple) {
 		var selectionMode = multiple ? "multiple": "single";
-		var combo = new Combobox({ id: id, selectionMode: selectionMode});
+		var combo = new Combobox({id: id, selectionMode: selectionMode});
 		initSource(combo, trackable);
 		combo.placeAt(container);
 		return combo;
@@ -330,9 +330,9 @@ define([
 		"Attribute mapping for label": function () {
 			// Check the attribute mapping for label
 			var combo = new Combobox({labelAttr: "name"});
-			var dataSource = new Memory(
-				{idProperty: "name",
-					data: [
+			var dataSource = new Memory({
+				idProperty: "name",
+				data: [
 					{ name: "Japan", sales: 900, profit: 100, region: "Asia" },
 					{ name: "France", sales: 500, profit: 50, region: "EU" },
 					{ name: "Germany", sales: 450, profit: 48, region: "EU" },
@@ -341,7 +341,8 @@ define([
 					{ name: "Canada", sales: 600, profit: 30, region: "America" },
 					{ name: "Brazil", sales: 450, profit: 30, region: "America" },
 					{ name: "China", sales: 500, profit: 40, region: "Asia" }
-				]});
+				]
+			});
 			combo.source = dataSource;
 			container.appendChild(combo);
 			combo.attachedCallback();
@@ -388,12 +389,14 @@ define([
 				var combo = new Combobox({
 					source: source,
 					labelAttr: "name",
+					displayedValue: "Germany",
 					value: "Germany"
 				});
 				assert.strictEqual(combo.displayedValue, "Germany", "initial displayedValue");
 				assert.strictEqual(combo.inputNode.value, "Germany", "initial inputNode.value");
 
 				combo.value = "Japan";
+				combo.displayedValue = "Japan";
 				combo.deliver();
 				assert.strictEqual(combo.displayedValue, "Japan", "changed displayedValue");
 				assert.strictEqual(combo.inputNode.value, "Japan", "changed inputNode.value");
@@ -491,11 +494,11 @@ define([
 				});
 				assert.strictEqual(combo1.displayedValue, combo1.multipleChoiceNoSelectionMsg, "value = []");
 
-				// When value is ["Japan"] and no displayedValue is set, displayedValue gets set to "Japan".
 				var combo2 = new Combobox({
 					selectionMode: "multiple",
 					source: source,
 					labelAttr: "name",
+					displayedValue: "Japan",
 					value: ["Japan"]
 				});
 				assert.strictEqual(combo2.displayedValue, "Japan", "value = ['Japan']");
@@ -562,10 +565,6 @@ define([
 		},
 
 		"widget.value, and change and input events (selectionMode=single)": function () {
-			/* jshint eqeqeq: false */
-			if (has("ie") == "10") {
-				this.skip("Problem on Internet Explorer 10");
-			}
 			var combo = createCombobox("combo-c-1", false /* trackable */);
 			var changeCounter = 0, inputCounter = 0;
 			var changeValue = null, inputValue = null;
@@ -600,7 +599,6 @@ define([
 			}
 
 			combo.openDropDown().then(d.rejectOnError(function () {
-
 				assert.strictEqual(changeCounter, 0,
 					"Just opening the dropdown should not emit any change event");
 				assert.strictEqual(inputCounter, 0,
@@ -647,10 +645,6 @@ define([
 		},
 
 		"widget.value, and change and input events (selectionMode=multiple)": function () {
-			/* jshint eqeqeq: false */
-			if (has("ie") == "10") {
-				this.skip("Problem on Internet Explorer 10");
-			}
 			var combo = createCombobox("combo-d-1", false /* trackable */, true /* selectionMode=multiple */);
 
 			// While we are here, make sure that multiselection Combobox's <input> is readonly.

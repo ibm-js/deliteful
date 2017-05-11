@@ -215,15 +215,15 @@ define([
 					checkComboState(comboId, comboState,
 						{ // expected combo state
 							inputNodeValue: "u",
-							widgetValue: "u",
-							valueNodeValue: "u",
+							widgetValue: "",
+							valueNodeValue: "",
 							opened: true,
 							selectedItemsCount: 0,
 							itemRenderersCount: 2,
-							inputEventCounter: 8,
+							inputEventCounter: 1,
 							changeEventCounter: 0, // no commit yet.
-							widgetValueAtLatestInputEvent: "u",
-							valueNodeValueAtLatestInputEvent: "u",
+							widgetValueAtLatestInputEvent: "",
+							valueNodeValueAtLatestInputEvent: "",
 							widgetValueAtLatestChangeEvent: "Germany",
 							valueNodeValueAtLatestChangeEvent: "Germany"
 						}, "after filter starting with u character");
@@ -237,15 +237,15 @@ define([
 					checkComboState(comboId, comboState,
 						{ // expected combo state
 							inputNodeValue: "u ",
-							widgetValue: "u ",
-							valueNodeValue: "u ",
+							widgetValue: "",
+							valueNodeValue: "",
 							opened: true,
 							selectedItemsCount: 0,
 							itemRenderersCount: 0,
-							inputEventCounter: 1,
+							inputEventCounter: 0,
 							changeEventCounter: 0, // unchanged
-							widgetValueAtLatestInputEvent: "u ",
-							valueNodeValueAtLatestInputEvent: "u ",
+							widgetValueAtLatestInputEvent: "",
+							valueNodeValueAtLatestInputEvent: "",
 							widgetValueAtLatestChangeEvent: "Germany",
 							valueNodeValueAtLatestChangeEvent: "Germany"
 						}, "after filter starting with u plus SPACE character");
@@ -263,7 +263,7 @@ define([
 							opened: true,
 							selectedItemsCount: 1,
 							itemRenderersCount: 2, // UK and USA visible
-							inputEventCounter: 2, // incremented
+							inputEventCounter: 1,
 							changeEventCounter: 0, // unchanged
 							widgetValueAtLatestInputEvent: "UK",
 							valueNodeValueAtLatestInputEvent: "UK",
@@ -285,7 +285,7 @@ define([
 							opened: false,
 							selectedItemsCount: 1,
 							itemRenderersCount: 2, // UK and USA. The query was not reset yet.
-							inputEventCounter: 0, // unchanged
+							inputEventCounter: 0,
 							changeEventCounter: 1, // incremented
 							widgetValueAtLatestInputEvent: "UK",
 							valueNodeValueAtLatestInputEvent: "UK",
@@ -1032,15 +1032,15 @@ define([
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: "Franc",
-						widgetValue: "Franc",
-						valueNodeValue: "Franc",
+						widgetValue: "",
+						valueNodeValue: "",
 						opened: true,
 						selectedItemsCount: 0,
 						itemRenderersCount: 1,
 						inputEventCounter: 1,
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: "Franc",
-						valueNodeValueAtLatestInputEvent: "Franc",
+						widgetValueAtLatestInputEvent: "",
+						valueNodeValueAtLatestInputEvent: "",
 						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after removing 1 char.");
@@ -1060,7 +1060,7 @@ define([
 						opened: true,
 						selectedItemsCount: 0,
 						itemRenderersCount: 37,
-						inputEventCounter: 5,
+						inputEventCounter: 0,
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: "",
 						valueNodeValueAtLatestInputEvent: "",
@@ -1074,15 +1074,15 @@ define([
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: "U",
-						widgetValue: "U",
-						valueNodeValue: "U",
+						widgetValue: "",
+						valueNodeValue: "",
 						opened: true,
 						selectedItemsCount: 0,
 						itemRenderersCount: 2,
-						inputEventCounter: 1, // was reset by callling getComboState.
+						inputEventCounter: 0, // was reset by callling getComboState.
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: "U",
-						valueNodeValueAtLatestInputEvent: "U",
+						widgetValueAtLatestInputEvent: "",
+						valueNodeValueAtLatestInputEvent: "",
 						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after typing `U`.");
@@ -1119,15 +1119,15 @@ define([
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: "Franc",
-						widgetValue: "Franc",
-						valueNodeValue: "Franc",
+						widgetValue: "",
+						valueNodeValue: "",
 						opened: true,
 						selectedItemsCount: 0,
 						itemRenderersCount: 1,
 						inputEventCounter: 1,
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: "Franc",
-						valueNodeValueAtLatestInputEvent: "Franc",
+						widgetValueAtLatestInputEvent: "",
+						valueNodeValueAtLatestInputEvent: "",
 						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after removing 1 char.");
@@ -1140,15 +1140,15 @@ define([
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: "Fr",
-						widgetValue: "Fr",
-						valueNodeValue: "Fr",
+						widgetValue: "",
+						valueNodeValue: "",
 						opened: false,
 						selectedItemsCount: 0,
 						itemRenderersCount: 1,
-						inputEventCounter: 3,
+						inputEventCounter: 0,
 						changeEventCounter: 0, // popup closed automatically, shouldn't generate change event
-						widgetValueAtLatestInputEvent: "Fr",
-						valueNodeValueAtLatestInputEvent: "Fr",
+						widgetValueAtLatestInputEvent: "",
+						valueNodeValueAtLatestInputEvent: "",
 						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after clearing the input partially.");
@@ -1159,15 +1159,15 @@ define([
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: "Fra",
-						widgetValue: "Fra",
-						valueNodeValue: "Fra",
+						widgetValue: "",
+						valueNodeValue: "",
 						opened: true,
 						selectedItemsCount: 0,
 						itemRenderersCount: 1,
-						inputEventCounter: 1, // was reset by previous getComboState call.
+						inputEventCounter: 0, // was reset by previous getComboState call.
 						changeEventCounter: 0, //
-						widgetValueAtLatestInputEvent: "Fra",
-						valueNodeValueAtLatestInputEvent: "Fra",
+						widgetValueAtLatestInputEvent: "",
+						valueNodeValueAtLatestInputEvent: "",
 						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after typing `a`.");
@@ -1181,7 +1181,7 @@ define([
 			.findByCssSelector("#" + comboId + " .d-combobox-input")
 			.getAttribute("readonly")
 			.then(function (value) {
-				assert.strictEqual(value, null, comboId + ":readonly attribute after page load");
+				assert.strictEqual(value, null, comboId + ": readonly attribute after page load");
 			})
 			.click()
 			.execute(executeExpr)
@@ -1211,34 +1211,34 @@ define([
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: "germ",
-						widgetValue: "germ",
-						valueNodeValue: "germ",
+						widgetValue: "",
+						valueNodeValue: "",
 						opened: true,
 						selectedItemsCount: 0,
 						itemRenderersCount: 1,
-						inputEventCounter: 4,
+						inputEventCounter: 0,
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: "germ",
-						valueNodeValueAtLatestInputEvent: "germ",
+						widgetValueAtLatestInputEvent: undefined,
+						valueNodeValueAtLatestInputEvent: undefined,
 						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after typing `germ` chars.");
 			})
-			.pressKeys("w") // germw -> not maching items
+			.pressKeys("w") // germw -> not matching items
 			.execute(executeExpr)
 			.then(function (comboState) {
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: "germw",
-						widgetValue: "germw",
-						valueNodeValue: "germw",
+						widgetValue: "",
+						valueNodeValue: "",
 						opened: true,
 						selectedItemsCount: 0,
 						itemRenderersCount: 0,
-						inputEventCounter: 1,
+						inputEventCounter: 0,
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: "germw",
-						valueNodeValueAtLatestInputEvent: "germw",
+						widgetValueAtLatestInputEvent: undefined,
+						valueNodeValueAtLatestInputEvent: undefined,
 						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after typing `w`.");
@@ -1268,7 +1268,7 @@ define([
 						opened: false,
 						selectedItemsCount: 1,
 						itemRenderersCount: 1, // because nothing happens until dropdown is reopened; then it's 37.
-						inputEventCounter: 2, // incremented.
+						inputEventCounter: 1, // incremented.
 						changeEventCounter: 1, // there was a commit
 						widgetValueAtLatestInputEvent: "Germany",
 						valueNodeValueAtLatestInputEvent: "Germany",

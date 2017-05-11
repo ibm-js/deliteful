@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
 	<meta name="viewport"
-		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+		 content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 
 	<title>deliteful/Combobox (markup)</title>
@@ -168,7 +168,7 @@
 
 			isAligned = function (comboId, pos) {
 				var combo = document.getElementById(comboId);
-				var popup = document.getElementById(comboId +  "-list_wrapper");
+				var popup = document.getElementById(comboId + "-list_wrapper");
 				var comboClientRect = combo.getBoundingClientRect();
 				var popupClientRect = popup.getBoundingClientRect();
 
@@ -204,10 +204,10 @@
 		}
 
 		.webdriver .d-combobox-arrow {
-	        display: inline-block;
-	        width: 10px;
-	        height: 10px;
-	    }
+			display: inline-block;
+			width: 10px;
+			height: 10px;
+		}
 
 		/* Larger margins between the elements inside the list elements */
 		.d-list-item-label {
@@ -228,7 +228,7 @@
 	<label for="combo1-input">
 		id: "combo1" selectionMode: "single", autoFilter: false
 	</label>
-	<d-combobox selectionMode="single" autoFilter="false" id="combo1" name="combo1" value="France">
+	<d-combobox selectionMode="single" autoFilter="false" id="combo1" name="combo1" displayedValue="France" value="France" displayedValue="France">
 		<d-list righttextAttr="sales" categoryAttr="region">
 			{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
 			{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
@@ -273,7 +273,7 @@
 	<label for="combo2-input">
 		id: "combo2" selectionMode: "single", autoFilter: true
 	</label>
-	<d-combobox selectionMode="single" autoFilter="true" id="combo2" name="combo2" value="France">
+	<d-combobox selectionMode="single" autoFilter="true" id="combo2" name="combo2" displayedValue="France" value="France">
 		<d-list righttextAttr="sales" categoryAttr="region">
 			{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
 			{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
@@ -376,7 +376,7 @@
 		id: "combo1-disabled", selectionMode: "single", autoFilter: false, disabled
 	</label>
 	<d-combobox selectionMode="single" autoFilter="false"
-		id="combo1-disabled" name="combo1-disabled" disabled value="France">
+		id="combo1-disabled" name="combo1-disabled" disabled displayedValue="France" value="France">
 		<d-list righttextAttr="sales" categoryAttr="region">
 			{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
 			{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
@@ -422,7 +422,7 @@
 		id: "combo2-disabled", selectionMode: "single", autoFilter: true, disabled
 	</label>
 	<d-combobox selectionMode="single" autoFilter="true"
-		id="combo2-disabled" name="combo2-disabled" disabled value="France">
+		id="combo2-disabled" name="combo2-disabled" disabled displayedValue="France" value="France">
 		<d-list righttextAttr="sales" categoryAttr="region">
 			{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
 			{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
@@ -513,7 +513,7 @@
 	<label for="combo2-custom-sel-single-input">
 		id: "combo2-custom-sel-single", selectionMode: "single", autoFilter: true, custom initial selection
 	</label>
-	<d-combobox selectionMode="single" autoFilter="true" value="France"
+	<d-combobox selectionMode="single" autoFilter="true" displayedValue="France" value="France"
 		id="combo2-custom-sel-single" name="combo2-custom-sel-single">
 		<d-list righttextAttr="sales" categoryAttr="region">
 			{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
@@ -605,7 +605,7 @@
 	<label for="combo2-readonly-input">
 		id: "combo2-readonly", selectionMode: "single", autoFilter: true, readOnly
 	</label>
-	<d-combobox selectionMode="single" autoFilter="true" readOnly value="France"
+	<d-combobox selectionMode="single" autoFilter="true" readOnly displayedValue="France" value="France"
 		id="combo2-readonly" name="combo2-readonly">
 		<d-list righttextAttr="sales" categoryAttr="region">
 			{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
@@ -685,7 +685,7 @@
 	<label for="combo3-value-input">
 		id: "combo3-value", data items with value and label mapping, selectionMode: "multiple"
 	</label>
-	<d-combobox selectionMode="multiple" autoFilter="false" id="combo3-value" name="combo3-value" displayedValue="France", value="FR">
+	<d-combobox selectionMode="multiple" autoFilter="false" id="combo3-value" name="combo3-value" displayedValue="France" value="FR">
 		<d-list valueAttr="myValue" labelAttr="text" righttextAttr="sales"
 			categoryAttr="region">
 			{ "text": "France", "myValue": "FR", "sales": 500, "profit": 50, "region": "EU" },
@@ -703,7 +703,7 @@
 		id: "combo1-single-rtl", dir="rtl", selectionMode: "single", autoFilter: false
 	</label>
 	<d-combobox dir="rtl" selectionMode="single" autoFilter="false"
-		id="combo1-single-rtl" name="combo1-single-rtl" value="France">
+		id="combo1-single-rtl" name="combo1-single-rtl" displayedValue="France" value="France">
 		<d-list righttextAttr="sales" categoryAttr="region">
 			{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
 			{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
@@ -765,7 +765,7 @@
 		id: "combo-minfilterchars0", selectionMode: "single", autoFilter: true, minFilterChars: 0
 	</label>
 	<d-combobox selectionMode="single" autoFilter="true" minFilterChars="0"
-		id="combo-minfilterchars0" name="combo-minfilterchars0" value="France">
+		id="combo-minfilterchars0" name="combo-minfilterchars0" displayedValue="France" value="France">
 		<d-list righttextAttr="sales" categoryAttr="region">
 			{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
 			{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
@@ -811,7 +811,7 @@
 		id: "combo-minfilterchars3", selectionMode: "single", autoFilter: true, minFilterChars: 3
 	</label>
 	<d-combobox selectionMode="single" autoFilter="true" minFilterChars="3"
-		id="combo-minfilterchars3" name="combo-minfilterchars3" value="France">
+		id="combo-minfilterchars3" name="combo-minfilterchars3" displayedValue="France" value="France">
 		<d-list righttextAttr="sales" categoryAttr="region">
 			{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
 			{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },

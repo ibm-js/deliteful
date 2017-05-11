@@ -107,15 +107,15 @@ define([
 					{ // expected combo state
 						inputNodeValue: "jap",
 						popupInputNodeValue: "jap",
-						widgetValue: "jap",
-						valueNodeValue: "jap",
+						widgetValue: "",
+						valueNodeValue: "",
 						opened: true,
 						selectedItemsCount: 0,
 						itemRenderersCount: 30,
-						inputEventCounter: 9, // removed "france" and typed "jap"
+						inputEventCounter: 1, // removed "france" and typed "jap"
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: "jap",
-						valueNodeValueAtLatestInputEvent: "jap",
+						widgetValueAtLatestInputEvent: "",
+						valueNodeValueAtLatestInputEvent: "",
 						widgetValueAtLatestChangeEvent: null,
 						valueNodeValueAtLatestChangeEvent: null
 					}, "after searching `jap` into input field.");
@@ -138,7 +138,7 @@ define([
 						opened: true,
 						selectedItemsCount: 0,
 						itemRenderersCount: 37,
-						inputEventCounter: 3,
+						inputEventCounter: 0,
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: "",
 						valueNodeValueAtLatestInputEvent: "",
@@ -155,15 +155,15 @@ define([
 					{ // expected combo state
 						inputNodeValue: "u",
 						popupInputNodeValue: "u",
-						widgetValue: "u",
-						valueNodeValue: "u",
+						widgetValue: "",
+						valueNodeValue: "",
 						opened: true,
 						selectedItemsCount: 0,
 						itemRenderersCount: 2, // USA & UK
-						inputEventCounter: 1,
+						inputEventCounter: 0,
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: "u",
-						valueNodeValueAtLatestInputEvent: "u",
+						widgetValueAtLatestInputEvent: "",
+						valueNodeValueAtLatestInputEvent: "",
 						widgetValueAtLatestChangeEvent: null,
 						valueNodeValueAtLatestChangeEvent: null
 					}, "after typed `u` into input field.");
@@ -504,15 +504,15 @@ define([
 					{ // expected combo state
 						inputNodeValue: "j",
 						popupInputNodeValue: "j",
-						widgetValue: "j",
-						valueNodeValue: "j",
+						widgetValue: "",
+						valueNodeValue: "",
 						opened: true,
 						selectedItemsCount: 0,
 						itemRenderersCount: 37,
-						inputEventCounter: 1,
+						inputEventCounter: 0,
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: "j",
-						valueNodeValueAtLatestInputEvent: "j",
+						widgetValueAtLatestInputEvent: undefined,
+						valueNodeValueAtLatestInputEvent: undefined,
 						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after typing `j` - no query run yet.");
@@ -532,15 +532,15 @@ define([
 					{ // expected combo state
 						inputNodeValue: "ja",
 						popupInputNodeValue: "ja",
-						widgetValue: "ja",
-						valueNodeValue: "ja",
+						widgetValue: "",
+						valueNodeValue: "",
 						opened: true,
 						selectedItemsCount: 0,
 						itemRenderersCount: 37,
-						inputEventCounter: 1,
+						inputEventCounter: 0,
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: "ja",
-						valueNodeValueAtLatestInputEvent: "ja",
+						widgetValueAtLatestInputEvent: undefined,
+						valueNodeValueAtLatestInputEvent: undefined,
 						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after typing `a` (ja) - no query run yet.");
@@ -558,15 +558,15 @@ define([
 					{ // expected combo state
 						inputNodeValue: "jap",
 						popupInputNodeValue: "jap",
-						widgetValue: "jap",
-						valueNodeValue: "jap",
+						widgetValue: "",
+						valueNodeValue: "",
 						opened: true,
 						selectedItemsCount: 0,
 						itemRenderersCount: 30, // showing only `jap` matching items.
-						inputEventCounter: 1,
+						inputEventCounter: 0,
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: "jap",
-						valueNodeValueAtLatestInputEvent: "jap",
+						widgetValueAtLatestInputEvent: undefined,
+						valueNodeValueAtLatestInputEvent: undefined,
 						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after typing `jap` - query did run.");
@@ -586,15 +586,15 @@ define([
 					{ // expected combo state
 						inputNodeValue: "ja",
 						popupInputNodeValue: "ja",
-						widgetValue: "ja",
-						valueNodeValue: "ja",
+						widgetValue: "",
+						valueNodeValue: "",
 						opened: true,
 						selectedItemsCount: 0,
 						itemRenderersCount: 30, // showing only `jap` matching items.
-						inputEventCounter: 1,
+						inputEventCounter: 0,
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: "ja",
-						valueNodeValueAtLatestInputEvent: "ja",
+						widgetValueAtLatestInputEvent: undefined,
+						valueNodeValueAtLatestInputEvent: undefined,
 						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after deleting `p` from `jap` - query did not run.");
@@ -605,7 +605,7 @@ define([
 			})
 			.end()
 			.findByCssSelector(".d-combobox-input[d-hidden='false']") // inputNode
-			.pressKeys(keys.BACKSPACE) // removing remaing two chars, list must disappear.
+			.pressKeys(keys.BACKSPACE) // removing remaining two chars, list must disappear.
 			.pressKeys(keys.BACKSPACE)
 			.end()
 			.sleep(100)
@@ -620,10 +620,10 @@ define([
 						opened: true,
 						selectedItemsCount: 0,
 						itemRenderersCount: 30, // showing only `jap` matching items.
-						inputEventCounter: 2,
+						inputEventCounter: 0,
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: "",
-						valueNodeValueAtLatestInputEvent: "",
+						widgetValueAtLatestInputEvent: undefined,
+						valueNodeValueAtLatestInputEvent: undefined,
 						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after deleting `ja` from the inputNode - query did not run.");
@@ -689,15 +689,15 @@ define([
 					{ // expected combo state
 						inputNodeValue: "j",
 						popupInputNodeValue: "j",
-						widgetValue: "j",
-						valueNodeValue: "j",
+						widgetValue: "",
+						valueNodeValue: "",
 						opened: true,
 						selectedItemsCount: 0,
 						itemRenderersCount: 30,
-						inputEventCounter: 1,
+						inputEventCounter: 0,
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: "j",
-						valueNodeValueAtLatestInputEvent: "j",
+						widgetValueAtLatestInputEvent: undefined,
+						valueNodeValueAtLatestInputEvent: undefined,
 						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after typing `j` - query did run.");
@@ -717,15 +717,15 @@ define([
 					{ // expected combo state
 						inputNodeValue: "ja",
 						popupInputNodeValue: "ja",
-						widgetValue: "ja",
-						valueNodeValue: "ja",
+						widgetValue: "",
+						valueNodeValue: "",
 						opened: true,
 						selectedItemsCount: 0,
 						itemRenderersCount: 30,
-						inputEventCounter: 1,
+						inputEventCounter: 0,
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: "ja",
-						valueNodeValueAtLatestInputEvent: "ja",
+						widgetValueAtLatestInputEvent: undefined,
+						valueNodeValueAtLatestInputEvent: undefined,
 						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after typing `a` (ja) - query did run.");
@@ -751,10 +751,10 @@ define([
 						opened: true,
 						selectedItemsCount: 0,
 						itemRenderersCount: 37,
-						inputEventCounter: 2,
+						inputEventCounter: 0,
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: "",
-						valueNodeValueAtLatestInputEvent: "",
+						widgetValueAtLatestInputEvent: undefined,
+						valueNodeValueAtLatestInputEvent: undefined,
 						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after deleting `ja` from the inputNode - full list shown.");
@@ -775,15 +775,15 @@ define([
 					{ // expected combo state
 						inputNodeValue: "g",
 						popupInputNodeValue: "g",
-						widgetValue: "g",
-						valueNodeValue: "g",
+						widgetValue: "",
+						valueNodeValue: "",
 						opened: true,
 						selectedItemsCount: 0,
 						itemRenderersCount: 1, // showing only `g` matching items.
-						inputEventCounter: 1,
+						inputEventCounter: 0,
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: "g",
-						valueNodeValueAtLatestInputEvent: "g",
+						widgetValueAtLatestInputEvent: undefined,
+						valueNodeValueAtLatestInputEvent: undefined,
 						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after typing `g` from the inputNode - query did run.");
@@ -808,10 +808,10 @@ define([
 						opened: true,
 						selectedItemsCount: 0,
 						itemRenderersCount: 37,
-						inputEventCounter: 1,
+						inputEventCounter: 0,
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: "",
-						valueNodeValueAtLatestInputEvent: "",
+						widgetValueAtLatestInputEvent: undefined,
+						valueNodeValueAtLatestInputEvent: undefined,
 						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after deleting `g` from the inputNode - query did not run.");
