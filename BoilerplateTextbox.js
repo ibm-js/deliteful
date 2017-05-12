@@ -290,7 +290,7 @@ define([
 				sup.apply(this, arguments);
 
 				// Workaround iOS limitation where VoiceOver doesn't announce label of container.
-				if(has("ios")) {
+				if (has("ios")) {
 					var label;
 					if (name === "aria-label") {
 						label = value;
