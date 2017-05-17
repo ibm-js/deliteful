@@ -26,6 +26,13 @@
 .d-boilerplate-textbox .d-input-container-node input::-ms-clear {
   display: none;
 }
+.d-boilerplate-textbox .d-input-container-node input::-webkit-contacts-auto-fill-button {
+  visibility: hidden;
+  display: none !important;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+}
 .d-webkit .d-boilerplate-textbox.d-focused {
   outline-offset: -2px;
   outline: -webkit-focus-ring-color auto 5px;

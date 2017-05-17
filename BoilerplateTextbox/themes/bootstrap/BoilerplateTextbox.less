@@ -37,6 +37,16 @@
 		input::-ms-clear {
 			display: none;
 		}
+
+		// Stop Safari from sometimes displaying the "auto fill button" user icon.
+		// For some reason, only happens on some pages.
+		input::-webkit-contacts-auto-fill-button {
+			visibility: hidden;
+			display: none !important;
+			pointer-events: none;
+			position: absolute;
+			right: 0;
+		}
 	}
 
 	// Fake focus outline around the widget itself.
