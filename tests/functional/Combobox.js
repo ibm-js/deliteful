@@ -58,7 +58,7 @@ define([
 						valueNodeValue: "France",
 						opened: false,
 						selectedItemsCount: 0,
-						itemRenderersCount: 37,
+						itemRenderersCount: 0,
 						inputEventCounter: 0, // no event so far
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: undefined, // never received
@@ -318,7 +318,7 @@ define([
 						valueNodeValue: "",
 						opened: false,
 						selectedItemsCount: 0,
-						itemRenderersCount: 37,
+						itemRenderersCount: 0,
 						inputEventCounter: 0,
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: undefined, // never received
@@ -560,7 +560,7 @@ define([
 						valueNodeValue: "France",
 						opened: false,
 						selectedItemsCount: 0,
-						itemRenderersCount: 37,
+						itemRenderersCount: 0,
 						inputEventCounter: 0, // no event so far
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: undefined, // never received
@@ -666,7 +666,7 @@ define([
 						valueNodeValue: "",
 						opened: false,
 						selectedItemsCount: 0,
-						itemRenderersCount: 37,
+						itemRenderersCount: 0,
 						inputEventCounter: 0,
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: undefined, // never received
@@ -1024,7 +1024,7 @@ define([
 						valueNodeValueAtLatestInputEvent: undefined,
 						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after page load.");
+					}, "after page load and popup opened");
 			})
 			.pressKeys(keys.BACKSPACE) // Delete the 1 char of "France"
 			.execute(executeExpr)
@@ -1104,7 +1104,7 @@ define([
 						valueNodeValue: "France",
 						opened: false, // click() does not open the popup.
 						selectedItemsCount: 0,
-						itemRenderersCount: 37,
+						itemRenderersCount: 0,
 						inputEventCounter: 0, // unchanged
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: undefined,
@@ -1193,7 +1193,7 @@ define([
 						valueNodeValue: "",
 						opened: false, // click() does not open the popup.
 						selectedItemsCount: 0,
-						itemRenderersCount: 37, // the source is already attached, so items are already rendered.
+						itemRenderersCount: 0, // the source is already attached, but items not yet rendered.
 						inputEventCounter: 0, // unchanged
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: undefined,
@@ -1402,7 +1402,7 @@ define([
 						valueNodeValue: "FR",
 						opened: false,
 						selectedItemsCount: 0,
-						itemRenderersCount: 8,
+						itemRenderersCount: 0,
 						inputEventCounter: 0,
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: undefined, // never received

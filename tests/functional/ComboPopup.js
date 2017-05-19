@@ -52,7 +52,7 @@ define([
 						valueNodeValue: "France",
 						opened: false,
 						selectedItemsCount: 0,
-						itemRenderersCount: 37,
+						itemRenderersCount: 0,
 						inputEventCounter: 0,
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: undefined, // never received
@@ -65,7 +65,7 @@ define([
 			.sleep(500) // wait for List's loading panel to go away
 			.execute(executeExpr) // when the popup opens, focus goes on list's first item.
 			.then(function (comboState) {
-				// Clicking the root node just opens the dropdown. No other state change.
+				// Clicking the root node just opens the ComboPopup. No other state change.
 				checkComboState(comboId, comboState,
 					{ // expected combo state
 						inputNodeValue: "France",
@@ -220,7 +220,7 @@ define([
 						valueNodeValue: "France",
 						opened: false,
 						selectedItemsCount: 0,
-						itemRenderersCount: 37,
+						itemRenderersCount: 0,
 						inputEventCounter: 0, // no event so far
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: undefined, // never received
@@ -290,7 +290,7 @@ define([
 						valueNodeValue: "",
 						opened: false,
 						selectedItemsCount: 0,
-						itemRenderersCount: 37,
+						itemRenderersCount: 0,
 						inputEventCounter: 0, // no event so far
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: undefined, // never received
@@ -463,7 +463,7 @@ define([
 						valueNodeValue: "",
 						opened: false,
 						selectedItemsCount: 0,
-						itemRenderersCount: 37,
+						itemRenderersCount: 0,
 						inputEventCounter: 0,
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: undefined, // never received
@@ -484,7 +484,7 @@ define([
 						valueNodeValue: "",
 						opened: true,
 						selectedItemsCount: 0,
-						itemRenderersCount: 37,
+						itemRenderersCount: 0,
 						inputEventCounter: 0,
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: undefined, // never received
@@ -508,7 +508,7 @@ define([
 						valueNodeValue: "",
 						opened: true,
 						selectedItemsCount: 0,
-						itemRenderersCount: 37,
+						itemRenderersCount: 0,
 						inputEventCounter: 0,
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: undefined,
@@ -536,7 +536,7 @@ define([
 						valueNodeValue: "",
 						opened: true,
 						selectedItemsCount: 0,
-						itemRenderersCount: 37,
+						itemRenderersCount: 0,
 						inputEventCounter: 0,
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: undefined,
@@ -648,7 +648,7 @@ define([
 						valueNodeValue: "",
 						opened: false,
 						selectedItemsCount: 0,
-						itemRenderersCount: 37,
+						itemRenderersCount: 0,
 						inputEventCounter: 0,
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: undefined, // never received

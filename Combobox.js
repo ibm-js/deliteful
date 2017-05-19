@@ -4,6 +4,8 @@ define([
 	"requirejs-dplugins/jquery!attributes/classes,event",	// addClass(), css(), on(), off()
 	"dstore/Filter",
 	"dojo/string",
+	"decor/ObservableArray",
+	"decor/Observable",
 	"delite/register",
 	"delite/CssState",
 	"delite/FormValueWidget",
@@ -18,6 +20,8 @@ define([
 	$,
 	Filter,
 	string,
+	ObservableArray,
+	Observable,
 	register,
 	CssState,
 	FormValueWidget,
@@ -93,7 +97,6 @@ define([
 	 *   });
 	 * HTML:
 	 * <d-combobox id="combobox1">
-	 *   <d-list>
 	 *   { "label": "France", "sales": 500, "profit": 50, "region": "EU" },
 	 *   { "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
 	 *   { "label": "UK", "sales": 700, "profit": 60, "region": "EU" },
@@ -102,7 +105,6 @@ define([
 	 *   { "label": "Brazil", "sales": 450, "profit": 30, "region": "America" },
 	 *   { "label": "China", "sales": 500, "profit": 40, "region": "Asia" },
 	 *   { "label": "Japan", "sales": 900, "profit": 100, "region": "Asia" }
-	 *   </d-list>
 	 * </d-combobox>
 	 *
 	 * @example <caption>Programmatic</caption>
@@ -296,9 +298,10 @@ define([
 		_isMobile: !!ComboPopup,
 
 		createdCallback: function () {
-			// Declarative case (list specified declaratively inside the declarative Combobox)
+			// Declarative case.
 			var list = this.querySelector("d-list");
 			if (list) {
+				// Old API: <d-list> child of <d-combobox>.  Possibly remove this in the future.
 				if (!list.attached) {
 					list.addEventListener("customelement-attached", this._attachedlistener = function () {
 						list.removeEventListener("customelement-attached", this._attachedlistener);
@@ -308,6 +311,19 @@ define([
 				} else {
 					this.list = list;
 				}
+			} else if (this.textContent.trim()) {
+				// New API: JSON data as innerHTML of <d-combobox>.
+				var data = JSON.parse("[" + this.textContent + "]");
+				if (data.length) {
+					this.source = new ObservableArray();
+					for (var j = 0; j < data.length; j++) {
+						if (!data[j].id) {
+							data[j].id = Math.random();
+						}
+						this.source[j] = new Observable(data[j]);
+					}
+				}
+				this.textContent = "";
 			}
 		},
 
