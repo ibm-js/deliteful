@@ -16,7 +16,7 @@
 
 	<script type="text/javascript">
 		var ready = false; // set to true when the test page is ready
-		var scrollBy, onScroll, log, clearMsgArea;
+		var scrollBy100, onScroll, log, clearMsgArea;
 		require([
 			"delite/register",
 			"deliteful/ScrollableContainer",
@@ -30,7 +30,7 @@
 				reachedLeft = false, reachedRight = false;
 			var scrollableContainer = document.getElementById("scrollContainer");
 			
-			scrollBy = function() {
+			scrollBy100 = function() {
 				scrollableContainer.scrollBy({x: 100, y: 100}, 1000);
 			};
 			onScroll = function () {
@@ -110,7 +110,7 @@
 	<d-linear-layout style="height: 100%">
 		<d-linear-layout vertical="false">
 			<!-- Button to test the programmatic scroll API of ScrollableContainer -->
-			<button id="scrollButton" type="button" onclick="scrollBy();">
+			<button id="scrollButton" type="button" onclick="scrollBy100();">
 				Scroll
 			</button>
 			<textarea id="msgArea" readonly class="fill"></textarea>
