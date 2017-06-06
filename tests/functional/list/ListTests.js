@@ -17,23 +17,16 @@ define(["intern",
 				intern.config.WAIT_TIMEOUT,
 				intern.config.POLL_INTERVAL))
 		.then(function () {
-			return remote
-			.findById(listId)
-				.findAllByTagName(itemTag)
-					.then(function (result) {
-						assert.strictEqual(result.length, numberOfItemsExpected,
-								listId + " number of list items");
-						// TODO: check the label on each item
-					})
-					.end()
-				.findAllByTagName("d-list-category-renderer")
-					.then(function (result) {
-						assert.strictEqual(result.length, numberOfCategoriesExpected,
-								listId + " number of category headers");
-					})
-					// TODO: scroll ?
-					.end()
-				.end();
+			return remote.execute(
+				"return {" +
+				"	items: document.querySelectorAll('#" + listId + " " + itemTag + "').length," +
+				"	categories: document.querySelectorAll('#" + listId + " d-list-category-renderer').length," +
+				"}").then(function (result) {
+				assert.strictEqual(result.items, numberOfItemsExpected,
+					listId + " number of list items");
+				assert.strictEqual(result.categories, numberOfCategoriesExpected,
+					listId + " number of category headers");
+			});
 		});
 	};
 
@@ -41,18 +34,6 @@ define(["intern",
 		name: "List tests",
 		"list-prog-1.html": function () {
 			return basicTest(this.remote, "./list-prog-1.html", "list-prog-1", 100, 0, "d-list-item-renderer");
-		},
-		"list-prog-2.html": function () {
-			return basicTest(this.remote, "./list-prog-2.html", "list-prog-2", 100, 0, "d-list-item-renderer");
-		},
-		"list-prog-3.html": function () {
-			return basicTest(this.remote, "./list-prog-3.html", "list-prog-3", 100, 0, "d-list-item-renderer");
-		},
-		"list-prog-4.html": function () {
-			return basicTest(this.remote, "./list-prog-4.html", "list-prog-4", 100, 0, "d-list-item-renderer");
-		},
-		"list-prog-5.html": function () {
-			return basicTest(this.remote, "./list-prog-5.html", "list-prog-5", 100, 0, "d-list-item-renderer");
 		},
 		"list-mark-1.html": function () {
 			return basicTest(this.remote, "./list-mark-1.html", "list-mark-1", 10, 0, "d-list-item-renderer");

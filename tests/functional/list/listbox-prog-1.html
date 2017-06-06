@@ -12,21 +12,22 @@
 		var ready = false;
 		require([
 			"delite/register",
-			"dstore/Memory",
-			"dstore/Trackable",
 			"deliteful/list/List",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (register, Memory, Trackable, List) {
-  			// Programmatic list: default source, items added before adding the list to the document and before startup
-			var list = register.createElement("d-list");
-			list.type = "listbox";
-			list.id = "list-prog-1";
-			list.source = new (Memory.createSubclass([Trackable], {}))();
-			list.style.height = "200px";
- 			for (var i = 0; i < 100; i++) {
-				list.source.add({label: "Programmatic item of order " + i, righttext: list.id});
+		], function (register, List) {
+			var array = [];
+			for (var i = 0; i < 100; i++) {
+				array.push({label: "Programmatic item of order " + i, righttext: "list-prog-1"});
 			}
+
+ 			var list = new List({
+				id: "list-prog-1",
+				type: "listbox",
+				source: array
+			});
+			list.style.height = "200px";
+
 			document.getElementById("listPlaceholder").appendChild(list);
 			list.attachedCallback();
 

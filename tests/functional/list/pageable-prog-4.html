@@ -18,15 +18,6 @@
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
 		], function (Promise, register, PageableList, MemoryStore) {
-			var list = register.createElement("d-pageable-list");
-			list.id = "pageable-prog-4";
-			list.baseClass = "d-round-rect-list";
-			list.pageLength = 23;
-			list.maxPages = 2;
-			list.loadPreviousMessage = "Load previous data (up to ${pageLength} entries)";
-			list.loadNextMessage = "Load next data (up to ${pageLength} entries)";
-			list.loadingMessage = "Loading data";
-			list.style.height = "200px";
 			// Custom memory store with a customizable latency
 			var CustomMemoryStore = MemoryStore.createSubclass([], {
 				latency: 1500,
@@ -47,16 +38,30 @@
 					}.bind(this));
 				}
 			});
-			list.source = new CustomMemoryStore();
+			var store = new CustomMemoryStore();
  			for (var i = 0; i < 100; i++) {
-				list.source.add({label: "Programmatic item of order " + i, id: i});
+				store.add({label: "Programmatic item of order " + i, id: i});
 			}
+
+			var list = new PageableList({
+				id: "pageable-prog-4",
+				baseClass: "d-round-rect-list",
+				pageLength: 23,
+				maxPages: 2,
+				loadPreviousMessage: "Load previous data (up to ${pageLength} entries)",
+				loadNextMessage: "Load next data (up to ${pageLength} entries)",
+				loadingMessage: "Loading data",
+				source: store
+			});
+			list.style.height = "200px";
 			document.getElementById("listPlaceholder").appendChild(list);
 			list.attachedCallback();
+
 			var latencyIF = document.getElementById("latency");
 			latencyIF.onchange = function () {
 				list.source.latency = latencyIF.valueAsNumber;
 			};
+
 			ready = true;
 		});
 	</script>

@@ -12,22 +12,23 @@
 		var ready = false;
 		require([
 			"delite/register",
-			"dstore/Memory",
-			"dstore/Trackable",
 			"deliteful/list/PageableList",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (register, Memory, Trackable, PageableList) {
-			var list = register.createElement("d-pageable-list");
-			list.id = "pageable-prog-1";
-			list.source = new (Memory.createSubclass([Trackable], {}))();
-			list.pageLength = 20;
-			list.maxPages = 2;
-			list.style.height = "200px";
- 			for (var i = 0; i < 100; i++) {
-				list.source.add({label: "Programmatic item of order " + i});
+		], function (register, PageableList) {
+			var array = [];
+			for (var i = 0; i < 100; i++) {
+				array.push({label: "Programmatic item of order " + i});
 			}
-			document.getElementById("listPlaceholder").appendChild(list);
+
+			var list = new PageableList({
+				id: "pageable-prog-1",
+				source: array,
+				pageLength: 20,
+				maxPages: 2
+			});
+			list.style.height = "200px";
+ 			document.getElementById("listPlaceholder").appendChild(list);
 			list.attachedCallback();
 
 			ready = true;

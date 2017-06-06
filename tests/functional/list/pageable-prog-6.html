@@ -20,15 +20,6 @@
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
 		], function (Promise, register, Memory, Trackable, PageableList, MemoryStore) {
-			var list = register.createElement("d-pageable-list");
-			list.id = "pageable-prog-6";
-			list.source = new (Memory.createSubclass([Trackable], {}))();
-			list.pageLength = 23;
-			list.maxPages = 2;
-			list.hideOnPageLoad = true;
-			list.loadingMessage = "Updating content...";
-			list.autoPaging = true;
-			list.style.height = "200px";
 			// Custom memory store with a customizable latency
 			var CustomMemoryStore = MemoryStore.createSubclass([], {
 				latency: 1500,
@@ -49,12 +40,24 @@
 					}.bind(this));
 				}
 			});
-			list.source = new CustomMemoryStore();
+			var store = new CustomMemoryStore();
  			for (var i = 0; i < 100; i++) {
-				list.source.add({label: "Programmatic item of order " + i, id: i});
+				store.add({label: "Programmatic item of order " + i, id: i});
 			}
+
+			var list = new PageableList({
+				id: "pageable-prog-6",
+				pageLength: 23,
+				maxPages: 2,
+				hideOnPageLoad: true,
+				loadingMessage: "Updating content...",
+				autoPaging: true,
+				source: store
+			});
+			list.style.height = "200px";
 			document.getElementById("listPlaceholder").appendChild(list);
 			list.attachedCallback();
+
 			var latencyIF = document.getElementById("latency");
 			latencyIF.onchange = function () {
 				list.source.latency = latencyIF.valueAsNumber;

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
-	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
 	<title>Lists</title>
 
 	<script type="text/javascript" src="../../boilerplate.js"></script>
@@ -12,22 +12,23 @@
 		var ready = false;
 		require([
 			"delite/register",
-			"dstore/Memory",
-			"dstore/Trackable",
 			"deliteful/list/List",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (register, Memory, Trackable, List) {
-			// Programmatic list: default store, items added before adding the list to the document and before startup
-			var list = register.createElement("d-list");
-			list.id = "list-prog-1";
-			list.style.height = "200px";
-			list.source = new (Memory.createSubclass([Trackable], {}))();
+		], function (register, List) {
+			var array = [];
 			for (var i = 0; i < 100; i++) {
-				list.source.addSync({label: "Programmatic item of order " + i, righttext: list.id});
+				array[i] = {label: "Programmatic item of order " + i, righttext: "list-prog-1"};
 			}
+
+			var list = new List({
+				id: "list-prog-1",
+				source: array
+			});
+			list.style.height = "200px";
 			document.getElementById("listPlaceholder").appendChild(list);
 			list.attachedCallback();
+
 			ready = true;
 		});
 	</script>
@@ -42,7 +43,6 @@
 <body>
  	<input type="text" autofocus>
  	<br>
- 	<h2>Default store, items added before adding the list to the document and before startup (id: list-prog-1)</h2>
  	<div id="listPlaceholder"></div>
  	<input type="text">
 </body>
