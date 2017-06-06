@@ -19,54 +19,53 @@ define([
 
 		"Switch behavior": function () {
 			var remote = this.remote;
-			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName)) {
-				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
-				return this.skip("SafariDriver doesn't support moveTo.");
-			} else {
-				return loadFile(remote, "./Switch.html")
-					.findById("sw1")
-					.then(function (element) {
-						return remote.moveMouseTo(element, 60, 9);
-					})
-					.end()
-					.pressMouseButton()
-					.sleep(50)
-					.releaseMouseButton()
-					.then(function () {
-						pollUntil("return document.getElementById('sw1').checked ? true : null;", [],
-								2000, intern.config.POLL_INTERVAL);
-					})
-					.sleep(500)
-					.findById("sw1")
-					.then(function (element) {
-						return remote.moveMouseTo(element, 10, 9);
-					})
-					.end()
-					.pressMouseButton()
-					.sleep(50)
-					.releaseMouseButton()
-					.then(function () {
-						pollUntil("return document.getElementById('sw1').checked ? null : false;", [],
-								2000, intern.config.POLL_INTERVAL);
-					})
-					// click on disabled checkbox
-					.then(function () {
-						pollUntil("return document.getElementById('sw2').checked ? null : false;", [],
-								2000, intern.config.POLL_INTERVAL);
-					})
-					.findById("sw2")
-					.then(function (element) {
-						return remote.moveMouseTo(element, 60, 9);
-					})
-					.end()
-					.pressMouseButton()
-					.sleep(50)
-					.releaseMouseButton()
-					.then(function () {
-						pollUntil("return document.getElementById('sw2').checked ? null : false;", [],
-								2000, intern.config.POLL_INTERVAL);
-					});
+			if (/safari|firefox|iOS|selendroid/.test(remote.environmentType.browserName)) {
+				// See https://code.google.com/p/selenium/issues/detail?id=4136
+				return this.skip("moveMouseTo() unsupported");
 			}
+			return loadFile(remote, "./Switch.html")
+				.findById("sw1")
+				.then(function (element) {
+					return remote.moveMouseTo(element, 60, 9);
+				})
+				.end()
+				.pressMouseButton()
+				.sleep(50)
+				.releaseMouseButton()
+				.then(function () {
+					pollUntil("return document.getElementById('sw1').checked ? true : null;", [],
+							2000, intern.config.POLL_INTERVAL);
+				})
+				.sleep(500)
+				.findById("sw1")
+				.then(function (element) {
+					return remote.moveMouseTo(element, 10, 9);
+				})
+				.end()
+				.pressMouseButton()
+				.sleep(50)
+				.releaseMouseButton()
+				.then(function () {
+					pollUntil("return document.getElementById('sw1').checked ? null : false;", [],
+							2000, intern.config.POLL_INTERVAL);
+				})
+				// click on disabled checkbox
+				.then(function () {
+					pollUntil("return document.getElementById('sw2').checked ? null : false;", [],
+							2000, intern.config.POLL_INTERVAL);
+				})
+				.findById("sw2")
+				.then(function (element) {
+					return remote.moveMouseTo(element, 60, 9);
+				})
+				.end()
+				.pressMouseButton()
+				.sleep(50)
+				.releaseMouseButton()
+				.then(function () {
+					pollUntil("return document.getElementById('sw2').checked ? null : false;", [],
+							2000, intern.config.POLL_INTERVAL);
+				});
 		},
 
 		"Switch key nav": function () {
@@ -86,13 +85,13 @@ define([
 				.getActiveElement()
 				.getAttribute("name")
 				.then(function (v) {
-					assert.equal(v, "sw1", "Unexpected focused element after 1st TAB.");
+					assert.equal(v, "sw1", "focused element after 1st TAB.");
 				})
 				.end()
 				.pressKeys(keys.SPACE) // Press Space to check cb1
 				.execute("return document.getElementById('sw1').checked;")
 				.then(function (v) {
-					assert.isTrue(v, "Unexpected value for 'checked' property after pressing SPACE.");
+					assert.isTrue(v, "value for 'checked' property after pressing SPACE.");
 				})
 				.end()
 				.pressKeys(keys.TAB) // Press TAB -> skip cb2 (disabled)
@@ -100,7 +99,7 @@ define([
 				.getActiveElement()
 				.getVisibleText()
 				.then(function (v) {
-					assert.equal(v, "End", "Unexpected focused element after 2nd TAB.");
+					assert.equal(v, "End", "focused element after 2nd TAB.");
 				})
 				;
 		},
@@ -116,23 +115,23 @@ define([
 				.end()
 				.execute("return document.getElementById('valueFor_sw3');")
 				.then(function (value) {
-					assert.isNull(value, "Unexpected value for unchecked checkbox cb3.");
+					assert.isNull(value, "value for unchecked checkbox cb3.");
 				})
 				.end()
 				.findById("valueFor_sw4")
 				.getVisibleText()
 				.then(function (value) {
-					assert.equal(value, "2", "Unexpected value for checkbox cb4");
+					assert.equal(value, "2", "value for checkbox cb4");
 				})
 				.end()
 				.execute("return document.getElementById('valueFor_sw5');")
 				.then(function (value) {
-					assert.isNull(value, "Unexpected value for disabled checkbox cb5.");
+					assert.isNull(value, "value for disabled checkbox cb5.");
 				})
 				.findById("valueFor_sw6")
 				.getVisibleText()
 				.then(function (value) {
-					assert.equal(value, "4", "Unexpected value for checkbox cb6");
+					assert.equal(value, "4", "value for checkbox cb6");
 				})
 				.end()
 				;
@@ -161,7 +160,7 @@ define([
 				.sleep(500) // NOTE: waiting for the sliding to happen
 				.execute("return document.getElementById('sw71').checked;")
 				.then(function (value) {
-					assert.isTrue(value, "the switch shoud be enabled this time");
+					assert.isTrue(value, "the switch should be enabled this time");
 				})
 				.end()
 
@@ -175,7 +174,7 @@ define([
 				.sleep(500) // NOTE: waiting for the sliding to happen
 				.execute("return document.getElementById('sw72').checked;")
 				.then(function (value) {
-					assert.isFalse(value, "the switch shoud still be disabled");
+					assert.isFalse(value, "the switch should still be disabled");
 				})
 				.end()
 
@@ -189,7 +188,7 @@ define([
 				.sleep(500) // NOTE: waiting for the sliding to happen
 				.execute("return document.getElementById('sw73').checked;")
 				.then(function (value) {
-					assert.isFalse(value, "the switch shoud still be disabled");
+					assert.isFalse(value, "the switch should still be disabled");
 				})
 				.end()
 
@@ -203,7 +202,7 @@ define([
 				.sleep(500) // NOTE: waiting for the sliding to happen
 				.execute("return document.getElementById('sw74').checked;")
 				.then(function (value) {
-					assert.isTrue(value, "the switch shoud be enabled this time");
+					assert.isTrue(value, "the switch should be enabled this time");
 				})
 				.end()
 				;

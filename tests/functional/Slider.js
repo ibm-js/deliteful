@@ -35,9 +35,9 @@ define(["intern",
 		},
 		"single slider interaction": function () {
 			var remote = this.remote;
-			// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
-			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
-				return this.skip("SafariDriver doesn't support moveTo.");
+			// See https://code.google.com/p/selenium/issues/detail?id=4136
+			if (/safari|firefox|iOS|selendroid/.test(remote.environmentType.browserName)) {
+				return this.skip("moveMouseTo() unsupported");
 			}
 			if (remote.environmentType.brokenMouseEvents) {
 				// https://github.com/theintern/leadfoot/issues/103
@@ -83,10 +83,9 @@ define(["intern",
 		},
 		"range slider interaction": function () {
 			var remote = this.remote;
-			// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
-			if (/safari|iOS|selendroid|internet explorer/.test(remote.environmentType.browserName) ||
-				remote.environmentType.safari) {
-				return this.skip("moveTo not supported");
+			// See https://code.google.com/p/selenium/issues/detail?id=4136
+			if (/safari|firefox|iOS|selendroid|internet explorer/.test(remote.environmentType.browserName)) {
+				return this.skip("moveMouseTo not supported");
 			}
 			if (remote.environmentType.brokenMouseEvents) {
 				// https://github.com/theintern/leadfoot/issues/103
@@ -116,9 +115,9 @@ define(["intern",
 		},
 		"range slider interaction inside a listening parent": function () {
 			var remote = this.remote;
-			if (/safari|iOS|selendroid|internet explorer/.test(remote.environmentType.browserName) ||
-				remote.environmentType.safari) {
-				return this.skip("moveTo not supported");
+			if (/safari|firefox|iOS|selendroid|internet explorer/.test(remote.environmentType.browserName)) {
+				// See https://code.google.com/p/selenium/issues/detail?id=4136
+				return this.skip("moveMouseTo not supported");
 			}
 
 			return remote
@@ -330,7 +329,8 @@ define(["intern",
 				// 1. There is a pb with "change" event not fired after a click() on FF with selenium:
 				// https://code.google.com/p/selenium/issues/detail?id=157
 				// Slider does not listen on click events, so send mouseDown+Up to bypass FF problem.
-				// 2. click() seems to click on the center of the element whatever the previous moveTo(x,y) on Chrome
+				// 2. click() seems to click on the center of the element whatever the previous moveMouseTo(x,y)
+				// on Chrome
 				.pressMouseButton(0)
 				.sleep(50)
 				.releaseMouseButton(0)
