@@ -32,13 +32,15 @@ define([
 
 		"keyboard": function () {
 			// keyboard nav
-			// give the focus to the button to have a ref starting point in the chain
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
 			}
 			return loadFile(remote, "./Checkbox.html")
-				.execute("return document.getElementById('b1').focus();")
+				.findById("b1").click().end()
+				.getActiveElement().getAttribute("id").then(function (v) {
+					assert.strictEqual(v, "b1", "focused b1");
+				}).end()
 				.pressKeys(keys.TAB) // Press TAB -> cb1
 				.execute("return document.activeElement.getAttribute('name')").then(function (v) {
 					assert.strictEqual(v, "cb1", "focused element after 1st TAB.");
