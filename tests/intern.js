@@ -19,8 +19,7 @@ define({
 		// Desktop.
 		{ browserName: "internet explorer", version: "11", platform: "Windows 7", requireWindowFocus: "true",
 			name : "deliteful"},
-		{ browserName: "firefox", version: "31", platform: [ /*"OS X 10.6", "Linux", */ "Windows 7" ],
-			"selenium-version": "2.53.0",
+		{ browserName: "firefox", version: "53", platform: [ /*"OS X 10.6", "Linux", */ "Windows 7" ],
 			name : "deliteful"},
 		{ browserName: "chrome", version: "51", platform: [ /*"OS X 10.6", "Linux", */ "Windows 7" ],
 			name : "deliteful"},
@@ -37,7 +36,7 @@ define({
 	defaultTimeout: 300000, // 5 minutes
 
 	// Maximum time to wait for something (pollUntil, etc...)
-	WAIT_TIMEOUT: 180000, // 3 minutes
+	WAIT_TIMEOUT: 30000, // 30 seconds
 
 	// Interval between two polling requests, in milliseconds (for pollUntil)
 	POLL_INTERVAL: 500, // 0.5 seconds
