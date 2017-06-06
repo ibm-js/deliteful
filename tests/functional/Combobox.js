@@ -1560,7 +1560,12 @@ define([
 		},
 
 		"popup position after filter": function () {
-			return checkPopupPosition(this.remote, "combo2-custom-sel-single", "above");
+			var remote = this.remote;
+			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support");
+			}
+
+			return checkPopupPosition(remote, "combo2-custom-sel-single", "above");
 		},
 
 		"select item with currently displayed value": function () {
