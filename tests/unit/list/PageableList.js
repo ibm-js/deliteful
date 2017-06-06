@@ -114,10 +114,11 @@ define([
 	var testHelpers = {
 		"Helper: Removing items in displayed pages": function (/*Deferred*/dfd) {
 			/*jshint maxlen: 135*/
-			list = new PageableList({source: new Store()});
+			var store = new Store();
 			for (var i = 0; i < 92; i++) {
-				list.source.add({label: "item " + i, id: i});
+				store.add({label: "item " + i, id: i});
 			}
+			list = new PageableList({source: store});
 			list.pageLength = 23;
 			list.maxPages = 2;
 			document.body.appendChild(list);
@@ -193,17 +194,22 @@ define([
 				}));
 			}));
 			/*jshint maxlen: 120*/
+
 			return dfd;
 		},
+
 		"Helper: Removing items in next non displayed page": function (/*Deferred*/dfd) {
-			list = new PageableList({source: new Store()});
+			var store = new Store();
 			for (var i = 0; i < 92; i++) {
-				list.source.add({label: "item " + i, id: i});
+				store.add({label: "item " + i, id: i});
 			}
+
+			list = new PageableList({source: store});
 			list.pageLength = 23;
 			list.maxPages = 2;
 			document.body.appendChild(list);
 			list.attachedCallback();
+
 			// initial load (page 1 loaded)
 			list.deliver();
 			assertList(list, 0, 22, [], false, true, "assert 1");
@@ -214,19 +220,23 @@ define([
 				list.deliver();
 				assertList(list, 0, 47, [23, 25], false, true, "assert 2");
 			}));
+
 			return dfd;
 		},
-		"Helper: Removing items in previous non displayed page":
-			function (/*Deferred*/dfd) {
-			list = new PageableList({source: new Store()});
+
+		"Helper: Removing items in previous non displayed page": function (/*Deferred*/dfd) {
+			var store = new Store();
 			for (var i = 0; i < 92; i++) {
-				list.source.add({label: "item " + i, id: i});
+				store.add({label: "item " + i, id: i});
 			}
+
+			list = new PageableList({source: store});
 			list.pageLength = 23;
 			list.maxPages = 2;
 			document.body.appendChild(list);
 			list.attachedCallback();
 			list.deliver();
+
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 					list.deliver();
@@ -242,20 +252,24 @@ define([
 					}));
 				}));
 			}));
+
 			return dfd;
 		},
-		"Helper: Remove item and browse":
-			function (/*Deferred*/dfd) {
-			list = new PageableList({source: new Store()});
+
+		"Helper: Remove item and browse": function (/*Deferred*/dfd) {
+			var store = new Store();
 			for (var i = 0; i < 91; i++) {
-				list.source.add({label: "item " + i, id: i});
+				store.add({label: "item " + i, id: i});
 			}
+
+			list = new PageableList({source: store});
 			list.pageLength = 23;
 			list.maxPages = 2;
 			list.style.height = "200px";
 			document.body.appendChild(list);
 			list.attachedCallback();
 			list.deliver();
+
 			// Click next page loader three times
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
@@ -276,20 +290,25 @@ define([
 					}));
 				}));
 			}));
+
 			return dfd;
 		},
+
 		"Helper: Remove all items in non displayed first page removes previous page loader":
 			function (/*Deferred*/dfd) {
-			list = new PageableList({source: new Store()});
+			var store = new Store();
 			for (var i = 0; i < 91; i++) {
-				list.source.add({label: "item " + i, id: i});
+				store.add({label: "item " + i, id: i});
 			}
+
+			list = new PageableList({source: store});
 			list.pageLength = 23;
 			list.maxPages = 2;
 			list.style.height = "200px";
 			document.body.appendChild(list);
 			list.attachedCallback();
 			list.deliver();
+
 			// Click next page loader two times
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 				clickNextPageLoader(list).then(dfd.callback(function () {
@@ -302,22 +321,28 @@ define([
 					assertList(list, 23, 68, [], false, true);
 				}));
 			}));
+
 			return dfd;
 		},
+
 		"Helper: Add items in displayed page": function (/*Deferred*/dfd) {
 			/*jshint maxlen: 140*/
-			list = new PageableList({source: new Store()});
+			var store = new Store();
 			for (var i = 0; i < 92; i++) {
-				list.source.add({id: i, label: "item " + i});
+				store.add({label: "item " + i, id: i});
 			}
+
+			list = new PageableList({source: store});
 			list.pageLength = 23;
 			list.maxPages = 2;
 			document.body.appendChild(list);
 			list.attachedCallback();
 			list.deliver();
+
 			list.source.add({id: "A", label: "item A"}, {beforeId: 1});
 			list.source.add({id: "B", label: "item B"}, {beforeId: 22});
 			list.deliver();
+
 			// Check internal page representation
 			assert.strictEqual(list._idPages.length, 1, "A: number of pages");
 			assert.deepEqual(list._idPages[0],
@@ -403,13 +428,17 @@ define([
 				}));
 			}));
 			/*jshint maxlen: 120*/
+
 			return dfd;
 		},
+
 		"Helper: add item before first page creates loader": function (/*Deferred*/dfd) {
-			list = new PageableList({source: new Store()});
+			var store = new Store();
 			for (var i = 0; i < 24; i++) {
-				list.source.add({id: i, label: "item " + i});
+				store.add({label: "item " + i, id: i});
 			}
+
+			list = new PageableList({source: store});
 			list.pageLength = 23;
 			list.maxPages = 2;
 			document.body.appendChild(list);
@@ -444,13 +473,17 @@ define([
 				assert.strictEqual(removeTabsAndReturns(list.nextPageLoader.labelNode.textContent),
 						"Click to load 23 more items", "B");
 			}));
+
 			return dfd;
 		},
+
 		"Helper: add item after last page creates loader": function (/*Deferred*/dfd) {
-			list = new PageableList({source: new Store()});
+			var store = new Store();
 			for (var i = 0; i < 23; i++) {
-				list.source.add({id: i, label: "item " + i});
+				store.add({label: "item " + i, id: i});
 			}
+
+			list = new PageableList({source: store});
 			list.pageLength = 23;
 			list.maxPages = 0;
 			document.body.appendChild(list);
@@ -491,18 +524,23 @@ define([
 			}));
 			return dfd;
 		},
+
 		"Helper: add item to undisplayed page": function (/*Deferred*/dfd) {
-			list = new PageableList({source: new Store()});
+			var store = new Store();
 			for (var i = 0; i < 100; i++) {
-				list.source.add({id: i, label: "item " + i});
+				store.add({label: "item " + i, id: i});
 			}
+
+			list = new PageableList({source: store});
 			list.pageLength = 23;
 			list.maxPages = 1;
 			document.body.appendChild(list);
 			list.attachedCallback();
+
 			list.source.add({id: "A", label: "item A"}, {beforeId: 23});
 			list.deliver();
 			assertList(list, 0, 22, [], false, true, "A");
+
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 				list.deliver();
 				assert.strictEqual(list.containerNode.children.length, 23, "B: list number of children");
@@ -537,17 +575,20 @@ define([
 							"C: next page loader");
 				}));
 			}));
+
 			return dfd;
 		}
 	};
 
 	registerSuite({
 		name: "list/PageableList",
+
 		beforeEach: function () {
 			if (list) {
 				list.destroy();
 			}
 		},
+
 		"itemAdded": function () {
 			list = new PageableList({source: new Store()});
 			list.pageLength = 100;
@@ -600,6 +641,7 @@ define([
 			assert.strictEqual(list._firstLoaded, 1, "H");
 			assert.strictEqual(list._lastLoaded, 6, "H");
 		},
+
 		"itemRemoved": function () {
 			list = new PageableList({source: new Store()});
 			list.pageLength = 100;
@@ -649,17 +691,22 @@ define([
 			assert.strictEqual(list._firstLoaded, 1, "7");
 			assert.strictEqual(list._lastLoaded, 6, "7");
 		},
+
 		"Loading all next pages (pageLength 20, maxPages 0)" : function () {
 			var dfd = this.async(3000);
-			list = new PageableList({source: new Store()});
+
+			var store = new Store();
 			for (var i = 0; i < 100; i++) {
-				list.source.add({label: "item " + i});
+				store.add({label: "item " + i, id: i});
 			}
+
+			list = new PageableList({source: store});
 			list.pageLength = 20;
 			list.maxPages = 0;
 			document.body.appendChild(list);
 			list.attachedCallback();
 			list.deliver();
+
 			// initial load
 			assertList(list, 0, 19, [], false, true);
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
@@ -687,20 +734,26 @@ define([
 					}));
 				}));
 			}));
+
 			return dfd;
 		},
+
 		"Categorized list: Loading all next pages (pageLength 25, maxPages 0)" : function () {
 			var dfd = this.async(3000);
-			list = new PageableList({source: new Store()});
+
+			var store = new Store();
 			for (var i = 0; i < 100; i++) {
-				list.source.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
+				store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
 			}
+
+			list = new PageableList({source: store});
 			list.pageLength = 25;
 			list.maxPages = 0;
 			list.categoryAttr = "category";
 			document.body.appendChild(list);
 			list.attachedCallback();
 			list.deliver();
+
 			// initial load
 			assertCategorizedList(list, 25, 0, false, true);
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
@@ -723,20 +776,26 @@ define([
 					}));
 				}));
 			}));
+
 			return dfd;
 		},
+
 		"Loading all next pages, and then loading all previous pages (pageLength 20, maxPages 2)" : function () {
 			/*jshint maxlen: 138*/
 			var dfd = this.async(3000);
-			list = new PageableList({source: new Store()});
+
+			var store = new Store();
 			for (var i = 0; i < 100; i++) {
-				list.source.add({label: "item " + i});
+				store.add({label: "item " + i});
 			}
+
+			list = new PageableList({source: store});
 			list.pageLength = 20;
 			list.maxPages = 2;
 			document.body.appendChild(list);
 			list.attachedCallback();
 			list.deliver();
+
 			// initial load
 			assertList(list, 0, 19, [], false, true);
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
@@ -780,21 +839,27 @@ define([
 				}));
 			}));
 			/*jshint maxlen: 120*/
+
 			return dfd;
 		},
+
 		"Categorized List: loading all next pages, and then loading all previous pages (pageLength 20, maxPages 2)" :
 			function () {
 			var dfd = this.async(3000);
-			list = new PageableList({source: new Store()});
+
+			var store = new Store();
 			for (var i = 0; i < 100; i++) {
-				list.source.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
+				store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
 			}
+
+			list = new PageableList({source: store});
 			list.categoryAttr = "category";
 			list.pageLength = 25;
 			list.maxPages = 2;
 			document.body.appendChild(list);
 			list.attachedCallback();
 			list.deliver();
+
 			// initial load
 			assertCategorizedList(list, 25, 0, false, true);
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
@@ -827,19 +892,25 @@ define([
 					}));
 				}));
 			}));
+
 			return dfd;
 		},
+
 		"pageLength equal to the total number of item (maxPages 0)" : function () {
 			var dfd = this.async(3000);
-			list = new PageableList({source: new Store()});
+
+			var store = new Store();
 			for (var i = 0; i < 100; i++) {
-				list.source.add({label: "item " + i});
+				store.add({label: "item " + i});
 			}
+
+			list = new PageableList({source: store});
 			list.pageLength = 100;
 			list.maxPages = 0;
 			document.body.appendChild(list);
 			list.attachedCallback();
 			list.deliver();
+
 			// initial load
 			assertList(list, 0, 99, [], false, true);
 			clickNextPageLoader(list).then(dfd.callback(function () {
@@ -847,61 +918,79 @@ define([
 				// after a click on the next page loader
 				assertList(list, 0, 99, [], false, false);
 			}));
+
 			return dfd;
 		},
+
 		"Categorized List: pageLength equal to the total number of item (maxPages 0)" : function () {
 			var dfd = this.async(3000);
-			list = new PageableList({source: new Store()});
+
+			var store = new Store();
 			for (var i = 0; i < 100; i++) {
-				list.source.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
+				store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
 			}
+
+			list = new PageableList({source: store});
 			list.categoryAttr = "category";
 			list.pageLength = 100;
 			list.maxPages = 0;
 			document.body.appendChild(list);
 			list.attachedCallback();
-			// initial load
 			list.deliver();
+
+			// initial load
 			assertCategorizedList(list, 100, 0, false, true);
 			clickNextPageLoader(list).then(dfd.callback(function () {
 				list.deliver();
 				// after a click on the next page loader
 				assertCategorizedList(list, 100, 0, false, false);
 			}));
+
 			return dfd;
 		},
+
 		"pageLength equal to the total number of item (maxPages 2)" : function () {
 			var dfd = this.async(3000);
-			list = new PageableList({source: new Store()});
+
+			var store = new Store();
 			for (var i = 0; i < 100; i++) {
-				list.source.add({label: "item " + i});
+				store.add({label: "item " + i});
 			}
+
+			list = new PageableList({source: store});
 			list.pageLength = 100;
 			list.maxPages = 0;
 			document.body.appendChild(list);
 			list.attachedCallback();
-			// initial load
 			list.deliver();
+
+			// initial load
 			assertList(list, 0, 99, [], false, true);
 			clickNextPageLoader(list).then(dfd.callback(function () {
 				list.deliver();
 				// after a click on the next page loader
 				assertList(list, 0, 99, [], false, false);
 			}));
+
 			return dfd;
 		},
+
 		"Categorized List: pageLength equal to the total number of item (maxPages 2)" : function () {
 			var dfd = this.async(3000);
-			list = new PageableList({source: new Store()});
+
+			var store = new Store();
 			for (var i = 0; i < 100; i++) {
-				list.source.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
+				store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
 			}
+
+			list = new PageableList({source: store});
 			list.categoryAttr = "category";
 			list.pageLength = 100;
 			list.maxPages = 0;
 			document.body.appendChild(list);
 			list.attachedCallback();
 			list.deliver();
+
 			// initial load
 			assertCategorizedList(list, 100, 0, false, true);
 			clickNextPageLoader(list).then(dfd.callback(function () {
@@ -909,67 +998,87 @@ define([
 				// after a click on the next page loader
 				assertCategorizedList(list, 100, 0, false, false);
 			}));
+
 			return dfd;
 		},
+
 		"pageLength greater than the total number of item (maxPages 0)" : function () {
-			list = new PageableList({source: new Store()});
+			var store = new Store();
 			for (var i = 0; i < 100; i++) {
-				list.source.add({label: "item " + i});
+				store.add({label: "item " + i});
 			}
+
+			list = new PageableList({source: store});
 			list.pageLength = 101;
 			list.maxPages = 0;
 			document.body.appendChild(list);
 			list.attachedCallback();
-			// initial load
 			list.deliver();
+
+			// initial load
 			assertList(list, 0, 99, [], false, false);
 		},
+
 		"Categorized List: pageLength greater than the total number of item (maxPages 0)" : function () {
-			list = new PageableList({source: new Store()});
+			var store = new Store();
 			for (var i = 0; i < 100; i++) {
-				list.source.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
+				store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
 			}
+
+			list = new PageableList({source: store});
 			list.categoryAttr = "category";
 			list.pageLength = 101;
 			list.maxPages = 0;
 			document.body.appendChild(list);
 			list.attachedCallback();
 			list.deliver();
+
 			// initial load
 			assertCategorizedList(list, 100, 0, false, false);
 		},
+
 		"pageLength greater than the total number of item (maxPages 2)" : function () {
-			list = new PageableList({source: new Store()});
+			var store = new Store();
 			for (var i = 0; i < 100; i++) {
-				list.source.add({label: "item " + i});
+				store.add({label: "item " + i});
 			}
+
+			list = new PageableList({source: store});
 			list.pageLength = 101;
 			list.maxPages = 0;
 			document.body.appendChild(list);
 			list.attachedCallback();
 			list.deliver();
+
 			// initial load
 			assertList(list, 0, 99, [], false, false);
 		},
+
 		"Categorized List: pageLength greater than the total number of item (maxPages 2)" : function () {
-			list = new PageableList({source: new Store()});
+			var store = new Store();
 			for (var i = 0; i < 100; i++) {
-				list.source.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
+				store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
 			}
+
+			list = new PageableList({source: store});
 			list.categoryAttr = "category";
 			list.pageLength = 101;
 			list.maxPages = 0;
 			document.body.appendChild(list);
 			list.attachedCallback();
 			list.deliver();
+
 			// initial load
 			assertCategorizedList(list, 100, 0, false, false);
 		},
+
 		"list in a popup" : function () {
-			list = new PageableList({source: new Store()});
+			var store = new Store();
 			for (var i = 0; i < 100; i++) {
-				list.source.add({label: "item " + i});
+				store.add({label: "item " + i});
 			}
+
+			list = new PageableList({source: store});
 			list.pageLength = 25;
 			list.maxPages = 0;
 
@@ -990,11 +1099,14 @@ define([
 
 			}
 		},
+
 		"list with categories in a popup" : function () {
-			list = new PageableList({source: new Store()});
+			var store = new Store();
 			for (var i = 0; i < 100; i++) {
-				list.source.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
+				store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
 			}
+
+			list = new PageableList({source: store});
 			list.pageLength = 25;
 			list.maxPages = 0;
 			list.categoryAttr = "category";
@@ -1018,74 +1130,93 @@ define([
 			}
 		},
 
-			///////////////////////////////////////////
+		///////////////////////////////////////////
 		// TEST REMOVING ITEMS
 		///////////////////////////////////////////
 		"Removing items in displayed pages": function () {
 			return testHelpers["Helper: Removing items in displayed pages"](this.async(3000), false);
 		},
+
 		"Removing items in next non displayed page": function () {
 			return testHelpers["Helper: Removing items in next non displayed page"](this.async(3000), false);
 		},
+
 		"Removing items in previous non displayed page": function () {
 			return testHelpers["Helper: Removing items in previous non displayed page"](this.async(3000), false);
 		},
+
 		"Remove all items in non displayed first page": function () {
 			return testHelpers[
 			                   "Helper: Remove all items in non displayed first page removes previous page loader"
 			                   ](this.async(3000), false);
 		},
+
 		"Remove item and browse": function () {
 			return testHelpers["Helper: Remove item and browse"](this.async(3000), false);
 		},
+
 		///////////////////////////////////////////
 		// TEST ADDING ITEMS
 		///////////////////////////////////////////
 		"Add items in displayed pages": function () {
 			return testHelpers["Helper: Add items in displayed page"](this.async(3000), false);
 		},
+
 		"Add item before first page creates loader": function () {
 			return testHelpers["Helper: add item before first page creates loader"](this.async(3000), false);
 		},
+
 		"Add item after last page creates loader": function () {
 			return testHelpers["Helper: add item after last page creates loader"](this.async(3000), false);
 		},
+
 		"Add item to undisplayed page": function () {
 			return testHelpers["Helper: add item to undisplayed page"](this.async(3000), false);
 		},
+
 		"Update items in displayed page with index page > maxpages": function () {
 			var dfd = this.async(3000);
-			list = new PageableList({source: new Store()});
+
+			var store = new Store();
 			for (var i = 0; i < 20; i++) {
-				list.source.add({label: "item " + i, id: i});
+				store.add({label: "item " + i, id: i});
 			}
+
+			list = new PageableList({source: store});
 			list.pageLength = 5;
 			list.maxPages = 1;
 			document.body.appendChild(list);
 			list.attachedCallback();
-			// initial load (page 1 loaded)
 			list.deliver();
+
+			// initial load (page 1 loaded)
 			assertList(list, 0, 4, [], false, true, "assert 1");
 			clickNextPageLoader(list).then(dfd.callback(function () {
 				list.source.put({label: "item A", id: 6});
 				list.deliver();
 				assert.strictEqual(removeTabsAndReturns(list.containerNode.children[1].textContent), "item A");
 			}));
+
 			return dfd;
 		},
+
 		"Reload list content": function () {
 			var dfd = this.async(3000);
-			list = new PageableList({source: new Store()});
+
+			var store = new Store();
 			for (var i = 0; i < 100; i++) {
-				list.source.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
+				store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
 			}
+
+			list = new PageableList({source: store});
 			list.categoryAttr = "category";
 			list.pageLength = 25;
 			list.maxPages = 0;
 			document.body.appendChild(list);
 			list.attachedCallback();
-			// initial load
 			list.deliver();
+
+			// initial load
 			assertCategorizedList(list, 25, 0, false, true);
 			clickNextPageLoader(list).then(dfd.callback(function () {
 				list.deliver();
@@ -1099,19 +1230,25 @@ define([
 				list.deliver();
 				assertCategorizedList(list, 25, 1000, false, true);
 			}));
+
 			return dfd;
 		},
+
 		"Update pageLength": function () {
 			var dfd = this.async(3000);
-			list = new PageableList({source: new Store()});
+
+			var store = new Store();
 			for (var i = 0; i < 100; i++) {
-				list.source.add({label: "item " + i});
+				store.add({label: "item " + i});
 			}
+
+			list = new PageableList({source: store});
 			list.pageLength = 10;
 			list.maxPages = 2;
 			document.body.appendChild(list);
 			list.attachedCallback();
 			list.deliver();
+
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 				list.deliver();
 				assertList(list, 0, 19, [], false, true, "A");
@@ -1129,19 +1266,25 @@ define([
 					}));
 				}));
 			}));
+
 			return dfd;
 		},
+
 		"Update maxPages": function () {
 			var dfd = this.async(3000);
-			list = new PageableList({source: new Store()});
+
+			var store = new Store();
 			for (var i = 0; i < 100; i++) {
-				list.source.add({label: "item " + i});
+				store.add({label: "item " + i});
 			}
+
+			list = new PageableList({source: store});
 			list.pageLength = 10;
 			list.maxPages = 2;
 			document.body.appendChild(list);
 			list.attachedCallback();
 			list.deliver();
+
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 					list.deliver();
@@ -1157,19 +1300,25 @@ define([
 					}));
 				}));
 			}));
+
 			return dfd;
 		},
+
 		"Update loadPreviousMessage": function () {
 			var dfd = this.async(3000);
-			list = new PageableList({source: new Store()});
+
+			var store = new Store();
 			for (var i = 0; i < 100; i++) {
-				list.source.add({label: "item " + i});
+				store.add({label: "item " + i});
 			}
+
+			list = new PageableList({source: store});
 			list.pageLength = 10;
 			list.maxPages = 1;
 			document.body.appendChild(list);
 			list.attachedCallback();
 			list.deliver();
+
 			clickNextPageLoader(list).then(dfd.callback(function () {
 				list.deliver();
 				assertList(list, 10, 19, [], true, true, "A");
@@ -1178,19 +1327,25 @@ define([
 				assert.strictEqual(removeTabsAndReturns(list.previousPageLoader.labelNode.textContent),
 						"foo", "loader label not updated");
 			}));
+
 			return dfd;
 		},
+
 		"Update loadNextMessage": function () {
 			var dfd = this.async(3000);
-			list = new PageableList({source: new Store()});
+
+			var store = new Store();
 			for (var i = 0; i < 100; i++) {
-				list.source.add({label: "item " + i});
+				store.add({label: "item " + i});
 			}
+
+			list = new PageableList({source: store});
 			list.pageLength = 10;
 			list.maxPages = 1;
 			document.body.appendChild(list);
 			list.attachedCallback();
 			list.deliver();
+
 			clickNextPageLoader(list).then(dfd.callback(function () {
 				list.deliver();
 				assertList(list, 10, 19, [], true, true, "A");
@@ -1199,20 +1354,26 @@ define([
 				assert.strictEqual(removeTabsAndReturns(list.nextPageLoader.labelNode.textContent),
 						"foo", "loader label not updated");
 			}));
+
 			return dfd;
 		},
+
 		"hideOnPageLoad: hidding panel removed after loading the last page" : function () {
 			var dfd = this.async(3000);
-			list = new PageableList({source: new Store()});
+
+			var store = new Store();
 			for (var i = 0; i < 39; i++) {
-				list.source.add({label: "item " + i});
+				store.add({label: "item " + i});
 			}
+
+			list = new PageableList({source: store});
 			list.hideOnPageLoad = true;
 			list.pageLength = 20;
 			list.maxPages = 0;
 			document.body.appendChild(list);
 			list.attachedCallback();
 			list.deliver();
+
 			// initial load
 			assertList(list, 0, 19, [], false, true);
 			clickNextPageLoader(list).then(dfd.callback(function () {
@@ -1223,15 +1384,20 @@ define([
 				assert.isNotNull(list.querySelector(".d-list-loading-panel[d-shown='false']"),
 						"loading panel should not be visible");
 			}));
+
 			return dfd;
 		},
 
 		"hideOnPageLoad: check loading panel, list and loaders visibility" : function () {
 			var dfd = this.async(3000);
-			list = new PageableList({source: new Store()});
+
+			var store = new Store();
 			for (var i = 0; i < 92; i++) {
-				list.source.add({label: "item " + i});
+				store.add({label: "item " + i});
 			}
+
+			list = new PageableList({source: store});
+
 			list.hideOnPageLoad = true;
 			list.pageLength = 20;
 			list.maxPages = 0;
@@ -1251,6 +1417,7 @@ define([
 						"next loader should not be visible");
 			list.hideOnPageLoad = false;
 			list.deliver();
+
 			// verify that loading panel and prev loader are not shown,
 			// list and next loader are visible when busy equals to true.
 			assert.isNotNull(list.querySelector(".d-list-loading-panel[d-shown='false']"),
@@ -1262,6 +1429,7 @@ define([
 			assert.isNotNull(list.querySelector(".d-list-next-loader[d-shown='true']"),
 					"next loader should be visible");
 			list._busy = false;
+
 			clickNextPageLoader(list).then(dfd.callback(function () {
 				list.deliver();
 				// verify that loading panel is not displayed
@@ -1269,9 +1437,9 @@ define([
 						"loading panel should be visible");
 			}));
 
-
 			return dfd;
 		},
+
 		"autoPaging: categorized list with category headers destroyed when loading pages": function () {
 			var TIMEOUT = 3000;
 			var INTERVAL = 500;
@@ -1280,18 +1448,23 @@ define([
 				return;
 			}
 			var def = this.async(1000 + 3 * TIMEOUT);
-			list = new PageableList({source: new Store()});
+
+			var store = new Store();
+			for (var i = 0; i < 100; i++) {
+				store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
+			}
+			
+			list = new PageableList({source: store});
 			list.categoryAttr = "category";
 			list.pageLength = 25;
 			list.maxPages = 2;
 			list.style.height = "200px";
 			list.autoPaging = true;
-			for (var i = 0; i < 100; i++) {
-				list.source.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
-			}
+
 			document.body.appendChild(list);
 			list.attachedCallback();
 			list.deliver();
+
 			// initial load
 			assertCategorizedList(list, 25, 0, false, true);
 			setTimeout(def.rejectOnError(function () {
@@ -1346,26 +1519,34 @@ define([
 					}), 10);
 				}));
 			}), 10);
+
 			return def;
 		},
+
 		"getItemRendererByIndex ignores page loaders": function () {
 			var dfd = this.async(3000);
-			list = new PageableList({source: new Store()});
+
+			var store = new Store();
 			for (var i = 0; i < 100; i++) {
-				list.source.add({label: "item " + i});
+				store.add({label: "item " + i});
 			}
+
+			list = new PageableList({source: store});
 			list.pageLength = 10;
 			list.maxPages = 1;
 			document.body.appendChild(list);
 			list.attachedCallback();
 			list.deliver();
+
 			clickNextPageLoader(list).then(dfd.callback(function () {
 				list.deliver();
 				assert.strictEqual("item 10",
 						removeTabsAndReturns(list.getItemRendererByIndex(0).textContent));
 			}));
+
 			return dfd;
 		},
+
 		///////////////////////////////////////////
 		// TODO: TEST MOVING ITEMS ?
 		///////////////////////////////////////////
