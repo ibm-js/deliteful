@@ -7,28 +7,24 @@ define([
 	"require"
 ], function (intern, registerSuite, pollUntil, keys, assert, require) {
 	
-	var pollUntilStarRatingReady = function (widgetId, timeout, pollInterval) {
-		return pollUntil("return document.querySelector('#" + widgetId + " > div');", [], timeout, pollInterval);
-	};
-
 	var clickOnStar = function (remote, widgetId, starIndex /*first index is 1*/,
 		firstHalf/*true to click on the first half, false to click the second half*/) {
 
 		var divIndex = starIndex * 2 + (firstHalf ? 0 : 1);
 		return remote
-			.findByXpath("//*[@id='" + widgetId + "']/div/div[" + divIndex + "]")
+			.findByCssSelector("#" + widgetId + " .d-star-rating-star-icon:nth-child(" + divIndex + ")")
 				.click()
 				.end();
 	};
 
 	var clickOnZeroSettingArea = function (remote, widgetId) {
 		return remote
-			.findByXpath("//*[@id='" + widgetId + "']/div/div[1]")
+			.findByCssSelector("#" + widgetId + " .d-star-rating-zero")
 				.click()
 				.end();
 	};
 
-	var checkSubmitedParameters = function (remote, /*Array*/expectedKeys, /*Array*/expectedValues) {
+	var checkSubmittedParameters = function (remote, /*Array*/expectedKeys, /*Array*/expectedValues) {
 		var expected = [];
 		for (var i = 0; i < expectedKeys.length; i++) {
 			expected.push(expectedKeys[i]);
@@ -42,36 +38,39 @@ define([
 			.end();
 	};
 
-	var checkRating = function (remote, widgetId, expectedMax, expectedValue, expectedDisabled) {
+	var checkRating = function (remote, widgetId, expectedMax, expectedValue, expectedDisabled, comment) {
 		return remote
-			.findByXpath("//*[@id='" + widgetId + "']/div")
+			.execute("return document.getElementById('" + widgetId + "').value;").then(function (value) {
+				assert.strictEqual(value, expectedValue, "value " + comment);
+			})
+			.findByCssSelector("#" + widgetId + " [role=slider]")
 				.getAttribute("aria-valuenow")
 				.then(function (value) {
-					assert.strictEqual(value, expectedValue.toString(), "aria-valuenow");
+					assert.strictEqual(value, expectedValue.toString(), "aria-valuenow " + comment);
 				})
 				.getAttribute("aria-disabled")
 				.then(function (value) {
-					assert.strictEqual(value, expectedDisabled ? "true" : "false", "aria-disabled");
+					assert.strictEqual(value, expectedDisabled ? "true" : "false", "aria-disabled " + comment);
 				})
 				.getAttribute("tabindex")
 				.then(function (value) {
-					assert.strictEqual(value, expectedDisabled ? null : "0", "tabIndex");
+					assert.strictEqual(value, expectedDisabled ? null : "0", "tabIndex " + comment);
 				})
 				.getAttribute("role")
 				.then(function (value) {
-					assert.strictEqual(value, "slider", "role");
+					assert.strictEqual(value, "slider", "role " + comment);
 				})
 				.getAttribute("aria-valuemin")
 				.then(function (value) {
-					assert.strictEqual(value, "0", "aria-valuemin");
+					assert.strictEqual(value, "0", "aria-valuemin " + comment);
 				})
 				.getAttribute("aria-valuemax")
 				.then(function (value) {
-					assert.strictEqual(value, expectedMax.toString(), "aria-valuemax");
+					assert.strictEqual(value, expectedMax.toString(), "aria-valuemax " + comment);
 				})
 				.getAttribute("aria-valuetext")
 				.then(function (value) {
-					assert.strictEqual(value, expectedValue + " stars", "aria-valuetest");
+					assert.strictEqual(value, expectedValue + " stars", "aria-valuetest " + comment);
 				})
 				.end()
 			.execute("return Array.prototype.map.call(" + widgetId
@@ -95,18 +94,15 @@ define([
 	var defaultEditableRatingTest = function (remote, widgetId, halfStars, zeroSetting, expectedInitialValue) {
 		var expectedAfterClickOnThirdStar = halfStars ? 2.5 : 3;
 		return remote
-		.get(require.toUrl("./StarRating.html"))
-		.then(pollUntilStarRatingReady(widgetId, intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
-		// Check initial rating
 		.then(function () {
-			return checkRating(remote, widgetId, 7, expectedInitialValue, false);
+			return checkRating(remote, widgetId, 7, expectedInitialValue, false, "initial value");
 		})
 		// check rating change after firing down and up events on a star
 		.then(function () {
 			return clickOnStar(remote, widgetId, 3, true);
 		})
 		.then(function () {
-			return checkRating(remote, widgetId, 7, expectedAfterClickOnThirdStar, false);
+			return checkRating(remote, widgetId, 7, expectedAfterClickOnThirdStar, false, "after click on star");
 		})
 		// set zero rating
 		.then(function () {
@@ -116,7 +112,7 @@ define([
 		})
 		.then(function () {
 			if (zeroSetting) {
-				return checkRating(remote, widgetId, 7, 0, false);
+				return checkRating(remote, widgetId, 7, 0, false, "after click on zero setting area");
 			}
 		});
 		///////////////////////////////////////////
@@ -124,38 +120,42 @@ define([
 		///////////////////////////////////////////
 	};
 
-	console.log("# Registering StarRating tests");
 	registerSuite({
 		name: "StarRating tests",
+		setup: function () {
+			return this.remote
+				.get(require.toUrl("./StarRating.html"))
+				.then(pollUntil("return ('ready' in window &&  ready) ? true : null", [],
+					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
+		},
+
 		"read only ltr": function () {
 			var remote = this.remote, widgetId = "star";
 			return remote
-				.get(require.toUrl("./StarRating.html"))
-				.then(pollUntilStarRatingReady(widgetId, intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 				.then(function () {
 					// Check initial rating
-					return checkRating(remote, widgetId, 1, 0, false);
+					return checkRating(remote, widgetId, 1, 0, false, "initial");
 				})
 				// click the + button and verify the value is updated
 				.findById("starplus")
 					.click()
 					.then(function () {
-						checkRating(remote, widgetId, 1, 0.5, false);
+						checkRating(remote, widgetId, 1, 0.5, false, "star plus 1");
 					})
 					.click()
 					.then(function () {
-						checkRating(remote, widgetId, 1, 1, false);
+						checkRating(remote, widgetId, 1, 1, false, "star plus 2");
 					})
 					.end()
 				// click the - button and verify the value is updated
 				.findById("starminus")
 					.click()
 					.then(function () {
-						checkRating(remote, widgetId, 1, 0.5, false);
+						checkRating(remote, widgetId, 1, 0.5, false, "star minus 1");
 					})
 					.click()
 					.then(function () {
-						checkRating(remote, widgetId, 1, 0, false);
+						checkRating(remote, widgetId, 1, 0, false, "star minus 2");
 					})
 					.end()
 				// click on the star: doesn't change anything
@@ -163,9 +163,10 @@ define([
 					return clickOnStar(remote, widgetId, 1, true);
 				})
 				.then(function () {
-					return checkRating(remote, widgetId, 1, 0, false);
+					return checkRating(remote, widgetId, 1, 0, false, "click on star");
 				});
 		},
+
 		"editable ltr": function () {
 			if (this.remote.environmentType.brokenMouseEvents) {
 				// https://github.com/theintern/leadfoot/issues/17
@@ -177,8 +178,10 @@ define([
 			}
 			return defaultEditableRatingTest(this.remote, "editablestar1", false, true, 0);
 		},
+
 		"editable half values ltr": function () {
-			if (this.remote.environmentType.brokenMouseEvents) {
+			if (this.remote.environmentType.brokenMouseEvents ||
+					/firefox/i.test(this.remote.environmentType.browserName)) {
 				// https://github.com/theintern/leadfoot/issues/17
 				return this.skip("click() doesn't generate mousedown, so value won't be updated");
 			}
@@ -188,8 +191,10 @@ define([
 			}
 			return defaultEditableRatingTest(this.remote, "editablestar2", true, true, 0);
 		},
+
 		"editable half values no zero setting ltr": function () {
-			if (this.remote.environmentType.brokenMouseEvents) {
+			if (this.remote.environmentType.brokenMouseEvents ||
+				/firefox/i.test(this.remote.environmentType.browserName)) {
 				// https://github.com/theintern/leadfoot/issues/17
 				return this.skip("click() doesn't generate mousedown, so value won't be updated");
 			}
@@ -199,8 +204,10 @@ define([
 			}
 			return defaultEditableRatingTest(this.remote, "editablestar5", true, false, 0.5);
 		},
+
 		"editable programmatic onchange ltr": function () {
-			if (this.remote.environmentType.brokenMouseEvents) {
+			if (this.remote.environmentType.brokenMouseEvents ||
+				/firefox/i.test(this.remote.environmentType.browserName)) {
 				// https://github.com/theintern/leadfoot/issues/17
 				return this.skip("click() doesn't generate mousedown, so value won't be updated");
 			}
@@ -211,11 +218,9 @@ define([
 
 			var remote = this.remote, id = "editablestar6";
 			return remote
-				.get(require.toUrl("./StarRating.html"))
-				.then(pollUntilStarRatingReady(id, intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 				// Check initial rating
 				.then(function () {
-					return checkRating(remote, id, 7, 3.5, false);
+					return checkRating(remote, id, 7, 3.5, false, "initial");
 				})
 				// Check message
 				.findById(id + "value")
@@ -229,7 +234,7 @@ define([
 					return clickOnStar(remote, id, 3, true);
 				})
 				.then(function () {
-					return checkRating(remote, id, 7, 2.5, false);
+					return checkRating(remote, id, 7, 2.5, false, "click on star");
 				})
 				// Check message
 				.findById(id + "value")
@@ -243,7 +248,7 @@ define([
 					return clickOnZeroSettingArea(remote, id);
 				})
 				.then(function () {
-					return checkRating(remote, id, 7, 0, false);
+					return checkRating(remote, id, 7, 0, false, "click on zero setting");
 				})
 				// Check message
 				.findById(id + "value")
@@ -253,91 +258,88 @@ define([
 					})
 					.end();
 		},
+
 		"default": function () {
 			var remote = this.remote, id = "defaultstar";
 			return remote
-			.get(require.toUrl("./StarRating.html"))
-			.then(pollUntilStarRatingReady(id, intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
-			// Check initial rating
-			.then(function () {
-				return checkRating(remote, id, 5, 0, false);
-			});
+				// Check initial rating
+				.then(function () {
+					return checkRating(remote, id, 5, 0, false, "initial");
+				});
 		},
+
 		"tab order": function () {
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
 			}
 			return remote
-			.get(require.toUrl("./StarRating.html"))
-			.then(pollUntil("return 'ready' in window && ready ? true : null;", [],
-					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
-			// Check active element
-			.execute("return document.activeElement.id;")
-			.then(function (value) {
-				assert.strictEqual(value, "afinput");
-			})
-			.pressKeys(keys.TAB)
-			.execute("return document.activeElement.parentNode.id;")
-			.then(function (value) {
-				assert.strictEqual(value, "firsttabindexstar");
-			})
-			.pressKeys(keys.TAB)
-			.execute("return document.activeElement.parentNode.id")
-			.then(function (value) {
-				assert.strictEqual(value, "secondtabindexstar");
-			})
-			.pressKeys(keys.TAB)
-			.execute("return document.activeElement.parentNode.id")
-			.then(function (value) {
-				assert.strictEqual(value, "star");
-			})
-			.pressKeys(keys.TAB)
-			.execute("return document.activeElement.id")
-			.then(function (value) {
-				assert.strictEqual(value, "starminus");
-			})
-			.pressKeys(keys.TAB)
-			.execute("return document.activeElement.id")
-			.then(function (value) {
-				assert.strictEqual(value, "starplus");
-			})
-			.pressKeys(keys.TAB)
-			.execute("return document.activeElement.parentNode.id")
-			.then(function (value) {
-				assert.strictEqual(value, "editablestar1");
-			})
-			.pressKeys(keys.TAB)
-			.execute("return document.activeElement.parentNode.id")
-			.then(function (value) {
-				assert.strictEqual(value, "editablestar2");
-			})
-			.pressKeys(keys.TAB)
-			.execute("return document.activeElement.parentNode.id")
-			.then(function (value) {
-				assert.strictEqual(value, "editablestar5");
-			})
-			.pressKeys(keys.TAB)
-			.execute("return document.activeElement.parentNode.id")
-			.then(function (value) {
-				assert.strictEqual(value, "editablestar6");
-			})
-			.pressKeys(keys.TAB)
-			.execute("return document.activeElement.parentNode.id")
-			.then(function (value) {
-				assert.strictEqual(value, "defaultstar");
-			});
+				.findById("afinput").click().end()
+				.pressKeys(keys.TAB)
+				.execute("return document.activeElement.parentNode.id;")
+				.then(function (value) {
+					assert.strictEqual(value, "firsttabindexstar");
+				})
+				.pressKeys(keys.TAB)
+				.execute("return document.activeElement.parentNode.id")
+				.then(function (value) {
+					assert.strictEqual(value, "secondtabindexstar");
+				})
+				.pressKeys(keys.TAB)
+				.execute("return document.activeElement.parentNode.id")
+				.then(function (value) {
+					assert.strictEqual(value, "star");
+				})
+				.pressKeys(keys.TAB)
+				.execute("return document.activeElement.id")
+				.then(function (value) {
+					assert.strictEqual(value, "starminus");
+				})
+				.pressKeys(keys.TAB)
+				.execute("return document.activeElement.id")
+				.then(function (value) {
+					assert.strictEqual(value, "starplus");
+				})
+				.pressKeys(keys.TAB)
+				.execute("return document.activeElement.parentNode.id")
+				.then(function (value) {
+					assert.strictEqual(value, "editablestar1");
+				})
+				.pressKeys(keys.TAB)
+				.execute("return document.activeElement.parentNode.id")
+				.then(function (value) {
+					assert.strictEqual(value, "editablestar2");
+				})
+				.pressKeys(keys.TAB)
+				.execute("return document.activeElement.parentNode.id")
+				.then(function (value) {
+					assert.strictEqual(value, "editablestar5");
+				})
+				.pressKeys(keys.TAB)
+				.execute("return document.activeElement.parentNode.id")
+				.then(function (value) {
+					assert.strictEqual(value, "editablestar6");
+				})
+				.pressKeys(keys.TAB)
+				.execute("return document.activeElement.parentNode.id")
+				.then(function (value) {
+					assert.strictEqual(value, "defaultstar");
+				});
 		},
+
 		"disabled": function () {
-			var remote = this.remote, id = "starrating3";
+			var remote = this.remote, id = "disabled";
 			return remote
-			.get(require.toUrl("./StarRating-form.html"))
-			.then(pollUntilStarRatingReady(id, intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
-			// Check initial rating
-			.then(function () {
-				return checkRating(remote, id, 7, 3, true);
-			});
-		},
+				// Check initial rating
+				.then(function () {
+					return checkRating(remote, id, 7, 3, true, "initial");
+				});
+		}
+	});
+
+	registerSuite({
+		name: "StarRating form tests",
+
 		"form back button": function () {
 			var remote = this.remote;
 			// Safari driver does not support the back method
@@ -366,12 +368,12 @@ define([
 			.then(pollUntil("return document.getElementById('parameters');", [],
 					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 			.then(function () {
-				return checkSubmitedParameters(remote, ["star1", "star2"], ["7", "2"])
+				return checkSubmittedParameters(remote, ["star1", "star2"], ["7", "2"])
 					.goBack()
 					.then(pollUntil("return 'ready' in window && ready ? true : null;", [],
 							intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 					.then(function () {
-						return checkRating(remote, "starratingA", 7, 7, false);
+						return checkRating(remote, "starratingA", 7, 7, false, "go back 1");
 					})
 					.findById("submitButton")
 						.click()
@@ -379,16 +381,17 @@ define([
 						.then(pollUntil("return document.getElementById('parameters');", [],
 								intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 					.then(function () {
-						return checkSubmitedParameters(remote, ["star1", "star2"], ["7", "2"]);
+						return checkSubmittedParameters(remote, ["star1", "star2"], ["7", "2"]);
 					})
 					.goBack()
 					.then(pollUntil("return 'ready' in window && ready ? true : null;", [],
 							intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 					.then(function () {
-						return checkRating(remote, "starratingA", 7, 7, false);
+						return checkRating(remote, "starratingA", 7, 7, false, "go back 2");
 					});
 			});
 		},
+
 		"form values": function () {
 			if (this.remote.environmentType.brokenMouseEvents) {
 				// https://github.com/theintern/leadfoot/issues/17
@@ -401,7 +404,8 @@ define([
 			var remote = this.remote, id = "starrating1";
 			return remote
 			.get(require.toUrl("./StarRating-form.html"))
-			.then(pollUntilStarRatingReady(id, intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
+			.then(pollUntil("return ('ready' in window &&  ready) ? true : null", [],
+				intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 			.then(function () {
 				return clickOnStar(remote, id, 2, false);
 			})
@@ -412,7 +416,7 @@ define([
 					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 			.end()
 			.then(function () {
-				return checkSubmitedParameters(remote, ["star1", "star2", "star4", "star5"], ["2", "2", "4", "5"]);
+				return checkSubmittedParameters(remote, ["star1", "star2", "star4", "star5"], ["2", "2", "4", "5"]);
 			});
 		}
 	});
