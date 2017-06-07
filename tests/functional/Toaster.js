@@ -2,9 +2,8 @@ define(["intern",
 	"intern!object",
 	"intern/dojo/node!leadfoot/helpers/pollUntil",
 	"intern/chai!assert",
-	"require",
-	"requirejs-dplugins/Promise!"
-], function (intern, registerSuite, pollUntil, assert, require, Promise) {
+	"require"
+], function (intern, registerSuite, pollUntil, assert, require) {
 	var PAGE = "./Toaster.html";
 
 	// helpers
@@ -60,13 +59,10 @@ define(["intern",
 
 	function checkNumberOfMessages(remote, toasterId, expected) {
 		return remote
-			.findById(toasterId)
-			.findAllByCssSelector(".d-toaster-message")
-			.then(function (value) {
-				//console.log("####", value)
-				assert.strictEqual(value.length, expected, "number of messages is correct");
-			})
-			.end();
+			.execute("return document.querySelectorAll('#" + toasterId + " .d-toaster-message').length;")
+			.then(function (length) {
+				assert.strictEqual(length, expected, "number of messages");
+			});
 	}
 
 	function clickButton(remote, buttonId) {
@@ -151,7 +147,6 @@ define(["intern",
 			.end();
 	}
 
-	console.log("# Registering Toaster tests");
 	registerSuite({
 		name: "Toaster tests",
 		setup: function () {},
@@ -207,33 +202,48 @@ define(["intern",
 						.end()
 						// make sure they are all inserted
 						.then(pollUntil(codeIns(perm1), [], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
+						.then(function () {}, function () { throw new Error("perm1 not inserted"); })
+
 						.then(pollUntil(codeIns(exp2000), [], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
+						.then(function () {}, function () { throw new Error("exp2000 not inserted"); })
+
 						.then(pollUntil(codeIns(perm2), [], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
+						.then(function () {}, function () { throw new Error("perm2 not inserted"); })
+
 						.then(pollUntil(codeIns(exp6000), [], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
+						.then(function () {}, function () { throw new Error("exp6000 not inserted"); })
+
 						// wait for expirable2000 to expire
-						.then(pollUntil(codeExp(exp2000), [],
-								2000 + intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
+						.then(pollUntil(codeExp(exp2000), [], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
+						.then(function () {}, function () { throw new Error("exp2000 not removed"); })
+
 						// wait for expirable6000 to expire
-						.then(pollUntil(codeExp(exp6000), [],
-								6000 + intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
+						.then(pollUntil(codeExp(exp6000), [], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
+						.then(function () {}, function () { throw new Error("exp6000 not removed"); })
+
 						// wait for both messages to be removed
 						.then(pollUntil(codeRem(exp2000) && codeRem(exp6000), [],
 							intern.config.WAIT_TIMEOUT + ANIMATION_DURATION, intern.config.POLL_INTERVAL))
+
+						// check expired are no longer in the DOM
 						.then(function () {
-							var remotes = [];
-							// check expired are no longer in the DOM
-							remotes.push(checkHasNotElement(remote, exp2000.props.id));
-							remotes.push(checkHasNotElement(remote, exp6000.props.id));
-							// check permanent are still in the DOM
-							remotes.push(checkHasElement(remote, perm1.props.id));
-							remotes.push(checkHasElement(remote, perm2.props.id));
-							return Promise.all(remotes);
+							return checkHasNotElement(remote, exp2000.props.id);
 						})
-						.end();
+						.then(function () {
+							return checkHasNotElement(remote, exp6000.props.id);
+						})
+
+						// check permanent are still in the DOM
+						.then(function () {
+							return checkHasElement(remote, perm1.props.id);
+						})
+						.then(function () {
+							return checkHasElement(remote, perm2.props.id);
+						});
 				})
 				.end();
-
 		},
+
 		// TODO: this test case doesn't pass due to a dpointer issue which has been reported here
 		// https://github.com/ibm-js/dpointer/issues/23
 //		"Check message dismissal": function () {
