@@ -459,21 +459,13 @@ define([
 			}
 		},
 
-		setAttribute: function () {
-			HTMLElement.prototype.setAttribute.apply(this, arguments);
-		},
+		setAttribute: HTMLElement.prototype.setAttribute,
 
-		getAttribute: function () {
-			HTMLElement.prototype.getAttribute.apply(this, arguments);
-		},
+		getAttribute: HTMLElement.prototype.getAttribute,
 
-		hasAttribute: function () {
-			HTMLElement.prototype.hasAttribute.apply(this, arguments);
-		},
+		hasAttribute: HTMLElement.prototype.hasAttribute,
 
-		removeAttribute: function () {
-			HTMLElement.prototype.removeAttribute.apply(this, arguments);
-		},
+		removeAttribute: HTMLElement.prototype.removeAttribute,
 
 		/**
 		 * Configures inputNode such that the text is selectable or unselectable.
