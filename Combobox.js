@@ -297,6 +297,13 @@ define([
 		 */
 		_isMobile: !!ComboPopup,
 
+		/**
+		 * The Combobox widget is a special component where we don't need to move the
+		 * aria attributes from the root element to the focusNode. So here we're
+		 * overriding this property to false, disabling the move procedure.
+		 */
+		moveAriaAttributes: false,
+
 		createdCallback: function () {
 			// Declarative case.
 			var list = this.querySelector("d-list");
@@ -450,6 +457,22 @@ define([
 					this._popupInput.value = this.displayedValue;
 				}
 			}
+		},
+
+		setAttribute: function () {
+			HTMLElement.prototype.setAttribute.apply(this, arguments);
+		},
+
+		getAttribute: function () {
+			HTMLElement.prototype.getAttribute.apply(this, arguments);
+		},
+
+		hasAttribute: function () {
+			HTMLElement.prototype.hasAttribute.apply(this, arguments);
+		},
+
+		removeAttribute: function () {
+			HTMLElement.prototype.removeAttribute.apply(this, arguments);
 		},
 
 		/**
@@ -933,6 +956,9 @@ define([
 				var promise = sup.apply(this, arguments);
 
 				return promise.then(function () {
+					this.setAttribute("aria-owns", this.dropDown.id);
+					this.popupStateNode.setAttribute("aria-controls", this.dropDown.id);
+
 					// Avoid that List gives focus to list items when navigating, which would
 					// blur the input field used for entering the filtering criteria.
 					this.dropDown.focusDescendants = false;
@@ -954,6 +980,9 @@ define([
 			return function (focus, suppressChangeEvent) {
 				var input = this._popupInput || this.inputNode;
 				input.removeAttribute("aria-activedescendant");
+
+				this.removeAttribute("aria-owns");
+				this.popupStateNode.removeAttribute("aria-controls");
 
 				// Closing the dropdown represents a commit interaction, unless the dropdown closes
 				// automatically because the user backspaced, in which case suppressChangeEvent is true.
@@ -1013,8 +1042,7 @@ define([
 					nd.id = "d-combobox-item-" + idCounter++;
 				}
 
-				var input = this._popupInput || this.inputNode;
-				input.setAttribute("aria-activedescendant", nd.id);
+				this.setAttribute("aria-activedescendant", nd.id);
 			}
 		}
 	});
