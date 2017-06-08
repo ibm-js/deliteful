@@ -157,6 +157,7 @@ define([
 			return this.remote
 				.findById("tt1-input").click().end()
 				.pressKeys(keys.SHIFT + keys.TAB)
+				.pressKeys(keys.SHIFT)		// release shift key
 				.execute("return document.activeElement.id;").then(function (id) {
 					assert.strictEqual(id, "dt2-input", "shift-tab from first field moves to previous element");
 				});
