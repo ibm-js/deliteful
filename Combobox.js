@@ -459,14 +459,6 @@ define([
 			}
 		},
 
-		setAttribute: HTMLElement.prototype.setAttribute,
-
-		getAttribute: HTMLElement.prototype.getAttribute,
-
-		hasAttribute: HTMLElement.prototype.hasAttribute,
-
-		removeAttribute: HTMLElement.prototype.removeAttribute,
-
 		/**
 		 * Configures inputNode such that the text is selectable or unselectable.
 		 * @private
@@ -949,7 +941,7 @@ define([
 
 				return promise.then(function () {
 					this.setAttribute("aria-owns", this.dropDown.id);
-					this.popupStateNode.setAttribute("aria-controls", this.dropDown.id);
+					this.inputNode.setAttribute("aria-controls", this.dropDown.id);
 
 					// Avoid that List gives focus to list items when navigating, which would
 					// blur the input field used for entering the filtering criteria.
@@ -974,7 +966,7 @@ define([
 				input.removeAttribute("aria-activedescendant");
 
 				this.removeAttribute("aria-owns");
-				this.popupStateNode.removeAttribute("aria-controls");
+				this.inputNode.removeAttribute("aria-controls");
 
 				// Closing the dropdown represents a commit interaction, unless the dropdown closes
 				// automatically because the user backspaced, in which case suppressChangeEvent is true.
@@ -1034,7 +1026,8 @@ define([
 					nd.id = "d-combobox-item-" + idCounter++;
 				}
 
-				this.setAttribute("aria-activedescendant", nd.id);
+				var input = this._popupInput || this.inputNode;
+ -				input.setAttribute("aria-activedescendant", nd.id);
 			}
 		}
 	});
