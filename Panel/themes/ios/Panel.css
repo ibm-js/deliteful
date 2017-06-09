@@ -1,25 +1,11 @@
 .d-panel {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   background-color: #ffffff;
   border: 1px solid;
-  -moz-border-radius: 4px;
   border-radius: 4px;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
   align-items: stretch;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  -webkit-box-orient: vertical;
-  -moz-box-orient: vertical;
-  -ms-box-orient: vertical;
   flex-direction: column;
   overflow: auto;
   border-color: #dddddd;

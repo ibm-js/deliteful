@@ -14,7 +14,6 @@
 .d-view-indicator .-d-view-indicator-dot {
   width: 0.43em;
   height: 0.43em;
-  -moz-border-radius: 0.215em;
   border-radius: 0.215em;
   margin: 0.43em;
   background-color: #999999;

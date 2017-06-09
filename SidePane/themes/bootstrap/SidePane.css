@@ -2,8 +2,6 @@
   width: 15em;
   height: 100%;
   top: 0;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   position: fixed;
   background-color: white;

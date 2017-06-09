@@ -26,10 +26,7 @@
   vertical-align: middle;
   overflow: hidden;
   text-align: center;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
-  -moz-border-radius: 4px;
   border-radius: 4px;
   border: 1px solid transparent;
 }
@@ -92,8 +89,6 @@
   height: 100%;
   width: 100%;
   border: 0.2em solid transparent;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 .d-progress-bar-msg-ext {

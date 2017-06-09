@@ -36,8 +36,6 @@
 .d-button.active {
   outline: 0;
   background-image: none;
-  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  -moz-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 .d-button.disabled,
@@ -45,8 +43,6 @@
 fieldset[disabled] .d-button {
   cursor: not-allowed;
   opacity: .65;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
   box-shadow: none;
   pointer-events: none;
 }

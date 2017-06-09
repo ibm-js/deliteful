@@ -1,35 +1,19 @@
 .d-accordion {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   position: relative;
   overflow: auto;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
   align-items: stretch;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  -webkit-box-orient: vertical;
-  -moz-box-orient: vertical;
-  -ms-box-orient: vertical;
   flex-direction: column;
 }
 .d-accordion > [role=tab] {
   padding: 10px 15px;
   border: 2px solid;
   font-weight: bold;
-  -moz-border-radius: 0;
   border-radius: 0;
   border-color: #dddddd;
   color: #333333;
   background-color: #f5f5f5;
-  -webkit-box-flex: 0 0 auto;
-  -moz-box-flex: 0 0 auto;
-  -webkit-flex: 0 0 auto;
-  -ms-flex: 0 0 auto;
   flex: 0 0 auto;
 }
 .d-accordion > [role=tab]:focus,
@@ -51,46 +35,25 @@
 .d-accordion > [role=tabpanel] {
   border: solid 2px #dddddd;
   border-top: none;
-  -moz-border-radius: 0;
   border-radius: 0;
 }
 [role=tabpanel].d-accordion-open-panel {
   border-color: #428bca;
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  -webkit-flex: 1;
-  -ms-flex: 1;
   flex: 1;
 }
 @keyframes d-accordion-open-animation {
   from {
-    -webkit-box-flex: 0.0001;
-    -moz-box-flex: 0.0001;
-    -webkit-flex: 0.0001;
-    -ms-flex: 0.0001;
     flex: 0.0001;
   }
   to {
-    -webkit-box-flex: 1;
-    -moz-box-flex: 1;
-    -webkit-flex: 1;
-    -ms-flex: 1;
     flex: 1;
   }
 }
 @-webkit-keyframes d-accordion-open-animation {
   from {
-    -webkit-box-flex: 0.0001;
-    -moz-box-flex: 0.0001;
-    -webkit-flex: 0.0001;
-    -ms-flex: 0.0001;
     flex: 0.0001;
   }
   to {
-    -webkit-box-flex: 1;
-    -moz-box-flex: 1;
-    -webkit-flex: 1;
-    -ms-flex: 1;
     flex: 1;
   }
 }
@@ -107,33 +70,17 @@
 }
 @keyframes d-accordion-close-animation {
   from {
-    -webkit-box-flex: 1;
-    -moz-box-flex: 1;
-    -webkit-flex: 1;
-    -ms-flex: 1;
     flex: 1;
   }
   to {
-    -webkit-box-flex: 0.0001;
-    -moz-box-flex: 0.0001;
-    -webkit-flex: 0.0001;
-    -ms-flex: 0.0001;
     flex: 0.0001;
   }
 }
 @-webkit-keyframes d-accordion-close-animation {
   from {
-    -webkit-box-flex: 1;
-    -moz-box-flex: 1;
-    -webkit-flex: 1;
-    -ms-flex: 1;
     flex: 1;
   }
   to {
-    -webkit-box-flex: 0.0001;
-    -moz-box-flex: 0.0001;
-    -webkit-flex: 0.0001;
-    -ms-flex: 0.0001;
     flex: 0.0001;
   }
 }
