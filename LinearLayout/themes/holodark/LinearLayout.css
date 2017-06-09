@@ -2,12 +2,12 @@
   display: flex;
   align-items: stretch;
 }
-.d-linear-layout.-d-linear-layout-v {
+.d-linear-layout > * {
+  position: relative;
+}
+.-d-linear-layout-v {
   flex-direction: column;
 }
 .fill {
   flex: 1;
-}
-.d-linear-layout > * {
-  position: relative;
 }

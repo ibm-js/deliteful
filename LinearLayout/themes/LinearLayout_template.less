@@ -1,18 +1,18 @@
 @import "../../../delite/themes/common/mixins";
 
 .d-linear-layout {
-	.display-flex();
+	display: flex;
 	align-items: stretch;
+
+	> * {
+		position: relative;
+	}
 }
 
-.d-linear-layout.-d-linear-layout-v {
-	.flex-direction-column();
+.-d-linear-layout-v {
+	flex-direction: column;
 }
 
 .fill {
-	.flex(1);
-}
-
-.d-linear-layout > * {
-	position: relative;
+	flex: 1;
 }
