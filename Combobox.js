@@ -1027,7 +1027,7 @@ define([
 				}
 
 				var input = this._popupInput || this.inputNode;
- -				input.setAttribute("aria-activedescendant", nd.id);
+				input.setAttribute("aria-activedescendant", nd.id);
 			}
 		}
 	});
