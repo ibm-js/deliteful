@@ -335,9 +335,8 @@ define(["intern",
 				.findById("form1")
 				.submit()
 				.end()
+				.sleep(100)		// needed when testing against local Safari 10
 				.setFindTimeout(intern.config.WAIT_TIMEOUT)
-				.find("id", "parameters")
-				.end()
 				.findById("valueFor_d_select_form1")
 				.getVisibleText()
 				.then(function (value) {
