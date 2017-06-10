@@ -22,14 +22,14 @@ define([
 		var msg =  comboId + " " + "(" + comboState.selectionMode + ")" + " " + stepName + " ";
 		for (var propName in expectedComboState) {
 			var expectedValue = expectedComboState[propName];
-			if (expectedValue === undefined) {
-				// Note that, for a variable which is undefined in the browser,
-				// remote.execute() brings a null value, not undefined. Hence,
+			var actualValue = comboState[propName];
+			if (actualValue === null) {
+				// Except for Safari, for a variable which is undefined in the browser,
+				// remote.execute() returns a null value, not undefined.  Hence,
 				// since in the tested page the variables that store widget.value
 				// and widget.valueNode.value at the latest input/change moment the valueCombobox-decl.html
-				expectedValue = null;
+				actualValue = undefined;
 			}
-			var actualValue = comboState[propName];
 			if (Array.isArray(expectedValue)) {
 				assert.deepEqual(actualValue, expectedValue, msg + propName);
 			} else {
@@ -730,6 +730,7 @@ define([
 			.end()
 		*/	.findById(comboId + "_item0")  // first item, which is "France"
 			.click()
+			.sleep(10)
 			.execute(executeExpr)
 			.then(function (comboState) {
 				// The click on the second item selects "France"
@@ -1290,63 +1291,58 @@ define([
 		},
 
 		"Combobox Form submit": function () {
-			var remote = this.remote;
-			if (/iOS|selendroid/.test(remote.environmentType.browserName)) {
-				return this.skip();
-			}
 			return loadFile(this.remote, "./Combobox-decl.html")
 				.findById("form1")
 				.submit()
 				.end()
+				.sleep(100)		// try to avoid intermittent IE11 error
 				.setFindTimeout(intern.config.WAIT_TIMEOUT)
-				.find("id", "parameters")
-				.end()
 				.findById("valueFor_combo1")
 				.getVisibleText()
 				.then(function (value) {
-					assert.strictEqual(value, "France", "Unexpected value for Combobox combo1");
+					assert.strictEqual(value, "France", "Combobox combo1");
 				})
 				.end()
 				.findById("valueFor_combo2")
 				.getVisibleText()
 				.then(function (value) {
-					assert.strictEqual(value, "France", "Unexpected value for Combobox combo2");
+					assert.strictEqual(value, "France", "Combobox combo2");
 				})
 				.end()
 				.findById("valueFor_combo3")
 				.getVisibleText()
 				.then(function (value) {
-					assert.strictEqual(value, "", "Unexpected value for Combobox combo3");
+					assert.strictEqual(value, "", "Combobox combo3");
 				})
 				.end()
 				.execute("return document.getElementById('valueFor_combo1-disabled');")
 				.then(function (value) {
-					assert.isNull(value, "Unexpected value for disabled Combobox combo1-disabled");
+					assert.isNull(value, "disabled Combobox combo1-disabled");
 				})
 				.execute("return document.getElementById('valueFor_combo2-disabled');")
 				.then(function (value) {
-					assert.isNull(value, "Unexpected value for disabled Combobox combo2-disabled");
+					assert.isNull(value, "disabled Combobox combo2-disabled");
 				})
 				.execute("return document.getElementById('valueFor_combo3-disabled');")
 				.then(function (value) {
-					assert.isNull(value, "Unexpected value for disabled Combobox combo3-disabled");
+					assert.isNull(value, "disabled Combobox combo3-disabled");
 				})
 				.findById("valueFor_combo1-value")
 				.getVisibleText()
 				.then(function (value) {
-					assert.strictEqual(value, "FR", "Unexpected value for Combobox combo1-value");
+					assert.strictEqual(value, "FR", "Combobox combo1-value");
 				})
 				.end()
 				.findById("valueFor_combo3-value")
 				.getVisibleText()
 				.then(function (value) {
-					assert.strictEqual(value, "FR", "Unexpected value for Combobox combo3-value");
+					assert.strictEqual(value, "FR", "Combobox combo3-value");
 				})
 				.end()
 				.findById("valueFor_combo1-single-rtl")
 				.getVisibleText()
 				.then(function (value) {
-					assert.strictEqual(value, "France", "Unexpected value for Combobox combo1-single-rtl");
+					assert.strictEqual(value, "France", "Combobox combo1-single-rtl");
 				})
 				.end();
 		},

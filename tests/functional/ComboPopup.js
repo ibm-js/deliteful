@@ -20,14 +20,14 @@ define([
 		var msg =  comboId + " " + "(" + comboState.selectionMode + ")" + " " + stepName + " ";
 		for (var propName in expectedComboState) {
 			var expectedValue = expectedComboState[propName];
-			if (expectedValue === undefined) {
-				// Note that, for a variable which is undefined in the browser,
-				// remote.execute() brings a null value, not undefined. Hence,
+			var actualValue = comboState[propName];
+			if (actualValue === null) {
+				// Except for Safari, for a variable which is undefined in the browser,
+				// remote.execute() returns a null value, not undefined.  Hence,
 				// since in the tested page the variables that store widget.value
 				// and widget.valueNode.value at the latest input/change moment the valueCombobox-decl.html
-				expectedValue = null;
+				actualValue = undefined;
 			}
-			var actualValue = comboState[propName];
 			if (Array.isArray(expectedValue)) {
 				assert.deepEqual(actualValue, expectedValue, msg + propName);
 			} else {
@@ -116,8 +116,8 @@ define([
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: "",
 						valueNodeValueAtLatestInputEvent: "",
-						widgetValueAtLatestChangeEvent: null,
-						valueNodeValueAtLatestChangeEvent: null
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after searching `jap` into input field.");
 			})
 			.pressKeys(keys.BACKSPACE) // Delete the 3 chars of "Japan"
@@ -142,8 +142,8 @@ define([
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: "",
 						valueNodeValueAtLatestInputEvent: "",
-						widgetValueAtLatestChangeEvent: null,
-						valueNodeValueAtLatestChangeEvent: null
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after deleting the filter.");
 			})
 			.type("u")
@@ -164,8 +164,8 @@ define([
 						changeEventCounter: 0,
 						widgetValueAtLatestInputEvent: "",
 						valueNodeValueAtLatestInputEvent: "",
-						widgetValueAtLatestChangeEvent: null,
-						valueNodeValueAtLatestChangeEvent: null
+						widgetValueAtLatestChangeEvent: undefined,
+						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after typed `u` into input field.");
 			})
 			.end();
@@ -184,7 +184,7 @@ define([
 						// And then make sure it matches the Combobox's label.
 						return remote.findByCssSelector("label[for=" + comboId + "-input]")
 							.getVisibleText().then(function (comboLabel) {
-								assert.strictEqual(popupLabel, comboLabel, "expected label");
+								assert.strictEqual(popupLabel, comboLabel.trim(), "expected label");
 							}).end();
 					}).end();
 			}).end()
@@ -195,7 +195,7 @@ define([
 				return remote.findByCssSelector("#" + listId + " d-list-item-renderer:nth-child(2)")
 					.getVisibleText().then(function (value) {
 						// Spot check that the <d-list> contents are OK.
-						assert.match(value, /^France/, "item renderer #1");
+						assert.match(value.trim(), /^France/, "item renderer #1");
 					}).end();
 			}).end()
 
@@ -359,6 +359,7 @@ define([
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after clicking option (China)");
 			})
+			.sleep(10)
 			.findByCssSelector(pressOkButton ? ".d-combo-ok-button" : ".d-combo-cancel-button").click().end()
 			.sleep(500) // wait for the async closing of the popup
 			.execute(executeExpr)
@@ -390,7 +391,7 @@ define([
 						valueNodeValueAtLatestInputEvent: "",
 						widgetValueAtLatestChangeEvent: [],
 						valueNodeValueAtLatestChangeEvent: ""
-					}, "after clicking on the " + pressOkButton ? "Ok" : "cancel" + " button (close)");
+					}, "after clicking on the " + (pressOkButton ? "Ok" : "cancel") + " button (close)");
 			});
 	};
 
