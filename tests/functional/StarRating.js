@@ -160,6 +160,11 @@ define([
 					.end()
 				// click on the star: doesn't change anything
 				.then(function () {
+					if (/safari/.test(remote.environmentType.browserName)) {
+						// Avoid Safari webdriver bug where it claims element isn't clickable just because
+						// it has overflow:hidden set on it.
+						return;
+					}
 					return clickOnStar(remote, widgetId, 1, true);
 				})
 				.then(function () {
