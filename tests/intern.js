@@ -10,20 +10,19 @@ define({
 	// OnDemand. Options that will be permutated are browserName, version, platform, and platformVersion; any other
 	// capabilities options specified for an environment will be copied as-is
 	environments: [
-		// It seems that specifying version="" or leaving version unspecified
-		// does not default to the latest version of the browser.
-
-		// Mobile
-		{ browserName: "iphone", platform: "OS X 10.10", version: "9.3", deviceName: "iPad Retina", name: "deliteful" },
-
-		// Desktop.
 		{ browserName: "internet explorer", version: "11", platform: "Windows 7", requireWindowFocus: "true",
 			name : "deliteful"},
 		{ browserName: "firefox", version: "53", platform: [ /*"OS X 10.6", "Linux", */ "Windows 7" ],
 			name : "deliteful"},
 		{ browserName: "chrome", version: "51", platform: [ /*"OS X 10.6", "Linux", */ "Windows 7" ],
-			name : "deliteful"},
-		{ browserName: "safari", version: "9", name : "deliteful"}
+			name : "deliteful"}
+
+		// Disable Safari and iOS tests because they hang on SauceLabs.
+		// See https://github.com/theintern/intern/issues/752.
+		// As the comment says there, could try switching to BrowserStack
+		//{ browserName: "safari", version: "9", name : "deliteful"}
+		//{ browserName: "iphone", platform: "OS X 10.10", version: "9.3", deviceName: "iPad Retina",
+		//		name: "deliteful" },
 	],
 
 	// Maximum number of simultaneous integration tests that should be executed on the remote WebDriver service
