@@ -203,6 +203,7 @@ define([
 			"click on year": function () {
 				return this.remote
 					.findByCssSelector("#dt1 .d-input-container-node input:last-child").click().end()
+					.sleep(10)
 					.execute("return state(dt1);").then(function (v) {
 						assert.deepEqual(v, {
 							value: "",
