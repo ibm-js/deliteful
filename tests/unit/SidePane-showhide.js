@@ -7,6 +7,7 @@ define([
 ], function (registerSuite, assert, $, register) {
 	var container, sp, origBodyStyle;
 	var htmlContent = "<d-side-pane id='sp'></d-side-pane><div id='content'></div>";
+
 	registerSuite({
 		name: "SidePane Show Hide",
 		setup: function () {
@@ -17,48 +18,50 @@ define([
 			register.deliver();
 			sp = document.getElementById("sp");
 		},
-		"show" : function () {
-			var d = this.async(1000);
+
+		"show": function () {
 			var shownEvent;
 			sp.on("sidepane-after-show", function () {
 				shownEvent = true;
 			});
-			sp.show("content").then(d.callback(function (value) {
+			return sp.show("content").then(function (value) {
 				assert.strictEqual(value.child.id, "content", "show() promise resolved value is incorrect");
-				assert.strictEqual(sp.children[0].id, "content", "SidePane content is incorrect");
+				assert.strictEqual(sp.children[0].id, "content", "SidePane child");
 				assert(shownEvent, "fired sidepane-after-show");
-			}));
-		},
-		"hide" : function () {
-			var d = this.async(3000);
-			sp.hide().then(d.rejectOnError(function () {
-				assert.strictEqual(sp.children[0].id, "content", "Plain hide() removed the children");
-				sp.show().then(d.callback(function () {
-					sp.hide("content").then(d.callback(function (value) {
-						assert.strictEqual(value.child.id, "content", "show() promise resolved value is incorrect");
-						assert.strictEqual(sp.children.length, 0, "SidePane content is incorrect");
-					}));
-				}));
-			}));
-		},
-		"toggle after hide" : function () {
-			var d = this.async(5000);
-			sp.hide().then(function () {
-				sp.toggle().then(d.callback(function () {
-					assert.isTrue($(sp).hasClass("-d-side-pane-visible"));
-					assert.isFalse($(sp).hasClass("-d-side-pane-hidden"));
-				}));
 			});
 		},
-		"toggle after show" : function () {
-			var d = this.async(5000);
-			sp.show().then(function () {
-				sp.toggle().then(d.callback(function () {
-					assert.isTrue($(sp).hasClass("-d-side-pane-hidden"));
-					assert.isFalse($(sp).hasClass("-d-side-pane-visible"));
-				}));
+
+		"hide": function () {
+			return sp.hide().then(function () {
+				assert.strictEqual(sp.children[0].id, "content", "Plain hide() didn't remove child");
+			}).then(function () {
+				return sp.show();
+			}).then(function () {
+				return sp.hide("content");
+			}).then(function (value) {
+				assert.strictEqual(value.child.id, "content", "show() promise resolved value");
+				assert.strictEqual(sp.children.length, 1, "# of children");
 			});
 		},
+
+		"toggle after hide": function () {
+			return sp.hide().then(function () {
+				return sp.toggle();
+			}).then(function () {
+				assert.isTrue($(sp).hasClass("-d-side-pane-visible"));
+				assert.isFalse($(sp).hasClass("-d-side-pane-hidden"));
+			});
+		},
+
+		"toggle after show": function () {
+			return sp.show().then(function () {
+				return sp.toggle();
+			}).then(function () {
+				assert.isTrue($(sp).hasClass("-d-side-pane-hidden"));
+				assert.isFalse($(sp).hasClass("-d-side-pane-visible"));
+			});
+		},
+
 		teardown: function () {
 			container.parentNode.removeChild(container);
 			document.body.style.cssText = origBodyStyle;	// so page can scroll again
