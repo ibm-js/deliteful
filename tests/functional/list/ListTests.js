@@ -1,12 +1,13 @@
-define(["intern",
-        "intern!object",
-        "intern/dojo/node!leadfoot/helpers/pollUntil",
-        "intern/dojo/node!leadfoot/keys",
-        "intern/chai!assert",
-        "require"
-        ], function (intern, registerSuite, pollUntil, keys, assert, require) {
+define([
+	"intern",
+	"intern!object",
+	"intern/dojo/node!leadfoot/helpers/pollUntil",
+	"intern/dojo/node!leadfoot/keys",
+	"intern/chai!assert",
+	"require"
+], function (intern, registerSuite, pollUntil, keys, assert, require) {
 
-	var basicTest = function (remote, testPage, listId, numberOfItemsExpected, numberOfCategoriesExpected, itemTag) {
+	function basicTest(remote, testPage, listId, numberOfItemsExpected, numberOfCategoriesExpected, itemTag) {
 		return remote
 		.get(require.toUrl(testPage))
 		.then(pollUntil("return ('ready' in window &&  ready "
@@ -28,28 +29,35 @@ define(["intern",
 					listId + " number of category headers");
 			});
 		});
-	};
+	}
 
 	registerSuite({
 		name: "List tests",
+
 		"list-prog-1.html": function () {
 			return basicTest(this.remote, "./list-prog-1.html", "list-prog-1", 100, 0, "d-list-item-renderer");
 		},
+
 		"list-mark-1.html": function () {
 			return basicTest(this.remote, "./list-mark-1.html", "list-mark-1", 10, 0, "d-list-item-renderer");
 		},
+
 		"list-mark-2.html": function () {
 			return basicTest(this.remote, "./list-mark-2.html", "list-mark-2", 10, 0, "d-list-item-renderer");
 		},
+
 		"list-mark-3.html": function () {
 			return basicTest(this.remote, "./list-mark-3.html", "list-mark-3", 10, 2, "d-list-item-renderer");
 		},
+
 		"list-mark-4.html": function () {
 			return basicTest(this.remote, "./list-mark-4.html", "list-mark-4", 10, 0, "d-list-item-renderer");
 		},
+
 		"list-cust-1.html": function () {
 			return basicTest(this.remote, "./list-cust-1.html", "list-cust-1", 40, 0, "d-customnav-item");
 		},
+
 		"selectionMode 'none'": function () {
 			var remote = this.remote;
 			var listId = "list-mark-3";
@@ -65,15 +73,16 @@ define(["intern",
 			.findByCssSelector("#" + listId + " .d-list-item:nth-child(3) [role=gridcell]")
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.strictEqual(value, null);
+					assert.strictEqual(value, null, "aria-selected initial");
 				})
 				.click()
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.strictEqual(value, null);
+					assert.strictEqual(value, null, "aria-selected after click");
 				})
 				.end();
 		},
+
 		"selectionMode 'multiple'": function () {
 			var remote = this.remote;
 			var listId = "list-mark-1";
@@ -89,42 +98,43 @@ define(["intern",
 			.findByCssSelector("#" + listId + " .d-list-item:nth-child(3) [role=gridcell]")
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.strictEqual(value, "false");
+					assert.strictEqual(value, "false", "3rd child, initial aria-selected");
 				})
 				.click()
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.strictEqual(value, "true");
+					assert.strictEqual(value, "true", "3rd child, aria-selected after click");
 				})
 				.click()
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.strictEqual(value, "false");
+					assert.strictEqual(value, "false", "3rd child, aria-selected after second click");
 				})
 				.click()
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.strictEqual(value, "true");
+					assert.strictEqual(value, "true", "3rd child, aria-selected after third click");
 				})
 				.end()
 			.findByCssSelector("#" + listId + " .d-list-item:nth-child(4) [role=gridcell]")
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.strictEqual(value, "false");
+					assert.strictEqual(value, "false", "4th child, initial aria-selected");
 				})
 				.click()
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.strictEqual(value, "true");
+					assert.strictEqual(value, "true", "4th child, aria-selected after click");
 				})
 				.end()
 			.findByCssSelector("#" + listId + " .d-list-item:nth-child(3) [role=gridcell]")
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.strictEqual(value, "true");
+					assert.strictEqual(value, "true", "3rd child, aria-selected at end");
 				})
 				.end();
 		},
+
 		"selectionMode 'single'": function () {
 			var remote = this.remote;
 			var listId = "list-mark-2";
@@ -140,42 +150,43 @@ define(["intern",
 			.findByCssSelector("#" + listId + " .d-list-item:nth-child(3) [role=gridcell]")
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.strictEqual(value, "false");
+					assert.strictEqual(value, "false", "3rd child, initial aria-selected");
 				})
 				.click()
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.strictEqual(value, "true");
+					assert.strictEqual(value, "true", "3rd child, aria-selected after click");
 				})
 				.click()
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.strictEqual(value, "false");
+					assert.strictEqual(value, "false", "3rd child, aria-selected after second click");
 				})
 				.click()
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.strictEqual(value, "true");
+					assert.strictEqual(value, "true", "3rd child, aria-selected after third click");
 				})
 				.end()
 			.findByCssSelector("#" + listId + " .d-list-item:nth-child(4) [role=gridcell]")
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.strictEqual(value, "false");
+					assert.strictEqual(value, "false", "4th child, initial aria-selected");
 				})
 				.click()
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.strictEqual(value, "true");
+					assert.strictEqual(value, "true", "4th child, aria-selected after click");
 				})
 				.end()
 			.findByCssSelector("#" + listId + " .d-list-item:nth-child(3) [role=gridcell]")
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.strictEqual(value, "false");
+					assert.strictEqual(value, "false", "3rd child, aria-selected at end");
 				})
 				.end();
 		},
+
 		"selectionMode 'radio'": function () {
 			var remote = this.remote;
 			var listId = "list-mark-5";
@@ -191,37 +202,38 @@ define(["intern",
 			.findByCssSelector("#" + listId + " .d-list-item:nth-child(3) [role=gridcell]")
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.strictEqual(value, "false");
+					assert.strictEqual(value, "false", "3rd child, initial aria-selected");
 				})
 				.click()
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.strictEqual(value, "true");
+					assert.strictEqual(value, "true", "3rd child, aria-selected after click");
 				})
 				.click()
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.strictEqual(value, "true");
+					assert.strictEqual(value, "true", "3rd child, aria-selected after second click");
 				})
 				.end()
 			.findByCssSelector("#" + listId + " .d-list-item:nth-child(4) [role=gridcell]")
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.strictEqual(value, "false");
+					assert.strictEqual(value, "false", "4th child, initial aria-selected");
 				})
 				.click()
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.strictEqual(value, "true");
+					assert.strictEqual(value, "true", "4th child, aria-selected after click");
 				})
 				.end()
 			.findByCssSelector("#" + listId + " .d-list-item:nth-child(3) [role=gridcell]")
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.strictEqual(value, "false");
+					assert.strictEqual(value, "false", "3rd child, aria-selected at end");
 				})
 				.end();
 		},
+
 		"keyboard navigation with default renderers": function () {
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
@@ -316,6 +328,7 @@ define(["intern",
 			})
 			.end();
 		},
+
 		"keyboard navigation with custom renderers": function () {
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
@@ -462,6 +475,7 @@ define(["intern",
 			})
 			.end();
 		},
+
 		"keyboard multiple selection": function () {
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
@@ -491,7 +505,7 @@ define(["intern",
 			})
 			.getAttribute("aria-selected")
 			.then(function (value) {
-				assert.strictEqual(value, "true");
+				assert.strictEqual(value, "true", "aria-selected list item 0, after space");
 			})
 			.end()
 			.pressKeys(keys.SPACE) // Press SPACE
@@ -502,7 +516,7 @@ define(["intern",
 			})
 			.getAttribute("aria-selected")
 			.then(function (value) {
-				assert.strictEqual(value, "false");
+				assert.strictEqual(value, "false", "aria-selected list item 0, after second space");
 			})
 			.end()
 			.pressKeys(keys.SPACE) // Press SPACE
@@ -513,7 +527,7 @@ define(["intern",
 			})
 			.getAttribute("aria-selected")
 			.then(function (value) {
-				assert.strictEqual(value, "true");
+				assert.strictEqual(value, "true", "aria-selected list item 0, after third space");
 			})
 			.end()
 			.pressKeys(keys.ARROW_DOWN) // Press DOWN ARROW
@@ -531,7 +545,7 @@ define(["intern",
 			})
 			.getAttribute("aria-selected")
 			.then(function (value) {
-				assert.strictEqual(value, "true");
+				assert.strictEqual(value, "true", "aria-selected list item 1, after space");
 			})
 			.end()
 			.pressKeys(keys.ARROW_UP) // Press UP ARROW
@@ -540,12 +554,13 @@ define(["intern",
 			.then(function (value) {
 				assert.strictEqual(value, "list item 0\nright text A");
 			})
-			.getAttribute("aria-selected")
+			.getAttribute("aria-selected", "aria-selected list item 0, at end")
 			.then(function (value) {
 				assert.strictEqual(value, "true");
 			})
 			.end();
 		},
+
 		"keyboard single selection": function () {
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
@@ -575,7 +590,7 @@ define(["intern",
 			})
 			.getAttribute("aria-selected")
 			.then(function (value) {
-				assert.strictEqual(value, "true");
+				assert.strictEqual(value, "true", "aria-selected list item 0, after space");
 			})
 			.end()
 			.sleep(10)
@@ -587,7 +602,7 @@ define(["intern",
 			})
 			.getAttribute("aria-selected")
 			.then(function (value) {
-				assert.strictEqual(value, "false");
+				assert.strictEqual(value, "false", "aria-selected list item 0, after second space");
 			})
 			.end()
 			.pressKeys(keys.SPACE) // Press SPACE
@@ -598,7 +613,7 @@ define(["intern",
 			})
 			.getAttribute("aria-selected")
 			.then(function (value) {
-				assert.strictEqual(value, "true");
+				assert.strictEqual(value, "true", "aria-selected list item 0, after third space");
 			})
 			.end()
 			.pressKeys(keys.ARROW_DOWN) // Press DOWN ARROW
@@ -616,7 +631,7 @@ define(["intern",
 			})
 			.getAttribute("aria-selected")
 			.then(function (value) {
-				assert.strictEqual(value, "true");
+				assert.strictEqual(value, "true", "aria-selected list item 1, after space");
 			})
 			.end()
 			.pressKeys(keys.ARROW_UP) // Press UP ARROW
@@ -627,10 +642,11 @@ define(["intern",
 			})
 			.getAttribute("aria-selected")
 			.then(function (value) {
-				assert.strictEqual(value, "false");
+				assert.strictEqual(value, "false", "aria-selected list item 0, at end");
 			})
 			.end();
 		},
+
 		"keyboard radio selection": function () {
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
@@ -676,6 +692,7 @@ define(["intern",
 			})
 			.end();
 		},
+
 		"keyboard search": function () {
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
@@ -694,14 +711,14 @@ define(["intern",
 			.getActiveElement()
 			.getVisibleText()
 			.then(function (value) {
-				assert.strictEqual(value, "list item 0\nright text A");
+				assert.strictEqual(value, "list item 0\nright text A", "initial");
 			})
 			.end()
 			.pressKeys("R")
 			.getActiveElement()
 			.getVisibleText()
 			.then(function (value) {
-				assert.strictEqual(value, "list item 0\nright text A");
+				assert.strictEqual(value, "list item 0\nright text A", "after R");
 			})
 			.end()
 			.sleep(10)
@@ -709,7 +726,7 @@ define(["intern",
 			.getActiveElement()
 			.getVisibleText()
 			.then(function (value) {
-				assert.strictEqual(value, "list item 0\nright text A");
+				assert.strictEqual(value, "list item 0\nright text A", "after r");
 			})
 			.end()
 			.sleep(10)
@@ -717,7 +734,7 @@ define(["intern",
 			.getActiveElement()
 			.getVisibleText()
 			.then(function (value) {
-				assert.strictEqual(value, "list item 1\nright text B");
+				assert.strictEqual(value, "list item 1\nright text B", "after L");
 			})
 			.end()
 			.sleep(10)
@@ -725,10 +742,11 @@ define(["intern",
 			.getActiveElement()
 			.getVisibleText()
 			.then(function (value) {
-				assert.strictEqual(value, "list item 2\nright text C");
+				assert.strictEqual(value, "list item 2\nright text C", "after l");
 			})
 			.end();
 		},
+
 		"custom keyboard navigation": function () {
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {

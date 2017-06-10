@@ -60,7 +60,6 @@ define([
 						list.scrollDirection = "foo";
 					} catch (error) {
 						assert.isNotNull(error);
-						console.log(error);
 						assert.strictEqual(
 								"'foo' not supported for scrollDirection, keeping the previous value of 'vertical'",
 								error.message,
