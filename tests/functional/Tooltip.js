@@ -12,15 +12,6 @@ define([
 		setup: function () {
 			var remote = this.remote;
 
-			if (remote.environmentType.brokenMouseEvents) {
-				// https://github.com/theintern/leadfoot/issues/17
-				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
-			}
-			if (remote.environmentType.platformName === "iOS") {
-				// https://github.com/theintern/leadfoot/issues/61
-				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
-			}
-
 			return remote.get(require.toUrl("./Tooltip.html")).then(pollUntil("return ready || null;", [],
 				intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 		},
