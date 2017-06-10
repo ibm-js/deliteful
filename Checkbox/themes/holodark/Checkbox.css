@@ -55,7 +55,6 @@ fieldset[disabled] .d-checkbox {
   position: absolute;
   top: 0;
   left: 0;
-  overflow: hidden;
   font: inherit;
   cursor: pointer;
   -webkit-appearance: none;
