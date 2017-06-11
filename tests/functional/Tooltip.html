@@ -35,8 +35,8 @@
 			"delite/HasDropDown",
 			"deliteful/DropDownButton",
 			"requirejs-domready/domReady!"
-		], function (register, Tooltip) {
-			// Function to get position of node, correcting for IE's like of "bottom" and "right" properties.
+		], function (register, Tooltip, HasDropDown) {
+			// Function to get position of node, correcting for IE's lack of "bottom" and "right" properties.
 			function gbcr (node) {
 				var rect = node.getBoundingClientRect();
 
@@ -54,8 +54,8 @@
 
 			// Setup global method to be used by tests
 			getPos = function(anchorId) {
-				var anchor = document.getElementById(anchorId);
-				var tooltip = document.getElementById(anchorId + "-tooltip"),
+				var anchor = document.getElementById(anchorId),
+					tooltip = document.getElementById(anchorId + "-tooltip"),
 					connector = tooltip.connectorNode;
 
 				return {
@@ -85,6 +85,7 @@
 			});
 
 			register.deliver();
+
 			ready = true;
 		});
 	</script>
@@ -106,11 +107,12 @@
 		I appear to the right.<br>
 	</d-tooltip>
 	<!-- Setup tooltip-opening behavior on non-HasDropDown node -->
-	<d-has-drop-down behaviorNode="left" dropDown="left-tooltip" dropDownPosition="after-centered before-centered">
+	<d-has-drop-down id="behavior" behaviorNode="left" dropDown="left-tooltip"
+					 dropDownPosition="after-centered, before-centered">
 	</d-has-drop-down>
 
 	<button is="d-dropdown-button" id="right" style="position: absolute; top: 45%; right: 0;"
-			dropDown="right-tooltip" dropDownPosition="before-centered after-centered">
+			dropDown="right-tooltip" dropDownPosition="before-centered, after-centered">
 		show to left
 	</button>
 	<my-loading-tooltip id="right-tooltip" style="display: none">
@@ -138,7 +140,7 @@
 
 	<!-- Check that tooltip and connector are positioned properly when tooltip can't be centered before/after anchor -->
 	<button is="d-dropdown-button" id="bottom-right" style="position: absolute; bottom: 20px; right: 0;"
-			dropDown="bottom-right-tooltip" dropDownPosition="before-centered after-centered">
+			dropDown="bottom-right-tooltip" dropDownPosition="before-centered, after-centered">
 		show to left
 	</button>
 	<d-tooltip id="bottom-right-tooltip" style="display: none">
