@@ -940,7 +940,6 @@ define([
 				var promise = sup.apply(this, arguments);
 
 				return promise.then(function () {
-					this.setAttribute("aria-owns", this.dropDown.id);
 					this.inputNode.setAttribute("aria-controls", this.dropDown.id);
 
 					// Avoid that List gives focus to list items when navigating, which would
@@ -965,7 +964,6 @@ define([
 				var input = this._popupInput || this.inputNode;
 				input.removeAttribute("aria-activedescendant");
 
-				this.removeAttribute("aria-owns");
 				this.inputNode.removeAttribute("aria-controls");
 
 				// Closing the dropdown represents a commit interaction, unless the dropdown closes
