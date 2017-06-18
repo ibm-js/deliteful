@@ -20,41 +20,46 @@ define([
 			var selectionChangeEvent = null;
 			var firstItem = list.containerNode.children[0];
 			var secondItem = list.containerNode.children[1];
-			var event = null;
 			list.on("selection-change", function (event) {
 				selectionChangeEvent = event;
 			});
 			assert.strictEqual(firstItem.className, "d-list-item");
+
 			// Selection event on first item (select)
-			event = {target: firstItem, preventDefault: function () {}};
-			list._spaceKeydownHandler(event);
+			firstItem.emit("keydown", {key: "Spacebar"});
+			firstItem.emit("keyup", {key: "Spacebar"});
+
 			assert.isNotNull(selectionChangeEvent);
 			assert.isNull(selectionChangeEvent.oldValue, 0, "event1 old selection");
 			assert.strictEqual(selectionChangeEvent.newValue.label, "item 1", "event1 new selection label");
 			assert.strictEqual(selectionChangeEvent.renderer, firstItem, "event1 renderer");
-			assert.strictEqual(selectionChangeEvent.triggerEvent, event, "event1 triggerEvent");
+			assert.strictEqual(selectionChangeEvent.triggerEvent.key, "Spacebar", "event1 triggerEvent");
 			selectionChangeEvent = null;
 			assert.strictEqual(firstItem.renderNode.getAttribute("aria-selected"), "true");
 			assert.strictEqual(secondItem.renderNode.getAttribute("aria-selected"), "false");
+
 			// Selection event on second item (select)
-			event = {target: secondItem, preventDefault: function () {}};
-			list._spaceKeydownHandler(event);
+			secondItem.emit("keydown", {key: "Spacebar"});
+			secondItem.emit("keyup", {key: "Spacebar"});
+
 			assert.isNotNull(selectionChangeEvent);
 			assert.strictEqual(selectionChangeEvent.oldValue.label, "item 1", "event2 old selection label");
 			assert.strictEqual(selectionChangeEvent.newValue.label, "item 2", "event2 new selection label 1");
 			assert.strictEqual(selectionChangeEvent.renderer, secondItem, "event2 renderer");
-			assert.strictEqual(selectionChangeEvent.triggerEvent, event, "event2 triggerEvent");
+			assert.strictEqual(selectionChangeEvent.triggerEvent.key, "Spacebar", "event2 triggerEvent");
 			selectionChangeEvent = null;
 			assert.strictEqual(firstItem.renderNode.getAttribute("aria-selected"), "true");
 			assert.strictEqual(secondItem.renderNode.getAttribute("aria-selected"), "true");
+
 			// Selection event on first item (deselect)
-			event = {target: firstItem, preventDefault: function () {}};
-			list._spaceKeydownHandler(event);
+			firstItem.emit("keydown", {key: "Spacebar"});
+			firstItem.emit("keyup", {key: "Spacebar"});
+
 			assert.isNotNull(selectionChangeEvent);
 			assert.strictEqual(selectionChangeEvent.oldValue.label, "item 2", "event3 old selection label 1");
 			assert.strictEqual(selectionChangeEvent.newValue.label, "item 2", "event3 new selection label");
 			assert.strictEqual(selectionChangeEvent.renderer, firstItem, "event3 renderer");
-			assert.strictEqual(selectionChangeEvent.triggerEvent, event, "event3 triggerEvent");
+			assert.strictEqual(selectionChangeEvent.triggerEvent.key, "Spacebar", "event3 triggerEvent");
 			selectionChangeEvent = null;
 			//
 			assert.strictEqual(firstItem.renderNode.getAttribute("aria-selected"), "false");
@@ -70,41 +75,47 @@ define([
 			var selectionChangeEvent = null;
 			var firstItem = list.containerNode.children[0];
 			var secondItem = list.containerNode.children[1];
-			var event = null;
 			list.on("selection-change", function (event) {
 				selectionChangeEvent = event;
 			});
 			assert.strictEqual(firstItem.className, "d-list-item");
+
 			// Selection event on first item (select)
-			event = {target: firstItem, preventDefault: function () {}};
-			list._spaceKeydownHandler(event);
+			firstItem.emit("keydown", {key: "Spacebar"});
+			firstItem.emit("keyup", {key: "Spacebar"});
+
 			assert.isNotNull(selectionChangeEvent);
 			assert.strictEqual(selectionChangeEvent.oldValue, null, "event1 old selection");
 			assert.strictEqual(selectionChangeEvent.newValue.label, "item 1", "event1 new selection");
 			assert.strictEqual(selectionChangeEvent.renderer, firstItem, "event1 renderer");
-			assert.strictEqual(selectionChangeEvent.triggerEvent, event, "event1 triggerEvent");
+			assert.strictEqual(selectionChangeEvent.triggerEvent.key, "Spacebar", "event1 triggerEvent");
 			selectionChangeEvent = null;
 			assert.strictEqual(firstItem.renderNode.getAttribute("aria-selected"), "true");
 			assert.strictEqual(secondItem.renderNode.getAttribute("aria-selected"), "false");
+
 			// Selection event on second item (select)
-			event = {target: secondItem, preventDefault: function () {}};
-			list._spaceKeydownHandler(event);
+			secondItem.emit("keydown", {key: "Spacebar"});
+			secondItem.emit("keyup", {key: "Spacebar"});
+
 			assert.isNotNull(selectionChangeEvent);
 			assert.strictEqual(selectionChangeEvent.oldValue.label, "item 1", "event2 old selection");
 			assert.strictEqual(selectionChangeEvent.newValue.label, "item 2", "event2 new selection");
 			assert.strictEqual(selectionChangeEvent.renderer, secondItem, "event2 renderer");
-			assert.strictEqual(selectionChangeEvent.triggerEvent, event, "event2 triggerEvent");
+			assert.strictEqual(selectionChangeEvent.triggerEvent.key, "Spacebar", "event2 triggerEvent");
 			selectionChangeEvent = null;
 			assert.strictEqual(firstItem.renderNode.getAttribute("aria-selected"), "false");
+
 			assert.strictEqual(secondItem.renderNode.getAttribute("aria-selected"), "true");
+
 			// Selection event on second item (deselect)
-			event = {target: secondItem, preventDefault: function () {}};
-			list._spaceKeydownHandler(event);
+			secondItem.emit("keydown", {key: "Spacebar"});
+			secondItem.emit("keyup", {key: "Spacebar"});
+
 			assert.isNotNull(selectionChangeEvent);
 			assert.strictEqual(selectionChangeEvent.oldValue.label, "item 2", "event3 old selection");
 			assert.strictEqual(selectionChangeEvent.newValue, null, "event3 new selection");
 			assert.strictEqual(selectionChangeEvent.renderer, secondItem, "event3 renderer");
-			assert.strictEqual(selectionChangeEvent.triggerEvent, event, "event3 triggerEvent");
+			assert.strictEqual(selectionChangeEvent.triggerEvent.key, "Spacebar", "event3 triggerEvent");
 			selectionChangeEvent = null;
 			assert.strictEqual(firstItem.renderNode.getAttribute("aria-selected"), "false");
 			assert.strictEqual(secondItem.renderNode.getAttribute("aria-selected"), "false");
@@ -119,36 +130,41 @@ define([
 			var selectionChangeEvent = null;
 			var firstItem = list.containerNode.children[0];
 			var secondItem = list.containerNode.children[1];
-			var event = null;
 			list.on("selection-change", function (event) {
 				selectionChangeEvent = event;
 			});
 			assert.strictEqual(firstItem.className, "d-list-item");
+
 			// Selection event on first item (select)
-			event = {target: firstItem, preventDefault: function () {}};
-			list._spaceKeydownHandler(event);
+			firstItem.emit("keydown", {key: "Spacebar"});
+			firstItem.emit("keyup", {key: "Spacebar"});
+
 			assert.isNotNull(selectionChangeEvent);
 			assert.strictEqual(selectionChangeEvent.oldValue, null, "event1 old selection");
 			assert.strictEqual(selectionChangeEvent.newValue.label, "item 1", "event1 new selection");
 			assert.strictEqual(selectionChangeEvent.renderer, firstItem, "event1 renderer");
-			assert.strictEqual(selectionChangeEvent.triggerEvent, event, "event1 triggerEvent");
+			assert.strictEqual(selectionChangeEvent.triggerEvent.key, "Spacebar", "event1 triggerEvent");
 			selectionChangeEvent = null;
 			assert.strictEqual(firstItem.renderNode.getAttribute("aria-selected"), "true");
 			assert.strictEqual(secondItem.renderNode.getAttribute("aria-selected"), "false");
+
 			// Selection event on second item (select)
-			event = {target: secondItem, preventDefault: function () {}};
-			list._spaceKeydownHandler(event);
+			secondItem.emit("keydown", {key: "Spacebar"});
+			secondItem.emit("keyup", {key: "Spacebar"});
+
 			assert.isNotNull(selectionChangeEvent);
 			assert.strictEqual(selectionChangeEvent.oldValue.label, "item 1", "event2 old selection");
 			assert.strictEqual(selectionChangeEvent.newValue.label, "item 2", "event2 new selection");
 			assert.strictEqual(selectionChangeEvent.renderer, secondItem, "event2 renderer");
-			assert.strictEqual(selectionChangeEvent.triggerEvent, event, "event2 triggerEvent");
+			assert.strictEqual(selectionChangeEvent.triggerEvent.key, "Spacebar", "event2 triggerEvent");
 			selectionChangeEvent = null;
 			assert.strictEqual(firstItem.renderNode.getAttribute("aria-selected"), "false");
 			assert.strictEqual(secondItem.renderNode.getAttribute("aria-selected"), "true");
+
 			// Selection event on second item (does not deselect)
-			event = {target: secondItem, preventDefault: function () {}};
-			list._spaceKeydownHandler(event);
+			secondItem.emit("keydown", {key: "Spacebar"});
+			secondItem.emit("keyup", {key: "Spacebar"});
+
 			assert.isNull(selectionChangeEvent);
 			assert.strictEqual(firstItem.renderNode.getAttribute("aria-selected"), "false");
 			assert.strictEqual(secondItem.renderNode.getAttribute("aria-selected"), "true");
@@ -162,9 +178,11 @@ define([
 			list.deliver();
 			var selectionChangeEvent = null;
 			var firstItem = list.containerNode.children[0];
+
 			// select first item
-			var event = {target: firstItem, preventDefault: function () {}};
-			list._spaceKeydownHandler(event);
+			firstItem.emit("keydown", {key: "Spacebar"});
+			firstItem.emit("keyup", {key: "Spacebar"});
+
 			// now listen to selection-change event and remove the selected item from the store
 			list.on("selection-change", function (event) {
 				selectionChangeEvent = event;
@@ -183,9 +201,11 @@ define([
 			list.deliver();
 			var firstItem = list.containerNode.children[0];
 			var thirdItem = list.containerNode.children[2];
+
 			// select first item
-			var event = {target: firstItem, preventDefault: function () {}};
-			list._spaceKeydownHandler(event);
+			firstItem.emit("keydown", {key: "Spacebar"});
+			firstItem.emit("keyup", {key: "Spacebar"});
+
 			assert(list.isSelected(firstItem.item), "item selected before move");
 			list.source.put(firstItem.item, {beforeId: thirdItem.item.id});
 			var secondItem = list.containerNode.children[1];
@@ -209,9 +229,11 @@ define([
 			assert.isTrue(firstItem.className.indexOf("d-selected") === -1, "no d-selected class expected");
 			assert.strictEqual(firstItem.renderNode.getAttribute("aria-selected"), "false",
 					"no aria-selected attribute 'false' expected on first item");
+
 			// select first item
-			var event = {target: firstItem, preventDefault: function () {}};
-			list._spaceKeydownHandler(event);
+			firstItem.emit("keydown", {key: "Spacebar"});
+			firstItem.emit("keyup", {key: "Spacebar"});
+
 			assert.isTrue(firstItem.className.indexOf("d-selected") >= 0, "d-selected class expected");
 			assert.strictEqual(firstItem.renderNode.getAttribute("aria-selected"), "true",
 					"aria-selected attribute 'true' expected on first item after selection");
@@ -232,9 +254,11 @@ define([
 			assert.isTrue(firstItem.className.indexOf("d-selected") === -1, "no d-selected class expected");
 			assert.strictEqual(firstItem.renderNode.getAttribute("aria-selected"), "false",
 					"no aria-selected attribute 'false' expected on first item");
+
 			// select first item
-			var event = {target: firstItem, preventDefault: function () {}};
-			list._spaceKeydownHandler(event);
+			firstItem.emit("keydown", {key: "Spacebar"});
+			firstItem.emit("keyup", {key: "Spacebar"});
+
 			assert.isTrue(firstItem.className.indexOf("d-selected") >= 0, "d-selected class expected");
 			assert.strictEqual(firstItem.renderNode.getAttribute("aria-selected"), "true",
 					"aria-selected attribute 'true' expected on first item after selection");
@@ -256,9 +280,11 @@ define([
 			assert.isTrue(firstItem.className.indexOf("d-selected") === -1, "no d-selected class expected");
 			assert.strictEqual(firstItem.renderNode.getAttribute("aria-selected"), "false",
 					"aria-selected attribute expected on first item");
+
 			// select first item
-			var event = {target: firstItem, preventDefault: function () {}};
-			list._spaceKeydownHandler(event);
+			firstItem.emit("keydown", {key: "Spacebar"});
+			firstItem.emit("keyup", {key: "Spacebar"});
+
 			assert.isTrue(firstItem.className.indexOf("d-selected") >= 0, "d-selected class expected");
 			assert.strictEqual(firstItem.renderNode.getAttribute("aria-selected"), "true",
 					"aria-selected attribute expected on first item after selection");
@@ -309,16 +335,17 @@ define([
 		"selectionMode 'none'": function () {
 			var selectionChangeEvent = null;
 			var firstItem = list.containerNode.children[0];
-			var event = null;
 			list.selectionMode = "none";
 			list.deliver();
 			list.on("selection-change", function (event) {
 				selectionChangeEvent = event;
 			});
 			assert.strictEqual(firstItem.className, "d-list-item");
+
 			// Selection event on first item (no effect)
-			event = {target: firstItem, preventDefault: function () {}};
-			list._spaceKeydownHandler(event);
+			firstItem.emit("keydown", {key: "Spacebar"});
+			firstItem.emit("keyup", {key: "Spacebar"});
+
 			assert.isNull(selectionChangeEvent);
 			assert.strictEqual(firstItem.className, "d-list-item");
 		},
@@ -388,9 +415,11 @@ define([
 			list.selectionMode = "single";
 			list.deliver();
 			var firstItem = list.containerNode.children[0];
+
 			// select first item
-			var event = {target: firstItem, preventDefault: function () {}};
-			list._spaceKeydownHandler(event);
+			firstItem.emit("keydown", {key: "Spacebar"});
+			firstItem.emit("keyup", {key: "Spacebar"});
+
 			// list
 			assert.isFalse(list.containerNode.hasAttribute("aria-multiselectable"),
 					"A: no aria-multiselectable attribute expected");
