@@ -1140,15 +1140,15 @@ define([
 		 * @private
 		 */
 		_spaceKeydownHandler: function (evt) {
-			if (this.selectionMode !== "none") {
-				if (this.handleSelection(evt)) {
-					evt.preventDefault();
-				} // else do not prevent-default, for the sake of use-cases
-				// such as Combobox where the target of the key event is an
-				// input element outside the List. In this use-case, delite/HasDropDown
-				// forwards "keydown" events to the List instance and prevent-defaults
-				// the event if any key handler prevent-defaults the event, which would
-				// forbid the user from entering space characters in the input element.
+			if (this.selectionMode !== "none" && this.getEnclosingRenderer(evt.target)) {
+				evt.preventDefault();
+
+				// Wait until keyup to fire the selection event, so widgets like ComboButton don't switch focus
+				// too early, sending a stray keyup event to the ComboButton anchor node.
+				var handle = this.on("keyup", function (evt2) {
+					handle.remove();
+					this.handleSelection(evt2);
+				}.bind(this));
 			}
 		},
 
