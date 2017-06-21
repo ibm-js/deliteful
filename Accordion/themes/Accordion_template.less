@@ -17,46 +17,54 @@
 
 
 // Styling for panel headers.
-.d-accordion > [role=tab] {
-	padding: 10px 15px;
-	font-weight: bold;
+.d-accordion > [role=heading] {
+	display: flex;
 	border: 2px solid;
+	padding: 10px 15px;
 
 	font-weight: bold;
 	.border-radius(0);
 	border-color: @panel-inner-border;
 	color: @panel-default-text;
 	background-color: @panel-default-heading-bg;
-	.flex(0 0 auto);	// This also seems unnecessary.
-}
 
-.d-accordion > [role=tab]:focus,
-.d-accordion > [role=tab]:hover {
-	background-color: darken(@panel-default-heading-bg, 8%);
-	border-color: darken(@panel-inner-border, 12%);
-}
+	// Button to open/close the dropdown.
+	// Fills the entire header except when header contains additional controls.
+	[aria-controls] {
+		flex: 1;
+		border: none;
+		background: none;
+		padding: 0;
+		font-weight: bold;
+		text-align: inherit;
+	}
 
-.d-accordion > [role=tab][aria-selected=true] {
-	background-color: @component-active-bg;
-	border-color: @component-active-bg;
-	border-bottom-width: 1px;
-	color: @component-active-color;
-}
+	&:hover {
+		background-color: darken(@panel-default-heading-bg, 8%);
+		border-color: darken(@panel-inner-border, 12%);
+	}
 
-.d-accordion > [role=tab][aria-selected=true]:focus,
-.d-accordion > [role=tab][aria-selected=true]:hover {
-	background-color: lighten(@component-active-bg, 12%);
-	border-color: darken(@component-active-bg, 10%);
+	&.d-open {
+		background-color: @component-active-bg;
+		border-color: @component-active-bg;
+		border-bottom-width: 1px;
+		color: @component-active-color;
+
+		&:hover {
+			background-color: lighten(@component-active-bg, 12%);
+			border-color: darken(@component-active-bg, 10%);
+		}
+	}
 }
 
 // Styling for accordion panels (i.e. the content).
-.d-accordion > [role=tabpanel] {
+.d-accordion > [role=region] {
 	border: solid 2px @panel-inner-border;
 	border-top: none;
 	.border-radius(0);	// override styling for <d-panel>
 }
 
-[role=tabpanel].d-accordion-open-panel {
+[role=region].d-accordion-open-panel {
 	border-color: @component-active-bg;
 	.flex(1);
 }
@@ -70,7 +78,7 @@
 	from {.flex(0.0001);}
 	to {.flex(1);}
 }
-[role=tabpanel].d-accordion-open-animation {
+[role=region].d-accordion-open-animation {
 	animation-name: d-accordion-open-animation;
 	animation-duration: .3s;
 	animation-fill-mode: forwards;
@@ -91,7 +99,7 @@
 	from {.flex(1);}
 	to {.flex(0.0001);}
 }
-[role=tabpanel].d-accordion-close-animation {
+[role=region].d-accordion-close-animation {
 	animation-name: d-accordion-close-animation;
 	animation-duration: .3s;
 	animation-fill-mode: forwards;

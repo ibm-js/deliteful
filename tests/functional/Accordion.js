@@ -7,8 +7,6 @@ define(["intern",
 ], function (intern, registerSuite, pollUntil, keys, assert, require) {
 	var PAGE = "./Accordion.html";
 
-	var panelHeaderStr = "_panelHeader";
-
 	function checkPanelIsOpen(remote, panel) {
 		return remote
 			.findById(panel)
@@ -21,7 +19,7 @@ define(["intern",
 					assert.isTrue(displayed, panel + " visible");
 				})
 				.end()
-			.findByCssSelector("#" + panel + panelHeaderStr)
+			.findByCssSelector("#" + panel + "-header")
 				.getProperty("open")
 				.then(function (checked) {
 					assert.isTrue(checked, panel + ".header.open");
@@ -29,8 +27,8 @@ define(["intern",
 				.end()
 			.execute("return document.getElementById(" + panel + ")")
 				.then(function (elem) {
-					pollUntil(function (value) {
-						var classes = value.getAttribute("class");
+					pollUntil(function (val) {
+						var classes = val.getAttribute("class");
 						classes = classes.trim().split(/\s+/g);
 						return classes.indexOf("d-accordion-open-panel") !== -1 ? true : null;
 					}, [elem], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL);
@@ -50,7 +48,7 @@ define(["intern",
 					assert.isFalse(displayed, panel + " hidden");
 				})
 				.end()
-			.findByCssSelector("#" + panel + panelHeaderStr)
+			.findByCssSelector("#" + panel + "-header")
 				.getProperty("open")
 				.then(function (checked) {
 					assert.isFalse(checked, panel + ".header.open");
@@ -58,8 +56,8 @@ define(["intern",
 				.end()
 			.execute("return document.getElementById(" + panel + ")")
 				.then(function (elem) {
-					pollUntil(function (value) {
-						return value.style.display === "none" ? false : null;
+					pollUntil(function (val) {
+						return val.style.display === "none" ? false : null;
 					}, [elem], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL);
 				})
 				.end();
@@ -93,47 +91,15 @@ define(["intern",
 			beforeEach: function () {
 				// Try to make the tests independent by starting in a state where the first panel is open.
 				return this.remote
-					.findByCssSelector("#panel1" + panelHeaderStr).click().end();
+					.findByCssSelector("#panel1-header [aria-controls]").click().end();
 			},
 
 			"Open panel by clicking": function () {
 				var remote = this.remote;
 				return remote
-					.findByCssSelector("#panel2" + panelHeaderStr)
+					.findByCssSelector("#panel2-header [aria-controls]")
 					.click()
 					.end()
-					.sleep(500)
-					.then(function () {
-						return checkPanelIsClosed(remote, "panel1");
-					})
-					.then(function () {
-						return checkPanelIsOpen(remote, "panel2");
-					})
-					.then(function () {
-						return checkPanelIsClosed(remote, "panel3");
-					});
-			},
-
-			"Open panel by clicking on the label": function () {
-				var remote = this.remote;
-				return remote
-					.findByCssSelector("#panel3" + panelHeaderStr + " > span:last-child").click().end()
-					.sleep(500)
-					.then(function () {
-						return checkPanelIsClosed(remote, "panel1");
-					})
-					.then(function () {
-						return checkPanelIsClosed(remote, "panel2");
-					})
-					.then(function () {
-						return checkPanelIsOpen(remote, "panel3");
-					});
-			},
-
-			"Open panel by clicking on the icon": function () {
-				var remote = this.remote;
-				return remote
-					.findByCssSelector("#panel2" + panelHeaderStr + " > span:first-child").click().end()
 					.sleep(500)
 					.then(function () {
 						return checkPanelIsClosed(remote, "panel1");
@@ -149,13 +115,13 @@ define(["intern",
 			"Try to close the open panel": function () {
 				var remote = this.remote;
 				return remote
-					.findByCssSelector("#panel1" + panelHeaderStr + " > span:last-child").click().end()
+					.findByCssSelector("#panel2-header [aria-controls]").click().end()
 					.sleep(500)
 					.then(function () {
-						return checkPanelIsOpen(remote, "panel1");
+						return checkPanelIsClosed(remote, "panel1");
 					})
 					.then(function () {
-						return checkPanelIsClosed(remote, "panel2");
+						return checkPanelIsOpen(remote, "panel2");
 					})
 					.then(function () {
 						return checkPanelIsClosed(remote, "panel3");
@@ -172,16 +138,16 @@ define(["intern",
 			},
 
 			beforeEach: function () {
-				// Always start with the first panel open, and focus on the first header.
+				// Always start with the first panel open, and focus before the accordion.
 				return this.remote
-					.findByCssSelector("#panel1" + panelHeaderStr).click().end()
-					.findById("inputBeforeAccordion1").click().end()
-					.pressKeys(keys.TAB);
+					.findByCssSelector("#panel1-header [aria-controls]").click().end()
+					.findById("inputBeforeAccordion1").click().end();
 			},
 
-			"Open panel by using ENTER or SPACE key": function () {
+			"Open panel": function () {
 				var remote = this.remote;
 				return remote
+					.pressKeys(keys.TAB)		// go to header 1
 					.pressKeys(keys.ARROW_DOWN)	// panel 1 already open, so try panel 2
 					.pressKeys(keys.ENTER)
 					.sleep(500)
@@ -195,7 +161,7 @@ define(["intern",
 						return checkPanelIsClosed(remote, "panel3");
 					})
 					.pressKeys(keys.ARROW_DOWN)
-					.pressKeys(keys.SPACE)
+					.pressKeys(keys.ENTER)
 					.sleep(500)
 					.then(function () {
 						return checkPanelIsClosed(remote, "panel1");
@@ -210,142 +176,120 @@ define(["intern",
 
 			"HOME and END keys": function () {
 				return this.remote
+					.pressKeys(keys.TAB)		// go to header 1
 					.pressKeys(keys.END)		// go from first to last
-					.execute("return document.activeElement.getAttribute('id');").then(function (value) {
-						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel3");
+					.execute("return document.activeElement.querySelector('.d-label').textContent;").then(function (v) {
+						assert.strictEqual(v, "Panel3");
 					})
 					.pressKeys(keys.HOME)		// and back to first
-					.execute("return document.activeElement.getAttribute('id');").then(function (value) {
-						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel1");
+					.execute("return document.activeElement.querySelector('.d-label').textContent;").then(function (v) {
+						assert.strictEqual(v, "Panel1");
 					});
 			},
 
 			"Arrow keys": function () {
 				// Moving between panels using arrow keys.
 				return this.remote
-					.pressKeys(keys.ARROW_RIGHT)
-					.execute("return document.activeElement.getAttribute('id');").then(function (value) {
-						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel2", "after ARROW_RIGHT");
-					})
-					.pressKeys(keys.ARROW_LEFT)
-					.execute("return document.activeElement.getAttribute('id');").then(function (value) {
-						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel1", "after ARROW_LEFT");
-					})
+					.pressKeys(keys.TAB)		// go to header 1
 					.pressKeys(keys.ARROW_DOWN)
-					.execute("return document.activeElement.getAttribute('id');").then(function (value) {
-						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel2", "after ARROW_DOWN");
+					.execute("return document.activeElement.querySelector('.d-label').textContent;").then(function (v) {
+						assert.strictEqual(v, "Panel2", "after ARROW_DOWN");
 					})
 					.pressKeys(keys.ARROW_UP)
-					.execute("return document.activeElement.getAttribute('id');").then(function (value) {
-						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel1", "after ARROW_UP");
-					});
-			},
-
-			"Tab into accordion": function () {
-				return this.remote
-					.pressKeys(keys.ARROW_DOWN)			// go to header 2
-					.execute("return document.activeElement.getAttribute('id');").then(function (value) {
-						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel2", "arrow to header 2");
+					.execute("return document.activeElement.querySelector('.d-label').textContent;").then(function (v) {
+						assert.strictEqual(v, "Panel1", "after ARROW_UP");
 					})
-					.pressKeys(keys.SPACE)				// open panel 2
-					.pressKeys(keys.ARROW_DOWN)			// go to panel 3
-					.execute("return document.activeElement.getAttribute('id');").then(function (value) {
-						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel3", "arrow to header 3");
+					.pressKeys(keys.ARROW_DOWN)
+					.execute("return document.activeElement.querySelector('.d-label').textContent;").then(function (v) {
+						assert.strictEqual(v, "Panel2", "after ARROW_DOWN");
 					})
-					.pressKeys(keys.SHIFT + keys.TAB)	// shift-tab to panel 2
-					.execute("return document.activeElement.getAttribute('id');").then(function (value) {
-						assert.strictEqual(value, "panel2_input");
-					})
-					.pressKeys(keys.TAB)				// shift-tab to header 2
-					.execute("return document.activeElement.getAttribute('id');").then(function (value) {
-						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel2",
-							"shift-tab to header 2");
-					})
-					.pressKeys(keys.TAB)	// shift-tab to before accordion
-					.execute("return document.activeElement.getAttribute('id');").then(function (value) {
-						assert.strictEqual(value, "inputBeforeAccordion1");
-					})
-					.pressKeys(keys.SHIFT)				// release shift key
-					.pressKeys(keys.TAB)				// tab back in to accordion, to header 2
-					.execute("return document.activeElement.getAttribute('id');").then(function (value) {
-						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel2",
-							"tab to header 2");
-					});
-			},
-
-			// Shift-tab into Accordion is non-intuitive since there's no infrastructure to differentiate
-			// when a user shift-tabs into the accordion rather than clicking into it.
-			// Shift-tab currently goes to the last open panel with a
-			// tab-navigable element, or if there are no open panels with focusable elements, then to the
-			// header for the first open panel.
-			"shift-tab into accordion": function () {
-				return this.remote
-					.pressKeys(keys.ARROW_DOWN)			// go to panel 2
-					.execute("return document.activeElement.getAttribute('id');").then(function (value) {
-						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel2", "header 2");
-					})
-					.pressKeys(keys.SPACE)				// open panel 2
-					.pressKeys(keys.ARROW_DOWN)			// go to panel 3
-					.pressKeys(keys.TAB)				// tab out of accordion
-					.pressKeys(keys.SHIFT + keys.TAB)	// shift-tab back in to panel 2
-					.pressKeys(keys.SHIFT)				// release shift key
-					.execute("return document.activeElement.getAttribute('id');").then(function (value) {
-						assert.strictEqual(value, "panel2_input", "shift-tab into panel 2");
-					})
-					.pressKeys(keys.SHIFT + keys.TAB)	// shift-tab to header 2
-					.pressKeys(keys.SHIFT)				// release shift key
-					.execute("return document.activeElement.getAttribute('id');").then(function (value) {
-						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel2",
-							"shift-tab to header 2");
+					.pressKeys(keys.ARROW_UP)
+					.execute("return document.activeElement.querySelector('.d-label').textContent;").then(function (v) {
+						assert.strictEqual(v, "Panel1", "after ARROW_UP");
 					});
 			},
 
 			"Arrow keys - cyclic": function () {
 				return this.remote
 					// From last to first and from first to last
-					.pressKeys(keys.ARROW_LEFT)
-					.execute("return document.activeElement.getAttribute('id');")
-					.then(function (value) {
-						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel3");
-					})
-					.pressKeys(keys.ARROW_RIGHT)
-					.execute("return document.activeElement.getAttribute('id');")
-					.then(function (value) {
-						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel1");
-					})
+					.pressKeys(keys.TAB)		// go to header 1
 					.pressKeys(keys.ARROW_UP)
-					.execute("return document.activeElement.getAttribute('id');")
-					.then(function (value) {
-						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel3");
+					.execute("return document.activeElement.querySelector('.d-label').textContent;")
+					.then(function (v) {
+						assert.strictEqual(v, "Panel3");
 					})
 					.pressKeys(keys.ARROW_DOWN)
-					.execute("return document.activeElement.getAttribute('id');")
-					.then(function (value) {
-						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel1");
+					.execute("return document.activeElement.querySelector('.d-label').textContent;")
+					.then(function (v) {
+						assert.strictEqual(v, "Panel1");
+					})
+					.pressKeys(keys.ARROW_UP)
+					.execute("return document.activeElement.querySelector('.d-label').textContent;")
+					.then(function (v) {
+						assert.strictEqual(v, "Panel3");
+					})
+					.pressKeys(keys.ARROW_DOWN)
+					.execute("return document.activeElement.querySelector('.d-label').textContent;")
+					.then(function (v) {
+						assert.strictEqual(v, "Panel1");
 					});
 			},
 
-			"Tab and shift-tab within accordion": function () {
+			"Tab through accordion": function () {
 				return this.remote
-					.execute("return document.activeElement.getAttribute('id');")
-					.then(function (value) {
-						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel1"); // header
+					.pressKeys(keys.TAB)		// go to header 1
+					.execute("return document.activeElement.querySelector('.d-label').textContent;").then(function (v) {
+						assert.strictEqual(v, "Panel1", "tab to header 1");
+					})
+					.pressKeys(keys.TAB)	// tab to panel 1
+					.execute("return document.activeElement.id;").then(function (v) {
+						assert.strictEqual(v, "panel1_input");
+					})
+					.pressKeys(keys.TAB)		// go to header 2
+					.execute("return document.activeElement.querySelector('.d-label').textContent;").then(function (v) {
+						assert.strictEqual(v, "Panel2", "tab to header 1");
+					})
+					.pressKeys(keys.TAB)		// go to header 3
+					.execute("return document.activeElement.querySelector('.d-label').textContent;").then(function (v) {
+						assert.strictEqual(v, "Panel3", "tab to header 1");
 					})
 					.pressKeys(keys.TAB)
-					.execute("return document.activeElement.getAttribute('id');")
-					.then(function (value) {
-						assert.strictEqual(value, "panel1_input");	// first element in panel
+					.execute("return document.activeElement.id;").then(function (v) {
+						assert.strictEqual(v, "inputAfterAccordion1");
+					});
+			},
+
+			"Ctrl - PageUp / PageDown": function () {
+				if (/^(internet explorer|chrome)$/.test(this.remote.environmentType.browserName)) {
+					// works manually but not via webdriver
+					return this.skip("webdriver control key issues");
+				}
+
+				return this.remote
+					.pressKeys(keys.TAB)		// go to header 1
+					.pressKeys(keys.TAB)		// go to panel 1
+					.execute("return document.activeElement.id;").then(function (v) {
+						assert.strictEqual(v, "panel1_input");
 					})
-					.pressKeys(keys.SHIFT + keys.TAB)
-					.execute("return document.activeElement.getAttribute('id');")
-					.then(function (value) {
-						assert.strictEqual(value.replace(panelHeaderStr, ""), "panel1");
+					.pressKeys(keys.CONTROL + keys.PAGE_DOWN)		// go to header 2
+					.pressKeys(keys.CONTROL)                       // release CONTROL
+					.execute("return document.activeElement.querySelector('.d-label').textContent;").then(function (v) {
+						assert.strictEqual(v, "Panel2", "Ctrl-PageDown from panel 1 to header 2");
 					})
-					.pressKeys(keys.TAB)		// shift-tab
-					.pressKeys(keys.SHIFT)		// release shift
-					.execute("return document.activeElement.getAttribute('id');")
-					.then(function (value) {
-						assert.strictEqual(value, "inputBeforeAccordion1");
+					.pressKeys(keys.CONTROL + keys.PAGE_UP)		// go to header 1
+					.pressKeys(keys.CONTROL)                       // release CONTROL
+					.execute("return document.activeElement.querySelector('.d-label').textContent;").then(function (v) {
+						assert.strictEqual(v, "Panel1", "Ctrl-PageUp from panel 1 to header 2");
+					})
+					.pressKeys(keys.CONTROL + keys.PAGE_DOWN)		// go to header 2
+					.pressKeys(keys.CONTROL)                       // release CONTROL
+					.execute("return document.activeElement.querySelector('.d-label').textContent;").then(function (v) {
+						assert.strictEqual(v, "Panel2", "Ctrl-PageDown from header 1 to header 2");
+					})
+					.pressKeys(keys.CONTROL + keys.PAGE_UP)		// go to header 1
+					.pressKeys(keys.CONTROL)                       // release CONTROL
+					.execute("return document.activeElement.querySelector('.d-label').textContent;").then(function (v) {
+						assert.strictEqual(v, "Panel1", "Ctrl-PageUp from header 1 to header 2");
 					});
 			}
 		},
@@ -357,14 +301,15 @@ define(["intern",
 					.execute("document.getElementById('accordion').style.display = 'none'")
 					.execute("document.getElementById('accordion2').style.display = ''");
 			},
+
 			"Open all panels": function () {
 				var remote = this.remote;
 				return remote
-					.findByCssSelector("#panel22" + panelHeaderStr)
+					.findByCssSelector("#panel22-header [aria-controls]")
 						.click()
 						.end()
 					.sleep(500)
-					.findByCssSelector("#panel23" + panelHeaderStr)
+					.findByCssSelector("#panel23-header [aria-controls]")
 						.click()
 						.end()
 					.sleep(500)
@@ -378,10 +323,11 @@ define(["intern",
 						return checkPanelIsOpen(remote, "panel23");
 					});
 			},
+
 			"Close panel": function () {
 				var remote = this.remote;
 				return remote
-					.findByCssSelector("#panel22" + panelHeaderStr)
+					.findByCssSelector("#panel22-header [aria-controls]")
 						.click()
 						.end()
 					.sleep(500)
@@ -393,12 +339,8 @@ define(["intern",
 					})
 					.then(function () {
 						return checkPanelIsOpen(remote, "panel23");
-					});
-			},
-			"Close panel by clicking on the label": function () {
-				var remote = this.remote;
-				return remote
-					.findByCssSelector("#panel23" + panelHeaderStr + " > span:last-child")
+					})
+					.findByCssSelector("#panel23-header [aria-controls]")
 						.click()
 						.end()
 					.sleep(500)
@@ -412,10 +354,11 @@ define(["intern",
 						return checkPanelIsClosed(remote, "panel23");
 					});
 			},
+
 			"Try to close last open panel": function () {
 				var remote = this.remote;
 				return remote
-					.findByCssSelector("#panel21" + panelHeaderStr)
+					.findByCssSelector("#panel21-header [aria-controls]")
 						.click()
 						.end()
 					.sleep(500)
@@ -448,30 +391,25 @@ define(["intern",
 				if (remote.environmentType.safari) {
 					return this.skip("on safari w/default, tab key doesn't navigate to <button>");
 				}
-				if (remote.environmentType.browserName === "internet explorer") {
-					// Shift-tab handling in header works on IE manually but not via webdriver, even in Intern 3.4.
-					return this.skip("shift-tab keydown event broken for IE webdriver, evt.shiftKey not set");
-				}
 
 				return remote
 					.findById("inputBeforeAccordion3").click().end()
 
 					// Test navigating into header.
 					.pressKeys(keys.TAB)
-					.execute("return document.activeElement.id;")
-					.then(function (value) {
-						// Note this is checking that the mouse test above didn't change the navigatedDescendant.
-						assert.strictEqual(value, "panel31_panelHeader", "initial tab in");
+					.execute("return document.activeElement.querySelector('.d-label').textContent;")
+					.then(function (v) {
+						assert.strictEqual(v, "Panel31", "initial tab in");
 					})
 					.pressKeys(keys.TAB)	// should go to the <button>
-					.execute("return document.activeElement.tagName;")
-					.then(function (value) {
-						assert.strictEqual(value.toLowerCase(), "button", "tab to button");
+					.execute("return document.activeElement.className;")
+					.then(function (v) {
+						assert.strictEqual(v, "custom-button", "tab to button");
 					})
 					.pressKeys(keys.ENTER)	// should "click" the button not close the panel
-					.execute("return panel31_panelHeader.querySelector('button').innerHTML;")
-					.then(function (value) {
-						assert.strictEqual(value, "1 click");
+					.execute("return document.querySelector('#panel31-header .custom-button').innerHTML;")
+					.then(function (v) {
+						assert.strictEqual(v, "1 click");
 					})
 					.then(function () {
 						return checkPanelIsOpen(remote, "panel31");
@@ -484,58 +422,40 @@ define(["intern",
 					})
 					.pressKeys(keys.TAB)	// should go into the open panel 1
 					.execute("return document.activeElement.id;")
-					.then(function (value) {
-						assert.strictEqual(value, "panel31_input", "tab into panel");
+					.then(function (v) {
+						assert.strictEqual(v, "panel31_input", "tab into panel");
 					})
 
 					// Tests that SHIFT-TAB goes back into header.
 					.pressKeys(keys.SHIFT + keys.TAB)	// should go back to header button
 					.pressKeys(keys.SHIFT)				// release shift
-					.execute("return document.activeElement.tagName.toLowerCase();")
-					.then(function (value) {
-						assert.strictEqual(value, "button", "shift-tab to button");
+					.execute("return document.activeElement.className;")
+					.then(function (v) {
+						assert.strictEqual(v, "custom-button", "shift-tab to button");
 					})
 					.pressKeys(keys.ENTER)				// should "click" the button not close the panel
-					.execute("return panel31_panelHeader.querySelector('button').innerHTML;")
-					.then(function (value) {
-						assert.strictEqual(value, "2 clicks");
+					.execute("return document.querySelector('#panel31-header .custom-button').innerHTML;")
+					.then(function (v) {
+						assert.strictEqual(v, "2 clicks");
 					})
 					.pressKeys(keys.SHIFT + keys.TAB)	// should go back to header itself
 					.pressKeys(keys.SHIFT)				// release shift
-					.execute("return document.activeElement.id;")
-					.then(function (value) {
-						// Note this is checking that the mouse test above didn't change the navigatedDescendant.
-						assert.strictEqual(value, "panel31_panelHeader", "shift-tab from button to header");
-					})
-
-					// Test that TAB doesn't go backwards to previous open panels.
-					.findById("inputBeforeAccordion3").click().end()
-					.pressKeys(keys.TAB)		// enter accordion
-					.pressKeys(keys.ARROW_DOWN)	// go to second header
-					.pressKeys(keys.TAB)		// go to the second header's <button>
-					.execute("return document.activeElement.tagName;")
-					.then(function (value) {
-						assert.strictEqual(value.toLowerCase(), "button", "second header's button");
-					})
-					.pressKeys(keys.TAB)// should leave accordion altogether, since open panel is above current header
-					.execute("return document.activeElement.id;")
-					.then(function (value) {
-						assert.strictEqual(value, "inputAfterAccordion3");
+					.execute("return document.activeElement.querySelector('.d-label').textContent;")
+					.then(function (v) {
+						assert.strictEqual(v, "Panel31");
 					});
 			},
 
 			// Test clicking the button inside a header.
-			// Note that focusing anything in a header sets that header as the navigatedDescendant,
-			// so the mouse test is intentionally after the keyboard test, to not interfere with it.
 			mouse: function () {
 				var remote = this.remote;
 				return remote
-					.findByCssSelector("#panel32_panelHeader button")
+					.findByCssSelector("#panel32-header .custom-button")
 					.click()
 					.end()
-					.execute("return panel32_panelHeader.querySelector('button').innerHTML;")
-					.then(function (value) {
-						assert.strictEqual(value, "1 click");
+					.execute("return document.querySelector('#panel32-header .custom-button').innerHTML;")
+					.then(function (val) {
+						assert.strictEqual(val, "1 click");
 					})
 					.sleep(500)
 					.then(function () {

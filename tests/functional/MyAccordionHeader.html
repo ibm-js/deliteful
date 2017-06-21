@@ -1,5 +1,8 @@
-<template role="tab" aria-labelledby="{{widgetId}}_label" tabindex="-1">
-    <span role="presentation" attach-point="iconNode" class="d-icon {{this.open ? this.openIconClass : this.closedIconClass}}"></span>
-    <span attach-point="labelNode" id="{{widgetId}}_label">{{label}}</span>
-    <button on-click="{{_buttonClickHandler}}" tabindex="-1">{{clicks}} {{this.clicks === 1 ? "click" : "clicks"}}</button>
+<template role="heading" aria-level="3" class="{{this.open ? 'd-open' : ''}}">
+	<button aria-expanded="{{open}}" aria-controls="{{panelId}}" attach-point="focusNode">
+		<span role="presentation" attach-point="iconNode"
+			  class="d-icon {{this.open ? this.openIconClass : this.closedIconClass}}"></span>
+		<span attach-point="labelNode" id="{{widgetId}}_label" class="d-label">{{label}}</span>
+	</button>
+	<button class="custom-button" on-click="{{_buttonClickHandler}}">{{clicks}} {{this.clicks === 1 ? "click" : "clicks"}}</button>
 </template>

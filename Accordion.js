@@ -4,13 +4,12 @@ define([
 	"decor/sniff",
 	"requirejs-dplugins/Promise!",
 	"delite/register",
-	"delite/KeyNav",
 	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/DisplayContainer",
 	"./Accordion/AccordionHeader",
 	"./features",
 	"delite/theme!./Accordion/themes/{{theme}}/Accordion.css"
-], function (dcl, has, Promise, register, KeyNav, $, DisplayContainer, AccordionHeader) {
+], function (dcl, has, Promise, register, $, DisplayContainer, AccordionHeader) {
 
 	function setVisibility(node, val) {
 		node.style.display = val ? "" : "none";
@@ -50,7 +49,7 @@ define([
 	 * @class module:deliteful/Accordion
 	 * @augments module:delite/DisplayContainer
 	 */
-	return register("d-accordion", [HTMLElement, DisplayContainer, KeyNav], /** @lends module:deliteful/Accordion# */ {
+	return register("d-accordion", [HTMLElement, DisplayContainer], /** @lends module:deliteful/Accordion# */ {
 		/**
 		 * The name of the CSS class of this widget.
 		 * @member {string}
@@ -118,21 +117,9 @@ define([
 					this._panelList.push(this._setupUpgradedChild(panels[i]));
 				}
 			}
-		},
 
-		postRender: function () {
-			this.setAttribute("role", "tablist");
-			this.setAttribute("aria-multiselectable", "false");
 			this.on("delite-remove-child", this._onRemoveChild.bind(this));
-		},
-
-		/**
-		 * Handle a mouse click or touch on a panel header.
-		 * @param event
-		 * @private
-		 */
-		_headerClickHandler: function (event) {
-			this.activatePanel(event.currentTarget.panel);
+			this.on("keydown", this.keyDownHandler.bind(this));
 		},
 
 		/**
@@ -164,23 +151,32 @@ define([
 		},
 
 		_setupUpgradedChild: function (panel) {
+			// Panel must have id for the rest of this code to work.
+			if (!panel.id) {
+				panel.id = panel.widgetId;
+			}
+
 			// Create the header (that displays the panel's title).
 			var header = this.createHeader(panel, {
-				id: panel.id + "_panelHeader",
+				id: panel.id + "-header",
 				label: panel.label,
 				openIconClass: panel.openIconClass || this.openIconClass,
 				closedIconClass: panel.closedIconClass || this.closedIconClass,
-				panel: panel
+				panelId: panel.id
 			});
-			header.setAttribute("tabindex", "-1");
-			header.setAttribute("role", "tab");
-			header.setAttribute("aria-expanded", "false");
-			header.setAttribute("aria-selected", "false");
-			header.on("click", this._headerClickHandler.bind(this));
+
+			// Make click on header button open panel.  Alternately, AccordionHeader
+			// could emit "toggle-panel" event or something like that.
+			this.on("click", function (event) {
+				event.stopPropagation();
+				event.preventDefault();
+				this.activatePanel(panel);
+			}.bind(this), header.focusNode);
+
 			header.placeAt(panel, "before");
 
 			// React to programmatic changes on the panel to update the header.
-			panel.observe(function (oldValues) {
+			header.own(panel.observe(function (oldValues) {
 				if ("label" in oldValues) {
 					header.label = panel.label;
 				}
@@ -190,12 +186,12 @@ define([
 				if ("closedIconClass" in oldValues) {
 					header.closedIconClass = panel.closedIconClass;
 				}
-			});
+			}));
 
 			// And set up the panel itself.
 			setVisibility(panel, false);
 			panel.open = false;
-			panel.setAttribute("role", "tabpanel");
+			panel.setAttribute("role", "region");
 			panel.setAttribute("aria-labelledby", header.labelNode.id);
 			panel.setAttribute("aria-hidden", "true");
 			panel.headerNode = header;
@@ -226,18 +222,18 @@ define([
 		getChildren: function () {
 			// Override getChildren() to only return the panels, not the headers
 			return Array.prototype.filter.call(this.children, function (element) {
-				return element.getAttribute("role") === "tabpanel";
+				return element.getAttribute("role") === "region";
 			});
 		},
 
 		getHeaders: function () {
 			return Array.prototype.filter.call(this.children, function (element) {
-				return element.getAttribute("role") === "tab";
+				return element.getAttribute("role") === "heading";
 			});
 		},
 
-		/* jshint maxcomplexity: 14 */
 		refreshRendering: function (props) {
+			/* jshint maxcomplexity: 14 */
 			if ("selectedChildId" in props && this.selectedChildId) {
 				var childNode = this.ownerDocument.getElementById(this.selectedChildId);
 				if (childNode) {
@@ -276,7 +272,6 @@ define([
 				}.bind(this));
 			}
 			if ("mode" in props) {
-				this.setAttribute("aria-multiselectable", this.mode === accordionModes.multipleOpen);
 				if (this.mode === accordionModes.singleOpen) {
 					this._showOpenPanel();
 					this._panelList.forEach(function (panel) {
@@ -287,7 +282,6 @@ define([
 				}
 			}
 		},
-		/* jshint maxcomplexity: 10 */
 
 		_useAnimation: function () {
 			return (this.animate && (function () {
@@ -377,14 +371,7 @@ define([
 			if (valid) {
 				promises.push(this._doTransition(widget, params));
 				// Update WAI-ARIA attributes.
-				widget.headerNode.setAttribute("aria-selected", "" + widget.open);
-				widget.headerNode.setAttribute("aria-expanded", "" + widget.open);
 				widget.setAttribute("aria-hidden", "" + !widget.open);
-				if (params.hide) {
-					widget.headerNode.removeAttribute("aria-controls");
-				} else {
-					widget.headerNode.setAttribute("aria-controls", widget.id);
-				}
 			}
 			return Promise.all(promises);
 		},
@@ -453,7 +440,7 @@ define([
 		onAddChild: dcl.superCall(function (sup) {
 			return function (node) {
 				var res = sup.call(this, node);
-				if (node.getAttribute("role") !== "tab") {
+				if (node.getAttribute("role") !== "heading") {
 					// Process new panels (but not the headers created to go along with the panels).
 					this._panelList.push(this._setupUpgradedChild(node));
 					this.notifyCurrentValue("_panelList");
@@ -467,78 +454,90 @@ define([
 			this.notifyCurrentValue("_panelList");
 		},
 
-		//////////// delite/KeyNav implementation ///////////////////////////////////////
 		// Keyboard navigation is based on WAI-ARIA Pattern for Accordion:
-		// http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#accordion
+		// https://www.w3.org/TR/wai-aria-practices/#accordion
 
-		// Arrow keys should go to first focusable field in each header.
-		// To get to the other focusable fields, user should use the tab key.
-		// By default, only the header itself is focusable.  If a subclass makes
-		// elements inside the header focusable, then it should change descendantSelector.
-		descendantSelector: "[role=tab]",
-
-		_getCurrentHeader: function () {
-			var node = this.navigatedDescendant;
+		_getEnclosingHeader: function (node) {
 			while (node && node !== this) {
-				if (node.getAttribute("role") === "tab") {
+				if (node.getAttribute("role") === "heading") {
 					return node;
 				}
 				node = node.parentElement;
 			}
 		},
 
-		/**
-		 * Navigate to the next (offset=1) or previous header (offset=-1).
-		 * @param offset
-		 * @private
-		 */
-		_switchHeader: function (offset) {
-			var focusedHeader = this._getCurrentHeader();
-			if (focusedHeader) {
-				var headers = this.getHeaders();
-				var idx = headers.indexOf(focusedHeader),
-					newIdx = (idx + headers.length + offset) % headers.length;
-				this.navigateTo(headers[newIdx]);
+		_getEnclosingPanel: function (node) {
+			while (node && node !== this) {
+				if (node.getAttribute("role") === "region") {
+					return node;
+				}
+				node = node.parentElement;
 			}
 		},
 
-		previousKeyHandler: function () {
-			this._switchHeader(-1);
-		},
+		keyDownHandler: function (evt) {
+			// Handle keystrokes from headers.
+			var headers = this.getHeaders();
 
-		nextKeyHandler: function () {
-			this._switchHeader(1);
-		},
+			// Return next (offset=1) or previous (offset=-1) header, with looping.
+			function nextPrevHeader(header, offset) {
+				var idx = headers.indexOf(header),
+					newIdx = (idx + headers.length + offset) % headers.length;
+				return headers[newIdx];
+			}
 
-		upKeyHandler: function () {
-			this._switchHeader(-1);
-		},
-
-		downKeyHandler: function () {
-			this._switchHeader(1);
-		},
-
-		spacebarKeyHandler: function () {
-			var focusedHeader = this._getCurrentHeader();
-			this.activatePanel(focusedHeader.panel);
-		},
-
-		enterKeyHandler: function () {
-			var focusedHeader = this._getCurrentHeader();
-			this.activatePanel(focusedHeader.panel);
-		},
-
-		focus: function () {
-			// Navigate to the header for the first open panel, or if no open panels, then the first header.
-			var header = this.children[0];
-			for (var i = 0; i < this.children.length; i++) {
-				if (this.children[i].open) {
-					header = this.children[i];
-					break;
+			// Return the new header to navigate to given the specified focusedHeader and the keydown event.
+			function headerKeystrokeHandler(focusedHeader, evt) {
+				switch (((evt.ctrlKey || evt.metaKey) ? "Ctrl-" : "") + evt.key) {
+				case "ArrowDown":
+					return nextPrevHeader(focusedHeader, 1);
+				case "ArrowUp":
+					return nextPrevHeader(focusedHeader, -1);
+				case "Home":
+					return headers[0];
+				case "End":
+					return headers[headers.length - 1];
+				case "Ctrl-PageDown":
+					return nextPrevHeader(focusedHeader, 1);
+				case "Ctrl-PageUp":
+					return nextPrevHeader(focusedHeader, -1);
 				}
 			}
 
-			this.navigateTo(header);
+			// Return the new header to navigate to given the specified focused panel and the keydown event.
+			function panelKeystrokeHandler(focusedPanel, evt) {
+				if (evt.ctrlKey || evt.metaKey) {
+					if (evt.key === "PageUp") {
+						return focusedPanel.headerNode;
+					} else if (evt.key === "PageDown") {
+						return nextPrevHeader(focusedPanel.headerNode, 1);
+					}
+				}
+			}
+
+			// Handle keystroke on headers and panels.
+			var focusedHeader = this._getEnclosingHeader(evt.target);
+			var newHeader;
+			if (focusedHeader) {
+				newHeader =  headerKeystrokeHandler(focusedHeader, evt);
+			} else {
+				var focusedPanel = this._getEnclosingPanel(evt.target);
+				if (focusedPanel) {
+					newHeader = panelKeystrokeHandler(focusedPanel, evt);
+				}
+			}
+			if (newHeader) {
+				newHeader.focus();
+				evt.stopPropagation();
+				evt.preventDefault();
+			}
+		},
+
+		focus: function () {
+			// Navigate to first header, regardless of which panels are open.
+			// Seems to be what Aria 1.1 Accordion spec implies.
+			var headers = this.getHeaders();
+			headers[0].focus();
 		}
 	});
 });

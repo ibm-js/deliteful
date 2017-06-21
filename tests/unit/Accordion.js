@@ -74,23 +74,33 @@ define([
 
 	function checkAriaProperties(openPanels, closedPanels) {
 		openPanels.forEach(function (panel) {
-			assert.strictEqual(panel.headerNode.getAttribute("role"), "tab");
-			assert.strictEqual(panel.headerNode.getAttribute("aria-expanded"), "true");
-			assert.strictEqual(panel.headerNode.getAttribute("aria-selected"), "true");
-			assert.strictEqual(panel.headerNode.getAttribute("aria-controls"), panel.id);
-			assert.strictEqual(panel.headerNode.getAttribute("tabindex"), "-1");
-			assert.strictEqual(panel.getAttribute("role"), "tabpanel");
-			assert.strictEqual(panel.getAttribute("aria-hidden"), "false");
-			assert.strictEqual(panel.getAttribute("aria-labelledby"), panel.headerNode.labelNode.id);
+			var header = panel.headerNode,
+				button = header.querySelector("[aria-controls]");
+
+			// When animation is disabled, header hasn't yet delivered changes to set aria-expanded on <button>.
+			header.deliver();
+
+			assert.strictEqual(header.getAttribute("role"), "heading", "open heading role");
+			assert.strictEqual(button.getAttribute("aria-expanded"), "true", "open heading aria-expanded");
+			assert.strictEqual(button.getAttribute("aria-controls"), panel.id, "open heading aria-controls");
+			assert.strictEqual(panel.getAttribute("role"), "region", "open panel role");
+			assert.strictEqual(panel.getAttribute("aria-hidden"), "false", "open panel aria-hidden");
+			assert.strictEqual(panel.getAttribute("aria-labelledby"), panel.headerNode.labelNode.id,
+				"open panel aria-labelledby");
 		});
 		closedPanels.forEach(function (panel) {
-			assert.strictEqual(panel.headerNode.getAttribute("role"), "tab");
-			assert.strictEqual(panel.headerNode.getAttribute("aria-expanded"), "false");
-			assert.strictEqual(panel.headerNode.getAttribute("aria-selected"), "false");
-			assert.strictEqual(panel.headerNode.getAttribute("tabindex"), "-1");
-			assert.strictEqual(panel.getAttribute("role"), "tabpanel");
-			assert.strictEqual(panel.getAttribute("aria-hidden"), "true");
-			assert.strictEqual(panel.getAttribute("aria-labelledby"), panel.headerNode.labelNode.id);
+			var header = panel.headerNode,
+				button = header.querySelector("[aria-controls]");
+
+			// When animation is disabled, header hasn't yet delivered changes to set aria-expanded on <button>.
+			header.deliver();
+
+			assert.strictEqual(header.getAttribute("role"), "heading", "closed heading role");
+			assert.strictEqual(button.getAttribute("aria-expanded"), "false", "closed heading aria-expanded");
+			assert.strictEqual(panel.getAttribute("role"), "region", "closed panel role");
+			assert.strictEqual(panel.getAttribute("aria-hidden"), "true", "closed panel aria-hidden");
+			assert.strictEqual(panel.getAttribute("aria-labelledby"), panel.headerNode.labelNode.id,
+				"closed panel aria-labelledby");
 		});
 	}
 
@@ -110,14 +120,11 @@ define([
 		},
 		"Default values": function () {
 			accordion = document.getElementById("accordion");
-			assert.isTrue(accordion.mode === "singleOpen", "mode should be set to true by default");
-			assert.isTrue(accordion.animate, "animate should be set to true by default");
+			assert.strictEqual(accordion.mode, "singleOpen", "mode");
+			assert.isTrue(accordion.animate, "animate");
 			assert.strictEqual(accordion.selectedChildId, "panel1", "by default the selectedChild is the first one");
 			assert.strictEqual(accordion.openIconClass, "", "openIconClass doesn't have a default value");
 			assert.strictEqual(accordion.closedIconClass, "", "closedIconClass doesn't have a default value");
-			assert.strictEqual(accordion.getAttribute("role"), "tablist");
-			assert.strictEqual(accordion.getAttribute("aria-multiselectable"), "false");
-			assert.strictEqual(accordion.getAttribute("tabindex"), "0");
 
 		},
 		"SingleOpen Mode": {
@@ -203,7 +210,6 @@ define([
 			},
 			"Default open panel": function () {
 				checkPanelsStatus([panel21], [panel22, panel23], "Only panel1 should be open");
-				assert.strictEqual(accordion2.getAttribute("aria-multiselectable"), "true");
 			},
 			"Show(by id)": function () {
 				return accordion2.show("panel22").then(function () {

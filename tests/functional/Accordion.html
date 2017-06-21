@@ -1,5 +1,5 @@
 <!doctype html>
-<html id="html">
+<html id="html" lang="en">
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
 		<meta name="viewport"
@@ -37,19 +37,22 @@
 			});
 		</script>
 		<style>
+			[role=main] {
+				height: 100%;
+			}
 			d-accordion, my-accordion {
 				height: 75%;
 			}
-			.icon-plus:before {
+			.icon-plus::before {
 				content: "\25b6";
 			}
-			.icon-minus:before {
+			.icon-minus::before {
 				content: "\25bc";
 			}
-			.icon-right:before {
+			.icon-right::before {
 				content: "\21D2";
 			}
-			.icon-down:before {
+			.icon-down::before {
 				content: "\21D3";
 			}
 			my-accordion-header > button {
@@ -61,50 +64,52 @@
 		</style>
 	</head>
 	<body>
-		<h2>Accordion mode=singleOpen</h2>
-		<label for="inputBeforeAccordion1">Focus point before accordion 1:</label> <input id="inputBeforeAccordion1">
-		<d-accordion id="accordion" openIconClass="icon-minus" closedIconClass="icon-plus">
-			<d-panel id="panel1" label="Panel1">
-				<label for="panel1_input">Input in panel1:</label> <input id="panel1_input">
-			</d-panel>
-			<d-panel id="panel2" label="Panel2" iconClass="icon-down" closedIconClass="icon-right">
-				<label for="panel2_input">Input in panel2:</label> <input id="panel2_input">
-			</d-panel>
-			<d-panel id="panel3" label="Panel3">
-				<label for="panel3_input">Input in panel3:</label> <input id="panel3_input">
-			</d-panel>
-		</d-accordion>
-		<label for="inputAfterAccordion1">Focus point after accordion 1:</label> <input id="inputAfterAccordion1">
+		<div role="main">
+			<h2>Accordion mode=singleOpen</h2>
+			<label for="inputBeforeAccordion1">Focus point before accordion 1:</label> <input id="inputBeforeAccordion1">
+			<d-accordion id="accordion" openIconClass="icon-minus" closedIconClass="icon-plus">
+				<d-panel id="panel1" label="Panel1">
+					<label for="panel1_input">Input in panel1:</label> <input id="panel1_input">
+				</d-panel>
+				<d-panel id="panel2" label="Panel2" iconClass="icon-down" closedIconClass="icon-right">
+					<label for="panel2_input">Input in panel2:</label> <input id="panel2_input">
+				</d-panel>
+				<d-panel id="panel3" label="Panel3">
+					<label for="panel3_input">Input in panel3:</label> <input id="panel3_input">
+				</d-panel>
+			</d-accordion>
+			<label for="inputAfterAccordion1">Focus point after accordion 1:</label> <input id="inputAfterAccordion1">
 
-		<h2>Accordion mode=multipleOpen</h2>
-		<label for="inputBeforeAccordion2">Focus point before accordion 2:</label> <input id="inputBeforeAccordion2">
-		<d-accordion id="accordion2" mode="multipleOpen" openIconClass="icon-minus" closedIconClass="icon-plus">
-			<d-panel id="panel21" label="Panel21">
-				<div>Content1</div>
-			</d-panel>
-			<d-panel id="panel22" label="Panel22" iconClass="icon-down" closedIconClass="icon-right">
-				<div>Content2</div>
-			</d-panel>
-			<d-panel id="panel23" label="Panel23">
-				<div>Content3</div>
-			</d-panel>
-		</d-accordion>
-		<label for="inputAfterAccordion2">Focus point after accordion 2:</label> <input id="inputAfterAccordion2">
+			<h2>Accordion mode=multipleOpen</h2>
+			<label for="inputBeforeAccordion2">Focus point before accordion 2:</label> <input id="inputBeforeAccordion2">
+			<d-accordion id="accordion2" mode="multipleOpen" openIconClass="icon-minus" closedIconClass="icon-plus">
+				<d-panel id="panel21" label="Panel21">
+					<div>Content1</div>
+				</d-panel>
+				<d-panel id="panel22" label="Panel22" iconClass="icon-down" closedIconClass="icon-right">
+					<div>Content2</div>
+				</d-panel>
+				<d-panel id="panel23" label="Panel23">
+					<div>Content3</div>
+				</d-panel>
+			</d-accordion>
+			<label for="inputAfterAccordion2">Focus point after accordion 2:</label> <input id="inputAfterAccordion2">
 
-		<h2>Accordion with custom headers</h2>
-		<label for="inputBeforeAccordion3">Focus point before accordion 3:</label> <input id="inputBeforeAccordion3">
-		<my-accordion id="accordion3" openIconClass="icon-minus" closedIconClass="icon-plus">
-			<d-panel id="panel31" label="Panel31">
-				<label for="panel31_input">Input in panel31:</label> <input id="panel31_input">
-			</d-panel>
-			<d-panel id="panel32" label="Panel32">
-				<label for="panel32_input">Input in panel32:</label> <input id="panel32_input">
-			</d-panel>
-			<d-panel id="panel33" label="Panel33">
-				<label for="panel33_input">Input in panel33:</label> <input id="panel33_input">
-			</d-panel>
-		</my-accordion>
-		<label for="inputAfterAccordion3">Focus point after accordion 3:</label> <input id="inputAfterAccordion3">
-		<button onclick="console.log('clicked');">test button</button>
+			<h2>Accordion with custom headers</h2>
+			<label for="inputBeforeAccordion3">Focus point before accordion 3:</label> <input id="inputBeforeAccordion3">
+			<my-accordion id="accordion3" openIconClass="icon-minus" closedIconClass="icon-plus">
+				<d-panel id="panel31" label="Panel31">
+					<label for="panel31_input">Input in panel31:</label> <input id="panel31_input">
+				</d-panel>
+				<d-panel id="panel32" label="Panel32">
+					<label for="panel32_input">Input in panel32:</label> <input id="panel32_input">
+				</d-panel>
+				<d-panel id="panel33" label="Panel33">
+					<label for="panel33_input">Input in panel33:</label> <input id="panel33_input">
+				</d-panel>
+			</my-accordion>
+			<label for="inputAfterAccordion3">Focus point after accordion 3:</label> <input id="inputAfterAccordion3">
+			<button onclick="console.log('clicked');">test button</button>
+		</div>
 	</body>
 </html>
