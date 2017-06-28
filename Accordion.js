@@ -97,6 +97,13 @@ define([
 		closedIconClass: "",
 
 		/**
+		 * The aria-level value to set on accordion headers.
+		 * @member {number}
+		 * @default 3
+		 */
+		ariaLevel: 3,
+
+		/**
 		 * List of upgraded panels (i.e. `<d-panel>` widgets that have already run createdCallback() and
 		 * attachedCallback()).
 		 * @member {module:delite/Panel[]}
@@ -120,6 +127,21 @@ define([
 
 			this.on("delite-remove-child", this._onRemoveChild.bind(this));
 			this.on("keydown", this.keyDownHandler.bind(this));
+
+			// Process clicks on headers to open associated panel.  Ignore clicks on other buttons
+			// or controls.  Click may occur on the <span> inside the <button> (at least on Chrome),
+			// so trace up till button is found.s
+			this.on("click", function (event) {
+				for (var target = event.target; !panelId && target !== this; target = target.parentNode) {
+					var panelId = target.getAttribute("aria-controls");
+					if (panelId) {
+						event.stopPropagation();
+						event.preventDefault();
+						this.activatePanel(this.ownerDocument.getElementById(panelId));
+						break;
+					}
+				}
+			}.bind(this));
 		},
 
 		/**
@@ -164,14 +186,9 @@ define([
 				closedIconClass: panel.closedIconClass || this.closedIconClass,
 				panelId: panel.id
 			});
-
-			// Make click on header button open panel.  Alternately, AccordionHeader
-			// could emit "toggle-panel" event or something like that.
-			this.on("click", function (event) {
-				event.stopPropagation();
-				event.preventDefault();
-				this.activatePanel(panel);
-			}.bind(this), header.focusNode);
+			if (this.ariaLevel) {
+				header.setAttribute("aria-level", this.ariaLevel);
+			}
 
 			header.placeAt(panel, "before");
 

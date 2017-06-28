@@ -15,9 +15,8 @@
 // which may be a panel (if the last accordion panel is open), or it may be a header
 // (if the last panel is closed).
 
-
 // Styling for panel headers.
-.d-accordion > [role=heading] {
+.d-accordion-header {
 	display: flex;
 	border: 2px solid;
 	padding: 10px 15px;
@@ -30,12 +29,14 @@
 
 	// Button to open/close the dropdown.
 	// Fills the entire header except when header contains additional controls.
-	[aria-controls] {
+	// Override default <button> styles and instead inherit styling from d-accordion-header.
+	.d-header-label-button {
 		flex: 1;
 		border: none;
 		background: none;
 		padding: 0;
-		font-weight: bold;
+		color: inherit;
+		font: inherit;
 		text-align: inherit;
 	}
 
