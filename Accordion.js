@@ -467,8 +467,19 @@ define([
 		}),
 
 		_onRemoveChild: function (event) {
-			this._panelList.splice(this._panelList.indexOf(event.child), 1);
-			this.notifyCurrentValue("_panelList");
+			// If panel was removed, then destroy associated header and update this._panelList.
+			// Ignore notification for removed header.
+
+			var panel = event.child;
+			if (panel.headerNode) {
+				panel.headerNode.destroy();
+			}
+
+			var index = this._panelList.indexOf(panel);
+			if (index >= 0) {
+				this._panelList.splice(index, 1);
+				this.notifyCurrentValue("_panelList");
+			}
 		},
 
 		// Keyboard navigation is based on WAI-ARIA Pattern for Accordion:

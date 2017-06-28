@@ -448,7 +448,29 @@ define([
 			p33.appendChild(c33);
 			ac3.placeAt(container, "last");
 		},
-		"Controller": {
+
+		"add/remove children": function () {
+			var ac = new Accordion();
+			var p1 = new Panel({id: "add1", label: "panel 1"});
+			var p2 = new Panel({id: "add2", label: "panel 2"});
+			ac.appendChild(p1);
+			ac.appendChild(p2);
+
+			var childIds1 = Array.prototype.map.call(ac.children, function (child) {
+				return child.id;
+			});
+			assert.deepEqual(childIds1, ["add1-header", "add1", "add2-header", "add2"], "childIds1");
+			assert.deepEqual(ac._panelList, [p1, p2], "_panelList after adds");
+
+			ac.removeChild(p1);
+			var childIds2 = Array.prototype.map.call(ac.children, function (child) {
+				return child.id;
+			});
+			assert.deepEqual(childIds2, ["add2-header", "add2"], "childIds2");
+			assert.deepEqual(ac._panelList, [p2], "_panelList after remove");
+		},
+
+		Controller: {
 			setup: function () {
 				accordion4 = new Accordion();
 				var p40 = new Panel();
