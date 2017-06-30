@@ -128,16 +128,17 @@ define([
 			this.on("delite-remove-child", this._onRemoveChild.bind(this));
 			this.on("keydown", this.keyDownHandler.bind(this));
 
-			// Process clicks on headers to open associated panel.  Ignore clicks on other buttons
-			// or controls.  Click may occur on the <span> inside the <button> (at least on Chrome),
-			// so trace up till button is found.s
+			// Process clicks on header's <button aria-controls="panelId"> to open associated panel.
+			// Ignore clicks on other buttons or controls in headers or panels.  Click may occur on the
+			// <span> inside the <button> (at least on Chrome), so trace up until <button> is found.
 			this.on("click", function (event) {
-				for (var target = event.target; !panelId && target !== this; target = target.parentNode) {
-					var panelId = target.getAttribute("aria-controls");
-					if (panelId) {
+				for (var target = event.target; target !== this; target = target.parentNode) {
+					var panelId = target.getAttribute("aria-controls"),
+						panel = panelId && this.ownerDocument.getElementById(panelId);
+					if (panel && panel.parentNode === this) {
 						event.stopPropagation();
 						event.preventDefault();
-						this.activatePanel(this.ownerDocument.getElementById(panelId));
+						this.activatePanel(panel);
 						break;
 					}
 				}

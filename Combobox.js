@@ -331,7 +331,10 @@ define([
 		 * Handle clicks on the `<input>`.
 		 * Note that HasDropDown handles clicks on the arrow icon.
 		 */
-		inputClickHandler: function () {
+		inputClickHandler: function (event) {
+			event.stopPropagation();
+			event.preventDefault();
+
 			if (this.disabled) {
 				return;
 			}
