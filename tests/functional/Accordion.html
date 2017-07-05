@@ -110,6 +110,38 @@
 			</my-accordion>
 			<label for="inputAfterAccordion3">Focus point after accordion 3:</label> <input id="inputAfterAccordion3">
 			<button onclick="console.log('clicked');">test button</button>
+
+			<h2>Accordion with allowAllClosed=true, mode=singleOpen</h2>
+			<label for="inputBeforeAccordion4">Focus point before accordion 4:</label> <input id="inputBeforeAccordion4">
+			<d-accordion id="Accordion4" mode="singleOpen" allowAllClosed="true" animate="false"
+						 style="display:block; height:auto">
+				<d-panel id="panel41" label="panel41">
+					<label for="panel41_input">Input in panel41:</label> <input id="panel41_input">
+				</d-panel>
+				<d-panel id="panel42" label="panel42">
+					<label for="panel42_input">Input in panel42:</label> <input id="panel42_input">
+				</d-panel>
+				<d-panel id="panel43" label="panel43">
+					<label for="panel43_input">Input in panel43:</label> <input id="panel43_input">
+				</d-panel>
+			</d-accordion>
+			<label for="inputAfterAccordion4">Focus point after accordion 4:</label> <input id="inputAfterAccordion4">
+
+			<h2>Accordion with allowAllClosed=true, mode=multipleOpen</h2>
+			<label for="inputBeforeAccordion5">Focus point before accordion 5:</label> <input id="inputBeforeAccordion5">
+			<d-accordion id="Accordion5" mode="multipleOpen" allowAllClosed="true" animate="false"
+						 style="display:block; height:auto">
+				<d-panel id="panel51" label="panel51">
+					<label for="panel51_input">Input in panel51:</label> <input id="panel51_input">
+				</d-panel>
+				<d-panel id="panel52" label="panel52">
+					<label for="panel52_input">Input in panel52:</label> <input id="panel52_input">
+				</d-panel>
+				<d-panel id="panel53" label="panel53">
+					<label for="panel53_input">Input in panel53:</label> <input id="panel53_input">
+				</d-panel>
+			</d-accordion>
+			<label for="inputAfterAccordion5">Focus point after accordion 5:</label> <input id="inputAfterAccordion5">
 		</div>
 	</body>
 </html>

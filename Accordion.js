@@ -74,6 +74,13 @@ define([
 		mode: defaultMode,
 
 		/**
+		 * Allow all the accordion panes to be closed.
+		 * @member {boolean}
+		 * @default false
+		 */
+		allowAllClosed: false,
+
+		/**
 		 * If true, animation is used when a panel is opened or closed.
 		 * @member {boolean}
 		 * @default true
@@ -150,17 +157,12 @@ define([
 		 * @param panel
 		 */
 		activatePanel: function (panel) {
-			switch (this.mode) {
-			case accordionModes.singleOpen:
-				this.show(panel);
-				break;
-			case accordionModes.multipleOpen:
-				if (panel.open) {
+			if (panel.open) {
+				if (this.mode === accordionModes.multipleOpen || this.allowAllClosed) {
 					this.hide(panel);
-				} else {
-					this.show(panel);
 				}
-				break;
+			} else {
+				this.show(panel);
 			}
 		},
 
@@ -271,7 +273,8 @@ define([
 			}
 
 			// If no panel was selected, then show the first one.
-			if (("attached" in props || "_panelList" in  props) && this._panelList.length > 0) {
+			if (("attached" in props || "_panelList" in  props) && this._panelList.length > 0 &&
+					!this.allowAllClosed) {
 				this._showOpenPanel();
 			}
 
@@ -291,12 +294,16 @@ define([
 			}
 			if ("mode" in props) {
 				if (this.mode === accordionModes.singleOpen) {
-					this._showOpenPanel();
-					this._panelList.forEach(function (panel) {
-						if (panel.open && panel !== this._selectedChild) {
-							this.hide(panel);
-						}
-					}.bind(this));
+					if (!this.allowAllClosed) {
+						this._showOpenPanel();
+					}
+					if (this._selectedChild) {
+						this._panelList.forEach(function (panel) {
+							if (panel.open && panel !== this._selectedChild) {
+								this.hide(panel);
+							}
+						}.bind(this));
+					}
 				}
 			}
 		},
@@ -356,7 +363,7 @@ define([
 			var valid = true, promises = [];
 			if (params.hide) {
 				if (widget.open) {
-					if (this._numOpenPanels > 1) {
+					if (this._numOpenPanels > 1 || this.allowAllClosed) {
 						this._numOpenPanels--;
 						widget.open = false;
 						widget.headerNode.open = false;
@@ -375,7 +382,7 @@ define([
 						var origin = this._selectedChild;
 						this._selectedChild = widget;
 						this.selectedChildId = widget.id;
-						if (origin !== widget) {
+						if (origin && origin !== widget) {
 							promises.push(this.hide(origin));
 						}
 					}

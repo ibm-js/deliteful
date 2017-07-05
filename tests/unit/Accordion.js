@@ -511,6 +511,46 @@ define([
 			}
 		},
 
+		allowAllClosed: function () {
+			var ac = new Accordion({
+				id: "accordionAllowAllClosed",
+				allowAllClosed: true
+			});
+			ac.style.display = "block; height: auto";	// override flex styling
+			var p1 = new Panel({id: "acPanel1", label: "All Closeable Panel1"});
+			var p2 = new Panel({id: "acPanel2", label: "All Closeable Panel2"});
+			var p3 = new Panel({id: "acPanel3", label: "All Closeable Panel3"});
+			ac.appendChild(p1);
+			ac.appendChild(p2);
+			ac.appendChild(p3);
+			ac.placeAt(container);
+
+			assert.isFalse(p1.open, "p1.open 3");
+			assert.strictEqual(p1.getAttribute("aria-hidden"), "true", "p1 aria-hidden 3");
+			assert.isFalse(p2.open, "p2.open 3");
+			assert.strictEqual(p2.getAttribute("aria-hidden"), "true", "p2 aria-hidden 3");
+			assert.isFalse(p3.open, "p3.open 3");
+			assert.strictEqual(p3.getAttribute("aria-hidden"), "true", "p3 aria-hidden 3");
+			
+			return ac.show(p1).then(function () {
+				assert.isTrue(p1.open, "p1.open 2");
+				assert.strictEqual(p1.getAttribute("aria-hidden"), "false", "p1 aria-hidden 2");
+				assert.isFalse(p2.open, "p2.open 2");
+				assert.strictEqual(p2.getAttribute("aria-hidden"), "true", "p2 aria-hidden 2");
+				assert.isFalse(p3.open, "p3.open 2");
+				assert.strictEqual(p3.getAttribute("aria-hidden"), "true", "p3 aria-hidden 2");
+			}).then(function () {
+				return ac.hide(p1);
+			}).then(function () {
+				assert.isFalse(p1.open, "p1.open 3");
+				assert.strictEqual(p1.getAttribute("aria-hidden"), "true", "p1 aria-hidden 3");
+				assert.isFalse(p2.open, "p2.open 3");
+				assert.strictEqual(p2.getAttribute("aria-hidden"), "true", "p2 aria-hidden 3");
+				assert.isFalse(p3.open, "p3.open 3");
+				assert.strictEqual(p3.getAttribute("aria-hidden"), "true", "p3 aria-hidden 3");
+			});
+		},
+
 		teardown: function () {
 			container.parentNode.removeChild(container);
 		},

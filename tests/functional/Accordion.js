@@ -469,6 +469,109 @@ define(["intern",
 						return checkPanelIsClosed(remote, "panel33");
 					});
 			}
+		},
+
+		allowAllClosed: {
+			singleOpen: function () {
+				var remote = this.remote;
+				return remote
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel41");
+					})
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel42");
+					})
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel43");
+					})
+					.findByCssSelector("#panel41-header [aria-controls]")
+					.click()
+					.end()
+					.sleep(500)
+					.then(function () {
+						return checkPanelIsOpen(remote, "panel41");
+					})
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel42");
+					})
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel43");
+					})
+					.findByCssSelector("#panel42-header [aria-controls]")
+					.click()
+					.end()
+					.sleep(500)
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel41");
+					})
+					.then(function () {
+						return checkPanelIsOpen(remote, "panel42");
+					})
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel43");
+					})
+					.findByCssSelector("#panel42-header [aria-controls]")
+					.click()
+					.end()
+					.sleep(500)
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel41");
+					})
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel42");
+					})
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel43");
+					});
+			},
+
+			multipleOpen: function () {
+				var remote = this.remote;
+				return remote
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel51");
+					})
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel52");
+					})
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel53");
+					})
+					.findByCssSelector("#panel51-header [aria-controls]")
+					.click()
+					.end()
+					.sleep(500)
+					.findByCssSelector("#panel52-header [aria-controls]")
+					.click()
+					.end()
+					.sleep(500)
+					.then(function () {
+						return checkPanelIsOpen(remote, "panel51");
+					})
+					.then(function () {
+						return checkPanelIsOpen(remote, "panel52");
+					})
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel53");
+					})
+					.findByCssSelector("#panel51-header [aria-controls]")
+					.click()
+					.end()
+					.sleep(500)
+					.findByCssSelector("#panel52-header [aria-controls]")
+					.click()
+					.end()
+					.sleep(500)
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel51");
+					})
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel52");
+					})
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel53");
+					});
+			}
 		}
 	});
 });
