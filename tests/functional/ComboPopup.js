@@ -189,7 +189,7 @@ define([
 					}).end();
 			}).end()
 
-			.findByCssSelector("#" + comboId + "_dropdown input").getAttribute("aria-owns").then(function (listId) {
+			.findByCssSelector("#" + comboId + "_dropdown input").getAttribute("aria-controls").then(function (listId) {
 				// Use aria-owns attribute to find the <d-list>, and then spot check that the <d-list>
 				// contents are correct.
 				return remote.findByCssSelector("#" + listId + " d-list-item-renderer:nth-child(2)")
