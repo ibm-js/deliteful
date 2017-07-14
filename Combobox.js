@@ -961,9 +961,7 @@ define([
 
 		closeDropDown: dcl.superCall(function (sup) {
 			return function (focus, suppressChangeEvent) {
-				var input = this._popupInput || this.inputNode;
-				input.removeAttribute("aria-activedescendant");
-
+				this.popupStateNode.removeAttribute("aria-activedescendant");
 				this.inputNode.removeAttribute("aria-controls");
 
 				// Closing the dropdown represents a commit interaction, unless the dropdown closes
@@ -1024,8 +1022,7 @@ define([
 					nd.id = "d-combobox-item-" + idCounter++;
 				}
 
-				var input = this._popupInput || this.inputNode;
-				input.setAttribute("aria-activedescendant", nd.id);
+				this.popupStateNode.setAttribute("aria-activedescendant", nd.id);
 			}
 		}
 	});
