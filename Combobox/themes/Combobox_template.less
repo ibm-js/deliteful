@@ -66,6 +66,16 @@
 		opacity: 0.5;
 		cursor: auto;
 	}
+
+	// So you can't select text on readonly input.
+	&[readonly] {
+		-webkit-touch-callout: none;	// iOS Safari
+		-webkit-user-select: none;		// Safari
+		-khtml-user-select: none;		// Konqueror HTML
+		-moz-user-select: none;			// Firefox
+		-ms-user-select: none;			// Internet Explorer/Edge
+		user-select: none;				// Chrome, Opera
+	}
 }
 
 /* Applies to the input inside the root node but does not apply */

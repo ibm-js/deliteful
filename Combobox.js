@@ -1,7 +1,6 @@
 /** @module deliteful/Combobox */
 define([
 	"dcl/dcl",
-	"requirejs-dplugins/jquery!attributes/classes,event",	// addClass(), css(), on(), off()
 	"dstore/Filter",
 	"dojo/string",
 	"decor/ObservableArray",
@@ -17,7 +16,6 @@ define([
 	"delite/theme!./Combobox/themes/{{theme}}/Combobox.css"
 ], function (
 	dcl,
-	$,
 	Filter,
 	string,
 	ObservableArray,
@@ -443,7 +441,6 @@ define([
 				// Note: Can't just put readonly={{_inputReadOnly}} in the template because we need to override
 				// when delite/FormWidget sets the <input>'s readonly attribute based on this.readOnly.
 				this.inputNode.readOnly = this._inputReadOnly;
-				this._setSelectable(this.inputNode, !this._inputReadOnly);
 			}
 
 			// Update <input>'s value if necessary, but don't update the value because the user
@@ -456,24 +453,6 @@ define([
 				if (this._popupInput && this.displayedValue !== this._popupInput.value) {
 					this._popupInput.value = this.displayedValue;
 				}
-			}
-		},
-
-		/**
-		 * Configures inputNode such that the text is selectable or unselectable.
-		 * @private
-		 */
-		_setSelectable: function (inputNode, selectable) {
-			if (selectable) {
-				inputNode.removeAttribute("unselectable");
-				$(inputNode)
-					.css("user-select", "") // maps to WebkitUserSelect, etc.
-					.off("selectstart", false);
-			} else {
-				inputNode.setAttribute("unselectable", "on");
-				$(inputNode)
-					.css("user-select", "none") // maps to WebkitUserSelect, etc.
-					.on("selectstart", false);
 			}
 		},
 
@@ -500,10 +479,10 @@ define([
 				// Class added on the list such that Combobox' theme can have a specific
 				// CSS selector for elements inside the List when used as dropdown in
 				// the combo.
-				$(this.list).addClass("d-combobox-list");
+				this.list.classList.add("d-combobox-list");
 
 				// The drop-down is hidden initially
-				$(this.list).addClass("d-hidden");
+				this.list.classList.add("d-hidden");
 
 				// The role=listbox is required for the list part of a combobox by the
 				// aria spec of role=combobox
@@ -691,7 +670,7 @@ define([
 				this._valueSetByUserInput = false;
 			}
 		},
-			
+
 		/**
 		 * Defines the milliseconds the widget has to wait until a new filter operation starts.
 		 * @type {Number}
@@ -1024,6 +1003,17 @@ define([
 
 				this.popupStateNode.setAttribute("aria-activedescendant", nd.id);
 			}
+		},
+
+		destroy: function () {
+			if (this._ListListeners) {
+				this._ListListeners.forEach(function (handle) {
+					handle.remove();
+				});
+			}
+			this._ListListeners = null;
+
+			this.list = null;
 		}
 	});
 });

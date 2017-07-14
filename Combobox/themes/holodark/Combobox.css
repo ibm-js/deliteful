@@ -74,6 +74,14 @@ fieldset[disabled] .d-combobox-input {
   opacity: 0.5;
   cursor: auto;
 }
+.d-combobox-input[readonly] {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 /* Applies to the input inside the root node but does not apply */
 /* to the input conditionally present inside the popup */
 .d-combobox .d-combobox-input {
