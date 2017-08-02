@@ -11,20 +11,19 @@
 .d-view-indicator * {
   display: inline-block;
 }
-.d-view-indicator .-d-view-indicator-dot {
-  width: 0.43em;
-  height: 0.43em;
-  border-radius: 0.215em;
-  margin: 0.43em;
-  background-color: #999999;
+.-d-view-indicator-dot {
+  padding: 0.43em;
 }
-.d-view-indicator .-d-view-indicator-dot-selected {
-  background-color: #ffffff;
+.-d-view-indicator-dot::before {
+  color: #999999;
+  content: "\25CF";
 }
-.d-view-indicator .-d-view-indicator-dot::before {
-  color: transparent;
+.d-hc .-d-view-indicator-dot::before {
   content: "\25CB";
 }
-.d-view-indicator .-d-view-indicator-dot-selected::before {
+.-d-view-indicator-dot-selected::before {
+  color: #ffffff;
+}
+.d-hc .-d-view-indicator-dot-selected::before {
   content: "\25CF";
 }

@@ -12,25 +12,25 @@
 	display: inline-block;
 }
 
-.d-view-indicator .-d-view-indicator-dot {
-	width: @dot-size;
-	height: @dot-size;
-	.border-radius(@dot-size / 2);
-	margin: @dot-margin;
-	background-color: @dot-color;
+.-d-view-indicator-dot {
+	padding: @dot-margin;
 }
 
-.d-view-indicator .-d-view-indicator-dot-selected {
-	background-color: @dot-selected-color;
+.-d-view-indicator-dot::before {
+	color: 	@dot-color;
+	content: "\25CF"; // solid circle
+
+	.d-hc & {
+		// Colors aren't good enough in high contrast mode, need to use different character.
+		content: "\25CB"; // empty circle
+	}
 }
 
-// High-contrast mode is supported through actual characters
-// There characters are not visible in normal mode
-.d-view-indicator .-d-view-indicator-dot::before {
-	color: transparent;
-	content: "\25CB"; // White circle character
-}
+.-d-view-indicator-dot-selected::before {
+	color: @dot-selected-color;
 
-.d-view-indicator .-d-view-indicator-dot-selected::before {
-	content: "\25CF"; // Black circle character
+	.d-hc & {
+		// Colors aren't good enough in high contrast mode, need to use different character.
+		content: "\25CF"; // solid circle
+	}
 }

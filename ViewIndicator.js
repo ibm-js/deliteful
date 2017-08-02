@@ -1,6 +1,10 @@
 /** @module deliteful/ViewIndicator */
 define([
-	"dcl/dcl", "delite/register", "dpointer/events", "delite/Widget",
+	"dcl/dcl",
+	"delite/register",
+	"dpointer/events",
+	"delite/Widget",
+	"delite/hc",
 	"delite/theme!./ViewIndicator/themes/{{theme}}/ViewIndicator.css"
 ], function (dcl, register, dpointer, Widget) {
 
