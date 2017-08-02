@@ -283,6 +283,7 @@ define([
 			_refreshValueRendering: function () {
 				var currentVal = this._getValueAsArray();
 				if (!this.handleMin._isActive && currentVal.length === 2) {
+					this.handleMin.className = "";
 					this.handleMin.setAttribute("aria-valuemin", this.min);
 					this.focusNode.setAttribute("aria-valuemax", this.max);
 					this.tabStops = ["handleMin", "focusNode"];
