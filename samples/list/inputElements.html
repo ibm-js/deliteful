@@ -19,30 +19,28 @@
 	<script type="text/javascript">
 		require([
 			"delite/register",
-			"dstore/Memory",
-			"dstore/Trackable",
 			"deliteful/list/ItemRenderer",
 			"deliteful/list/List",
 			"delite/handlebars!deliteful/samples/list/templates/BlankItemRenderer.html",
 			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
-		], function (register, Memory, Trackable, ItemRenderer, List, template) {
-			var Store = Memory.createSubclass([Trackable], {});
+		], function (register, ItemRenderer, List, template) {
 			var MyCustomRenderer = register("d-configuration-item", [HTMLElement, ItemRenderer], {
 				template: template,
-				_setItemAttr: function (item) {
-					this._set("item", item);
-					this.renderNode.innerHTML = "";
-					if (this.item.elementTag) {
-						var elementNode = this.renderNode.appendChild(this._createElement(this.item.elementTag, this.item.elementAttrs));
-						elementNode.setAttribute("navindex", "0");
-						this.updateFocusableChildren();
-						if (this.item.label) {
-							var labelNode = this.renderNode.appendChild(this.ownerDocument.createElement("SPAN"));
-							labelNode.className = "label";
-							labelNode.innerHTML = this.item.label;
-							elementNode.setAttribute("aria-label", this.item.label);
-							// Set the label attribute that key search uses
-							elementNode.label = this.item.label;
+				refreshRendering: function (oldVals) {
+					if ("item" in oldVals) {
+						this.renderNode.innerHTML = "";
+						if (this.item.elementTag) {
+							var elementNode = this.renderNode.appendChild(this._createElement(this.item.elementTag, this.item.elementAttrs));
+							elementNode.setAttribute("navindex", "0");
+							this.updateFocusableChildren();
+							if (this.item.label) {
+								var labelNode = this.renderNode.appendChild(this.ownerDocument.createElement("SPAN"));
+								labelNode.className = "label";
+								labelNode.innerHTML = this.item.label;
+								elementNode.setAttribute("aria-label", this.item.label);
+								// Set the label attribute that key search uses
+								elementNode.label = this.item.label;
+							}
 						}
 					}
 				},
@@ -54,17 +52,19 @@
 					return elementNode;
 				}
 			});
-			var list = new List();
-			list.source = new Store();
+			var list = new List({
+				itemRenderer: MyCustomRenderer,
+				copyAllItemProps: true,
+				source: [
+					{elementTag: "A", elementAttrs: {href: "http://en.wikipedia.org/wiki/Wikipedia:About", innerHTML: "About"}},
+					{label: "Multitasking gestures", elementTag: "INPUT", elementAttrs: {type: "checkbox", value: "multitasking"}},
+					{label: "Volume", elementTag: "INPUT", elementAttrs: {type: "range"}},
+					{label: "Login", elementTag: "INPUT", elementAttrs: {type: "text"}},
+					{label: "Apex ringtone", elementTag: "INPUT", elementAttrs: {type: "radio", name: "ringtone", value: "apex", checked: true}},
+					{label: "Beacon ringtone", elementTag: "INPUT", elementAttrs: {type: "radio", name: "ringtone", value: "beacon"}}
+				]
+			});
 			list.setAttribute("aria-label", "Sample list of input elements");
-			list.itemRenderer = MyCustomRenderer;
-			list.copyAllItemProps = true;
-			list.source.add({elementTag: "A", elementAttrs: {href: "http://en.wikipedia.org/wiki/Wikipedia:About", innerHTML: "About"}});
-			list.source.add({label: "Multitasking gestures", elementTag: "INPUT", elementAttrs: {type: "checkbox", value: "multitasking"}});
-			list.source.add({label: "Volume", elementTag: "INPUT", elementAttrs: {type: "range"}});
-			list.source.add({label: "Login", elementTag: "INPUT", elementAttrs: {type: "text"}});
-			list.source.add({label: "Apex ringtone", elementTag: "INPUT", elementAttrs: {type: "radio", name: "ringtone", value: "apex", checked: true}});
-			list.source.add({label: "Beacon ringtone", elementTag: "INPUT", elementAttrs: {type: "radio", name: "ringtone", value: "beacon"}});
 			list.setAttribute("aria-readonly", "false");
 			list.placeAt(document.body);
 
