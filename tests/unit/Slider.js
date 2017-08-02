@@ -185,7 +185,7 @@ define([
 		},
 		"Switch from single to dual": function () {
 			var slider = new Slider({}).placeAt(document.body);
-			slider.value="25,75";
+			slider.value = "25,75";
 			slider.deliver();
 			assert.strictEqual(slider.handleMin.className, "", "second handle not d-hidden");
 			checkSliderProperties(slider, 0, 100, 1, false, false, "25,75");
