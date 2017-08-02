@@ -1165,12 +1165,14 @@ define([
 					// TODO: prevent default ONLY IF autoAction is false on the renderer ?
 					// See http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid
 					evt.preventDefault();
+					evt.stopPropagation();
 					this._enterActionableMode();
 				}
 			} else if (evt.key === "Tab") {
 				if (this.navigatedDescendant && this.navigatedDescendant.hasAttribute("navindex")) {
 					// We are in Actionable mode
 					evt.preventDefault();
+					evt.stopPropagation();
 					var renderer = this._getFocusedRenderer();
 					var next = renderer[evt.shiftKey ? "getPrev" : "getNext"](this.navigatedDescendant);
 					while (!next) {
@@ -1182,6 +1184,8 @@ define([
 				}
 			} else if (evt.key === "Escape") {
 				// Leave Actionable mode
+				evt.preventDefault();
+				evt.stopPropagation();
 				this._leaveActionableMode();
 			}
 		},
