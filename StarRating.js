@@ -83,6 +83,9 @@ define([
 			if ("disabled" in props) {
 				$(this).toggleClass(this.baseClass + "-disabled", this.disabled);
 			}
+			if ("readOnly" in props) {
+				$(this).toggleClass(this.baseClass + "-readonly", this.readOnly);
+			}
 			if ("max" in props) {
 				this.focusNode.setAttribute("aria-valuemax", this.max);
 			}

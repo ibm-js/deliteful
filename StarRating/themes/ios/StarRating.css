@@ -34,7 +34,10 @@
   content: "\2605";
   color: #ffff00;
 }
-.d-star-rating-disabled .d-star-rating-full::before {
+.d-star-rating-disabled .d-star-rating-star-icon::before {
+  color: #808080;
+}
+.d-star-rating-readonly .d-star-rating-star-icon::before {
   color: #808080;
 }
 .d-star-rating-end.d-star-rating-star-icon::before {
