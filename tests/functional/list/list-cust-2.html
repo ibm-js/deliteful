@@ -13,42 +13,47 @@
 	<script type="text/javascript">
 		var ready = false;
 		require([
+			"delite/on",
 			"delite/register",
-			"dstore/Memory",
-			"dstore/Trackable",
 			"deliteful/list/ItemRenderer",
 			"deliteful/list/List",
 			"delite/handlebars!deliteful/tests/functional/list/templates/BookRenderer.html",
 			"delite/handlebars!deliteful/tests/functional/list/templates/BookStoreRenderer.html",
 			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
-		], function (register, Memory, Trackable, ItemRenderer, List, bookTemplate, bookStoreTemplate) {
-			var BookRenderer = register("d-book-item", [HTMLElement, ItemRenderer], {
+		], function (on, register, ItemRenderer, List, bookTemplate, bookStoreTemplate) {
+			var BookRenderer = register("d-book-item", [ItemRenderer], {
 				template: bookTemplate
 			});
-			var BookStoreRenderer = register("d-book-store", [HTMLElement, ItemRenderer], {
+			var BookStoreRenderer = register("d-book-store", [ItemRenderer], {
 				template: bookStoreTemplate
 			});
-			var list = new List();
-			list.id = "list-cust-2";
-			list.source = new (Memory.createSubclass([Trackable], {}))();
-			list.itemRenderer = BookRenderer;
-			list.categoryRenderer = BookStoreRenderer;
-			list.categoryAttr = "bookstore";
-			list.bookstoreUrlFunc = function (item) {
-				if (item.bookstore === "Amazon") {
-					return "http://www.amazon.com";
-				} else if (item.bookstore === "FNAC") {
-					return "http://www.fnac.fr";
-				} 
-			};
-			list.copyAllItemProps = true;
-			list.source.addSync({title: "Dojo: The Definitive Guide", isbn: "0596516487", bookstore: "Amazon"});
-			list.source.addSync({title: "Dojo: Using the Dojo JavaScript Library to Build Ajax Applications", isbn: "0132358042", bookstore: "Amazon"});
-			list.source.addSync({title: "Practical Dojo Projects (Expert's Voice in Web Development)", isbn: "1430210664", bookstore: "Amazon"});
-			list.source.addSync({title: "The Dojo Toolkit: Visual QuickStart Guide", isbn: "0321605128", bookstore: "FNAC"});
-			list.source.addSync({title: "Mastering Dojo: JavaScript and Ajax Tools for Great Web Experiences", isbn: "1934356115", bookstore: "FNAC"});
-			document.body.appendChild(list);
-			list.attachedCallback();
+			var list = new List({
+				id: "list-cust-2",
+				itemRenderer: BookRenderer,
+				categoryRenderer: BookStoreRenderer,
+				categoryAttr: "bookstore",
+				bookstoreUrlFunc: function (item) {
+					if (item.bookstore === "Amazon") {
+						return "http://www.amazon.com";
+					} else if (item.bookstore === "FNAC") {
+						return "http://www.fnac.fr";
+					}
+				},
+				copyAllItemProps: true,
+				source: [
+					{title: "Dojo: The Definitive Guide", isbn: "0596516487", bookstore: "Amazon"},
+					{title: "Dojo: Using the Dojo JavaScript Library to Build Ajax Applications", isbn: "0132358042", bookstore: "Amazon"},
+					{title: "Practical Dojo Projects (Expert's Voice in Web Development)", isbn: "1430210664", bookstore: "Amazon"},
+					{title: "The Dojo Toolkit: Visual QuickStart Guide", isbn: "0321605128", bookstore: "FNAC"},
+					{title: "Mastering Dojo: JavaScript and Ajax Tools for Great Web Experiences", isbn: "1934356115", bookstore: "FNAC"}
+				]
+			});
+			list.placeAt(document.getElementById("listPlaceholder"), "replace");
+
+			on(document.body, "keydown", function (e) {
+				document.getElementById("keydownEvent").textContent = e.key;
+			});
+
 			ready = true;
 		});
 	</script>
@@ -69,5 +74,7 @@
 </head>
 <body role="application">
 	<input autofocus>
+	<div id="listPlaceholder"></div>
+	Last keydown event on &lt;body&gt;: <span id="keydownEvent"></span>
 </body>
 </html>

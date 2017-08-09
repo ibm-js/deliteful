@@ -1152,25 +1152,16 @@ define([
 			}
 		},
 
-		/*jshint maxcomplexity:13*/
 		/**
 		 * Handles keydown events for the aria role grid
 		 * @param {Event} evt the keydown event
 		 * @private
 		 */
 		_gridKeydownHandler: function (evt) {
-			if (evt.key === "Enter" || evt.key === "F2") {
-				if (this.navigatedDescendant && !this.navigatedDescendant.hasAttribute("navindex")) {
-					// Enter Actionable Mode
-					// TODO: prevent default ONLY IF autoAction is false on the renderer ?
-					// See http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid
-					evt.preventDefault();
-					evt.stopPropagation();
-					this._enterActionableMode();
-				}
-			} else if (evt.key === "Tab") {
-				if (this.navigatedDescendant && this.navigatedDescendant.hasAttribute("navindex")) {
-					// We are in Actionable mode
+			// jshint maxcomplexity:12
+			if (this.navigatedDescendant && this.navigatedDescendant.hasAttribute("navindex")) {
+				// We are in Actionable mode
+				if (evt.key === "Tab") {
 					evt.preventDefault();
 					evt.stopPropagation();
 					var renderer = this._getFocusedRenderer();
@@ -1181,15 +1172,21 @@ define([
 						next = renderer[evt.shiftKey ? "getLast" : "getFirst"]();
 					}
 					this.navigateTo(next);
+				} else if (evt.key === "Escape") {
+					// Leave Actionable mode
+					evt.preventDefault();
+					evt.stopPropagation();
+					this._leaveActionableMode();
 				}
-			} else if (evt.key === "Escape") {
-				// Leave Actionable mode
+			} else if (evt.key === "Enter" || evt.key === "F2") {
+				// Enter Actionable Mode
+				// TODO: prevent default ONLY IF autoAction is false on the renderer ?
+				// See http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid
 				evt.preventDefault();
 				evt.stopPropagation();
-				this._leaveActionableMode();
+				this._enterActionableMode();
 			}
 		},
-		/*jshint maxcomplexity:10*/
 
 		/**
 		 * @private

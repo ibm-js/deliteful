@@ -303,9 +303,10 @@ using the `itemRenderer` property of the list.
 A custom item renderer must extends `deliteful/list/ItemRenderer`. It accesses the item to render in its `item` property.
 It must assign to its `renderNode` property the node in which the item is rendered .
 
-If the rendered item have actionable / keyboard navigable nodes, those are set using the `navindex` attribute, that behave simillarily to the standard `tabindex` attribute.
+If the rendered item have actionable / keyboard navigable nodes, those are set using the `navindex` attribute,
+which behaves similarly to the standard `tabindex` attribute.
 
-Here are is an example of custom item renderer that illustrate these concepts:
+Here is an example of custom item renderer that illustrates these concepts:
 
 <iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0"
 src="http://jsfiddle.net/ibmjs/36XDP/embedded/result,js,css">
@@ -327,7 +328,10 @@ src="http://jsfiddle.net/ibmjs/s5sMq/embedded/result,js,css">
 
 <a name="noitems"></a>
 ### No Items node
-The list is able to show a `no-items` node when the list's source is empty. You can enable this feature setting the `showNoItems` property to `true`. The `no-items` node contains a message that can be customized accessing to the `noItemsInfo` property. Furthermore, whatever the list source is empty the list's `containerNode` will be hidden for accessibility reasons.
+The list is able to show a `no-items` node when the list's source is empty.
+You can enable this feature setting the `showNoItems` property to `true`.
+The `no-items` node contains a message that can be customized accessing to the `noItemsInfo` property.
+Furthermore, whatever the list source is empty the list's `containerNode` will be hidden for accessibility reasons.
 
 <a name="loadingPanel"></a>
 ### Loading Panel
@@ -552,11 +556,12 @@ while the last item has focus will focus the first item. Pressing the UP arrow w
 has the focus will focus the last item. Note that in some browsers (such as Firefox) the List needs
 first to be given focus by pressing TAB after loading the page before using the UP and DOWN arrow keys.
 
-When a List item has the focus, you can press the ENTER or F2 keys to focus its first actionable node (if any), and then use the (Shift+)TAB key to move from one actionable node to the (previous)next.
-Pressing the ESC key will end actionable nodes navigation and resume to the previous mode.
+When a List item has the focus, you can press the ENTER or F2 keys to focus its first actionable node (if any),
+and then use the (Shift+)TAB key to move from one actionable node to the (previous)next.
+Pressing the ESC key will end actionable nodes navigation and return to the previous mode.
 
-Note that Enter and F2 only activate the Actionable Mode when using a custom renderer that render DOM nodes with a ```navindex``` attribute,
-as the default renderers do not render any actionable nodes.
+Note that Enter and F2 only activate the Actionable Mode when using a custom renderer that renders
+DOM nodes with a ```navindex``` attribute, as the default renderers do not render any actionable nodes.
 
 Pressing the PAGE UP key will focus the first item of the list, while pressing the PAGE DOWN key will focus
 the last one.

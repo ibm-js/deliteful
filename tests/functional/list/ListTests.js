@@ -384,7 +384,7 @@ define([
 				assert.strictEqual(value, "Dojo: The Definitive Guide\nISBN: 0596516487", "keystroke 5");
 			})
 			.end()
-			.pressKeys(keys.ENTER) // Press ENTER
+			.pressKeys(keys.ENTER) // Enter "Actionable Mode" where you tab through elements inside of list item.
 			.getActiveElement()
 			.getVisibleText()
 			.then(function (value) {
@@ -437,27 +437,35 @@ define([
 				assert.strictEqual(value, "Dojo: The Definitive Guide", "keystroke 12");
 			})
 			.end()
-			.pressKeys(keys.ARROW_UP) // Press UP ARROW
+			.pressKeys(keys.ARROW_UP) // Up arrow should have no effect in Actionable Mode.
 			.getActiveElement()
 			.getVisibleText()
 			.then(function (value) {
 				assert.strictEqual(value, "Dojo: The Definitive Guide", "keystroke 13");
 			})
 			.end()
-			.pressKeys(keys.ARROW_DOWN) // Press DOWN ARROW
+			.pressKeys(keys.ARROW_DOWN) // Down arrow should have no effect in Actionable Mode.
 			.getActiveElement()
 			.getVisibleText()
 			.then(function (value) {
 				assert.strictEqual(value, "Dojo: The Definitive Guide", "keystroke 14");
 			})
 			.end()
-			.pressKeys(keys.ESCAPE) // Press ESC
+			.execute("document.getElementById('keydownEvent').innerHTML = '';")
+			.pressKeys(keys.ESCAPE) // Leave Actionable Mode.
 			.getActiveElement()
 			.getVisibleText()
 			.then(function (value) {
 				assert.strictEqual(value, "Dojo: The Definitive Guide\nISBN: 0596516487", "keystroke 15");
 			})
 			.end()
+			.execute("return document.getElementById('keydownEvent').textContent;").then(function (text) {
+				assert.strictEqual(text, "", "no keydown event on <body>");
+			})
+			.pressKeys(keys.ESCAPE) // ESC outside of Actionable Mode should bubble (to close tooltip etc.)
+			.execute("return document.getElementById('keydownEvent').textContent;").then(function (text) {
+				assert.strictEqual(text, "Escape", "keydown event on <body>");
+			})
 			.pressKeys(keys.SHIFT + keys.TAB)
 			.pressKeys(keys.SHIFT) // release shift
 			.pressKeys(keys.TAB) // Press TAB
