@@ -1,6 +1,6 @@
 <template requires="deliteful/LinearLayout, deliteful/Button">
 	<d-linear-layout style="height: 100%">
-		<label class="d-combo-popup-header" for="{{widgetId}}-input" aria-label="{{header}}" d-shown="{{ header !== '' }}">{{header}}</label>
+		<label class="d-combo-popup-header" for="{{widgetId}}-input">{{header}}</label>
 		<input id="{{widgetId}}-input"
 			d-hidden="{{!(this.combobox.autoFilter && this.combobox.selectionMode !== 'multiple')}}"
 			attach-point="inputNode"
