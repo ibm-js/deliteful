@@ -176,18 +176,14 @@ define([
 			.findByCssSelector("#" + comboId + " .d-combobox-arrow").click().end()
 			.sleep(500) // wait for List's loading panel to go away
 
-			// Get the ComboPopup's <input>'s id...
-			.findByCssSelector("#" + comboId + "_dropdown input").getAttribute("id").then(function (inputId) {
-				// And then get the <label> pointing to that <input>...
-				return remote.findByCssSelector("#" + comboId + "_dropdown label[for=" + inputId + "]")
-					.getVisibleText().then(function (popupLabel) {
-						// And then make sure it matches the Combobox's label.
-						return remote.findByCssSelector("label[for=" + comboId + "-input]")
-							.getVisibleText().then(function (comboLabel) {
-								assert.strictEqual(popupLabel, comboLabel.trim(), "expected label");
-							}).end();
-					}).end();
-			}).end()
+			// Make sure ComboPopup's header matches the label of the original Combobox.
+			.findByCssSelector("#" + comboId + "_dropdown .d-combo-popup-header")
+				.getVisibleText().then(function (popupLabel) {
+					return remote.findByCssSelector("label[for=" + comboId + "-input]")
+						.getVisibleText().then(function (comboLabel) {
+							assert.strictEqual(popupLabel, comboLabel.trim(), "expected label");
+						}).end();
+				}).end()
 
 			.findByCssSelector("#" + comboId + "_dropdown input").getAttribute("aria-controls").then(function (listId) {
 				// Use aria-owns attribute to find the <d-list>, and then spot check that the <d-list>
