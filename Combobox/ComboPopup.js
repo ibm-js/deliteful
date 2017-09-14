@@ -45,6 +45,11 @@ define([
 					(combobox.hasAttribute("aria-labelledby") &&
 					this.ownerDocument.getElementById(combobox.getAttribute("aria-labelledby")));
 				this.header = headerNode ? headerNode.textContent.trim() : (combobox.getAttribute("aria-label") || "");
+				
+				var list = this.combobox.list;
+				if (list) {
+					this.onKeynavChildNavigatedEvent = list.on("keynav-child-navigated", this._onKeynavChildNavigatedHandler, this);	
+				}
 			}
 		},
 
@@ -53,12 +58,38 @@ define([
 				if (this.combobox) {
 					var list = this.combobox.list;
 					if (list) {
+						this.inputNode.removeAttribute("aria-activedescendant");
 						list.placeAt(this.listNode, "replace");
 						$(list).addClass("fill")
 							.removeClass("d-hidden");
 					}
 					this.combobox._prepareInput(this.inputNode);
 				}
+			}
+		},
+		
+		/**
+		 * Event handler called when a event of type "keynav-child-navigated" is dispatched
+		 * on the combobox.list element.
+		 * @param Event evt The Event instance. 
+		 */
+		_onKeynavChildNavigatedHandler: function (evt) {
+			var navigatedChild = evt.newValue;
+			this._setActiveDescendant(navigatedChild);
+		},
+		
+		/**
+		 * Sets the active descendant on the inputNode.
+		 * @param String nd The select node.
+		 * @protected
+		 */
+		_setActiveDescendant: function (nd) {
+			if (nd) {
+				if (!nd.id) {
+					nd.id = "d-combobox-item-" + idCounter++;
+				}
+
+				this.inputNode.setAttribute("aria-activedescendant", nd.id);
 			}
 		},
 
@@ -68,6 +99,7 @@ define([
 		 */
 		okHandler: function () {
 			// NOTE: no need to validate since it's handled by the `selection-change` listener
+			this.onKeynavChildNavigatedEvent.remove();
 			this.combobox.closeDropDown();
 		},
 
@@ -78,6 +110,7 @@ define([
 		cancelHandler: function () {
 			// INFO: resetting any selected items.
 			this.combobox.list.selectedItems = [];
+			this.onKeynavChildNavigatedEvent.remove();	
 			this.combobox.closeDropDown();
 			// cont: then ask to validate, so widget's value and inputNode get updated as well.
 			this.combobox._validateMultiple(true);

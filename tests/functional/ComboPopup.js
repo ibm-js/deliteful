@@ -179,7 +179,7 @@ define([
 			// Get the ComboPopup's <input>'s id...
 			.findByCssSelector("#" + comboId + "_dropdown input").getAttribute("id").then(function (inputId) {
 				// And then get the <label> pointing to that <input>...
-				return remote.findByCssSelector("#" + comboId + "_dropdown label[for=" + inputId + "]")
+				return remote.findByCssSelector("#" + comboId + "_dropdown .d-combo-popup-header")
 					.getVisibleText().then(function (popupLabel) {
 						// And then make sure it matches the Combobox's label.
 						return remote.findByCssSelector("label[for=" + comboId + "-input]")
