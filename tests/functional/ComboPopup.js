@@ -197,7 +197,7 @@ define([
 
 			.findByCssSelector(".d-combo-popup .d-combobox-input[d-hidden='" + !hasFilterInput + "']")
 			.end()
-			.findByCssSelector(".d-combo-popup .d-linear-layout[d-hidden='" + !isMultiSelect + "']")
+			.findByCssSelector(".d-combo-popup .d-combo-popup-button-container[d-hidden='" + !isMultiSelect + "']")
 			.end();
 	};
 

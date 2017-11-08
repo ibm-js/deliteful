@@ -1,23 +1,23 @@
-<template requires="deliteful/LinearLayout, deliteful/Button" role="dialog" aria-labelledby="{{widgetId}}-title">
-	<d-linear-layout style="height: 100%">
-		<span class="d-combo-popup-header" id="{{widgetId}}-title" aria-label="{{header}}" d-shown="{{ header !== '' }}">{{header}}</span>
-		<div aria-labelledby="{{widgetId}}-title" role="combobox" aria-expanded="true" aria-owns="{{combobox.list.id}}" aria-haspopup="listbox">
-		  <input id="{{widgetId}}-input"
-				d-hidden="{{!(this.combobox.autoFilter && this.combobox.selectionMode !== 'multiple')}}"
-				attach-point="inputNode"
-				class="d-combobox-input"
-				aria-autocomplete="list" 
-				aria-controls="{{combobox.list.id}}" 
-				autocomplete="off" autocapitalize="none" autocorrect="off"
-				type="text"
-				placeholder="{{combobox.searchPlaceHolder}}">
-		</div>
-		<div attach-point="listNode"></div>
-		<d-linear-layout d-hidden="{{combobox.selectionMode !== 'multiple'}}" vertical="false">
-			<button is="d-button" class="fill d-combo-cancel-button" tabindex="0"
-				label="{{combobox.cancelMsg}}" on-click="{{cancelHandler}}"></button>
-			<button is="d-button" class="fill d-combo-ok-button" tabindex="0"
-				label="{{combobox.okMsg}}" on-click="{{okHandler}}"></button>
-		</d-linear-layout>
-	</d-linear-layout>
+<template requires="deliteful/Button" role="dialog" aria-labelledby="{{widgetId}}-title">
+	<span class="d-combo-popup-header" id="{{widgetId}}-title">{{header}}</span>
+	<div aria-labelledby="{{widgetId}}-title" role="combobox" aria-expanded="true" aria-owns="{{combobox.list.id}}"
+		 	aria-haspopup="listbox">
+		<input id="{{widgetId}}-input"
+			d-hidden="{{!(this.combobox.autoFilter && this.combobox.selectionMode !== 'multiple')}}"
+			attach-point="inputNode"
+			class="d-combobox-input"
+			aria-labelledby="{{widgetId}}-title"
+			aria-autocomplete="list" 
+			aria-controls="{{combobox.list.id}}"
+			autocomplete="off" autocapitalize="none" autocorrect="off"
+			type="text"
+			placeholder="{{combobox.searchPlaceHolder}}">
+	</div>
+	<div attach-point="listNode"></div>
+	<div d-hidden="{{this.combobox.selectionMode !== 'multiple'}}" class="d-combo-popup-button-container">
+		<button is="d-button" class="fill d-combo-cancel-button"
+			label="{{combobox.cancelMsg}}" on-click="{{cancelHandler}}"></button>
+		<button is="d-button" class="fill d-combo-ok-button"
+			label="{{combobox.okMsg}}" on-click="{{okHandler}}"></button>
+	</div>
 </template>

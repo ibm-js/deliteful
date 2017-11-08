@@ -38,8 +38,12 @@
 }
 
 .d-combo-popup {
-	/* Needed for the correct layout of its LinearLayout child */
-	display: block;
+	display: flex;
+	flex-direction: column;
+
+	.d-list {
+		flex: 1;
+	}
 }
 
 .d-combo-popup-header {
@@ -49,6 +53,13 @@
 	text-align: center;
 	font-size: 16px;
 	font-weight: bold;
+}
+
+.d-combo-popup-button-container {
+	display: flex;
+	> button {
+		flex: 1;
+	}
 }
 
 /* Applies to both the input inside the root node and the input */
