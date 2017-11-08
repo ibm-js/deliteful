@@ -850,36 +850,15 @@ define([
 		},
 
 		"list in popup (combo1)": function () {
-			var remote = this.remote;
-
-			if (remote.environmentType.platformName === "iOS") {
-				// https://github.com/theintern/leadfoot/issues/61
-				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
-			}
-
-			return checkListInPopup(remote, "combo1", false, false);
+			return checkListInPopup(this.remote, "combo1", false, false);
 		},
 
 		"list in popup (combo2)": function () {
-			var remote = this.remote;
-
-			if (remote.environmentType.platformName === "iOS") {
-				// https://github.com/theintern/leadfoot/issues/61
-				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
-			}
-
-			return checkListInPopup(remote, "combo2", true, false);
+			return checkListInPopup(this.remote, "combo2", true, false);
 		},
 
 		"list in popup (combo3)": function () {
-			var remote = this.remote;
-
-			if (remote.environmentType.platformName === "iOS") {
-				// https://github.com/theintern/leadfoot/issues/61
-				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
-			}
-
-			return checkListInPopup(remote, "combo3", false, true);
+			return checkListInPopup(this.remote, "combo3", false, true);
 		},
 
 		"filtering (combo2)": function () {
@@ -893,47 +872,19 @@ define([
 		},
 
 		"single selection (combo1)": function () {
-			var remote = this.remote;
-
-			if (remote.environmentType.platformName === "iOS") {
-				// https://github.com/theintern/leadfoot/issues/61
-				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
-			}
-
-			return checkSingleSelection(remote, "combo1");
+			return checkSingleSelection(this.remote, "combo1");
 		},
 
 		"single selection (combo2)": function () {
-			var remote = this.remote;
-
-			if (remote.environmentType.platformName === "iOS") {
-				// https://github.com/theintern/leadfoot/issues/61
-				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
-			}
-
-			return checkSingleSelection(remote, "combo2");
+			return checkSingleSelection(this.remote, "combo2");
 		},
 
 		"multi selection (combo3)": function () {
-			var remote = this.remote;
-
-			if (remote.environmentType.platformName === "iOS") {
-				// https://github.com/theintern/leadfoot/issues/61
-				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
-			}
-
-			return checkMultiSelection(remote, "combo3", true);
+			return checkMultiSelection(this.remote, "combo3", true);
 		},
 
 		"multi selection cancel button (combo3)": function () {
-			var remote = this.remote;
-
-			if (remote.environmentType.platformName === "iOS") {
-				// https://github.com/theintern/leadfoot/issues/61
-				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
-			}
-
-			return checkMultiSelection(remote, "combo3", false);
+			return checkMultiSelection(this.remote, "combo3", false);
 		},
 
 		"tab navigation (combo3)": function () {
