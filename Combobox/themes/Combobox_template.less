@@ -40,26 +40,42 @@
 .d-combo-popup {
 	display: flex;
 	flex-direction: column;
+	align-items: stretch;
 
+	input {
+		width: 100%
+	}
+	
 	.d-list {
 		flex: 1;
 	}
 }
 
 .d-combo-popup-header {
-	display: block;
-	margin: 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+
+// Title inside of d-combo-popup-header
+.d-combo-popup-title {
+	flex: 1;
 	padding: 2px 8px;
-	text-align: center;
 	font-size: 16px;
 	font-weight: bold;
 }
 
+// Close icon [x] inside of d-combo-popup-header.
+.d-combo-popup-close-icon::after {
+	content: "\2716";
+}
+
 .d-combo-popup-button-container {
 	display: flex;
-	> button {
-		flex: 1;
-	}
+	justify-content: space-around;
+	align-items: center;
+	padding: 5px;
 }
 
 /* Applies to both the input inside the root node and the input */

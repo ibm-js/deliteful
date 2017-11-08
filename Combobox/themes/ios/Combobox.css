@@ -39,23 +39,33 @@
 .d-combo-popup {
   display: flex;
   flex-direction: column;
+  align-items: stretch;
+}
+.d-combo-popup input {
+  width: 100%;
 }
 .d-combo-popup .d-list {
   flex: 1;
 }
 .d-combo-popup-header {
-  display: block;
-  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.d-combo-popup-title {
+  flex: 1;
   padding: 2px 8px;
-  text-align: center;
   font-size: 16px;
   font-weight: bold;
 }
+.d-combo-popup-close-icon::after {
+  content: "\2716";
+}
 .d-combo-popup-button-container {
   display: flex;
-}
-.d-combo-popup-button-container > button {
-  flex: 1;
+  justify-content: space-around;
+  align-items: center;
+  padding: 5px;
 }
 /* Applies to both the input inside the root node and the input */
 /* conditionally present inside the popup */

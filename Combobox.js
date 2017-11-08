@@ -244,13 +244,13 @@ define([
 		okMsg: messages["ok-button-label"],
 
 		/**
-		 * The text displayed in the Cancel button when the combobox popup contains such a button.
-		 * The default value is provided by the "cancel-button-label" key of
+		 * The title for the close icon.
+		 * The default value is provided by the "close-button-label" key of
 		 * the message bundle.
 		 * @member {string}
-		 * @default "Cancel"
+		 * @default "Close"
 		 */
-		cancelMsg: messages["cancel-button-label"],
+		closeMsg: messages["close-button-label"],
 
 		/**
 		 * Displays or not the down arrow button.
@@ -301,6 +301,13 @@ define([
 		 * overriding this property to false, disabling the move procedure.
 		 */
 		moveAriaAttributes: false,
+
+		/**
+		 *  Class to display the close button icon.
+		 * @member {string}
+		 * @default "d-dialog-close-icon"
+		 */
+		closeButtonIconClass: "d-combo-popup-close-icon",
 
 		createdCallback: function () {
 			// Declarative case.
@@ -622,7 +629,18 @@ define([
 		 * @protected
 		 */
 		createCenteredDropDown: function () {
-			return new ComboPopup({combobox: this});
+			// Use my label as ComboPopup header.
+			var headerNode = (this.focusNode.id &&
+				this.ownerDocument.querySelector("label[for=" + this.focusNode.id + "]")) ||
+				(this.hasAttribute("aria-labelledby") &&
+					this.ownerDocument.getElementById(this.getAttribute("aria-labelledby")));
+			var header = headerNode ? headerNode.textContent.trim() : (this.getAttribute("aria-label") || "");
+
+			return new ComboPopup({
+				combobox: this,
+				header: header,
+				closeButtonIconClass: this.closeButtonIconClass
+			});
 		},
 
 		/**

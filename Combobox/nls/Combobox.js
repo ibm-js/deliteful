@@ -4,6 +4,6 @@ define({ root:
 		"multiple-choice-no-selection": "Select option(s)",
 		"search-placeholder": "Search",
 		"ok-button-label": "OK",
-		"cancel-button-label": "Cancel"
+		"close-button-label": "Close"
 	})
 });

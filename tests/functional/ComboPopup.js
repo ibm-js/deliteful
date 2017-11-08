@@ -274,7 +274,7 @@ define([
 			.end();
 	};
 
-	var checkMultiSelection = function (remote, comboId, pressOkButton) {
+	var checkMultiSelection = function (remote, comboId) {
 		var executeExpr = "return getComboState(\"" + comboId + "\");";
 		return loadFile(remote, "./ComboPopup.html")
 			.execute(executeExpr)
@@ -356,12 +356,11 @@ define([
 					}, "after clicking option (China)");
 			})
 			.sleep(10)
-			.findByCssSelector(pressOkButton ? ".d-combo-ok-button" : ".d-combo-cancel-button").click().end()
+			.findByCssSelector(".d-combo-ok-button").click().end()
 			.sleep(500) // wait for the async closing of the popup
 			.execute(executeExpr)
 			.then(function (comboState) {
-				checkComboState(comboId, comboState, pressOkButton ?
-					{ // expected combo state
+				checkComboState(comboId, comboState, {
 						inputNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
 						widgetValue: ["China", "Germany"],
 						valueNodeValue: "China,Germany",
@@ -374,20 +373,7 @@ define([
 						valueNodeValueAtLatestInputEvent: "China,Germany",
 						widgetValueAtLatestChangeEvent: ["China", "Germany"],
 						valueNodeValueAtLatestChangeEvent: "China,Germany"
-					} : { // expected combo state
-						inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
-						widgetValue: [],
-						valueNodeValue: "",
-						opened: false,
-						selectedItemsCount: 0,
-						itemRenderersCount: 37,
-						inputEventCounter: 1,
-						changeEventCounter: 1, // incremented
-						widgetValueAtLatestInputEvent: [],
-						valueNodeValueAtLatestInputEvent: "",
-						widgetValueAtLatestChangeEvent: [],
-						valueNodeValueAtLatestChangeEvent: ""
-					}, "after clicking on the " + (pressOkButton ? "Ok" : "cancel") + " button (close)");
+					}, "after clicking OK button (close)");
 			});
 	};
 
@@ -406,25 +392,19 @@ define([
 			.getActiveElement()
 			.getVisibleText()
 			.then(function (value) {
-				assert.match(value, /^Cancel/, "after first TAB");
-			})
-			.pressKeys(keys.TAB)
-			.getActiveElement()
-			.getVisibleText()
-			.then(function (value) {
 				assert.match(value, /^OK/, "after second TAB");
 			})
 			.pressKeys(keys.TAB)
 			.getActiveElement()
-			.getVisibleText()
+			.getAttribute("aria-label")
 			.then(function (value) {
-				assert.match(value, /^France/, "after third TAB");
+				assert.strictEqual(value, "Close", "after third TAB (looped to top)");
 			})
 			.pressKeys(keys.TAB)
 			.getActiveElement()
 			.getVisibleText()
 			.then(function (value) {
-				assert.match(value, /^Cancel/, "after forth TAB");
+				assert.match(value, /^France/, "after forth TAB");
 			})
 			.end();
 	};
@@ -871,16 +851,24 @@ define([
 			return checkSingleSelection(this.remote, "combo1");
 		},
 
+		"close dialog via [x] icon": function () {
+			var remote = this.remote;
+			return loadFile(remote, "./ComboPopup.html")
+				.findByCssSelector("#combo3 .d-combobox-input").click().end()
+				.sleep(500) // wait for popup to appear
+				.findByCssSelector("#combo3_dropdown .d-combo-popup-close-icon").click().end()
+				.findById("combo3_dropdown")
+				.isDisplayed().then(function (displayed) {
+					assert.isFalse(displayed, "clicking close icon hid popup");
+				}).end();
+		},
+
 		"single selection (combo2)": function () {
 			return checkSingleSelection(this.remote, "combo2");
 		},
 
 		"multi selection (combo3)": function () {
-			return checkMultiSelection(this.remote, "combo3", true);
-		},
-
-		"multi selection cancel button (combo3)": function () {
-			return checkMultiSelection(this.remote, "combo3", false);
+			return checkMultiSelection(this.remote, "combo3");
 		},
 
 		"tab navigation (combo3)": function () {

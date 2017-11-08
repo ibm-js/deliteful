@@ -32,21 +32,15 @@ define([
 		combobox: null,
 
 		/**
-		 * Popup's header, to remind user what the popup is for (since it likely covers up the original label).
+		 * Popup's title, to remind user what the popup is for (since it likely covers up the original label).
 		 */
 		header: "",
 
-		computeProperties: function (oldValues) {
-			if ("combobox" in oldValues) {
-				// Find Combobox's label and use it as my header.
-				var combobox = this.combobox;
-				var headerNode = (combobox.focusNode.id &&
-					this.ownerDocument.querySelector("label[for=" + combobox.focusNode.id + "]")) ||
-					(combobox.hasAttribute("aria-labelledby") &&
-					this.ownerDocument.getElementById(combobox.getAttribute("aria-labelledby")));
-				this.header = headerNode ? headerNode.textContent.trim() : (combobox.getAttribute("aria-label") || "");
-			}
-		},
+		/**
+		 *  Class to display the close button icon.
+		 * @member {string}
+		 */
+		closeButtonIconClass: "",
 
 		refreshRendering: function (oldValues) {
 			if ("combobox" in oldValues) {
@@ -63,24 +57,12 @@ define([
 		},
 
 		/**
-		 * Called when clicking the OK button of the popup.
+		 * Called when clicking the close button of the popup.
 		 * @protected
 		 */
-		okHandler: function () {
+		closeButtonClickHandler: function () {
 			// NOTE: no need to validate since it's handled by the `selection-change` listener
-			this.combobox.closeDropDown();
-		},
-
-		/**
-		 * Called when clicking the Cancel button of the popup.
-		 * @protected
-		 */
-		cancelHandler: function () {
-			// INFO: resetting any selected items.
-			this.combobox.list.selectedItems = [];
-			this.combobox.closeDropDown();
-			// cont: then ask to validate, so widget's value and inputNode get updated as well.
-			this.combobox._validateMultiple(true);
+			this.emit("execute");
 		},
 
 		/**
