@@ -473,6 +473,18 @@ define([
 			}
 		},
 
+		focus: dcl.superCall(function (sup) {
+			return function () {
+				sup.apply(this, arguments);
+
+				// Set flag used in "input' handler.
+				this._justFocused = true;
+				this.defer(function () {
+					this._justFocused = false;
+				});
+			};
+		}),
+
 		_initList: function () {
 			if (this.list) {
 				// TODO
@@ -698,6 +710,11 @@ define([
 
 		_prepareInput: function (inputElement) {
 			this.on("input", function (evt) {
+				if (this._justFocused) {
+					// Ignore spurious "input" event on IE when focusing an <input> with a placeholder.
+					return;
+				}
+
 				// TODO
 				// Would be nice to also have an "incrementalFilter" boolean property.
 				// On desktop, this would allow to redo the filtering only for "change"
