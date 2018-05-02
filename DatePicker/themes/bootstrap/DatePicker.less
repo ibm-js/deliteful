@@ -2,16 +2,17 @@
 @import "../../../../delite/themes/bootstrap/variables.less";
 
 .d-date-picker {
+	display: inline-block;
+
 	// Override ViewStack's display:block and height:100%.
 	// Also set width so DatePicker is constant width regardless of which panel is displayed
 	// (day picker, month picker, year picker), and which month of the day picker is displayed.
-	&.d-view-stack {
+	.d-view-stack {
 		display: inline-block;
 		height: auto;
+		min-height: 300px;
+		min-width: 300px;
 	}
-
-	min-height: 300px;
-	min-width: 300px;
 
 	border: solid black 1px;
 	background: white;
@@ -26,7 +27,7 @@
 	// Each panel has (optional) header, grid element, and (optional) footer.
 	// The grid element stretches to the remaining width and height, with each element
 	// taking the same amount of width.
-	> * {
+	.d-view-stack > * {
 		display: flex;
 		flex-direction: column;
 

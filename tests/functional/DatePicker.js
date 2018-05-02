@@ -389,6 +389,40 @@ define([
 			}
 		},
 
+		"external buttons": {
+			"today button": function () {
+				var today = new Date();
+				return this.remote
+					.execute("document.getElementById('calendar1').value = new Date(2000, 1, 1);")
+					.findByCssSelector(".-d-datepicker-today-button").click().end()
+					.sleep(500)
+					.findByCssSelector(".d-day-picker .d-date-picker-header .d-label")
+					.getVisibleText().then(function (month) {
+						var currentMonth = today.toLocaleString("en-us", { month: "long" });
+						assert.strictEqual(month, currentMonth, "current month");
+					}).end()
+					.findByCssSelector(".d-day-picker .d-date-picker-footer .d-label")
+					.getVisibleText().then(function (year) {
+						var currentYear = "" + today.getFullYear();
+						assert.strictEqual(year, currentYear, "current year");
+					}).end();
+			},
+
+			"clear button": function () {
+				return this.remote
+					.execute("document.getElementById('calendar1').value = new Date(2000, 1, 1);")
+					.findByCssSelector("[role=row]:nth-child(3) [role=gridcell]:nth-child(4)").click().end()
+					.findByCssSelector("#value").getVisibleText().then(function (text) {
+						assert.strictEqual(text, "2000-02-09", "after selecting value");
+					}).end()
+					.findByCssSelector(".-d-datepicker-clear-button").click().end()
+					.sleep(500)
+					.findByCssSelector("#value").getVisibleText().then(function (text) {
+						assert.strictEqual(text, "", "after clearing value");
+					}).end();
+			}
+		},
+
 		keyboard: {
 			setup: function () {
 				var remote = this.remote;

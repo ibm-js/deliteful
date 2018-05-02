@@ -1,5 +1,5 @@
-define({ root:
-	({
+define({
+	root: {
 		"day-picker-label": "Date picker",
 		"month-picker-label": "Month picker",
 		"year-picker-label": "Year picker",
@@ -8,6 +8,8 @@ define({ root:
 		"previous-year": "Previous year",
 		"next-year": "Next year",
 		"previous-year-range": "Previous range of years",
-		"next-year-range": "Next range of years"
-	})
+		"next-year-range": "Next range of years",
+		today: "Today",
+		clear: "Clear"
+	}
 });

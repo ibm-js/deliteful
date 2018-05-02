@@ -1,20 +1,21 @@
 define([
 	"delite/register",
+	"delite/Widget",
 	"deliteful/TimeBase",
-	"deliteful/ViewStack",
 	"./DatePicker/DayPicker",
 	"./DatePicker/MonthPicker",
 	"./DatePicker/YearPicker",
+	"delite/handlebars!./DatePicker/DatePicker.html",
 	"requirejs-dplugins/i18n!./DatePicker/nls/DatePicker",
-	"delite/theme!./DatePicker/themes/{{theme}}/DatePicker.css",
-	"requirejs-dplugins/css!deliteful/ViewStack/transitions/flip.css"
+	"delite/theme!./DatePicker/themes/{{theme}}/DatePicker.css"
 ], function (
 	register,
+	Widget,
 	TimeBase,
-	ViewStack,
 	DayPicker,
 	MonthPicker,
 	YearPicker,
+	template,
 	messages
 ) {
 	"use strict";
@@ -22,9 +23,13 @@ define([
 	/**
 	 * Small calendar to be used as a dropdown, designed for picking a date.
 	 */
-	return register("d-date-picker", [ViewStack, TimeBase], {
-		baseClass: "d-date-picker d-view-stack",
+	return register("d-date-picker", [HTMLElement, Widget, TimeBase], {
+		baseClass: "d-date-picker",
 
+		template: template,
+
+		messages: messages,
+		
 		/**
 		 * Selected date.
 		 * @member {Date}
@@ -106,9 +111,6 @@ define([
 		 */
 		nextIconClass: "d-caret-next",
 
-		// Override ViewStack's default transition of "slide".
-		transition: "flip",
-
 		/**
 		 * True if the user has explicitly selected a year, or
 		 * a year was selected via the DatePicker's value being set.
@@ -121,7 +123,7 @@ define([
 		 */
 		monthSelected: false,
 
-		render: function () {
+		postRender: function () {
 			// Create the DayPicker initially, and create MonthPicker and YearPicker on demand.
 			this.dayPicker = new DayPicker({
 				ariaLabel: this.dayPickerLabel,
@@ -152,7 +154,7 @@ define([
 				this.emit("change");
 			}.bind(this));
 
-			this.appendChild(this.dayPicker);
+			this.viewStack.appendChild(this.dayPicker);
 		},
 
 		showMonthPicker: function () {
@@ -169,7 +171,7 @@ define([
 				this.monthPicker.on("month-selected", function (evt) {
 					this.monthSelected = true;
 					this.dayPicker.setMonth(evt.month);
-					this.show(this.dayPicker).then(function () {
+					this.viewStack.show(this.dayPicker).then(function () {
 						// Trigger focus on previously focused day of month.  Setting focus while DayPicker
 						// is hidden doesn't work, so wait until animation completes.
 						this.dayPicker.notifyCurrentValue("currentFocus");
@@ -178,7 +180,7 @@ define([
 			}
 
 			this.monthPicker.month = this.monthSelected ? this.dayPicker.currentMonth : -1;
-			this.show(this.monthPicker);
+			this.viewStack.show(this.monthPicker);
 		},
 
 		showYearPicker: function () {
@@ -197,7 +199,7 @@ define([
 				this.yearPicker.on("year-selected", function (evt) {
 					this.yearSelected = true;
 					this.dayPicker.setYear(evt.year);
-					this.show(this.dayPicker).then(function () {
+					this.viewStack.show(this.dayPicker).then(function () {
 						// Trigger focus on previously focused day of month.  Setting focus while DayPicker
 						// is hidden doesn't work, so wait until animation completes.
 						this.dayPicker.notifyCurrentValue("currentFocus");
@@ -207,7 +209,7 @@ define([
 
 			this.yearPicker.year = this.yearSelected ? this.dayPicker.currentYear : null;
 			this.yearPicker.centeredYear = this.dayPicker.currentYear;
-			this.show(this.yearPicker);
+			this.viewStack.show(this.yearPicker);
 		},
 
 		computeProperties: function (oldVals) {
@@ -225,6 +227,27 @@ define([
 			// Note: assumes that the day view is currently selected.  That will always be true
 			// is user is using keyboard navigation.
 			this.dayPicker.focus();
+		},
+
+
+		/**
+		 * Handler for click of today button.
+		 * Return to the day picker and set it to the year and month containing today.
+		 */
+		todayButtonClickHandler: function () {
+			var today = new this.dateClassObj();
+			this.dayPicker.setYear(today.getFullYear());
+			this.dayPicker.setMonth(today.getMonth());
+			this.viewStack.show(this.dayPicker);
+		},
+
+		/**
+		 * Handler for click of clear button.
+		 * Set the value to null.
+		 */
+		clearButtonClickHandler: function () {
+			this.value = null;
+			this.emit("change");
 		}
 	});
 });

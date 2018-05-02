@@ -1,0 +1,7 @@
+<template requires="deliteful/ViewStack">
+	<d-view-stack attach-point="viewStack"></d-view-stack>
+	<div class="-d-datepicker-buttons">
+		<button class="-d-datepicker-today-button" on-click="todayButtonClickHandler">{{messages.today}}</button>
+		<button class="-d-datepicker-clear-button" on-click="clearButtonClickHandler">{{messages.clear}}</button>
+	</div>
+</template>
