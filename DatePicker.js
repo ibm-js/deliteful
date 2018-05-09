@@ -236,9 +236,8 @@ define([
 		 */
 		todayButtonClickHandler: function () {
 			var today = new this.dateClassObj();
-			this.dayPicker.setYear(today.getFullYear());
-			this.dayPicker.setMonth(today.getMonth());
 			this.viewStack.show(this.dayPicker);
+			this.dayPicker.focus(today);
 		},
 
 		/**
