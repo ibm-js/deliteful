@@ -240,6 +240,12 @@ define([
 						}
 					}, this);
 				}, this);
+
+				$(".d-date-picker-today", this.grid).removeClass("d-date-picker-today");
+				var todayCell = this._dateToCell(new this.dateClassObj());
+				if (todayCell) {
+					$(todayCell).addClass("d-date-picker-today");
+				}
 			}
 
 			// When this.currentFocus is changed, we handle the actual refocus in refreshRendering().
@@ -250,16 +256,10 @@ define([
 			// Adjust CSS for the selected date whenever the selected date changes or we switch to another month.
 			if ("value" in oldVals || "dates" in oldVals) {
 				$(".d-date-picker-selected", this.grid).removeClass("d-date-picker-selected");
-				$(".d-date-picker-today", this.grid).removeClass("d-date-picker-today");
 				if (this.value && !isNaN(this.value)) {
 					var selectedCell = this._dateToCell(this.value);
 					if (selectedCell) {
 						$(selectedCell).addClass("d-date-picker-selected");
-					}
-				} else {
-					var todayCell = this._dateToCell(new this.dateClassObj());
-					if (todayCell) {
-						$(todayCell).addClass("d-date-picker-today");
 					}
 				}
 			}
