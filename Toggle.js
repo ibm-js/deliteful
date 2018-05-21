@@ -47,6 +47,7 @@ define([
 		toggle: function () {
 			if (!this.disabled) {
 				this.checked = !this.checked;
+				this.emit("change");
 			}
 		}
 	});
