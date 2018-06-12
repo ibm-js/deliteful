@@ -15,8 +15,7 @@ define([
 	var container;
 
 	/*jshint multistr: true */
-	var html = " <d-combobox id=\"combo1\"> \
-		<d-list righttextAttr=\"sales\"> \
+	var html = " <d-combobox id=\"combo1\" righttextAttr=\"sales\"> \
 		{ \"label\": \"Option 0\", \"sales\": 500, \"profit\": 50, \"region\": \"EU\" }, \
 		{ \"label\": \"Option 1\", \"sales\": 450, \"profit\": 48, \"region\": \"EU\" }, \
 		{ \"label\": \"Option 2\", \"sales\": 700, \"profit\": 60, \"region\": \"EU\" }, \
@@ -27,10 +26,8 @@ define([
 		{ \"label\": \"Option 7\", \"sales\": 900, \"profit\": 100, \"region\": \"Asia\" }, \
 		{ \"label\": \"Option 8\", \"sales\": 500, \"profit\": 40, \"region\": \"EU\" }, \
 		{ \"label\": \"Option 9\", \"sales\": 900, \"profit\": 100, \"region\": \"EU\" } \
-		</d-list> \
 		</d-combobox> \
-		<my-combobox id=\"mycombo1\"> \
-		<d-list righttextAttr=\"sales\"> \
+		<my-combobox id=\"mycombo1\" righttextAttr=\"sales\"> \
 		{ \"label\": \"Option 0\", \"sales\": 500, \"profit\": 50, \"region\": \"EU\" }, \
 		{ \"label\": \"Option 1\", \"sales\": 450, \"profit\": 48, \"region\": \"EU\" }, \
 		{ \"label\": \"Option 2\", \"sales\": 700, \"profit\": 60, \"region\": \"EU\" }, \
@@ -41,14 +38,12 @@ define([
 		{ \"label\": \"Option 7\", \"sales\": 900, \"profit\": 100, \"region\": \"Asia\" }, \
 		{ \"label\": \"Option 8\", \"sales\": 500, \"profit\": 40, \"region\": \"EU\" }, \
 		{ \"label\": \"Option 9\", \"sales\": 900, \"profit\": 100, \"region\": \"EU\" }\
-		</d-list> \
 		</my-combobox>";
 
 	// Second variant to test attribute mapping for label
 
 	/*jshint multistr: true */
-	var htmlMappedAttr = " <d-combobox id=\"combo1\"> \
-		<d-list labelAttr=\"name\" righttextAttr=\"sales\"> \
+	var htmlMappedAttr = " <d-combobox id=\"combo1\" labelAttr=\"name\" righttextAttr=\"sales\"> \
 		{ \"name\": \"Option 0\", \"sales\": 500, \"profit\": 50, \"region\": \"EU\" }, \
 		{ \"name\": \"Option 1\", \"sales\": 450, \"profit\": 48, \"region\": \"EU\" }, \
 		{ \"name\": \"Option 2\", \"sales\": 700, \"profit\": 60, \"region\": \"EU\" }, \
@@ -59,10 +54,8 @@ define([
 		{ \"name\": \"Option 7\", \"sales\": 900, \"profit\": 100, \"region\": \"Asia\" }, \
 		{ \"name\": \"Option 8\", \"sales\": 500, \"profit\": 40, \"region\": \"EU\" }, \
 		{ \"name\": \"Option 9\", \"sales\": 900, \"profit\": 100, \"region\": \"EU\" } \
-		</d-list> \
 		</d-combobox> \
-		<my-combobox id=\"mycombo1\"> \
-		<d-list labelAttr=\"name\" righttextAttr=\"sales\"> \
+		<my-combobox id=\"mycombo1\" labelAttr=\"name\" righttextAttr=\"sales\"> \
 		{ \"name\": \"Option 0\", \"sales\": 500, \"profit\": 50, \"region\": \"EU\" }, \
 		{ \"name\": \"Option 1\", \"sales\": 450, \"profit\": 48, \"region\": \"EU\" }, \
 		{ \"name\": \"Option 2\", \"sales\": 700, \"profit\": 60, \"region\": \"EU\" }, \
@@ -73,7 +66,6 @@ define([
 		{ \"name\": \"Option 7\", \"sales\": 900, \"profit\": 100, \"region\": \"Asia\" }, \
 		{ \"name\": \"Option 8\", \"sales\": 500, \"profit\": 40, \"region\": \"EU\" }, \
 		{ \"name\": \"Option 9\", \"sales\": 900, \"profit\": 100, \"region\": \"EU\" } \
-		</d-list> \
 		</my-combobox>";
 
 	// For testing the ability to deal with item value different than item label

@@ -310,21 +310,8 @@ define([
 		closeButtonIconClass: "d-combo-popup-close-icon",
 
 		createdCallback: function () {
-			// Declarative case.
-			var list = this.querySelector("d-list");
-			if (list) {
-				// Old API: <d-list> child of <d-combobox>.  Possibly remove this in the future.
-				if (!list.attached) {
-					list.addEventListener("customelement-attached", this._attachedlistener = function () {
-						list.removeEventListener("customelement-attached", this._attachedlistener);
-						this.list = list;
-						this.deliver();
-					}.bind(this));
-				} else {
-					this.list = list;
-				}
-			} else if (this.textContent.trim()) {
-				// New API: JSON data as innerHTML of <d-combobox>.
+			// If the control seems to contain JSON, then parse it as our data source.
+			if (!this.firstElementChild && this.textContent.trim()) {
 				var data = JSON.parse("[" + this.textContent + "]");
 				if (data.length) {
 					this.source = new ObservableArray();
