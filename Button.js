@@ -66,9 +66,15 @@ define([
 		},
 
 		refreshRendering: function (props) {
+			// If title was not explicitly specified, and showLabel === false, then set
+			// title (aka tooltip) to be the label.
 			if (("label" in props || "showLabel" in props) &&
 				(!this.title || this.title === ("label" in props ? props.label : this.label))) {
-				this.title = this.showLabel ? "" : this.label;
+				if (this.showLabel) {
+					this.removeAttribute("title");
+				} else {
+					this.title = this.label;
+				}
 			}
 		}
 	});
