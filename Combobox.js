@@ -309,6 +309,8 @@ define([
 		 */
 		closeButtonIconClass: "d-combo-popup-close-icon",
 
+		dropDownType: "listbox",
+
 		createdCallback: function () {
 			// If the control seems to contain JSON, then parse it as our data source.
 			if (!this.firstElementChild && this.textContent.trim()) {
