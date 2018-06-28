@@ -188,8 +188,8 @@ define([
 			postMessage: function (message, props) {
 				var m;
 				if (typeof(message) === "string") {
-					var args = {message: message};
-					dcl.mix(args, props);
+					var args = props ? Object.create(props) : {};
+					args.message = message;
 					m = new ToasterMessage(args);
 				} else {
 					m = message;

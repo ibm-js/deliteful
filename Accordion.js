@@ -449,15 +449,13 @@ define([
 		 */
 		loadChild: dcl.superCall(function (sup) {
 			return function (dest, params) {
-				var event = {
-					setContent: function (panel, content) {
-						panel.innerHTML = "";
-						while (content.firstChild) {
-							panel.appendChild(content.firstChild);
-						}
+				var event = params ? Object.create(params) : {};
+				event.setContent = function (panel, content) {
+					panel.innerHTML = "";
+					while (content.firstChild) {
+						panel.appendChild(content.firstChild);
 					}
 				};
-				dcl.mix(event, params);
 				return sup.apply(this, [dest, event]);
 			};
 		}),

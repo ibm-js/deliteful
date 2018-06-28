@@ -21,11 +21,13 @@ define([
 			}
 		}
 	}
+
 	function setReverse(node) {
 		if (node) {
 			$(node).addClass("-d-view-stack-reverse");
 		}
 	}
+
 	function cleanCSS(node) {
 		if (node) {
 			node.className = node.className.split(/ +/).filter(function (x) {
@@ -33,8 +35,15 @@ define([
 			}).join(" ");
 		}
 	}
+
 	function transitionClass(s) {
 		return "-d-view-stack-" + s;
+	}
+
+	function mix(a, b) {
+		for (var n in b) {
+			a[n] = b[n];
+		}
 	}
 
 	/**
@@ -189,7 +198,7 @@ define([
 		showPrevious: function (params) {
 			//		Shows the previous child in the container.
 			var args = {reverse: true};
-			dcl.mix(args, params || {});
+			mix(args, params || {});
 			return this._showPreviousNext("previousElementSibling", args);
 		},
 
@@ -268,7 +277,7 @@ define([
 			setVisibility(widget, true);
 			this._visibleChild = widget;
 
-			var transition  = (origin === widget) ? "none" : (event.transition || this.transition);
+			var transition = (origin === widget) ? "none" : (event.transition || this.transition);
 			var reverse = this.effectiveDir === "ltr" ? event.reverse : !event.reverse;
 			return this._doTransition(origin, widget, event, transition, reverse);
 		},
@@ -291,7 +300,7 @@ define([
 				//  - Transitions events are broken if the ViewStack is not visible
 
 				var parent = this;
-				while (parent && parent.style.display  !== "none" && parent !== this.ownerDocument.body) {
+				while (parent && parent.style.display !== "none" && parent !== this.ownerDocument.body) {
 					parent = parent.parentNode;
 				}
 				if (has("ie") === 9 || parent !== this.ownerDocument.body) {
