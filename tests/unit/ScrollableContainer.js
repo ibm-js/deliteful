@@ -9,7 +9,13 @@ define([
 	ScrollableContainer, ScrollableSharedTests) {
 	
 	// Note that the actual testing is done in ScrollableContainer-shared.
-	
+
+	function mix(a, b) {
+		for (var n in b) {
+			a[n] = b[n];
+		}
+	}
+
 	var container, MyScrollableContainer;
 	/*jshint multistr: true */
 	var html = "<d-scrollable-container id='sc1' \
@@ -41,7 +47,7 @@ define([
 
 	ScrollableSharedTests.containerCSSClassName = "d-scrollable-container";
 	
-	dcl.mix(suite, ScrollableSharedTests.testCases);
+	mix(suite, ScrollableSharedTests.testCases);
 
 	registerSuite(suite);
 	
@@ -80,7 +86,7 @@ define([
 		}
 	};
 
-	dcl.mix(suite, ScrollableSharedTests.testCases);
+	mix(suite, ScrollableSharedTests.testCases);
 
 	registerSuite(suite);
 });

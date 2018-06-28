@@ -7,6 +7,12 @@ define([
 	"./resources/Checkbox-shared"
 ], function (dcl, registerSuite, assert, register, Checkbox, commonSuite) {
 
+	function mix(a, b) {
+		for (var n in b) {
+			a[n] = b[n];
+		}
+	}
+
 	var container,
 		html = "<d-checkbox id='cb1'></d-checkbox><d-checkbox id='cb2' value='foo'>" +
 			"</d-checkbox><d-checkbox id='cb3' checked='true'></d-checkbox>" +
@@ -14,7 +20,7 @@ define([
 
 	var suite = {
 		setup: function () {
-			dcl.mix(commonSuite, {
+			mix(commonSuite, {
 				baseClass: "d-checkbox",
 				defaultWidget: "cb1",
 				labelForTarget: "cb3",
@@ -32,7 +38,7 @@ define([
 			container.parentNode.removeChild(container);
 		}
 	};
-	dcl.mix(suite, commonSuite.testCases);
+	mix(suite, commonSuite.testCases);
 
 	// Markup
 	var markupSuite = {
@@ -44,7 +50,7 @@ define([
 			register.deliver();
 		}
 	};
-	dcl.mix(markupSuite, suite);
+	mix(markupSuite, suite);
 	registerSuite(markupSuite);
 
 	var progSuite = {
@@ -68,6 +74,6 @@ define([
 			cb.attachedCallback();
 		}
 	};
-	dcl.mix(progSuite, suite);
+	mix(progSuite, suite);
 	registerSuite(progSuite);
 });

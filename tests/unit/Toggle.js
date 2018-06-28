@@ -6,6 +6,12 @@ define([
 	"deliteful/Toggle"
 ], function (dcl, registerSuite, assert, register, Toggle) {
 
+	function mix(a, b) {
+		for (var n in b) {
+			a[n] = b[n];
+		}
+	}
+
 	var container,
 		widget,
 		MyWidget = register("my-widget", [HTMLElement, Toggle], {
@@ -59,7 +65,7 @@ define([
 			register.deliver();
 		}
 	};
-	dcl.mix(suite, commonSuite);
+	mix(suite, commonSuite);
 	registerSuite(suite);
 
 	// Prog
@@ -77,7 +83,7 @@ define([
 			widget.attachedCallback();
 		}
 	};
-	dcl.mix(suite, commonSuite);
+	mix(suite, commonSuite);
 	registerSuite(suite);
 
 });

@@ -9,6 +9,12 @@ define([
 	"./resources/Checkbox-shared"
 ], function (dcl, advise, registerSuite, assert, register, $, Switch, commonSuite) {
 
+	function mix(a, b) {
+		for (var n in b) {
+			a[n] = b[n];
+		}
+	}
+
 	var container,
 		html = "<d-switch id='sw1'></d-switch>" +
 			"<d-switch id='sw2' checked='true' value='foo' name='sw2' disabled='true'" +
@@ -18,7 +24,7 @@ define([
 	var suite = {
 
 		setup: function () {
-			dcl.mix(commonSuite, {
+			mix(commonSuite, {
 				baseClass: "d-switch",
 				defaultWidget: "sw1",
 				labelForTarget: "sw3",
@@ -88,7 +94,7 @@ define([
 			container.parentNode.removeChild(container);
 		}
 	};
-	dcl.mix(suite, commonSuite.testCases);
+	mix(suite, commonSuite.testCases);
 
 	// Markup
 	var markupSuite = {
@@ -100,7 +106,7 @@ define([
 			register.deliver();
 		}
 	};
-	dcl.mix(markupSuite, suite);
+	mix(markupSuite, suite);
 	registerSuite(markupSuite);
 
 	var progSuite = {
@@ -131,7 +137,7 @@ define([
 			container.appendChild(lbl);
 		}
 	};
-	dcl.mix(progSuite, suite);
+	mix(progSuite, suite);
 	registerSuite(progSuite);
 
 });

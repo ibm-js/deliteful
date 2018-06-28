@@ -4,6 +4,12 @@ define([
 	"deliteful/Button"
 ], function (dcl, registerSuite, assert, register, $, Button) {
 
+	function mix(a, b) {
+		for (var n in b) {
+			a[n] = b[n];
+		}
+	}
+
 	var container, html = "<button is='d-button' id='b1'>b1</button>" +
 		"<button is='d-button' id='b2' value='foo'>b2</button>" +
 		"<button is='d-button' id='b3' iconClass='ic1'>b3</button>" +
@@ -160,7 +166,7 @@ define([
 			register.deliver();
 		}
 	};
-	dcl.mix(suite, commonSuite);
+	mix(suite, commonSuite);
 	registerSuite(suite);
 
 	suite = {
@@ -194,6 +200,6 @@ define([
 			b.attachedCallback();
 		}
 	};
-	dcl.mix(suite, commonSuite);
+	mix(suite, commonSuite);
 	registerSuite(suite);
 });

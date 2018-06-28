@@ -12,6 +12,12 @@ define([
 ], function (dcl, registerSuite, assert, has, register, $,
 			 Memory, Trackable, List, Combobox) {
 
+	function mix(a, b) {
+		for (var n in b) {
+			a[n] = b[n];
+		}
+	}
+
 	var container;
 
 	/*jshint multistr: true */
@@ -290,7 +296,7 @@ define([
 			container.parentNode.removeChild(container);
 		}
 	};
-	dcl.mix(declCommonSuite, CommonTestCases);
+	mix(declCommonSuite, CommonTestCases);
 	registerSuite(declCommonSuite);
 
 	// Programatic creation
@@ -831,6 +837,6 @@ define([
 			container.parentNode.removeChild(container);
 		}
 	};
-	dcl.mix(progCommonSuite, CommonTestCases);
+	mix(progCommonSuite, CommonTestCases);
 	registerSuite(progCommonSuite);
 });

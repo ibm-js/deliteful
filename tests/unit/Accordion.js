@@ -9,6 +9,13 @@ define([
 	"deliteful/Panel",
 	"dojo/domReady!"
 ], function (dcl, registerSuite, assert, $, Promise, register, Accordion, Panel) {
+
+	function mix(a, b) {
+		for (var n in b) {
+			a[n] = b[n];
+		}
+	}
+
 	var container, accordion, panel1, panel2, panel3, accordion2, panel21, panel22, panel23,
 		accordion3, panel31, panel32, panel33, accordion4,
 		html = "<d-accordion id='accordion' style='height:400px'>" +
@@ -392,7 +399,7 @@ define([
 		}
 	};
 
-	dcl.mix(suite, commonSuite);
+	mix(suite, commonSuite);
 	registerSuite(suite);
 
 	//Programmatic
@@ -562,6 +569,6 @@ define([
 		}
 	};
 
-	dcl.mix(suite, commonSuite);
+	mix(suite, commonSuite);
 	registerSuite(suite);
 });

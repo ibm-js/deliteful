@@ -7,6 +7,12 @@ define([
 	"deliteful/ToggleButton"
 ], function (dcl, registerSuite, assert, register, $, ToggleButton) {
 
+	function mix(a, b) {
+		for (var n in b) {
+			a[n] = b[n];
+		}
+	}
+
 	var container,
 		html = "<button is='d-toggle-button' id='tb1'>tb1</button>" +
 			"<button is='d-toggle-button' id='tb2' value='foo'>tb2</button>" +
@@ -210,7 +216,7 @@ define([
 			register.deliver();
 		}
 	};
-	dcl.mix(suite, commonSuite);
+	mix(suite, commonSuite);
 	registerSuite(suite);
 
 	suite = {
@@ -241,6 +247,6 @@ define([
 			tb.attachedCallback();
 		}
 	};
-	dcl.mix(suite, commonSuite);
+	mix(suite, commonSuite);
 	registerSuite(suite);
 });

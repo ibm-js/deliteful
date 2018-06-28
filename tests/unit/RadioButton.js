@@ -8,6 +8,12 @@ define([
 	"./resources/Checkbox-shared"
 ], function (dcl, registerSuite, assert, has, register, RadioButton, commonSuite) {
 
+	function mix(a, b) {
+		for (var n in b) {
+			a[n] = b[n];
+		}
+	}
+
 	var container,
 		html = "<form id='form1'>" +
 			"<d-radio-button id='rb1' value='rb1' name='choice'></d-radio-button>" +
@@ -18,7 +24,7 @@ define([
 
 	var suite = {
 		setup: function () {
-			dcl.mix(commonSuite, {
+			mix(commonSuite, {
 				baseClass: "d-radio-button",
 				defaultWidget: "rb4",
 				labelForTarget: "rb3",
@@ -133,7 +139,7 @@ define([
 			container.parentNode.removeChild(container);
 		}
 	};
-	dcl.mix(suite, commonSuite.testCases);
+	mix(suite, commonSuite.testCases);
 
 	// Markup
 	var markupSuite = {
@@ -145,7 +151,7 @@ define([
 			register.deliver();
 		}
 	};
-	dcl.mix(markupSuite, suite);
+	mix(markupSuite, suite);
 	registerSuite(markupSuite);
 
 	var progSuite = {
@@ -176,6 +182,6 @@ define([
 			rb.attachedCallback();
 		}
 	};
-	dcl.mix(progSuite, suite);
+	mix(progSuite, suite);
 	registerSuite(progSuite);
 });

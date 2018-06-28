@@ -10,6 +10,12 @@ define([
 ], function (dcl, registerSuite, assert, register, $,
 	Memory, Trackable, Select) {
 
+	function mix(a, b) {
+		for (var n in b) {
+			a[n] = b[n];
+		}
+	}
+
 	var Store = Memory.createSubclass([Trackable], {});
 
 	var container, MySelect;
@@ -392,7 +398,7 @@ define([
 		}
 	};
 
-	dcl.mix(suite, CommonTestCases);
+	mix(suite, CommonTestCases);
 
 	registerSuite(suite);
 	
@@ -420,7 +426,7 @@ define([
 		}
 	};
 
-	dcl.mix(suite, CommonTestCases);
+	mix(suite, CommonTestCases);
 
 	registerSuite(suite);
 });
