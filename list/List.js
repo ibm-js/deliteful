@@ -17,11 +17,6 @@ define([
 ], function (dcl, Widget, register, $, CustomElement,
 		Selection, KeyNav, StoreMap, Scrollable, ItemRenderer, CategoryRenderer, template, messages) {
 
-	// Put tabIndex in mixin class to workaround https://github.com/uhop/dcl/issues/9.
-	var TabbableWidget = register.dcl(Widget, {
-		tabIndex: 0
-	});
-
 	/**
 	 * A widget that renders a scrollable list of items.
 	 *
@@ -38,7 +33,7 @@ define([
 	 * @augments module:delite/Scrollable
 	 */
 
-	return register("d-list", [HTMLElement, Selection, KeyNav, StoreMap, Scrollable, TabbableWidget],
+	return register("d-list", [HTMLElement, Selection, KeyNav, StoreMap, Scrollable],
 			/** @lends module:deliteful/list/List# */ {
 
 		/**
@@ -56,6 +51,8 @@ define([
 		 * @member {Object} module:deliteful/list/List#query
 		 * @default {}
 		 */
+
+		tabIndex: 0,
 
 		/**
 		 * The widget class to use to render list items.
