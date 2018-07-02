@@ -2,8 +2,8 @@
 	"name": "deliteful",
 	"version": "0.8.2",
 	"dependencies": {
-		"dcl": "1.1.2",
-		"decor": "0.7.x",
+		"dcl": "^2.0.6",
+		"decor": "master",
 		"delite": "master",
 		"jquery": ">=2.1",
 		"dojo": ">=1.9.1",
