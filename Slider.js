@@ -1,5 +1,6 @@
 /** @module deliteful/Slider */
 define([
+	"dcl/dcl",
 	"requirejs-dplugins/jquery!attributes/classes",
 	"dpointer/events",
 	"delite/register",
@@ -7,7 +8,7 @@ define([
 	"delite/CssState",
 	"delite/handlebars!./Slider/Slider.html",
 	"delite/theme!./Slider/themes/{{theme}}/Slider.css"
-], function ($, dpointer, register, FormValueWidget, CssState, template) {
+], function (dcl, $, dpointer, register, FormValueWidget, CssState, template) {
 	/**
 	 * @private
 	 */
@@ -54,7 +55,27 @@ define([
 			 * @member {number}
 			 * @default 0
 			 */
-			min: 0,
+			min: dcl.prop({
+				/**
+				 * HTML 5.1 input range spec:
+				 * The min attribute, if specified, must have a value that is a valid floating-point number.
+				 * The default minimum is 0.
+				 * If the element has a min attribute, and the result of applying the algorithm to convert a
+				 * string to a number to the value of the min attribute is a number, then that number is the element's
+				 * minimum; otherwise, if the type attribute's current state defines a default minimum, then
+				 * that is the minimum.
+				 * @param value
+				 * @private
+				 */
+				set: function (value) {
+					this._set("min", this._convert2Float(value, 0));
+				},
+				get: function () {
+					return this._get("min") || 0;
+				},
+				enumerable: true,
+				configurable: true
+			}),
 
 			/**
 			 * Indicates the maximum boundary of the allowed range of values. Must be a valid floating-point number.
@@ -62,7 +83,27 @@ define([
 			 * @member {number}
 			 * @default 100
 			 */
-			max: 100,
+			max: dcl.prop({
+				/**
+				 * HTML 5.1 input range spec:
+				 * The max attribute, if specified, must have a value that is a valid floating-point number.
+				 * The default maximum is 100.
+				 * If the element has a max attribute, and the result of applying the algorithm to convert a
+				 * string to a number to the value of the max attribute is a number, then that number is the element's
+				 * maximum; otherwise, if the type attribute's current state defines a default maximum,
+				 * then that is the maximum;
+				 * @param value
+				 * @private
+				 */
+				set: function (value) {
+					this._set("max", this._convert2Float(value, 100));
+				},
+				get: function () {
+					return this._get("max") || 100;
+				},
+				enumerable: true,
+				configurable: true
+			}),
 
 			/**
 			 * Specifies the value granularity. causes the slider handle to snap/jump to the closest possible value.
@@ -70,7 +111,22 @@ define([
 			 * @member {number}
 			 * @default 1
 			 */
-			step: 1,
+			step: dcl.prop({
+				/**
+				 * Must be a positive floating-point number. Invalid step value is defaulted to 1.
+				 * @param value
+				 * @private
+				 */
+				set: function (value) {
+					value = this._convert2Float(value, 1);
+					this._set("step", value <= 0 ? 1 : value);
+				},
+				get: function () {
+					return this._get("step") || 1;
+				},
+				enumerable: true,
+				configurable: true
+			}),
 
 			/**
 			 * Applies only when the slider has two values. Allow sliding the area between the handles to change both
@@ -336,46 +392,6 @@ define([
 				this.onmousedown = function (e) {
 					e.preventDefault();
 				};
-			},
-
-			/**
-			 * HTML 5.1 input range spec:
-			 * The min attribute, if specified, must have a value that is a valid floating-point number.
-			 * The default minimum is 0.
-			 * If the element has a min attribute, and the result of applying the algorithm to convert a
-			 * string to a number to the value of the min attribute is a number, then that number is the element's
-			 * minimum; otherwise, if the type attribute's current state defines a default minimum, then
-			 * that is the minimum.
-			 * @param value
-			 * @private
-			 */
-			_setMinAttr: function (value) {
-				this._set("min", this._convert2Float(value, 0));
-			},
-
-			/**
-			 * HTML 5.1 input range spec:
-			 * The max attribute, if specified, must have a value that is a valid floating-point number.
-			 * The default maximum is 100.
-			 * If the element has a max attribute, and the result of applying the algorithm to convert a
-			 * string to a number to the value of the max attribute is a number, then that number is the element's
-			 * maximum; otherwise, if the type attribute's current state defines a default maximum,
-			 * then that is the maximum;
-			 * @param value
-			 * @private
-			 */
-			_setMaxAttr: function (value) {
-				this._set("max", this._convert2Float(value, 100));
-			},
-
-			/**
-			 * Must be a positive floating-point number. Invalid step value is defaulted to 1.
-			 * @param value
-			 * @private
-			 */
-			_setStepAttr: function (value) {
-				value = this._convert2Float(value, 1);
-				this._set("step", value <= 0 ? 1 : value);
 			},
 
 			/**

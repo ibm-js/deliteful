@@ -190,17 +190,24 @@ define([
 		 * @member {string} module:deliteful/list/List#scrollDirection
 		 * @default "vertical"
 		 */
-		_setScrollDirectionAttr: function (value) {
-			if (value !== "vertical" && value !== "none") {
-				throw new TypeError("'"
+		scrollDirection: dcl.prop({
+			set: function (value) {
+				if (value !== "vertical" && value !== "none") {
+					throw new TypeError("'"
 						+ value
 						+ "' not supported for scrollDirection, keeping the previous value of '"
 						+ this.scrollDirection
 						+ "'");
-			} else {
-				this._set("scrollDirection", value);
-			}
-		},
+				} else {
+					this._set("scrollDirection", value);
+				}
+			},
+			get: function () {
+				return this._get("scrollDirection") || "vertical";
+			},
+			enumerable: true,
+			configurable: true
+		}),
 
 		/**
 		 * Defines the selection mode: `"none"` (not allowed if `role=listbox` or `role=list`),
@@ -208,15 +215,22 @@ define([
 		 * @member {string} module:deliteful/list/List#selectionMode
 		 * @default "none", or "single" if `role=listbox` or `role=list`.
 		 */
-		_setSelectionModeAttr: dcl.superCall(function (sup) {
-			return function (value) {
-				if ((this.type === "listbox" || this.type === "list") && value === "none") {
-					throw new TypeError("selectionMode 'none' is invalid for an aria listbox/list, "
+		selectionMode: dcl.prop({
+			set: dcl.superCall(function (sup) {
+				return function (value) {
+					if ((this.type === "listbox" || this.type === "list") && value === "none") {
+						throw new TypeError("selectionMode 'none' is invalid for an aria listbox/list, "
 							+ "keeping the previous value of '" + this.selectionMode + "'");
-				} else {
-					sup.apply(this, arguments);
-				}
-			};
+					} else {
+						sup.apply(this, arguments);
+					}
+				};
+			}),
+			get: function () {
+				return this._get("selectionMode") || "none";
+			},
+			enumerable: true,
+			configurable: true
 		}),
 
 		////////////////////////////////////////////////////////////////////////////////////////////
@@ -262,13 +276,6 @@ define([
 				}
 			};
 		}),
-
-		/**
-		 * The selection mode for list items (see {@link module:delite/Selection delite/Selection}).
-		 * @member {string}
-		 * @default "none"
-		 */
-		selectionMode: "none",
 
 		/**
 		 * Optional message to display, with a progress indicator, when

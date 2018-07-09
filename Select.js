@@ -274,13 +274,14 @@ define([
 						// Since there is no native "change" event initially, initialize
 						// the delite/Selection's selectedItem property with the currently
 						// selected option of the native select.
+						var index = this.valueNode.selectedIndex >= 0 ? this.valueNode.selectedIndex : 0;
 						this.selectedItem =
-							this.valueNode.options[this.valueNode.selectedIndex].__dataItem;
+							this.valueNode.options[index].__dataItem;
 					} // else for the native multi-select: it does not have any
 					// option selected by default.
 					
 					// Initialize widget's value
-					this._set("value", this.valueNode.value);
+					this.value = this.valueNode.value;
 				}
 			}
 		},
@@ -307,27 +308,43 @@ define([
 				this.notifyCurrentValue("renderItems");
 			}
 		},
-		
-		_setValueAttr: function (value) {
-			if (this.valueNode) {
-				this.valueNode.value = value;
-			}
-			this._set("value", value);
-		},
-		
-		_setSelectionModeAttr: dcl.superCall(function (sup) {
-			// Override of the setter from delite/Selection to forbid the values
-			// "none" and "radio"
-			return function (value) {
-				if (value !== "single" && value !== "multiple") {
-					throw new TypeError("'" + value +
-						"' not supported for selectionMode; keeping the previous value of '" +
-						this.selectionMode + "'");
-				} else {
-					this._set("selectionMode", value);
+
+		value: dcl.prop({
+			set: function (value) {
+				if (this.valueNode) {
+					this.valueNode.value = value;
 				}
-				sup.call(this, value);
-			};
+				this._set("value", value);
+			},
+			get: function () {
+				return this._get("value");
+			},
+			enumerable: true,
+			configurable: true
+		}),
+
+		selectionMode: dcl.prop({
+			set: dcl.superCall(function (sup) {
+				// Override of the setter from delite/Selection to forbid the values
+				// "none" and "radio"
+				return function (value) {
+					if (value !== "single" && value !== "multiple") {
+						throw new TypeError("'" + value +
+							"' not supported for selectionMode; keeping the previous value of '" +
+							this.selectionMode + "'");
+					} else {
+						this._set("selectionMode", value);
+					}
+					sup.call(this, value);
+				};
+			}),
+			get: dcl.superCall(function (sup) {
+				return function () {
+					return sup.call(this);
+				};
+			}),
+			enumerable: true,
+			configurable: true
 		})
 	});
 });

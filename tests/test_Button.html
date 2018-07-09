@@ -19,10 +19,17 @@
 			// Just for testing subclassing of widgets
 			NewButton = register("new-button", Button, {
 				declaredClass: "NewButton",
-				_setLabelAttr: function (l) {
-					console.log("setting label to " + l);
-					this._set("label", l);
-				}
+				label: dcl.prop({
+					set: function (l) {
+						console.log("setting label to " + l);
+						this._set("label", l);
+					},
+					get: function () {
+						return this._get("label")
+					},
+					enumerable: true,
+					configurable: true
+				})
 			});
 
 			register.deliver();

@@ -89,17 +89,23 @@ define([
 		 * @member {boolean}
 		 * @default false
 		 */
-		autoPaging: false,
-		_setAutoPagingAttr: function (value) {
-			this._set("autoPaging", value);
-			if (this._autoPagingHandle) {
-				this._autoPagingHandle.remove();
-				this._autoPagingHandle = null;
-			}
-			if (value) {
-				this._autoPagingHandle = this.on("scroll", this._scrollHandler.bind(this), this);
-			}
-		},
+		autoPaging: dcl.prop({
+			set: function (value) {
+				this._set("autoPaging", value);
+				if (this._autoPagingHandle) {
+					this._autoPagingHandle.remove();
+					this._autoPagingHandle = null;
+				}
+				if (value) {
+					this._autoPagingHandle = this.on("scroll", this._scrollHandler.bind(this), this);
+				}
+			},
+			get: function () {
+				return this._get("autoPaging") || false;
+			},
+			enumerable: true,
+			configurable: true
+		}),
 
 		/**
 		 * Indicates whether or not to hide the content of the list when loading a new page.

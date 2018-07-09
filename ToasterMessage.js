@@ -1,5 +1,6 @@
 /** @module deliteful/ToasterMessage */
 define([
+	"dcl/dcl",
 	"delite/Widget",
 	"delite/register",
 	"requirejs-dplugins/Promise!",
@@ -7,7 +8,7 @@ define([
 	"dpointer/events",
 	"./features",
 	"delite/handlebars!./Toaster/ToasterMessage.html"
-], function (Widget, register, Promise, $, pointer, has, template) {
+], function (dcl, Widget, register, Promise, $, pointer, has, template) {
 
 	// TODO: this could be abstracted in a separate class, so that it can be used by other widgets
 	// such as the toggle/switch.
@@ -362,12 +363,18 @@ define([
 		 * @member {string}
 		 * @default "info"
 		 */
-		type: defaultType,
-		_setTypeAttr: function (value) {
-			var type = normalizeType(value);
-			this.messageTypeClass = messageTypeClass(type);
-			this._set("type", type);
-		},
+		type: dcl.prop({
+			set: function (value) {
+				var type = normalizeType(value);
+				this.messageTypeClass = messageTypeClass(type);
+				this._set("type", type);
+			},
+			get: function () {
+				return this._get("type") || defaultType;
+			},
+			enumerable: true,
+			configurable: true
+		}),
 
 		/**
 		 * Duration which specifies how long the message is shown.
@@ -377,11 +384,17 @@ define([
 		 * @member {number}
 		 * @default 2000
 		 */
-		duration: defaultDuration,
-		_setDurationAttr: function (value) {
-			var duration = normalizeDuration(value);
-			this._set("duration", duration);
-		},
+		duration: dcl.prop({
+			set: function (value) {
+				var duration = normalizeDuration(value);
+				this._set("duration", duration);
+			},
+			get: function () {
+				return this._get("duration") || defaultDuration;
+			},
+			enumerable: true,
+			configurable: true
+		}),
 
 		_dismissButton: null,
 		/**

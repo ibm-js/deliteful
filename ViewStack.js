@@ -98,23 +98,24 @@ define([
 		 * @member {string}
 		 * @default ""
 		 */
-		selectedChildId: "",
+		selectedChildId: dcl.prop({
+			set: function (child) {
+				if (this.ownerDocument.getElementById(child)) {
+					if (this.attached) {
+						this.show(child);
+					} else {
+						this._pendingChild = child;
+					}
+				}
+			},
+			get: function () {
+				return this._visibleChild ? this._visibleChild.id : "";
+			},
+			enumerable: true,
+			configurable: true
+		}),
 
 		_pendingChild: null,
-
-		_setSelectedChildIdAttr: function (child) {
-			if (this.ownerDocument.getElementById(child)) {
-				if (this.attached) {
-					this.show(child);
-				} else {
-					this._pendingChild = child;
-				}
-			}
-		},
-
-		_getSelectedChildIdAttr: function () {
-			return this._visibleChild ? this._visibleChild.id : "";
-		},
 
 		createdCallback: function () {
 			this._transitionTiming = {default: 0, chrome: 20, ios: 20, android: 100, ff: 100, ie: 20};

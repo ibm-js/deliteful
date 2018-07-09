@@ -54,12 +54,19 @@
 					this.renderNode.appendChild(input);
 					return input;
 				},
-				_setItemAttr: function (item) {
-					this._set("item", item);
-					this._firstNameNode.value = this.item.firstName;
-					this._lastNameNode.value = this.item.lastName;
-					this._dateOfBirthNode.value = this.item.dateOfBirth;
-				}
+				item: dcl.prop({
+					set: function (item) {
+						this._set("item", item);
+						this._firstNameNode.value = this.item.firstName;
+						this._lastNameNode.value = this.item.lastName;
+						this._dateOfBirthNode.value = this.item.dateOfBirth;
+					},
+					get: function () {
+						return this._get("item");
+					},
+					enumerable: true,
+					configurable: true
+				})
 			});
 			var list = new List();
 			list.source = new Store();

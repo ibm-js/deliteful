@@ -134,7 +134,7 @@ define([
 		select.setSelected(dataItems[1], true);
 		select.deliver();
 		if (select._observe) {
-			// TODO: the select.deliver() call above should be sufficient
+			// select.deliver() calls computeProperties() etc. but not observer from addOptions()
 			select._observe.deliver();
 		}
 		
@@ -167,6 +167,7 @@ define([
 		select.setSelected(dataItems[1], true);
 		select.deliver();
 		if (select._observe) {
+			// select.deliver() calls computeProperties() etc. but not observer from addOptions()
 			select._observe.deliver();
 		}
 		
@@ -356,12 +357,20 @@ define([
 			var source = new Store();
 			select.source = source;
 			select.deliver();
+			if (select._observe) {
+				// select.deliver() calls computeProperties() etc. but not observer from addOptions()
+				select._observe.deliver();
+			}
 			checkTrackableSelect(select); // the default source is observable
 			
 			select = document.getElementById("myselect1");
 			source = new Store();
 			select.source = source;
 			select.deliver();
+			if (select._observe) {
+				// select.deliver() calls computeProperties() etc. but not observer from addOptions()
+				select._observe.deliver();
+			}
 			checkTrackableSelect(select); // the default source is observable
 		},
 		

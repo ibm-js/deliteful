@@ -683,12 +683,19 @@ define([
 		 */
 		_valueSetByUserInput: false,
 
-		_setValueAttr: function (val) {
-			if (val !== this.value) {
-				this._set("value", val);
-				this._valueSetByUserInput = false;
-			}
-		},
+		value: dcl.prop({
+			set: function (val) {
+				if (val !== this.value) {
+					this._set("value", val);
+					this._valueSetByUserInput = false;
+				}
+			},
+			get: function () {
+				return this._get("value") || "";
+			},
+			enumerable: true,
+			configurable: true
+		}),
 
 		/**
 		 * Defines the milliseconds the widget has to wait until a new filter operation starts.
