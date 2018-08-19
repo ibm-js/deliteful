@@ -66,18 +66,19 @@
 </head>
 <body style="display: none; background-color:white;" role="application" aria-labelledby="pageTitle">
 <div class="group">
-	<button is="d-button" label="Default button" onclick="alert(this.label + ' clicked.');"></button>
-	<button is="d-button" label="Button with alternative title" title="This is my alternative title" onclick="alert(this.label + ' clicked.');"></button>
-	<button is="d-button" onclick="alert(this.label + ' clicked.');">Button label by content</button>
-	<button is="d-button" class="d-button-primary" label="Blue button" onclick="alert(this.label + ' clicked.');"></button>
-	<button is="d-button" class="d-button-danger" label="Red button" onclick="alert(this.label + ' clicked.');"></button>
-	<button is="d-button" iconClass = 'd-icon-phone' label="Custom with icon and label" class="d-button-green" onclick="alert(this.label + ' clicked.');"></button>
-	<button is="d-button" iconClass = 'd-icon-phone d-big-icon' label="Custom with icon only" class="d-button-green" onclick="alert(this.label + ' clicked.');"></button>
+	<d-button label="Default button" on-click="alert(this.label + ' clicked.');"></d-button>
+	<d-button label="Button with alternative title" title="This is my alternative title" on-click="alert(this.label + ' clicked.');"></d-button>
+	<d-button on-click="alert(this.label + ' clicked.');">Button label by content</d-button>
+	<d-button disabled="disabled" label="Disabled button" on-click="alert(this.label + ' clicked.');"></d-button>
+	<d-button class="d-button-primary" label="Blue button" on-click="alert(this.label + ' clicked.');"></d-button>
+	<d-button class="d-button-danger" label="Red button" on-click="alert(this.label + ' clicked.');"></d-button>
+	<d-button iconClass = 'd-icon-phone' label="Custom with icon and label" class="d-button-green" on-click="alert(this.label + ' clicked.');"></d-button>
+	<d-button iconClass = 'd-icon-phone d-big-icon' label="Custom with icon only" class="d-button-green" on-click="alert(this.label + ' clicked.');"></d-button>
 </div>
 <div class="group">
 	Icon only button (screen readers should announce label as "Button Call". Hovering with the mouse, a "Call" tooltip will be shown instead.):
 	<br>
-	<button is="d-button" iconClass="d-icon-phone" label="Call Button" title="Call" showLabel="false"></button>
+	<d-button iconClass="d-icon-phone" label="Call Button" title="Call" showLabel="false"></d-button>
 </div>
 </body>
 </html>

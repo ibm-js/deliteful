@@ -32,11 +32,11 @@ Edit the contents of the `body` element as follows :
 	<!-- view content header -->
 	<d-linear-layout vertical="false" class="pageHeader">
 		<div>
-			<button is="d-button" onclick="leftPane.toggle()">Settings</button>
+			<d-button on-click="leftPane.toggle()">Settings</d-button>
 		</div>
 		<div class="fill titleStyle">Flickr Photo Feed</div>
 		<div>
-			<button is="d-button">Refresh</button>
+			<d-button>Refresh</d-button>
 		</div>
 	</d-linear-layout>
 	<!-- view content will go here -->
@@ -232,7 +232,7 @@ refreshPhotoList();
 Let us also set a `click` handler on the "Refresh" button if the user wants to reload the photos:
 
 ```html
-<button is="d-button" onclick="refreshPhotoList()">Refresh</button>
+<d-button on-click="refreshPhotoList()">Refresh</d-button>
 ```
 
 We can already try that and open `index.html` in a browser:

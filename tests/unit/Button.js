@@ -10,14 +10,13 @@ define([
 		}
 	}
 
-	var container, html = "<button is='d-button' id='b1'>b1</button>" +
-		"<button is='d-button' id='b2' value='foo'>b2</button>" +
-		"<button is='d-button' id='b3' iconClass='ic1'>b3</button>" +
-		"<button is='d-button' id='b4' iconClass='ic1' label='on'>off</button>" +
-		"<button is='d-button' id='b5' label='on' ></button>" +
-		"<button is='d-button' id='b6' label='on' showLabel='false'></button>" +
-		"<button is='d-button' id='b7' label='on' showLabel='false' title='alternative title'></button>" +
-		"<button is='d-button' id='b8' label='on' title='alternative title'></button>";
+	var container, html = "<d-button id='b1'>b1</d-button>" +
+		"<d-button id='b3' iconClass='ic1'>b3</d-button>" +
+		"<d-button id='b4' iconClass='ic1' label='on'>off</d-button>" +
+		"<d-button id='b5' label='on'></d-button>" +
+		"<d-button id='b6' label='on' showLabel='false'></d-button>" +
+		"<d-button id='b7' label='on' showLabel='false' title='alternative title'></d-button>" +
+		"<d-button id='b8' label='on' title='alternative title'></d-button>";
 
 	var commonSuite = {
 		"Default State": function () {
@@ -25,15 +24,11 @@ define([
 			assert.isTrue($(b).hasClass("d-button"), "Unexpected baseClass.");
 			assert.isFalse(b.disabled, "Unexpected default value for 'disabled' property");
 			assert.strictEqual(b.label, "b1", "Unexpected default value for 'label' (inherited) property.");
-			assert.strictEqual(b.textContent, "b1", "Unexpected default value for textContent.");
-
-			var b2 = document.getElementById("b2");
-			assert.strictEqual(b2.value, "foo",
-				"Unexpected default value for 'value' property if 'value' specified/unchecked");
+			assert.strictEqual(b.textContent.trim(), "b1", "Unexpected default value for textContent.");
 
 			b = document.getElementById("b3");
 			assert.strictEqual(b.label, "b3", "Unexpected default value for 'label' (inherited) property.");
-			assert.strictEqual(b.textContent, "b3", "Unexpected default value for textContent [2].");
+			assert.strictEqual(b.textContent.trim(), "b3", "Unexpected default value for textContent [2].");
 			assert.strictEqual(b.iconClass, "ic1", "Unexpected default value for iconClass.");
 			assert.isTrue(/ic1/.test(b.iconNode.className), "Missing icon css class on iconNode.");
 			assert.isTrue(b.showLabel, "Unexpected default value for showLabel");
@@ -42,11 +37,11 @@ define([
 		"label": function () {
 			var b4 = document.getElementById("b4");
 			assert.strictEqual(b4.label, "on", "b4.label");
-			assert.strictEqual(b4.textContent, "on", "b4.textContent");
+			assert.strictEqual(b4.textContent.trim(), "on", "b4.textContent");
 			b4.label = "b4";
 			b4.deliver();
 			assert.strictEqual(b4.label, "b4", "b4.label after label set.");
-			assert.strictEqual(b4.textContent, "b4", "b4.textContent after label set.");
+			assert.strictEqual(b4.textContent.trim(), "b4", "b4.textContent after label set.");
 		},
 
 		"title": function () {
@@ -175,9 +170,6 @@ define([
 			container = document.createElement("div");
 			document.body.appendChild(container);
 			var b = new Button({id: "b1", label: "b1"});
-			container.appendChild(b);
-			b.attachedCallback();
-			b = new Button({id: "b2", value: "foo", label: "b2"});
 			container.appendChild(b);
 			b.attachedCallback();
 			b = new Button({id: "b3", label: "b3", iconClass: "ic1"});

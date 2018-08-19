@@ -51,7 +51,7 @@
 							} else {
 								initView(content, event.contentId);
 							}
-						} else if (panel && panel.containerNode.innerHTML.trim() === "") {
+						} else if (panel && panel.innerHTML.trim() === "") {
 							content = document.createElement("div");
 							initView(content);
 						} else {
@@ -73,7 +73,9 @@
 						panel.deliver();
 					}
 
-					event.setContent(panel, content);
+					if (content) {
+						event.setContent(panel, content);
+					}
 					event.setChild(new Promise(function (resolve) {
 						resolve({child: panel});
 					}));
@@ -119,11 +121,11 @@
 			<d-panel id="p3" label="Panel3">
 			</d-panel>
 		</d-accordion>
-		<button is="d-button" onclick="loadP2Content()">Load widget on Panel2</button>
-		<button is="d-button" onclick="createP3Content()">Load new content for Panel3</button>
-		<button is="d-button" onclick="accordion.show('new Panel')">Load new Panel</button>
-		<button is="d-button" onclick="accordion.show('Another Panel', {contentId: 'StarRating3'})">
+		<d-button on-click="loadP2Content()">Load widget on Panel2</d-button>
+		<d-button on-click="createP3Content()">Load new content for Panel3</d-button>
+		<d-button on-click="accordion.show('new Panel')">Load new Panel</d-button>
+		<d-button on-click="accordion.show('Another Panel', {contentId: 'StarRating3'})">
 			Load new Panel with widget
-		</button>
+		</d-button>
 	</body>
 </html>

@@ -29,10 +29,10 @@ See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how ins
 
 ```html
 <html>
-  <button is="d-toggle-button">Wifi</button>
-  <button is="d-toggle-button" checked>Wifi</button>
-  <button is="d-toggle-button" checkedLabel="Enabled">Enable</button>
-  <button is="d-toggle-button" checkedLabel="Bookmarked" iconClass="icon-star-empty" checkedIconClass="icon-star-full">Bookmark</button>
+  <d-toggle-button>Wifi</d-toggle-button>
+  <d-toggle-button checked>Wifi</d-toggle-button>
+  <d-toggle-button checkedLabel="Enabled">Enable</d-toggle-button>
+  <d-toggle-button checkedLabel="Bookmarked" iconClass="icon-star-empty" checkedIconClass="icon-star-full">Bookmark</d-toggle-button>
 </html>
 ```
 

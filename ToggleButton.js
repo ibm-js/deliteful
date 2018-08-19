@@ -27,9 +27,9 @@ define([
 	 * set the `showLabel` property (inherited from the `deliteful/Button` class). to `false`.
 	 *
 	 * @example <caption>Creating a checked toggle button</caption>
-	 * <button is="d-toggle-button" checked="true">Foo</button>
+	 * <d-toggle-button checked="true">Foo</d-toggle-button>
 	 * @example <caption>Specify a label for the checked state</caption>
-	 * <button is="d-toggle-button" checked="true" checkedLabel="On">Off</button>
+	 * <d-toggle-button checked="true" checkedLabel="On">Off</d-toggle-button>
 	 * @example <caption>Specify an icon for the checked state</caption>
 	 * <style>
 	 *   .iconOn {
@@ -38,7 +38,7 @@ define([
 	 *     height: 16px;
 	 *   }
 	 * </style>
-	 * <button is="d-toggle-button" checked="true" checkedIconClass="iconOn">Off</button>
+	 * <d-toggle-button checked="true" checkedIconClass="iconOn">Off</d-toggle-button>
 	 * @class module:deliteful/ToggleButton
 	 * @augments module:deliteful/Toggle
 	 * @augments module:deliteful/Button.Mixin
@@ -79,6 +79,6 @@ define([
 		}
 	});
 
-	return register("d-toggle-button",  has("bidi") ? [HTMLButtonElement, ToggleButton, BidiToggleButton] :
-		[HTMLButtonElement, ToggleButton]);
+	return register("d-toggle-button",  has("bidi") ? [HTMLElement, ToggleButton, BidiToggleButton] :
+		[HTMLElement, ToggleButton]);
 });

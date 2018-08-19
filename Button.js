@@ -2,12 +2,21 @@
 define([
 	"dcl/dcl",
 	"requirejs-dplugins/has",
+	"delite/a11yclick",
 	"delite/register",
 	"delite/Widget",
 	"requirejs-dplugins/has!bidi?./Button/bidi/Button",
 	"delite/handlebars!./Button/Button.html",
 	"delite/theme!./Button/themes/{{theme}}/Button.css"
-], function (dcl, has, register, Widget, BidiButton, template) {
+], function (
+	dcl,
+	has,
+	a11yclick,
+	register,
+	Widget,
+	BidiButton,
+	template
+) {
 
 	/**
 	 * A form-aware button widget.
@@ -21,11 +30,15 @@ define([
 	 *     height: 16px;
 	 *   }
 	 * </style>
-	 * <button is="d-button" iconClass="iconForButton">Click Me</button>
+	 * <d-button iconClass="iconForButton">Click Me</d-button>
 	 * @class module:deliteful/Button
 	 * @augments module:delite/Widget
 	 */
 	var Button = dcl(Widget, /** @lends module:deliteful/Button# */ {
+		/**
+		 * The `role` attribute to set on the root node.
+		 */
+		role: "button",
 
 		/**
 		 * The text to display in the button.
@@ -55,14 +68,44 @@ define([
 		 */
 		showLabel: true,
 
+		/**
+		 * The tabindex when the button is enabled.
+		 * @member {number}
+		 * @default 0
+		 */
+		enabledTabIndex: 0,
+
+		/**
+		 * If set to true, the widget will not respond to user input and will not be included in form submission.
+		 * FormWidget automatically updates `valueNode`'s and `focusNode`'s `disabled` property to match the widget's
+		 * `disabled` property.
+		 * @member {boolean}
+		 * @default false
+		 */
+		disabled: false,
+
 		template: template,
 
 		createdCallback: function () {
+			this.on("click", function (evt) {
+				evt.preventDefault();
+				if (this.disabled) {
+					// Block click events (from both mouse and keyboard) when button is disbled.
+					// If necessary, can change to addEventListener(..., true) to run even sooner.
+					evt.stopImmediatePropagation();
+				}
+			}.bind(this));
+
 			// Get label from innerHTML, and then clear it since we are to put the label in a <span>
 			if (!this.label) {
 				this.label = this.textContent.trim();
 				this.innerHTML = "";
 			}
+		},
+
+		postRender: function () {
+			// Make SPACE/ENTER key cause button click event.
+			a11yclick(this);
 		},
 
 		refreshRendering: function (props) {
@@ -76,11 +119,21 @@ define([
 					this.title = this.label;
 				}
 			}
+
+			if ("disabled" in props || "enabledTabIndex" in props) {
+				if (this.disabled) {
+					this.setAttribute("aria-disabled", "true");
+					this.removeAttribute("tabindex");
+				} else {
+					this.removeAttribute("aria-disabled");
+					this.setAttribute("tabindex", this.enabledTabIndex);
+				}
+			}
 		}
 	});
 
-	var ButtonElt = register("d-button", has("bidi") ? [HTMLButtonElement, Button, BidiButton] :
-		[HTMLButtonElement, Button]);
+	var ButtonElt = register("d-button", has("bidi") ? [HTMLElement, Button, BidiButton] :
+		[HTMLElement, Button]);
 	ButtonElt.Impl = Button;
 	return ButtonElt;
 });

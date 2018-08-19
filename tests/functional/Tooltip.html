@@ -15,7 +15,7 @@
 			height: 100%;
 		}
 
-		button[is=d-dropdown-button] {
+		d-dropdown-button {
 			border: solid darkblue 1px;
 			background: white;
 			padding: 5px;
@@ -92,10 +92,10 @@
 </head>
 <body>
 	<h1>Tooltip functional test</h1>
-	<button is="d-dropdown-button" id="top" style="position: absolute; top: 0; left: 45%;"
+	<d-dropdown-button id="top" style="position: absolute; top: 0; left: 45%;"
 			dropDown="top-tooltip" dropDownPosition="below-centered">
 		show below
-	</button>
+	</d-dropdown-button>
 	<d-tooltip id="top-tooltip" style="display: none">
 		I'm a tooltip.<br>
 		I appear below the button.<br>
@@ -111,38 +111,38 @@
 					 dropDownPosition="after-centered, before-centered">
 	</d-has-drop-down>
 
-	<button is="d-dropdown-button" id="right" style="position: absolute; top: 45%; right: 0;"
+	<d-dropdown-button id="right" style="position: absolute; top: 45%; right: 0;"
 			dropDown="right-tooltip" dropDownPosition="before-centered, after-centered">
 		show to left
-	</button>
+	</d-dropdown-button>
 	<my-loading-tooltip id="right-tooltip" style="display: none">
 		Loading...
 	</my-loading-tooltip>
 
 	<!-- Check that tooltip and connector are positioned properly when tooltip can't be centered above/below anchor -->
-	<button is="d-dropdown-button" id="bottom-left" style="position: absolute; bottom: 0; left: 20px;"
+	<d-dropdown-button id="bottom-left" style="position: absolute; bottom: 0; left: 20px;"
 			dropDown="bottom-left-tooltip" dropDownPosition="above-centered">
 		show above
-	</button>
+	</d-dropdown-button>
 	<d-tooltip id="bottom-left-tooltip" style="display: none">
 		I'm a tooltip.<br>
 		I appear above, but not centered.<br>
 	</d-tooltip>
 
-	<button is="d-dropdown-button" id="bottom" style="position: absolute; bottom: 0; left: 45%;"
+	<d-dropdown-button id="bottom" style="position: absolute; bottom: 0; left: 45%;"
 			dropDown="bottom-tooltip" dropDownPosition="above-centered">
 		show above
-	</button>
+	</d-dropdown-button>
 	<d-tooltip id="bottom-tooltip" style="display: none">
 		I'm a tooltip.<br>
 		I appear above.<br>
 	</d-tooltip>
 
 	<!-- Check that tooltip and connector are positioned properly when tooltip can't be centered before/after anchor -->
-	<button is="d-dropdown-button" id="bottom-right" style="position: absolute; bottom: 20px; right: 0;"
+	<d-dropdown-button id="bottom-right" style="position: absolute; bottom: 20px; right: 0;"
 			dropDown="bottom-right-tooltip" dropDownPosition="before-centered, after-centered">
 		show to left
-	</button>
+	</d-dropdown-button>
 	<d-tooltip id="bottom-right-tooltip" style="display: none">
 		I'm a tooltip.<br>
 		I appear to the left, but not centered.<br>

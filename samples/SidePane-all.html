@@ -30,20 +30,20 @@
 </head>
 <body style="display: none">
 <d-side-pane id="sp">
-	<button is="d-button" onclick="sp.show()" style="width: 90%; margin:5%">Open</button>
-	<button is="d-button" onclick="sp.hide()" style="width: 90%; margin: 5%">Close</button>
+	<d-button on-click="sp.show()" style="width: 90%; margin:5%">Open</d-button>
+	<d-button on-click="sp.hide()" style="width: 90%; margin: 5%">Close</d-button>
 </d-side-pane>
 <div style="width: 100%; height: 100%; background-color: #7a9de9">
 	<div style="width: 100%; text-align: center">
-		<button is="d-button" onclick="sp.show()">Open</button>
-		<button is="d-button" onclick="sp.hide()">Close</button><br>
-		<button is="d-button" onclick="sp.mode = 'push'">Push Mode</button>
-		<button is="d-button" onclick="sp.mode = 'reveal'">Reveal Mode</button>
-		<button is="d-button" onclick="sp.mode = 'overlay'">Overlay Mode</button><br>
-		<button is="d-button" onclick="sp.position = 'start'">Left</button>
-		<button is="d-button" onclick="sp.position = 'end'">Right</button><br>
-		<button is="d-button" onclick="sp.animate = false">Animation Disabled</button>
-		<button is="d-button" onclick="sp.animate = true">Animation Enabled</button>
+		<d-button on-click="sp.show()">Open</d-button>
+		<d-button on-click="sp.hide()">Close</d-button><br>
+		<d-button on-click="sp.mode = 'push'">Push Mode</d-button>
+		<d-button on-click="sp.mode = 'reveal'">Reveal Mode</d-button>
+		<d-button on-click="sp.mode = 'overlay'">Overlay Mode</d-button><br>
+		<d-button on-click="sp.position = 'start'">Left</d-button>
+		<d-button on-click="sp.position = 'end'">Right</d-button><br>
+		<d-button on-click="sp.animate = false">Animation Disabled</d-button>
+		<d-button on-click="sp.animate = true">Animation Enabled</d-button>
 	</div>
 </div>
 </body>

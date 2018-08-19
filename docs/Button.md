@@ -27,7 +27,7 @@ See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how ins
 
 ```html
 <html>
-  <button is="d-button">I am a Button!</button>
+  <d-button>I am a Button!</button>
 </html>
 ```
 

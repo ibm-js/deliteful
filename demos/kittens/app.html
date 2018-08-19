@@ -76,7 +76,7 @@
 				backButton.style.display = '';
 			} else {
 				backButton.style.display = 'none';
-			};
+			}
 		};
 		// Handler for click events on the createButton button
 		createButtonClickHandler = function () {
@@ -89,7 +89,7 @@
 </head>
 <body style="display: none">
 <d-linear-layout style="width: 100%; height: 100%">
-	<h1 class="header"><button id="backButton" is="d-button" onclick="vs.showPrevious({reverse:true});" style="display: none;">Back</button><div>Kittens</div></h1>
+	<h1 class="header"><d-button id="backButton" on-click="vs.showPrevious({reverse:true});" style="display: none;">Back</d-button><div>Kittens</div></h1>
 	<d-view-stack id="vs" on-delite-before-show="deliteBeforeShowHandler(event);" class="fill">
 		<div id="sizeView">
 			<p class="invite"><b>Set the height and width</b> of the kitten image to generate, and then <b>click the button</b>...</p>
@@ -103,7 +103,7 @@
 				<d-slider id="widthSlider" min="100" max="300" value="300" oninput="widthValue.innerHTML = this.value +'px';" aria-labelledby="widthLabel"></d-slider>
 				<span id="widthValue">300px</span>
 			</div>
-			<button is="d-button" id="createButton" label="Create image" onclick="createButtonClickHandler();"></button>
+			<d-button id="createButton" label="Create image" on-click="createButtonClickHandler();"></d-button>
 		</div>
 		<div id="imageView">
 			<img id="kittenImage" src=""/>

@@ -4,14 +4,14 @@ define([
 	"delite/register",
 	"deliteful/ToggleButton"
 ], function (registerSuite, assert, register, ToggleButton) {
-	var container, html = "<button is='d-toggle-button' id='b1' textDir='ltr' " +
-		"checkedLabel='ABC \u05d0\u05d1\u05d2'>\u05d0\u05d1\u05d2 ABC</button>" +
-		"<button is='d-toggle-button' id='b2' textDir='rtl' " +
-		"checkedLabel = '\u05d0\u05d1\u05d2 ABC'>ABC \u05d0\u05d1\u05d2</button>" +
-		"<button is='d-toggle-button' id='b3' title='ABC \u05d0\u05d1\u05d2' textDir='auto' " +
-		"checkedLabel='ABC \u05d2\u05d1\u05d0'>\u05d0\u05d1\u05d2 ABC</button>" +
-		"<button is='d-toggle-button' id='b4' label='ABC \u05d2\u05d1\u05d0' textDir='auto' " +
-		"checkedLabel = '\u05d0\u05d1\u05d2 ABC' checked = 'true'></button>";
+	var container, html = "<d-toggle-button id='b1' textDir='ltr' " +
+		"checkedLabel='ABC \u05d0\u05d1\u05d2'>\u05d0\u05d1\u05d2 ABC</d-toggle-button>" +
+		"<d-toggle-button id='b2' textDir='rtl' " +
+		"checkedLabel = '\u05d0\u05d1\u05d2 ABC'>ABC \u05d0\u05d1\u05d2</d-toggle-button>" +
+		"<d-toggle-button id='b3' title='ABC \u05d0\u05d1\u05d2' textDir='auto' " +
+		"checkedLabel='ABC \u05d2\u05d1\u05d0'>\u05d0\u05d1\u05d2 ABC</d-toggle-button>" +
+		"<d-toggle-button id='b4' label='ABC \u05d2\u05d1\u05d0' textDir='auto' " +
+		"checkedLabel = '\u05d0\u05d1\u05d2 ABC' checked = 'true'></d-toggle-button>";
 
 	registerSuite({
 		name: "deliteful/ToggleButton (bidi)",

@@ -1,4 +1,4 @@
-<template attach-point="focusNode" aria-label="{{label}}">
-	<span attach-point="iconNode" class="d-icon {{this.iconClass || 'd-hidden'}}" aria-hidden="true"></span
-	><span attach-point="labelNode" d-shown="{{showLabel}}">{{label}}</span>
+<template attach-point="focusNode" role="{{role}}" aria-label="{{label}}">
+	<span attach-point="iconNode" class="d-icon {{this.iconClass || 'd-hidden'}}" aria-hidden="true"></span>
+	<span attach-point="labelNode" d-shown="{{showLabel}}">{{label}}</span>
 </template>

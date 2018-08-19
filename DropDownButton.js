@@ -9,9 +9,9 @@ define([
 	 * A button to launch a dropdown or tooltip [dialog].
 	 * @class module:deliteful/DropDownButton
 	 * @example
-	 * <button is="d-dropdown-button" dropDown="my-tooltip">
+	 * <d-dropdown-button dropDown="my-tooltip">
 	 *     Click me
-	 * </button>
+	 * </d-dropdown-button>
 	 * <d-tooltip id="my-tooltip">...</d-tooltip>
 	 * @augments module:deliteful/Button
 	 */

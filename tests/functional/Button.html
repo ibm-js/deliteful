@@ -29,20 +29,20 @@
 	<h1>d-button functional test</h1>
 	<button id="b0">Start</button>
 	<br/>
-	<button is="d-button" id="b1" name="b1" 
-		onclick="clicked('b1')">Deliteful button</button><br/>
-	<button is="d-button" id="b2" name="b2" disabled 
-		onclick="clicked('b2')">Deliteful button (disabled)</button>
+	<d-button id="b1" name="b1"
+		on-click="clicked('b1')">Deliteful button</d-button><br/>
+	<d-button id="b2" name="b2" disabled
+		on-click="clicked('b2')">Deliteful button (disabled)</d-button>
 	<br/>
 	<button>End</button>
 
 	<form id="form1" action="processForm.html">
 		<fieldset>
 			<p>
-				Enabled: <button is="d-button" id="b3" value="1" name="b3" 
-					onclick="clicked('b3')">Button</button>
-				Disabled: <button is="d-button" id="b5" disabled value="3" name="b5"
-					onclick="clicked('b5')">Disabled</button>
+				Enabled: <d-button id="b3" value="1" name="b3"
+					on-click="clicked('b3')">Button</d-button>
+				Disabled: <d-button id="b5" disabled value="3" name="b5"
+					on-click="clicked('b5')">Disabled</d-button>
 			</p>
 			<input type="button" id="cb" name="cb" value="99" >
 			<input type="reset" id="resetB" name="reset"/>

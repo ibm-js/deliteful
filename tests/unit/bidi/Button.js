@@ -4,13 +4,13 @@ define([
 	"delite/register",
 	"deliteful/Button"
 ], function (registerSuite, assert, register, Button) {
-	var container, html = "<button is='d-button' id='b1' textDir='ltr'>" +
-		"\u05d0\u05d1\u05d2 ABC</button>" +
-		"<button is='d-button' id='b2' textDir='rtl'>ABC \u05d0\u05d1\u05d2</button>" +
-		"<button is='d-button' id='b3' title='ABC \u05d0\u05d1\u05d2' textDir='auto'>" +
-		"\u05d0\u05d1\u05d2 ABC</button>" +
-		"<button is='d-button' id='b4' label='ABC \u05d2\u05d1\u05d0' textDir='auto'>" +
-		"\u05d0\u05d1\u05d2 ABC</button>";
+	var container, html = "<d-button id='b1' textDir='ltr'>" +
+		"\u05d0\u05d1\u05d2 ABC</d-button>" +
+		"<d-button id='b2' textDir='rtl'>ABC \u05d0\u05d1\u05d2</d-button>" +
+		"<d-button id='b3' title='ABC \u05d0\u05d1\u05d2' textDir='auto'>" +
+		"\u05d0\u05d1\u05d2 ABC</d-button>" +
+		"<d-button id='b4' label='ABC \u05d2\u05d1\u05d0' textDir='auto'>" +
+		"\u05d0\u05d1\u05d2 ABC</d-button>";
 
 	registerSuite({
 		name: "deliteful/Button (bidi)",

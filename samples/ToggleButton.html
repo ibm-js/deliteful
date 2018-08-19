@@ -32,19 +32,19 @@
 </head>
 <body style="display: none" role="application" aria-labelledby="appTitle">
 	<h2>ToggleButtons sample page</h2>
-	<button is="d-toggle-button" id="bt1">Wifi</button>
-	<button is="d-toggle-button" id="bt2" checked>Wifi</button>
-	<button is="d-toggle-button" id="bt3" disabled>Disabled</button>
-	<button is="d-toggle-button" id="bt4" checkedLabel="Checked">Not Checked</button>
-	<button is="d-toggle-button" id="bt5" checkedLabel="Bookmarked" iconClass="icon-star-empty" checkedIconClass="icon-star-full">Bookmark</button>
-	<button is="d-toggle-button" id="bt6" checkedLabel="Bookmarked" iconClass="icon-star-empty" checkedIconClass="icon-star-full" showLabel="false">Bookmark</button>
+	<d-toggle-button id="bt1">Wifi</d-toggle-button>
+	<d-toggle-button id="bt2" checked>Wifi</d-toggle-button>
+	<d-toggle-button id="bt3" disabled>Disabled</d-toggle-button>
+	<d-toggle-button id="bt4" checkedLabel="Checked">Not Checked</d-toggle-button>
+	<d-toggle-button id="bt5" checkedLabel="Bookmarked" iconClass="icon-star-empty" checkedIconClass="icon-star-full">Bookmark</d-toggle-button>
+	<d-toggle-button id="bt6" checkedLabel="Bookmarked" iconClass="icon-star-empty" checkedIconClass="icon-star-full" showLabel="false">Bookmark</d-toggle-button>
 	<p>
 	(last button has title attribute set - to label or checkedLabel - since it's an icon-only button.)
 	</p>
 	<h4>ToggleButtons with title set</h4>
 	(Screen readers should announce labels as "Checked" or "Not Checked". Hovering with the mouse, a tooltip with title value will be shown instead.):
 	<br/>
-	<button is="d-toggle-button" id="bt7" checkedLabel="Checked" iconClass="icon-star-empty" checkedIconClass="icon-star-full" showLabel="false" title="My Title 1">Not Checked</button>
-	<button is="d-toggle-button" id="bt8" checkedLabel="Checked" iconClass="icon-star-empty" checkedIconClass="icon-star-full" title="My Title 2">Not Checked</button>
+	<d-toggle-button id="bt7" checkedLabel="Checked" iconClass="icon-star-empty" checkedIconClass="icon-star-full" showLabel="false" title="My Title 1">Not Checked</d-toggle-button>
+	<d-toggle-button id="bt8" checkedLabel="Checked" iconClass="icon-star-empty" checkedIconClass="icon-star-full" title="My Title 2">Not Checked</d-toggle-button>
 </body>
 </html>

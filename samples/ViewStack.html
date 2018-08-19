@@ -59,11 +59,11 @@
 	</style>
 </head>
 <body style="display: none; margin:2em;">
-<button is="d-button" onclick="vs.addChild(fff); vs.show(fff)">Add FFF</button>
-<button is="d-button" onclick="createChild()">Create EEE</button>
-<button is="d-button" onclick="vs.removeChild(aaa); vs.show(bbb)">Remove AAA</button>
-<button is="d-button" onclick="vs.showPrevious();">Previous</button>
-<button is="d-button" onclick="vs.showNext();">Next</button>
+<d-button on-click="vs.addChild(fff); vs.show(fff)">Add FFF</d-button>
+<d-button on-click="createChild()">Create EEE</d-button>
+<d-button on-click="vs.removeChild(aaa); vs.show(bbb)">Remove AAA</d-button>
+<d-button on-click="vs.showPrevious();">Previous</d-button>
+<d-button on-click="vs.showNext();">Next</d-button>
 <br>
 <d-view-stack id="vs" selectedChildId="bbb"
 		on-delite-display-load="console.log(event.type + ': ' + event.dest)"
@@ -85,50 +85,50 @@
 <br>
 <input id="rev" type="checkbox">Reverse transition
 <br>
-<button is="d-button" onclick="vs.show('aaa',{transition:'slide', reverse:rev.checked})">Slide AAA</button>
-<button is="d-button" onclick="vs.show('bbb',{transition:'slide', reverse:rev.checked})">Slide BBB</button>
-<button is="d-button" onclick="vs.show('ccc',{transition:'slide', reverse:rev.checked})">Slide CCC</button>
-<button is="d-button" onclick="vs.show('ddd',{transition:'slide', reverse:rev.checked})">Slide DDD</button>
+<d-button on-click="vs.show('aaa',{transition:'slide', reverse:rev.checked})">Slide AAA</d-button>
+<d-button on-click="vs.show('bbb',{transition:'slide', reverse:rev.checked})">Slide BBB</d-button>
+<d-button on-click="vs.show('ccc',{transition:'slide', reverse:rev.checked})">Slide CCC</d-button>
+<d-button on-click="vs.show('ddd',{transition:'slide', reverse:rev.checked})">Slide DDD</d-button>
 <br>
-<button is="d-button" onclick="vs.show('aaa',{transition:'slidev', reverse:rev.checked})">SlideV AAA</button>
-<button is="d-button" onclick="vs.show('bbb',{transition:'slidev', reverse:rev.checked})">SlideV BBB</button>
-<button is="d-button" onclick="vs.show('ccc',{transition:'slidev', reverse:rev.checked})">SlideV CCC</button>
-<button is="d-button" onclick="vs.show('ddd',{transition:'slidev', reverse:rev.checked})">SlideV DDD</button>
+<d-button on-click="vs.show('aaa',{transition:'slidev', reverse:rev.checked})">SlideV AAA</d-button>
+<d-button on-click="vs.show('bbb',{transition:'slidev', reverse:rev.checked})">SlideV BBB</d-button>
+<d-button on-click="vs.show('ccc',{transition:'slidev', reverse:rev.checked})">SlideV CCC</d-button>
+<d-button on-click="vs.show('ddd',{transition:'slidev', reverse:rev.checked})">SlideV DDD</d-button>
 <br>
-<button is="d-button" onclick="vs.show('aaa',{transition:'reveal', reverse:rev.checked})">Reveal AAA</button>
-<button is="d-button" onclick="vs.show('bbb',{transition:'reveal', reverse:rev.checked})">Reveal BBB</button>
-<button is="d-button" onclick="vs.show('ccc',{transition:'reveal', reverse:rev.checked})">Reveal CCC</button>
-<button is="d-button" onclick="vs.show('ddd',{transition:'reveal', reverse:rev.checked})">Reveal DDD</button>
+<d-button on-click="vs.show('aaa',{transition:'reveal', reverse:rev.checked})">Reveal AAA</d-button>
+<d-button on-click="vs.show('bbb',{transition:'reveal', reverse:rev.checked})">Reveal BBB</d-button>
+<d-button on-click="vs.show('ccc',{transition:'reveal', reverse:rev.checked})">Reveal CCC</d-button>
+<d-button on-click="vs.show('ddd',{transition:'reveal', reverse:rev.checked})">Reveal DDD</d-button>
 <br>
-<button is="d-button" onclick="vs.show('aaa',{transition:'revealv', reverse:rev.checked})">RevealV AAA</button>
-<button is="d-button" onclick="vs.show('bbb',{transition:'revealv', reverse:rev.checked})">RevealV BBB</button>
-<button is="d-button" onclick="vs.show('ccc',{transition:'revealv', reverse:rev.checked})">RevealV CCC</button>
-<button is="d-button" onclick="vs.show('ddd',{transition:'revealv', reverse:rev.checked})">RevealV DDD</button>
+<d-button on-click="vs.show('aaa',{transition:'revealv', reverse:rev.checked})">RevealV AAA</d-button>
+<d-button on-click="vs.show('bbb',{transition:'revealv', reverse:rev.checked})">RevealV BBB</d-button>
+<d-button on-click="vs.show('ccc',{transition:'revealv', reverse:rev.checked})">RevealV CCC</d-button>
+<d-button on-click="vs.show('ddd',{transition:'revealv', reverse:rev.checked})">RevealV DDD</d-button>
 <br>
-<button is="d-button" onclick="vs.show('aaa',{transition:'flip', reverse:rev.checked})">Flip AAA</button>
-<button is="d-button" onclick="vs.show('bbb',{transition:'flip', reverse:rev.checked})">Flip BBB</button>
-<button is="d-button" onclick="vs.show('ccc',{transition:'flip', reverse:rev.checked})">Flip CCC</button>
-<button is="d-button" onclick="vs.show('ddd',{transition:'flip', reverse:rev.checked})">Flip DDD</button>
+<d-button on-click="vs.show('aaa',{transition:'flip', reverse:rev.checked})">Flip AAA</d-button>
+<d-button on-click="vs.show('bbb',{transition:'flip', reverse:rev.checked})">Flip BBB</d-button>
+<d-button on-click="vs.show('ccc',{transition:'flip', reverse:rev.checked})">Flip CCC</d-button>
+<d-button on-click="vs.show('ddd',{transition:'flip', reverse:rev.checked})">Flip DDD</d-button>
 <br>
-<button is="d-button" onclick="vs.show('aaa',{transition:'fade', reverse:rev.checked})">Fade AAA</button>
-<button is="d-button" onclick="vs.show('bbb',{transition:'fade', reverse:rev.checked})">Fade BBB</button>
-<button is="d-button" onclick="vs.show('ccc',{transition:'fade', reverse:rev.checked})">Fade CCC</button>
-<button is="d-button" onclick="vs.show('ddd',{transition:'fade', reverse:rev.checked})">Fade DDD</button>
+<d-button on-click="vs.show('aaa',{transition:'fade', reverse:rev.checked})">Fade AAA</d-button>
+<d-button on-click="vs.show('bbb',{transition:'fade', reverse:rev.checked})">Fade BBB</d-button>
+<d-button on-click="vs.show('ccc',{transition:'fade', reverse:rev.checked})">Fade CCC</d-button>
+<d-button on-click="vs.show('ddd',{transition:'fade', reverse:rev.checked})">Fade DDD</d-button>
 <br>
-<button is="d-button" onclick="vs.show('aaa',{transition:'cover', reverse:rev.checked})">Cover AAA</button>
-<button is="d-button" onclick="vs.show('bbb',{transition:'cover', reverse:rev.checked})">Cover BBB</button>
-<button is="d-button" onclick="vs.show('ccc',{transition:'cover', reverse:rev.checked})">Cover CCC</button>
-<button is="d-button" onclick="vs.show('ddd',{transition:'cover', reverse:rev.checked})">Cover DDD</button>
+<d-button on-click="vs.show('aaa',{transition:'cover', reverse:rev.checked})">Cover AAA</d-button>
+<d-button on-click="vs.show('bbb',{transition:'cover', reverse:rev.checked})">Cover BBB</d-button>
+<d-button on-click="vs.show('ccc',{transition:'cover', reverse:rev.checked})">Cover CCC</d-button>
+<d-button on-click="vs.show('ddd',{transition:'cover', reverse:rev.checked})">Cover DDD</d-button>
 <br>
-<button is="d-button" onclick="vs.show('aaa',{transition:'coverv', reverse:rev.checked})">CoverV AAA</button>
-<button is="d-button" onclick="vs.show('bbb',{transition:'coverv', reverse:rev.checked})">CoverV BBB</button>
-<button is="d-button" onclick="vs.show('ccc',{transition:'coverv', reverse:rev.checked})">CoverV CCC</button>
-<button is="d-button" onclick="vs.show('ddd',{transition:'coverv', reverse:rev.checked})">CoverV DDD</button>
+<d-button on-click="vs.show('aaa',{transition:'coverv', reverse:rev.checked})">CoverV AAA</d-button>
+<d-button on-click="vs.show('bbb',{transition:'coverv', reverse:rev.checked})">CoverV BBB</d-button>
+<d-button on-click="vs.show('ccc',{transition:'coverv', reverse:rev.checked})">CoverV CCC</d-button>
+<d-button on-click="vs.show('ddd',{transition:'coverv', reverse:rev.checked})">CoverV DDD</d-button>
 <br>
-<button is="d-button" onclick="vs.show('aaa',{transition:'none'})">AAA</button>
-<button is="d-button" onclick="vs.show('bbb',{transition:'none'})">BBB</button>
-<button is="d-button" onclick="vs.show('ccc',{transition:'none'})">CCC</button>
-<button is="d-button" onclick="vs.show('ddd',{transition:'none'})">DDD</button>
+<d-button on-click="vs.show('aaa',{transition:'none'})">AAA</d-button>
+<d-button on-click="vs.show('bbb',{transition:'none'})">BBB</d-button>
+<d-button on-click="vs.show('ccc',{transition:'none'})">CCC</d-button>
+<d-button on-click="vs.show('ddd',{transition:'none'})">DDD</d-button>
 
 
 <div style="display: none">

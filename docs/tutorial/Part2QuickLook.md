@@ -33,7 +33,7 @@ vertically or horizontally. It is used here to build the main page of the applic
 <d-linear-layout class="page width100 height100">
 	<!-- page content header -->
 	<d-linear-layout vertical="false" class="pageHeader">
-		<div><button is="d-button" iconClass="icon" class="toggle" onclick="leftPane.toggle()"></button></div>
+		<div><d-button iconClass="icon" class="toggle" on-click="leftPane.toggle()"></d-button></div>
 		<div class="fill titleStyle">deliteful app</div>
 	</d-linear-layout>
 	<!-- stacked content -->

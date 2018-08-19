@@ -14,7 +14,7 @@
 	&:active, &.active {
 		background-image: none;
 	}
-	&.disabled, &[disabled] {
+	&[aria-disabled=true] {
 		&, &:hover, &:focus, &:active, &.active {
 			background-color: @background;
 			border-color: @border;
@@ -24,7 +24,10 @@
 // Button base
 // -------------------------
 .d-button-base () {
-	display: inline-block;
+	display: inline-flex;
+	box-sizing: border-box;
+	justify-content: center;
+	align-items: center;
 	margin-bottom: 0;
 	font-weight: @btn-font-weight;
 	text-align: center;
@@ -53,7 +56,7 @@
 		background-image: none;
 		.box-shadow(inset 0 3px 5px rgba(0, 0, 0, .125));
 	}
-	&.disabled, &[disabled], fieldset[disabled] & {
+	&[aria-disabled=true], fieldset[disabled] & {
 		cursor: not-allowed;
 		opacity: .65;
 		.box-shadow(none);

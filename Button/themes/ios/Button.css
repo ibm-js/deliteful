@@ -20,8 +20,7 @@
   background-image: linear-gradient(to bottom, #f0f0f0 0%, #ebebeb 50%, #dedede 50%, #bfbfbf 100%);
   color: black;
 }
-.d-button-disabled,
-.d-button:disabled {
+.d-button[aria-disabled=true] {
   border-color: grey;
   background-image: none;
   color: grey;

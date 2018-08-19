@@ -33,7 +33,7 @@ so it can replace completely the list view:
         <!-- page content header -->
         <d-linear-layout vertical="false" class="pageHeader">
             <div>
-                <button is="d-button">Back</button>
+                <d-button>Back</d-button>
             </div>
             <div class="fill titleStyle">Photo Details</div>
         </d-linear-layout>
@@ -93,7 +93,7 @@ We also want to be able to go back from the details view to the list view, and w
 for this. let's just add an event handler in the markup to do this:
 
 ```html
-<button is="d-button" onclick="vs.show(listView, {reverse:true})">Back</button>
+<d-button on-click="vs.show(listView, {reverse:true})">Back</d-button>
 ```
 
 We are done, you can try that new feature and click on an item to see the details view:

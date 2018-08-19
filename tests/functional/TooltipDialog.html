@@ -15,7 +15,7 @@
 			height: 100%;
 		}
 
-		button[is=d-dropdown-button] {
+		d-dropdown-button {
 			border: solid darkblue 1px;
 			background: white;
 			padding: 5px;
@@ -52,10 +52,10 @@
 </head>
 <body>
 	<h1>TooltipDialog functional test</h1>
-	<button is="d-dropdown-button" id="top"
+	<d-dropdown-button id="top"
 			dropDown="top-tooltip" dropDownPosition="below-centered">
 		show tooltip dialog
-	</button>
+	</d-dropdown-button>
 	<d-tooltip-dialog id="top-tooltip" label="My Tooltip Dialog" style="display: none">
 		<label for="name">Name:</label> <input id="name"> <br>
 		<label for="age">Age:</label> <input id="age"> <br>
@@ -63,10 +63,10 @@
 		<button type="submit">OK</button>
 	</d-tooltip-dialog>
 
-	<button is="d-dropdown-button" id="topTall"
+	<d-dropdown-button id="topTall"
 			dropDown="top-tall-tooltip" dropDownPosition="below-centered">
 		show tooltip dialog with scrollbar
-	</button>
+	</d-dropdown-button>
 	<d-tooltip-dialog id="top-tall-tooltip" label="Tooltip With Scrollbar" style="display: none">
 		I'm a tall TooltipDialog.<br>
 		I should get a scrollbar and my borders should remain on the screen.<br>
@@ -187,10 +187,10 @@
 		<button type="submit">OK</button>
 	</d-tooltip-dialog>
 
-	<button is="d-dropdown-button" id="bottomTall" style="position: absolute; left: 20px; bottom: 10px;"
+	<d-dropdown-button id="bottomTall" style="position: absolute; left: 20px; bottom: 10px;"
 			dropDown="bottom-tall-tooltip" dropDownPosition="above-centered">
 		show tooltip dialog above with scrollbar
-	</button>
+	</d-dropdown-button>
 	<d-tooltip-dialog id="bottom-tall-tooltip" label="Tooltip With Scrollbar" style="display: none">
 		I'm a tall TooltipDialog.<br>
 		I should get a scrollbar and my borders should remain on the screen.<br>
