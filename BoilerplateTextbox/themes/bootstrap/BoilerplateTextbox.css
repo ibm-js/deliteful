@@ -23,6 +23,13 @@
 .d-boilerplate-textbox .d-input-container-node d-btb-boilerplate {
   margin: 0 2px;
 }
+.d-boilerplate-textbox .d-input-container-node .d-btb-field {
+  display: inline-block;
+  position: relative;
+}
+.d-boilerplate-textbox .d-input-container-node .d-btb-field input {
+  width: 100%;
+}
 .d-boilerplate-textbox .d-input-container-node input::-ms-clear {
   display: none;
 }

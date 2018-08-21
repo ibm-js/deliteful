@@ -36,11 +36,11 @@
 						sup.apply(this, arguments);
 
 						var month =  new BoilerplateTextbox.NumberField({
+							label: "month",
 							className: "month",
 							placeholder: "mm",
 							max: 12
 						});
-						month.setAttribute("aria-label", "month");
 						this.containerNode.appendChild(month);
 
 						this.containerNode.appendChild(new BoilerplateTextbox.Boilerplate({
@@ -48,11 +48,11 @@
 						}));
 
 						var day = new BoilerplateTextbox.NumberField({
+							label: "day",
 							className: "day",
 							placeholder: "dd",
 							max: 31
 						});
-						day.setAttribute("aria-label", "day");
 						this.containerNode.appendChild(day);
 
 						this.containerNode.appendChild(new BoilerplateTextbox.Boilerplate({
@@ -60,10 +60,10 @@
 						}));
 
 						var year = new BoilerplateTextbox.NumberField({
+							label: "year",
 							className: "year",
 							placeholder: "yyyy"
 						});
-						year.setAttribute("aria-label", "year");
 						this.containerNode.appendChild(year);
 					};
 				})
@@ -99,29 +99,31 @@
 						sup.apply(this, arguments);
 
 						var hour = new BoilerplateTextbox.NumberField({
+							label: "hour",
 							className: "hour",
 							placeholder: "hh",
 							min: this.military ? 0 : 1,
 							max: this.military ? 12 : 23
 						});
-						hour.setAttribute("aria-label", "hour");
 						this.containerNode.appendChild(hour);
 
 						this.containerNode.appendChild(new BoilerplateTextbox.Boilerplate({textContent: ":"}));
 
 						var minute = new BoilerplateTextbox.NumberField({
+							label: "minute",
 							className: "minute",
 							placeholder: "mm",
 							max: 59
 						});
-						minute.setAttribute("aria-label", "minute");
 						this.containerNode.appendChild(minute);
 
 						if (!this.military) {
 							this.containerNode.appendChild(new BoilerplateTextbox.Boilerplate({textContent: " "}));
 
-							var ampm = new AmPmField({placeholder: "am"});
-							ampm.setAttribute("aria-label", "am or pm");
+							var ampm = new AmPmField({
+								label: "am or pm",
+								placeholder: "am"
+							});
 							this.containerNode.appendChild(ampm);
 						}
 					};
@@ -144,7 +146,8 @@
 				displayed: Array.prototype.map.call(node.containerNode.children, function (chunk) {
 					return "value" in chunk ? (chunk.value || chunk.placeholder) : chunk.textContent;
 				}).join(""),
-				focused: document.activeElement.className
+				focused: document.activeElement.tagName === "INPUT" ?
+					document.activeElement.parentNode.className : document.activeElement.className
 			};
 		}
 

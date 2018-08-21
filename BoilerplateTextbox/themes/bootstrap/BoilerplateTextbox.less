@@ -33,6 +33,15 @@
 			margin: 0 2px;
 		}
 
+		.d-btb-field {
+			// Whatever size is set on the <d-btb-field> node (or subclass), make that apply to the embedded <input>.
+			display: inline-block;
+			position: relative;
+			input {
+				width: 100%;
+			}
+		}
+
 		// Stop IE from displaying the (x) to clear the field.
 		input::-ms-clear {
 			display: none;

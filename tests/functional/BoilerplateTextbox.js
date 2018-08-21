@@ -50,7 +50,7 @@ define([
 					assert.deepEqual(v, {
 						value: "",
 						displayed: "mm/dd/yyyy",
-						focused: "month"
+						focused: "month d-btb-field"
 					}, "mm selected");
 				})
 				.execute("dt1.emit('keydown', {key: '1'}, document.activeElement);")
@@ -58,7 +58,7 @@ define([
 					assert.deepEqual(v, {
 						value: "",
 						displayed: "01/dd/yyyy",
-						focused: "month"
+						focused: "month d-btb-field"
 					}, "mm selected, 1 typed");
 				})
 				.execute("dt1.emit('keydown', {key: '2'}, document.activeElement);")
@@ -66,7 +66,7 @@ define([
 					assert.deepEqual(v, {
 						value: "",
 						displayed: "12/dd/yyyy",
-						focused: "day"
+						focused: "day d-btb-field"
 					}, "focus automatically moves to next field");
 				})
 				.execute("dt1.emit('keydown', {key: '0'}, document.activeElement);")
@@ -75,7 +75,7 @@ define([
 					assert.deepEqual(v, {
 						value: "",
 						displayed: "12/03/yyyy",
-						focused: "year"
+						focused: "year d-btb-field"
 					}, "03 typed");
 				})
 				.execute("return document.querySelector('[name=date1]').value;").then(function (value) {
@@ -88,8 +88,8 @@ define([
 				.execute("return document.querySelector('[name=date1]').value;").then(function (value) {
 					assert.strictEqual(value, "12/03/2017", "hidden value finally set");
 				})
-				.execute("return document.activeElement.className;").then(function (name) {
-					assert.strictEqual(name, "year", "focus still on dt1");
+				.execute("return document.activeElement.parentNode.className;").then(function (name) {
+					assert.strictEqual(name, "year d-btb-field", "focus still on dt1");
 				});
 		},
 
@@ -111,7 +111,7 @@ define([
 					assert.deepEqual(v, {
 						value: "",
 						displayed: "mm/dd/yyyy",
-						focused: "month"
+						focused: "month d-btb-field"
 					}, "mm selected");
 				})
 				.execute("dt1.emit('keydown', {key: '1'}, document.activeElement);")
@@ -120,7 +120,7 @@ define([
 					assert.deepEqual(v, {
 						value: "",
 						displayed: "01/dd/yyyy",
-						focused: "day"
+						focused: "day d-btb-field"
 					}, "dd selected");
 				})
 				.execute("dt1.emit('keydown', {key: '2'}, document.activeElement);")
@@ -129,7 +129,7 @@ define([
 					assert.deepEqual(v, {
 						value: "",
 						displayed: "01/02/yyyy",
-						focused: "year"
+						focused: "year d-btb-field"
 					}, "yyyy selected");
 				})
 				.execute("dt1.emit('keydown', {key: '3'}, document.activeElement);")
@@ -170,7 +170,7 @@ define([
 					assert.deepEqual(v, {
 						value: "07/04/2008",
 						displayed: "07/04/2008",
-						focused: "month"
+						focused: "month d-btb-field"
 					}, "month selected");
 				})
 				.execute("dt2.emit('keydown', {key: 'Backspace'}, document.activeElement);")
@@ -178,7 +178,7 @@ define([
 					assert.deepEqual(v, {
 						value: "",
 						displayed: "mm/04/2008",
-						focused: "month"
+						focused: "month d-btb-field"
 					}, "month cleared");
 				})
 				.execute("dt2.emit('keydown', {key: '1'}, document.activeElement);")
@@ -186,7 +186,7 @@ define([
 					assert.deepEqual(v, {
 						value: "01/04/2008",
 						displayed: "01/04/2008",
-						focused: "month"
+						focused: "month d-btb-field"
 					}, "month partially typed");
 				})
 				.execute("dt2.emit('keydown', {key: 'Backspace'}, document.activeElement);")
@@ -194,7 +194,7 @@ define([
 					assert.deepEqual(v, {
 						value: "",
 						displayed: "mm/04/2008",
-						focused: "month"
+						focused: "month d-btb-field"
 					}, "month cleared again");
 				});
 		},
@@ -202,22 +202,22 @@ define([
 		clicking: {
 			"click on year": function () {
 				return this.remote
-					.findByCssSelector("#dt1 .d-input-container-node input:last-child").click().end()
+					.findByCssSelector("#dt1 .d-btb-field:last-child").click().end()
 					.sleep(10)
 					.execute("return state(dt1);").then(function (v) {
 						assert.deepEqual(v, {
 							value: "",
 							displayed: "mm/dd/yyyy",
-							focused: "month"
+							focused: "month d-btb-field"
 						}, "clicked on year but month was selected because it's the initial click on the widget");
 					})
-					.findByCssSelector("#dt1 .d-input-container-node input:last-child").click().end()
+					.findByCssSelector("#dt1 .d-btb-field:last-child").click().end()
 					.execute("return state(dt1);").then(function (v) {
 						assert.deepEqual(v, {
 							value: "",
 							displayed: "mm/dd/yyyy",
-							focused: "year"
-						}, "second click on day goes to year");
+							focused: "year d-btb-field"
+						}, "second click on year goes to year");
 					});
 			},
 
@@ -231,7 +231,7 @@ define([
 						assert.deepEqual(v, {
 							value: "07/04/2008",
 							displayed: "07/04/2008",
-							focused: "month"
+							focused: "month d-btb-field"
 						}, "clicked on slash but month was selected because it's the initial click on the widget");
 					});
 			}
@@ -244,7 +244,7 @@ define([
 					assert.deepEqual(v, {
 						value: "",
 						displayed: "mm/dd/yyyy",
-						focused: "month"
+						focused: "month d-btb-field"
 					}, "mm selected");
 				})
 				.execute("dt1.emit('keydown', {key: '1'}, document.activeElement);")
@@ -252,7 +252,7 @@ define([
 					assert.deepEqual(v, {
 						value: "",
 						displayed: "01/dd/yyyy",
-						focused: "month"
+						focused: "month d-btb-field"
 					}, "mm selected, 1 typed");
 				})
 				.execute("dt1.emit('keydown', {key: '5'}, document.activeElement);")
@@ -260,7 +260,7 @@ define([
 					assert.deepEqual(v, {
 						value: "",
 						displayed: "01/dd/yyyy",
-						focused: "month"
+						focused: "month d-btb-field"
 					}, "15 disallowed for month since max is 12, value stays at 1");
 				})
 				.execute("dt1.emit('keydown', {key: '2'}, document.activeElement);")
@@ -268,7 +268,7 @@ define([
 					assert.deepEqual(v, {
 						value: "",
 						displayed: "12/dd/yyyy",
-						focused: "day"
+						focused: "day d-btb-field"
 					}, "month entered as 12, focus moved to day");
 				})
 				.execute("dt1.emit('keydown', {key: '4'}, document.activeElement);")
@@ -276,7 +276,7 @@ define([
 					assert.deepEqual(v, {
 						value: "",
 						displayed: "12/04/yyyy",
-						focused: "year"
+						focused: "year d-btb-field"
 					}, "typing 4 for day automatically advances to year, since 40 > 31");
 				})
 				.execute("dt1.emit('keydown', {key: '1'}, document.activeElement);")
@@ -287,7 +287,7 @@ define([
 					assert.deepEqual(v, {
 						value: "12/04/1234",
 						displayed: "12/04/1234",
-						focused: "year"
+						focused: "year d-btb-field"
 					}, "typed in max digits for year");
 				})
 				.execute("dt1.emit('keydown', {key: '5'}, document.activeElement);")
@@ -295,7 +295,7 @@ define([
 					assert.deepEqual(v, {
 						value: "12/04/1234",
 						displayed: "12/04/1234",
-						focused: "year"
+						focused: "year d-btb-field"
 					}, "typing another digit has no effect");
 				});
 		},
@@ -308,7 +308,7 @@ define([
 						assert.deepEqual(v, {
 							value: "",
 							displayed: "hh:mm am",
-							focused: "hour"
+							focused: "hour d-btb-field"
 						}, "hour selected");
 					})
 					.execute("dt1.emit('keydown', {key: '0'}, document.activeElement);")
@@ -317,7 +317,7 @@ define([
 						assert.deepEqual(v, {
 							value: "",
 							displayed: "00:mm am",
-							focused: "hour"
+							focused: "hour d-btb-field"
 						}, "since min hour is 1, typing 00 doesn't advance to next field");
 					})
 					.execute("dt1.emit('keydown', {key: '1'}, document.activeElement);")
@@ -325,7 +325,7 @@ define([
 						assert.deepEqual(v, {
 							value: "",
 							displayed: "01:mm am",
-							focused: "minute"
+							focused: "minute d-btb-field"
 						}, "advanced to minutes");
 					});
 			},
@@ -337,7 +337,7 @@ define([
 						assert.deepEqual(v, {
 							value: "",
 							displayed: "hh:mm",
-							focused: "hour"
+							focused: "hour d-btb-field"
 						}, "hour selected");
 					})
 					.execute("dt1.emit('keydown', {key: '0'}, document.activeElement);")
@@ -346,7 +346,7 @@ define([
 						assert.deepEqual(v, {
 							value: "",
 							displayed: "00:mm",
-							focused: "minute"
+							focused: "minute d-btb-field"
 						}, "24 hour clock so 0 for hour is OK");
 					});
 			}

@@ -7,7 +7,7 @@ define([
 	"delite/FormValueWidget",
 	"delite/Widget",
 	"delite/handlebars!./BoilerplateTextbox/BoilerplateTextbox.html",
-	"requirejs-dplugins/jquery!attributes/classes",
+	"delite/handlebars!./BoilerplateTextbox/Field.html",
 	"delite/activationTracker",
 	"delite/theme!./BoilerplateTextbox/themes/{{theme}}/BoilerplateTextbox.css"
 ], function (
@@ -18,7 +18,7 @@ define([
 	FormValueWidget,
 	Widget,
 	template,
-	$
+	fieldTemplate
 ) {
 	"use strict";
 
@@ -34,15 +34,69 @@ define([
 	/**
 	 * Base class for editable fields in a BoilerplateTextbox.
 	 *
-	 * Creator should set the following properties/attributes:
+	 * Creator should set the following properties:
 	 *
 	 * - value
 	 * - placeholder
-	 * - aria-label
+	 * - label
 	 *
 	 * Emits "completed" event if caret should automatically move to next element.
 	 */
-	var Field = register("d-btb-field", [HTMLInputElement, Widget], {
+	var Field = register("d-btb-field", [HTMLElement, Widget], {
+		baseClass: "d-btb-field",
+
+		/**
+		 * The `<input>` element's value.
+		 * @member {string}
+		 */
+		value: "",
+
+		/**
+		 * The `tabindex` of the `<input>`.
+		 * @member {number}
+		 * @default 0
+		 */
+		tabIndex: 0,
+
+		/**
+		 * Whether or not the user can focus and enter data into the `<input>`.
+		 * @member {boolean}
+		 * @default false
+		 */
+		disabled: false,
+
+		/**
+		 * Placeholder text.
+		 * @member {string}
+		 * @default ""
+		 */
+		placeholder: "",
+
+		/**
+		 * The `<input>`'s `type` property.
+		 * @member {string}
+		 * @default "text"
+		 */
+		type: "text",
+
+		/**
+		 * The `<input>`'s `pattern` property.
+		 * @member {string}
+		 * @default ""
+		 */
+		pattern: "",
+
+		/**
+		 * The `<input>`'s `autocomplete` property.
+		 * @member {string}
+		 * @default "off"
+		 */
+		autocomplete: "off",
+
+		label: "",
+
+		template: fieldTemplate,
+
 		refreshRendering: function (oldVals) {
 			if ("placeholder" in oldVals) {
 				var computedWidth = this.computeWidth();
@@ -58,6 +112,22 @@ define([
 		 */
 		computeWidth: function () {
 			return this.placeholder.length + "em";
+		},
+
+		focus: function () {
+			this.focusNode.focus();
+		},
+
+		/**
+		 * Called on each keystroke.  Subclasses can override this method.
+		 */
+		keydownHandler: function () {
+		},
+
+		/**
+		 * Called when <input> gets focused.  Subclasses can override this method.
+		 */
+		focusHandler: function () {
 		}
 	});
 
@@ -70,32 +140,26 @@ define([
 		 */
 		charactersTyped: 0,
 
-		createdCallback: function () {
-			this.on("focus", this.focusHandler.bind(this));
-			this.on("keydown", this.keydownHandler.bind(this));
-
-			// Set properties so that:
-			// 1. When editing field, numeric virtual keyboard appears on mobile devices.
-			// 2. Up/down spinner *doesn't* appear on Webkit and Firefox desktop (there's no room for it).
-			//    It appears with type=number although it can be hidden with CSS.
-			// 3. Firefox allows display of leading zeros. (It's not allowed for type=number, see
-			//    http://stackoverflow.com/questions/8437529/html5-input-type-number-removes-leading-zero.)
-			// 4. Chrome allows us to move the caret to the end of the text.  (It's not allowed for type=number,
-			//    see https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/setSelectionRange.)
-			// 5. Avoid Android behavior where evt.key = 229 instead of the actual digit typed, see
-			//    http://stackoverflow.com/questions/30743490/
-			//    capture-keys-typed-on-android-virtual-keyboard-using-javascript.
-			//
-			// I know setting type="tel" is weird.  It might only be needed for older browsers,
-			// otherwise setting pattern should be sufficient.
-			this.type = "tel";
-			this.pattern = "[0-9]*";
-			this.autocomplete = "off";
-		},
+		// Set <input> properties so that:
+		// 1. When editing field, numeric virtual keyboard appears on mobile devices.
+		// 2. Up/down spinner *doesn't* appear on Webkit and Firefox desktop (there's no room for it).
+		//    It appears with type=number although it can be hidden with CSS.
+		// 3. Firefox allows display of leading zeros. (It's not allowed for type=number, see
+		//    http://stackoverflow.com/questions/8437529/html5-input-type-number-removes-leading-zero.)
+		// 4. Chrome allows us to move the caret to the end of the text.  (It's not allowed for type=number,
+		//    see https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/setSelectionRange.)
+		// 5. Avoid Android behavior where evt.key = 229 instead of the actual digit typed, see
+		//    http://stackoverflow.com/questions/30743490/
+		//    capture-keys-typed-on-android-virtual-keyboard-using-javascript.
+		//
+		// I know setting type="tel" is weird.  It might only be needed for older browsers,
+		// otherwise setting pattern should be sufficient.
+		type: "tel",
+		pattern: "[0-9]*",
 
 		focusHandler: function () {
 			this.charactersTyped = 0;
-			this.selectionStart = this.value.length;		// put caret at end
+			this.focusNode.selectionStart = this.focusNode.value.length;		// put caret at end
 		},
 
 		/**
@@ -226,13 +290,13 @@ define([
 			this.defer(function () {
 				this.containerNode.querySelector("input").focus();
 			});
-			$(this).addClass("d-focused");
+			this.classList.add("d-focused");
 		},
 
 		deactivatedHandler: function () {
 			// When the BoilerplateTextbox loses focus, fire the "change" event.
 			this.handleOnChange(this.value);
-			$(this).removeClass("d-focused");
+			this.classList.remove("d-focused");
 		},
 
 		/**
@@ -280,10 +344,10 @@ define([
 		 * Advances to the next `<input>` if there is one.
 		 */
 		completedHandler: function (evt) {
-			var inputs = [].slice.call(this.containerNode.querySelectorAll("input"));
-			var nextIdx = inputs.indexOf(evt.target) + 1;
-			if (nextIdx < inputs.length) {
-				inputs[nextIdx].focus();
+			var fields = [].slice.call(this.containerNode.querySelectorAll(".d-btb-field"));
+			var nextIdx = fields.indexOf(evt.target) + 1;
+			if (nextIdx < fields.length) {
+				fields[nextIdx].focus();
 			}
 		},
 
@@ -301,12 +365,12 @@ define([
 						label = labelNode && labelNode.textContent;
 					}
 					if (label) {
-						var inputs = [].slice.call(this.containerNode.querySelectorAll("input"));
-						inputs.forEach(function (field) {
-							if (!field.origAriaLabel) {
-								field.origAriaLabel = field.getAttribute("aria-label");
+						var fields = [].slice.call(this.containerNode.querySelectorAll(".d-btb-field"));
+						fields.forEach(function (field) {
+							if (!field.origLabel) {
+								field.origLabel = field.label;
 							}
-							field.setAttribute("aria-label", label + " " + field.origAriaLabel);
+							field.setAttribute("aria-label", field.origLabel + " " + label);
 						});
 					}
 				}
