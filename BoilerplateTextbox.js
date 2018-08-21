@@ -1,5 +1,6 @@
 /** @module delite/BoilerplateTextbox */
 define([
+	"dcl/dcl",
 	"delite/register",
 	"delite/uacss",
 	"delite/Container",
@@ -10,6 +11,7 @@ define([
 	"delite/activationTracker",
 	"delite/theme!./BoilerplateTextbox/themes/{{theme}}/BoilerplateTextbox.css"
 ], function (
+	dcl,
 	register,
 	has,
 	Container,
@@ -285,7 +287,7 @@ define([
 			}
 		},
 
-		setAttribute: register.superCall(function (sup) {
+		setAttribute: dcl.superCall(function (sup) {
 			return function (name, value) {
 				sup.apply(this, arguments);
 

@@ -8,7 +8,15 @@ define([
 	"delite/CssState",
 	"delite/handlebars!./Slider/Slider.html",
 	"delite/theme!./Slider/themes/{{theme}}/Slider.css"
-], function (dcl, $, dpointer, register, FormValueWidget, CssState, template) {
+], function (
+	dcl,
+	$,
+	dpointer,
+	register,
+	FormValueWidget,
+	CssState,
+	template
+) {
 	/**
 	 * @private
 	 */
@@ -200,7 +208,7 @@ define([
 
 			template: template,
 
-			render: register.superCall(function (sup) {
+			render: dcl.superCall(function (sup) {
 				return function () {
 					sup.call(this);
 					if (!this.valueNode.parentNode) {

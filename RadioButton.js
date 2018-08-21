@@ -1,10 +1,16 @@
 /** @module deliteful/RadioButton */
 define([
+	"dcl/dcl",
 	"delite/register",
 	"./Checkbox",
 	"delite/handlebars!./RadioButton/RadioButton.html",
 	"delite/theme!./RadioButton/themes/{{theme}}/RadioButton.css"
-], function (register, Checkbox, template) {
+], function (
+	dcl,
+	register,
+	Checkbox,
+	template
+) {
 
 	/**
 	 * A radio button widget similar to an HTML5 input type="radio" element.
@@ -25,7 +31,7 @@ define([
 
 		template: template,
 
-		_inputClickHandler: register.superCall(function (sup) {
+		_inputClickHandler: dcl.superCall(function (sup) {
 			return function (evt) {
 				sup.call(this, evt);
 				// sync widget state to be sure state of other "same-group" buttons are in-sync in
@@ -35,7 +41,7 @@ define([
 			};
 		}),
 
-		toggle: register.superCall(function (sup) {
+		toggle: dcl.superCall(function (sup) {
 			return function () {
 				if (!this.checked) {
 					sup.call(this);

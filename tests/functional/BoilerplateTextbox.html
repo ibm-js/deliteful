@@ -20,16 +20,18 @@
 		var ready = false; // set to true when the test page is ready
 
 		require([
+			"dcl/dcl",
 			"delite/register",
 			"deliteful/BoilerplateTextbox",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
 		], function (
+			dcl,
 			register,
 			BoilerplateTextbox
 		) {
 			register("d-datetextbox", [HTMLElement, BoilerplateTextbox], {
-				render: register.superCall(function (sup) {
+				render: dcl.superCall(function (sup) {
 					return function () {
 						sup.apply(this, arguments);
 
@@ -92,7 +94,7 @@
 				 */
 				military: false,
 
-				render: register.superCall(function (sup) {
+				render: dcl.superCall(function (sup) {
 					return function () {
 						sup.apply(this, arguments);
 

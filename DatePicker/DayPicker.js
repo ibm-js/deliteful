@@ -1,6 +1,7 @@
 define([
 	"requirejs-dplugins/jquery!attributes/classes",
 	"dojo/i18n",
+	"dcl/dcl",
 	"delite/register",
 	"delite/KeyNav",
 	"../TimeBase",
@@ -8,6 +9,7 @@ define([
 ], function (
 	$,
 	i18n,
+	dcl,
 	register,
 	KeyNav,
 	TimeBase,
@@ -175,7 +177,7 @@ define([
 			}
 		},
 
-		render: register.superCall(function (sup) {
+		render: dcl.superCall(function (sup) {
 			return function () {
 				sup.apply(this, arguments);
 
