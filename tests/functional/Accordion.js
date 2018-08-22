@@ -91,7 +91,7 @@ define(["intern",
 			beforeEach: function () {
 				// Try to make the tests independent by starting in a state where the first panel is open.
 				return this.remote
-					.findByCssSelector("#panel1-header [aria-controls]").click().end();
+					.findByCssSelector("#panel1-header [aria-controls]").click().end().sleep(500);
 			},
 
 			"Open panel by clicking": function () {
