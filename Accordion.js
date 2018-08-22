@@ -111,15 +111,15 @@ define([
 		ariaLevel: 3,
 
 		/**
-		 * List of upgraded panels (i.e. `<d-panel>` widgets that have already run createdCallback() and
-		 * attachedCallback()).
+		 * List of upgraded panels (i.e. `<d-panel>` widgets that have already run constructor() and
+		 * connectedCallback()).
 		 * @member {module:delite/Panel[]}
 		 */
 		_panelList: null,
 
 		_numOpenPanels: 0,
 
-		createdCallback: function () {
+		postRender: function () {
 			this._panelList = [];
 
 			// Declarative case (panels specified declaratively inside the declarative Accordion).
@@ -182,6 +182,8 @@ define([
 			}
 
 			// Create the header (that displays the panel's title).
+			// Note: Be sure to call header.deliver() before adding the header to the Accordion, so
+			// that Accordion#onAddChild() can detect that it's a header, and ignore it.
 			var header = this.createHeader(panel, {
 				id: panel.id + "-header",
 				label: panel.label,
@@ -192,6 +194,7 @@ define([
 			if (this.ariaLevel) {
 				header.setAttribute("aria-level", this.ariaLevel);
 			}
+			header.deliver();
 
 			header.placeAt(panel, "before");
 

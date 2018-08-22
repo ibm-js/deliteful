@@ -44,7 +44,7 @@ define([
 		 */
 		swapThreshold: 0.25,
 
-		createdCallback: function () {
+		constructor: function () {
 			this.on("pointerdown", this._pointerDownHandler.bind(this));
 			this.on("pointermove", this._pointerMoveHandler.bind(this));
 			this.on("pointerup", this._pointerUpHandler.bind(this));
@@ -60,7 +60,7 @@ define([
 			dpointer.setTouchAction(this, "pan-y");
 		},
 
-		attachedCallback: function () {
+		connectedCallback: function () {
 			// If the user hasn't specified a tabindex declaratively, then set to default value.
 			if (!this.hasAttribute("tabindex")) {
 				this.tabIndex = "0";

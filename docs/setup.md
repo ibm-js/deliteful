@@ -31,7 +31,7 @@ require.config({
   baseUrl: "bower_components"
 });
 require(["deliteful/Toaster", "requirejs-domready/domReady!"], function (Toaster) {
-  var toaster = register.createElement("d-toaster");
+  var toaster = document.createElement("d-toaster");
   // or
   var toaster = new Toaster();
   //...

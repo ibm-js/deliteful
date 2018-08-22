@@ -26,7 +26,7 @@ define([
 		 */
 		value: "on",
 
-		attachedCallback: function () {
+		connectedCallback: function () {
 			this._initState = this.checked;
 		},
 

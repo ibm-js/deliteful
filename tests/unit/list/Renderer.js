@@ -21,7 +21,8 @@ define([
 				errorMessage = message;
 			};
 			try {
-				new FaultyRenderer();
+				var fr = new FaultyRenderer();
+				fr.deliver();
 			} catch (e) {
 				errorMessage = e.message;
 			}

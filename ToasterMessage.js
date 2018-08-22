@@ -469,7 +469,7 @@ define([
 			} else {
 				wrapper.appendChild(this);
 			}
-			this.attachedCallback();
+			this.connectedCallback();
 
 			// starting timer
 			if (this.isExpirable()) {

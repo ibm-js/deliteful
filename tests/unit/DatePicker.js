@@ -11,6 +11,7 @@ define([
 			var dp = new DatePicker({
 				value: new Date(2000, 1, 1)
 			});
+			dp.deliver();
 
 			assert.strictEqual(dp.querySelector(".d-date-picker-header .d-label").textContent, "February");
 			assert.strictEqual(dp.querySelector(".d-date-picker-footer .d-label").textContent, "2000");

@@ -87,7 +87,7 @@ define([
 			this._curX = e.clientX;
 			if (this._drag) {
 				// knobWidth and switchWidth are sometimes wrong if computed in 
-				// attachedCallback on Chrome so do it here
+				// connectedCallback on Chrome so do it here
 				this._knobWidth = parseInt(window.getComputedStyle(this._knobNode).width, 10);
 				this._switchWidth = parseInt(window.getComputedStyle(this).width, 10);
 				var nw = this.effectiveDir === "ltr" ? w + dx : w - dx,

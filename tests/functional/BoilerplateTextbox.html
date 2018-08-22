@@ -70,7 +70,7 @@
 			});
 
 			var AmPmField = register("d-btb-am-pm", [BoilerplateTextbox.Field], {
-				createdCallback: function () {
+				constructor: function () {
 					this.on("keydown", this.keydownHandler.bind(this));
 				},
 

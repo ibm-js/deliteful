@@ -12,7 +12,7 @@ define([
 
 	var container, html = "<d-button id='b1'>b1</d-button>" +
 		"<d-button id='b3' iconClass='ic1'>b3</d-button>" +
-		"<d-button id='b4' iconClass='ic1' label='on'>off</d-button>" +
+		"<d-button id='b4' iconClass='ic1'>on</d-button>" +
 		"<d-button id='b5' label='on'></d-button>" +
 		"<d-button id='b6' label='on' showLabel='false'></d-button>" +
 		"<d-button id='b7' label='on' showLabel='false' title='alternative title'></d-button>" +

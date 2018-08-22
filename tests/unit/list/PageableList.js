@@ -587,6 +587,7 @@ define([
 				list._idPages = [[1, 2, 3], [4, 5, 6]];
 				list._firstLoaded = 1;
 				list._lastLoaded = 6;
+				list.deliver();
 			};
 			list.getIdentity = function (item) {
 				return list.source.getIdentity(item);
@@ -640,6 +641,7 @@ define([
 				list._idPages = [[1, 2, 3], [4, 5, 6]];
 				list._firstLoaded = 1;
 				list._lastLoaded = 6;
+				list.deliver();
 			};
 			resetList();
 			list.itemRemoved(0);

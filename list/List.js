@@ -305,7 +305,7 @@ define([
 		 * @private
 		 */
 
-		createdCallback: function () {
+		constructor: function () {
 			this.on("query-error", function () {
 				this._busy = false;
 			}.bind(this));
@@ -639,7 +639,7 @@ define([
 			}
 			// start renderers
 			this.findCustomElements(this.containerNode).forEach(function (w) {
-				w.attachedCallback();
+				w.connectedCallback();
 			});
 		},
 
@@ -690,7 +690,7 @@ define([
 				if (spec.addCategoryAfter) {
 					var categoryRenderer = this._createCategoryRenderer(spec.nodeRef.item);
 					this.containerNode.insertBefore(categoryRenderer, spec.nodeRef);
-					categoryRenderer.attachedCallback();
+					categoryRenderer.connectedCallback();
 				}
 			} else {
 				this.containerNode.appendChild(renderer);
@@ -698,9 +698,9 @@ define([
 			if (spec.addCategoryBefore) {
 				categoryRenderer = this._createCategoryRenderer(renderer.item);
 				this.containerNode.insertBefore(categoryRenderer, renderer);
-				categoryRenderer.attachedCallback();
+				categoryRenderer.connectedCallback();
 			}
-			renderer.attachedCallback();
+			renderer.connectedCallback();
 		},
 
 		/**
@@ -798,6 +798,7 @@ define([
 				parentRole: this.type,
 				tabindex: "-1"
 			});
+			renderer.deliver();
 			if (this.selectionMode !== "none" && (this.type === "grid" || this.type === "listbox")) {
 				var itemSelected = !!this.isSelected(item);
 				renderer.renderNode.setAttribute("aria-selected", itemSelected ? "true" : "false");

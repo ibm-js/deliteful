@@ -118,7 +118,7 @@ define([
 		 */
 		nextIconClass: "d-caret-next",
 
-		createdCallback: function () {
+		constructor: function () {
 			this.on("click", this.clickHandler.bind(this));
 		},
 

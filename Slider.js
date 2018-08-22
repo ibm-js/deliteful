@@ -373,7 +373,7 @@ define([
 				this.valueNode.value = String(this.value);
 			},
 
-			createdCallback: function () {
+			constructor: function () {
 				this._pointerCtx = {
 					target: null, // the element that has focus when user manipulate a pointer
 					offsetVal: 0, // Offset value when use points and drag a handle
@@ -395,7 +395,7 @@ define([
 				}
 			},
 
-			attachedCallback: function () {
+			connectedCallback: function () {
 				// Chrome: avoids text selection of elements when mouse is dragged outside of the Slider.
 				this.onmousedown = function (e) {
 					e.preventDefault();

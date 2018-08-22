@@ -241,7 +241,7 @@ define([
 
 		template: template,
 
-		createdCallback: function () {
+		constructor: function () {
 			this.on("delite-activated", this.activatedHandler.bind(this));
 			this.on("delite-deactivated", this.deactivatedHandler.bind(this));
 		},

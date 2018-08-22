@@ -44,10 +44,6 @@ define([
 			ccc = document.getElementById("ccc");
 			ddd = document.getElementById("ddd");
 			vi = document.getElementById("vi");
-
-			// Due to the (asynchronous) Promise returned from loadChild(), the show("aaa") (implicitly called when
-			// ViewStack created) hasn't finished yet.  So wait for it.
-			asyncHandler = vs.on("delite-after-show", this.async().callback(function () {}));
 		},
 		"Default CSS" : function () {
 			assert.isTrue($(vi).hasClass("d-view-indicator"), "d-view-indicator class");

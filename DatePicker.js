@@ -139,6 +139,7 @@ define([
 				nextYearButtonLabel: this.nextYearButtonLabel,
 				value: this.value
 			});
+			this.dayPicker.deliver();
 
 			this.dayPicker.on("current-month-clicked", function (evt) {
 				this.showMonthPicker();
@@ -167,6 +168,7 @@ define([
 					previousIconClass: this.previousIconClass,
 					nextIconClass: this.nextIconClass
 				});
+				this.monthPicker.deliver();
 
 				this.monthPicker.on("month-selected", function (evt) {
 					this.monthSelected = true;
@@ -195,6 +197,7 @@ define([
 					previousYearRangeButtonLabel: this.previousYearRangeButtonLabel,
 					nextYearRangeButtonLabel: this.nextYearRangeButtonLabel
 				});
+				this.yearPicker.deliver();
 
 				this.yearPicker.on("year-selected", function (evt) {
 					this.yearSelected = true;

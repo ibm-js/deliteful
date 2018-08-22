@@ -311,7 +311,7 @@ define([
 
 		dropDownType: "listbox",
 
-		createdCallback: function () {
+		preRender: function () {
 			// If the control seems to contain JSON, then parse it as our data source.
 			if (!this.firstElementChild && this.textContent.trim()) {
 				var data = JSON.parse("[" + this.textContent + "]");
@@ -363,7 +363,7 @@ define([
 			};
 		}),
 
-		attachedCallback: function () {
+		connectedCallback: function () {
 			if (!this.list) {
 				var regexp = /^(?!_)(\w)+(?=Attr$|Func$)/;
 				var listArgs = {
@@ -481,7 +481,7 @@ define([
 				// of delite/Store - delite/StoreMap) to allow a store-based widget
 				// to delegate the store-related functions to a parent widget (delite#323).
 				if (!this.list.attached) {
-					this.list.attachedCallback();
+					this.list.connectedCallback();
 				}
 
 				// Class added on the list such that Combobox' theme can have a specific
@@ -637,11 +637,13 @@ define([
 					this.ownerDocument.getElementById(this.getAttribute("aria-labelledby")));
 			var header = headerNode ? headerNode.textContent.trim() : (this.getAttribute("aria-label") || "");
 
-			return new ComboPopup({
+			var popup = new ComboPopup({
 				combobox: this,
 				header: header,
 				closeButtonIconClass: this.closeButtonIconClass
 			});
+			popup.deliver();
+			return popup;
 		},
 
 		/**

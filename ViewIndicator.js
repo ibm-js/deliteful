@@ -34,9 +34,7 @@ define([
 		 */
 		viewStack: null,
 
-		createdCallback: function () {
-			dpointer.setTouchAction(this, "none");
-
+		constructor: function () {
 			this.on("pointerdown", function (e) {
 				if (typeof e.target._vsChildIndex === "number") {
 					this.viewStack.show(this.viewStack.children[e.target._vsChildIndex]);
@@ -54,6 +52,10 @@ define([
 			}.bind(this));
 		},
 
+		postRender: function () {
+			dpointer.setTouchAction(this, "none");
+		},
+		
 		refreshRendering: function (props) {
 			if ("viewStack" in props) {
 				this._attachViewStack();

@@ -458,6 +458,8 @@ define([
 
 		"add/remove children": function () {
 			var ac = new Accordion();
+			ac.deliver();
+			
 			var p1 = new Panel({id: "add1", label: "panel 1"});
 			var p2 = new Panel({id: "add2", label: "panel 2"});
 			ac.appendChild(p1);
@@ -531,12 +533,13 @@ define([
 			ac.appendChild(p2);
 			ac.appendChild(p3);
 			ac.placeAt(container);
+			ac.deliver();
 
-			assert.isFalse(p1.open, "p1.open 3");
+			assert.isFalse(p1.open, "p1.open 1");
 			assert.strictEqual(p1.getAttribute("aria-hidden"), "true", "p1 aria-hidden 3");
-			assert.isFalse(p2.open, "p2.open 3");
+			assert.isFalse(p2.open, "p2.open 1");
 			assert.strictEqual(p2.getAttribute("aria-hidden"), "true", "p2 aria-hidden 3");
-			assert.isFalse(p3.open, "p3.open 3");
+			assert.isFalse(p3.open, "p3.open 1");
 			assert.strictEqual(p3.getAttribute("aria-hidden"), "true", "p3 aria-hidden 3");
 			
 			return ac.show(p1).then(function () {

@@ -135,7 +135,7 @@ define([
 
 			template: template,
 
-			createdCallback: function () {
+			constructor: function () {
 				this.messages = [];
 
 				// NOTE: the following a11y attributes are needed for JAWS but

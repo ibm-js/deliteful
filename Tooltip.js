@@ -25,7 +25,7 @@ define([
 
 		template: template,
 
-		createdCallback: function () {
+		constructor: function () {
 			this.on("popup-after-show", this.onOpen.bind(this));
 			this.on("popup-after-position", this.onPosition.bind(this));
 			this.on("popup-before-hide", this.onClose.bind(this));

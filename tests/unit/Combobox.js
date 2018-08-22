@@ -389,6 +389,7 @@ define([
 					displayedValue: "Germany",
 					value: "Germany"
 				});
+				combo.deliver();
 				assert.strictEqual(combo.displayedValue, "Germany", "initial displayedValue");
 				assert.strictEqual(combo.inputNode.value, "Germany", "initial inputNode.value");
 
@@ -421,6 +422,7 @@ define([
 					value: "DE",
 					displayedValue: "Germany"
 				});
+				combo.deliver();
 				assert.strictEqual(combo.value, "DE", "initial value");
 				assert.strictEqual(combo.displayedValue, "Germany", "initial displayedValue");
 				assert.strictEqual(combo.inputNode.value, "Germany", "initial inputNode.value");
@@ -449,6 +451,7 @@ define([
 					value: "blank",
 					displayedValue: ""
 				});
+				combo.deliver();
 				assert.strictEqual(combo.value, "blank", "initial value");
 				assert.strictEqual(combo.displayedValue, "", "initial displayedValue");
 				assert.strictEqual(combo.inputNode.value, "", "initial inputNode.value");
@@ -489,6 +492,7 @@ define([
 					labelAttr: "name",
 					value: []
 				});
+				combo1.deliver();
 				assert.strictEqual(combo1.displayedValue, combo1.multipleChoiceNoSelectionMsg, "value = []");
 
 				var combo2 = new Combobox({
@@ -498,6 +502,7 @@ define([
 					displayedValue: "Japan",
 					value: ["Japan"]
 				});
+				combo2.deliver();
 				assert.strictEqual(combo2.displayedValue, "Japan", "value = ['Japan']");
 
 				// When value is array with multiple entries, displayedValue gets set automatically.
@@ -507,6 +512,7 @@ define([
 					labelAttr: "name",
 					value: ["Canada", "Brazil"]
 				});
+				combo3.deliver();
 				assert.strictEqual(combo3.displayedValue, combo3.multipleChoiceMsg.replace("${items}", 2),
 					"value = [a, b]");
 			},
@@ -536,6 +542,7 @@ define([
 					value: [],
 					displayedValue: "should be ignored"
 				});
+				combo1.deliver();
 				assert.strictEqual(combo1.displayedValue, combo1.multipleChoiceNoSelectionMsg, "value = []");
 
 				// When value is array with one entry, app should specify displayedValue.
@@ -546,6 +553,7 @@ define([
 					value: ["DE"],
 					displayedValue: "Germany"
 				});
+				combo2.deliver();
 				assert.strictEqual(combo2.displayedValue, "Germany", "initial displayedValue");
 
 				// When value is array with multiple entries, displayedValue gets set automatically.
@@ -556,6 +564,7 @@ define([
 					value: ["JP", "FR"],
 					displayedValue: "should be ignored"
 				});
+				combo3.deliver();
 				assert.strictEqual(combo3.displayedValue, combo3.multipleChoiceMsg.replace("${items}", 2),
 					"value = [a, b]");
 			}

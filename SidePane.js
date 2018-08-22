@@ -111,7 +111,7 @@ define([
 			_originX: NaN,
 			_originY: NaN,
 
-			attachedCallback: function () {
+			connectedCallback: function () {
 				this.parentNode.style.overflow = "hidden";
 			},
 

@@ -32,10 +32,6 @@ define([
 			bbb = document.getElementById("bbb");
 			ccc = document.getElementById("ccc");
 			ddd = document.getElementById("ddd");
-
-			// Due to the (asynchronous) Promise returned from loadChild(), the show("aaa") (implicitly called when
-			// ViewStack created) hasn't finished yet.  So wait for it.
-			asyncHandler = node.on("delite-after-show", this.async().callback(function () {}));
 		},
 		"Default CSS" : function () {
 			assert.isTrue($(node).hasClass("d-swap-view"));

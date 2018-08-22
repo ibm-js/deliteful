@@ -616,6 +616,7 @@ define([
 				list._idPages = [[1, 2, 3], [4, 5, 6]];
 				list._firstLoaded = 1;
 				list._lastLoaded = 6;
+				list.deliver();
 			};
 			list.getIdentity = function (item) {
 				return item.id !== undefined ? item.id : this.data.indexOf(item);
@@ -668,6 +669,7 @@ define([
 				list._idPages = [[1, 2, 3], [4, 5, 6]];
 				list._firstLoaded = 1;
 				list._lastLoaded = 6;
+				list.deliver();
 			};
 			resetList();
 			list.itemRemoved(0);
@@ -1409,6 +1411,7 @@ define([
 				list.source.push({label: "item " + i, category: "Category " + Math.floor(i / 10)});
 			}
 			list.placeAt(document.body);
+			list.deliver();
 			setTimeout(def.rejectOnError(function () {
 				waitForCondition(function () {
 					return list.textContent.indexOf("item 24") >= 0;
