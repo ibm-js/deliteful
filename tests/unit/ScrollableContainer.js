@@ -65,8 +65,7 @@ define([
 			w.style.position = "absolute";
 			w.style.width = "200px";
 			w.style.height = "200px";
-			container.appendChild(w);
-			w.attachedCallback();
+			w.placeAt(container);
 
 			var innerContent = document.createElement("div");
 			innerContent.id = "sc1content";

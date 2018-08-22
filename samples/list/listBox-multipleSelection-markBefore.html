@@ -18,18 +18,17 @@
 
 	<script type="text/javascript">
 		require([
-			"delite/register",
 			"dstore/Memory",
 			"dstore/Trackable",
 			"deliteful/list/List",
 			"delite/theme!delite/themes/{{theme}}/global.css", // page level CSS
 			"requirejs-domready/domReady!"
-		], function (register, Memory, Trackable) {
+		], function (Memory, Trackable, List) {
 			var Store = Memory.createSubclass([Trackable], {});
 			var console = document.createElement("p");
 			console.innerHTML = "Click to select an item.";
 			document.body.appendChild(console);
-			var list = register.createElement("d-list");
+			var list = new List();
 			list.source = new Store();
 			list.setAttribute("role", "listbox");
 			list.setAttribute("aria-label", "Sample list with multiple selection mode enabled");

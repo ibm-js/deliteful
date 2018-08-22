@@ -16,8 +16,7 @@ define([
 		name: "ProgressIndicator",
 		setup: function () {
 			progressIndicator = new ProgressIndicator();
-			document.body.appendChild(progressIndicator);
-			progressIndicator.attachedCallback();
+			progressIndicator.placeAt(document.body);
 		},
 		"Default values and state": function () {
 			//public attribute:active

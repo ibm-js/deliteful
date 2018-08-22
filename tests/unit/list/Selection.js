@@ -299,8 +299,8 @@ define([
 				list.destroy();
 			}
 			list = new List({source: new Store()});
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
+
 			list.source.filter();
 			list.source.add({label: "item 1"});
 			list.source.add({label: "item 2"});

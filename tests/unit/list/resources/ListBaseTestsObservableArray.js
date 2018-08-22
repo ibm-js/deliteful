@@ -24,8 +24,7 @@ define([
 						{label: "item 2"},
 						{label: "item 3"}
 					)});
-					document.body.appendChild(this.list);	// StoreMap defers query until node attached to document
-					this.list.attachedCallback();
+					this.list.placeAt(document.body);	// StoreMap defers query until node attached to document
 				},
 
 				"basic": function () {
@@ -34,8 +33,7 @@ define([
 						{label: "item 2"},
 						{label: "item 3"}
 					)});
-					document.body.appendChild(list);	// StoreMap defers query until node attached to document
-					list.attachedCallback();
+					list.placeAt(document.body);	// StoreMap defers query until node attached to document
 					assert.strictEqual(list.containerNode.children.length, 3, "initial nodelist length");
 					assert.strictEqual(list.containerNode.children[0].textContent.trim(),
 						"item 1", "initial first item");
@@ -120,8 +118,7 @@ define([
 						{label: "item 2"},
 						{label: "item 3"}
 					)});
-					document.body.appendChild(list);	// StoreMap defers query until node attached to document
-					list.attachedCallback();
+					list.placeAt(document.body);	// StoreMap defers query until node attached to document
 					var nodeList = list.getItemRenderers();
 					assert.strictEqual(nodeList.length, 3, "initial nodelist length");
 					assert.deepEqual(nodeList, [].slice.call(list.containerNode.children), "initial nodelist");
@@ -133,8 +130,7 @@ define([
 						{id: "1", label: "item 2"},
 						{id: "2", label: "item 3"}
 					)});
-					document.body.appendChild(list);	// StoreMap defers query until node attached to document
-					list.attachedCallback();
+					list.placeAt(document.body);	// StoreMap defers query until node attached to document
 
 					var children = list.containerNode.children;
 					assert.strictEqual(list.getRendererByItemId(list.source[0].id),
@@ -151,8 +147,7 @@ define([
 						{id: "1", label: "item 2"},
 						{id: "2", label: "item 3"}
 					)});
-					document.body.appendChild(list);	// StoreMap defers query until node attached to document
-					list.attachedCallback();
+					list.placeAt(document.body);	// StoreMap defers query until node attached to document
 
 					var children = list.containerNode.children;
 					assert.strictEqual(list.getItemRendererIndex(children[0]), 0, "first renderer");
@@ -167,8 +162,7 @@ define([
 						{id: "1", label: "item 2"},
 						{id: "2", label: "item 3"}
 					)});
-					document.body.appendChild(list);	// StoreMap defers query until node attached to document
-					list.attachedCallback();
+					list.placeAt(document.body);	// StoreMap defers query until node attached to document
 					var children = list.containerNode.children;
 					assert.strictEqual(list.getEnclosingRenderer(children[0]), children[0], "first");
 					assert.strictEqual(list.getEnclosingRenderer(children[0].children[0]), children[0], "second");
@@ -181,8 +175,7 @@ define([
 						{id: "1", label: "item 2"},
 						{id: "2", label: "item 3"}
 					)});
-					document.body.appendChild(list);	// StoreMap defers query until node attached to document
-					list.attachedCallback();
+					list.placeAt(document.body);	// StoreMap defers query until node attached to document
 
 					list._renderNewItems([{label: "item a"}, {label: "item b"}, {label: "item c"}], true);
 					var children = list.containerNode.children;
@@ -204,8 +197,7 @@ define([
 						{id: "1", label: "item 2"},
 						{id: "2", label: "item 3"}
 					)});
-					document.body.appendChild(list);	// StoreMap defers query until node attached to document
-					list.attachedCallback();
+					list.placeAt(document.body);	// StoreMap defers query until node attached to document
 
 					var children = list.containerNode.children;
 					assert.strictEqual(list._getFirst(), children[0].renderNode);
@@ -223,8 +215,7 @@ define([
 						{id: "1", label: "item 2"},
 						{id: "2", label: "item 3"}
 					)});
-					document.body.appendChild(list);	// StoreMap defers query until node attached to document
-					list.attachedCallback();
+					list.placeAt(document.body);	// StoreMap defers query until node attached to document
 
 					var children = list.containerNode.children;
 					assert.strictEqual(list._getLast(), children[2].renderNode);
@@ -232,8 +223,7 @@ define([
 
 				"update item label": function () {
 					var list = new ListConstructor({source: new ObservableArray()});
-					document.body.appendChild(list);	// StoreMap defers query until node attached to document
-					list.attachedCallback();
+					list.placeAt(document.body);	// StoreMap defers query until node attached to document
 
 					for (var i = 0; i < 3; i++) {
 						var obj = new Observable({id: i, label: "item " + i});
@@ -249,8 +239,7 @@ define([
 
 				"update item: add, update and remove icon" : function () {
 					var list = new ListConstructor({source: new ObservableArray()});
-					document.body.appendChild(list);	// StoreMap defers query until node attached to document
-					list.attachedCallback();
+					list.placeAt(document.body);	// StoreMap defers query until node attached to document
 
 					for (var i = 0; i < 3; i++) {
 						var obj = new Observable({id: i, label: "item " + i});
@@ -294,8 +283,7 @@ define([
 					var list = this.parent.list;
 					list.destroy();
 					list = new ListConstructor({source: new ObservableArray()});
-					document.body.appendChild(list);	// StoreMap defers query until node attached to document
-					list.attachedCallback();
+					list.placeAt(document.body);	// StoreMap defers query until node attached to document
 					list.source.push({label: "item 1", category: "category 1"});
 					list.deliver();
 					assert.strictEqual(list.containerNode.children[0].item.category, "category 1");
@@ -318,8 +306,7 @@ define([
 					list.source.push({name: "item 1"});
 					list.source.push({name: "item 2"});
 					list.deliver();
-					document.body.appendChild(list);
-					list.attachedCallback();
+					list.placeAt(document.body);	// StoreMap defers query until node attached to document
 					return def;
 				},
 
@@ -330,8 +317,7 @@ define([
 						{id: "2", label: "item 3"}
 					)});
 					list.style.height = "200px";
-					document.body.appendChild(list);	// StoreMap defers query until node attached to document
-					list.attachedCallback();
+					list.placeAt(document.body);	// StoreMap defers query until node attached to document
 					list.deliver();
 					list.focus();
 					var focusedElement = document.activeElement;
@@ -342,20 +328,17 @@ define([
 
 				"show/hide no items node depending of list's containerNode children": function () {
 					var list = new ListConstructor({source: new ObservableArray()});
-					document.body.appendChild(list);
-					list.attachedCallback();
+					list.placeAt(document.body);	// StoreMap defers query until node attached to document
 					list.showNoItems = true;
 					list.source.push({id: "0", label: "item 0"});
 					list.source.push({id: "1", label: "item 1"});
 					list.deliver();
-					list.attachedCallback();
 					assert.isNotNull(list.querySelector(".d-list-no-items[d-shown='false']"),
 						".d-list-no-items must be hidden");
 					while (list.source.length > 0) {
 						list.source.pop();
 					}
 					list.deliver();
-					list.attachedCallback();
 					assert.isNotNull(list.querySelector(".d-list-no-items[d-shown='true']"),
 					".d-list-no-items must be visible");
 					list.source.push({id: "0", label: "item 0"});

@@ -10,8 +10,7 @@ define([
 		name: "ProgressBar",
 		setup: function () {
 			progressBar = new ProgressBar({lang: "en-US"});
-			document.body.appendChild(progressBar);
-			progressBar.attachedCallback();
+			progressBar.placeAt(document.body);
 		},
 		"Default values and state": function () {
 			//public attribute:value
@@ -150,16 +149,14 @@ define([
 		},
 		"valid init value": function () {
 			var pb = new ProgressBar({value: 10, max: 100});
-			document.body.appendChild(pb);
-			pb.attachedCallback();
+			pb.placeAt(document.body);
 			assert.strictEqual(10, pb.value);
 			assert.strictEqual(100, pb.max);
 			pb.destroy();
 		},
 		"Invalid init value": function () {
 			var pb = new ProgressBar({value: -10, max: -9});
-			document.body.appendChild(pb);
-			pb.attachedCallback();
+			pb.placeAt(document.body);
 			var value = pb.value, max = pb.max;
 			assert.strictEqual(0, value);
 			assert.strictEqual(1.0, max);

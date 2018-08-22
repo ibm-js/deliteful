@@ -121,8 +121,7 @@ define([
 			list = new PageableList({source: store});
 			list.pageLength = 23;
 			list.maxPages = 2;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 			// initial load (page 1 loaded)
 			assertList(list, 0, 22, [], false, true, "initial load");
@@ -207,8 +206,7 @@ define([
 			list = new PageableList({source: store});
 			list.pageLength = 23;
 			list.maxPages = 2;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 
 			// initial load (page 1 loaded)
 			list.deliver();
@@ -233,8 +231,7 @@ define([
 			list = new PageableList({source: store});
 			list.pageLength = 23;
 			list.maxPages = 2;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
@@ -266,8 +263,7 @@ define([
 			list.pageLength = 23;
 			list.maxPages = 2;
 			list.style.height = "200px";
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 
 			// Click next page loader three times
@@ -305,8 +301,7 @@ define([
 			list.pageLength = 23;
 			list.maxPages = 2;
 			list.style.height = "200px";
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 
 			// Click next page loader two times
@@ -335,8 +330,7 @@ define([
 			list = new PageableList({source: store});
 			list.pageLength = 23;
 			list.maxPages = 2;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 
 			list.source.add({id: "A", label: "item A"}, {beforeId: 1});
@@ -441,8 +435,7 @@ define([
 			list = new PageableList({source: store});
 			list.pageLength = 23;
 			list.maxPages = 2;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 			list.source.add({id: "A", label: "item A"}, {beforeId: 0});
 			list.deliver();
@@ -486,10 +479,8 @@ define([
 			list = new PageableList({source: store});
 			list.pageLength = 23;
 			list.maxPages = 0;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
-			list.attachedCallback();
 			assert.strictEqual(list.containerNode.children.length, 23, "0: number of list children");
 			assert.strictEqual(removeTabsAndReturns(list.nextPageLoader.labelNode.textContent),
 					"Click to load 23 more items",
@@ -534,8 +525,8 @@ define([
 			list = new PageableList({source: store});
 			list.pageLength = 23;
 			list.maxPages = 1;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
+			list.deliver();
 
 			list.source.add({id: "A", label: "item A"}, {beforeId: 23});
 			list.deliver();
@@ -703,8 +694,7 @@ define([
 			list = new PageableList({source: store});
 			list.pageLength = 20;
 			list.maxPages = 0;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 
 			// initial load
@@ -750,8 +740,7 @@ define([
 			list.pageLength = 25;
 			list.maxPages = 0;
 			list.categoryAttr = "category";
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 
 			// initial load
@@ -792,8 +781,7 @@ define([
 			list = new PageableList({source: store});
 			list.pageLength = 20;
 			list.maxPages = 2;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 
 			// initial load
@@ -856,8 +844,7 @@ define([
 			list.categoryAttr = "category";
 			list.pageLength = 25;
 			list.maxPages = 2;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 
 			// initial load
@@ -907,8 +894,7 @@ define([
 			list = new PageableList({source: store});
 			list.pageLength = 100;
 			list.maxPages = 0;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 
 			// initial load
@@ -934,8 +920,7 @@ define([
 			list.categoryAttr = "category";
 			list.pageLength = 100;
 			list.maxPages = 0;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 
 			// initial load
@@ -960,8 +945,7 @@ define([
 			list = new PageableList({source: store});
 			list.pageLength = 100;
 			list.maxPages = 0;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 
 			// initial load
@@ -987,8 +971,7 @@ define([
 			list.categoryAttr = "category";
 			list.pageLength = 100;
 			list.maxPages = 0;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 
 			// initial load
@@ -1011,8 +994,7 @@ define([
 			list = new PageableList({source: store});
 			list.pageLength = 101;
 			list.maxPages = 0;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 
 			// initial load
@@ -1029,8 +1011,7 @@ define([
 			list.categoryAttr = "category";
 			list.pageLength = 101;
 			list.maxPages = 0;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 
 			// initial load
@@ -1046,8 +1027,7 @@ define([
 			list = new PageableList({source: store});
 			list.pageLength = 101;
 			list.maxPages = 0;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 
 			// initial load
@@ -1064,8 +1044,7 @@ define([
 			list.categoryAttr = "category";
 			list.pageLength = 101;
 			list.maxPages = 0;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 
 			// initial load
@@ -1081,6 +1060,7 @@ define([
 			list = new PageableList({source: store});
 			list.pageLength = 25;
 			list.maxPages = 0;
+			list.placeAt(document.body);
 
 			popup.open({
 				popup: list,
@@ -1089,7 +1069,6 @@ define([
 			});
 
 			try {
-				list.attachedCallback();
 				list.deliver();
 				assert(list.offsetWidth > 50, "list.offsetWidth === " + list.offsetWidth);
 				assert(list.querySelector("d-list-item-renderer").offsetWidth > 0, "d-list-item-renderer");
@@ -1110,6 +1089,7 @@ define([
 			list.pageLength = 25;
 			list.maxPages = 0;
 			list.categoryAttr = "category";
+			list.placeAt(document.body);
 
 			popup.open({
 				popup: list,
@@ -1118,7 +1098,6 @@ define([
 			});
 
 			try {
-				list.attachedCallback();
 				list.deliver();
 				assert(list.offsetWidth > 50, "list.offsetWidth === " + list.offsetWidth);
 				assert(list.querySelector("d-list-category-renderer").offsetWidth > 0, "d-list-category-renderer");
@@ -1185,8 +1164,7 @@ define([
 			list = new PageableList({source: store});
 			list.pageLength = 5;
 			list.maxPages = 1;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 
 			// initial load (page 1 loaded)
@@ -1212,8 +1190,7 @@ define([
 			list.categoryAttr = "category";
 			list.pageLength = 25;
 			list.maxPages = 0;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 
 			// initial load
@@ -1245,8 +1222,7 @@ define([
 			list = new PageableList({source: store});
 			list.pageLength = 10;
 			list.maxPages = 2;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
@@ -1281,8 +1257,7 @@ define([
 			list = new PageableList({source: store});
 			list.pageLength = 10;
 			list.maxPages = 2;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
@@ -1315,8 +1290,7 @@ define([
 			list = new PageableList({source: store});
 			list.pageLength = 10;
 			list.maxPages = 1;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 
 			clickNextPageLoader(list).then(dfd.callback(function () {
@@ -1342,8 +1316,7 @@ define([
 			list = new PageableList({source: store});
 			list.pageLength = 10;
 			list.maxPages = 1;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 
 			clickNextPageLoader(list).then(dfd.callback(function () {
@@ -1370,8 +1343,7 @@ define([
 			list.hideOnPageLoad = true;
 			list.pageLength = 20;
 			list.maxPages = 0;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 
 			// initial load
@@ -1401,8 +1373,7 @@ define([
 			list.hideOnPageLoad = true;
 			list.pageLength = 20;
 			list.maxPages = 0;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list._busy = true;
 			list.deliver();
 
@@ -1461,8 +1432,7 @@ define([
 			list.style.height = "200px";
 			list.autoPaging = true;
 
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 
 			// initial load
@@ -1534,8 +1504,7 @@ define([
 			list = new PageableList({source: store});
 			list.pageLength = 10;
 			list.maxPages = 1;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 
 			clickNextPageLoader(list).then(dfd.callback(function () {

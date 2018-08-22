@@ -115,8 +115,7 @@ define([
 			container = document.createElement("div");
 			document.body.appendChild(container);
 			var cb = new Switch({id: "sw1"});
-			container.appendChild(cb);
-			cb.attachedCallback();
+			cb.placeAt(container);
 			cb = new Switch({
 				id: "sw2",
 				value: "foo",
@@ -126,11 +125,9 @@ define([
 				checkedLabel: "ON",
 				uncheckedLabel: "OFF"
 			});
-			container.appendChild(cb);
-			cb.attachedCallback();
+			cb.placeAt(container);
 			cb = new Switch({id: "sw3"});
-			container.appendChild(cb);
-			cb.attachedCallback();
+			cb.placeAt(container);
 			var lbl = document.createElement("label");
 			lbl.setAttribute("for", "sw3-input");
 			lbl.setAttribute("id", "lbl4");

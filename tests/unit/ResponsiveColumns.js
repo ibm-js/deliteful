@@ -74,8 +74,6 @@ define([
 			container.addChild(child);
 			//window.document.body.appendChild(container);
 			container.placeAt(window.document.body);
-			//container.attachedCallback();
-			//container.deliver();
 		},
 
 		"Media Query Test 1": function () {

@@ -164,22 +164,18 @@ define([
 			container.appendChild(form);
 			
 			var rb = new RadioButton({id: "rb1", value: "rb1", name: "choice"});
-			form.appendChild(rb);
-			rb.attachedCallback();
+			rb.placeAt(form);
 			rb = new RadioButton({id: "rb2", value: "rb2", checked: true, name: "choice"});
-			form.appendChild(rb);
-			rb.attachedCallback();
+			rb.placeAt(form);
 			var lbl4 = document.createElement("label");
 			lbl4.id = "lbl4";
 			lbl4.setAttribute("for", "rb3-input");
 			lbl4.textContent = "rb3";
 			container.appendChild(lbl4);
 			rb = new RadioButton({id: "rb3", value: "rb3", name: "choice"});
-			form.appendChild(rb);
-			rb.attachedCallback();
+			rb.placeAt(form);
 			rb = new RadioButton({id: "rb4"});
-			container.appendChild(rb);
-			rb.attachedCallback();
+			rb.placeAt(form);
 		}
 	};
 	mix(progSuite, suite);

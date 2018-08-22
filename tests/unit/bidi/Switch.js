@@ -58,10 +58,8 @@ define([
 			"textDir": function () {
 				var b1 = new Switch({id: "b1", checkedLabel: "\u05d0\u05d1\u05d2",
 					uncheckedLabel: "ABC", checked: true});
-				container.appendChild(b1);
-				b1.attachedCallback();
 				b1.textDir = "ltr";
-				b1.deliver();
+				b1.placeAt(container);
 				var div1 = b1.querySelector(".d-switch-leading");
 				var div2 = b1.querySelector(".d-switch-trailing");
 				assert.strictEqual(b1.effectiveDir === "ltr" ? div1.textContent : div2.textContent,
@@ -89,11 +87,9 @@ define([
 			},
 			"labels": function () {
 				var b2 = new Switch({id: "b2"});
-				container.appendChild(b2);
-				b2.attachedCallback();
 				b2.textDir = "rtl";
 				b2.uncheckedLabel = "ABC";
-				b2.deliver();
+				b2.placeAt(container);
 				var div1 = b2.querySelector(".d-switch-leading");
 				var div2 = b2.querySelector(".d-switch-trailing");
 				assert.strictEqual(b2.effectiveDir === "ltr" ? div2.textContent : div1.textContent,
@@ -107,11 +103,9 @@ define([
 			},
 			"title": function () {
 				var b3 = new Switch({id: "b3"});
-				container.appendChild(b3);
-				b3.attachedCallback();
 				b3.textDir = "auto";
 				b3.title = "\u05d0\u05d1\u05d2 ABC";
-				b3.deliver();
+				b3.placeAt(container);
 				assert.strictEqual("\u202b\u05d0\u05d1\u05d2 ABC\u202c", b3.title,
 					"title: wrong value for 'auto' (1)");
 				b3.textDir = "ltr";

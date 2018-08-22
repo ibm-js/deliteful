@@ -219,23 +219,18 @@ define([
 			container = document.createElement("div");
 			document.body.appendChild(container);
 			var tb = new ToggleButton({id: "tb1", label: "tb1"});
-			container.appendChild(tb);
-			tb.attachedCallback();
+			tb.placeAt(container);
 			tb = new ToggleButton({id: "tb3", checked: "checked", label: "tb3", iconClass: "ic1"});
-			container.appendChild(tb);
-			tb.attachedCallback();
+			tb.placeAt(container);
 			tb = new ToggleButton({id: "tb4", checked: "checked", label: "off", checkedLabel: "on",
 				iconClass: "ic1", checkedIconClass: "ic2"});
-			container.appendChild(tb);
-			tb.attachedCallback();
+			tb.placeAt(container);
 			tb = new ToggleButton({id: "tb5", label: "off", checkedLabel: "on",
 				iconClass: "ic1", checkedIconClass: "ic2"});
-			container.appendChild(tb);
-			tb.attachedCallback();
+			tb.placeAt(container);
 			tb = new ToggleButton({id: "tb6", label: "off", checkedLabel: "on",
 				iconClass: "ic1", checkedIconClass: "ic2", title: "bt title"});
-			container.appendChild(tb);
-			tb.attachedCallback();
+			tb.placeAt(container);
 		}
 	};
 	mix(suite, commonSuite);

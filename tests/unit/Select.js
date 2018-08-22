@@ -423,12 +423,10 @@ define([
 			document.body.appendChild(container);
 			
 			var w = new Select({ id: "select1" });
-			container.appendChild(w);
-			w.attachedCallback();
+			w.placeAt(container);
 			
 			w = new MySelect({ id: "myselect1" });
-			container.appendChild(w);
-			w.attachedCallback();
+			w.placeAt(container);
 		},
 		afterEach: function () {
 			container.parentNode.removeChild(container);

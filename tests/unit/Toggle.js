@@ -76,11 +76,9 @@ define([
 			container = document.createElement("div");
 			document.body.appendChild(container);
 			widget = new MyWidget({id: "cb1"});
-			container.appendChild(widget);
-			widget.attachedCallback();
+			widget.placeAt(container);
 			widget = new MyWidget({id: "cb2", checked: true, value: "foo"});
-			container.appendChild(widget);
-			widget.attachedCallback();
+			widget.placeAt(container);
 		}
 	};
 	mix(suite, commonSuite);

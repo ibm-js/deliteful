@@ -195,16 +195,12 @@ define([
 
 	function createSingleSlider() {
 		var slider = new Slider();
-		document.body.appendChild(slider);
-		slider.attachedCallback();
-		slider.deliver();
+		slider.placeAt(document.body);
 		return slider;
 	}
 	function createDualSlider() {
 		var slider = new Slider({value: ","});
-		document.body.appendChild(slider);
-		slider.attachedCallback();
-		slider.deliver();
+		slider.placeAt(document.body);
 		return slider;
 	}
 

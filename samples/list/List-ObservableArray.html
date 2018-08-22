@@ -18,12 +18,11 @@
 
 	<script type="text/javascript">
 		require([
-			"delite/register",
 			"deliteful/list/List", // page level CSS
 			"decor/Observable",
 			"decor/ObservableArray"
-		], function (register, List, Observable, ObservableArray) {
-			var list  = register.createElement("d-list");
+		], function (List, Observable, ObservableArray) {
+			var list  = new List();
 			list.id = "L";
 
 			list.source = new ObservableArray();

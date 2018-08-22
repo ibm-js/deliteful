@@ -18,14 +18,13 @@
 
 	<script type="text/javascript">
 		require([
-			"delite/register",
 			"dstore/Memory",
 			"dstore/Trackable",
 			"deliteful/list/List",
 			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
-		], function (register, Memory, Trackable, List) {
+		], function (Memory, Trackable, List) {
 			var Store = Memory.createSubclass([Trackable], {});
-			var list = register.createElement("d-list");
+			var list = new List();
 			list.source = new Store();
 			list.setAttribute("aria-label", "Sample list that uses attributes for store item to renderer item mapping");
 			list.labelAttr = "title";

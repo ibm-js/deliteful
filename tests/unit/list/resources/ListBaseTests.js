@@ -22,8 +22,7 @@ define([
 						this.list.destroy();
 					}
 					this.list = new ListConstructor({source: new Store()});
-					document.body.appendChild(this.list);
-					this.list.attachedCallback();
+					this.list.placeAt(document.body);
 					this.list.source.add({label: "item 1"});
 					this.list.source.add({label: "item 2"});
 					this.list.source.add({label: "item 3"});
@@ -184,8 +183,7 @@ define([
 					var list = this.parent.list;
 					list.destroy();
 					list = new ListConstructor({source: new Store()});
-					document.body.appendChild(list);
-					list.attachedCallback();
+					list.placeAt(document.body);
 					list.source.add({label: "item 1", category: "category 1"});
 					assert.strictEqual(list.containerNode.children[0].item.category, "category 1");
 				},
@@ -206,8 +204,7 @@ define([
 					list.labelAttr = "name";
 					list.source.add({name: "item 1"});
 					list.source.add({name: "item 2"});
-					document.body.appendChild(list);
-					list.attachedCallback();
+					list.placeAt(document.body);
 				},
 				"query-error event": function () {
 					var list = this.parent.list;
@@ -227,8 +224,7 @@ define([
 					list.on("query-error", function (evt) {
 						queryErrorEvt = evt;
 					});
-					document.body.appendChild(list);
-					list.attachedCallback();
+					list.placeAt(document.body);
 
 					var def = this.async(1000);
 					setTimeout(def.callback(function () {

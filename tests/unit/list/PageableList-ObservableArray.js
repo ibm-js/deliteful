@@ -127,8 +127,7 @@ define([
 					resolve(list.source.slice(evt.start, evt.end));
 				}));
 			});
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 			waitForCondition(function () {
 				return list.textContent.indexOf("item 22") >= 0;
@@ -215,8 +214,7 @@ define([
 			}
 			list.pageLength = 23;
 			list.maxPages = 2;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			// initial load (page 1 loaded)
 			list.deliver();
 			waitForCondition(function () {
@@ -244,8 +242,7 @@ define([
 				}
 				list.pageLength = 23;
 				list.maxPages = 2;
-				document.body.appendChild(list);
-				list.attachedCallback();
+				list.placeAt(document.body);
 				list.deliver();
 				waitForCondition(function () {
 					return list.textContent.indexOf("item 22") >= 0;
@@ -285,8 +282,7 @@ define([
 						resolve(list.source.slice(evt.start, evt.end));
 					}));
 				});
-				document.body.appendChild(list);
-				list.attachedCallback();
+				list.placeAt(document.body);
 				list.deliver();
 				waitForCondition(function () {
 					return list.textContent.indexOf("item 22") >= 0;
@@ -326,8 +322,7 @@ define([
 				list.pageLength = 23;
 				list.maxPages = 2;
 				list.style.height = "200px";
-				document.body.appendChild(list);
-				list.attachedCallback();
+				list.placeAt(document.body);
 				list.deliver();
 				waitForCondition(function () {
 					return list.textContent.indexOf("item 22") >= 0;
@@ -355,8 +350,7 @@ define([
 			}
 			list.pageLength = 23;
 			list.maxPages = 2;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 			waitForCondition(function () {
 				return list.textContent.indexOf("item 22") >= 0;
@@ -461,8 +455,7 @@ define([
 			}
 			list.pageLength = 23;
 			list.maxPages = 2;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 			waitForCondition(function () {
 				return list.textContent.indexOf("item 22") >= 0;
@@ -513,8 +506,7 @@ define([
 					resolve(list.source.slice(evt.start, evt.end));
 				}));
 			});
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 			waitForCondition(function () {
 				return list.textContent.indexOf("item 22") >= 0;
@@ -563,8 +555,7 @@ define([
 			}
 			list.pageLength = 23;
 			list.maxPages = 1;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.source.splice(23, 0, {id: "A", label: "item A"});
 			list.deliver();
 			waitForCondition(function () {
@@ -734,8 +725,7 @@ define([
 					resolve(list.source.slice(evt.start, evt.end));
 				}));
 			});
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 			waitForCondition(function () {
 				return list.textContent.indexOf("item 19") >= 0;
@@ -786,8 +776,7 @@ define([
 					resolve(list.source.slice(evt.start, evt.end));
 				}));
 			});
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 			waitForCondition(function () {
 				return list.textContent.indexOf("item 24") >= 0;
@@ -844,8 +833,7 @@ define([
 					resolve(list.source.slice(evt.start, evt.end));
 				}));
 			});
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 			waitForCondition(function () {
 				return list.textContent.indexOf("item 19") >= 0;
@@ -913,8 +901,7 @@ define([
 						resolve(list.source.slice(evt.start, evt.end));
 					}));
 				});
-				document.body.appendChild(list);
-				list.attachedCallback();
+				list.placeAt(document.body);
 				list.deliver();
 				waitForCondition(function () {
 					return list.textContent.indexOf("item 24") >= 0;
@@ -969,8 +956,7 @@ define([
 					resolve(list.source.slice(evt.start, evt.end));
 				}));
 			});
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 			waitForCondition(function () {
 				return list.textContent.indexOf("item 99") >= 0;
@@ -1001,8 +987,7 @@ define([
 					resolve(list.source.slice(evt.start, evt.end));
 				}));
 			});
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			// initial load
 			list.deliver();
 			waitForCondition(function () {
@@ -1032,8 +1017,7 @@ define([
 					resolve(list.source.slice(evt.start, evt.end));
 				}));
 			});
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			// initial load
 			list.deliver();
 			waitForCondition(function () {
@@ -1064,8 +1048,7 @@ define([
 					resolve(list.source.slice(evt.start, evt.end));
 				}));
 			});
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 			waitForCondition(function () {
 				return list.textContent.indexOf("item 99") >= 0;
@@ -1095,8 +1078,7 @@ define([
 					resolve(list.source.slice(evt.start, evt.end));
 				}));
 			});
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			// initial load
 			list.deliver();
 			waitForCondition(function () {
@@ -1122,8 +1104,7 @@ define([
 					resolve(list.source.slice(evt.start, evt.end));
 				}));
 			});
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 			waitForCondition(function () {
 				return list.textContent.indexOf("item 99") >= 0;
@@ -1148,8 +1129,7 @@ define([
 					resolve(list.source.slice(evt.start, evt.end));
 				}));
 			});
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 			waitForCondition(function () {
 				return list.textContent.indexOf("item 99") >= 0;
@@ -1175,8 +1155,7 @@ define([
 					resolve(list.source.slice(evt.start, evt.end));
 				}));
 			});
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 			waitForCondition(function () {
 				return list.textContent.indexOf("item 99") >= 0;
@@ -1232,8 +1211,7 @@ define([
 			list.categoryAttr = "category";
 			list.pageLength = 25;
 			list.maxPages = 0;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			// initial load
 			list.deliver();
 			waitForCondition(function () {
@@ -1269,8 +1247,7 @@ define([
 			}
 			list.pageLength = 10;
 			list.maxPages = 2;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 			waitForCondition(function () {
 				return list.textContent.indexOf("item 9") >= 0;
@@ -1305,8 +1282,7 @@ define([
 			}
 			list.pageLength = 10;
 			list.maxPages = 2;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 			waitForCondition(function () {
 				return list.textContent.indexOf("item 9") >= 0;
@@ -1339,8 +1315,7 @@ define([
 			}
 			list.pageLength = 10;
 			list.maxPages = 1;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 			waitForCondition(function () {
 				return list.textContent.indexOf("item 9") >= 0;
@@ -1366,8 +1341,7 @@ define([
 			}
 			list.pageLength = 10;
 			list.maxPages = 1;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 			waitForCondition(function () {
 				return list.textContent.indexOf("item 9") >= 0;
@@ -1399,8 +1373,7 @@ define([
 					resolve(list.source.slice(evt.start, evt.end));
 				}));
 			});
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 			waitForCondition(function () {
 				return list.textContent.indexOf("item 19") >= 0;
@@ -1435,9 +1408,8 @@ define([
 			for (var i = 0; i < 100; i++) {
 				list.source.push({label: "item " + i, category: "Category " + Math.floor(i / 10)});
 			}
-			document.body.appendChild(list);
+			list.placeAt(document.body);
 			setTimeout(def.rejectOnError(function () {
-				list.attachedCallback();
 				waitForCondition(function () {
 					return list.textContent.indexOf("item 24") >= 0;
 				}, TIMEOUT, INTERVAL).then(def.rejectOnError(function () {
@@ -1511,8 +1483,7 @@ define([
 			}
 			list.pageLength = 10;
 			list.maxPages = 1;
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.deliver();
 			waitForCondition(function () {
 				return list.textContent.indexOf("item 9") >= 0;

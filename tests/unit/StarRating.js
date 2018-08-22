@@ -10,8 +10,7 @@ define([
 		name: "StarRating",
 		beforeEach: function () {
 			sr = new StarRating();
-			document.body.appendChild(sr);
-			sr.attachedCallback();
+			sr.placeAt(document.body);
 		},
 		"Setting different values for max": function () {
 			var dfd = this.async(1000);

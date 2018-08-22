@@ -29,8 +29,8 @@ define([
 				list.destroy();
 			}
 			list = new List({source: new Store()});
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
+			
 			list.source.filter();
 			list.categoryAttr = "category";
 			list.source.add({category: "A", label: "item 1"});
@@ -315,8 +315,7 @@ define([
 			list.destroy();
 			list = null;
 			list = new List({source: new Store()});
-			document.body.appendChild(list);
-			list.attachedCallback();
+			list.placeAt(document.body);
 			list.source.filter();
 			list.categoryAttr = "category";
 			list.source.add({category: "A", label: "item 4"});

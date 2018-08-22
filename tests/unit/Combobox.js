@@ -342,8 +342,7 @@ define([
 				]
 			});
 			combo.source = dataSource;
-			container.appendChild(combo);
-			combo.attachedCallback();
+			combo.placeAt(container);
 			combo.deliver();
 
 			var d = this.async(2000);
@@ -732,8 +731,7 @@ define([
 			// Set List.valueAttr such that the render items contain the myValue field
 			// of the store data items.
 			var combo = new Combobox({valueAttr: "myValue", source: dataSourceWithValue});
-			container.appendChild(combo);
-			combo.attachedCallback();
+			combo.placeAt(container);
 
 			var d = this.async(1000);
 
@@ -767,8 +765,7 @@ define([
 			// Set List.valueAttr such that the render items contain the myValue field
 			// of the store data items.
 			var combo = new Combobox({valueAttr: "myValue", source: dataSourceWithValue, selectionMode: "multiple"});
-			container.appendChild(combo);
-			combo.attachedCallback();
+			combo.placeAt(container);
 
 			var d = this.async(1000);
 
@@ -803,9 +800,9 @@ define([
 		// "initialization with List rendering after Combobox initialization": function () {
 		// 	var combo = new Combobox(); // single selection mode
 		// 	container.appendChild(combo);
-		// 	combo.attachedCallback();
+		// 	combo.connectedCallback();
 
-		// 	// Add items to the data store after attachedCallback().
+		// 	// Add items to the data store after connectedCallback().
 		// 	var list = new List({source: new Memory()});
 		// 	addOptions(null, list, 0, nOptions - 1);
 		// 	combo.list = list;

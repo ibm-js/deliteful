@@ -59,19 +59,16 @@ define([
 			container = document.createElement("div");
 			document.body.appendChild(container);
 			var cb = new Checkbox({id: "cb1"});
-			container.appendChild(cb);
-			cb.attachedCallback();
+			cb.placeAt(container);
 			cb = new Checkbox({id: "cb2", value: "foo"});
-			container.appendChild(cb);
-			cb.attachedCallback();
+			cb.placeAt(container);
 			var lbl4 = document.createElement("label");
 			lbl4.id = "lbl4";
 			lbl4.setAttribute("for", "cb3-input");
 			lbl4.textContent = "cb3";
 			container.appendChild(lbl4);
 			cb = new Checkbox({id: "cb3", checked: true});
-			container.appendChild(cb);
-			cb.attachedCallback();
+			cb.placeAt(container);
 		}
 	};
 	mix(progSuite, suite);

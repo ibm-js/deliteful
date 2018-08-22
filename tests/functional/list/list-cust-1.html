@@ -29,8 +29,7 @@
 			list.itemRenderer = MyCustomRenderer;
 			list.source = new (Memory.createSubclass([Trackable], {}))();
 			list.style.height = "200px";
-			document.getElementById("listPlaceholder").appendChild(list);
-			list.attachedCallback();
+			list.placeAt("listPlaceholder");
   			for (var i = 0; i < 40; i++) {
 				list.source.addSync({});
 			}

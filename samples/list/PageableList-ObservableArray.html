@@ -18,13 +18,12 @@
 
 	<script type="text/javascript">
 		require([
-			"delite/register",
 			'requirejs-dplugins/Promise!',
 			"deliteful/list/PageableList", // page level CSS
 			"decor/ObservableArray",
 			"decor/Observable"
-		], function (register, Promise, PageableList, ObservableArray, Observable) {
-			var list  = register.createElement("d-pageable-list");
+		], function (Promise, PageableList, ObservableArray, Observable) {
+			var list  = new PageableList();
 			list.id = "L";
 
 			list.source = new ObservableArray();

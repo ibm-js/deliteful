@@ -19,25 +19,22 @@
 			"deliteful/Slider",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (register) {
+		], function (register, Slider) {
 			// programmatic creation and initialization
-			var singleSliderPrg = [
-				["singleSlider01"],
-				["singleSlider02", 25],
-				["singleSlider03", 100],
-				["rangeSlider01", ","],
-				["rangeSlider02", "10,90"],
-				["rangeSlider03", "80,100"]
-			];
-			for (var i = 0, slider; i < singleSliderPrg.length; ++i) {
-				slider = register.createElement("d-slider");
-				slider.id = singleSliderPrg[i][0];
-				if (singleSliderPrg[i].length > 1) {
-					slider.value = singleSliderPrg[i][1];
-				}
-				document.getElementById(slider.id + "_ph").appendChild(slider);
-				slider.attachedCallback();
-			}
+			var single1 = new Slider({ id: "singleSlider01" });
+			single1.placeAt("singleSlider01_ph");
+			var single2 = new Slider({ id: "singleSlider02", value: 25 });
+			single2.placeAt("singleSlider02_ph");
+			var single3 = new Slider({ id: "singleSlider03", value: 100 });
+			single3.placeAt("singleSlider03_ph");
+
+			var range1 = new Slider({ id: "rangeSlider01", value: "," });
+			range1.placeAt("rangeSlider01_ph");
+			var range2 = new Slider({ id: "rangeSlider02", value: "10,90" });
+			range2.placeAt("rangeSlider02_ph");
+			var range3 = new Slider({ id: "rangeSlider03", value: "80,100" });
+			range3.placeAt("rangeSlider03_ph");
+			
 			// read value from d-slider elements and set to span.innerHTML for intern functional test suite.
 			var nodeList = document.querySelectorAll("d-slider");
 			for (i = 0; i < nodeList.length; ++i) {

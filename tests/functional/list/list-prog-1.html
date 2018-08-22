@@ -11,11 +11,10 @@
 	<script type="text/javascript">
 		var ready = false;
 		require([
-			"delite/register",
 			"deliteful/list/List",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (register, List) {
+		], function (List) {
 			var array = [];
 			for (var i = 0; i < 100; i++) {
 				array[i] = {label: "Programmatic item of order " + i, righttext: "list-prog-1"};
@@ -26,8 +25,7 @@
 				source: array
 			});
 			list.style.height = "200px";
-			document.getElementById("listPlaceholder").appendChild(list);
-			list.attachedCallback();
+			list.placeAt("listPlaceholder");
 
 			ready = true;
 		});

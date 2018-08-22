@@ -12,12 +12,11 @@
 		var ready = false;
 		require([
 			"requirejs-dplugins/Promise!",
-			"delite/register",
 			"deliteful/list/PageableList",
 			"dstore/Memory",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (Promise, register, PageableList, MemoryStore) {
+		], function (Promise, PageableList, MemoryStore) {
 			// Custom memory store with a customizable latency
 			var CustomMemoryStore = MemoryStore.createSubclass([], {
 				latency: 1500,
@@ -53,8 +52,7 @@
 			});
 			list.style.height = "200px";
 			list.autoPaging = true;
-			document.getElementById("listPlaceholder").appendChild(list);
-			list.attachedCallback();
+			list.placeAt("listPlaceholder");
 
 			ready = true;
 		});

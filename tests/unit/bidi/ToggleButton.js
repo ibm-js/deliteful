@@ -75,10 +75,8 @@ define([
 			"textDir": function () {
 				var b1 = new ToggleButton({id: "b1", label: "\u05d0\u05d1\u05d2 ABC",
 					title: "ABC \u05d0\u05d1\u05d2", checkedLabel: "ABC \u05d2\u05d1\u05d0"});
-				container.appendChild(b1);
-				b1.attachedCallback();
 				b1.textDir = "ltr";
-				b1.deliver();
+				b1.placeAt(container);
 				assert.strictEqual("\u202a\u05d0\u05d1\u05d2 ABC\u202c", b1.labelNode.textContent,
 					"ltr: wrong displayed value for 'label'");
 				assert.strictEqual("\u202aABC \u05d0\u05d1\u05d2\u202c", b1.title,
@@ -110,11 +108,9 @@ define([
 			},
 			"label": function () {
 				var b2 = new ToggleButton({id: "b2"});
-				container.appendChild(b2);
-				b2.attachedCallback();
 				b2.textDir = "rtl";
 				b2.label = "ABC \u05d0\u05d1\u05d2";
-				b2.deliver();
+				b2.placeAt(container);
 				assert.strictEqual("\u202bABC \u05d0\u05d1\u05d2\u202c", b2.labelNode.textContent,
 					"label: wrong displayed rtl value");
 				b2.textDir = "ltr";
@@ -125,11 +121,9 @@ define([
 			},
 			"checkedLabel": function () {
 				var b2 = new ToggleButton({id: "b2", checked: true});
-				container.appendChild(b2);
-				b2.attachedCallback();
 				b2.textDir = "rtl";
 				b2.checkedLabel = "ABC \u05d0\u05d1\u05d2";
-				b2.deliver();
+				b2.placeAt(container);
 				assert.strictEqual("\u202bABC \u05d0\u05d1\u05d2\u202c", b2.labelNode.textContent,
 					"checkedLabel: wrong displayed rtl value");
 				b2.textDir = "ltr";
@@ -140,11 +134,9 @@ define([
 			},
 			"title": function () {
 				var b3 = new ToggleButton({id: "b3"});
-				container.appendChild(b3);
-				b3.attachedCallback();
 				b3.textDir = "auto";
 				b3.title = "\u05d0\u05d1\u05d2 ABC";
-				b3.deliver();
+				b3.placeAt(container);
 				assert.strictEqual("\u202b\u05d0\u05d1\u05d2 ABC\u202c", b3.title,
 					"title: wrong value for 'auto' (1)");
 				b3.textDir = "ltr";

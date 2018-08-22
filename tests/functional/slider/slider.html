@@ -22,7 +22,7 @@
 			"deliteful/Slider",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (register, Slider) {
+		], function (register) {
 			register.deliver();
 			// read value from d-slider elements and set to span.innerHTML for intern functional test suite.
 			var nodeList = document.querySelectorAll("d-slider"), i;
@@ -45,7 +45,7 @@
 			// tracking events sent to parent of rangeSlider01 during capture
 			rangeSlider01parent = {pointerdowns: 0, pointermoves: 0};
 			rangeSlider01parent.element = document.getElementById("rangeSlider01parent");
-			rangeSlider01 = document.getElementById("rangeSlider01")
+			rangeSlider01 = document.getElementById("rangeSlider01");
 
 			rangeSlider01.addEventListener("pointerdown", function () {
 				rangeSlider01parent.pointerdowns = 0;
@@ -57,7 +57,6 @@
 			rangeSlider01parent.element.addEventListener("pointermove", function () {
 				rangeSlider01parent.pointermoves++;
 			});
-
 
 			// allow functional tests to start
 			ready = true;
