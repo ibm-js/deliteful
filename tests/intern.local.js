@@ -13,5 +13,10 @@ define([
 
 	intern.maxConcurrency = 1;
 
+	// A regular expression matching URLs to files that should not be included in code coverage analysis
+	intern.excludeInstrumentation =
+		/*jshint -W101*/
+		/^(requirejs.*|dcl|dojo|dstore|dpointer|decor|jquery|lie|delite\/|deliteful\/tests|ecma402|.*themes|.*transitions|.*node_modules)/;
+
 	return intern;
 });

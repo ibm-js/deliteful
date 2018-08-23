@@ -19,7 +19,7 @@ define([
 
 		"Switch behavior": function () {
 			var remote = this.remote;
-			if (/safari|firefox|iOS|selendroid/.test(remote.environmentType.browserName)) {
+			if (/safari|firefox|selendroid/.test(remote.environmentType.browserName)) {
 				// See https://code.google.com/p/selenium/issues/detail?id=4136
 				return this.skip("moveMouseTo() unsupported");
 			}

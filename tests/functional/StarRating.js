@@ -349,7 +349,7 @@ define([
 			var remote = this.remote;
 			// Safari driver does not support the back method
 			// see https://code.google.com/p/selenium/issues/detail?id=3771
-			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName)) {
+			if (/safari|selendroid/.test(remote.environmentType.browserName)) {
 				return this.skip("SafariDriver doesn't support back.");
 			}
 			if (this.remote.environmentType.brokenMouseEvents) {

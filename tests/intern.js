@@ -10,19 +10,19 @@ define({
 	// OnDemand. Options that will be permutated are browserName, version, platform, and platformVersion; any other
 	// capabilities options specified for an environment will be copied as-is
 	environments: [
-		{ browserName: "internet explorer", version: "11", platform: "Windows 7", requireWindowFocus: "true",
-			name : "deliteful"},
-		{ browserName: "firefox", version: "53", platform: [ /*"OS X 10.6", "Linux", */ "Windows 7" ],
-			name : "deliteful"},
-		{ browserName: "chrome", version: "51", platform: [ /*"OS X 10.6", "Linux", */ "Windows 7" ],
-			name : "deliteful"}
+		{ browserName: "MicrosoftEdge", version: "17", fixSessionCapabilities: false, name: "deliteful"},
+		{ browserName: "internet explorer", version: "11", platform: "Windows 8.1",
+			requireWindowFocus: "true", name: "deliteful"},
+		{ browserName: "firefox", version: "60", platform: [ "Windows 10" ], name: "deliteful" },
+		{ browserName: "chrome", version: "68", platform: [ "Windows 10" ], name: "deliteful" },
 
-		// Disable Safari and iOS tests because they hang on SauceLabs.
-		// See https://github.com/theintern/intern/issues/752.
-		// As the comment says there, could try switching to BrowserStack
-		//{ browserName: "safari", version: "9", name : "deliteful"}
-		//{ browserName: "iphone", platform: "OS X 10.10", version: "9.3", deviceName: "iPad Retina",
-		//		name: "deliteful" },
+		// Safari hangs on SauceLabs, so commented out.
+		//{ browserName: "safari", version: "11", name: "deliteful" },
+
+		{ browserName: "iphone", platform: "OS X 10.10", version: "10.2", deviceName: "iPad Retina",
+			name: "deliteful" },
+		{ browserName: "android", platform: "Linux", version: "6.0",
+			deviceName: "Android Emulator", deviceType: "tablet", name: "deliteful" }
 	],
 
 	// Maximum number of simultaneous integration tests that should be executed on the remote WebDriver service
@@ -53,8 +53,6 @@ define({
 	// Functional test suite(s) to run in each browser once non-functional tests are completed
 	functionalSuites: [ "deliteful/tests/functional/all" ],
 
-	// A regular expression matching URLs to files that should not be included in code coverage analysis
-	excludeInstrumentation:
-		/*jshint -W101*/
-		/^(requirejs.*|dcl|dojo|dstore|dpointer|decor|jquery|lie|delite\/|deliteful\/tests|ecma402|.*themes|.*transitions|.*node_modules)/
+	// Disable instrumentation against SauceLabs.  We do it when running locally.
+	excludeInstrumentation: true
 });

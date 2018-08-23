@@ -328,7 +328,7 @@ define(["intern",
 		},
 		"Select Form submit": function () {
 			var remote = this.remote;
-			if (/iOS|selendroid/.test(remote.environmentType.browserName)) {
+			if (/selendroid/.test(remote.environmentType.browserName)) {
 				return this.skip();
 			}
 			return remote

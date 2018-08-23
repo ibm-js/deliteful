@@ -25,7 +25,7 @@ define(["intern",
 			return test;
 		},
 		"test opening": function () {
-			if (/safari|iOS/.test(this.remote.environmentType.browserName)
+			if (/safari/.test(this.remote.environmentType.browserName)
 				|| this.remote.environmentType.safari) {
 				return this.skip("Interactions tests are broken on Mac and iOS simulators. See #25");
 			}
@@ -34,7 +34,7 @@ define(["intern",
 				.then(isVisible(this.remote.findById("sp"), true));
 		},
 		"test closing": function () {
-			if (/safari|iOS/.test(this.remote.environmentType.browserName)
+			if (/safari/.test(this.remote.environmentType.browserName)
 				|| this.remote.environmentType.safari) {
 				return this.skip("Interactions tests are broken on Mac and iOS simulators. See #25");
 			}
@@ -43,7 +43,7 @@ define(["intern",
 				.then(isVisible(this.remote.findById("sp"), false));
 		}/*,
 		"test swipe closing": function () {
-			if (/safari|iOS/.test(this.remote.environmentType.browserName)
+			if (/safari/.test(this.remote.environmentType.browserName)
 				|| this.remote.environmentType.safari) {
 				return this.skip("Interactions tests are broken on Mac and iOS simulators. See #25");
 			}

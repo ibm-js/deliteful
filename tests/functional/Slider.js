@@ -36,7 +36,7 @@ define(["intern",
 		"single slider interaction": function () {
 			var remote = this.remote;
 			// See https://code.google.com/p/selenium/issues/detail?id=4136
-			if (/safari|firefox|iOS|selendroid/.test(remote.environmentType.browserName)) {
+			if (/safari|firefox|selendroid/.test(remote.environmentType.browserName)) {
 				return this.skip("moveMouseTo() unsupported");
 			}
 			if (remote.environmentType.brokenMouseEvents) {
@@ -84,7 +84,7 @@ define(["intern",
 		"range slider interaction": function () {
 			var remote = this.remote;
 			// See https://code.google.com/p/selenium/issues/detail?id=4136
-			if (/safari|firefox|iOS|selendroid|internet explorer/.test(remote.environmentType.browserName)) {
+			if (/safari|firefox|selendroid|internet explorer/.test(remote.environmentType.browserName)) {
 				return this.skip("moveMouseTo not supported");
 			}
 			if (remote.environmentType.brokenMouseEvents) {
@@ -115,7 +115,7 @@ define(["intern",
 		},
 		"range slider interaction inside a listening parent": function () {
 			var remote = this.remote;
-			if (/safari|firefox|iOS|selendroid|internet explorer/.test(remote.environmentType.browserName)) {
+			if (/safari|firefox|selendroid|internet explorer/.test(remote.environmentType.browserName)) {
 				// See https://code.google.com/p/selenium/issues/detail?id=4136
 				return this.skip("moveMouseTo not supported");
 			}
