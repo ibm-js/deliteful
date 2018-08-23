@@ -11,8 +11,10 @@
 .d-star-rating-zero {
   /* Do not modify the display style */
   display: inline-block;
-  height: 1px;
   width: 0.5em;
+}
+.d-star-rating-zero::before {
+  content: "\00a0";
 }
 .d-star-rating-star-icon {
   /* Do not modify the display style */
