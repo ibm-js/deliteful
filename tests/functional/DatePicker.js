@@ -30,8 +30,8 @@ define([
 					assert.strictEqual(year, "1999");
 				}).end()
 				.findAllByCssSelector("[role=gridcell]").getVisibleText().then(function (days) {
-					assert.strictEqual(days[0], "28", "Nov 28");
-					assert.strictEqual(days[days.length - 1], "1", "January 1");
+					assert.strictEqual(days[0].trim(), "28", "Nov 28");
+					assert.strictEqual(days[days.length - 1].trim(), "1", "January 1");
 				}).end()
 				.findByCssSelector(".d-date-picker-header .d-date-picker-button:last-child").click().click().end()
 				.findByCssSelector(".d-date-picker-header .d-label").getVisibleText().then(function (month) {
@@ -50,8 +50,8 @@ define([
 					assert.strictEqual(year, "1998");
 				}).end()
 				.findAllByCssSelector("[role=gridcell]").getVisibleText().then(function (days) {
-					assert.strictEqual(days[0], "1", "Feb 1, 1998");
-					assert.strictEqual(days[days.length - 1], "28", "Feb 28, 1998");
+					assert.strictEqual(days[0].trim(), "1", "Feb 1, 1998");
+					assert.strictEqual(days[days.length - 1].trim(), "28", "Feb 28, 1998");
 				}).end()
 				.findByCssSelector(".d-date-picker-footer .d-date-picker-button:last-child").click().end()
 				.findByCssSelector(".d-date-picker-header .d-label").getVisibleText().then(function (month) {
@@ -68,12 +68,12 @@ define([
 					.execute("document.getElementById('calendar1').value = new Date(2000, 0, 1);")
 					.findByCssSelector("[role=row]:nth-child(3) [role=gridcell]:nth-child(4)")
 					.getVisibleText().then(function (day) {
-						assert.strictEqual(day, "5", "Jan 5");
+						assert.strictEqual(day.trim(), "5", "Jan 5");
 					})
 					.click()
 					.end()
 					.findByCssSelector(".d-date-picker-selected").getVisibleText().then(function (day) {
-						assert.strictEqual(day, "5");
+						assert.strictEqual(day.trim(), "5");
 					}).end()
 					.findById("value").getVisibleText().then(function (value) {
 						assert.strictEqual(value, "2000-01-05");
@@ -85,12 +85,12 @@ define([
 				return this.remote
 					.execute("document.getElementById('calendar1').value = new Date(2000, 0, 1);")
 					.findByCssSelector("[role=gridcell]:nth-child(1)").getVisibleText().then(function (day) {
-						assert.strictEqual(day, "26", "Dec 26");
+						assert.strictEqual(day.trim(), "26", "Dec 26");
 					})
 					.click()
 					.end()
 					.findByCssSelector(".d-date-picker-selected").getVisibleText().then(function (day) {
-						assert.strictEqual(day, "26");
+						assert.strictEqual(day.trim(), "26");
 					}).end()
 					.findByCssSelector(".d-day-picker .d-date-picker-header .d-label")
 					.getVisibleText().then(function (month) {
@@ -112,12 +112,12 @@ define([
 					.execute("document.getElementById('calendar1').value = new Date(2000, 0, 1);")
 					.findByCssSelector("[role=row]:last-child [role=gridcell]:last-child")
 					.getVisibleText().then(function (day) {
-						assert.strictEqual(day, "5", "Feb 5");
+						assert.strictEqual(day.trim(), "5", "Feb 5");
 					})
 					.click()
 					.end()
 					.findByCssSelector(".d-date-picker-selected").getVisibleText().then(function (day) {
-						assert.strictEqual(day, "5");
+						assert.strictEqual(day.trim(), "5");
 					}).end()
 					.findByCssSelector(".d-day-picker .d-date-picker-header .d-label")
 					.getVisibleText().then(function (month) {

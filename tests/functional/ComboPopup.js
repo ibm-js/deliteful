@@ -181,7 +181,7 @@ define([
 				.getVisibleText().then(function (popupLabel) {
 					return remote.findByCssSelector("label[for=" + comboId + "-input]")
 						.getVisibleText().then(function (comboLabel) {
-							assert.strictEqual(popupLabel, comboLabel.trim(), "expected label");
+							assert.strictEqual(popupLabel.trim(), comboLabel.trim(), "expected label");
 						}).end();
 				}).end()
 
