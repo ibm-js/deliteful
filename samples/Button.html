@@ -21,8 +21,12 @@
 			"deliteful/Button",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function () {
+		], function (Button) {
 			document.body.style.display = "";
+			var button = new Button({
+				label: "Programatically created"
+			});
+			button.placeAt(document.body);
 		});
 	</script>
 	<style>
