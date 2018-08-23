@@ -28,7 +28,7 @@ define([
 	};
 
 
-	var container;
+	var container, toaster;
 
 	registerSuite({
 
@@ -40,45 +40,44 @@ define([
 			document.body.appendChild(container);
 		},
 
+		beforeEach: function () {
+			toaster = new Toaster();
+			toaster.placeAt("container");
+		},
+
+		afterEach: function () {
+			if (toaster) {
+				toaster.destroy();
+				toaster = null;
+			}
+		},
+
 		"Default values": function () {
-			var toasterDefault = new Toaster();
-			toasterDefault.placeAt("container");
+			assert($(toaster).hasClass("d-toaster-placement-default"),
+				"toaster has class d-toaster-placement-default");
 
-			assert($(toasterDefault).hasClass("d-toaster-placement-default"),
-				"toasterDefault has class d-toaster-placement-default");
-
-			assert.isFalse(toasterDefault.invertOrder,
+			assert.isFalse(toaster.invertOrder,
 				"invertOrder should be set to false by default");
-			assert.strictEqual(toasterDefault.animationInitialClass, "d-toaster-initial",
+			assert.strictEqual(toaster.animationInitialClass, "d-toaster-initial",
 				"animationInitialClass is by default d-toaster-initial");
-			assert.strictEqual(toasterDefault.animationEnterClass, "d-toaster-fadein",
+			assert.strictEqual(toaster.animationEnterClass, "d-toaster-fadein",
 				"animationEnterClass is by default d-toaster-fadein");
-			assert.strictEqual(toasterDefault.animationQuitClass, "d-toaster-fadeout",
+			assert.strictEqual(toaster.animationQuitClass, "d-toaster-fadeout",
 				"animationQuitClass is by default d-toaster-fadeout");
-			assert.strictEqual(toasterDefault.animationEndClass, "d-toaster-fadefinish",
+			assert.strictEqual(toaster.animationEndClass, "d-toaster-fadefinish",
 				"animationEndClass is by default d-toaster-fadefinish");
 		},
 		"Checking if placement class of the toaster is correct": function () {
-			var toasters = {
-				default: null,
-				tc: null,
-				tl: null,
-				tr: null,
-				bl: null,
-				bc: null,
-				br: null
-			};
-			Object.keys(toasters).forEach(function (pos) {
-				toasters[pos] = new Toaster({placementClass: "d-toaster-placement-" + pos});
-				toasters[pos].placeAt("container");
-				assert.isTrue($(toasters[pos]).hasClass("d-toaster-placement-" + pos),
+			var positions = ["default", "tc", "tl", "tr", "bl", "bc", "br"];
+			positions.forEach(function (pos) {
+				toaster = new Toaster({placementClass: "d-toaster-placement-" + pos});
+				toaster.placeAt("container");
+				assert.isTrue($(toaster).hasClass("d-toaster-placement-" + pos),
 					"d-toaster-placement-" + pos + " CSS class has been correctly set");
+				toaster.destroy();
 			});
 		},
 		"Checking raw message creation and posting": function () {
-			var toast = new Toaster();
-			toast.placeAt("container");
-
 			// creating the messages
 			var makeMessage = function (i) {
 				return "message content " + i;
@@ -87,18 +86,15 @@ define([
 
 			// posting the messages
 			messages.forEach(function (m) {
-				toast.postMessage(m);
+				toaster.postMessage(m);
 			});
 
 			// checking the posted messages
 			messages.forEach(function (m) {
-				_assert.includeOnceWithMessage(toast.messages, m);
+				_assert.includeOnceWithMessage(toaster.messages, m);
 			});
 		},
 		"Checking message widget creation and posting": function () {
-			var toast = new Toaster();
-			toast.placeAt("container");
-
 			// creating the messages
 			var makeMessage = function (i) {
 				return new ToasterMessage({message: "Hello world " + i});
@@ -107,37 +103,30 @@ define([
 
 			// posting the messages
 			messages.forEach(function (mw) {
-				toast.postMessage(mw);
+				toaster.postMessage(mw);
 			});
 
 			// checking the posted messages
 			messages.forEach(function (mw) {
-				_assert.include(toast.messages, mw,
+				_assert.include(toaster.messages, mw,
 					mw + " has been correctly added");
 			});
 
-			assert.lengthOf(toast.messages, messages.length,
+			assert.lengthOf(toaster.messages, messages.length,
 				"all messages are found");
 		},
-		"Testing behaviour of _allExpAreRemovable and _getRemovableMsg": function () {
-			var toast = new Toaster();
-			toast.placeAt("container");
+		"Testing behaviour of _allExpAreRemovable and _getRemovableMsg #1": function () {
+			for (var i = 0; i < 100; i++) {
+				var m = new ToasterMessage({message: "Hello, World", duration: 1000});
+				toaster.postMessage(m);
+			}
 
-			var resetToast = function () {
-				toast.messages = [];
-				for (var i = 0; i < 100; i++) {
-					var m = new ToasterMessage({message: "Hello, World", duration: 1000});
-					toast.postMessage(m);
-				}
-			};
-
-			resetToast();
 			// some messages are removable (those in removableMsgs0) and some are not
 			var removableMsgs0 = [];
-			toast.messages.forEach(function (m, i) {
+			toaster.messages.forEach(function (m, i) {
 				// NOTE: updating `_toBeRemoved` is done separately on purpose
 				// doing it in the previous for loop would have a side effect on the
-				// `toast.messages` list as `postMessage` invokes `refreshRendering`
+				// `toaster.messages` list as `postMessage` invokes `refreshRendering`
 
 				if (i % 2) {
 					removableMsgs0.push(m);
@@ -146,10 +135,10 @@ define([
 					m._toBeRemoved = false; // and some are not
 				}
 			});
-			assert.isFalse(toast._allExpAreRemovable(),
+			assert.isFalse(toaster._allExpAreRemovable(),
 				"not all messages are removable");
 
-			var removableMsgs = toast._getRemovableMsg();
+			var removableMsgs = toaster._getRemovableMsg();
 			assert.lengthOf(removableMsgs, removableMsgs0.length,
 				"number of removable messages found is correct");
 
@@ -157,86 +146,101 @@ define([
 				_assert.include(removableMsgs, m0,
 					"message " + m0 + " removable messages retrieved");
 			});
+		},
 
-			resetToast();
+		"Testing behaviour of _allExpAreRemovable and _getRemovableMsg #2": function () {
+			for (var i = 0; i < 100; i++) {
+				var m = new ToasterMessage({message: "Hello, World", duration: 1000});
+				toaster.postMessage(m);
+			}
+
 			// all messages are removable
-			toast.messages.forEach(function (m) {
+			toaster.messages.forEach(function (m) {
 				m._toBeRemoved = true;
 			});
-			assert.isTrue(toast._allExpAreRemovable(), "all messages are removable");
-			removableMsgs = toast._getRemovableMsg();
-			toast.messages.forEach(function (m0) {
+			assert.isTrue(toaster._allExpAreRemovable(), "all messages are removable");
+			var removableMsgs = toaster._getRemovableMsg();
+			toaster.messages.forEach(function (m0) {
 				_assert.include(removableMsgs, m0,
 					"All removable Msg were retrieved by _getRemovableMsg");
 			});
+		},
 
+		"Testing behaviour of _allExpAreRemovable and _getRemovableMsg #3": function () {
+			for (var i = 0; i < 100; i++) {
+				var m = new ToasterMessage({message: "Hello, World", duration: 1000});
+				toaster.postMessage(m);
+			}
 
-			resetToast();
 			// all messages are non removable
-			toast.messages.forEach(function (m) {
+			toaster.messages.forEach(function (m) {
 				m._toBeRemoved = false; // no removable messages
 			});
-			assert.isFalse(toast._allExpAreRemovable(),
+			assert.isFalse(toaster._allExpAreRemovable(),
 				"make sure _hasOnlyRemovableMsg outputs false");
-			removableMsgs = toast._getRemovableMsg();
+			var removableMsgs = toaster._getRemovableMsg();
 			assert.lengthOf(removableMsgs, 0,
 				"make sure number of msg retrieved by _getRemovableMsg is 0");
 		},
-		/*jshint maxcomplexity:11*/
-		"Checking _nonRemovableAreOnlyPersistent behaviour": function () {
-			var i, N = 20, m, toast = new Toaster();
-			toast.placeAt("container");
 
+		/*jshint maxcomplexity:11*/
+		"Checking _nonRemovableAreOnlyPersistent behaviour #1": function () {
 			// some messages are removable and some are not
 			// some messages are persistent and some are not
 			// if a message is expirable then it is removable
-			for (i = 0; i < N; i++) {
-				m = new ToasterMessage({messages: "Hello, World", duration: 2000});
+			var N = 20;
+			for (var i = 0; i < N; i++) {
+				var m = new ToasterMessage({messages: "Hello, World", duration: 2000});
 				m.duration = i < N / 2 ? -1 : 2000;
 				m._toBeRemoved = m.isExpirable() || (i % 2 !== 0); // some are non removable
-				toast.postMessage(m);
+				toaster.postMessage(m);
 			}
 
-			assert.isTrue(toast._allExpAreRemovable(),
+			assert.isTrue(toaster._allExpAreRemovable(),
 				"all exp messages are removable");
+		},
 
-
+		"Checking _nonRemovableAreOnlyPersistent behaviour #2": function () {
 			// some messages are removable and some are not
 			// some messages are persistent and some are not
 			// some messages are expirable and not removable
-			toast.messages = [];
-			for (i = 0; i < N; i++) {
-				m = new ToasterMessage({messages: "Hello, World", duration: 0});
+			var N = 20;
+			for (var i = 0; i < N; i++) {
+				var m = new ToasterMessage({messages: "Hello, World", duration: 0});
 				m.duration = i < N / 2 ? -1 : 2000; // some are expirable
 				m._toBeRemoved = i % 2 !== 0;   // some are non removable
-				toast.postMessage(m);
+				toaster.postMessage(m);
 			}
 
-			assert.isFalse(toast._allExpAreRemovable(),
+			assert.isFalse(toaster._allExpAreRemovable(),
 				"not all exp are removable");
+		},
 
+		"Checking _nonRemovableAreOnlyPersistent behaviour #3": function () {
 			// all messages are non removable
 			// some messages are exp and some are not
-			toast.messages = [];
-			for (i = 0; i < N; i++) {
-				m = new ToasterMessage({messages: "Hello, World", duration: 0});
+			var N = 20;
+			for (var i = 0; i < N; i++) {
+				var m = new ToasterMessage({messages: "Hello, World", duration: 0});
 				m._toBeRemoved = false; // all are non removable
 				m.duration = i % 2 === 0 ? 2000 : -1; // some are persistent
-				toast.postMessage(m);
+				toaster.postMessage(m);
 			}
-			assert.isFalse(toast._allExpAreRemovable(),
+			assert.isFalse(toaster._allExpAreRemovable(),
 				"there are no removable messages at all");
+		},
 
+		"Checking _nonRemovableAreOnlyPersistent behaviour #4": function () {
 			// all messages are non removable
 			// all messages are expirable
-			toast.messages = [];
-			for (i = 0; i < N; i++) {
-				m = new ToasterMessage({messages: "Hello, World", duration: 0});
+			var N = 20;
+			for (var i = 0; i < N; i++) {
+				var m = new ToasterMessage({messages: "Hello, World", duration: 0});
 				m._toBeRemoved = false; // all are non removable
 				m.duration = 2000; // all are expirable
-				toast.postMessage(m);
+				toaster.postMessage(m);
 			}
-			assert.isFalse(toast._allExpAreRemovable(),
+			assert.isFalse(toaster._allExpAreRemovable(),
 				"there are no removable messages");
 		},
 
