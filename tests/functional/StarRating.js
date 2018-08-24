@@ -360,6 +360,9 @@ define([
 				// https://github.com/theintern/leadfoot/issues/61
 				return this.skip("click() doesn't generate touchstart, so value won't be updated");
 			}
+			if (this.remote.environmentType.browserName === "MicrosoftEdge") {
+				return this.skip("works manually but fails against saucelabs");
+			}
 			return remote
 			.get(require.toUrl("./StarRating-formback.html"))
 			.then(pollUntil("return 'ready' in window && ready ? true : null;", [],
