@@ -33,6 +33,10 @@
   content: "\2714";
   color: #555555;
 }
+.d-checkbox.d-indeterminate .d-checkbox-icon::before {
+  content: "-";
+  color: #555555;
+}
 .d-checkbox.d-disabled {
   color: #eeeeee;
 }

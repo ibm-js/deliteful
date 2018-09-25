@@ -31,6 +31,12 @@
   background-color: transparent;
   background-image: none;
 }
+.d-checkbox.d-indeterminate .d-checkbox-icon::before {
+  content: "-";
+  color: #61c6eb;
+  background-color: transparent;
+  background-image: none;
+}
 .d-checkbox:active .d-checkbox-icon::before {
   border-color: #99bbca;
   box-shadow: 0px 0px 1px 4px #1f5366;

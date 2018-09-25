@@ -19,6 +19,10 @@
 		content: "\2714";   		// check mark
 		.d-checkbox-checked-before-styles();
 	}
+	&.d-indeterminate .d-checkbox-icon::before {
+		content: "-";   		// indeterminate marker
+		.d-checkbox-checked-before-styles();
+	}
 	&:active .d-checkbox-icon::before {
 		.d-checkbox-active-styles();
 	}

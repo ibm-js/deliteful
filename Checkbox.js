@@ -25,6 +25,12 @@ define([
 		 */
 		baseClass: "d-checkbox",
 
+		/**
+		 * If true, then the checkbox displays as indeterminate.  Doesn't affect the `checked` property's
+		 * value though.
+		 */
+		indeterminate: false,
+
 		template: template,
 
 		postRender: function () {
@@ -33,7 +39,19 @@ define([
 			this.on("change", this._inputClickHandler.bind(this), this.focusNode);
 		},
 
+		refreshRendering: function (oldVals) {
+			// Since d-checked is set programatically, let's set d-indeterminate programatically too.
+			if ("indeterminate" in oldVals) {
+				if (this.indeterminate) {
+					this.classList.add("d-indeterminate");
+				} else {
+					this.classList.remove("d-indeterminate");
+				}
+			}
+		},
+
 		_inputClickHandler: function () {
+			this.indeterminate = false;
 			this.checked = this.focusNode.checked;
 		}
 	});
