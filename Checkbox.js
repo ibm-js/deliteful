@@ -50,9 +50,13 @@ define([
 			}
 		},
 
-		_inputClickHandler: function () {
+		_inputClickHandler: function (evt) {
 			this.indeterminate = false;
 			this.checked = this.focusNode.checked;
+
+			// Emit event from my root node rather than from the embedded <input>
+			evt.stopPropagation();
+			this.emit(evt.type);
 		}
 	});
 });
