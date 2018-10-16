@@ -10,20 +10,6 @@ define([
 				intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 	}
 
-	function getTransformX(v) {
-		var m = v.match(/matrix\(.*,.*,.*,.*,\s*(.*)\s*,.*\)/);
-		if (m && m.length > 0) {
-			return m[1];
-		} else {
-			m = v.match(/matrix3d\(.*,.*,.*,.*,.*,.*,.*,.*,.*,.*,.*,.*,\s*(.*)\s*,.*,.*,.*\)/);
-			if (m && m.length > 0) {
-				return m[1];
-			} else {
-				return "unknown transform";
-			}
-		}
-	}
-	
 	registerSuite({
 		name: "SwapView - functional",
 
