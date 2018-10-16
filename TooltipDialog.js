@@ -20,7 +20,7 @@ define([
 		/**
 		 * The name of the CSS class of this widget.
 		 * @member {string}
-		 * @default "d-tooltip"
+		 * @default "d-tooltip d-tooltip-dialog"
 		 */
 		baseClass: "d-tooltip d-tooltip-dialog",
 
@@ -33,7 +33,7 @@ define([
 		label: "",
 
 		/**
-		 *  Class to display the close button icon.
+		 * Class to display the close button icon.
 		 * @member {string}
 		 * @default "d-tooltip-dialog-close-icon"
 		 */
@@ -51,8 +51,8 @@ define([
 			this.emit("cancel");
 		},
 
-		// Override Toolip#onOpen() and onClose() to *not* set aria-describedby,
-		// because it shouldn't be set for TooltipDialog, but only for Tooltip
+		// Override Tooltip#onOpen() and onClose() to *not* set aria-describedby,
+		// because it shouldn't be set for TooltipDialog, but only for Tooltip.
 		onOpen: function () {},
 		onClose: function () {}
 	});

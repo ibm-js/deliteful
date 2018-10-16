@@ -1,37 +1,38 @@
-.d-tooltip.d-tooltip-dialog {
-	// Override setting from Tooltip.less so container section gets scrollbar if necessary.
+.d-dialog {
 	display: flex;
 	flex-direction: column;
 }
 
 // The top part of the TooltipDialog containing the label and the close icon.
-.d-tooltip-dialog-header {
+.d-dialog-header {
 	display: flex;
 	align-items: center;
-	padding: 10px;	// matches padding on d-tooltip-container from Tooltip.less
+	padding: 10px;	// matches padding on d-container from Tooltip.less
 	border-bottom: 1px solid black;
 }
 
-.d-tooltip-dialog-label {
+.d-dialog-label {
 	flex: 1;
 }
 
-.d-tooltip-dialog-icon {
+.d-dialog-icon {
 	cursor: pointer;
 }
 
 // Default close icon if app does not override "d-close-icon" class name.
-.d-tooltip-dialog-close-icon::after {
+.d-dialog-close-icon::after {
 	content: "\2716";
 }
 
-.d-tooltip-container {
+.d-dialog-container {
 	flex: 1;
 	.d-ie & {
 		// IE11 needs special CSS so natural sizing works (otherwise this node collapses completely.
 		// It breaks Chrome a little bit though (header is squashed), so doing conditionally for IE only.
 		flex: 1 1 auto;
 	}
+
+	padding: 10px;
 
 	// Show scrollbar on this node if necessary.
 	overflow: auto;

@@ -48,7 +48,7 @@ define({
 	},
 
 	// Non-functional test suite(s) to run in each browser
-	suites: [ ], // ["deliteful/tests/unit/all" ],
+	suites: [ "deliteful/tests/unit/all" ],
 
 	// Functional test suite(s) to run in each browser once non-functional tests are completed
 	functionalSuites: [ "deliteful/tests/functional/all" ],

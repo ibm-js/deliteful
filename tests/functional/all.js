@@ -7,6 +7,7 @@ define([
 	"./Combobox",
 	"./ComboPopup",
 	"./DatePicker",
+	"./Dialog",
 	"./features",
 	"./list/all",
 	"./ScrollableContainer",

@@ -1,0 +1,27 @@
+.d-dialog {
+  display: flex;
+  flex-direction: column;
+}
+.d-dialog-header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid black;
+}
+.d-dialog-label {
+  flex: 1;
+}
+.d-dialog-icon {
+  cursor: pointer;
+}
+.d-dialog-close-icon::after {
+  content: "\2716";
+}
+.d-dialog-container {
+  flex: 1;
+  padding: 10px;
+  overflow: auto;
+}
+.d-ie .d-dialog-container {
+  flex: 1 1 auto;
+}
