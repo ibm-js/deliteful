@@ -20,9 +20,9 @@ define([
 		accessibility: function () {
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
-				// For some reason looping around on firefox works in real life but not via webdriver.
 				return this.skip("keyboard support problems");
 			}
+
 			return remote
 				.findById("top").click().end()
 				.execute("return document.getElementById('top-tooltip').hasAttribute('aria-describedby');")
@@ -50,12 +50,7 @@ define([
 		},
 
 		scrollbars: function () {
-			var remote = this.remote;
-			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
-				// For some reason looping around on firefox works in real life but not via webdriver.
-				return this.skip("keyboard support problems");
-			}
-			return remote
+			return this.remote
 				.findById("bottomTall").click().end()
 				.execute("var tooltip = document.getElementById('bottom-tall-tooltip');\n return {" +
 					"winHeight: window.innerHeight, " +
