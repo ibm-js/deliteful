@@ -66,15 +66,15 @@ define([
 				.execute("return document.activeElement.id").then(function (id) {
 					assert.strictEqual(id, "nested", "tabbed to button to open nested dialog");
 				})
-				.pressKeys(keys.SPACE)    // open nested dialog
+				.pressKeys(keys.SPACE)	// open nested dialog
 				.execute("return document.activeElement.id").then(function (id) {
 					assert.strictEqual(id, "name3", "focus on open of nested dialog");
 				})
-				.pressKeys(keys.ESCAPE)  	// close nested dialog
+				.pressKeys(keys.ESCAPE)	// close nested dialog
 				.execute("return document.activeElement.id").then(function (id) {
 					assert.strictEqual(id, "nested", "focus on close of tall dialog");
 				})
-				.pressKeys(keys.ESCAPE)   	// close tall dialog
+				.pressKeys(keys.ESCAPE)   // close tall dialog
 				.execute("return document.activeElement.id").then(function (id) {
 					assert.strictEqual(id, "tall", "focus on close of tall dialog");
 				});

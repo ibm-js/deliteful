@@ -1,4 +1,5 @@
 define([
+	"delite/popup",
 	"delite/register",
 	"delite/Container",
 	"delite/Dialog",
@@ -6,6 +7,7 @@ define([
 	"requirejs-dplugins/i18n!./Dialog/nls/Dialog",
 	"delite/theme!./Dialog/themes/{{theme}}/Dialog.css"
 ], function (
+	popup,
 	register,
 	Container,
 	Dialog,
@@ -48,6 +50,51 @@ define([
 		 * @default "d-dialog-close-icon"
 		 */
 		closeButtonIconClass: "d-dialog-close-icon",
+
+		/**
+		 * Display the Dialog.
+		 */
+		open: function () {
+			this._originalStyle = this.style.cssText;
+
+			var previouslyFocusedNode = this.ownerDocument.activeElement;
+
+			popup.open({
+				parent: previouslyFocusedNode,
+				popup: this,
+				orient: ["center"],
+				onExecute: this.close.bind(this),
+				onCancel: this.close.bind(this),
+				onClose: function () {
+					// Restore original height/width etc.  But don't put back display:none.
+					// That is handled by the popup wrapper.
+					this.style.cssText = this._originalStyle;
+					if (this.style.display === "none") {
+						this.style.display = "";
+					}
+					if (this.style.visibility === "hidden") {
+						this.style.visibility = "";
+					}
+
+					// Focus previously focused node unless it's hidden or destroyed,
+					// in which case caller must handle the focus.
+					if (previouslyFocusedNode && previouslyFocusedNode.focus &&
+						previouslyFocusedNode.offsetParent !== null) {
+						previouslyFocusedNode.focus();
+					}
+				}.bind(this)
+			});
+
+			this.focus();
+		},
+
+		/**
+		 * Closes the dialog.
+		 * Called automatically when dialog emits an "execute" or "cancel" event.
+		 */
+		close: function () {
+			popup.close(this);
+		},
 
 		focus: function () {
 			// Focus on first field.

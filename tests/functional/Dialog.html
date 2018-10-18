@@ -14,7 +14,7 @@
 			height: 100%;
 		}
 
-		d-dropdown-button {
+		button {
 			border: solid darkblue 1px;
 			background: white;
 			padding: 5px;
@@ -40,7 +40,6 @@
 		var ready = false; // set to true when the test page is ready
 		require([
 			"delite/register",
-			"deliteful/DropDownButton",
 			"deliteful/Dialog",
 			"requirejs-domready/domReady!"
 		], function (register) {
@@ -55,19 +54,19 @@
 	<label for="input">input to focus:</label>
 	<input id="input">
 
-	<d-dropdown-button id="short" dropDown="short-dialog" dropDownPosition="center">
+	<button id="short" onclick="document.getElementById('short-dialog').open();">
 		show dialog
-	</d-dropdown-button>
+	</button>
 	<d-dialog id="short-dialog" label="My Dialog" style="display: none">
 		<label for="name">Name:</label> <input id="name"> <br>
 		<label for="age">Age:</label> <input id="age"> <br>
 		<label for="sex">Sex:</label> <input id="sex"> <br><br>
-		<button type="submit">OK</button>
+		<button type="button" onclick="document.getElementById('short-dialog').emit('execute');">OK</button>
 	</d-dialog>
 
-	<d-dropdown-button id="tall" dropDown="tall-dialog" dropDownPosition="center">
+	<button id="tall" onclick="document.getElementById('tall-dialog').open();">
 		show dialog with scrollbar
-	</d-dropdown-button>
+	</button>
 	<d-dialog id="tall-dialog" label="My Dialog With Scrollbar" style="display: none">
 		I'm a tall Dialog.<br>
 		I should get a scrollbar and my borders should remain on the screen.<br>
@@ -76,9 +75,9 @@
 		<label for="age2">Age:</label> <input id="age2"> <br>
 		<label for="sex2">Sex:</label> <input id="sex2"> <br><br>
 		<br>
-		<d-dropdown-button id="nested" dropDown="nested-dialog" dropDownPosition="center">
+		<button id="nested" onclick="document.getElementById('nested-dialog').open();">
 			show nested dialog
-		</d-dropdown-button>
+		</button>
 		<br>
 		Ninenty nine bottles of beer on the wall.<br>
 		Ninenty eight bottles of beer on the wall.<br>
@@ -189,7 +188,7 @@
 		Two bottles of beer on the wall.<br>
 		One bottle of beer on the wall.<br>
 		<br>
-		<button type="submit">OK</button>
+		<button type="button" onclick="document.getElementById('tall-dialog').emit('execute');">OK</button>
 	</d-dialog>
 
 	<d-dialog id="nested-dialog" label="Nested Dialog" style="display: none">
@@ -198,7 +197,7 @@
 		<label for="age3">Age:</label> <input id="age3"> <br>
 		<label for="sex3">Sex:</label> <input id="sex3"> <br><br>
 		<br>
-		<button type="submit">OK</button>
+		<button type="button" onclick="document.getElementById('nested-dialog').emit('execute');">OK</button>
 	</d-dialog>
 </body>
 </html>
