@@ -320,7 +320,7 @@ define([
 			};
 		}),
 
-		refreshRendering: function (props, isAfterInitialRendering) {
+		refreshRendering: function (props) {
 			//	List attributes have been updated.
 			/*jshint maxcomplexity:15*/
 			if ("selectionMode" in props) {
@@ -372,12 +372,6 @@ define([
 				} else {
 					this.containerNode.removeAttribute("aria-readonly");
 				}
-			}
-
-			if (("renderItems" in props && this.renderItems ||
-					"_displayedPanel" in props) && !isAfterInitialRendering) {
-				// notify the list content changed.
-				this.emit("delite-size-change");
 			}
 		},
 

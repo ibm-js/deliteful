@@ -665,7 +665,6 @@ define([
 				this.list.setAttribute("d-shown", "" + showList);
 				if (this.dropDown) {
 					this.dropDown.inputNode.setAttribute("aria-expanded", "" + showList);
-					this.list.emit("delite-size-change");
 				}
 			} else {
 				// Desktop version.

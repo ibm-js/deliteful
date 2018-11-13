@@ -72,7 +72,6 @@
 							 this.containerNode.innerHTML = [1, 2, 3, 4, 5].map(function (num) {
 							 	return "Loaded content line " + num + ".";
 							 }).join("<br>");
-							this.emit("delite-size-change");
 						}, 500);
 					});
 					this.on("popup-before-hide", function () {
