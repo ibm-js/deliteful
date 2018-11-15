@@ -5,7 +5,8 @@ define([
 	"delite/Dialog",
 	"delite/handlebars!./Dialog/Dialog.html",
 	"requirejs-dplugins/i18n!./Dialog/nls/Dialog",
-	"delite/theme!./Dialog/themes/{{theme}}/Dialog.css"
+	"delite/theme!./Dialog/themes/{{theme}}/Dialog.css",
+	"delite/uacss"		// Dialog.css references "d-ie" class
 ], function (
 	popup,
 	register,
