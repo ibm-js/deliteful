@@ -117,6 +117,8 @@ define([
 				rb3 = document.getElementById("rb3");
 			setTimeout(d.rejectOnError(function () {
 				rb3.on("click", function () {
+					// TODO: These asserts are meaningless since they run in separate threads.
+					// Test needs to be redesigned.
 					assert.isTrue(rb3.checked, "Unexpected checked state for rb3 after in rb3 on-click handler");
 					assert.isTrue(rb3.focusNode.checked,
 						"Unexpected checked state for rb3's wrapped input in rb3 on-click handler");
