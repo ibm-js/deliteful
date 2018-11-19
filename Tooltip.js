@@ -4,9 +4,8 @@ define([
 	"delite/register",
 	"delite/Container",
 	"delite/handlebars!./Tooltip/Tooltip.html",
-	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/theme!./Tooltip/themes/{{theme}}/Tooltip.css"
-], function (place, register, Container, template, $) {
+], function (place, register, Container, template) {
 
 	/**
 	 * A tooltip widget, to be used as a popup.
@@ -59,7 +58,7 @@ define([
 				"TL-BR": "d-tooltip-above d-tooltip-AB-right",
 				"TR-BL": "d-tooltip-above d-tooltip-AB-left"
 			}[aroundCorner + "-" + tooltipCorner];
-			$(this).removeClass(this._currentOrientClass || "").addClass(newC);
+			this.classList.add(newC);
 			this._currentOrientClass = newC;
 
 			// Position the tooltip connector for middle alignment.
@@ -104,6 +103,10 @@ define([
 		 * This is called from the delite/popup code, and should not be called directly.
 		 */
 		onClose: function () {
+			if (this._currentOrientClass) {
+				this.classList.remove(this._currentOrientClass);
+				delete this._currentOrientClass;
+			}
 			if (this.anchorNode) {
 				this.anchorNode.removeAttribute("aria-describedby");
 			}
