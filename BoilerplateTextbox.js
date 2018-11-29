@@ -82,9 +82,9 @@ define([
 		/**
 		 * The `<input>`'s `pattern` property.
 		 * @member {string}
-		 * @default ""
+		 * @default ".*"
 		 */
-		pattern: "",
+		pattern: ".*",
 
 		/**
 		 * The `<input>`'s `autocomplete` property.
@@ -125,7 +125,7 @@ define([
 		},
 
 		/**
-		 * Called when <input> gets focused.  Subclasses can override this method.
+		 * Called when `<input>` gets focused.  Subclasses can override this method.
 		 */
 		focusHandler: function () {
 		}
