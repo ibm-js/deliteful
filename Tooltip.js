@@ -35,50 +35,63 @@ define([
 		 * This is called from the delite/popup code, and should not be called directly.
 		 */
 		onPosition: function (/*Object*/ pos) {
-			var tooltipCorner = pos.corner,
-				aroundCorner = pos.aroundCorner;
-
-			// Set appropriate class.
-			var newC = {
-				// Real around node
-				"MR-ML": "d-tooltip-right",
-				"ML-MR": "d-tooltip-left",
-				"TM-BM": "d-tooltip-above",
-				"BM-TM": "d-tooltip-below",
-				"BL-TL": "d-tooltip-below d-tooltip-AB-left",
-				"TL-BL": "d-tooltip-above d-tooltip-AB-left",
-				"BR-TR": "d-tooltip-below d-tooltip-AB-right",
-				"TR-BR": "d-tooltip-above d-tooltip-AB-right",
-				"BR-BL": "d-tooltip-right",
-				"BL-BR": "d-tooltip-left",
-
-				// Positioning "around" a point, ex: mouse position
-				"BR-TL": "d-tooltip-below d-tooltip-AB-left",
-				"BL-TR": "d-tooltip-below d-tooltip-AB-right",
-				"TL-BR": "d-tooltip-above d-tooltip-AB-right",
-				"TR-BL": "d-tooltip-above d-tooltip-AB-left"
-			}[aroundCorner + "-" + tooltipCorner];
-			this.classList.add(newC);
-			this._currentOrientClass = newC;
-
-			// Position the tooltip connector for middle alignment.
-			var myPos = place.position(this);
-			var aroundNodeCoords = pos.aroundNodePos;
 			function clamp(value, min, max) {
 				return Math.max(min, Math.min(max, value));
 			}
-			if (tooltipCorner.charAt(0) === "M" && aroundCorner.charAt(0) === "M") {
-				this.connectorNode.style.top = clamp(
-					aroundNodeCoords.y + ((aroundNodeCoords.h - this.connectorNode.offsetHeight) >> 1) - myPos.y,
-					3,
-					this.offsetHeight - this.connectorNode.offsetHeight - 3) + "px";
-				this.connectorNode.style.left = "";
-			} else if (tooltipCorner.charAt(1) === "M" && aroundCorner.charAt(1) === "M") {
-				this.connectorNode.style.left = clamp(
-					aroundNodeCoords.x + ((aroundNodeCoords.w - this.connectorNode.offsetWidth) >> 1) - myPos.x,
-					3,
-					this.offsetWidth - this.connectorNode.offsetWidth - 3) + "px";
-				this.connectorNode.style.top = "";
+
+			if (this._currentOrientClassList) {
+				this._currentOrientClassList.forEach(function (cls) {
+					this.classList.remove(cls);
+				}.bind(this));
+				delete this._currentOrientClassList;
+			}
+
+			// If the tooltip is relative to an anchor node, rather than centered in the viewport,
+			// then apply the appropriate CSS to properly position the connector node.
+			if (pos) {
+				var tooltipCorner = pos.corner,
+					aroundCorner = pos.aroundCorner;
+
+				// Set appropriate class.
+				this._currentOrientClassList = {
+					// Real around node
+					"MR-ML": ["d-tooltip-right"],
+					"ML-MR": ["d-tooltip-left"],
+					"TM-BM": ["d-tooltip-above"],
+					"BM-TM": ["d-tooltip-below"],
+					"BL-TL": ["d-tooltip-below", "d-tooltip-AB-left"],
+					"TL-BL": ["d-tooltip-above", "d-tooltip-AB-left"],
+					"BR-TR": ["d-tooltip-below", "d-tooltip-AB-right"],
+					"TR-BR": ["d-tooltip-above", "d-tooltip-AB-right"],
+					"BR-BL": ["d-tooltip-right"],
+					"BL-BR": ["d-tooltip-left"],
+
+					// Positioning "around" a point, ex: mouse position
+					"BR-TL": ["d-tooltip-below", "d-tooltip-AB-left"],
+					"BL-TR": ["d-tooltip-below", "d-tooltip-AB-right"],
+					"TL-BR": ["d-tooltip-above", "d-tooltip-AB-right"],
+					"TR-BL": ["d-tooltip-above", "d-tooltip-AB-left"]
+				}[aroundCorner + "-" + tooltipCorner];
+				this._currentOrientClassList.forEach(function (cls) {
+					this.classList.add(cls);
+				}.bind(this));
+
+				// Position the tooltip connector for middle alignment.
+				var myPos = place.position(this);
+				var aroundNodeCoords = pos.aroundNodePos;
+				if (tooltipCorner.charAt(0) === "M" && aroundCorner.charAt(0) === "M") {
+					this.connectorNode.style.top = clamp(
+						aroundNodeCoords.y + ((aroundNodeCoords.h - this.connectorNode.offsetHeight) >> 1) - myPos.y,
+						3,
+						this.offsetHeight - this.connectorNode.offsetHeight - 3) + "px";
+					this.connectorNode.style.left = "";
+				} else if (tooltipCorner.charAt(1) === "M" && aroundCorner.charAt(1) === "M") {
+					this.connectorNode.style.left = clamp(
+						aroundNodeCoords.x + ((aroundNodeCoords.w - this.connectorNode.offsetWidth) >> 1) - myPos.x,
+						3,
+						this.offsetWidth - this.connectorNode.offsetWidth - 3) + "px";
+					this.connectorNode.style.top = "";
+				}
 			}
 		},
 
@@ -103,10 +116,6 @@ define([
 		 * This is called from the delite/popup code, and should not be called directly.
 		 */
 		onClose: function () {
-			if (this._currentOrientClass) {
-				this.classList.remove(this._currentOrientClass);
-				delete this._currentOrientClass;
-			}
 			if (this.anchorNode) {
 				this.anchorNode.removeAttribute("aria-describedby");
 			}
