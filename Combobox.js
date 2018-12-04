@@ -582,14 +582,14 @@ define([
 			return "value" in item ? item.value : item.label;
 		},
 
+		dropDownPosition: function () {
+			return this._isMobile ? ["center"] : ["below", "above"];
+		},
+
 		loadDropDown: function () {
 			var dropDown = this._isMobile ?
 				this.createCenteredDropDown() :
 				this.createAboveBelowDropDown();
-
-			this.dropDownPosition = this._isMobile ?
-				["center"] :
-				["below", "above"]; // this is the default
 
 			// Since the dropdown is not a child of the Combobox, it will not inherit
 			// its dir attribute. Hence:
