@@ -34,7 +34,7 @@ define([
 		 * Called when tooltip is displayed or repositioned.
 		 * This is called from the delite/popup code, and should not be called directly.
 		 */
-		onPosition: function (/*Object*/ pos) {
+		onPosition: function (/*Object*/ event) {
 			function clamp(value, min, max) {
 				return Math.max(min, Math.min(max, value));
 			}
@@ -46,12 +46,12 @@ define([
 				delete this._currentOrientClassList;
 			}
 
+			var tooltipCorner = event.corner,
+				aroundCorner = event.aroundCorner;
+
 			// If the tooltip is relative to an anchor node, rather than centered in the viewport,
 			// then apply the appropriate CSS to properly position the connector node.
-			if (pos) {
-				var tooltipCorner = pos.corner,
-					aroundCorner = pos.aroundCorner;
-
+			if (tooltipCorner && aroundCorner) {
 				// Set appropriate class.
 				this._currentOrientClassList = {
 					// Real around node
@@ -78,7 +78,7 @@ define([
 
 				// Position the tooltip connector for middle alignment.
 				var myPos = place.position(this);
-				var aroundNodeCoords = pos.aroundNodePos;
+				var aroundNodeCoords = event.aroundNodePos;
 				if (tooltipCorner.charAt(0) === "M" && aroundCorner.charAt(0) === "M") {
 					this.connectorNode.style.top = clamp(
 						aroundNodeCoords.y + ((aroundNodeCoords.h - this.connectorNode.offsetHeight) >> 1) - myPos.y,
