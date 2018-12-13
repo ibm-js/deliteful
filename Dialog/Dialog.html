@@ -1,5 +1,5 @@
 <template role="dialog" aria-modal="{{modal}}" aria-labelledby="{{widgetId}}-label">
-	<div class="d-dialog-header">
+	<div class="d-dialog-header" attach-point="headerNode">
 		<div id="{{widgetId}}-label" class="d-dialog-label">{{label}}</div>
 		<div class="d-dialog-icon {{closeButtonIconClass}}"
 			 on-click="{{closeButtonClickHandler}}"></div>

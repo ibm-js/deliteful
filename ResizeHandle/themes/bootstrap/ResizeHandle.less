@@ -1,0 +1,34 @@
+.d-resize-handle {
+	position: absolute;
+	z-index: 20;
+	bottom: 0;
+	&:not(.d-rtl) {
+		right: 0;
+	}
+	&.d-rtl {
+		left: 0;
+		transform: scaleX(-1);   	// flip the icon
+	}
+	padding: 0;
+	margin: 0;
+
+	&::after {
+		content: "\21f2";
+	}
+}
+
+.d-resize-nesw {
+	cursor: nesw-resize;
+}
+
+.d-resize-nwse {
+	cursor: nwse-resize;
+}
+
+.d-resize-ns {
+	cursor: ns-resize;
+}
+
+.d-resize-ew {
+	cursor: ew-resize;
+}
