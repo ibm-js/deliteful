@@ -89,7 +89,7 @@ define([
 							- this.containerNode.getBoundingClientRect().height + 50,
 							minWidth = 200;
 
-						// Adjust min height/widt if Dialog has custom getMinSize() method.
+						// Adjust min height/width if Dialog has custom getMinSize() method.
 						if (this.getMinSize) {
 							var minSize = this.getMinSize();
 							minHeight = Math.max(minHeight, minSize.h);
@@ -171,7 +171,7 @@ define([
 				var wrapper = popup.createWrapper(this);
 
 				this.moveable = new Moveable(wrapper, {
-					handle: this.dragHandle,
+					handle: this.headerNode,
 					area: "padding",
 					within: true
 				});
