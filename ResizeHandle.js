@@ -5,7 +5,8 @@ define([
 	"delite/theme!./ResizeHandle/themes/{{theme}}/ResizeHandle.css"
 ], function (
 	register,
-	Widget
+	Widget,
+	dpointer
 ) {
 
 	/**
@@ -64,6 +65,7 @@ define([
 		resizeClass: "",
 
 		postRender: function () {
+			dpointer.setTouchAction(this, "none");
 			this.on("pointerdown", this._beginSizing.bind(this));
 		},
 
@@ -224,18 +226,24 @@ define([
 			}
 
 			this.target.emit("delite-manually-resized");
+
+			e.preventDefault();
+			e.stopPropagation();
 		},
 
 		/**
 		 * Disconnect listeners and clean up sizing.
 		 * @private
 		 */
-		_endSizing: function () {
+		_endSizing: function (e) {
 			this._pconnects.forEach(function (handle) {
 				handle.remove();
 			});
 			this._isSizing = false;
 			this.target.emit("delite-manually-resized");
+
+			e.preventDefault();
+			e.stopPropagation();
 		}
 	});
 });
