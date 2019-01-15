@@ -126,7 +126,7 @@ define([
 		postRender: function () {
 			// Create the DayPicker initially, and create MonthPicker and YearPicker on demand.
 			this.dayPicker = new DayPicker({
-				ariaLabel: this.dayPickerLabel,
+				gridLabel: this.dayPickerLabel,
 				dateClassObj: this.dateClassObj,
 				dateModule: this.dateModule,
 				dateLocaleModule: this.dateLocaleModule,
@@ -161,7 +161,7 @@ define([
 		showMonthPicker: function () {
 			if (!this.monthPicker) {
 				this.monthPicker = new MonthPicker({
-					ariaLabel: this.monthPickerLabel,
+					gridLabel: this.monthPickerLabel,
 					dateClassObj: this.dateClassObj,
 					dateModule: this.dateModule,
 					dateLocaleModule: this.dateLocaleModule,
@@ -188,7 +188,7 @@ define([
 		showYearPicker: function () {
 			if (!this.yearPicker) {
 				this.yearPicker = new YearPicker({
-					ariaLabel: this.yearPickerLabel,
+					gridLabel: this.yearPickerLabel,
 					dateClassObj: this.dateClassObj,
 					dateModule: this.dateModule,
 					dateLocaleModule: this.dateLocaleModule,
