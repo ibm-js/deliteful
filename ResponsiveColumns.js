@@ -66,7 +66,7 @@ define([
 				// A set of MediaQueryList
 				this._mqls = [];
 				// Unique class for this widget
-				classList.addClass(this, this.widgetId);
+				this.addClass(this.widgetId);
 			},
 
 			_removeListeners: function () {

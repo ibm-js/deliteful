@@ -161,7 +161,7 @@ define([
 				var animate = this.animate && has("ie") !== 9;
 				if (!this._visible) {
 					if (animate) {
-						classList.addClass(this, prefix("animate"));
+						this.addClass(prefix("animate"));
 						if (nextElement) {
 							classList.addClass(nextElement, prefix("animate"));
 						}
@@ -229,7 +229,7 @@ define([
 			},
 
 			_afterTransitionHandle: function (holder, resolve) {
-				classList.removeClass(this, prefix("under"));
+				this.removeClass(prefix("under"));
 				if (!this._visible) {
 					setVisibility(this, false);
 				}
