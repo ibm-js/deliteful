@@ -23,7 +23,7 @@ define([
 	var commonSuite = {
 		"Default State": function () {
 			var b = document.getElementById("b1");
-			assert.isTrue(classList.hasClass(b, "d-button"), "Unexpected baseClass.");
+			assert.isTrue(b.classList.contains("d-button"), "Unexpected baseClass.");
 			assert.isFalse(b.disabled, "Unexpected default value for 'disabled' property");
 			assert.strictEqual(b.label, "b1", "Unexpected default value for 'label' (inherited) property.");
 			assert.strictEqual(b.textContent.trim(), "b1", "Unexpected default value for textContent.");

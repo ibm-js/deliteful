@@ -25,9 +25,9 @@ define([
 
 	function checkSelectedDot(vi, index) {
 		for (var i = 0; i < vi.children.length; i++) {
-			assert.isTrue(classList.hasClass(vi.children[i], "-d-view-indicator-dot"), "d-view-indicator-dot class");
+			assert.isTrue(vi.children[i].classList.contains("-d-view-indicator-dot"), "d-view-indicator-dot class");
 			assert[i === index ? "isTrue" : "isFalse"](
-				classList.hasClass(vi.children[i], "-d-view-indicator-dot-selected"),
+				vi.children[i].classList.contains("-d-view-indicator-dot-selected"),
 				"-d-view-indicator-dot-selected class");
 		}
 	}
@@ -47,7 +47,7 @@ define([
 			vi = document.getElementById("vi");
 		},
 		"Default CSS" : function () {
-			assert.isTrue(classList.hasClass(vi, "d-view-indicator"), "d-view-indicator class");
+			assert.isTrue(vi.classList.contains("d-view-indicator"), "d-view-indicator class");
 			assert.equal(vi.children.length, 4, "number of children in ViewIndicator");
 			checkSelectedDot(vi, 0);
 		},

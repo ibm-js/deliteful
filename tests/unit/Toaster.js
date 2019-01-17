@@ -52,7 +52,7 @@ define([
 		},
 
 		"Default values": function () {
-			assert(classList.hasClass(toaster, "d-toaster-placement-default"),
+			assert(toaster.classList.contains("d-toaster-placement-default"),
 				"toaster has class d-toaster-placement-default");
 
 			assert.isFalse(toaster.invertOrder,
@@ -71,7 +71,7 @@ define([
 			positions.forEach(function (pos) {
 				toaster = new Toaster({placementClass: "d-toaster-placement-" + pos});
 				toaster.placeAt("container");
-				assert.isTrue(classList.hasClass(toaster, "d-toaster-placement-" + pos),
+				assert.isTrue(toaster.classList.contains("d-toaster-placement-" + pos),
 					"d-toaster-placement-" + pos + " CSS class has been correctly set");
 				toaster.destroy();
 			});

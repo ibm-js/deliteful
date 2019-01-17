@@ -213,13 +213,13 @@ define([
 	var CommonTestCases = {
 		"Default CSS": function () {
 			var combo = document.getElementById("combo1");
-			assert.isTrue(classList.hasClass(combo, outerCSS),
+			assert.isTrue(combo.classList.contains(outerCSS),
 					"Expecting " + outerCSS +
 					" CSS class on outer element of combo.id: " + combo.id);
-			assert.isTrue(classList.hasClass(combo.inputNode, inputCSS),
+			assert.isTrue(combo.inputNode.classList.contains(inputCSS),
 					"Expecting " + inputCSS +
 					" CSS class on inner input element of combo.id: " + combo.id);
-			assert.isTrue(classList.hasClass(combo.valueNode, hiddenInputCSS),
+			assert.isTrue(combo.valueNode.classList.contains(hiddenInputCSS),
 					"Expecting " + hiddenInputCSS +
 					" CSS class on inner valueNode (hidden input) of combo.id: " + combo.id);
 
@@ -229,13 +229,13 @@ define([
 				combo = createMyCombobox("mycombo1");
 			} // else the declarative case
 
-			assert.isTrue(classList.hasClass(combo, outerCSS),
+			assert.isTrue(combo.classList.contains(outerCSS),
 					"Expecting " + outerCSS +
 					" CSS class on outer element of combo.id: " + combo.id);
-			assert.isTrue(classList.hasClass(combo.inputNode, inputCSS),
+			assert.isTrue(combo.inputNode.classList.contains(inputCSS),
 					"Expecting " + inputCSS +
 					" CSS class on inner input element of combo.id: " + combo.id);
-			assert.isTrue(classList.hasClass(combo.valueNode, hiddenInputCSS),
+			assert.isTrue(combo.valueNode.classList.contains(hiddenInputCSS),
 					"Expecting " + hiddenInputCSS +
 					" CSS class on inner valueNode (hidden input) of combo.id: " + combo.id);
 		},

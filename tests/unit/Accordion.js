@@ -48,9 +48,9 @@ define([
 				(child.headerNode.style.display !== "none" &&
 					((child === target && child.style.display !== "none" &&
 						ac.selectedChildId === target.id && child.open && child.headerNode.open &&
-						classList.hasClass(child, "d-accordion-open-panel")) ||
+						child.classList.contains("d-accordion-open-panel")) ||
 					(child !== target && child.style.display === "none" && !child.open &&
-						!child.headerNode.open && !(classList.hasClass(child, "d-accordion-open-panel"))))),
+						!child.headerNode.open && !(child.classList.contains("d-accordion-open-panel"))))),
 			message + " checking " + child.id);
 		});
 	}
@@ -59,13 +59,13 @@ define([
 		openPanels.forEach(function (panel) {
 			assert.isTrue(
 				(panel.headerNode.style.display !== "none" && panel.style.display !== "none" &&
-					panel.open && panel.headerNode.open && classList.hasClass(panel, "d-accordion-open-panel")),
+					panel.open && panel.headerNode.open && panel.classList.contains("d-accordion-open-panel")),
 			message);
 		});
 		closedPanels.forEach(function (panel) {
 			assert.isTrue(
 				(panel.headerNode.style.display !== "none" && panel.style.display === "none" &&
-					!panel.open && !panel.headerNode.open && !classList.hasClass(panel, "d-accordion-open-panel")),
+					!panel.open && !panel.headerNode.open && !panel.classList.contains("d-accordion-open-panel")),
 			message);
 		});
 		checkAriaProperties(openPanels, closedPanels);
@@ -76,7 +76,7 @@ define([
 		assert.strictEqual(panel.closedIconClass, pcic, "panel closedIconClass");
 		assert.strictEqual(panel.headerNode.openIconClass, hoic, "header openIconClass");
 		assert.strictEqual(panel.headerNode.closedIconClass, hcic, "header closedIconClass");
-		assert.isTrue(classList.hasClass(panel.headerNode.iconNode, open ? hoic : hcic), "header.iconNode class");
+		assert.isTrue(panel.headerNode.iconNode.classList.contains(open ? hoic : hcic), "header.iconNode class");
 	}
 
 	function checkAriaProperties(openPanels, closedPanels) {
@@ -123,7 +123,7 @@ define([
 	var commonSuite = {
 		"Default CSS": function () {
 			accordion = document.getElementById("accordion");
-			assert.isTrue(classList.hasClass(accordion, "d-accordion"));
+			assert.isTrue(accordion.classList.contains("d-accordion"));
 		},
 		"Default values": function () {
 			accordion = document.getElementById("accordion");

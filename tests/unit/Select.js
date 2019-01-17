@@ -331,19 +331,19 @@ define([
 		"Default CSS" : function () {
 			var select = document.getElementById("select1");
 			select.deliver();
-			assert.isTrue(classList.hasClass(select, outerCSS),
+			assert.isTrue(select.classList.contains(outerCSS),
 				"Expecting " + outerCSS +
 				" CSS class on outer element of select.id: " + select.id);
-			assert.isTrue(classList.hasClass(select.valueNode, innerCSS),
+			assert.isTrue(select.valueNode.classList.contains(innerCSS),
 				"Expecting " + innerCSS +
 				" CSS class on inner element of select.id: " + select.id);
 
 			select = document.getElementById("myselect1");
 			select.deliver();
-			assert.isTrue(classList.hasClass(select, outerCSS),
+			assert.isTrue(select.classList.contains(outerCSS),
 				"Expecting " + outerCSS +
 				" CSS class on outer element of select.id: " + select.id);
-			assert.isTrue(classList.hasClass(select.valueNode, innerCSS),
+			assert.isTrue(select.valueNode.classList.contains(innerCSS),
 				"Expecting " + innerCSS +
 				" CSS class on inner element of select.id: " + select.id);
 		},

@@ -39,8 +39,8 @@ define([
 			ddd = document.getElementById("ddd");
 		},
 		"Default CSS" : function () {
-			assert.isTrue(classList.hasClass(node, "d-swap-view"));
-			assert.isTrue(classList.hasClass(node, "d-view-stack"));
+			assert.isTrue(node.classList.contains("d-swap-view"));
+			assert.isTrue(node.classList.contains("d-view-stack"));
 		},
 		"Default values" : function () {
 			assert.deepEqual(node.transition, "slide");

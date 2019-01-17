@@ -31,7 +31,7 @@ define([
 	var commonSuite = {
 		"Default State": function () {
 			var tb = document.getElementById("tb1");
-			assert.isTrue(classList.hasClass(tb, "d-toggle-button"), "Unexpected baseClass.");
+			assert.isTrue(tb.classList.contains("d-toggle-button"), "Unexpected baseClass.");
 			assert.isFalse(tb.checked, "Unexpected default value for 'checked' property.");
 			assert.strictEqual(tb.getAttribute("aria-pressed"), "false", "tb1 aria-pressed");
 			assert.strictEqual(tb.getAttribute("role"), "button", "when aria-pressed set, role must be too");

@@ -34,13 +34,13 @@ define([
 				},
 				"baseClass update" : function () {
 					var list = this.parent.list;
-					assert.isTrue(classList.hasClass(list, "d-list"));
+					assert.isTrue(list.classList.contains("d-list"));
 					list.baseClass = "d-round-rect-list";
 					list.deliver();
-					assert.isTrue(classList.hasClass(list, "d-round-rect-list"));
+					assert.isTrue(list.classList.contains("d-round-rect-list"));
 					list.baseClass = "d-list";
 					list.deliver();
-					assert.isTrue(classList.hasClass(list, "d-list"));
+					assert.isTrue(list.classList.contains("d-list"));
 				},
 				"scrollDirection horizontal not supported": function () {
 					var list = this.parent.list;
@@ -74,15 +74,15 @@ define([
 					var list = this.parent.list;
 					list.scrollDirection = "vertical";
 					list.deliver();
-					assert.isTrue(classList.hasClass(list, "d-scrollable"));
-					assert.isTrue(classList.hasClass(list, "d-scrollable-v"));
+					assert.isTrue(list.classList.contains("d-scrollable"));
+					assert.isTrue(list.classList.contains("d-scrollable-v"));
 				},
 				"scroll direction none": function () {
 					var list = this.parent.list;
 					list.scrollDirection = "none";
 					list.deliver();
 					list.scrollDirection = "none";
-					assert.isTrue(classList.hasClass(list, "d-list"));
+					assert.isTrue(list.classList.contains("d-list"));
 				},
 				"getItemRenderers": function () {
 					var list = this.parent.list;

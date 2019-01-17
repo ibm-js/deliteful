@@ -1467,7 +1467,7 @@ define([
 								assertCategorizedList(list, 50, 25, true, true);
 								assert.strictEqual(
 									removeTabsAndReturns(list._getLastVisibleRenderer().textContent),
-									"Category 5", //"item 73",
+									"item 73",
 									"last visible renderer after second page load");
 								setTimeout(def.rejectOnError(function () {
 									// scroll a little to remove the "_atExtremity" marker

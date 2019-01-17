@@ -15,7 +15,7 @@ define([
 			var d = this.async(1000);
 			setTimeout(d.callback(function () {
 				var cb = document.getElementById(commonSuite.defaultWidget);
-				assert.isTrue(classList.hasClass(cb, commonSuite.baseClass), "baseClass");
+				assert.isTrue(cb.classList.contains(commonSuite.baseClass), "baseClass");
 				assert.isFalse(cb.checked, "default value for 'checked' property");
 				assert.isFalse(cb.disabled, "default value for 'disabled' property");
 				assert.strictEqual(cb.value, "on", "default value for 'value' property");
