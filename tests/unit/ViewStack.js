@@ -1,8 +1,8 @@
 define([
 	"intern!object",
 	"intern/chai!assert",
-	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
+	"delite/classList",
 	"dcl/advise",
 	"deliteful/ViewStack",
 	"requirejs-dplugins/css!deliteful/ViewStack/transitions/cover.css",
@@ -11,7 +11,13 @@ define([
 	"requirejs-dplugins/css!deliteful/ViewStack/transitions/flip.css",
 	"requirejs-dplugins/css!deliteful/ViewStack/transitions/slidev.css",
 	"requirejs-dplugins/css!deliteful/ViewStack/transitions/revealv.css"
-], function (registerSuite, assert, $, register, advise) {
+], function (
+	registerSuite,
+	assert,
+	register,
+	classList,
+	advise
+) {
 	var container, node;
 	var aaa, bbb, ccc, ddd;
 	var asyncHandler, adviseHandler;
@@ -31,38 +37,40 @@ define([
 	}
 
 	function checkReverse(vs, target) {
-		assert.isTrue($(vs.children[target]).hasClass("-d-view-stack-reverse"), "has -d-view-stack-reverse");
+		assert.isTrue(classList.hasClass(vs.children[target], "-d-view-stack-reverse"), "has -d-view-stack-reverse");
 	}
 
 	function checkNoReverse(vs, target) {
-		assert.isFalse($(vs.children[target]).hasClass("-d-view-stack-reverse"), "doesn't have -d-view-stack-reverse");
+		assert.isFalse(classList.hasClass(vs.children[target], "-d-view-stack-reverse"),
+			"doesn't have -d-view-stack-reverse");
 	}
 
 	function checkTransition(vs, target, transition) {
 		switch (transition) {
 		case "slide" :
-			assert.isTrue($(vs.children[target]).hasClass("-d-view-stack-slide"), "has -d-view-stack-slide");
+			assert.isTrue(classList.hasClass(vs.children[target], "-d-view-stack-slide"), "has -d-view-stack-slide");
 			break;
 		case "slidev" :
-			assert.isTrue($(vs.children[target]).hasClass("-d-view-stack-slidev"), "has -d-view-stack-slidev");
+			assert.isTrue(classList.hasClass(vs.children[target], "-d-view-stack-slidev"), "has -d-view-stack-slidev");
 			break;
 		case "reveal" :
-			assert.isTrue($(vs.children[target]).hasClass("-d-view-stack-reveal"), "has -d-view-stack-reveal");
+			assert.isTrue(classList.hasClass(vs.children[target], "-d-view-stack-reveal"), "has -d-view-stack-reveal");
 			break;
 		case "revealv" :
-			assert.isTrue($(vs.children[target]).hasClass("-d-view-stack-revealv"), "has -d-view-stack-revealv");
+			assert.isTrue(classList.hasClass(vs.children[target], "-d-view-stack-revealv"),
+				"has -d-view-stack-revealv");
 			break;
 		case "flip" :
-			assert.isTrue($(vs.children[target]).hasClass("-d-view-stack-flip"), "has -d-view-stack-flip");
+			assert.isTrue(classList.hasClass(vs.children[target], "-d-view-stack-flip"), "has -d-view-stack-flip");
 			break;
 		case "fade" :
-			assert.isTrue($(vs.children[target]).hasClass("-d-view-stack-fade"), "has -d-view-stack-fade");
+			assert.isTrue(classList.hasClass(vs.children[target], "-d-view-stack-fade"), "has -d-view-stack-fade");
 			break;
 		case "cover" :
-			assert.isTrue($(vs.children[target]).hasClass("-d-view-stack-cover"), "has -d-view-stack-cover");
+			assert.isTrue(classList.hasClass(vs.children[target], "-d-view-stack-cover"), "has -d-view-stack-cover");
 			break;
 		case "coverv" :
-			assert.isTrue($(vs.children[target]).hasClass("-d-view-stack-coverv"), "has -d-view-stack-coverv");
+			assert.isTrue(classList.hasClass(vs.children[target], "-d-view-stack-coverv"), "has -d-view-stack-coverv");
 			break;
 		case "none" :
 			checkNodeVisibility(vs, target);
@@ -84,7 +92,7 @@ define([
 			ddd = document.getElementById("ddd");
 		},
 		"Default CSS" : function () {
-			assert.isTrue($(node).hasClass("d-view-stack"), "has d-view-stack");
+			assert.isTrue(classList.hasClass(node, "d-view-stack"), "has d-view-stack");
 		},
 		"Default values" : function () {
 			assert.strictEqual(node.transition, "slide", "node.transition");

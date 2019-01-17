@@ -3,13 +3,13 @@ define([
 	"dcl/dcl",
 	"decor/sniff",
 	"requirejs-dplugins/Promise!",
-	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
+	"delite/classList",
 	"delite/DisplayContainer",
 	"delite/theme!./ViewStack/themes/{{theme}}/ViewStack.css",
 	"requirejs-dplugins/css!./ViewStack/transitions/slide.css",
 	"requirejs-dplugins/css!./ViewStack/transitions/reveal.css"
-], function (dcl, has, Promise, $, register, DisplayContainer) {
+], function (dcl, has, Promise, register, classList, DisplayContainer) {
 	function setVisibility(node, val) {
 		if (node) {
 			if (val) {
@@ -24,7 +24,7 @@ define([
 
 	function setReverse(node) {
 		if (node) {
-			$(node).addClass("-d-view-stack-reverse");
+			classList.addClass(node, "-d-view-stack-reverse");
 		}
 	}
 
@@ -219,15 +219,15 @@ define([
 
 		_doTransition: function (origin, target, event, transition, reverse) {
 			var promises = [];
-			$(this).addClass("-d-view-stack-transition");
+			this.addClass("-d-view-stack-transition");
 			if (transition !== "none") {
 				if (origin) {
 					promises.push(this._startNodeTransition(origin));
-					$(origin).addClass(transitionClass(transition));
+					classList.addClass(origin, transitionClass(transition));
 				}
 				if (target) {
 					promises.push(this._startNodeTransition(target));
-					$(target).addClass(transitionClass(transition) + " -d-view-stack-in");
+					classList.addClass(target, transitionClass(transition) + " -d-view-stack-in");
 				}
 				if (reverse) {
 					setReverse(origin);
@@ -237,17 +237,17 @@ define([
 				// TODO: figure out why the delay is needed
 				this.defer(function () {
 					if (target) {
-						$(target).addClass("-d-view-stack-transition");
+						classList.addClass(target, "-d-view-stack-transition");
 					}
 					if (origin) {
-						$(origin).addClass("-d-view-stack-transition -d-view-stack-out");
+						classList.addClass(origin, "-d-view-stack-transition -d-view-stack-out");
 					}
 					if (reverse) {
 						setReverse(origin);
 						setReverse(target);
 					}
 					if (target) {
-						$(target).addClass("-d-view-stack-in");
+						classList.addClass(target, "-d-view-stack-in");
 					}
 				}, this._timing);
 			} else {
@@ -256,9 +256,9 @@ define([
 				}
 			}
 			return Promise.all(promises).then(function () {
-				$(this).removeClass("-d-view-stack-transition");
-				$(target).removeClass("-d-view-stack-transition -d-view-stack-in");
-				$(origin).removeClass("-d-view-stack-transition -d-view-stack-out");
+				this.removeClass("-d-view-stack-transition");
+				classList.removeClass(target, "-d-view-stack-transition -d-view-stack-in");
+				classList.removeClass(origin, "-d-view-stack-transition -d-view-stack-out");
 			}.bind(this));
 		},
 

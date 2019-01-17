@@ -1,13 +1,13 @@
 /** @module deliteful/ProgressBar */
 define([
 	"dcl/dcl",
-	"requirejs-dplugins/jquery!attributes/classes",
 	"ecma402/IntlShim",
 	"delite/register",
+	"delite/classList",
 	"delite/Widget",
 	"delite/handlebars!./ProgressBar/ProgressBar.html",
 	"delite/theme!./ProgressBar/themes/{{theme}}/ProgressBar.css"
-], function (dcl, $, Intl, register, Widget, template) {
+], function (dcl, Intl, register, classList, Widget, template) {
 	/**
 	 * A widget that displays the completion progress of a task.
 	 *
@@ -143,7 +143,7 @@ define([
 			this.msgNode.innerHTML = this.msgInvertNode.innerHTML =
 				this.formatMessage(this.position, this.value, this.max);
 			var hasExtMsg = this.displayExtMsg && this.position !== -1;
-			$(this.msgNode).toggleClass(this.baseClass + "-msg-ext", hasExtMsg);
+			classList.toggleClass(this.msgNode, this.baseClass + "-msg-ext", hasExtMsg);
 			if (hasExtMsg) {
 				//set content value to be used by pseudo element d-progress-bar-msg-ext::after
 				this.msgNode.setAttribute("msg-ext", this.formatExtMsg(this.position, this.value, this.max));
@@ -156,7 +156,7 @@ define([
 			} else {
 				this.removeAttribute("aria-valuetext");
 			}
-			$(this).toggleClass(this.baseClass + "-indeterminate", (this.position === -1));
+			classList.toggleClass(this, this.baseClass + "-indeterminate", (this.position === -1));
 		},
 
 		/**

@@ -1,7 +1,6 @@
 /** @module deliteful/Slider */
 define([
 	"dcl/dcl",
-	"requirejs-dplugins/jquery!attributes/classes",
 	"dpointer/events",
 	"delite/register",
 	"delite/FormValueWidget",
@@ -10,7 +9,6 @@ define([
 	"delite/theme!./Slider/themes/{{theme}}/Slider.css"
 ], function (
 	dcl,
-	$,
 	dpointer,
 	register,
 	FormValueWidget,
@@ -254,10 +252,10 @@ define([
 				var baseClass = this.baseClass + " " + rootBaseClass;
 				// root node: do not remove all classes; user may define custom classes; CssState adds classes that
 				// we do not want to lose.
-				$(this).removeClass(toCSS(this.baseClass + "-v" + " " + this.baseClass + "-h", "-htl") + " " +
+				this.removeClass(toCSS(this.baseClass + "-v" + " " + this.baseClass + "-h", "-htl") + " " +
 					toCSS(this.baseClass + "-v" + " " + this.baseClass + "-h", "-lth") + " " +
 					this.baseClass + "-v" + " " + this.baseClass + "-h");
-				$(this).addClass(rootBaseClass + " " + toCSS(baseClass, this._reversed ? "-htl" : "-lth"));
+				this.addClass(rootBaseClass + " " + toCSS(baseClass, this._reversed ? "-htl" : "-lth"));
 				this.wrapperNode.className = toCSS(baseClass, "-bar") + " " + toCSS(baseClass, "-container");
 				this.progressBar.setAttribute("style", "");// reset left/width/height/top
 				this.progressBar.className = toCSS(baseClass, "-bar") + " " + toCSS(baseClass, "-progress-bar");
@@ -486,7 +484,7 @@ define([
 					// selected value:
 					// relativePos > 0 => handleMin
 					// relativePos < 0 => focusNode
-					// relativePos = 0 => must be decided 
+					// relativePos = 0 => must be decided
 					var relativePos = Math.abs(selectedVal - currentVal[1]) - Math.abs(selectedVal - currentVal[0]);
 					if (relativePos === 0 && (e.target === this.focusNode || e.target === this.handleMin)) {
 						this._pointerCtx.target = document.elementFromPoint(e.clientX, e.clientY);
@@ -506,7 +504,7 @@ define([
 
 				}
 				if (e.target === this.focusNode || e.target === this.handleMin) {
-					// track offset between current and selected value 
+					// track offset between current and selected value
 					this._pointerCtx.offsetVal = selectedVal -
 						currentVal[(this.handleMin._isActive && (this._pointerCtx.target === this.focusNode)) ? 1 : 0];
 				}

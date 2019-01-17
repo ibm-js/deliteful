@@ -2,14 +2,14 @@
 define([
 	"dcl/dcl",
 	"dpointer/events",
-	"requirejs-dplugins/jquery!attributes/classes",
 	"decor/sniff",
 	"delite/register",
+	"delite/classList",
 	"delite/DisplayContainer",
 	"requirejs-dplugins/Promise!",
 	"delite/theme!./SidePane/themes/{{theme}}/SidePane.css"
 ],
-	function (dcl, pointer, $, has, register, DisplayContainer, Promise) {
+	function (dcl, pointer, has, register, classList, DisplayContainer, Promise) {
 		function prefix(v) {
 			return "-d-side-pane-" + v;
 		}
@@ -161,9 +161,9 @@ define([
 				var animate = this.animate && has("ie") !== 9;
 				if (!this._visible) {
 					if (animate) {
-						$(this).addClass(prefix("animate"));
+						classList.addClass(this, prefix("animate"));
 						if (nextElement) {
-							$(nextElement).addClass(prefix("animate"));
+							classList.addClass(nextElement, prefix("animate"));
 						}
 					}
 
@@ -229,7 +229,7 @@ define([
 			},
 
 			_afterTransitionHandle: function (holder, resolve) {
-				$(this).removeClass(prefix("under"));
+				classList.removeClass(this, prefix("under"));
 				if (!this._visible) {
 					setVisibility(this, false);
 				}
@@ -254,32 +254,32 @@ define([
 			},
 
 			_refreshMode: function (nextElement) {
-				$(this).removeClass([prefix("push"), prefix("overlay"), prefix("reveal")].join(" "))
+				this.removeClass([prefix("push"), prefix("overlay"), prefix("reveal")].join(" "))
 					.addClass(prefix(this.mode));
 
 				if (nextElement && this._visible) {
-					$(nextElement).toggleClass(prefix("translated"), this.mode !== "overlay");
+					classList.toggleClass(nextElement, prefix("translated"), this.mode !== "overlay");
 				}
 
 				if (this.mode === "reveal" && !this._visible) {
 					// Needed by FF only for the first opening.
-					$(this).removeClass(prefix("ontop"))
+					this.removeClass(prefix("ontop"))
 						.addClass(prefix("under"));
 				}
 				else if (this.mode === "overlay") {
-					$(this).removeClass(prefix("under"))
+					this.removeClass(prefix("under"))
 						.addClass(prefix("ontop"));
 				} else {
-					$(this).removeClass([prefix("under"), prefix("ontop")].join(" "));
+					this.removeClass([prefix("under"), prefix("ontop")].join(" "));
 				}
 			},
 
 			_refreshPosition: function (nextElement) {
-				$(this).removeClass([prefix("start"), prefix("end")].join(" "))
+				this.removeClass([prefix("start"), prefix("end")].join(" "))
 					.addClass(prefix(this.position));
 				if (nextElement && this._visible) {
-					$(nextElement).removeClass([prefix("start"), prefix("end")].join(" "))
-						.addClass(prefix(this.position));
+					classList.removeClass(nextElement, [prefix("start"), prefix("end")].join(" "));
+					classList.addClass(nextElement, prefix(this.position));
 				}
 			},
 
@@ -291,11 +291,11 @@ define([
 
 				// Always remove animation during a refresh. Avoid to see the pane moving on mode changes.
 				// Not very reliable on IE11.
-				$(this).removeClass(prefix("animate"));
+				this.removeClass(prefix("animate"));
 
 				if (nextElement) {
-					$(nextElement).removeClass(prefix("animate"));
-					$(nextElement).toggleClass("d-rtl", this.effectiveDir === "rtl");
+					classList.removeClass(nextElement, prefix("animate"));
+					classList.toggleClass(nextElement, "d-rtl", this.effectiveDir === "rtl");
 				}
 
 				if ("mode" in props) {
@@ -306,15 +306,15 @@ define([
 					this._refreshPosition(nextElement);
 				}
 
-				$(this).toggleClass(prefix("hidden"), !this._visible)
+				this.toggleClass(prefix("hidden"), !this._visible)
 					.toggleClass(prefix("visible"), this._visible);
 
 				// Re-enable animation
 				if (this.animate) {
 					this.defer(function () {
-						$(this).addClass(prefix("animate"));
+						this.addClass(prefix("animate"));
 						if (nextElement) {
-							$(nextElement).addClass(prefix("animate"));
+							classList.addClass(nextElement, prefix("animate"));
 						}
 					}, this._timing);
 				}
@@ -323,15 +323,15 @@ define([
 			_openImpl: function () {
 				if (!this._visible) {
 					this._visible = true;
-					$(this).removeClass(prefix("hidden"))
+					this.removeClass(prefix("hidden"))
 						.addClass(prefix("visible"));
 
 					if (this.mode === "push" || this.mode === "reveal") {
 						var nextElement = getNextSibling(this);
 						if (nextElement) {
-							$(nextElement)
-								.removeClass([prefix("nottranslated"), prefix("start"), prefix("end")].join(" "))
-								.addClass([prefix(this.position), prefix("translated")].join(" "));
+							classList.removeClass(nextElement,
+								[prefix("nottranslated"), prefix("start"), prefix("end")].join(" "));
+							classList.addClass(nextElement, [prefix(this.position), prefix("translated")].join(" "));
 						}
 					}
 				}
@@ -341,15 +341,16 @@ define([
 				if (this._visible) {
 					this._visible = false;
 					this._opening = false;
-					$(this.ownerDocument.body).removeClass(prefix("no-select"));
-					$(this).removeClass(prefix("visible"))
+					classList.removeClass(this.ownerDocument.body, prefix("no-select"));
+					this.removeClass(prefix("visible"))
 						.addClass(prefix("hidden"));
 					if (this.mode === "push" || this.mode === "reveal") {
 						var nextElement = getNextSibling(this);
 						if (nextElement) {
-							$(nextElement)
-								.removeClass([prefix("translated"), prefix("start"), prefix("end")].join(" "))
-								.addClass([prefix(this.position), prefix("nottranslated")].join(" "));
+							classList
+								.removeClass(nextElement,
+									[prefix("translated"), prefix("start"), prefix("end")].join(" "))
+								.addClass(nextElement, [prefix(this.position), prefix("nottranslated")].join(" "));
 						}
 					}
 				}
@@ -371,7 +372,7 @@ define([
 					this._moveHandle = this.on("pointermove", this._pointerMoveHandler.bind(this));
 					this._releaseHandle = this.on("pointerup", this._pointerUpHandler.bind(this));
 
-					$(this.ownerDocument.body).addClass(prefix("no-select"));
+					classList.addClass(this.ownerDocument.body, prefix("no-select"));
 				}
 			},
 
@@ -408,7 +409,7 @@ define([
 
 			_pointerUpHandler: function () {
 				this._opening = false;
-				$(this.ownerDocument.body).removeClass(prefix("no-select"));
+				classList.removeClass(this.ownerDocument.body, prefix("no-select"));
 				this._resetInteractions();
 			},
 

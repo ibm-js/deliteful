@@ -1,11 +1,16 @@
 define([
-	"dcl/dcl",
 	"intern!object",
 	"intern/chai!assert",
 	"delite/register",
-	"requirejs-dplugins/jquery!attributes/classes",
+	"delite/classList",
 	"deliteful/ToggleButton"
-], function (dcl, registerSuite, assert, register, $, ToggleButton) {
+], function (
+	registerSuite,
+	assert,
+	register,
+	classList,
+	ToggleButton
+) {
 
 	function mix(a, b) {
 		for (var n in b) {
@@ -26,7 +31,7 @@ define([
 	var commonSuite = {
 		"Default State": function () {
 			var tb = document.getElementById("tb1");
-			assert.isTrue($(tb).hasClass("d-toggle-button"), "Unexpected baseClass.");
+			assert.isTrue(classList.hasClass(tb, "d-toggle-button"), "Unexpected baseClass.");
 			assert.isFalse(tb.checked, "Unexpected default value for 'checked' property.");
 			assert.strictEqual(tb.getAttribute("aria-pressed"), "false", "tb1 aria-pressed");
 			assert.strictEqual(tb.getAttribute("role"), "button", "when aria-pressed set, role must be too");

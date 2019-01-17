@@ -1,10 +1,10 @@
 define([
 	"intern!object",
 	"intern/chai!assert",
-	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
+	"delite/classList",
 	"deliteful/SidePane"
-], function (registerSuite, assert, $, register) {
+], function (registerSuite, assert, register, classList) {
 	var container, sp, origBodyStyle;
 	var htmlContent = "<d-side-pane id='sp'></d-side-pane><div id='content'></div>";
 
@@ -48,8 +48,8 @@ define([
 			return sp.hide().then(function () {
 				return sp.toggle();
 			}).then(function () {
-				assert.isTrue($(sp).hasClass("-d-side-pane-visible"));
-				assert.isFalse($(sp).hasClass("-d-side-pane-hidden"));
+				assert.isTrue(classList.hasClass(sp, "-d-side-pane-visible"));
+				assert.isFalse(classList.hasClass(sp, "-d-side-pane-hidden"));
 			});
 		},
 
@@ -57,8 +57,8 @@ define([
 			return sp.show().then(function () {
 				return sp.toggle();
 			}).then(function () {
-				assert.isTrue($(sp).hasClass("-d-side-pane-hidden"));
-				assert.isFalse($(sp).hasClass("-d-side-pane-visible"));
+				assert.isTrue(classList.hasClass(sp, "-d-side-pane-hidden"));
+				assert.isFalse(classList.hasClass(sp, "-d-side-pane-visible"));
 			});
 		},
 

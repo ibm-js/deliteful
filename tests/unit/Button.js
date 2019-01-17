@@ -1,8 +1,10 @@
 define([
-	"dcl/dcl", "intern!object", "intern/chai!assert", "delite/register",
-	"requirejs-dplugins/jquery!attributes/classes",
+	"dcl/dcl", "intern!object",
+	"intern/chai!assert",
+	"delite/register",
+	"delite/classList",
 	"deliteful/Button"
-], function (dcl, registerSuite, assert, register, $, Button) {
+], function (dcl, registerSuite, assert, register, classList, Button) {
 
 	function mix(a, b) {
 		for (var n in b) {
@@ -21,7 +23,7 @@ define([
 	var commonSuite = {
 		"Default State": function () {
 			var b = document.getElementById("b1");
-			assert.isTrue($(b).hasClass("d-button"), "Unexpected baseClass.");
+			assert.isTrue(classList.hasClass(b, "d-button"), "Unexpected baseClass.");
 			assert.isFalse(b.disabled, "Unexpected default value for 'disabled' property");
 			assert.strictEqual(b.label, "b1", "Unexpected default value for 'label' (inherited) property.");
 			assert.strictEqual(b.textContent.trim(), "b1", "Unexpected default value for textContent.");

@@ -1,11 +1,10 @@
 define([
 	"intern!object",
 	"intern/chai!assert",
-	"requirejs-dplugins/jquery!attributes/classes",
-	"delite/register",
+	"delite/classList",
 	"deliteful/Toaster",
 	"deliteful/ToasterMessage"
-], function (registerSuite, assert, $, register, Toaster, ToasterMessage) {
+], function (registerSuite, assert, classList, Toaster, ToasterMessage) {
 
 	var _assert = {}; // this object will contain custom assertions methods
 
@@ -53,7 +52,7 @@ define([
 		},
 
 		"Default values": function () {
-			assert($(toaster).hasClass("d-toaster-placement-default"),
+			assert(classList.hasClass(toaster, "d-toaster-placement-default"),
 				"toaster has class d-toaster-placement-default");
 
 			assert.isFalse(toaster.invertOrder,
@@ -72,7 +71,7 @@ define([
 			positions.forEach(function (pos) {
 				toaster = new Toaster({placementClass: "d-toaster-placement-" + pos});
 				toaster.placeAt("container");
-				assert.isTrue($(toaster).hasClass("d-toaster-placement-" + pos),
+				assert.isTrue(classList.hasClass(toaster, "d-toaster-placement-" + pos),
 					"d-toaster-placement-" + pos + " CSS class has been correctly set");
 				toaster.destroy();
 			});

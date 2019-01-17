@@ -1,10 +1,14 @@
 define([
 	"intern/chai!assert",
-	"requirejs-dplugins/Promise!",
 	"dstore/Memory",
 	"dstore/Trackable",
-	"requirejs-dplugins/jquery!attributes/classes"
-], function (assert, Promise, Memory, Trackable, $) {
+	"delite/classList"
+], function (
+	assert,
+	Memory,
+	Trackable,
+	classList
+) {
 
 	var Store = Memory.createSubclass([Trackable], {});
 
@@ -30,13 +34,13 @@ define([
 				},
 				"baseClass update" : function () {
 					var list = this.parent.list;
-					assert.isTrue($(list).hasClass("d-list"));
+					assert.isTrue(classList.hasClass(list, "d-list"));
 					list.baseClass = "d-round-rect-list";
 					list.deliver();
-					assert.isTrue($(list).hasClass("d-round-rect-list"));
+					assert.isTrue(classList.hasClass(list, "d-round-rect-list"));
 					list.baseClass = "d-list";
 					list.deliver();
-					assert.isTrue($(list).hasClass("d-list"));
+					assert.isTrue(classList.hasClass(list, "d-list"));
 				},
 				"scrollDirection horizontal not supported": function () {
 					var list = this.parent.list;
@@ -47,9 +51,9 @@ define([
 						console.log(error);
 						/* jshint maxlen: 124 */
 						assert.strictEqual(
-								"'horizontal' not supported for scrollDirection, keeping the previous value of 'vertical'",
-								error.message,
-								"error message");
+							"'horizontal' not supported for scrollDirection, keeping the previous value of 'vertical'",
+							error.message,
+							"error message");
 					}
 					assert.strictEqual(list.scrollDirection, "vertical");
 				},
@@ -70,15 +74,15 @@ define([
 					var list = this.parent.list;
 					list.scrollDirection = "vertical";
 					list.deliver();
-					assert.isTrue($(list).hasClass("d-scrollable"));
-					assert.isTrue($(list).hasClass("d-scrollable-v"));
+					assert.isTrue(classList.hasClass(list, "d-scrollable"));
+					assert.isTrue(classList.hasClass(list, "d-scrollable-v"));
 				},
 				"scroll direction none": function () {
 					var list = this.parent.list;
 					list.scrollDirection = "none";
 					list.deliver();
 					list.scrollDirection = "none";
-					assert.isTrue($(list).hasClass("d-list"));
+					assert.isTrue(classList.hasClass(list, "d-list"));
 				},
 				"getItemRenderers": function () {
 					var list = this.parent.list;
@@ -315,7 +319,9 @@ define([
 				},
 
 				teardown : function () {
-					this.list.destroy();
+					if (this.list) {
+						this.list.destroy();
+					}
 					this.list = null;
 				}
 			};

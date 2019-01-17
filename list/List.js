@@ -1,9 +1,10 @@
+/* eslint-disable indent */
 /** @module deliteful/list/List */
 define([
 	"dcl/dcl",
 	"delite/Widget",
 	"delite/register",
-	"requirejs-dplugins/jquery!attributes/classes",
+	"delite/classList",
 	"delite/CustomElement",
 	"delite/Selection",
 	"delite/KeyNav",
@@ -14,8 +15,21 @@ define([
 	"delite/handlebars!./List/List.html",
 	"requirejs-dplugins/i18n!./List/nls/List",
 	"delite/theme!./List/themes/{{theme}}/List.css"
-], function (dcl, Widget, register, $, CustomElement,
-		Selection, KeyNav, StoreMap, Scrollable, ItemRenderer, CategoryRenderer, template, messages) {
+], function (
+	dcl,
+	Widget,
+	register,
+	classList,
+	CustomElement,
+	Selection,
+	KeyNav,
+	StoreMap,
+	Scrollable,
+	ItemRenderer,
+	CategoryRenderer,
+	template,
+	messages
+) {
 
 	/**
 	 * A widget that renders a scrollable list of items.
@@ -34,7 +48,7 @@ define([
 	 */
 
 	return register("d-list", [HTMLElement, Selection, KeyNav, StoreMap, Scrollable],
-			/** @lends module:deliteful/list/List# */ {
+		/** @lends module:deliteful/list/List# */ {
 
 		/**
 		 * Dojo object store that contains the items to render in the list.
@@ -325,8 +339,8 @@ define([
 			/*jshint maxcomplexity:15*/
 			if ("selectionMode" in props) {
 				// Update aria attributes
-				$(this.containerNode).removeClass(this._cssClasses.selectable);
-				$(this.containerNode).removeClass(this._cssClasses.multiselectable);
+				classList.removeClass(this.containerNode, this._cssClasses.selectable);
+				classList.removeClass(this.containerNode, this._cssClasses.multiselectable);
 				this.containerNode.removeAttribute("aria-multiselectable");
 				if (this.selectionMode === "none") {
 					// update aria-selected attribute on unselected items
@@ -335,14 +349,14 @@ define([
 						if (child.renderNode // no renderNode for the loading panel child
 							&& child.renderNode.hasAttribute("aria-selected")) {
 							child.renderNode.removeAttribute("aria-selected");
-							$(child).removeClass(this._cssClasses.selected);
+							classList.removeClass(child, this._cssClasses.selected);
 						}
 					}
 				} else {
 					if (this.selectionMode === "single" || this.selectionMode === "radio") {
-						$(this.containerNode).addClass(this._cssClasses.selectable);
+						classList.addClass(this.containerNode, this._cssClasses.selectable);
 					} else {
-						$(this.containerNode).addClass(this._cssClasses.multiselectable);
+						classList.addClass(this.containerNode, this._cssClasses.multiselectable);
 						this.containerNode.setAttribute("aria-multiselectable", "true");
 					}
 					// update aria-selected attribute on unselected items
@@ -353,7 +367,7 @@ define([
 									&& child.renderNode // no renderNode for the loading panel child
 									&& !child.renderNode.hasAttribute("aria-selected")) {
 								child.renderNode.setAttribute("aria-selected", "false");
-								$(child).removeClass(this._cssClasses.selected); // TODO: NOT NEEDED ?
+								classList.removeClass(child, this._cssClasses.selected); // TODO: NOT NEEDED ?
 							}
 						}
 					}
@@ -545,7 +559,7 @@ define([
 						// https://www.w3.org/TR/wai-aria-1.1/#aria-current role is for.
 						renderer.renderNode.setAttribute("aria-selected", itemSelected ? "true" : "false");
 					}
-					$(renderer).toggleClass(this._cssClasses.selected, itemSelected);
+					classList.toggleClass(renderer, this._cssClasses.selected, itemSelected);
 				}
 			}
 		},
@@ -709,9 +723,12 @@ define([
 		 * @private
 		 */
 		_getInsertSpec: function (renderer, atIndex) {
-			var result = {nodeRef: atIndex >= 0 ? this.getItemRendererByIndex(atIndex) : null,
-						  addCategoryBefore: false,
-						  addCategoryAfter: false};
+			var result = {
+				nodeRef: atIndex >= 0 ? this.getItemRendererByIndex(atIndex) : null,
+				addCategoryBefore: false,
+				addCategoryAfter: false
+			};
+
 			if (this._isCategorized()) {
 				var previousRenderer = result.nodeRef
 										? this._getNextRenderer(result.nodeRef, -1)
@@ -796,7 +813,7 @@ define([
 			if (this.selectionMode !== "none" && (this.type === "grid" || this.type === "listbox")) {
 				var itemSelected = !!this.isSelected(item);
 				renderer.renderNode.setAttribute("aria-selected", itemSelected ? "true" : "false");
-				$(renderer).toggleClass(this._cssClasses.selected, itemSelected);
+				classList.toggleClass(renderer, this._cssClasses.selected, itemSelected);
 			}
 			return renderer;
 		},
@@ -993,7 +1010,7 @@ define([
 			var enclosingRenderer = this.getEnclosingRenderer(child);
 			return enclosingRenderer &&
 				(this.type === "grid" || !this.isCategoryRenderer(enclosingRenderer)) &&
-				($(child).hasClass(this._cssClasses.cell) || child.hasAttribute("navindex"));
+				(classList.hasClass(child, this._cssClasses.cell) || child.hasAttribute("navindex"));
 		},
 
 		/**

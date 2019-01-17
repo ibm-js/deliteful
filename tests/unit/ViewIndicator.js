@@ -1,11 +1,11 @@
 define([
 	"intern!object",
 	"intern/chai!assert",
-	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
+	"delite/classList",
 	"deliteful/SwapView",
 	"deliteful/ViewIndicator"
-], function (registerSuite, assert, $, register) {
+], function (registerSuite, assert, register, classList) {
 	var container, vs;
 	var aaa, bbb, ccc, ddd;
 	var vi;
@@ -19,18 +19,19 @@ define([
 				((vs.children[i] === target && vs.children[i].style.display !== "none" &&
 					vs.selectedChildId === target.id)) ||
 					(vs.children[i] !== target && vs.children[i].style.display === "none"),
-			"ViewStack child visibility");
+				"ViewStack child visibility");
 		}
 	}
-	
+
 	function checkSelectedDot(vi, index) {
 		for (var i = 0; i < vi.children.length; i++) {
-			assert.isTrue($(vi.children[i]).hasClass("-d-view-indicator-dot"), "d-view-indicator-dot class");
-			assert[i === index ? "isTrue" : "isFalse"]($(vi.children[i]).hasClass("-d-view-indicator-dot-selected"),
+			assert.isTrue(classList.hasClass(vi.children[i], "-d-view-indicator-dot"), "d-view-indicator-dot class");
+			assert[i === index ? "isTrue" : "isFalse"](
+				classList.hasClass(vi.children[i], "-d-view-indicator-dot-selected"),
 				"-d-view-indicator-dot-selected class");
 		}
 	}
-	
+
 	registerSuite({
 		name: "ViewIndicator Markup",
 		setup: function () {
@@ -46,7 +47,7 @@ define([
 			vi = document.getElementById("vi");
 		},
 		"Default CSS" : function () {
-			assert.isTrue($(vi).hasClass("d-view-indicator"), "d-view-indicator class");
+			assert.isTrue(classList.hasClass(vi, "d-view-indicator"), "d-view-indicator class");
 			assert.equal(vi.children.length, 4, "number of children in ViewIndicator");
 			checkSelectedDot(vi, 0);
 		},

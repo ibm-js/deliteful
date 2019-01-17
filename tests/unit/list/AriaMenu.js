@@ -68,7 +68,9 @@ define([
 					"third renderNode role");
 		},
 		teardown : function () {
-			list.destroy();
+			if (list) {
+				list.destroy();
+			}
 		}
 	});
 });

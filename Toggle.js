@@ -1,9 +1,8 @@
 /** @module deliteful/Toggle */
 define([
 	"dcl/dcl",
-	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/CssState"
-], function (dcl, $, CssState) {
+], function (dcl, CssState) {
 
 	/**
 	 * A base class for 2-state form widgets.
@@ -36,8 +35,13 @@ define([
 
 		postRender: function () {
 			// CssState does not handle focused property any more
-			this.on("focus", function () {  $(this).addClass("d-focused"); }.bind(this), this.focusNode);
-			this.on("blur", function () { $(this).removeClass("d-focused"); }.bind(this), this.focusNode);
+			this.on("focus", function () {
+				this.addClass("d-focused");
+			}.bind(this), this.focusNode);
+
+			this.on("blur", function () {
+				this.removeClass("d-focused");
+			}.bind(this), this.focusNode);
 		},
 
 		/**

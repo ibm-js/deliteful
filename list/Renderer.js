@@ -1,17 +1,17 @@
 /** @module deliteful/list/Renderer */
 define([
 	"dcl/dcl",
-	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
+	"delite/classList",
 	"delite/Widget"
-], function (dcl, $, register, Widget) {
+], function (dcl, register, classList, Widget) {
 
 	/**
 	 * The base class for a widget that render an item or its category inside a deliteful/list/List widget.
-	 * 
+	 *
 	 * This base class provide all the infrastructure that a deliteful/list/List widget
 	 * expect from a renderer, including keyboard navigation support.
-	 * 
+	 *
 	 * Focusability and Keyboard navigation order for a renderer instance is defined using
 	 * the navindex attribute on the rendered nodes:
 	 * - no navindex attribute value means that the node is not focusable
@@ -54,7 +54,7 @@ define([
 						+ "<template><div attach-point='renderNode'></div></template>");
 			}
 			this.renderNode.tabIndex = -1;
-			$(this.renderNode).addClass("d-list-cell");
+			classList.addClass(this.renderNode, "d-list-cell");
 			this.updateFocusableChildren();
 		}),
 
@@ -130,7 +130,7 @@ define([
 					return nodes.indexOf(a) - nodes.indexOf(b);
 				} else {
 					return navindexA - navindexB;
-					
+
 				}
 			});
 			// update the focusable children nodes

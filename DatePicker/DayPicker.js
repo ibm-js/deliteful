@@ -1,16 +1,16 @@
 define([
-	"requirejs-dplugins/jquery!attributes/classes",
 	"dojo/i18n",
 	"dcl/dcl",
 	"delite/register",
+	"delite/classList",
 	"delite/KeyNav",
 	"../TimeBase",
 	"delite/handlebars!./DayPicker.html"
 ], function (
-	$,
 	i18n,
 	dcl,
 	register,
+	classList,
 	KeyNav,
 	TimeBase,
 	template
@@ -243,10 +243,14 @@ define([
 					}, this);
 				}, this);
 
-				$(".d-date-picker-today", this.grid).removeClass("d-date-picker-today");
+				var today = this.grid.querySelector(".d-date-picker-today");
+				if (today) {
+					classList.removeClass(today, "d-date-picker-today");
+				}
+
 				var todayCell = this._dateToCell(new this.dateClassObj());
 				if (todayCell) {
-					$(todayCell).addClass("d-date-picker-today");
+					classList.addClass(todayCell, "d-date-picker-today");
 				}
 			}
 
@@ -257,11 +261,15 @@ define([
 
 			// Adjust CSS for the selected date whenever the selected date changes or we switch to another month.
 			if ("value" in oldVals || "dates" in oldVals) {
-				$(".d-date-picker-selected", this.grid).removeClass("d-date-picker-selected");
+				var selected = this.grid.querySelector(".d-date-picker-selected");
+				if (selected) {
+					classList.removeClass(selected, "d-date-picker-selected");
+				}
+
 				if (this.value && !isNaN(this.value)) {
 					var selectedCell = this._dateToCell(this.value);
 					if (selectedCell) {
-						$(selectedCell).addClass("d-date-picker-selected");
+						classList.addClass(selectedCell, "d-date-picker-selected");
 					}
 				}
 			}
@@ -304,7 +312,7 @@ define([
 		 * @param {Date} date - The date displayed by this cell.
 		 */
 		styleGridCell: function (node, date) {
-			$(node).toggleClass("d-date-picker-other-month", date.getMonth() !== this.currentFocus.getMonth());
+			classList.toggleClass(node, "d-date-picker-other-month", date.getMonth() !== this.currentFocus.getMonth());
 		},
 
 		/**

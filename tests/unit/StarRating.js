@@ -25,7 +25,9 @@ define([
 			return dfd;
 		},
 		teardown: function () {
-			sr.destroy();
+			if (sr) {
+				sr.destroy();
+			}
 			sr = null;
 		}
 	});

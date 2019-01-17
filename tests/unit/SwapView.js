@@ -1,10 +1,15 @@
 define([
 	"intern!object",
 	"intern/chai!assert",
-	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
+	"delite/classList",
 	"deliteful/SwapView"
-], function (registerSuite, assert, $, register) {
+], function (
+	registerSuite,
+	assert,
+	register,
+	classList
+) {
 	var container, node;
 	var aaa, bbb, ccc, ddd;
 	var asyncHandler;
@@ -34,8 +39,8 @@ define([
 			ddd = document.getElementById("ddd");
 		},
 		"Default CSS" : function () {
-			assert.isTrue($(node).hasClass("d-swap-view"));
-			assert.isTrue($(node).hasClass("d-view-stack"));
+			assert.isTrue(classList.hasClass(node, "d-swap-view"));
+			assert.isTrue(classList.hasClass(node, "d-view-stack"));
 		},
 		"Default values" : function () {
 			assert.deepEqual(node.transition, "slide");
