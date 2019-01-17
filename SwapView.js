@@ -1,10 +1,9 @@
 /** @module deliteful/SwapView */
 define([
 	"dcl/dcl", "delite/register",
-	"requirejs-dplugins/jquery!attributes/classes",
 	"dpointer/events", "./ViewStack",
 	"delite/theme!./SwapView/themes/{{theme}}/SwapView.css"
-], function (dcl, register, $, dpointer, ViewStack) {
+], function (dcl, register, dpointer, ViewStack) {
 	/**
 	 * SwapView container widget. Extends ViewStack to let the user swap the visible child using a swipe gesture.
 	 * You can also use the Page Up / Down keyboard keys to go to the next/previous child.
@@ -55,7 +54,7 @@ define([
 
 		render: function () {
 			// we want to inherit from ViewStack's CSS (including transitions).
-			$(this).addClass("d-view-stack");
+			this.addClass("d-view-stack");
 
 			dpointer.setTouchAction(this, "pan-y");
 		},
@@ -99,7 +98,7 @@ define([
 
 						this._drag.reverse = dx > 0;
 
-						$(this).addClass("-d-swap-view-drag");
+						this.addClass("-d-swap-view-drag");
 
 						childIn.style.visibility = "visible";
 						childIn.style.display = "";
@@ -194,7 +193,7 @@ define([
 		 */
 		_endTransition: function () {
 			if (this._drag) {
-				$(this).removeClass("-d-swap-view-drag");
+				this.removeClass("-d-swap-view-drag");
 
 				if (this._drag.slideBack) {
 					// Hide the "in" view if the wap was cancelled (slide back).

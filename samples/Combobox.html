@@ -19,7 +19,6 @@
 
 	<script type="text/javascript">
 		require([
-			"requirejs-dplugins/jquery!event",
 			"deliteful/list/List",
 			"deliteful/tests/functional/SlowStore",
 			"deliteful/Combobox",
@@ -28,7 +27,7 @@
 			"deliteful/Checkbox",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function ($, List, SlowStore, Combobox) {
+		], function (List, SlowStore, Combobox) {
 
 			startsWith.on("change", function () {
 				comboTeams.filterMode = "startsWith";
@@ -42,11 +41,13 @@
 			ignoreCase.on("change", function () {
 				comboTeams.ignoreCase = ignoreCase.checked;
 			});
-
-			$("input[type=number]").on("input", function(evt) {
+			function onInput (evt) {
 				comboTeams.minFilterChars = parseInt(evt.target.value) || 0;
+			};
+			var inputs = Array.prototype.slice.call(document.querySelectorAll("input[type=number]"));
+			inputs.forEach(function (input) {
+				input.addEventListener("input", onInput);
 			});
-
 			showResults = function () {
 				var getSelectedItemsTxt = function (combobox) {
 					var res = "", noOptionSelected = "no option selected";

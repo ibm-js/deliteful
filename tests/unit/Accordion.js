@@ -2,13 +2,12 @@ define([
 	"dcl/dcl",
 	"intern!object",
 	"intern/chai!assert",
-	"requirejs-dplugins/jquery!attributes/classes",
 	"requirejs-dplugins/Promise!",
 	"delite/register",
 	"deliteful/Accordion",
 	"deliteful/Panel",
 	"dojo/domReady!"
-], function (dcl, registerSuite, assert, $, Promise, register, Accordion, Panel) {
+], function (dcl, registerSuite, assert, Promise, register, Accordion, Panel) {
 
 	function mix(a, b) {
 		for (var n in b) {
@@ -48,9 +47,9 @@ define([
 				(child.headerNode.style.display !== "none" &&
 					((child === target && child.style.display !== "none" &&
 						ac.selectedChildId === target.id && child.open && child.headerNode.open &&
-						$(child).hasClass("d-accordion-open-panel")) ||
+						child.classList.contains("d-accordion-open-panel")) ||
 					(child !== target && child.style.display === "none" && !child.open &&
-						!child.headerNode.open && !($(child).hasClass("d-accordion-open-panel"))))),
+						!child.headerNode.open && !(child.classList.contains("d-accordion-open-panel"))))),
 			message + " checking " + child.id);
 		});
 	}
@@ -59,13 +58,13 @@ define([
 		openPanels.forEach(function (panel) {
 			assert.isTrue(
 				(panel.headerNode.style.display !== "none" && panel.style.display !== "none" &&
-					panel.open && panel.headerNode.open && $(panel).hasClass("d-accordion-open-panel")),
+					panel.open && panel.headerNode.open && panel.classList.contains("d-accordion-open-panel")),
 			message);
 		});
 		closedPanels.forEach(function (panel) {
 			assert.isTrue(
 				(panel.headerNode.style.display !== "none" && panel.style.display === "none" &&
-					!panel.open && !panel.headerNode.open && !$(panel).hasClass("d-accordion-open-panel")),
+					!panel.open && !panel.headerNode.open && !panel.classList.contains("d-accordion-open-panel")),
 			message);
 		});
 		checkAriaProperties(openPanels, closedPanels);
@@ -76,7 +75,7 @@ define([
 		assert.strictEqual(panel.closedIconClass, pcic, "panel closedIconClass");
 		assert.strictEqual(panel.headerNode.openIconClass, hoic, "header openIconClass");
 		assert.strictEqual(panel.headerNode.closedIconClass, hcic, "header closedIconClass");
-		assert.isTrue($(panel.headerNode.iconNode).hasClass(open ? hoic : hcic), "header.iconNode class");
+		assert.isTrue(panel.headerNode.iconNode.classList.contains(open ? hoic : hcic), "header.iconNode class");
 	}
 
 	function checkAriaProperties(openPanels, closedPanels) {
@@ -123,7 +122,7 @@ define([
 	var commonSuite = {
 		"Default CSS": function () {
 			accordion = document.getElementById("accordion");
-			assert.isTrue($(accordion).hasClass("d-accordion"));
+			assert.isTrue(accordion.classList.contains("d-accordion"));
 		},
 		"Default values": function () {
 			accordion = document.getElementById("accordion");
@@ -459,7 +458,7 @@ define([
 		"add/remove children": function () {
 			var ac = new Accordion();
 			ac.deliver();
-			
+
 			var p1 = new Panel({id: "add1", label: "panel 1"});
 			var p2 = new Panel({id: "add2", label: "panel 2"});
 			ac.appendChild(p1);
@@ -541,7 +540,7 @@ define([
 			assert.strictEqual(p2.getAttribute("aria-hidden"), "true", "p2 aria-hidden 3");
 			assert.isFalse(p3.open, "p3.open 1");
 			assert.strictEqual(p3.getAttribute("aria-hidden"), "true", "p3 aria-hidden 3");
-			
+
 			return ac.show(p1).then(function () {
 				assert.isTrue(p1.open, "p1.open 2");
 				assert.strictEqual(p1.getAttribute("aria-hidden"), "false", "p1 aria-hidden 2");

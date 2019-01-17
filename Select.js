@@ -1,15 +1,15 @@
 /** @module deliteful/Select */
 define([
 	"dcl/dcl",
-	"requirejs-dplugins/jquery!attributes/classes",
 	"decor/sniff",
 	"delite/register",
+	"delite/classList",
 	"delite/FormWidget",
 	"delite/StoreMap",
 	"delite/Selection",
 	"delite/handlebars!./Select/Select.html",
 	"delite/theme!./Select/themes/{{theme}}/Select.css"
-], function (dcl, $, has, register,
+], function (dcl, has, register, classList,
 	FormWidget, StoreMap, Selection, template) {
 
 	/**
@@ -29,13 +29,13 @@ define([
 	 * * Form support (inherits from `delite/FormWidget`).
 	 * * The item rendering has the limitations of the `<option>` elements of the
 	 * native `<select>`, in particular it is text-only.
-	 * 
+	 *
 	 * Remarks:
 	 * * The option items must be added, removed or updated exclusively using
 	 * the store API. Direct operations using the DOM API are not supported.
 	 * * The handling of the selected options of the underlying native `<select>`
 	 * must be done using the API inherited by deliteful/Select from delite/Selection.
-	 * 
+	 *
 	 * @example <caption>Using store custom element in markup</caption>
 	 * JS:
 	 * require(["deliteful/Select", "requirejs-domready/domReady!"],
@@ -58,7 +58,7 @@ define([
 	 *   });
 	 * HTML:
 	 * <d-select selectionMode="multiple" id="select"></d-select>
-	 * 
+	 *
 	 * @class module:deliteful/Select
 	 * @augments module:delite/FormWidget
 	 * @augments module:delite/StoreMap
@@ -67,12 +67,12 @@ define([
 	return register("d-select", [HTMLElement, FormWidget, Selection, StoreMap],
 		// Have to keep StoreMap after Selection to get Store definition of getIdentity function
 		/** @lends module:deliteful/Select# */ {
-		
+
 		// TODO: improve doc.
-		
+
 		// Note: the properties `store` and `query` are inherited from delite/Store, and
 		// the property `disabled` is inherited from delite/FormWidget.
-		
+
 		/**
 		 * The number of rows that should be visible at one time when the widget
 		 * is presented as a scrollable list box. Corresponds to the `size` attribute
@@ -81,7 +81,7 @@ define([
 		 * @default 0
 		 */
 		size: 0,
-		
+
 		/**
 		 * The name of the property of store items which contains the text
 		 * of Select's options.
@@ -89,7 +89,7 @@ define([
 		 * @default "text"
 		 */
 		textAttr: "text",
-		
+
 		/**
 		 * The name of the property of store items which contains the value
 		 * of Select's options.
@@ -97,7 +97,7 @@ define([
 		 * @default "value"
 		 */
 		valueAttr: "value",
-		
+
 		/**
 		 * The name of the property of store items which contains the disabled
 		 * value of Select's options. To disable a given option, the `disabled`
@@ -108,9 +108,9 @@ define([
 		 * @default "disabled"
 		 */
 		disabledAttr: "disabled",
-		
+
 		baseClass: "d-select",
-		
+
 		/**
 		 * The chosen selection mode.
 		 *
@@ -132,7 +132,7 @@ define([
 		 */
 		// The purpose of the above pseudo-property is to adjust the documentation
 		// of selectionMode as provided by delite/Selection.
-		  
+
 		template: template,
 
 		afterFormResetCallback: function () {
@@ -150,10 +150,10 @@ define([
 			// of the focus pseudo-class because the browsers give the focus
 			// to the underlying select, not to the widget.
 			this.on("focus", function (evt) {
-				$(this).toggleClass("d-select-focus", evt.type === "focus");
+				classList.toggleClass(this, "d-select-focus", evt.type === "focus");
 			}.bind(this), this.valueNode);
 			this.on("blur", function (evt) {
-				$(this).toggleClass("d-select-focus", evt.type === "focus");
+				classList.toggleClass(this, "d-select-focus", evt.type === "focus");
 			}.bind(this), this.valueNode);
 
 			// Keep delite/Selection's selectedItem/selectedItems in sync after
@@ -201,19 +201,19 @@ define([
 
 				this._duringInteractiveSelection = false;
 			}.bind(this), this.valueNode);
-			
+
 			// Thanks to the custom getter defined in deliteful/Select for widget's
 			// `value` property, there is no need to add code for keeping the
 			// property in sync after a form reset.
 		},
-		
+
 		hasSelectionModifier: function () {
 			// Override of the method from delite/Selection because the
 			// default implementation is inappropriate: the "change" event
 			// has no key modifier.
 			return this.selectionMode === "multiple";
 		},
-		
+
 		refreshRendering: function (props) {
 			/* jshint maxcomplexity: 13 */
 			if ("renderItems" in props) {
@@ -235,8 +235,8 @@ define([
 						// (which are data items, not render items).
 						option.__dataItem.__visualItem = option;
 						this.discardChanges(); // to avoid infinity loop
-						
-						// According to http://www.w3.org/TR/html5/forms.html#the-option-element, we 
+
+						// According to http://www.w3.org/TR/html5/forms.html#the-option-element, we
 						// could use equivalently the label or the text IDL attribute of the option element.
 						// However, using the label attr. breaks the rendering in FF29/Win7!
 						// This is https://bugzilla.mozilla.org/show_bug.cgi?id=40545.
@@ -265,11 +265,11 @@ define([
 							// (<option disabled="false"> is a disabled option!)
 							option.setAttribute("disabled", "true");
 						}
-						
+
 						fragment.appendChild(option);
 					}
 					this.valueNode.appendChild(fragment);
-					
+
 					if (this.selectionMode === "single") {
 						// Since there is no native "change" event initially, initialize
 						// the delite/Selection's selectedItem property with the currently
@@ -279,19 +279,19 @@ define([
 							this.valueNode.options[index].__dataItem;
 					} // else for the native multi-select: it does not have any
 					// option selected by default.
-					
+
 					// Initialize widget's value
 					this.value = this.valueNode.value;
 				}
 			}
 		},
-		
+
 		getIdentity: dcl.superCall(function (sup) {
 			return function (dataItem) {
 				return sup.call(this, dataItem);
 			};
 		}),
-		
+
 		updateRenderers: function () {
 			// Override of delite/Selection's method.
 			// Trigger rerendering from scratch, in order to keep the rendering

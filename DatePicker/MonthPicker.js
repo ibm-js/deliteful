@@ -1,13 +1,13 @@
 define([
 	"delite/register",
+	"delite/classList",
 	"delite/Widget",
-	"../TimeBase",
-	"requirejs-dplugins/jquery!attributes/classes"
+	"../TimeBase"
 ], function (
 	register,
+	classList,
 	Widget,
-	TimeBase,
-	$
+	TimeBase
 ) {
 	"use strict";
 
@@ -70,12 +70,15 @@ define([
 			if ("month" in oldVals) {
 				// If there's a selected month, then set the "d-date-picker-selected" class on it.
 				// Otherwise, set the "d-date-picker-today" class on the present month.
-				$(this.cells).removeClass("d-date-picker-selected d-date-picker-today");
+				this.cells.forEach(function (cell) {
+					classList.removeClass(cell, "d-date-picker-selected d-date-picker-today");
+				});
+
 				if (this.month >= 0) {
-					$(this.cells[this.month]).addClass("d-date-picker-selected");
+					classList.addClass(this.cells[this.month], "d-date-picker-selected");
 				} else {
 					var presentMonth = (new this.dateClassObj()).getMonth();
-					$(this.cells[presentMonth]).addClass("d-date-picker-today");
+					classList.addClass(this.cells[presentMonth], "d-date-picker-today");
 				}
 			}
 		},

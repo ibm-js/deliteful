@@ -1,10 +1,12 @@
 define([
 	"intern/chai!assert",
-	"dojo/Deferred",
 	"decor/ObservableArray",
-	"decor/Observable",
-	"requirejs-dplugins/jquery!attributes/classes"
-], function (assert, Deferred, ObservableArray, Observable, $) {
+	"decor/Observable"
+], function (
+	assert,
+	ObservableArray,
+	Observable
+) {
 
 	return {
 		/**
@@ -12,7 +14,8 @@ define([
 		 * @param name {string} the name of the test suite
 		 * @param ListConstructor {function} the constructor for the tested List class
 		 */
-		buildSuite: function (name, ListConstructor) {
+		buildSuite: function (name,
+			ListConstructor) {
 			return {
 				name: name,
 				beforeEach: function () {
@@ -56,13 +59,13 @@ define([
 
 				"baseClass update" : function () {
 					var list = this.parent.list;
-					assert.isTrue($(list).hasClass("d-list"));
+					assert.isTrue(list.classList.contains("d-list"));
 					list.baseClass = "d-round-rect-list";
 					list.deliver();
-					assert.isTrue($(list).hasClass("d-round-rect-list"));
+					assert.isTrue(list.classList.contains("d-round-rect-list"));
 					list.baseClass = "d-list";
 					list.deliver();
-					assert.isTrue($(list).hasClass("d-list"));
+					assert.isTrue(list.classList.contains("d-list"));
 				},
 
 				"scrollDirection horizontal not supported": function () {
@@ -100,8 +103,8 @@ define([
 					var list = this.parent.list;
 					list.scrollDirection = "vertical";
 					list.deliver();
-					assert.isTrue($(list).hasClass("d-scrollable"));
-					assert.isTrue($(list).hasClass("d-scrollable-v"));
+					assert.isTrue(list.classList.contains("d-scrollable"));
+					assert.isTrue(list.classList.contains("d-scrollable-v"));
 				},
 
 				"scroll direction none": function () {
@@ -109,7 +112,7 @@ define([
 					list.scrollDirection = "none";
 					list.deliver();
 					list.scrollDirection = "none";
-					assert.isTrue($(list).hasClass("d-list"));
+					assert.isTrue(list.classList.contains("d-list"));
 				},
 
 				"getItemRenderers": function () {

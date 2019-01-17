@@ -1426,7 +1426,7 @@ define([
 			for (var i = 0; i < 100; i++) {
 				store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
 			}
-			
+
 			list = new PageableList({source: store});
 			list.categoryAttr = "category";
 			list.pageLength = 25;

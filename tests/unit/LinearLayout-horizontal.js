@@ -2,10 +2,14 @@ define([
 	"intern!object",
 	"intern/chai!assert",
 	"dojo/dom-geometry",
-	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
 	"deliteful/LinearLayout"
-], function (registerSuite, assert, domGeom, $, register) {
+], function (
+	registerSuite,
+	assert,
+	domGeom,
+	register
+) {
 	var container, node;
 	var htmlContent =
 			"<d-linear-layout id='dlayout' vertical='false' style='width:500px'><div id='divA' class='fill'>A</div>" +
@@ -39,7 +43,7 @@ define([
 			var children = node.getChildren();
 			node.style.width = "500px";
 			children[1].style.width = "";
-			$(children[1]).addClass("fill");
+			children[1].classList.add("fill");
 			var box1 = domGeom.getMarginBox(children[0]);
 			var box2 = domGeom.getMarginBox(children[1]);
 			assert.isTrue(box1.w === 250 || box1.w === 249, "box1.w");

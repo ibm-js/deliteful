@@ -4,13 +4,12 @@ define([
 	"delite/register",
 	"dojo/string",
 	"requirejs-dplugins/Promise!",
-	"requirejs-dplugins/jquery!attributes/classes",
 	"decor/sniff",
 	"./List",
 	"./Renderer",
 	"delite/handlebars!./List/PageableList.html",
 	"requirejs-dplugins/i18n!./List/nls/Pageable"
-], function (dcl, register, string, Promise, $, has, List, Renderer, template, messages) {
+], function (dcl, register, string, Promise, has, List, Renderer, template, messages) {
 
 	/**
 	 * A widget that renders a scrollable list of items and provides paging.

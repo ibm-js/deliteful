@@ -2,19 +2,17 @@
 define([
 	"dcl/dcl",
 	"dpointer/events",
-	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
+	"delite/classList",
 	"delite/FormValueWidget",
 	"requirejs-dplugins/i18n!./StarRating/nls/StarRating",
 	"delite/theme!./StarRating/themes/{{theme}}/StarRating.css"
-], function (dcl, pointer, $,
-			register, FormValueWidget, messages) {
-
+], function (dcl, pointer, register, classList, FormValueWidget, messages) {
 	/**
 	 * A widget that displays a rating, usually with stars, and that allows setting a different rating value
 	 * by touching the stars.
 	 * Its custom element tag is `d-star-rating`.
-	 * 
+	 *
 	 * @class module:deliteful/StarRating
 	 * @augments module:delite/FormValueWidget
 	 */
@@ -81,10 +79,10 @@ define([
 		/* jshint maxcomplexity: 13 */
 		refreshRendering: function (props) {
 			if ("disabled" in props) {
-				$(this).toggleClass(this.baseClass + "-disabled", this.disabled);
+				this.toggleClass(this.baseClass + "-disabled", this.disabled);
 			}
 			if ("readOnly" in props) {
-				$(this).toggleClass(this.baseClass + "-readonly", this.readOnly);
+				this.toggleClass(this.baseClass + "-readonly", this.readOnly);
 			}
 			if ("max" in props) {
 				this.focusNode.setAttribute("aria-valuemax", this.max);
@@ -95,7 +93,7 @@ define([
 			if ("value" in props) {
 				this.focusNode.setAttribute("aria-valuenow", this.value);
 				this.focusNode.setAttribute("aria-valuetext",
-						messages["aria-valuetext"].replace("${value}", this.value));
+					messages["aria-valuetext"].replace("${value}", this.value));
 				this.valueNode.value = this.value;
 			}
 			if ("readOnly" in props || "disabled" in props) {
@@ -124,8 +122,10 @@ define([
 				this._keyDownHandle = null;
 			}
 			if (!passive && !this._startHandles) {
-				this._startHandles = [this.on("pointerover", this._pointerOverHandler.bind(this)),
-									  this.on("pointerdown", this._wireHandlers.bind(this))];
+				this._startHandles = [
+					this.on("pointerover", this._pointerOverHandler.bind(this)),
+					this.on("pointerdown", this._wireHandlers.bind(this))
+				];
 			} else if (passive && this._startHandles) {
 				while (this._startHandles.length) {
 					this._startHandles.pop().remove();
@@ -152,13 +152,13 @@ define([
 			this._wireHandlers();
 			if (!this._hovering && event.pointerType === "mouse") {
 				this._hovering = true;
-				$(this).addClass(this.baseClass + "-hovered");
+				this.addClass(this.baseClass + "-hovered");
 			}
 			var newValue = event.target.value;
 			if (newValue !== undefined) {
 				if (this._hovering) {
 					if (newValue !== this._hoveredValue) {
-						$(this).addClass(this.baseClass + "-hovered");
+						this.addClass(this.baseClass + "-hovered");
 						this._updateStars(newValue, false);
 						this._hoveredValue = newValue;
 					}
@@ -178,7 +178,7 @@ define([
 			if (!this._hovering) {
 				this._removeEventsHandlers();
 			} else {
-				$(this).removeClass(this.baseClass + "-hovered");
+				this.removeClass(this.baseClass + "-hovered");
 			}
 		},
 
@@ -186,7 +186,7 @@ define([
 			if (this._hovering) {
 				this._hovering = false;
 				this._hoveredValue = null;
-				$(this).removeClass(this.baseClass + "-hovered");
+				this.removeClass(this.baseClass + "-hovered");
 				this._updateStars(this.value, false);
 			}
 			this._removeEventsHandlers();
@@ -253,10 +253,10 @@ define([
 
 		_updateZeroArea: function () {
 			if (this.readOnly || !this.allowZero) {
-				$(this._zeroSettingArea).addClass("d-hidden");
+				classList.addClass(this._zeroSettingArea, "d-hidden");
 				delete this.focusNode.value;
 			} else {
-				$(this._zeroSettingArea).removeClass("d-hidden");
+				classList.removeClass(this._zeroSettingArea, "d-hidden");
 				// _zeroSettingArea might not fill the whole widget height
 				// so pointer events can land in the underlying focus node
 				this.focusNode.value = 0;

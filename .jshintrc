@@ -21,7 +21,6 @@
 	"globalstrict": false,
 	"immed": true,
 	"iterator": false,
-	"jquery": false,
 	"lastsemic": false,
 	"latedef": false,
 	"laxbreak": true,

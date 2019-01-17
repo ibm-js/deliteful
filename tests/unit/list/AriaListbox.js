@@ -68,7 +68,9 @@ define([
 		},
 
 		teardown : function () {
-			list.destroy();
+			if (list) {
+				list.destroy();
+			}
 		}
 	});
 });

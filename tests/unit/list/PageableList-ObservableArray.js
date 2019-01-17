@@ -1503,7 +1503,9 @@ define([
 		// TODO: TEST MOVING ITEMS ?
 		///////////////////////////////////////////
 		teardown : function () {
-			list.destroy();
+			if (list) {
+				list.destroy();
+			}
 			list = null;
 		}
 	});

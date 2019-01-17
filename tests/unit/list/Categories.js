@@ -30,7 +30,7 @@ define([
 			}
 			list = new List({source: new Store()});
 			list.placeAt(document.body);
-			
+
 			list.source.filter();
 			list.categoryAttr = "category";
 			list.source.add({category: "A", label: "item 1"});
@@ -343,7 +343,9 @@ define([
 			checkItem(children[6], "item 6");
 		},
 		teardown : function () {
-			list.destroy();
+			if (list) {
+				list.destroy();
+			}
 			list = null;
 		}
 	});

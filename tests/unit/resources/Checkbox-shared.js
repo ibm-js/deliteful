@@ -1,10 +1,6 @@
 define([
-	"dcl/dcl",
-	"intern!object",
-	"intern/chai!assert",
-	"delite/register",
-	"requirejs-dplugins/jquery!attributes/classes"
-], function (dcl, registerSuite, assert, register, $) {
+	"intern/chai!assert"
+], function (assert) {
 
 	var commonSuite = {
 		defaultWidget: "",
@@ -18,7 +14,7 @@ define([
 			var d = this.async(1000);
 			setTimeout(d.callback(function () {
 				var cb = document.getElementById(commonSuite.defaultWidget);
-				assert.isTrue($(cb).hasClass(commonSuite.baseClass), "baseClass");
+				assert.isTrue(cb.classList.contains(commonSuite.baseClass), "baseClass");
 				assert.isFalse(cb.checked, "default value for 'checked' property");
 				assert.isFalse(cb.disabled, "default value for 'disabled' property");
 				assert.strictEqual(cb.value, "on", "default value for 'value' property");

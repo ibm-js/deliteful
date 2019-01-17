@@ -127,7 +127,8 @@ define([
 						assert.isFalse(rb.checked,
 								"Unexpected checked state for " + rb.id + " in rb3 on-click handler");
 						assert.isFalse(rb.focusNode.checked,
-								"Unexpected checked state for " + rb.id + "'s wrapped input in rb3 on-click handler");
+								"Unexpected checked state for " + rb.id +
+								"'s wrapped input in rb3 on-click handler");
 					});
 				});
 				setTimeout(d.callback(function () {
@@ -164,7 +165,7 @@ define([
 			var form = document.createElement("form");
 			form.id = "form1";
 			container.appendChild(form);
-			
+
 			var rb = new RadioButton({id: "rb1", value: "rb1", name: "choice"});
 			rb.placeAt(form);
 			rb = new RadioButton({id: "rb2", value: "rb2", checked: true, name: "choice"});

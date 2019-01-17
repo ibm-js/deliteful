@@ -1,11 +1,11 @@
 /** @module deliteful/ResponsiveColumns */
 define([
-	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
+	"delite/classList",
 	"delite/DisplayContainer",
 	"./channelBreakpoints",
 	"delite/theme!./ResponsiveColumns/themes/{{theme}}/ResponsiveColumns.css"
-], function ($, register, DisplayContainer, channelBreakpoints) {
+], function (register, classList, DisplayContainer, channelBreakpoints) {
 	/**
 	 * A container that lays out its children according to the screen width. This widget relies on CSS media queries
 	 * (http://www.w3.org/TR/css3-mediaqueries). You can define any number of screen classes by setting the breakpoints
@@ -66,7 +66,7 @@ define([
 				// A set of MediaQueryList
 				this._mqls = [];
 				// Unique class for this widget
-				$(this).addClass(this.widgetId);
+				this.addClass(this.widgetId);
 			},
 
 			_removeListeners: function () {

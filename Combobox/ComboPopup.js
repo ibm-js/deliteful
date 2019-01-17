@@ -1,10 +1,9 @@
 /** @module deliteful/Combobox/ComboPopup */
 define([
 	"delite/register",
-	"requirejs-dplugins/jquery!attributes/classes",	// addClass()
 	"delite/Dialog",
 	"delite/handlebars!./ComboPopup.html"
-], function (register, $, Dialog, template) {
+], function (register, Dialog, template) {
 	/**
 	 * Auxiliary widget used in some cases by deliteful/Combobox for displaying
 	 * a popup containing conditionally a search field and OK/Cancel buttons.
@@ -48,7 +47,7 @@ define([
 					var list = this.combobox.list;
 					if (list) {
 						list.placeAt(this.listNode, "replace");
-						$(list).addClass("fill")
+						list.addClass("fill")
 							.removeClass("d-hidden");
 					}
 					this.combobox._prepareInput(this.inputNode);
@@ -74,7 +73,7 @@ define([
 				this.inputNode.focus();
 			} else {
 				// first check if list is not hidden.
-				if (!$(this.combobox.list).hasClass("d-hidden")
+				if (!this.combobox.list.hasClass("d-hidden")
 						&& this.combobox.list && this.combobox.list.containerNode.children.length > 0) {
 					var id = this.combobox.list.getIdentity(
 						this.combobox.list.selectedItems.length > 0 ? this.combobox.list.selectedItems[0] : "");

@@ -1,16 +1,20 @@
 define([
-	"dcl/dcl",
 	"intern!object",
 	"intern/chai!assert",
 	"decor/sniff",
 	"delite/register",
-	"requirejs-dplugins/jquery!attributes/classes",
 	"dstore/Memory",
 	"dstore/Trackable",
-	"deliteful/list/List",
 	"deliteful/Combobox"
-], function (dcl, registerSuite, assert, has, register, $,
-			 Memory, Trackable, List, Combobox) {
+], function (
+	registerSuite,
+	assert,
+	has,
+	register,
+	Memory,
+	Trackable,
+	Combobox
+) {
 
 	function mix(a, b) {
 		for (var n in b) {
@@ -207,13 +211,13 @@ define([
 	var CommonTestCases = {
 		"Default CSS": function () {
 			var combo = document.getElementById("combo1");
-			assert.isTrue($(combo).hasClass(outerCSS),
+			assert.isTrue(combo.classList.contains(outerCSS),
 					"Expecting " + outerCSS +
 					" CSS class on outer element of combo.id: " + combo.id);
-			assert.isTrue($(combo.inputNode).hasClass(inputCSS),
+			assert.isTrue(combo.inputNode.classList.contains(inputCSS),
 					"Expecting " + inputCSS +
 					" CSS class on inner input element of combo.id: " + combo.id);
-			assert.isTrue($(combo.valueNode).hasClass(hiddenInputCSS),
+			assert.isTrue(combo.valueNode.classList.contains(hiddenInputCSS),
 					"Expecting " + hiddenInputCSS +
 					" CSS class on inner valueNode (hidden input) of combo.id: " + combo.id);
 
@@ -223,13 +227,13 @@ define([
 				combo = createMyCombobox("mycombo1");
 			} // else the declarative case
 
-			assert.isTrue($(combo).hasClass(outerCSS),
+			assert.isTrue(combo.classList.contains(outerCSS),
 					"Expecting " + outerCSS +
 					" CSS class on outer element of combo.id: " + combo.id);
-			assert.isTrue($(combo.inputNode).hasClass(inputCSS),
+			assert.isTrue(combo.inputNode.classList.contains(inputCSS),
 					"Expecting " + inputCSS +
 					" CSS class on inner input element of combo.id: " + combo.id);
-			assert.isTrue($(combo.valueNode).hasClass(hiddenInputCSS),
+			assert.isTrue(combo.valueNode.classList.contains(hiddenInputCSS),
 					"Expecting " + hiddenInputCSS +
 					" CSS class on inner valueNode (hidden input) of combo.id: " + combo.id);
 		},
