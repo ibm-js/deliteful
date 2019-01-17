@@ -41,14 +41,13 @@
 			ignoreCase.on("change", function () {
 				comboTeams.ignoreCase = ignoreCase.checked;
 			});
-			var onInput = function (evt) {
+			function onInput (evt) {
 				comboTeams.minFilterChars = parseInt(evt.target.value) || 0;
-			}
+			};
 			var inputs = Array.prototype.slice.call(document.querySelectorAll("input[type=number]"));
 			inputs.forEach(function (input) {
 				input.addEventListener("input", onInput);
 			});
-
 			showResults = function () {
 				var getSelectedItemsTxt = function (combobox) {
 					var res = "", noOptionSelected = "no option selected";
