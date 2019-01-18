@@ -1,14 +1,9 @@
 define([
 	"intern/chai!assert",
+	"requirejs-dplugins/Promise!",
 	"dstore/Memory",
-	"dstore/Trackable",
-	"requirejs-dplugins/Promise!"
-], function (
-	assert,
-	Memory,
-	Trackable,
-	Promise
-) {
+	"dstore/Trackable"
+], function (assert, Promise, Memory, Trackable) {
 
 	var Store = Memory.createSubclass([Trackable], {});
 
