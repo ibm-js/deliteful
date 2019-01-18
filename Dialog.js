@@ -5,6 +5,7 @@ define([
 	"delite/register",
 	"delite/Container",
 	"delite/Dialog",
+	"delite/Viewport",
 	"./ResizeHandle",
 	"delite/handlebars!./Dialog/Dialog.html",
 	"requirejs-dplugins/i18n!./Dialog/nls/Dialog",
@@ -17,6 +18,7 @@ define([
 	register,
 	Container,
 	Dialog,
+	Viewport,
 	ResizeHandle,
 	template,
 	messages
@@ -176,14 +178,44 @@ define([
 					within: true
 				});
 
-				advise.after(this.moveable, "onMoveStop", function () {
-					// Snap back so drag handle on screen.
-					var wrapper = this.parentNode;
-					wrapper.style.top = Math.max(parseFloat(wrapper.style.top), 0) + "px";
-					wrapper.style.left =  Math.max(parseFloat(wrapper.style.left), 0) + "px";
+				advise.after(this.moveable, "onMoveStart", function () {
+					// Lock in width/height to prevent squashing when Dialog dragged past right edge of screen.
+					var cs = getComputedStyle(this);
+					this.style.width = cs.width;
+					this.style.height = cs.height;
 
 					this.emit("delite-dragged");
 				}.bind(this));
+
+				advise.after(this.moveable, "onMoveStop", function () {
+					// Snap back so drag handle on screen.
+					this.moveIntoView();
+				}.bind(this));
+			}
+		},
+
+		/**
+		 * Move the dialog back into view, at least enough so that the user can drag it again.
+		 */
+		moveIntoView: function () {
+			// Note: all positions relative to document (not to viewport).
+			var viewport = Viewport.getEffectiveBox(),
+				wrapper = this.parentNode,
+				bcr = this.headerNode.getBoundingClientRect(),
+				curTop = parseFloat(wrapper.style.top),
+				curLeft = parseFloat(wrapper.style.left),
+				minTop = viewport.t,
+				minLeft = viewport.l + 50 - bcr.width,
+				maxTop = Math.max(viewport.t + viewport.h - bcr.height, 0),
+				maxLeft = Math.max(viewport.l + viewport.w - 50, 0);
+
+			if (curTop < 0 || curTop > maxTop || curLeft < minLeft || curLeft > maxLeft) {
+				var top = Math.min(Math.max(curTop, minTop), maxTop),
+					left = Math.min(Math.max(curLeft, minLeft), maxLeft);
+				wrapper.style.top = top  + "px";
+				wrapper.style.left = left + "px";
+
+				this.emit("popup-after-position");
 			}
 		},
 
