@@ -111,32 +111,32 @@ define([
 			return d;
 		},
 
-		// "on-click": function () {
-		// 	// test issue raised in https://bugs.dojotoolkit.org/ticket/17613
-		// 	var d = this.async(1000),
-		// 		rb3 = document.getElementById("rb3");
-		// 	setTimeout(d.rejectOnError(function () {
-		// 		rb3.on("click", function () {
-		// 			// TODO: These asserts are meaningless since they run in separate threads.
-		// 			// Test needs to be redesigned.
-		// 			assert.isTrue(rb3.checked, "Unexpected checked state for rb3 after in rb3 on-click handler");
-		// 			assert.isTrue(rb3.focusNode.checked,
-		// 				"Unexpected checked state for rb3's wrapped input in rb3 on-click handler");
-		// 			["rb1", "rb2"].forEach(function (rb) {
-		// 				rb = document.getElementById(rb);
-		// 				assert.isFalse(rb.checked,
-		// 						"Unexpected checked state for " + rb.id + " in rb3 on-click handler");
-		// 				assert.isFalse(rb.focusNode.checked,
-		// 						"Unexpected checked state for " + rb.id +
-		// 						"'s wrapped input in rb3 on-click handler");
-		// 			});
-		// 		});
-		// 		setTimeout(d.callback(function () {
-		// 			rb3.focusNode.click();
-		// 		}), 300);
-		// 	}), 300);
-		// 	return d;
-		// },
+		"on-click": function () {
+			// test issue raised in https://bugs.dojotoolkit.org/ticket/17613
+			var d = this.async(1000),
+				rb3 = document.getElementById("rb3");
+			setTimeout(d.rejectOnError(function () {
+				rb3.on("click", function () {
+					// TODO: These asserts are meaningless since they run in separate threads.
+					// Test needs to be redesigned.
+					assert.isTrue(rb3.checked, "Unexpected checked state for rb3 after in rb3 on-click handler");
+					assert.isTrue(rb3.focusNode.checked,
+						"Unexpected checked state for rb3's wrapped input in rb3 on-click handler");
+					["rb1", "rb2"].forEach(function (rb) {
+						rb = document.getElementById(rb);
+						assert.isFalse(rb.checked,
+								"Unexpected checked state for " + rb.id + " in rb3 on-click handler");
+						assert.isFalse(rb.focusNode.checked,
+								"Unexpected checked state for " + rb.id +
+								"'s wrapped input in rb3 on-click handler");
+					});
+				});
+				setTimeout(d.callback(function () {
+					rb3.focusNode.click();
+				}), 300);
+			}), 300);
+			return d;
+		},
 
 		afterEach: function () {
 			container.parentNode.removeChild(container);
