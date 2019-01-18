@@ -210,13 +210,14 @@ define([
 					var list = this.parent.list;
 					var queryErrorEvt = null;
 					var source = {
+						fetch: function () {
+							return Promise.reject("Query Error X");
+						},
+						map: function () {
+							return this;
+						},
 						filter: function () {
-							var result = {};
-							result.map = function () { return this; };
-							result.fetch = function () {
-								return Promise.reject("Query Error X");
-							};
-							return result;
+							return this;
 						}
 					};
 					list.destroy();
