@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 /** @module deliteful/list/List */
 define([
 	"dcl/dcl",
