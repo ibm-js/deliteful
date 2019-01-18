@@ -2,7 +2,6 @@ define([
 	"intern!object",
 	"intern/chai!assert",
 	"delite/register",
-	"delite/classList",
 	"dstore/Memory",
 	"dstore/Trackable",
 	"deliteful/Select"
@@ -10,7 +9,6 @@ define([
 	registerSuite,
 	assert,
 	register,
-	classList,
 	Memory,
 	Trackable,
 	Select

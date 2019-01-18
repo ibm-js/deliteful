@@ -4,11 +4,10 @@ define([
 	"intern/chai!assert",
 	"requirejs-dplugins/Promise!",
 	"delite/register",
-	"delite/classList",
 	"deliteful/Accordion",
 	"deliteful/Panel",
 	"dojo/domReady!"
-], function (dcl, registerSuite, assert, Promise, register, classList, Accordion, Panel) {
+], function (dcl, registerSuite, assert, Promise, register, Accordion, Panel) {
 
 	function mix(a, b) {
 		for (var n in b) {

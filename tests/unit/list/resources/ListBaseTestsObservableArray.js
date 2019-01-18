@@ -1,13 +1,11 @@
 define([
 	"intern/chai!assert",
 	"decor/ObservableArray",
-	"decor/Observable",
-	"delite/classList"
+	"decor/Observable"
 ], function (
 	assert,
 	ObservableArray,
-	Observable,
-	classList
+	Observable
 ) {
 
 	return {

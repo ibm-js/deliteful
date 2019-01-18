@@ -1,10 +1,9 @@
 define([
 	"intern!object",
 	"intern/chai!assert",
-	"delite/classList",
 	"deliteful/Toaster",
 	"deliteful/ToasterMessage"
-], function (registerSuite, assert, classList, Toaster, ToasterMessage) {
+], function (registerSuite, assert, Toaster, ToasterMessage) {
 
 	var container, toaster, wrapper, mExpirable, mPersistent;
 

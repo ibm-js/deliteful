@@ -2,10 +2,9 @@ define([
 	"intern!object",
 	"intern/chai!assert",
 	"delite/register",
-	"delite/classList",
 	"deliteful/SwapView",
 	"deliteful/ViewIndicator"
-], function (registerSuite, assert, register, classList) {
+], function (registerSuite, assert, register) {
 	var container, vs;
 	var aaa, bbb, ccc, ddd;
 	var vi;

@@ -2,14 +2,12 @@ define([
 	"intern!object",
 	"intern/chai!assert",
 	"dojo/dom-geometry",
-	"deliteful/SidePane",
-	"delite/classList"
+	"deliteful/SidePane"
 ], function (
 	registerSuite,
 	assert,
 	domGeom,
-	SidePane,
-	classList
+	SidePane
 ) {
 	var node;
 	var origBodyStyle;

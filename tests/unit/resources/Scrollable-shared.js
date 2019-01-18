@@ -1,7 +1,6 @@
 define([
-	"intern/chai!assert",
-	"delite/classList"
-], function (assert, classList) {
+	"intern/chai!assert"
+], function (assert) {
 
 	// Test cases for both delite/Scrollable and deliteful/ScrollableContainer.
 	// Since we can not reuse test files across projects, there are two copies of

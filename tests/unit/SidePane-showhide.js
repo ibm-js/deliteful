@@ -2,9 +2,8 @@ define([
 	"intern!object",
 	"intern/chai!assert",
 	"delite/register",
-	"delite/classList",
 	"deliteful/SidePane"
-], function (registerSuite, assert, register, classList) {
+], function (registerSuite, assert, register) {
 	var container, sp, origBodyStyle;
 	var htmlContent = "<d-side-pane id='sp'></d-side-pane><div id='content'></div>";
 

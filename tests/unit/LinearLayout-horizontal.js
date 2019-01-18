@@ -3,14 +3,12 @@ define([
 	"intern/chai!assert",
 	"dojo/dom-geometry",
 	"delite/register",
-	"delite/classList",
 	"deliteful/LinearLayout"
 ], function (
 	registerSuite,
 	assert,
 	domGeom,
-	register,
-	classList
+	register
 ) {
 	var container, node;
 	var htmlContent =
@@ -45,7 +43,7 @@ define([
 			var children = node.getChildren();
 			node.style.width = "500px";
 			children[1].style.width = "";
-			classList.addClass(children[1], "fill");
+			children[1].classList.add("fill");
 			var box1 = domGeom.getMarginBox(children[0]);
 			var box2 = domGeom.getMarginBox(children[1]);
 			assert.isTrue(box1.w === 250 || box1.w === 249, "box1.w");

@@ -3,7 +3,6 @@ define([
 	"intern/chai!assert",
 	"decor/sniff",
 	"delite/register",
-	"delite/classList",
 	"dstore/Memory",
 	"dstore/Trackable",
 	"deliteful/Combobox"
@@ -12,7 +11,6 @@ define([
 	assert,
 	has,
 	register,
-	classList,
 	Memory,
 	Trackable,
 	Combobox

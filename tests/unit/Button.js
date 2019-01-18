@@ -2,9 +2,8 @@ define([
 	"dcl/dcl", "intern!object",
 	"intern/chai!assert",
 	"delite/register",
-	"delite/classList",
 	"deliteful/Button"
-], function (dcl, registerSuite, assert, register, classList, Button) {
+], function (dcl, registerSuite, assert, register, Button) {
 
 	function mix(a, b) {
 		for (var n in b) {

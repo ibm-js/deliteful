@@ -2,14 +2,12 @@ define([
 	"intern!object",
 	"intern/chai!assert",
 	"delite/register",
-	"delite/classList",
 	"deliteful/Switch",
 	"./resources/Checkbox-shared"
 ], function (
 	registerSuite,
 	assert,
 	register,
-	classList,
 	Switch,
 	commonSuite
 ) {

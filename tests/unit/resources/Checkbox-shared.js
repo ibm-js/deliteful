@@ -1,7 +1,6 @@
 define([
-	"intern/chai!assert",
-	"delite/classList"
-], function (assert, classList) {
+	"intern/chai!assert"
+], function (assert) {
 
 	var commonSuite = {
 		defaultWidget: "",

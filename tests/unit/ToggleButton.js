@@ -2,13 +2,11 @@ define([
 	"intern!object",
 	"intern/chai!assert",
 	"delite/register",
-	"delite/classList",
 	"deliteful/ToggleButton"
 ], function (
 	registerSuite,
 	assert,
 	register,
-	classList,
 	ToggleButton
 ) {
 

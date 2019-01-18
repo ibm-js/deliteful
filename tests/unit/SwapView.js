@@ -2,13 +2,11 @@ define([
 	"intern!object",
 	"intern/chai!assert",
 	"delite/register",
-	"delite/classList",
 	"deliteful/SwapView"
 ], function (
 	registerSuite,
 	assert,
-	register,
-	classList
+	register
 ) {
 	var container, node;
 	var aaa, bbb, ccc, ddd;

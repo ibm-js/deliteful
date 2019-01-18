@@ -2,7 +2,6 @@ define([
 	"intern!object",
 	"intern/chai!assert",
 	"delite/register",
-	"delite/classList",
 	"dcl/advise",
 	"deliteful/ViewStack",
 	"requirejs-dplugins/css!deliteful/ViewStack/transitions/cover.css",
@@ -15,7 +14,6 @@ define([
 	registerSuite,
 	assert,
 	register,
-	classList,
 	advise
 ) {
 	var container, node;
