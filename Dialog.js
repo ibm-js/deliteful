@@ -180,9 +180,10 @@ define([
 
 				advise.after(this.moveable, "onMoveStart", function () {
 					// Lock in width/height to prevent squashing when Dialog dragged past right edge of screen.
-					var cs = getComputedStyle(this);
-					this.style.width = cs.width;
-					this.style.height = cs.height;
+					var cs = getComputedStyle(this),
+						wrapper = this.parentNode;
+					wrapper.style.width = this.style.width = cs.width;
+					wrapper.style.height = this.style.height = cs.height;
 
 					this.emit("delite-dragged");
 				}.bind(this));

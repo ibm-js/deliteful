@@ -209,23 +209,31 @@ define([
 		 * @private
 		 */
 		_changeSizing: function (e) {
-			var tmp = this._getNewCoords(e);
+			var tmp = this._getNewCoords(e),
+				target = this.target,
+				wrapper = target.parentElement;
 
-			this.target.style.width = tmp.w + "px";
-			this.target.style.height = tmp.h + "px";
+			target.style.width = tmp.w + "px";
+			target.style.height = tmp.h + "px";
+			if (wrapper.classList.contains("d-popup")) {
+				// Popup node, set size on wrapper too.  Needed on IE for when dialog
+				// dragged past viewport's right border.
+				wrapper.style.width = tmp.w + "px";
+				wrapper.style.height = tmp.h + "px";
+			}
 
 			if ("l" in tmp) {
 				// For RTL mode, when changing size need to adjust the X position too, so that the top right corner
 				// stays in the same place.
-				if (getComputedStyle(this.target).position === "absolute") {
-					this.target.style.left = tmp.l + "px";
-				} else {
+				if (wrapper.classList.contains("d-popup")) {
 					// Popup node, size is set on this.target but the position is set on its parent.
-					this.target.parentElement.style.left = tmp.l + "px";
+					wrapper.style.left = tmp.l + "px";
+				} else {
+					target.style.left = tmp.l + "px";
 				}
 			}
 
-			this.target.emit("delite-manually-resized");
+			target.emit("delite-manually-resized");
 
 			e.preventDefault();
 			e.stopPropagation();
