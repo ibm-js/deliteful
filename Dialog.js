@@ -43,11 +43,6 @@ define([
 		template: template,
 
 		/**
-		 * Whether or not dialog is modal.
-		 */
-		modal: true,
-
-		/**
 		 * Whether or not dialog is draggable.
 		 */
 		draggable: true,
