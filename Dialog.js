@@ -170,7 +170,8 @@ define([
 				this.moveable = new Moveable(wrapper, {
 					handle: this.headerNode,
 					area: "padding",
-					within: true
+					within: true,
+					skip: true
 				});
 
 				advise.after(this.moveable, "onMoveStart", function () {

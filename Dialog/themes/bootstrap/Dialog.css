@@ -16,6 +16,7 @@
 }
 .d-dialog-icon {
   cursor: pointer;
+  border: none;
 }
 .d-dialog-close-icon::after {
   content: "\2716";
