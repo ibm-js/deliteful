@@ -5,15 +5,13 @@
 		"dcl": "^2.0.6",
 		"decor": "master",
 		"delite": "master",
-		"dojo": ">=1.9.1",
+		"dojo": "^1.9.1",
 		"dpointer": "0.5.x",
+		"dstore": "1.1.x",
 		"ecma402": "1.0.x",
 		"requirejs": "2.1.x",
 		"requirejs-domready": "2.0.x",
 		"requirejs-dplugins": "0.6.x"
-	},
-	"devDependencies": {
-		"dstore": "1.1.x"
 	},
 	"keywords": [
 		"web-components",
