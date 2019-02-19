@@ -66,7 +66,7 @@
 	"maxlen": 120,
 	"indent": 4,
 	"maxerr": 250,
-	"predef": [ "require", "define" ],
+	"predef": [ "require", "define", "Intl" ],
 	"quotmark": "double",
 	"maxcomplexity": 10
 }

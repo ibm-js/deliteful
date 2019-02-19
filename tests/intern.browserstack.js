@@ -54,10 +54,7 @@ define({
 	},
 
 	loader: {
-		baseUrl: typeof window !== "undefined" ? "../../.." : "..",
-		config: {
-			"ecma402/locales": "en-US"
-		}
+		baseUrl: typeof window !== "undefined" ? "../../.." : ".."
 	},
 
 	useLoader: {

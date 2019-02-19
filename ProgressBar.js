@@ -1,13 +1,12 @@
 /** @module deliteful/ProgressBar */
 define([
 	"dcl/dcl",
-	"ecma402/IntlShim",
 	"delite/register",
 	"delite/classList",
 	"delite/Widget",
 	"delite/handlebars!./ProgressBar/ProgressBar.html",
 	"delite/theme!./ProgressBar/themes/{{theme}}/ProgressBar.css"
-], function (dcl, Intl, register, classList, Widget, template) {
+], function (dcl, register, classList, Widget, template) {
 	/**
 	 * A widget that displays the completion progress of a task.
 	 *
