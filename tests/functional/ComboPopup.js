@@ -10,6 +10,7 @@ define([
 	var loadFile = function (remote, fileName) {
 		return remote
 			.get(require.toUrl(fileName))
+			.setWindowSize(400, 1000)
 			.then(pollUntil("return ready ? true : null;", [],
 					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 	};

@@ -9,8 +9,10 @@ define([
 	"delite/CssState",
 	"delite/FormValueWidget",
 	"delite/HasDropDown",
+	"delite/Viewport",
+	"./channelBreakpoints",
 	"./list/List",
-	"./features!desktop-like-channel?:./Combobox/ComboPopup",
+	"./Combobox/ComboPopup",
 	"delite/handlebars!./Combobox/Combobox.html",
 	"requirejs-dplugins/i18n!./Combobox/nls/Combobox",
 	"delite/theme!./Combobox/themes/{{theme}}/Combobox.css"
@@ -24,6 +26,8 @@ define([
 	CssState,
 	FormValueWidget,
 	HasDropDown,
+	Viewport,
+	channelBreakpoints,
 	List,
 	ComboPopup,
 	template,
@@ -119,8 +123,8 @@ define([
 	 * @augments module:delite/HasDropDown
 	 * @augments module:delite/FormValueWidget
 	 */
-	return register("d-combobox", [HTMLElement, HasDropDown, FormValueWidget, CssState],
-		/** @lends module:deliteful/Combobox# */ {
+	var mixins = [HTMLElement, HasDropDown, FormValueWidget, CssState];
+	return register("d-combobox", mixins, /** @lends module:deliteful/Combobox# */ {
 
 		// TODO: handle the situation the list has a null/undefined store.
 		// Would be nice to have a global policy for all subclasses of
@@ -287,13 +291,10 @@ define([
 		displayedValue: "",
 
 		/**
-		 * It's `true` if the dropdown should be centered, and returns
-		 * `false` if it should be displayed below/above the widget.
-		 * It's `true` when the module `deliteful/Combobox/ComboPopup` has
-		 * been loaded. Note that the module is loaded conditionally, depending
-		 * on the channel has() features set by `deliteful/features`.
+		 * If `true` the dropdown should be centered, and if
+		 * `false` it should be displayed below/above the widget.
 		 */
-		_isMobile: !!ComboPopup,
+		_smallFormFactor: false,
 
 		/**
 		 * The Combobox widget is a special component where we don't need to move the
@@ -340,7 +341,7 @@ define([
 				return;
 			}
 
-		    if (this._isMobile || !this.minFilterChars || this._inputReadOnly) {
+		    if (this._smallFormFactor || !this.minFilterChars || this._inputReadOnly) {
 				this.toggleDropDown();
 			}
 		},
@@ -363,7 +364,23 @@ define([
 			};
 		}),
 
+		/**
+		 * Return true if the dropdown should be displayed as a centered popup.
+		 */
+		computeSmallFormFactor: function () {
+			// TODO: this should depend on height, not width, and "height" needs to exclude the space
+			// for the virtual keyboard.   Not sure what the cutoff should be.
+			return window.innerWidth <= parseInt(channelBreakpoints.smallScreen, 10);
+		},
+
 		connectedCallback: function () {
+			// Switch mode based on browser viewport width. Could also do this with CSS
+			// media queries.  The code in ResponsiveColumns.js should probably be generalized.
+			this._smallFormFactor = this.computeSmallFormFactor();
+			this._viewportResizeListener = Viewport.on("resize", function () {
+				this._smallFormFactor = this.computeSmallFormFactor();
+			}.bind(this));
+
 			if (!this.list) {
 				var regexp = /^(?!_)(\w)+(?=Attr$|Func$)/;
 				var listArgs = {
@@ -394,6 +411,13 @@ define([
 			}
 		},
 
+		disconnectedCallback: function () {
+			if (this._viewportResizeListener) {
+				this._viewportResizeListener.remove();
+				delete this._viewportResizeListener;
+			}
+		},
+
 		postRender: function () {
 			this._prepareInput(this.inputNode);
 		},
@@ -410,7 +434,7 @@ define([
 			}
 
 			this._inputReadOnly = this.readOnly || !this.autoFilter ||
-				this._isMobile || this.selectionMode === "multiple";
+				this._smallFormFactor || this.selectionMode === "multiple";
 
 			// Set this.displayedValue based on this.value.
 			if ("value" in oldValues) {
@@ -583,11 +607,11 @@ define([
 		},
 
 		dropDownPosition: function () {
-			return this._isMobile ? ["center"] : ["below", "above"];
+			return this._smallFormFactor ? ["center"] : ["below", "above"];
 		},
 
 		loadDropDown: function () {
-			var dropDown = this._isMobile ?
+			var dropDown = this._smallFormFactor ?
 				this.createCenteredDropDown() :
 				this.createAboveBelowDropDown();
 
@@ -600,7 +624,7 @@ define([
 
 			this.dropDown = dropDown; // delite/HasDropDown's property
 
-			if (this._isMobile) {
+			if (this._smallFormFactor) {
 				// Set correct (initial) value of aria-expanded on ComboPopup <input>.
 				this._togglePopupList(dropDown.inputNode);
 			}
@@ -647,27 +671,29 @@ define([
 		},
 
 		/**
-		 * Toggles the popup's visibility.
-		 * If in mobile, toggles list visibility.
-		 * If in desktop, closes or opens the popup.
+		 * Toggles the list's visibility.
+		 * In small form factor, toggles list visibility.
+		 * If larger form factors, closes or opens the dropdown.
 		 */
 		_togglePopupList: function (inputElement, suppressChangeEvent) {
-			// Compute whether or not to show the list.  Note that in mobile mode ComboPopup doesn't display a
-			// down arrow icon to manually show/hide the list, so on mobile,
+			// Compute whether or not to show the list.  Note that ComboPopup doesn't display a
+			// down arrow icon to manually show/hide the list, so in small mode
 			// if the Combobox has a down arrow icon, the list is always shown.
 			var showList = inputElement.value.length >= this.minFilterChars ||
-				(this._isMobile && this.hasDownArrow);
-			if (this._isMobile) {
-				// Mobile version.
+				(this._smallFormFactor && this.hasDownArrow);
+			if (this._smallFormFactor) {
+				// Small form factor.
 				if (showList) {
 					this.filter(inputElement.value);
 				}
 				this.list.setAttribute("d-shown", "" + showList);
-				if (this.dropDown) {
+				if (this.dropDown && this.dropDown.inputNode) {
+					// Only runs for ComboPopup, not if this.dropDown is the <d-list>.  (It will be
+					// <d-list> if the dropdown was first opened when the browser was in large mode.)
 					this.dropDown.inputNode.setAttribute("aria-expanded", "" + showList);
 				}
 			} else {
-				// Desktop version.
+				// Medium or large form factor.
 				if (showList) {
 					this.openDropDown();
 				} else {
@@ -785,7 +811,7 @@ define([
 				} else if (evt.key === "ArrowDown" || evt.key === "ArrowUp" ||
 					evt.key === "PageDown" || evt.key === "PageUp" ||
 					evt.key === "Home" || evt.key === "End") {
-					if (this._isMobile) {
+					if (this._smallFormFactor) {
 						this.list.emit("keydown", evt);
 					}
 					evt.stopPropagation();
@@ -923,7 +949,7 @@ define([
 
 		openDropDown: dcl.superCall(function (sup) {
 			return function () {
-				if (this._isMobile) {
+				if (this._smallFormFactor) {
 					// We are opening the ComboPopup but may or may not want to show the list.
 					// TogglePopupList will decide the right thing to do.
 					this._togglePopupList(this.inputNode);
@@ -937,9 +963,9 @@ define([
 
 				if (!this.opened) {
 					// On desktop, leave focus in the original <input>.  But on mobile, focus the popup dialog.
-					this.focusOnPointerOpen = this.focusOnKeyboardOpen = this._isMobile;
+					this.focusOnPointerOpen = this.focusOnKeyboardOpen = this._smallFormFactor;
 
-					if (!this._isMobile) {
+					if (!this._smallFormFactor) {
 						this.defer(function () {
 							// Avoid losing focus when clicking the arrow (instead of the input element):
 							// TODO: isn't this already handled by delite/HasDropDown#_dropDownPointerUpHandler() ?
@@ -961,7 +987,7 @@ define([
 					// Avoid that List gives focus to list items when navigating, which would
 					// blur the input field used for entering the filtering criteria.
 					this.dropDown.focusDescendants = false;
-					if (!this._isMobile) {
+					if (!this._smallFormFactor) {
 						// desktop version
 						this._updateScroll(undefined, true);	// sets this.list.navigatedDescendant
 						this._setActiveDescendant(this.list.navigatedDescendant);
