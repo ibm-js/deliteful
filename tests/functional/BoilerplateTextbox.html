@@ -36,6 +36,7 @@
 						sup.apply(this, arguments);
 
 						var month =  new BoilerplateTextbox.NumberField({
+							id: this.id + "-month",
 							label: "month",
 							className: "month",
 							placeholder: "mm",
@@ -48,6 +49,7 @@
 						}));
 
 						var day = new BoilerplateTextbox.NumberField({
+							id: this.id + "-day",
 							label: "day",
 							className: "day",
 							placeholder: "dd",
@@ -60,6 +62,7 @@
 						}));
 
 						var year = new BoilerplateTextbox.NumberField({
+							id: this.id + "-year",
 							label: "year",
 							className: "year",
 							placeholder: "yyyy"
@@ -69,14 +72,20 @@
 				})
 			});
 
-			var AmPmField = register("d-btb-am-pm", [BoilerplateTextbox.Field], {
+			var AmPmField = register("d-btb-am-pm-field", [BoilerplateTextbox.Field], {
 				constructor: function () {
 					this.on("keydown", this.keydownHandler.bind(this));
 				},
 
 				keydownHandler: function (evt) {
 					var char = evt.key;
-					 switch (char) {
+
+					// Let the browser handle tab and shift-tab.
+					if (char === "Tab") {
+						return;
+					}
+
+					switch (char) {
 						 case "a":
 							 this.value = "am";
 							 break;
@@ -99,6 +108,7 @@
 						sup.apply(this, arguments);
 
 						var hour = new BoilerplateTextbox.NumberField({
+							id: this.id + "-hour",
 							label: "hour",
 							className: "hour",
 							placeholder: "hh",
@@ -110,6 +120,7 @@
 						this.containerNode.appendChild(new BoilerplateTextbox.Boilerplate({textContent: ":"}));
 
 						var minute = new BoilerplateTextbox.NumberField({
+							id: this.id + "-minute",
 							label: "minute",
 							className: "minute",
 							placeholder: "mm",
@@ -121,6 +132,7 @@
 							this.containerNode.appendChild(new BoilerplateTextbox.Boilerplate({textContent: " "}));
 
 							var ampm = new AmPmField({
+								id: this.id + "-ampm",
 								label: "am or pm",
 								placeholder: "am"
 							});

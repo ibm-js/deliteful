@@ -105,7 +105,7 @@ define([
 				})
 				.pressKeys(keys.TAB)
 				.execute("return document.activeElement.id;").then(function (id) {
-					assert.strictEqual(id, "dt1-input", "tab into dt1");
+					assert.strictEqual(id, "dt1-month-input", "tab into dt1");
 				})
 				.execute("return state(dt1);").then(function (v) {
 					assert.deepEqual(v, {
@@ -138,7 +138,7 @@ define([
 				})
 				.pressKeys(keys.TAB)
 				.execute("return document.activeElement.id;").then(function (id) {
-					assert.strictEqual(id, "dt2-input", "tab out of dt1");
+					assert.strictEqual(id, "dt2-month-input", "tab out of dt1");
 				})
 				.execute("return document.getElementById('dt1-change-events').value;").then(function (count) {
 					assert.strictEqual(count, "1", "one change event on blur");
@@ -155,17 +155,17 @@ define([
 			}
 
 			return this.remote
-				.findById("tt1-input").click().end()
+				.findById("tt1-hour-input").click().end()
 				.pressKeys(keys.SHIFT + keys.TAB)
 				.pressKeys(keys.SHIFT)		// release shift key
 				.execute("return document.activeElement.id;").then(function (id) {
-					assert.strictEqual(id, "dt2-input", "shift-tab from first field moves to previous element");
+					assert.strictEqual(id, "dt2-month-input", "shift-tab from first field moves to previous element");
 				});
 		},
 
 		backspace: function () {
 			return this.remote
-				.findById("dt2-input").click().end()
+				.findById("dt2-month-input").click().end()
 				.execute("return state(dt2);").then(function (v) {
 					assert.deepEqual(v, {
 						value: "07/04/2008",

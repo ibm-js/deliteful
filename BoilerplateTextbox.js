@@ -29,7 +29,9 @@ define([
 	 *
 	 * - textContent
 	 */
-	var Boilerplate = register("d-btb-boilerplate", [HTMLElement, Widget], {});
+	var Boilerplate = register("d-btb-boilerplate", [HTMLElement, Widget], {
+		baseClass: "d-btb-boilerplate"
+	});
 
 	/**
 	 * Base class for editable fields in a BoilerplateTextbox.
@@ -64,6 +66,13 @@ define([
 		 * @default false
 		 */
 		disabled: false,
+
+		/**
+		 * Whether or not the user can enter data into the `<input>`.
+		 * @member {boolean}
+		 * @default false
+		 */
+		readOnly: false,
 
 		/**
 		 * Placeholder text.
@@ -251,11 +260,12 @@ define([
 			this.on("change", this.nestedChangeHandler.bind(this), this.containerNode);
 			this.on("completed", this.completedHandler.bind(this), this.containerNode);
 
-			// Change tabStops to point to all the <input> nodes so that FormWidget#refreshRendering()
-			// sets tabIndex, disabled, and readonly properties on those <input> nodes.
-			var inputs = [].slice.call(this.containerNode.querySelectorAll("input"));
+			// Change tabStops to point to all the fields so that FormWidget#refreshRendering()
+			// sets tabIndex, disabled, and readonly properties on those fields.  (But don't
+			// set tabindex on the boilerplate nodes)
+			var fields = [].slice.call(this.containerNode.querySelectorAll(".d-btb-field"));
 			var tabStops = [];
-			inputs.forEach(function (input) {
+			fields.forEach(function (input) {
 				this["field" + tabStops.length] = input;
 				tabStops.push("field" + tabStops.length);
 			}, this);
