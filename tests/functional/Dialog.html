@@ -39,11 +39,62 @@
 	<script type="text/javascript">
 		var ready = false; // set to true when the test page is ready
 		require([
+			"dstore/Memory",
 			"delite/register",
 			"deliteful/Dialog",
+			"deliteful/Combobox",
 			"requirejs-domready/domReady!"
-		], function (register) {
+		], function (
+			Memory,
+			register,
+			Dialog,
+			Combobox
+		) {
+			var dataSource = new Memory({
+				idProperty: "label",
+				data: [
+					{ label: "France", sales: 500, profit: 50, region: "EU" },
+					{ label: "Germany", sales: 450, profit: 48, region: "EU" },
+					{ label: "UK", sales: 700, profit: 60, region: "EU" },
+					{ label: "USA", sales: 2000, profit: 250, region: "America" },
+					{ label: "Canada", sales: 600, profit: 30, region: "America" },
+					{ label: "Brazil", sales: 450, profit: 30, region: "America" },
+					{ label: "China", sales: 500, profit: 40, region: "Asia" },
+					{ label: "Japan", sales: 900, profit: 100, region: "Asia" }
+				]
+			});
+
 			register.deliver();
+
+			var fields = document.getElementById("fields");
+			for (var i = 0; i < 100; i++) {
+				var id = "field" + i;
+
+				var label = document.createElement("label");
+				label.setAttribute("for", id);
+				label.textContent = "Field " + i;
+				fields.appendChild(label);
+				switch (i % 2) {
+					case 0:
+						var input = document.createElement("input");
+						input.setAttribute("id", id);
+						fields.appendChild(input);
+						break;
+					case 1:
+						fields.appendChild(new Combobox({
+							id: id,
+							autoFilter: true,
+							displayedValue: "France",
+							value: "France",
+							source: dataSource,
+							righttextAttr: "sales",
+							categoryAttr: "region"
+						}));
+						label.setAttribute("for", id + "-input");
+						break;
+				}
+				fields.appendChild(document.createElement("br"));
+			}
 			ready = true;
 		});
 	</script>
@@ -68,9 +119,10 @@
 		show dialog with scrollbar
 	</button>
 	<d-dialog id="tall-dialog" label="My Dialog With Scrollbar" style="display: none">
-		I'm a tall Dialog.<br>
-		I should get a scrollbar and my borders should remain on the screen.<br>
-		<br>
+		<p>
+			I'm a tall Dialog.<br>
+			I should get a scrollbar and my borders should remain on the screen.
+		</p>
 		<label for="name2">Name:</label> <input id="name2"> <br>
 		<label for="age2">Age:</label> <input id="age2"> <br>
 		<label for="sex2">Sex:</label> <input id="sex2"> <br><br>
@@ -78,116 +130,7 @@
 		<button id="nested" onclick="document.getElementById('nested-dialog').open();">
 			show nested dialog
 		</button>
-		<br>
-		Ninenty nine bottles of beer on the wall.<br>
-		Ninenty eight bottles of beer on the wall.<br>
-		Ninenty seven bottles of beer on the wall.<br>
-		Ninenty six bottles of beer on the wall.<br>
-		Ninenty five bottles of beer on the wall.<br>
-		Ninenty four bottles of beer on the wall.<br>
-		Ninenty three bottles of beer on the wall.<br>
-		Ninenty two bottles of beer on the wall.<br>
-		Ninenty one bottles of beer on the wall.<br>
-		Ninenty bottles of beer on the wall.<br>
-		<br>
-		Eighty nine bottles of beer on the wall.<br>
-		Eighty eight bottles of beer on the wall.<br>
-		Eighty seven bottles of beer on the wall.<br>
-		Eighty six bottles of beer on the wall.<br>
-		Eighty five bottles of beer on the wall.<br>
-		Eighty four bottles of beer on the wall.<br>
-		Eighty three bottles of beer on the wall.<br>
-		Eighty two bottles of beer on the wall.<br>
-		Eighty one bottles of beer on the wall.<br>
-		Eighty bottles of beer on the wall.<br>
-		<br>
-		Seventy nine bottles of beer on the wall.<br>
-		Seventy eight bottles of beer on the wall.<br>
-		Seventy seven bottles of beer on the wall.<br>
-		Seventy six bottles of beer on the wall.<br>
-		Seventy five bottles of beer on the wall.<br>
-		Seventy four bottles of beer on the wall.<br>
-		Seventy three bottles of beer on the wall.<br>
-		Seventy two bottles of beer on the wall.<br>
-		Seventy one bottles of beer on the wall.<br>
-		Seventy bottles of beer on the wall.<br>
-		<br>
-		Sixty nine bottles of beer on the wall.<br>
-		Sixty eight bottles of beer on the wall.<br>
-		Sixty seven bottles of beer on the wall.<br>
-		Sixty six bottles of beer on the wall.<br>
-		Sixty five bottles of beer on the wall.<br>
-		Sixty four bottles of beer on the wall.<br>
-		Sixty three bottles of beer on the wall.<br>
-		Sixty two bottles of beer on the wall.<br>
-		Sixty one bottles of beer on the wall.<br>
-		Sixty bottles of beer on the wall.<br>
-		<br>
-		Fifty nine bottles of beer on the wall.<br>
-		Fifty eight bottles of beer on the wall.<br>
-		Fifty seven bottles of beer on the wall.<br>
-		Fifty six bottles of beer on the wall.<br>
-		Fifty five bottles of beer on the wall.<br>
-		Fifty four bottles of beer on the wall.<br>
-		Fifty three bottles of beer on the wall.<br>
-		Fifty two bottles of beer on the wall.<br>
-		Fifty one bottles of beer on the wall.<br>
-		Fifty bottles of beer on the wall.<br>
-		<br>
-		Fourty nine bottles of beer on the wall.<br>
-		Fourty eight bottles of beer on the wall.<br>
-		Fourty seven bottles of beer on the wall.<br>
-		Fourty six bottles of beer on the wall.<br>
-		Fourty five bottles of beer on the wall.<br>
-		Fourty four bottles of beer on the wall.<br>
-		Fourty three bottles of beer on the wall.<br>
-		Fourty two bottles of beer on the wall.<br>
-		Fourty one bottles of beer on the wall.<br>
-		Fourty bottles of beer on the wall.<br>
-		<br>
-		Thirty nine bottles of beer on the wall.<br>
-		Thirty eight bottles of beer on the wall.<br>
-		Thirty seven bottles of beer on the wall.<br>
-		Thirty six bottles of beer on the wall.<br>
-		Thirty five bottles of beer on the wall.<br>
-		Thirty four bottles of beer on the wall.<br>
-		Thirty three bottles of beer on the wall.<br>
-		Thirty two bottles of beer on the wall.<br>
-		Thirty one bottles of beer on the wall.<br>
-		Thirty bottles of beer on the wall.<br>
-		<br>
-		Twenty nine bottles of beer on the wall.<br>
-		Twenty eight bottles of beer on the wall.<br>
-		Twenty seven bottles of beer on the wall.<br>
-		Twenty six bottles of beer on the wall.<br>
-		Twenty five bottles of beer on the wall.<br>
-		Twenty four bottles of beer on the wall.<br>
-		Twenty three bottles of beer on the wall.<br>
-		Twenty two bottles of beer on the wall.<br>
-		Twenty one bottles of beer on the wall.<br>
-		Twenty bottles of beer on the wall.<br>
-		<br>
-		Nineteen bottles of beer on the wall.<br>
-		Eighteen bottles of beer on the wall.<br>
-		Seventeen bottles of beer on the wall.<br>
-		Sixteen bottles of beer on the wall.<br>
-		Fifteen bottles of beer on the wall.<br>
-		Fourteen bottles of beer on the wall.<br>
-		Thirteen bottles of beer on the wall.<br>
-		Twelve bottles of beer on the wall.<br>
-		Eleven bottles of beer on the wall.<br>
-		Ten bottles of beer on the wall.<br>
-		<br>
-		Nine bottles of beer on the wall.<br>
-		Eight bottles of beer on the wall.<br>
-		Seven bottles of beer on the wall.<br>
-		Six bottles of beer on the wall.<br>
-		Five bottles of beer on the wall.<br>
-		Four bottles of beer on the wall.<br>
-		Three bottles of beer on the wall.<br>
-		Two bottles of beer on the wall.<br>
-		One bottle of beer on the wall.<br>
-		<br>
+		<div id="fields"></div>
 		<button type="button" onclick="document.getElementById('tall-dialog').emit('execute');">OK</button>
 	</d-dialog>
 
