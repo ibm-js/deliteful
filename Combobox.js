@@ -951,7 +951,12 @@ define([
 				var promise = sup.apply(this, arguments);
 
 				return promise.then(function () {
-					this.inputNode.setAttribute("aria-controls", this.dropDown.id);
+					// Aria-owns and aria-controls must point to the role=listbox, not the wrapper node.
+					// See https://www.w3.org/TR/wai-aria-practices/#combobox.
+					// Note that it's in a different place in the normal dropdown vs. the ComboPopup used on mobile.
+					var listbox = this.dropDown.querySelector("[role=listbox]");
+					this.setAttribute("aria-owns", listbox.id);
+					this.inputNode.setAttribute("aria-controls", listbox.id);
 
 					// Avoid that List gives focus to list items when navigating, which would
 					// blur the input field used for entering the filtering criteria.
