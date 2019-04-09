@@ -9,10 +9,7 @@ define([
 
 	intern.environments = [
 		{
-			browserName: "chrome",
-			chromeOptions: {
-				args: ["headless", "disable-gpu"]
-			}
+			browserName: "chrome"
 		}
 	];
 
