@@ -955,22 +955,24 @@ define([
 			.sleep(500)
 			.execute("return isAligned(\"" + comboId + "\", \"" + position + "\")")
 			.then(function (value) {
-				assert.isTrue(value.isAligned, comboId + "'s popup is not aligned as expected.");
+				assert.isTrue(value.isAligned, comboId + "'s popup alignment #1");
 			})
 			.pressKeys(keys.BACKSPACE) // Delete the 2 chars of "France" -> "Fran"
 			.pressKeys(keys.BACKSPACE)
+			.sleep(500)
 			.execute("return isAligned(\"" + comboId + "\", \"" + position + "\")")
 			.then(function (value) {
-				assert.isTrue(value.isAligned, comboId + "'s popup is not aligned as expected.");
+				assert.isTrue(value.isAligned, comboId + "'s popup alignment #2");
 			})
 			.pressKeys(keys.BACKSPACE)
 			.pressKeys(keys.BACKSPACE)
 			.pressKeys(keys.BACKSPACE)
 			.pressKeys(keys.BACKSPACE) // input field cleared.
 			.pressKeys("c") // Canada & China as result.
+			.sleep(500)
 			.execute("return isAligned(\"" + comboId + "\", \"" + position + "\")")
 			.then(function (value) {
-				assert.isTrue(value.isAligned, comboId + "'s popup is not aligned as expected.");
+				assert.isTrue(value.isAligned, comboId + "'s popup alignment #3");
 			})
 			.end();
 	};
