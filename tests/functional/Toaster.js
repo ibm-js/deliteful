@@ -113,6 +113,9 @@ define(["intern",
 			.end();
 	}
 
+	// TODO: replace usages of codeIns(), codeExp(), and codeRem() with direct reference to variables,
+	// like permanent1Var.inserted... or at least, pass in the name of the variable.
+	/*
 	function codeIns(action) {
 		return "return " + action["var"] + ".inserted ? true : null;";
 	}
@@ -124,28 +127,7 @@ define(["intern",
 	function codeRem(action) {
 		return "return " + action["var"] + ".removed ? true : null;";
 	}
-
-	function checkExpirable(remote, action, duration) {
-		var timeoutOffset = 5000;
-		return remote
-			.findById(action.buttonId)
-			.click()
-			.end()
-			.then(pollUntil(codeIns(action), [], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
-			// wait for it to expire
-			.then(pollUntil(codeExp(action), [],
-				duration + timeoutOffset, intern.config.POLL_INTERVAL))
-			.then(pollUntil(codeRem(action), [], ANIMATION_DURATION + timeoutOffset, intern.config.POLL_INTERVAL))
-			.end();
-	}
-
-	function checkPersistent(remote, action) {
-		return remote
-			.findById(action.buttonId)
-			.click()
-			.then(pollUntil(codeIns(action), [], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
-			.end();
-	}
+	*/
 
 	registerSuite({
 		name: "Toaster tests",
@@ -159,11 +141,11 @@ define(["intern",
 		},
 		"Check Aria/initial nb of messages/posting": function () {
 			var remote = this.remote;
-			return checkAriaAttr(remote, "default")
+			return checkAriaAttr(remote, "myToaster")
 				// Check initial rating
 				.then(function () {
 					// check number of messages on startup
-					return checkNumberOfMessages(remote, "default", 0);
+					return checkNumberOfMessages(remote, "myToaster", 0);
 				})
 				.then(function () {
 					// post a few messages, and check if they are there
@@ -172,130 +154,102 @@ define(["intern",
 				.then(pollUntil("return document.querySelectorAll('.d-toaster-message');", [],
 						5000, intern.config.POLL_INTERVAL))
 				.then(function () {
-					return checkNumberOfMessages(remote, "default", 1);
+					return checkNumberOfMessages(remote, "myToaster", 1);
 				});
 		},
+
 		"Check toaster stacking permanent messages": function () {
+			/*jshint -W061 */
+			// check number of messages on startup
 			var remote = this.remote;
 			return remote
-				/*jshint -W061 */
-				.execute("return actionsRemoval;") // NOTE: a global variable existing in PAGE
-				.then(function (actions) {
-					// check number of messages on startup
-					var perm1 = actions.permanent1,
-						exp2000 = actions.expirable2000,
-						perm2 = actions.permanent2,
-						exp6000 = actions.expirable6000;
-					return remote
-						// click on each button
-						.findById(perm1.buttonId)
-						.click()
-						.end()
-						.findById(exp2000.buttonId)
-						.click()
-						.end()
-						.findById(perm2.buttonId)
-						.click()
-						.end()
-						.findById(exp6000.buttonId)
-						.click()
-						.end()
-						// make sure they are all inserted
-						.then(pollUntil(codeIns(perm1), [], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
-						.then(function () {}, function () { throw new Error("perm1 not inserted"); })
+				// click on each button
+				.findById("permanent1Button").click().end()
+				.findById("expirable2000Button").click().end()
+				.findById("permanent2Button").click().end()
+				.findById("expirable6000Button").click().end()
+				// make sure they are all inserted
+				.then(pollUntil("return permanent1Var.inserted || null", [],
+					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
+				.then(function () {}, function () { throw new Error("perm1 not inserted"); })
 
-						.then(pollUntil(codeIns(exp2000), [], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
-						.then(function () {}, function () { throw new Error("exp2000 not inserted"); })
+				.then(pollUntil("return expirable2000Var.inserted || null", [],
+					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
+				.then(function () {}, function () { throw new Error("exp2000 not inserted"); })
 
-						.then(pollUntil(codeIns(perm2), [], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
-						.then(function () {}, function () { throw new Error("perm2 not inserted"); })
+				.then(pollUntil("return permanent2Var.inserted || null", [],
+					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
+				.then(function () {}, function () { throw new Error("perm2 not inserted"); })
 
-						.then(pollUntil(codeIns(exp6000), [], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
-						.then(function () {}, function () { throw new Error("exp6000 not inserted"); })
+				.then(pollUntil("return expirable6000Var.inserted || null", [],
+					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
+				.then(function () {}, function () { throw new Error("exp6000 not inserted"); })
 
-						// wait for expirable2000 to expire
-						.then(pollUntil(codeExp(exp2000), [], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
-						.then(function () {}, function () { throw new Error("exp2000 not removed"); })
+				// wait for expirable2000 to expire
+				.then(pollUntil("return expirable2000Var.expired || null", [],
+					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
+				.then(function () {}, function () { throw new Error("exp2000 not removed"); })
 
-						// wait for expirable6000 to expire
-						.then(pollUntil(codeExp(exp6000), [], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
-						.then(function () {}, function () { throw new Error("exp6000 not removed"); })
+				// wait for expirable6000 to expire
+				.then(pollUntil("return expirable6000Var.expired || null", [],
+					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
+				.then(function () {}, function () { throw new Error("exp6000 not removed"); })
 
-						// wait for both messages to be removed
-						.then(pollUntil(codeRem(exp2000) && codeRem(exp6000), [],
-							intern.config.WAIT_TIMEOUT + ANIMATION_DURATION, intern.config.POLL_INTERVAL))
+				// wait for both messages to be removed
+				.then(pollUntil("return (expirable2000Var.removed && expirable6000Var.removed) || null", [],
+					intern.config.WAIT_TIMEOUT + ANIMATION_DURATION, intern.config.POLL_INTERVAL))
 
-						// check expired are no longer in the DOM
-						.then(function () {
-							return checkHasNotElement(remote, exp2000.props.id);
-						})
-						.then(function () {
-							return checkHasNotElement(remote, exp6000.props.id);
-						})
-
-						// check permanent are still in the DOM
-						.then(function () {
-							return checkHasElement(remote, perm1.props.id);
-						})
-						.then(function () {
-							return checkHasElement(remote, perm2.props.id);
-						});
+				// check expired are no longer in the DOM
+				.then(function () {
+					return checkHasNotElement(remote, "expirable2000Msg");
 				})
-				.end();
+				.then(function () {
+					return checkHasNotElement(remote, "expirable6000Msg");
+				})
+
+				// check permanent are still in the DOM
+				.then(function () {
+					return checkHasElement(remote, "permanent1Msg");
+				})
+				.then(function () {
+					return checkHasElement(remote, "permanent2Msg");
+				});
 		},
 
-		// TODO: this test case doesn't pass due to a dpointer issue which has been reported here
-		// https://github.com/ibm-js/dpointer/issues/23
-//		"Check message dismissal": function () {
-//			var remote = this.remote;
-//			return remote
-//				.get(require.toUrl(PAGE))
-//				.waitForCondition("'ready' in window && ready", intern.config.WAIT_TIMEOUT)
-//				/*jshint -W061 */
-//				.eval("actionsDismiss")
-//				.then(function (actions) {
-//					var action = actions.permanent;
-//					return remote
-//
-//						// click on show button
-//						.findById(action.buttonId)
-//						.click()
-//						.end()
-//
-//						// wait for the message to show up
-//						.waitForCondition(codeIns(action), intern.config.WAIT_TIMEOUT)
-//
-//						// click on the dismiss button
-//						.findById(action.props.id)
-//						.elementByClassName("d-toaster-dismiss")
-//						.click()
-//						// wait for the message to be removed and check it's not there
-//						.waitForCondition(codeRem(action), intern.config.WAIT_TIMEOUT)
-//						.then(function () {
-//							return checkHasNotElement(remote, action.props.id);
-//						})
-//						.end();
-//				})
-//				.end();
-//		},
+		"Check message dismissal": function () {
+			var remote = this.remote;
+			if (/internet explorer|edge/.test(remote.environmentType.browserName) ||
+				remote.environmentType.platformName === "iOS") {
+				return this.skip("Clicking dismiss button doesn't work via webdriver (but works manually).");
+			}
+			return remote
+				// click on show button
+				.findById("permanentButton").click().end()
+				// wait for the message to show up
+				.findById("permanentMsg").end()
+
+				// click on the dismiss button
+				.findByCssSelector("#permanentMsg .d-toaster-dismiss").click().end()
+
+				// wait for the message to be removed and check it's not there
+				.then(pollUntil("return permanentVar.removed || null", [],
+					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
+				.then(function () {
+					return checkHasNotElement(remote, "permanentMsg");
+				});
+		},
+
 		"Check message duration": function () {
-			var remote = this.remote;
-			return remote
-				/*jshint -W061 */
-				.execute("return actionsDurations;") // NOTE: a global variable existing in PAGE
-				.then(function (actions) {
-					return remote
-						.getCurrentUrl()
-						.then(function () {
-							return checkExpirable(remote, actions["Duration 6000"], 6000);
-						})
-						.then(function () {
-							return checkPersistent(remote, actions["Duration -1"]);
-						})
-						.end();
-				})
-				.end();
+			return this.remote
+				.findById("duration6000Button").click().end()
+				.findById("duration6000Msg").end()
+				// wait for it to expire
+				.then(pollUntil("return duration6000Var.expired || null", [],
+					6000 + 5000, intern.config.POLL_INTERVAL))
+				.then(pollUntil("return duration6000Var.removed || null", [],
+					ANIMATION_DURATION + 5000, intern.config.POLL_INTERVAL));
 		},
+
 		"Check message types": function () {
 			var remote = this.remote;
 
@@ -314,7 +268,7 @@ define(["intern",
 			}
 			return remote
 				/*jshint -W061 */
-				.execute("return actionsTypes;") // NOTE: a global variable existing in PAGE
+				.execute("return actionsTypes;") // TODO: stop using, hardcode variable names
 				.then(function (actions) {
 					remote
 						.getCurrentUrl()
@@ -331,15 +285,14 @@ define(["intern",
 				})
 				.end();
 		},
+
 		"Check visibility on hover" : function () {
+			return this.skip("moveMouseTo doesn't seem to work anywhere");
+			/*
 			var remote = this.remote;
-			if (/safari|firefox|selendroid/.test(remote.environmentType.browserName)) {
-				// See https://code.google.com/p/selenium/issues/detail?id=4136
-				return this.skip("moveMouseTo not supported");
-			}
 			return remote
-				/*jshint -W061 */
-				.execute("return actionsHover;") // NOTE: a global variable existing in PAGE
+				// jshint -W061
+				.execute("return actionsHover;") // TODO: stop using, hardcode variable names
 				.then(function (actions) {
 					var action = actions.expirable3000;
 					return remote
@@ -381,7 +334,7 @@ define(["intern",
 						})
 						.end();
 				})
-				.end();
+				.end();*/
 		}
 	});
 });
