@@ -36,12 +36,6 @@ define(["intern",
 	// is correctly kept in sync (that is, its selectedItem/selectedItems
 	// properties are correctly updated by the widget).
 	var checkKeyboardNavigationSingleSelection = function (remote, selectId) {
-		if (!/chrome|internet explorer/.test(remote.environmentType.browserName)) {
-			// Webdriver issues for now with FF (can not call skip inside function)
-			console.log("-SKIPPED checkKeyboardNavigationSingleSelection on " +
-				remote.environmentType.browserName);
-			return remote.end();
-		}
 		var selItemNullStr = "widget.selectedItem is null";
 		// Expression executed in the browser for collecting data allowing to
 		// check the state of the widget.
@@ -132,13 +126,6 @@ define(["intern",
 	};
 	
 	var checkKeyboardNavigationMultipleSelection = function (remote, selectId) {
-		if (!/chrome/.test(remote.environmentType.browserName)) {
-			// Keyboard shortcuts for multi-selects are browser dependent.
-			// For now testing Chrome only. (can not call skip inside of function)
-			console.log("-SKIPPED checkKeyboardNavigationMultipleSelection on " +
-				remote.environmentType.browserName);
-			return remote.end();
-		}
 		var selItemNullStr = "widget.selectedItem is null";
 		// Expression executed in the browser for collecting data allowing to
 		// check the state of the widget.
@@ -321,9 +308,19 @@ define(["intern",
 		},
 		
 		"keyboard navigation selectionMode = single": function () {
+			if (!/internet explorer/.test(this.remote.environmentType.browserName)) {
+				// This test relies on up/down directly cycling through the choices, rather than opening the dropdown.
+				// I think it used to work that way on Chrome, but now the first down arrow opens the dropdown.
+				// So, it only currently works on IE.
+				return this.skip("Test designed for IE behavior only.");
+			}
 			return checkKeyboardNavigationSingleSelection(this.remote, "select1");
 		},
 		"keyboard navigation selectionMode = multiple": function () {
+			if (!/chrome/.test(this.remote.environmentType.browserName) ||
+				this.remote.environmentType.platformName === "Android") {
+				return this.skip("Keyboard shortcuts browser dependent.  For now testing Chrome only.");
+			}
 			return checkKeyboardNavigationMultipleSelection(this.remote, "d_select_form3");
 		},
 		"Select Form submit": function () {
