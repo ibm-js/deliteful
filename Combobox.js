@@ -997,6 +997,9 @@ define([
 						}
 						this.dropDown.focus();
 					}
+
+					// Avoid spurious error from accessibility DOM scanning tool.
+					this.dropDown.tabIndex = -1;
 				}.bind(this));
 			};
 		}),
