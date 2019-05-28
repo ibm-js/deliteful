@@ -10,7 +10,7 @@ define([
 	var loadFile = function (remote, fileName) {
 		return remote
 			.get(require.toUrl(fileName))
-			.setWindowSize(400, 1000)
+			.setWindowSize(600, 1000)
 			.then(pollUntil("return ready ? true : null;", [],
 					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 	};
@@ -177,8 +177,8 @@ define([
 			.findByCssSelector("#" + comboId + " .d-combobox-arrow").click().end()
 			.sleep(500) // wait for List's loading panel to go away
 
-			// Make sure ComboPopup's header matches the label of the original Combobox.
-			.findByCssSelector("#" + comboId + "_dropdown .d-combo-popup-header")
+			// Make sure Dialog's header matches the label of the original Combobox.
+			.findByCssSelector("#" + comboId + "_dropdown .d-tooltip-dialog-label")
 				.getVisibleText().then(function (popupLabel) {
 					return remote.findByCssSelector("label[for=" + comboId + "-input]")
 						.getVisibleText().then(function (comboLabel) {
@@ -375,56 +375,6 @@ define([
 						widgetValueAtLatestChangeEvent: ["China", "Germany"],
 						valueNodeValueAtLatestChangeEvent: "China,Germany"
 					}, "after clicking OK button (close)");
-			});
-	};
-
-	var checkTabNavigation = function (remote, comboId) {
-		return loadFile(remote, "./ComboPopup.html")
-			.findByCssSelector("#" + comboId + " .d-combobox-input").click().end()
-			.sleep(500)
-			.setFindTimeout(intern.config.WAIT_TIMEOUT)
-			.findByXpath("//d-combo-popup")
-			.getActiveElement()
-			.getVisibleText()
-			.then(function (value) {
-				assert.match(value, /^France/, "initial focus");
-			})
-			.pressKeys(keys.TAB)
-			.getActiveElement()
-			.getVisibleText()
-			.then(function (value) {
-				assert.match(value, /^OK/, "after second TAB");
-			})
-			.pressKeys(keys.TAB)
-			.getActiveElement()
-			.getAttribute("aria-label")
-			.then(function (value) {
-				assert.strictEqual(value, "Close", "after third TAB (looped to top)");
-			})
-			.pressKeys(keys.TAB)
-			.getActiveElement()
-			.getVisibleText()
-			.then(function (value) {
-				assert.match(value, /^France/, "after forth TAB");
-			})
-			.end();
-	};
-
-	var checkFocus = function (remote, comboId, autoFilter) {
-		return loadFile(remote, "./ComboPopup.html")
-			.findByCssSelector("#" + comboId + " .d-combobox-arrow").click().end()
-			.sleep(500)
-			.setFindTimeout(intern.config.WAIT_TIMEOUT)
-			.findByXpath("//d-combo-popup")
-			.getActiveElement()
-			.then(function (node) {
-				return node.getTagName().then(function (value) {
-					if (autoFilter) {
-						assert.strictEqual(value, "input", "input node should be focused");
-					} else {
-						assert.strictEqual(value, "d-list-item-renderer", "a d-list node should be focused");
-					}
-				});
 			});
 	};
 
@@ -857,7 +807,7 @@ define([
 			return loadFile(remote, "./ComboPopup.html")
 				.findByCssSelector("#combo3 .d-combobox-input").click().end()
 				.sleep(500) // wait for popup to appear
-				.findByCssSelector("#combo3_dropdown .d-combo-popup-close-icon").click().end()
+				.findByCssSelector("#combo3_dropdown .d-tooltip-dialog-close-icon").click().end()
 				.findById("combo3_dropdown")
 				.isDisplayed().then(function (displayed) {
 					assert.isFalse(displayed, "clicking close icon hid popup");
@@ -870,42 +820,6 @@ define([
 
 		"multi selection (combo3)": function () {
 			return checkMultiSelection(this.remote, "combo3");
-		},
-
-		"tab navigation (combo3)": function () {
-			var remote = this.remote;
-
-			if (remote.environmentType.platformName === "iOS" || remote.environmentType.safari ||
-				remote.environmentType.browserName === "safari" || remote.environmentType.brokenSendKeys ||
-				!remote.environmentType.nativeEvents) {
-				return this.skip("no keyboard support - brokenSendKeys");
-			}
-
-			return checkTabNavigation(remote, "combo3");
-		},
-
-		"check focused element (combo1)": function () {
-			var remote = this.remote;
-
-			if (remote.environmentType.platformName === "iOS" || remote.environmentType.safari ||
-				remote.environmentType.browserName === "safari" || remote.environmentType.brokenSendKeys ||
-				!remote.environmentType.nativeEvents) {
-				return this.skip("no keyboard support - brokenSendKeys");
-			}
-
-			return checkFocus(remote, "combo1", false);
-		},
-
-		"check focused element (combo2)": function () {
-			var remote = this.remote;
-
-			if (remote.environmentType.platformName === "iOS" || remote.environmentType.safari ||
-				remote.environmentType.browserName === "safari" || remote.environmentType.brokenSendKeys ||
-				!remote.environmentType.nativeEvents) {
-				return this.skip("no keyboard support - brokenSendKeys");
-			}
-
-			return checkFocus(remote, "combo2", true);
 		},
 
 		// TODO: merge this into checkAutoCompleteFilteringWithThreeFilterChars().

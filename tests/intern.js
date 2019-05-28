@@ -10,17 +10,23 @@ define({
 	// OnDemand. Options that will be permutated are browserName, version, platform, and platformVersion; any other
 	// capabilities options specified for an environment will be copied as-is
 	environments: [
-		{ browserName: "MicrosoftEdge", version: "17", fixSessionCapabilities: false, name: "deliteful"},
+		{ browserName: "MicrosoftEdge", fixSessionCapabilities: false, name: "deliteful"},
 		{ browserName: "internet explorer", version: "11", platform: "Windows 8.1",
 			requireWindowFocus: "true", name: "deliteful"},
-		{ browserName: "firefox", version: "60", platform: [ "Windows 10" ], name: "deliteful" },
-		{ browserName: "chrome", version: "68", platform: [ "Windows 10" ], name: "deliteful" },
+		{ browserName: "firefox", version: "67", platform: [ "Windows 10" ], name: "deliteful" },
+		{ browserName: "chrome", version: "74", platform: [ "Windows 10" ], name: "deliteful" },
 
 		// Safari hangs on SauceLabs, so commented out.
 		//{ browserName: "safari", version: "11", name: "deliteful" },
 
 		{ browserName: "iphone", platform: "OS X 10.10", version: "10.2", deviceName: "iPad Retina",
 			name: "deliteful" },
+
+		// TODO: According to https://wiki.saucelabs.com/display/DOCS/Platform+Configurator#/
+		// iOS config should be declared like this:
+		// { browserName: "Safari", platformName: "iOS", platformVersion: "12.2", deviceName: "iPad Simulator",
+		//	name: "deliteful" },
+
 		{ browserName: "android", platform: "Linux", version: "6.0",
 			deviceName: "Android Emulator", deviceType: "tablet", name: "deliteful" }
 	],

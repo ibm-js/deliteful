@@ -37,6 +37,11 @@
 	}
 }
 
+.d-combo-popup-dialog .d-dialog-container, .d-combo-popup-tooltip-dialog .d-tooltip-container {
+	// Override default Dialog/TooltipDialog padding.
+	padding: 0;
+}
+
 .d-combo-popup {
 	display: flex;
 	flex-direction: column;
@@ -50,26 +55,6 @@
 	.d-list {
 		flex: 1;
 	}
-}
-
-.d-combo-popup-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-
-// Title inside of d-combo-popup-header
-.d-combo-popup-title {
-	flex: 1;
-	padding: 2px 8px;
-	font-size: 16px;
-	font-weight: bold;
-}
-
-// Close icon [x] inside of d-combo-popup-header.
-.d-combo-popup-close-icon::after {
-	content: "\2716";
 }
 
 .d-combo-popup-button-container {

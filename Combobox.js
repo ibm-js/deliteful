@@ -9,9 +9,11 @@ define([
 	"delite/CssState",
 	"delite/FormValueWidget",
 	"delite/HasDropDown",
-	"delite/Viewport",
 	"./channelBreakpoints",
+	"./features",
 	"./list/List",
+	"./Dialog",
+	"./TooltipDialog",
 	"./Combobox/ComboPopup",
 	"delite/handlebars!./Combobox/Combobox.html",
 	"requirejs-dplugins/i18n!./Combobox/nls/Combobox",
@@ -26,9 +28,11 @@ define([
 	CssState,
 	FormValueWidget,
 	HasDropDown,
-	Viewport,
 	channelBreakpoints,
+	has,
 	List,
+	Dialog,
+	TooltipDialog,
 	ComboPopup,
 	template,
 	messages
@@ -59,18 +63,13 @@ define([
 	 * string. The default filtering policy can be customized thanks to the
 	 * `filterMode` and `ignoreCase` properties.
 	 *
-	 * The widget provides multichannel rendering. Depending on the required channel, which
-	 * is determined by the value of the channel flags of `deliteful/features`, the
-	 * widget displays the popup containing the options in a different manner:
+	 * The widget provides multichannel rendering:
 	 *
-	 * - if `has("desktop-like-channel")` is `true`: in a popup below or above the root node.
-	 * - otherwise (that is for `"phone-like-channel"` and `"tablet-like-channel"`): in an
-	 * overlay centered on the screen, filled with an instance of `deliteful/Combobox/ComboPopup`.
-	 *
-	 * The channel flags are set by `deliteful/features` using CSS media queries depending on
-	 * the screen size. See the `deliteful/features` documentation for information about the
-	 * channel flags and about how to configure them statically and how to customize the values
-	 * of the screen size breakpoints used by the media queries.
+	 * - For desktop, the options are display in a dropdown below or above the root node.
+	 * - For mobile, clicking the widget opens a Dialog (on phones) or a TooltipDialog
+	 * (on tablets) that displays a list of options and optionally an <input> for filtering
+	 * that list of options.   Note that this design was chosen in part to support VoiceOver
+	 * navigation.
 	 *
 	 * The `value` property of the widget contains:
 	 *
@@ -291,10 +290,12 @@ define([
 		displayedValue: "",
 
 		/**
-		 * If `true` the dropdown should be centered, and if
-		 * `false` it should be displayed below/above the widget.
+		 * Flag to use the ComboPopup widget for editing the selected value.
 		 */
-		_smallFormFactor: false,
+		_isMobile: !has("desktop-like-channel"),
+
+		// Use underlay on iPad (in addition to iPhone).
+		underlay: !has("desktop-like-channel"),
 
 		/**
 		 * The Combobox widget is a special component where we don't need to move the
@@ -303,14 +304,22 @@ define([
 		 */
 		moveAriaAttributes: false,
 
-		/**
-		 *  Class to display the close button icon.
-		 * @member {string}
-		 * @default "d-dialog-close-icon"
-		 */
-		closeButtonIconClass: "d-combo-popup-close-icon",
-
 		dropDownType: "listbox",
+
+		/**
+		 * Widget used on phones to display the ComboPopup in a centered dialog.
+		 */
+		DialogConstructor: Dialog,
+
+		/**
+		 * Widget used on tables to display the ComboPopup in a tooltip dialog.
+		 */
+		TooltipDialogConstructor: TooltipDialog,
+
+		/**
+		 * Widget to edit value on mobile, containing the options list and filtering <input>.
+		 */
+		ComboPopupConstructor: ComboPopup,
 
 		preRender: function () {
 			// If the control seems to contain JSON, then parse it as our data source.
@@ -341,7 +350,7 @@ define([
 				return;
 			}
 
-		    if (this._smallFormFactor || !this.minFilterChars || this._inputReadOnly) {
+		    if (this._isMobile || !this.minFilterChars || this._inputReadOnly) {
 				this.toggleDropDown();
 			}
 		},
@@ -365,22 +374,16 @@ define([
 		}),
 
 		/**
-		 * Return true if the dropdown should be displayed as a centered popup.
+		 * Return true if the ComboPopup should be displayed in a centered Dialog,
+		 * false to display in a TooltipDialog
 		 */
-		computeSmallFormFactor: function () {
+		useCenteredDialog: function () {
 			// TODO: this should depend on height, not width, and "height" needs to exclude the space
 			// for the virtual keyboard.   Not sure what the cutoff should be.
 			return window.innerWidth <= parseInt(channelBreakpoints.smallScreen, 10);
 		},
 
 		connectedCallback: function () {
-			// Switch mode based on browser viewport width. Could also do this with CSS
-			// media queries.  The code in ResponsiveColumns.js should probably be generalized.
-			this._smallFormFactor = this.computeSmallFormFactor();
-			this._viewportResizeListener = Viewport.on("resize", function () {
-				this._smallFormFactor = this.computeSmallFormFactor();
-			}.bind(this));
-
 			if (!this.list) {
 				var regexp = /^(?!_)(\w)+(?=Attr$|Func$)/;
 				var listArgs = {
@@ -411,13 +414,6 @@ define([
 			}
 		},
 
-		disconnectedCallback: function () {
-			if (this._viewportResizeListener) {
-				this._viewportResizeListener.remove();
-				delete this._viewportResizeListener;
-			}
-		},
-
 		postRender: function () {
 			this._prepareInput(this.inputNode);
 		},
@@ -434,7 +430,7 @@ define([
 			}
 
 			this._inputReadOnly = this.readOnly || !this.autoFilter ||
-				this._smallFormFactor || this.selectionMode === "multiple";
+				this._isMobile || this.selectionMode === "multiple";
 
 			// Set this.displayedValue based on this.value.
 			if ("value" in oldValues) {
@@ -607,13 +603,13 @@ define([
 		},
 
 		dropDownPosition: function () {
-			return this._smallFormFactor ? ["center"] : ["below", "above"];
+			// Returns "centered" if we are using the ComboPopupDialog,
+			// below/above if we are using the ComboPopupTooltipDialog.
+			return this.useCenteredDialog() ? ["center"] : ["below", "above"];
 		},
 
 		loadDropDown: function () {
-			var dropDown = this._smallFormFactor ?
-				this.createCenteredDropDown() :
-				this.createAboveBelowDropDown();
+			var dropDown = this._isMobile ? this.createDialog() : this.createAboveBelowDropDown();
 
 			// Since the dropdown is not a child of the Combobox, it will not inherit
 			// its dir attribute. Hence:
@@ -624,9 +620,9 @@ define([
 
 			this.dropDown = dropDown; // delite/HasDropDown's property
 
-			if (this._smallFormFactor) {
+			if (this._isMobile) {
 				// Set correct (initial) value of aria-expanded on ComboPopup <input>.
-				this._togglePopupList(dropDown.inputNode);
+				this._togglePopupList(this.comboPopup.inputNode);
 			}
 
 			return dropDown;
@@ -646,54 +642,55 @@ define([
 		},
 
 		/**
-		 * Factory method which creates the widget used inside centered drop-down.
-		 * The default implementation returns a new instance of deliteful/Combobox/ComboPopup
-		 * (the present widget is set for its `combobox` property).
-		 * The method can be overridden in order to create a subclass of ComboPopup (for
-		 * specifying a custom template, for instance).
+		 * Factory method which creates the Dialog/TooltipDialog holding the ComboPopup.
 		 * @protected
 		 */
-		createCenteredDropDown: function () {
-			// Use my label as ComboPopup header.
+		createDialog: function () {
+			// Use my label as ComboPopupDialog header.
 			var headerNode = (this.focusNode.id &&
 				this.ownerDocument.querySelector("label[for=" + this.focusNode.id + "]")) ||
 				(this.hasAttribute("aria-labelledby") &&
 					this.ownerDocument.getElementById(this.getAttribute("aria-labelledby")));
 			var header = headerNode ? headerNode.textContent.trim() : (this.getAttribute("aria-label") || "");
 
-			var popup = new ComboPopup({
-				combobox: this,
-				header: header,
-				closeButtonIconClass: this.closeButtonIconClass
+			this.comboPopup = new ComboPopup({
+				combobox: this
 			});
-			popup.deliver();
-			return popup;
+			this.comboPopup.deliver();
+
+			var DialogConstructor = this.useCenteredDialog() ? this.DialogConstructor : this.TooltipDialogConstructor;
+			var dialog = new DialogConstructor({
+				label: header
+			});
+			dialog.classList.add(this.useCenteredDialog() ? "d-combo-popup-dialog" : "d-combo-popup-tooltip-dialog");
+			dialog.deliver();
+			dialog.containerNode.appendChild(this.comboPopup);
+
+			return dialog;
 		},
 
 		/**
-		 * Toggles the list's visibility.
-		 * In small form factor, toggles list visibility.
-		 * If larger form factors, closes or opens the dropdown.
+		 * Toggles the popup's visibility.
+		 * If in mobile, toggles list visibility.
+		 * If in desktop, closes or opens the popup.
 		 */
 		_togglePopupList: function (inputElement, suppressChangeEvent) {
-			// Compute whether or not to show the list.  Note that ComboPopup doesn't display a
-			// down arrow icon to manually show/hide the list, so in small mode
+			// Compute whether or not to show the list.  Note that in mobile mode ComboPopup doesn't display a
+			// down arrow icon to manually show/hide the list, so on mobile,
 			// if the Combobox has a down arrow icon, the list is always shown.
 			var showList = inputElement.value.length >= this.minFilterChars ||
-				(this._smallFormFactor && this.hasDownArrow);
-			if (this._smallFormFactor) {
-				// Small form factor.
+				(this._isMobile && this.hasDownArrow);
+			if (this._isMobile) {
+				// Mobile version.
 				if (showList) {
 					this.filter(inputElement.value);
 				}
 				this.list.setAttribute("d-shown", "" + showList);
-				if (this.dropDown && this.dropDown.inputNode) {
-					// Only runs for ComboPopup, not if this.dropDown is the <d-list>.  (It will be
-					// <d-list> if the dropdown was first opened when the browser was in large mode.)
-					this.dropDown.inputNode.setAttribute("aria-expanded", "" + showList);
+				if (this.comboPopup) {
+					this.comboPopup.inputNode.setAttribute("aria-expanded", "" + showList);
 				}
 			} else {
-				// Medium or large form factor.
+				// Desktop version.
 				if (showList) {
 					this.openDropDown();
 				} else {
@@ -811,7 +808,7 @@ define([
 				} else if (evt.key === "ArrowDown" || evt.key === "ArrowUp" ||
 					evt.key === "PageDown" || evt.key === "PageUp" ||
 					evt.key === "Home" || evt.key === "End") {
-					if (this._smallFormFactor) {
+					if (this._isMobile) {
 						this.list.emit("keydown", evt);
 					}
 					evt.stopPropagation();
@@ -949,7 +946,7 @@ define([
 
 		openDropDown: dcl.superCall(function (sup) {
 			return function () {
-				if (this._smallFormFactor) {
+				if (this._isMobile) {
 					// We are opening the ComboPopup but may or may not want to show the list.
 					// TogglePopupList will decide the right thing to do.
 					this._togglePopupList(this.inputNode);
@@ -963,9 +960,9 @@ define([
 
 				if (!this.opened) {
 					// On desktop, leave focus in the original <input>.  But on mobile, focus the popup dialog.
-					this.focusOnPointerOpen = this.focusOnKeyboardOpen = this._smallFormFactor;
+					this.focusOnPointerOpen = this.focusOnKeyboardOpen = this._isMobile;
 
-					if (!this._smallFormFactor) {
+					if (!this._isMobile) {
 						this.defer(function () {
 							// Avoid losing focus when clicking the arrow (instead of the input element):
 							// TODO: isn't this already handled by delite/HasDropDown#_dropDownPointerUpHandler() ?
@@ -987,19 +984,21 @@ define([
 					// Avoid that List gives focus to list items when navigating, which would
 					// blur the input field used for entering the filtering criteria.
 					this.dropDown.focusDescendants = false;
-					if (!this._smallFormFactor) {
+					if (!this._isMobile) {
 						// desktop version
 						this._updateScroll(undefined, true);	// sets this.list.navigatedDescendant
 						this._setActiveDescendant(this.list.navigatedDescendant);
 					} else {
 						if (this.hasDownArrow) {
-							this.dropDown.inputNode.value = this.displayedValue;
+							this.comboPopup.inputNode.value = this.displayedValue;
 						}
 						this.dropDown.focus();
 					}
 
 					// Avoid spurious error from accessibility DOM scanning tool.
-					this.dropDown.tabIndex = -1;
+					if (!this._isMobile) {
+						this.dropDown.tabIndex = -1;
+					}
 				}.bind(this));
 			};
 		}),

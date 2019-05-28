@@ -36,6 +36,10 @@
   left: 0;
   right: auto;
 }
+.d-combo-popup-dialog .d-dialog-container,
+.d-combo-popup-tooltip-dialog .d-tooltip-container {
+  padding: 0;
+}
 .d-combo-popup {
   display: flex;
   flex-direction: column;
@@ -47,20 +51,6 @@
 }
 .d-combo-popup .d-list {
   flex: 1;
-}
-.d-combo-popup-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.d-combo-popup-title {
-  flex: 1;
-  padding: 2px 8px;
-  font-size: 16px;
-  font-weight: bold;
-}
-.d-combo-popup-close-icon::after {
-  content: "\2716";
 }
 .d-combo-popup-button-container {
   display: flex;

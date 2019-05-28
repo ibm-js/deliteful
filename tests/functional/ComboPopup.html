@@ -6,7 +6,7 @@
 		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 
-	<title>deliteful/Combobox small form factor test</title>
+	<title>deliteful/Combobox mobile test</title>
 
 	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
 
@@ -112,7 +112,7 @@
 
 				return {
 					inputNodeValue: combo.inputNode.value,
-					popupInputNodeValue: combo.opened ? combo.dropDown.inputNode.value : "",
+					popupInputNodeValue: combo.opened ? combo.comboPopup.inputNode.value : "",
 					widgetValue: combo.value,
 					valueNodeValue: combo.valueNode.value,
 					opened: combo.opened,
@@ -156,12 +156,12 @@
 </head>
 <body>
 	<h1>
-		Test file for Combobox in small form factor
+		Test file for Combobox on mobile
 	</h1>
 
 	<p>
 		Test file used by ComboPopup automated test.
-		The browser window should be sized small enough to trigger the ComboPopup to appear.
+		Should display ComboPopup in a Dialog or TooltipDialog, depending on browser window size.
 	</p>
 	<label for="combo1-input">
 		id = combo1 - Simple Combobox popup

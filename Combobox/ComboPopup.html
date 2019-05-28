@@ -1,9 +1,4 @@
-<template requires="deliteful/Button" role="dialog" aria-labelledby="{{widgetId}}-title">
-	<div class="d-combo-popup-header">
-		<div id="{{widgetId}}-title" class="d-combo-popup-title">{{header}}</div>
-		<button class="{{closeButtonIconClass}}" on-click="{{closeButtonClickHandler}}"
-			title="{{combobox.closeMsg}}" aria-label="{{combobox.closeMsg}}"></button>
-	</div>
+<template requires="deliteful/Button" role="presentation">
 	<div aria-labelledby="{{widgetId}}-title" role="combobox" aria-expanded="true" aria-owns="{{combobox.list.id}}"
 		 	aria-haspopup="listbox">
 		<input id="{{widgetId}}-input"
@@ -20,6 +15,6 @@
 	<div attach-point="listNode"></div>
 	<div d-hidden="{{this.combobox.selectionMode !== 'multiple'}}" class="d-combo-popup-button-container">
 		<d-button class="fill d-combo-ok-button"
-			label="{{combobox.okMsg}}" on-click="{{closeButtonClickHandler}}"></d-button>
+			label="{{combobox.okMsg}}" on-click="{{okButtonClickHandler}}"></d-button>
 	</div>
 </template>

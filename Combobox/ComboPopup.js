@@ -3,17 +3,23 @@ define([
 	"delite/register",
 	"delite/Dialog",
 	"delite/handlebars!./ComboPopup.html"
-], function (register, Dialog, template) {
+], function (
+	register,
+	Widget,
+	template
+) {
 	/**
-	 * Auxiliary widget used in some cases by deliteful/Combobox for displaying
-	 * a popup containing conditionally a search field and OK/Cancel buttons.
+	 * Auxiliary widget used by deliteful/Combobox on mobile.  It's displayed inside
+	 * a Dialog or TooltipDialog, and contains the list of options, and conditionally
+	 * a search field and OK button.
+	 *
 	 * This widget is intended for being instantiated only by deliteful/Combobox;
 	 * it should not be instantiated directly.  If needed, its template
 	 * (deliteful/Combobox/ComboPopup.html) can be customized.
 	 * @class module:deliteful/Combobox/ComboPopup
 	 * @augments module:delite/Widget
 	 */
-	return register("d-combo-popup", [HTMLElement, Dialog], /** @lends module:deliteful/Combobox/ComboPopup# */ {
+	return register("d-combo-popup", [HTMLElement, Widget], /** @lends module:deliteful/Combobox/ComboPopup# */ {
 
 		baseClass: "d-combo-popup",
 
@@ -30,17 +36,6 @@ define([
 		 */
 		combobox: null,
 
-		/**
-		 * Popup's title, to remind user what the popup is for (since it likely covers up the original label).
-		 */
-		header: "",
-
-		/**
-		 *  Class to display the close button icon.
-		 * @member {string}
-		 */
-		closeButtonIconClass: "",
-
 		refreshRendering: function (oldValues) {
 			if ("combobox" in oldValues) {
 				if (this.combobox) {
@@ -55,12 +50,7 @@ define([
 			}
 		},
 
-		/**
-		 * Called when clicking the close button of the popup.
-		 * @protected
-		 */
-		closeButtonClickHandler: function () {
-			// NOTE: no need to validate since it's handled by the `selection-change` listener
+		okButtonClickHandler: function () {
 			this.emit("execute");
 		},
 
@@ -82,7 +72,6 @@ define([
 					this.combobox.list.navigateTo(renderer);
 				}
 			}
-
 		}
 	});
 });
