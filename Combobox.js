@@ -294,9 +294,6 @@ define([
 		 */
 		_isMobile: !has("desktop-like-channel"),
 
-		// Use underlay on iPad (in addition to iPhone).
-		underlay: !has("desktop-like-channel"),
-
 		/**
 		 * The Combobox widget is a special component where we don't need to move the
 		 * aria attributes from the root element to the focusNode. So here we're
