@@ -602,7 +602,8 @@ define([
 		dropDownPosition: function () {
 			// Returns "centered" if we are using the ComboPopupDialog,
 			// below/above if we are using the ComboPopupTooltipDialog.
-			return this.useCenteredDialog() ? ["center"] : ["below", "above"];
+			return this.useCenteredDialog() ? ["center"] : this._isMobile ?
+				["below-centered", "above-centered"] : ["below", "above"];
 		},
 
 		loadDropDown: function () {
