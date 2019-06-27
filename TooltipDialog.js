@@ -39,14 +39,6 @@ define([
 		 */
 		closeButtonIconClass: "d-tooltip-dialog-close-icon",
 
-		focus: function () {
-			// Focus on first field.
-			this._getFocusItems();
-			if (this._firstFocusItem && this._firstFocusItem !== this) {
-				this._firstFocusItem.focus();
-			}
-		},
-
 		closeButtonClickHandler: function () {
 			this.emit("cancel");
 		},

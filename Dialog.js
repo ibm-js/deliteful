@@ -152,14 +152,6 @@ define([
 			popup.close(this);
 		},
 
-		focus: function () {
-			// Focus on first field.
-			this._getFocusItems();
-			if (this._firstFocusItem && this._firstFocusItem !== this) {
-				this._firstFocusItem.focus();
-			}
-		},
-
 		/**
 		 * Make the dialog draggable.
 		 */
