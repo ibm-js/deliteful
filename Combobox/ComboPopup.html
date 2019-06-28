@@ -1,20 +1,20 @@
 <template requires="deliteful/Button" role="presentation">
-	<div aria-labelledby="{{widgetId}}-title" role="combobox" aria-expanded="true" aria-owns="{{combobox.list.id}}"
+	<div role="combobox" aria-expanded="true" aria-owns="{{list.widgetId}}-container"
 		 	aria-haspopup="listbox">
 		<input id="{{widgetId}}-input"
-			d-hidden="{{!(this.combobox.autoFilter && this.combobox.selectionMode !== 'multiple')}}"
-			attach-point="inputNode"
+			d-shown="{{showInput}}"
+			attach-point="inputNode,focusNode"
 			class="d-combobox-input"
-			aria-labelledby="{{widgetId}}-title"
-			aria-autocomplete="list" 
-			aria-controls="{{combobox.list.id}}"
+			aria-labelledby="{{labelledby}}"
+			aria-autocomplete="list"
+			aria-controls="{{list.widgetId}}-container"
 			autocomplete="off" autocapitalize="none" autocorrect="off"
 			type="text"
-			placeholder="{{combobox.searchPlaceHolder}}">
+			placeholder="{{searchPlaceHolder}}">
 	</div>
 	<div attach-point="listNode"></div>
-	<div d-hidden="{{this.combobox.selectionMode !== 'multiple'}}" class="d-combo-popup-button-container">
+	<div d-shown="{{this.selectionMode === 'multiple'}}" class="d-combo-popup-button-container">
 		<d-button class="fill d-combo-ok-button"
-			label="{{combobox.okMsg}}" on-click="{{okButtonClickHandler}}"></d-button>
+			label="{{okMsg}}" on-click="{{okButtonClickHandler}}"></d-button>
 	</div>
 </template>

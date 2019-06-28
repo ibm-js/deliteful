@@ -67,7 +67,6 @@
 /* Applies to both the input inside the root node and the input */
 /* conditionally present inside the popup */
 .d-combobox-input {
-	.d-combobox-input-styles;
 	color: inherit;
 	font-family: inherit;
 	font-size: inherit;
@@ -89,6 +88,8 @@
 		-ms-user-select: none;			// Internet Explorer/Edge
 		user-select: none;				// Chrome, Opera
 	}
+
+	.d-combobox-input-styles;
 }
 
 /* Applies to the input inside the root node but does not apply */
@@ -96,6 +97,12 @@
 .d-combobox .d-combobox-input {
 	height: 100%;
 	vertical-align: inherit;
+
+	// Avoid webkit's rounded-button styling etc.  The button to open the ComboPopup
+	// should look like a normal <input>.
+	border-radius: 0;
+	-webkit-appearance: none;
+	background: white;
 
 	/* Necessary for Safari on iOS to avoid misplacement of the dropdown arrow */
 	/* due to the presence of the hidden input which stores the submitted value.*/

@@ -1,10 +1,9 @@
 <template role="combobox" aria-expanded="{{opened}}" attach-point="popupStateNode">
-	<input class="d-combobox-input"
+	<input id="{{this.id || this.widgetId}}-input" class="d-combobox-input"
 		attach-point="inputNode,focusNode"
 		autocomplete="off" autocorrect="off" autocapitalize="none"
 		aria-autocomplete="list"
 		type="text"
-		readonly="{{this._inputReadOnly ? 'readonly' : ''}}"
 		placeholder="{{searchPlaceHolder}}"
 		on-click="{{inputClickHandler}}">
 	<input class="d-hidden"

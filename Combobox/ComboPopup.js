@@ -1,11 +1,11 @@
 /** @module deliteful/Combobox/ComboPopup */
 define([
 	"delite/register",
-	"delite/Dialog",
+	"./ComboboxImplementation",
 	"delite/handlebars!./ComboPopup.html"
 ], function (
 	register,
-	Widget,
+	ComboboxImplementation,
 	template
 ) {
 	/**
@@ -17,36 +17,38 @@ define([
 	 * it should not be instantiated directly.  If needed, its template
 	 * (deliteful/Combobox/ComboPopup.html) can be customized.
 	 * @class module:deliteful/Combobox/ComboPopup
-	 * @augments module:delite/Widget
+	 * @augments module:delite/ComboboxBase
 	 */
-	return register("d-combo-popup", [HTMLElement, Widget], /** @lends module:deliteful/Combobox/ComboPopup# */ {
-
+	return register("d-combo-popup",
+		[HTMLElement, ComboboxImplementation], /** @lends module:deliteful/Combobox/ComboPopup# */ {
 		baseClass: "d-combo-popup",
 
 		template: template,
 
-		/**
-		 * The instance of `deliteful/Combobox` for which this widget is used.
-		 * This property is set by Combobox when creating the popup, and it
-		 * is used in the template of ComboPopup for accessing the properties
-		 * of the Combobox.
-		 * @member {boolean} module:deliteful/Combobox/ComboPopup#combobox
-		 * @default null
-		 * @protected
-		 */
-		combobox: null,
+		// id of node containing label
+		labelledBy: "",
+
+		// Whether or not to make the results be filterable.  Computed value.
+		showInput: true,
+
+		// Whether or not to display the list.  Computed value.
+		showList: false,
+
+		computeProperties: function () {
+			this.showInput = this.autoFilter && this.selectionMode !== "multiple";
+		},
 
 		refreshRendering: function (oldValues) {
-			if ("combobox" in oldValues) {
-				if (this.combobox) {
-					var list = this.combobox.list;
-					if (list) {
-						list.placeAt(this.listNode, "replace");
-						list.addClass("fill")
-							.removeClass("d-hidden");
-					}
-					this.combobox._prepareInput(this.inputNode);
+			if ("list" in oldValues) {
+				if (this.list) {
+					this.list.placeAt(this.listNode, "replace");
+					this.list.addClass("fill")
+						.removeClass("d-hidden");
 				}
+				this._prepareInput(this.inputNode);
+			}
+			if ("showList" in oldValues && this.list) {
+				this.list.setAttribute("d-shown", this.showList);
 			}
 		},
 
@@ -55,22 +57,37 @@ define([
 		},
 
 		/**
-		 * Called by HasDropDown in order to get the focus on the widget's list.
+		 * Called by HasDropDown in order to focus inside the dialog/tooltip dialog containing the ComboPopup.
+		 * Returns true if it found a spot to focus.
 		 * @protected
 		 */
 		focus: function () {
-			if (this.combobox.autoFilter && this.combobox.selectionMode === "single") {
+			if (this.autoFilter && this.selectionMode === "single") {
 				this.inputNode.focus();
-			} else {
-				// first check if list is not hidden.
-				if (!this.combobox.list.hasClass("d-hidden")
-						&& this.combobox.list && this.combobox.list.containerNode.children.length > 0) {
-					var id = this.combobox.list.getIdentity(
-						this.combobox.list.selectedItems.length > 0 ? this.combobox.list.selectedItems[0] : "");
-					var renderer = (id && id !== -1) ? this.combobox.list.getRendererByItemId(id) :
-						this.combobox.list.getItemRendererByIndex(0);
-					this.combobox.list.navigateTo(renderer);
-				}
+				return true;
+			} else if (this.list && this.showList && this.list.containerNode.children.length > 0) {
+				var id = this.list.getIdentity(
+					this.list.selectedItems.length > 0 ? this.list.selectedItems[0] : "");
+				var renderer = (id && id !== -1) ? this.list.getRendererByItemId(id) :
+					this.list.getItemRendererByIndex(0);
+				this.list.navigateTo(renderer);
+				return true;
+			}
+		},
+
+		/**
+		 * Toggles the list's visibility.
+		 */
+		_showOrHideList: function () {
+			// Compute whether or not to show the list.  Note that in mobile mode ComboPopup doesn't display a
+			// down arrow icon to manually show/hide the list, so on mobile,
+			// if the Combobox has a down arrow icon, the list is always shown.
+			this.showList = this.inputNode && this.inputNode.value.length >= this.minFilterChars;
+			if (this.showList) {
+				this.filter(this.inputNode.value);
+			}
+			if (this.inputNode) {
+				this.inputNode.setAttribute("aria-expanded", "" + this.showList);
 			}
 		}
 	});

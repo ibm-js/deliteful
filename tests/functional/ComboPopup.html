@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html dir="ltr" lang="en">
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<meta name="viewport"
@@ -29,42 +29,38 @@
 		});
 
 		require([
+		  	"dcl/advise",
 			"delite/register",
 			"deliteful/list/List",
 			"deliteful/Combobox",
 			"delite/theme!delite/themes/{{theme}}/global.css", // page level CSS
 			"requirejs-domready/domReady!"
-		], function (register) {
+		], function (
+		  advise,
+		  register
+		) {
 			register.deliver();
 
 			// Store information for use in the automatic functional test
 			function storeTestingInfo(combo) {
-				if (!combo.init) {
-					combo._inputEventCounter = 0;
-					combo._changeEventCounter = 0;
-					combo.on("input", function () {
-						combo._inputEventCounter++;
-						combo._widgetValueAtLatestInputEvent = combo.value;
-						combo._valueNodeValueAtLatestInputEvent = combo.valueNode.value;
-					});
-					combo.on("change", function () {
-						combo._changeEventCounter++;
-						combo._widgetValueAtLatestChangeEvent = combo.value;
-						combo._valueNodeValueAtLatestChangeEvent = combo.valueNode.value;
-					});
-					combo.init = true;
-				}
 				// Store ids for item cells such that the automatic functional test
 				// can retrieve them.
-				var itemRenderers = combo.list.getItemRenderers();
-				var i;
-				for (i = 0; i < itemRenderers.length; i++) {
-					itemRenderers[i].renderNode.id = combo.id + "_item" + i;
-				}
-				var categoryRenderers = combo.list.querySelectorAll("." + combo.list._cssClasses.category);
-				for (i = 0; i < categoryRenderers.length; i++) {
-					categoryRenderers.item(i).renderNode.id = combo.id + "_category" + i;
-				}
+				advise.after(combo, "openDropDown", function () {
+			  		var comboPopup = combo.comboPopup;
+					if (!comboPopup.init) {
+						comboPopup._inputEventCounter = 0;
+						comboPopup._changeEventCounter = 0;
+						comboPopup.on("input", function () {
+							comboPopup._inputEventCounter++;
+							comboPopup._widgetValueAtLatestInputEvent = comboPopup.value;
+						});
+						comboPopup.on("change", function () {
+							comboPopup._changeEventCounter++;
+							comboPopup._widgetValueAtLatestChangeEvent = comboPopup.value;
+						});
+						comboPopup.init = true;
+					}
+				});
 			}
 
 			// single selection mode, autoFilter=true
@@ -84,50 +80,57 @@
 
 			// Used by the automatic functional test, for comboboxes in both
 			// single and multiple selection modes.
-			getComboState = function (comboId) {
+			getComboboxState = function (comboId) {
 				var combo = document.getElementById(comboId);
-				var inputEventCounter = combo._inputEventCounter;
-				var changeEventCounter = combo._changeEventCounter;
+
+				return {
+					inputNodeValue: combo.inputNode.value,
+					widgetValue: combo.value,
+					valueNodeValue: combo.valueNode.value
+				};
+			};
+
+			// Used by the automatic functional test, for ComboPopups in both
+			// single and multiple selection modes.
+			getComboPopupState = function (comboId) {
+				var comboPopup = document.getElementById(comboId).comboPopup;
+				var inputEventCounter = comboPopup._inputEventCounter;
+				var changeEventCounter = comboPopup._changeEventCounter;
 				// Reset the counters such that at next call only the new events
 				// are counted. This is convenient, because it allows to change parts of
 				// the automatic test without needing to update the expected values for
 				// counters in the remaining testing sequence.
-				combo._inputEventCounter = 0;
-				combo._changeEventCounter = 0;
+				comboPopup._inputEventCounter = 0;
+				comboPopup._changeEventCounter = 0;
 
 				var activeDescendantNode = document.getElementById(
-						combo.inputNode.getAttribute("aria-activedescendant"));
+						comboPopup.inputNode.getAttribute("aria-activedescendant"));
 
 				// Store ids for item cells such that the automatic functional test
 				// can retrieve them.
-				var itemRenderers = combo.list.getItemRenderers();
+				var itemRenderers = comboPopup.list.getItemRenderers();
 				var i;
 				for (i = 0; i < itemRenderers.length; i++) {
-					itemRenderers[i].renderNode.id = combo.id + "_item" + i;
+					itemRenderers[i].renderNode.id = comboId + "_item" + i;
 				}
-				var categoryRenderers = combo.list.querySelectorAll("." + combo.list._cssClasses.category);
+				var categoryRenderers = comboPopup.list.querySelectorAll("." + comboPopup.list._cssClasses.category);
 				for (i = 0; i < categoryRenderers.length; i++) {
-					categoryRenderers.item(i).renderNode.id = combo.id + "_category" + i;
+					categoryRenderers.item(i).renderNode.id = comboId + "_category" + i;
 				}
 
 				return {
-					inputNodeValue: combo.inputNode.value,
-					popupInputNodeValue: combo.opened ? combo.comboPopup.inputNode.value : "",
-					widgetValue: combo.value,
-					valueNodeValue: combo.valueNode.value,
-					opened: combo.opened,
-					selectedItemsCount: combo.list.selectedItems.length,
-					itemRenderersCount: combo.list.getItemRenderers().length,
+					inputNodeValue: comboPopup.inputNode.value,
+					widgetValue: comboPopup.value,
+					selectedItemsCount: comboPopup.list.selectedItems.length,
+					itemRenderersCount: comboPopup.list.getItemRenderers().length,
 					inputEventCounter: inputEventCounter,
 					changeEventCounter: changeEventCounter,
-					widgetValueAtLatestInputEvent: combo._widgetValueAtLatestInputEvent,
-					valueNodeValueAtLatestInputEvent: combo._valueNodeValueAtLatestInputEvent,
-					widgetValueAtLatestChangeEvent: combo._widgetValueAtLatestChangeEvent,
-					valueNodeValueAtLatestChangeEvent: combo._valueNodeValueAtLatestChangeEvent,
-					selectionMode: combo.selectionMode,
-					autoFilter: combo.autoFilter,
-					multipleChoiceNoSelectionMsg: combo.multipleChoiceNoSelectionMsg,
-					multipleChoiceMsg: combo.multipleChoiceMsg,
+					widgetValueAtLatestInputEvent: comboPopup._widgetValueAtLatestInputEvent,
+					widgetValueAtLatestChangeEvent: comboPopup._widgetValueAtLatestChangeEvent,
+					selectionMode: comboPopup.selectionMode,
+					autoFilter: comboPopup.autoFilter,
+					multipleChoiceNoSelectionMsg: comboPopup.multipleChoiceNoSelectionMsg,
+					multipleChoiceMsg: comboPopup.multipleChoiceMsg,
 					activeDescendant: activeDescendantNode && activeDescendantNode.textContent.trim()
 				};
 			};
@@ -155,14 +158,16 @@
 	</style>
 </head>
 <body>
+<header>
 	<h1>
 		Test file for Combobox on mobile
 	</h1>
-
 	<p>
 		Test file used by ComboPopup automated test.
 		Should display ComboPopup in a Dialog or TooltipDialog, depending on browser window size.
 	</p>
+</header>
+<main>
 	<label for="combo1-input">
 		id = combo1 - Simple Combobox popup
 	</label>
@@ -382,5 +387,6 @@
 		{ "label": "Japan29", "sales": 900, "profit": 100, "region": "Asia" },
 		{ "label": "Japan30", "sales": 900, "profit": 100, "region": "Asia" }
 	</d-combobox>
+</main>
 </body>
 </html>
