@@ -4,9 +4,16 @@ define([
 	"delite/Dialog",
 	"./Tooltip",
 	"delite/handlebars!./TooltipDialog/TooltipDialog.html",
+	"requirejs-dplugins/i18n!./Dialog/nls/Dialog",
 	"delite/theme!./TooltipDialog/themes/{{theme}}/TooltipDialog.css",
 	"delite/uacss"	// TooltipDialog.less uses d-ie class
-], function (register, Dialog, Tooltip, template) {
+], function (
+	register,
+	Dialog,
+	Tooltip,
+	template,
+	messages
+) {
 
 	/**
 	 * A tooltip dialog widget, to be used as a popup.
@@ -25,6 +32,8 @@ define([
 		baseClass: "d-tooltip d-tooltip-dialog",
 
 		template: template,
+
+		nls: messages,
 
 		/**
 		 * The title of the TooltipDialog, displayed at the top, above the content.

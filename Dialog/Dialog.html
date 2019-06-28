@@ -1,7 +1,7 @@
 <template role="dialog" aria-modal="{{modal}}" aria-labelledby="{{widgetId}}-label">
 	<div class="d-dialog-header" attach-point="headerNode">
 		<div id="{{widgetId}}-label" class="d-dialog-label">{{label}}</div>
-		<button class="d-dialog-icon {{closeButtonIconClass}}"
+		<button class="d-dialog-icon {{closeButtonIconClass}}" title="{{nls.close}}" aria-label="{{nls.close}}"
 			 on-click="{{closeButtonClickHandler}}" tabindex="-1"></button>
 	</div>
 	<div class="d-dialog-container" attach-point="containerNode"></div>

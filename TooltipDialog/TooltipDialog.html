@@ -2,7 +2,8 @@
 	<div attach-point="connectorNode" class="d-tooltip-connector"></div>
 	<div attach-point="headerNode" class="d-tooltip-dialog-header">
 		<div attach-point="labelNode" id="{{widgetId}}-label" class="d-tooltip-dialog-label">{{label}}</div>
-		<div attach-point="closeButtonNode" class="d-tooltip-dialog-icon {{closeButtonIconClass}}"
+		<div role="button" tabindex="-1" title="{{nls.close}}" aria-label="{{nls.close}}"
+			 attach-point="closeButtonNode" class="d-tooltip-dialog-icon {{closeButtonIconClass}}"
 			 on-click="{{closeButtonClickHandler}}"></div>
 	</div>
 	<div attach-point="containerNode" class="d-tooltip-container"></div>
