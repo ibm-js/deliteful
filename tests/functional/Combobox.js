@@ -12,8 +12,7 @@ define([
 		return remote
 			.get(require.toUrl(fileName))
 			.then(pollUntil("return ready ? true : null;", [],
-					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
-			.execute("document.body.className = 'webdriver';");
+					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 	};
 
 	function checkComboState(comboId, comboState, expectedComboState, stepName) {
@@ -51,105 +50,100 @@ define([
 			.execute(comboId + ".focus();  " + executeExpr)
 			.then(function (comboState) {
 				// No selection by default
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: "France",
-						widgetValue: "France",
-						valueNodeValue: "France",
-						opened: false,
-						selectedItemsCount: 0,
-						itemRenderersCount: 0,
-						inputEventCounter: 0, // no event so far
-						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: undefined, // never received
-						valueNodeValueAtLatestInputEvent: undefined,
-						widgetValueAtLatestChangeEvent: undefined,
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after initial focus");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: "France",
+					widgetValue: "France",
+					valueNodeValue: "France",
+					opened: false,
+					selectedItemsCount: 0,
+					itemRenderersCount: 0,
+					inputEventCounter: 0, // no event so far
+					changeEventCounter: 0,
+					widgetValueAtLatestInputEvent: undefined, // never received
+					valueNodeValueAtLatestInputEvent: undefined,
+					widgetValueAtLatestChangeEvent: undefined,
+					valueNodeValueAtLatestChangeEvent: undefined
+				}, "after initial focus");
 			})
 			.pressKeys(keys.ARROW_DOWN) // popup should open.
 			.sleep(750)
 			.execute(executeExpr)
 			.then(function (comboState) {
 				// the first ARROW_DOWN only opens the dropdown.
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: "France",
-						widgetValue: "France",
-						valueNodeValue: "France",
-						opened: true,
-						selectedItemsCount: 1,
-						itemRenderersCount: 37,
-						inputEventCounter: 0, // no new event
-						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: undefined, // never received
-						valueNodeValueAtLatestInputEvent: undefined,
-						widgetValueAtLatestChangeEvent: undefined,
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after first ARROW_DOWN");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: "France",
+					widgetValue: "France",
+					valueNodeValue: "France",
+					opened: true,
+					selectedItemsCount: 1,
+					itemRenderersCount: 37,
+					inputEventCounter: 0, // no new event
+					changeEventCounter: 0,
+					widgetValueAtLatestInputEvent: undefined, // never received
+					valueNodeValueAtLatestInputEvent: undefined,
+					widgetValueAtLatestChangeEvent: undefined,
+					valueNodeValueAtLatestChangeEvent: undefined
+				}, "after first ARROW_DOWN");
 				assert.match(comboState.activeDescendant, /^France/, "activeDescendant after first ARROW_DOWN");
 			})
 			.pressKeys(keys.ARROW_DOWN)
 			.execute(executeExpr)
 			.then(function (comboState) {
 				// Now the second option (Germany) should be selected
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: "Germany",
-						widgetValue: "Germany",
-						valueNodeValue: "Germany",
-						opened: true,
-						selectedItemsCount: 1,
-						itemRenderersCount: 37,
-						inputEventCounter: 1, // incremented
-						changeEventCounter: 0, // still 0 till validation by close popup
-						widgetValueAtLatestInputEvent: "Germany",
-						valueNodeValueAtLatestInputEvent: "Germany",
-						widgetValueAtLatestChangeEvent: undefined, // never received
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after second ARROW_DOWN");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: "Germany",
+					widgetValue: "Germany",
+					valueNodeValue: "Germany",
+					opened: true,
+					selectedItemsCount: 1,
+					itemRenderersCount: 37,
+					inputEventCounter: 1, // incremented
+					changeEventCounter: 0, // still 0 till validation by close popup
+					widgetValueAtLatestInputEvent: "Germany",
+					valueNodeValueAtLatestInputEvent: "Germany",
+					widgetValueAtLatestChangeEvent: undefined, // never received
+					valueNodeValueAtLatestChangeEvent: undefined
+				}, "after second ARROW_DOWN");
 				assert.match(comboState.activeDescendant, /^Germany/, "activeDescendant after second ARROW_DOWN");
 			})
 			.pressKeys(keys.ARROW_UP)
 			.execute(executeExpr)
 			.then(function (comboState) {
 				// Now the first option should be selected again
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: "France",
-						widgetValue: "France",
-						valueNodeValue: "France",
-						opened: true,
-						selectedItemsCount: 1,
-						itemRenderersCount: 37,
-						inputEventCounter: 1, // incremented
-						changeEventCounter: 0, // still 0 till validation by close popup
-						widgetValueAtLatestInputEvent: "France",
-						valueNodeValueAtLatestInputEvent: "France",
-						widgetValueAtLatestChangeEvent: undefined, // never received
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after first ARROW_UP");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: "France",
+					widgetValue: "France",
+					valueNodeValue: "France",
+					opened: true,
+					selectedItemsCount: 1,
+					itemRenderersCount: 37,
+					inputEventCounter: 1, // incremented
+					changeEventCounter: 0, // still 0 till validation by close popup
+					widgetValueAtLatestInputEvent: "France",
+					valueNodeValueAtLatestInputEvent: "France",
+					widgetValueAtLatestChangeEvent: undefined, // never received
+					valueNodeValueAtLatestChangeEvent: undefined
+				}, "after first ARROW_UP");
 				assert.match(comboState.activeDescendant, /^France/, "activeDescendant after first ARROW_UP");
 			})
 			.pressKeys(keys.ARROW_DOWN)
 			.execute(executeExpr)
 			.then(function (comboState) {
 				// Now the second option should be selected
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: "Germany",
-						widgetValue: "Germany",
-						valueNodeValue: "Germany",
-						opened: true,
-						selectedItemsCount: 1,
-						itemRenderersCount: 37,
-						inputEventCounter: 1, // incremented
-						changeEventCounter: 0, // still 0 till validation by close popup
-						widgetValueAtLatestInputEvent: "Germany",
-						valueNodeValueAtLatestInputEvent: "Germany",
-						widgetValueAtLatestChangeEvent: undefined, // never received
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after third ARROW_DOWN");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: "Germany",
+					widgetValue: "Germany",
+					valueNodeValue: "Germany",
+					opened: true,
+					selectedItemsCount: 1,
+					itemRenderersCount: 37,
+					inputEventCounter: 1, // incremented
+					changeEventCounter: 0, // still 0 till validation by close popup
+					widgetValueAtLatestInputEvent: "Germany",
+					valueNodeValueAtLatestInputEvent: "Germany",
+					widgetValueAtLatestChangeEvent: undefined, // never received
+					valueNodeValueAtLatestChangeEvent: undefined
+				}, "after third ARROW_DOWN");
 				assert.match(comboState.activeDescendant, /^Germany/, "activeDescendant after third ARROW_DOWN");
 			})
 			// Similar to native select, ESCAPE also closes and validates the popup
@@ -157,21 +151,20 @@ define([
 			.execute(executeExpr)
 			.then(function (comboState) {
 				// Now the second option should be selected
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: "Germany",
-						widgetValue: "Germany",
-						valueNodeValue: "Germany",
-						opened: false,
-						selectedItemsCount: 1,
-						itemRenderersCount: 37,
-						inputEventCounter: 0, // unchanged
-						changeEventCounter: 1, // incremented because validation by close popup
-						widgetValueAtLatestInputEvent: "Germany",
-						valueNodeValueAtLatestInputEvent: "Germany",
-						widgetValueAtLatestChangeEvent: "Germany",
-						valueNodeValueAtLatestChangeEvent: "Germany"
-					}, "after ESCAPE");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: "Germany",
+					widgetValue: "Germany",
+					valueNodeValue: "Germany",
+					opened: false,
+					selectedItemsCount: 1,
+					itemRenderersCount: 37,
+					inputEventCounter: 0, // unchanged
+					changeEventCounter: 1, // incremented because validation by close popup
+					widgetValueAtLatestInputEvent: "Germany",
+					valueNodeValueAtLatestInputEvent: "Germany",
+					widgetValueAtLatestChangeEvent: "Germany",
+					valueNodeValueAtLatestChangeEvent: "Germany"
+				}, "after ESCAPE");
 			});
 
 		// Additional tests for autoFilter=true
@@ -181,21 +174,20 @@ define([
 				.execute(executeExpr)
 				.then(function (comboState) {
 					// Just reopens the dropdown. No other state change.
-					checkComboState(comboId, comboState,
-						{ // expected combo state
-							inputNodeValue: "Germany",
-							widgetValue: "Germany",
-							valueNodeValue: "Germany",
-							opened: true,
-							selectedItemsCount: 1,
-							itemRenderersCount: 37,
-							inputEventCounter: 0, // unchanged
-							changeEventCounter: 0,
-							widgetValueAtLatestInputEvent: "Germany",
-							valueNodeValueAtLatestInputEvent: "Germany",
-							widgetValueAtLatestChangeEvent: "Germany",
-							valueNodeValueAtLatestChangeEvent: "Germany"
-						}, "after ARROW_DOWN following ESCAPE");
+					checkComboState(comboId, comboState, { // expected combo state
+						inputNodeValue: "Germany",
+						widgetValue: "Germany",
+						valueNodeValue: "Germany",
+						opened: true,
+						selectedItemsCount: 1,
+						itemRenderersCount: 37,
+						inputEventCounter: 0, // unchanged
+						changeEventCounter: 0,
+						widgetValueAtLatestInputEvent: "Germany",
+						valueNodeValueAtLatestInputEvent: "Germany",
+						widgetValueAtLatestChangeEvent: "Germany",
+						valueNodeValueAtLatestChangeEvent: "Germany"
+					}, "after ARROW_DOWN following ESCAPE");
 					assert.match(comboState.activeDescendant, /^Germany/,
 						"activeDescendant after after ARROW_DOWN following ESCAPE");
 				})
@@ -212,21 +204,20 @@ define([
 					// Reopens the dropdown. No other state change, except the
 					// input node now showing just the "u" character, and the list now
 					// has only 2 item renderers (UK and USA).
-					checkComboState(comboId, comboState,
-						{ // expected combo state
-							inputNodeValue: "u",
-							widgetValue: "",
-							valueNodeValue: "",
-							opened: true,
-							selectedItemsCount: 0,
-							itemRenderersCount: 2,
-							inputEventCounter: 1,
-							changeEventCounter: 0, // no commit yet.
-							widgetValueAtLatestInputEvent: "",
-							valueNodeValueAtLatestInputEvent: "",
-							widgetValueAtLatestChangeEvent: "Germany",
-							valueNodeValueAtLatestChangeEvent: "Germany"
-						}, "after filter starting with u character");
+					checkComboState(comboId, comboState, { // expected combo state
+						inputNodeValue: "u",
+						widgetValue: "",
+						valueNodeValue: "",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 2,
+						inputEventCounter: 1,
+						changeEventCounter: 0, // no commit yet.
+						widgetValueAtLatestInputEvent: "",
+						valueNodeValueAtLatestInputEvent: "",
+						widgetValueAtLatestChangeEvent: "Germany",
+						valueNodeValueAtLatestChangeEvent: "Germany"
+					}, "after filter starting with u character");
 				})
 				.pressKeys(keys.SPACE) // now filtering string is "u " which doesn't match any country
 				.execute(executeExpr)
@@ -234,42 +225,40 @@ define([
 					// Just reopens the dropdown. No other state change, except the
 					// input node now showing just the "u" character, and the list now
 					// has only 2 item renderers (UK and USA).
-					checkComboState(comboId, comboState,
-						{ // expected combo state
-							inputNodeValue: "u ",
-							widgetValue: "",
-							valueNodeValue: "",
-							opened: true,
-							selectedItemsCount: 0,
-							itemRenderersCount: 0,
-							inputEventCounter: 0,
-							changeEventCounter: 0, // unchanged
-							widgetValueAtLatestInputEvent: "",
-							valueNodeValueAtLatestInputEvent: "",
-							widgetValueAtLatestChangeEvent: "Germany",
-							valueNodeValueAtLatestChangeEvent: "Germany"
-						}, "after filter starting with u plus SPACE character");
+					checkComboState(comboId, comboState, { // expected combo state
+						inputNodeValue: "u ",
+						widgetValue: "",
+						valueNodeValue: "",
+						opened: true,
+						selectedItemsCount: 0,
+						itemRenderersCount: 0,
+						inputEventCounter: 0,
+						changeEventCounter: 0, // unchanged
+						widgetValueAtLatestInputEvent: "",
+						valueNodeValueAtLatestInputEvent: "",
+						widgetValueAtLatestChangeEvent: "Germany",
+						valueNodeValueAtLatestChangeEvent: "Germany"
+					}, "after filter starting with u plus SPACE character");
 				})
 				.pressKeys(keys.BACKSPACE) // delete the SPACE, back to "u" filter
 				.pressKeys(keys.ARROW_DOWN)
 				.execute(executeExpr)
 				.then(function (comboState) {
 					// Now again just UK and USA are rendered.
-					checkComboState(comboId, comboState,
-						{ // expected combo state
-							inputNodeValue: "UK",
-							widgetValue: "UK",
-							valueNodeValue: "UK",
-							opened: true,
-							selectedItemsCount: 1,
-							itemRenderersCount: 2, // UK and USA visible
-							inputEventCounter: 1,
-							changeEventCounter: 0, // unchanged
-							widgetValueAtLatestInputEvent: "UK",
-							valueNodeValueAtLatestInputEvent: "UK",
-							widgetValueAtLatestChangeEvent: "Germany",
-							valueNodeValueAtLatestChangeEvent: "Germany"
-						}, "after ARROW_DOWN with filtered list");
+					checkComboState(comboId, comboState, { // expected combo state
+						inputNodeValue: "UK",
+						widgetValue: "UK",
+						valueNodeValue: "UK",
+						opened: true,
+						selectedItemsCount: 1,
+						itemRenderersCount: 2, // UK and USA visible
+						inputEventCounter: 1,
+						changeEventCounter: 0, // unchanged
+						widgetValueAtLatestInputEvent: "UK",
+						valueNodeValueAtLatestInputEvent: "UK",
+						widgetValueAtLatestChangeEvent: "Germany",
+						valueNodeValueAtLatestChangeEvent: "Germany"
+					}, "after ARROW_DOWN with filtered list");
 					assert.match(comboState.activeDescendant, /^UK/,
 						"activeDescendant after ARROW_DOWN with filtered list");
 				})
@@ -277,21 +266,20 @@ define([
 				.sleep(500) // wait for async closing
 				.execute(executeExpr)
 				.then(function (comboState) {
-					checkComboState(comboId, comboState,
-						{ // expected combo state
-							inputNodeValue: "UK",
-							widgetValue: "UK",
-							valueNodeValue: "UK",
-							opened: false,
-							selectedItemsCount: 1,
-							itemRenderersCount: 2, // UK and USA. The query was not reset yet.
-							inputEventCounter: 0,
-							changeEventCounter: 1, // incremented
-							widgetValueAtLatestInputEvent: "UK",
-							valueNodeValueAtLatestInputEvent: "UK",
-							widgetValueAtLatestChangeEvent: "UK",
-							valueNodeValueAtLatestChangeEvent: "UK"
-						}, "after closing with ENTER the filtered list");
+					checkComboState(comboId, comboState, { // expected combo state
+						inputNodeValue: "UK",
+						widgetValue: "UK",
+						valueNodeValue: "UK",
+						opened: false,
+						selectedItemsCount: 1,
+						itemRenderersCount: 2, // UK and USA. The query was not reset yet.
+						inputEventCounter: 0,
+						changeEventCounter: 1, // incremented
+						widgetValueAtLatestInputEvent: "UK",
+						valueNodeValueAtLatestInputEvent: "UK",
+						widgetValueAtLatestChangeEvent: "UK",
+						valueNodeValueAtLatestChangeEvent: "UK"
+					}, "after closing with ENTER the filtered list");
 				});
 		}
 
@@ -311,21 +299,20 @@ define([
 				// In a multiple-select no option is selected initially
 				// (holds for the widget's delite/Selection API just as for the
 				// native select).
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
-						widgetValue: [],
-						valueNodeValue: "",
-						opened: false,
-						selectedItemsCount: 0,
-						itemRenderersCount: 0,
-						inputEventCounter: 0,
-						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: undefined, // never received
-						valueNodeValueAtLatestInputEvent: undefined,
-						widgetValueAtLatestChangeEvent: undefined,
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after initial focus");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
+					widgetValue: [],
+					valueNodeValue: "",
+					opened: false,
+					selectedItemsCount: 0,
+					itemRenderersCount: 0,
+					inputEventCounter: 0,
+					changeEventCounter: 0,
+					widgetValueAtLatestInputEvent: undefined, // never received
+					valueNodeValueAtLatestInputEvent: undefined,
+					widgetValueAtLatestChangeEvent: undefined,
+					valueNodeValueAtLatestChangeEvent: undefined
+				}, "after initial focus");
 			})
 			.pressKeys(keys.ARROW_DOWN)
 			.sleep(2000)
@@ -333,165 +320,157 @@ define([
 			.then(function (comboState) {
 				// For now there should still be no option selected, the first
 				// ARROW_DOWN only opens the dropdown
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
-						widgetValue: [],
-						valueNodeValue: "",
-						opened: true,
-						selectedItemsCount: 0,
-						itemRenderersCount: 37,
-						inputEventCounter: 0,
-						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: undefined, // never received
-						valueNodeValueAtLatestInputEvent: undefined,
-						widgetValueAtLatestChangeEvent: undefined,
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after first ARROW_DOWN");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
+					widgetValue: [],
+					valueNodeValue: "",
+					opened: true,
+					selectedItemsCount: 0,
+					itemRenderersCount: 37,
+					inputEventCounter: 0,
+					changeEventCounter: 0,
+					widgetValueAtLatestInputEvent: undefined, // never received
+					valueNodeValueAtLatestInputEvent: undefined,
+					widgetValueAtLatestChangeEvent: undefined,
+					valueNodeValueAtLatestChangeEvent: undefined
+				}, "after first ARROW_DOWN");
 			})
 			.pressKeys(keys.ARROW_DOWN)
 			.execute(executeExpr)
 			.then(function (comboState) {
 				// Still no selection after the second ARROW_DOWN; in multiple
 				// mode it only changes the navigated/highlighted item of the List.
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
-						widgetValue: [],
-						valueNodeValue: "",
-						opened: true,
-						selectedItemsCount: 0,
-						itemRenderersCount: 37,
-						inputEventCounter: 0,
-						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: undefined, // never received
-						valueNodeValueAtLatestInputEvent: undefined,
-						widgetValueAtLatestChangeEvent: undefined,
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after second ARROW_DOWN");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
+					widgetValue: [],
+					valueNodeValue: "",
+					opened: true,
+					selectedItemsCount: 0,
+					itemRenderersCount: 37,
+					inputEventCounter: 0,
+					changeEventCounter: 0,
+					widgetValueAtLatestInputEvent: undefined, // never received
+					valueNodeValueAtLatestInputEvent: undefined,
+					widgetValueAtLatestChangeEvent: undefined,
+					valueNodeValueAtLatestChangeEvent: undefined
+				}, "after second ARROW_DOWN");
 				assert.match(comboState.activeDescendant, /^France/, "activeDescendant after second ARROW_DOWN");
 			})
 			.pressKeys(keys.SPACE) // toggles selection state of the navigated item
 			.execute(executeExpr)
 			.then(function (comboState) {
 				// Now the first item should be selected
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: "France",
-						widgetValue: ["France"],
-						valueNodeValue: "France",
-						opened: true,
-						selectedItemsCount: 1,
-						itemRenderersCount: 37,
-						inputEventCounter: 1, // incremented
-						changeEventCounter: 0, // still 0 till validation by close popup
-						widgetValueAtLatestInputEvent: ["France"],
-						valueNodeValueAtLatestInputEvent: "France",
-						widgetValueAtLatestChangeEvent: undefined, // never received
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after first SPACE on France item");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: "France",
+					widgetValue: ["France"],
+					valueNodeValue: "France",
+					opened: true,
+					selectedItemsCount: 1,
+					itemRenderersCount: 37,
+					inputEventCounter: 1, // incremented
+					changeEventCounter: 0, // still 0 till validation by close popup
+					widgetValueAtLatestInputEvent: ["France"],
+					valueNodeValueAtLatestInputEvent: "France",
+					widgetValueAtLatestChangeEvent: undefined, // never received
+					valueNodeValueAtLatestChangeEvent: undefined
+				}, "after first SPACE on France item");
 			})
 			.pressKeys(keys.SPACE) // toggles the navigated item back to unselected state
 			.execute(executeExpr)
 			.then(function (comboState) {
 				// Now there should be no selection again
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
-						widgetValue: [],
-						valueNodeValue: "",
-						opened: true,
-						selectedItemsCount: 0,
-						itemRenderersCount: 37,
-						inputEventCounter: 1, // incremented
-						changeEventCounter: 0, // still 0 till validation by close popup
-						widgetValueAtLatestInputEvent: [],
-						valueNodeValueAtLatestInputEvent: "",
-						widgetValueAtLatestChangeEvent: undefined, // never received
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after second SPACE on France item");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
+					widgetValue: [],
+					valueNodeValue: "",
+					opened: true,
+					selectedItemsCount: 0,
+					itemRenderersCount: 37,
+					inputEventCounter: 1, // incremented
+					changeEventCounter: 0, // still 0 till validation by close popup
+					widgetValueAtLatestInputEvent: [],
+					valueNodeValueAtLatestInputEvent: "",
+					widgetValueAtLatestChangeEvent: undefined, // never received
+					valueNodeValueAtLatestChangeEvent: undefined
+				}, "after second SPACE on France item");
 			})
 			.pressKeys(keys.SPACE) // toggles the navigated item back to selected state
 			.execute(executeExpr)
 			.then(function (comboState) {
 				// Now the first item should be selected
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: "France",
-						widgetValue: ["France"],
-						valueNodeValue: "France",
-						opened: true,
-						selectedItemsCount: 1,
-						itemRenderersCount: 37,
-						inputEventCounter: 1, // incremented
-						changeEventCounter: 0, // still 0 till validation by close popup
-						widgetValueAtLatestInputEvent: ["France"],
-						valueNodeValueAtLatestInputEvent: "France",
-						widgetValueAtLatestChangeEvent: undefined, // never received
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after third SPACE on France item");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: "France",
+					widgetValue: ["France"],
+					valueNodeValue: "France",
+					opened: true,
+					selectedItemsCount: 1,
+					itemRenderersCount: 37,
+					inputEventCounter: 1, // incremented
+					changeEventCounter: 0, // still 0 till validation by close popup
+					widgetValueAtLatestInputEvent: ["France"],
+					valueNodeValueAtLatestInputEvent: "France",
+					widgetValueAtLatestChangeEvent: undefined, // never received
+					valueNodeValueAtLatestChangeEvent: undefined
+				}, "after third SPACE on France item");
 			})
 			.pressKeys(keys.ENTER) // closes the popup and validates the changes
 			.sleep(1000) // wait for async closing
 			.execute(executeExpr)
 			.then(function (comboState) {
 				// Now there should be no selection again
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: "France",
-						widgetValue: ["France"],
-						valueNodeValue: "France",
-						opened: false,
-						selectedItemsCount: 1,
-						itemRenderersCount: 37,
-						inputEventCounter: 0, // unchanged
-						changeEventCounter: 1, // incremented
-						widgetValueAtLatestInputEvent: ["France"],
-						valueNodeValueAtLatestInputEvent: "France",
-						widgetValueAtLatestChangeEvent: ["France"],
-						valueNodeValueAtLatestChangeEvent: "France"
-					}, "after ENTER for closing");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: "France",
+					widgetValue: ["France"],
+					valueNodeValue: "France",
+					opened: false,
+					selectedItemsCount: 1,
+					itemRenderersCount: 37,
+					inputEventCounter: 0, // unchanged
+					changeEventCounter: 1, // incremented
+					widgetValueAtLatestInputEvent: ["France"],
+					valueNodeValueAtLatestInputEvent: "France",
+					widgetValueAtLatestChangeEvent: ["France"],
+					valueNodeValueAtLatestChangeEvent: "France"
+				}, "after ENTER for closing");
 			})
 			.pressKeys(keys.ARROW_DOWN)
 			.execute(executeExpr)
 			.then(function (comboState) {
 				// After closing the popup with ENTER, ARROW_DOWN only reopens it.
 				// No state change, except the open state of the popup.
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: "France",
-						widgetValue: ["France"],
-						valueNodeValue: "France",
-						opened: true,
-						selectedItemsCount: 1,
-						itemRenderersCount: 37,
-						inputEventCounter: 0, // unchanged
-						changeEventCounter: 0, // unchanged
-						widgetValueAtLatestInputEvent: ["France"],
-						valueNodeValueAtLatestInputEvent: "France",
-						widgetValueAtLatestChangeEvent: ["France"],
-						valueNodeValueAtLatestChangeEvent: "France"
-					}, "after reopening with ARROW_DOWN");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: "France",
+					widgetValue: ["France"],
+					valueNodeValue: "France",
+					opened: true,
+					selectedItemsCount: 1,
+					itemRenderersCount: 37,
+					inputEventCounter: 0, // unchanged
+					changeEventCounter: 0, // unchanged
+					widgetValueAtLatestInputEvent: ["France"],
+					valueNodeValueAtLatestInputEvent: "France",
+					widgetValueAtLatestChangeEvent: ["France"],
+					valueNodeValueAtLatestChangeEvent: "France"
+				}, "after reopening with ARROW_DOWN");
 			})
 			.pressKeys(keys.ARROW_DOWN)
 			.execute(executeExpr)
 			.then(function (comboState) {
 				// Navigates to next item (Germany).
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: "France",
-						widgetValue: ["France"],
-						valueNodeValue: "France",
-						opened: true,
-						selectedItemsCount: 1,
-						itemRenderersCount: 37,
-						inputEventCounter: 0, // unchanged
-						changeEventCounter: 0, // unchanged
-						widgetValueAtLatestInputEvent: ["France"],
-						valueNodeValueAtLatestInputEvent: "France",
-						widgetValueAtLatestChangeEvent: ["France"],
-						valueNodeValueAtLatestChangeEvent: "France"
-					}, "after second ARROW_DOWN after reopening");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: "France",
+					widgetValue: ["France"],
+					valueNodeValue: "France",
+					opened: true,
+					selectedItemsCount: 1,
+					itemRenderersCount: 37,
+					inputEventCounter: 0, // unchanged
+					changeEventCounter: 0, // unchanged
+					widgetValueAtLatestInputEvent: ["France"],
+					valueNodeValueAtLatestInputEvent: "France",
+					widgetValueAtLatestChangeEvent: ["France"],
+					valueNodeValueAtLatestChangeEvent: "France"
+				}, "after second ARROW_DOWN after reopening");
 				assert.match(comboState.activeDescendant, /^Germany/,
 					"activeDescendant after second ARROW_DOWN after reopening");
 			})
@@ -499,21 +478,20 @@ define([
 			.execute(executeExpr)
 			.then(function (comboState) {
 				// Now the first item should be selected
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
-						widgetValue: ["Germany", "France"],
-						valueNodeValue: "Germany,France",
-						opened: true,
-						selectedItemsCount: 2,
-						itemRenderersCount: 37,
-						inputEventCounter: 1, // incremented
-						changeEventCounter: 0, // unchanged till validation by close popup
-						widgetValueAtLatestInputEvent: ["Germany", "France"],
-						valueNodeValueAtLatestInputEvent: "Germany,France",
-						widgetValueAtLatestChangeEvent: ["France"],
-						valueNodeValueAtLatestChangeEvent: "France"
-					}, "after SPACE on Germany after reopening");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
+					widgetValue: ["Germany", "France"],
+					valueNodeValue: "Germany,France",
+					opened: true,
+					selectedItemsCount: 2,
+					itemRenderersCount: 37,
+					inputEventCounter: 1, // incremented
+					changeEventCounter: 0, // unchanged till validation by close popup
+					widgetValueAtLatestInputEvent: ["Germany", "France"],
+					valueNodeValueAtLatestInputEvent: "Germany,France",
+					widgetValueAtLatestChangeEvent: ["France"],
+					valueNodeValueAtLatestChangeEvent: "France"
+				}, "after SPACE on Germany after reopening");
 			})
 			// For consistency with single selection mode, ESCAPE also closes the
 			// popup and validates the changes
@@ -522,21 +500,20 @@ define([
 			.execute(executeExpr)
 			.then(function (comboState) {
 				// Now the selected items are Germany and France
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
-						widgetValue: ["Germany", "France"],
-						valueNodeValue: "Germany,France",
-						opened: false,
-						selectedItemsCount: 2,
-						itemRenderersCount: 37,
-						inputEventCounter: 0, // unchanged
-						changeEventCounter: 1, // incremented
-						widgetValueAtLatestInputEvent: ["Germany", "France"],
-						valueNodeValueAtLatestInputEvent: "Germany,France",
-						widgetValueAtLatestChangeEvent: ["Germany", "France"],
-						valueNodeValueAtLatestChangeEvent: "Germany,France"
-					}, "after ESCAPE");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
+					widgetValue: ["Germany", "France"],
+					valueNodeValue: "Germany,France",
+					opened: false,
+					selectedItemsCount: 2,
+					itemRenderersCount: 37,
+					inputEventCounter: 0, // unchanged
+					changeEventCounter: 1, // incremented
+					widgetValueAtLatestInputEvent: ["Germany", "France"],
+					valueNodeValueAtLatestInputEvent: "Germany,France",
+					widgetValueAtLatestChangeEvent: ["Germany", "France"],
+					valueNodeValueAtLatestChangeEvent: "Germany,France"
+				}, "after ESCAPE");
 			});
 	};
 
@@ -553,21 +530,20 @@ define([
 			.then(function (comboState) {
 				// The first option should be the one selected,
 				// the popup is closed initially
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: "France",
-						widgetValue: "France",
-						valueNodeValue: "France",
-						opened: false,
-						selectedItemsCount: 0,
-						itemRenderersCount: 0,
-						inputEventCounter: 0, // no event so far
-						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: undefined, // never received
-						valueNodeValueAtLatestInputEvent: undefined,
-						widgetValueAtLatestChangeEvent: undefined,
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "right after load");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: "France",
+					widgetValue: "France",
+					valueNodeValue: "France",
+					opened: false,
+					selectedItemsCount: 0,
+					itemRenderersCount: 0,
+					inputEventCounter: 0, // no event so far
+					changeEventCounter: 0,
+					widgetValueAtLatestInputEvent: undefined, // never received
+					valueNodeValueAtLatestInputEvent: undefined,
+					widgetValueAtLatestChangeEvent: undefined,
+					valueNodeValueAtLatestChangeEvent: undefined
+				}, "right after load");
 			})
 			.end()
 			.findByCssSelector("#" + comboId + " .d-combobox-arrow")
@@ -577,75 +553,66 @@ define([
 			.then(function (comboState) {
 				// The first option should be the one selected,
 				// the first click just opens the dropdown.
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: "France",
-						widgetValue: "France",
-						valueNodeValue: "France",
-						opened: true,
-						selectedItemsCount: 1,
-						itemRenderersCount: 37,
-						inputEventCounter: 0,
-						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: undefined, // never received
-						valueNodeValueAtLatestInputEvent: undefined,
-						widgetValueAtLatestChangeEvent: undefined,
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after click on root node");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: "France",
+					widgetValue: "France",
+					valueNodeValue: "France",
+					opened: true,
+					selectedItemsCount: 1,
+					itemRenderersCount: 37,
+					inputEventCounter: 0,
+					changeEventCounter: 0,
+					widgetValueAtLatestInputEvent: undefined, // never received
+					valueNodeValueAtLatestInputEvent: undefined,
+					widgetValueAtLatestChangeEvent: undefined,
+					valueNodeValueAtLatestChangeEvent: undefined
+				}, "after click on root node");
 			})
 			.end()
 			// For some reason, using remote.click() for a category leads to this error
 			// (at least with ChromeDriver):
 			// "unknown error: Element is not clickable at point (118, 136). Other element
 			// would receive the click". Hence, instead of
-			// .findById(comboId + "_category0") // first item, which is a category
-			// .click()
-			// going with the click() method called in the browser:
-			// elc now that click is also causing problems on all browsers, so skipping this step
-		/*	.execute(comboId + "_category0.click();")
-			.sleep(500) // wait before checking because events are triggered async
+			//.findByCssSelector("#" + comboId + "-list d-list-category-renderer").click().end()
+/*			.sleep(500) // wait before checking because events are triggered async
 			.execute(executeExpr)
 			.then(function (comboState) {
 				// The click on the first item does not change the state because it is a category
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: "France",
-						widgetValue: "France",
-						valueNodeValue: "France",
-						opened: true,
-						selectedItemsCount: 1,
-						itemRenderersCount: 37,
-						inputEventCounter: 0,
-						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: undefined, // never received
-						valueNodeValueAtLatestInputEvent: undefined,
-						widgetValueAtLatestChangeEvent: undefined,
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after clicking the first option (a category)");
+				checkComboState(comboId, comboState,{ // expected combo state
+					inputNodeValue: "France",
+					widgetValue: "France",
+					valueNodeValue: "France",
+					opened: true,
+					selectedItemsCount: 1,
+					itemRenderersCount: 37,
+					inputEventCounter: 0,
+					changeEventCounter: 0,
+					widgetValueAtLatestInputEvent: undefined, // never received
+					valueNodeValueAtLatestInputEvent: undefined,
+					widgetValueAtLatestChangeEvent: undefined,
+					valueNodeValueAtLatestChangeEvent: undefined
+				}, "after clicking the first option (a category)");
 			})
-			.end()
-		*/	.findById(comboId + "_item1") // third option, which is "Germany"
-			.click()
+		*/	.findByCssSelector("#" + comboId + "-list d-list-item-renderer:nth-of-type(2)").click().end() // "Germany"
+
 			.sleep(500) // wait for popup to close
 			.execute(executeExpr)
 			.then(function (comboState) {
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: "Germany",
-						widgetValue: "Germany",
-						valueNodeValue: "Germany",
-						opened: false,
-						selectedItemsCount: 1,
-						itemRenderersCount: 37,
-						inputEventCounter: 1,
-						changeEventCounter: 1,
-						widgetValueAtLatestInputEvent: "Germany",
-						valueNodeValueAtLatestInputEvent: "Germany",
-						widgetValueAtLatestChangeEvent: "Germany",
-						valueNodeValueAtLatestChangeEvent: "Germany"
-					}, "after clicking the third option (Germany)");
-			})
-			.end();
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: "Germany",
+					widgetValue: "Germany",
+					valueNodeValue: "Germany",
+					opened: false,
+					selectedItemsCount: 1,
+					itemRenderersCount: 37,
+					inputEventCounter: 1,
+					changeEventCounter: 1,
+					widgetValueAtLatestInputEvent: "Germany",
+					valueNodeValueAtLatestInputEvent: "Germany",
+					widgetValueAtLatestChangeEvent: "Germany",
+					valueNodeValueAtLatestChangeEvent: "Germany"
+				}, "after clicking the third option (Germany)");
+			});
 	};
 
 	// Check the state of the widget after selecting options using the mouse (clicks).
@@ -659,21 +626,20 @@ define([
 			.execute(executeExpr)
 			.then(function (comboState) {
 				// No item should be selected, the popup is closed initially.
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
-						widgetValue: [],
-						valueNodeValue: "",
-						opened: false,
-						selectedItemsCount: 0,
-						itemRenderersCount: 0,
-						inputEventCounter: 0,
-						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: undefined, // never received
-						valueNodeValueAtLatestInputEvent: undefined,
-						widgetValueAtLatestChangeEvent: undefined,
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "right after load");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
+					widgetValue: [],
+					valueNodeValue: "",
+					opened: false,
+					selectedItemsCount: 0,
+					itemRenderersCount: 0,
+					inputEventCounter: 0,
+					changeEventCounter: 0,
+					widgetValueAtLatestInputEvent: undefined, // never received
+					valueNodeValueAtLatestInputEvent: undefined,
+					widgetValueAtLatestChangeEvent: undefined,
+					valueNodeValueAtLatestChangeEvent: undefined
+				}, "right after load");
 			})
 			.findByCssSelector("#" + comboId + " .d-combobox-arrow")
 			.click()
@@ -681,120 +647,102 @@ define([
 			.execute(executeExpr)
 			.then(function (comboState) {
 				// Clicking the root node just opens the dropdown. No other state change.
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
-						widgetValue: [],
-						valueNodeValue: "",
-						opened: true,
-						selectedItemsCount: 0,
-						itemRenderersCount: 37,
-						inputEventCounter: 0,
-						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: undefined, // never received
-						valueNodeValueAtLatestInputEvent: undefined,
-						widgetValueAtLatestChangeEvent: undefined,
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after click on root node");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
+					widgetValue: [],
+					valueNodeValue: "",
+					opened: true,
+					selectedItemsCount: 0,
+					itemRenderersCount: 37,
+					inputEventCounter: 0,
+					changeEventCounter: 0,
+					widgetValueAtLatestInputEvent: undefined, // never received
+					valueNodeValueAtLatestInputEvent: undefined,
+					widgetValueAtLatestChangeEvent: undefined,
+					valueNodeValueAtLatestChangeEvent: undefined
+				}, "after click on root node");
 			})
 			.end()
-			// For some reason, using remote.click() for a category leads to this error
-			// (at least with ChromeDriver):
-			// "unknown error: Element is not clickable at point (118, 136). Other element
-			// would receive the click". Hence, instead of
-			// .findById(comboId + "_category0") // first item, which is a category
-			// .click()
-			// going with the click() method called in the browser:
-			// elc now that click is also causing problems on all browsers, so skipping this step
-		/*	.execute(comboId + "_category0.click();")
+/*			.findByCssSelector("#" + comboId + "-list d-list-category-renderer").click().end() // "Germany"
 			.sleep(500) // wait before checking because events are triggered async
 			.execute(executeExpr)
 			.then(function (comboState) {
 				// The click on the first item does not change the state because it is a category
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
-						widgetValue: [],
-						valueNodeValue: "",
-						opened: true,
-						selectedItemsCount: 0,
-						itemRenderersCount: 37,
-						inputEventCounter: 0,
-						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: undefined, // never received
-						valueNodeValueAtLatestInputEvent: undefined,
-						widgetValueAtLatestChangeEvent: undefined,
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after clicking the first item (a category)");
+				checkComboState(comboId, comboState,{ // expected combo state
+					inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
+					widgetValue: [],
+					valueNodeValue: "",
+					opened: true,
+					selectedItemsCount: 0,
+					itemRenderersCount: 37,
+					inputEventCounter: 0,
+					changeEventCounter: 0,
+					widgetValueAtLatestInputEvent: undefined, // never received
+					valueNodeValueAtLatestInputEvent: undefined,
+					widgetValueAtLatestChangeEvent: undefined,
+					valueNodeValueAtLatestChangeEvent: undefined
+				}, "after clicking the first item (a category)");
 			})
-			.end()
-		*/	.findById(comboId + "_item0")  // first item, which is "France"
-			.click()
+		*/	.findByCssSelector("#" + comboId + "-list d-list-item-renderer").click().end() // "France"
 			.sleep(10)
 			.execute(executeExpr)
 			.then(function (comboState) {
 				// The click on the second item selects "France"
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: "France",
-						widgetValue: ["France"],
-						valueNodeValue: "France",
-						opened: true,
-						selectedItemsCount: 1,
-						itemRenderersCount: 37,
-						inputEventCounter: 1, // incremented
-						changeEventCounter: 0, // still 0 till validation by close popup
-						widgetValueAtLatestInputEvent: ["France"],
-						valueNodeValueAtLatestInputEvent: "France",
-						widgetValueAtLatestChangeEvent: undefined, // never received
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after clicking the second item (France))");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: "France",
+					widgetValue: ["France"],
+					valueNodeValue: "France",
+					opened: true,
+					selectedItemsCount: 1,
+					itemRenderersCount: 37,
+					inputEventCounter: 1, // incremented
+					changeEventCounter: 0, // still 0 till validation by close popup
+					widgetValueAtLatestInputEvent: ["France"],
+					valueNodeValueAtLatestInputEvent: "France",
+					widgetValueAtLatestChangeEvent: undefined, // never received
+					valueNodeValueAtLatestChangeEvent: undefined
+				}, "after clicking the second item (France))");
 			})
-			.end()
-			.findById(comboId + "_item1")  // third item, which is "Germany"
-			.click()
+			.findByCssSelector("#" + comboId + "-list d-list-item-renderer:nth-of-type(2)").click().end() // "Germany"
 			.sleep(500)
 			.execute(executeExpr)
 			.then(function (comboState) {
 				// The click on the third item adds "Germany" to the selected items
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
-						widgetValue: ["Germany", "France"],
-						valueNodeValue: "Germany,France",
-						opened: true,
-						selectedItemsCount: 2,
-						itemRenderersCount: 37,
-						inputEventCounter: 1, // incremented
-						changeEventCounter: 0, // unchanged till validation by close popup
-						widgetValueAtLatestInputEvent: ["Germany", "France"],
-						valueNodeValueAtLatestInputEvent: "Germany,France",
-						widgetValueAtLatestChangeEvent: undefined, // never received
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after clicking the third item (Germany))");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
+					widgetValue: ["Germany", "France"],
+					valueNodeValue: "Germany,France",
+					opened: true,
+					selectedItemsCount: 2,
+					itemRenderersCount: 37,
+					inputEventCounter: 1, // incremented
+					changeEventCounter: 0, // unchanged till validation by close popup
+					widgetValueAtLatestInputEvent: ["Germany", "France"],
+					valueNodeValueAtLatestInputEvent: "Germany,France",
+					widgetValueAtLatestChangeEvent: undefined, // never received
+					valueNodeValueAtLatestChangeEvent: undefined
+				}, "after clicking the third item (Germany))");
 			})
-			.end()
 			.findByCssSelector("#" + comboId + " .d-combobox-input")	// try <input> instead of the down arrow
 			.click()
 			.sleep(500) // wait for the async closing of the popup
 			.execute(executeExpr)
 			.then(function (comboState) {
 				// The click on the root node closes the popup
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
-						widgetValue: ["Germany", "France"],
-						valueNodeValue: "Germany,France",
-						opened: false,
-						selectedItemsCount: 2,
-						itemRenderersCount: 37,
-						inputEventCounter: 0, // unchanged
-						changeEventCounter: 1, // incremented
-						widgetValueAtLatestInputEvent: ["Germany", "France"],
-						valueNodeValueAtLatestInputEvent: "Germany,France",
-						widgetValueAtLatestChangeEvent: ["Germany", "France"],
-						valueNodeValueAtLatestChangeEvent: "Germany,France"
-					}, "after clicking again the root node (close)");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
+					widgetValue: ["Germany", "France"],
+					valueNodeValue: "Germany,France",
+					opened: false,
+					selectedItemsCount: 2,
+					itemRenderersCount: 37,
+					inputEventCounter: 0, // unchanged
+					changeEventCounter: 1, // incremented
+					widgetValueAtLatestInputEvent: ["Germany", "France"],
+					valueNodeValueAtLatestInputEvent: "Germany,France",
+					widgetValueAtLatestChangeEvent: ["Germany", "France"],
+					valueNodeValueAtLatestChangeEvent: "Germany,France"
+				}, "after clicking again the root node (close)");
 			})
 			.end();
 	};
@@ -1013,40 +961,38 @@ define([
 			.click() // popup opens.
 			.execute(executeExpr)
 			.then(function (comboState) {
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: "France",
-						widgetValue: "France",
-						valueNodeValue: "France",
-						opened: true,
-						selectedItemsCount: 1,
-						itemRenderersCount: 37,
-						inputEventCounter: 0, // unchanged
-						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: undefined,
-						valueNodeValueAtLatestInputEvent: undefined,
-						widgetValueAtLatestChangeEvent: undefined,
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after page load and popup opened");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: "France",
+					widgetValue: "France",
+					valueNodeValue: "France",
+					opened: true,
+					selectedItemsCount: 1,
+					itemRenderersCount: 37,
+					inputEventCounter: 0, // unchanged
+					changeEventCounter: 0,
+					widgetValueAtLatestInputEvent: undefined,
+					valueNodeValueAtLatestInputEvent: undefined,
+					widgetValueAtLatestChangeEvent: undefined,
+					valueNodeValueAtLatestChangeEvent: undefined
+				}, "after page load and popup opened");
 			})
 			.pressKeys(keys.BACKSPACE) // Delete the 1 char of "France"
 			.execute(executeExpr)
 			.then(function (comboState) { // Filtering happened.
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: "Franc",
-						widgetValue: "",
-						valueNodeValue: "",
-						opened: true,
-						selectedItemsCount: 0,
-						itemRenderersCount: 1,
-						inputEventCounter: 1,
-						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: "",
-						valueNodeValueAtLatestInputEvent: "",
-						widgetValueAtLatestChangeEvent: undefined,
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after removing 1 char.");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: "Franc",
+					widgetValue: "",
+					valueNodeValue: "",
+					opened: true,
+					selectedItemsCount: 0,
+					itemRenderersCount: 1,
+					inputEventCounter: 1,
+					changeEventCounter: 0,
+					widgetValueAtLatestInputEvent: "",
+					valueNodeValueAtLatestInputEvent: "",
+					widgetValueAtLatestChangeEvent: undefined,
+					valueNodeValueAtLatestChangeEvent: undefined
+				}, "after removing 1 char.");
 			})
 			.pressKeys(keys.BACKSPACE) // Delete the 1 char of "Franc"
 			.pressKeys(keys.BACKSPACE) // Delete the 1 char of "Fran"
@@ -1055,40 +1001,38 @@ define([
 			.pressKeys(keys.BACKSPACE) // Delete the 1 char of "F" - Empty input node
 			.execute(executeExpr)
 			.then(function (comboState) { // We get full list again.
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: "",
-						widgetValue: "",
-						valueNodeValue: "",
-						opened: true,
-						selectedItemsCount: 0,
-						itemRenderersCount: 37,
-						inputEventCounter: 0,
-						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: "",
-						valueNodeValueAtLatestInputEvent: "",
-						widgetValueAtLatestChangeEvent: undefined,
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after clearing the input.");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: "",
+					widgetValue: "",
+					valueNodeValue: "",
+					opened: true,
+					selectedItemsCount: 0,
+					itemRenderersCount: 37,
+					inputEventCounter: 0,
+					changeEventCounter: 0,
+					widgetValueAtLatestInputEvent: "",
+					valueNodeValueAtLatestInputEvent: "",
+					widgetValueAtLatestChangeEvent: undefined,
+					valueNodeValueAtLatestChangeEvent: undefined
+				}, "after clearing the input.");
 			})
 			.pressKeys("U") // filters all countries but UK and USA
 			.execute(executeExpr)
 			.then(function (comboState) { // We get full list.
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: "U",
-						widgetValue: "",
-						valueNodeValue: "",
-						opened: true,
-						selectedItemsCount: 0,
-						itemRenderersCount: 2,
-						inputEventCounter: 0, // was reset by callling getComboState.
-						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: "",
-						valueNodeValueAtLatestInputEvent: "",
-						widgetValueAtLatestChangeEvent: undefined,
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after typing `U`.");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: "U",
+					widgetValue: "",
+					valueNodeValue: "",
+					opened: true,
+					selectedItemsCount: 0,
+					itemRenderersCount: 2,
+					inputEventCounter: 0, // was reset by callling getComboState.
+					changeEventCounter: 0,
+					widgetValueAtLatestInputEvent: "",
+					valueNodeValueAtLatestInputEvent: "",
+					widgetValueAtLatestChangeEvent: undefined,
+					valueNodeValueAtLatestChangeEvent: undefined
+				}, "after typing `U`.");
 			})
 			.end();
 	};
@@ -1100,80 +1044,76 @@ define([
 			.click()
 			.execute(executeExpr)
 			.then(function (comboState) {
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: "France",
-						widgetValue: "France",
-						valueNodeValue: "France",
-						opened: false, // click() does not open the popup.
-						selectedItemsCount: 0,
-						itemRenderersCount: 0,
-						inputEventCounter: 0, // unchanged
-						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: undefined,
-						valueNodeValueAtLatestInputEvent: undefined,
-						widgetValueAtLatestChangeEvent: undefined,
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after page load.");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: "France",
+					widgetValue: "France",
+					valueNodeValue: "France",
+					opened: false, // click() does not open the popup.
+					selectedItemsCount: 0,
+					itemRenderersCount: 0,
+					inputEventCounter: 0, // unchanged
+					changeEventCounter: 0,
+					widgetValueAtLatestInputEvent: undefined,
+					valueNodeValueAtLatestInputEvent: undefined,
+					widgetValueAtLatestChangeEvent: undefined,
+					valueNodeValueAtLatestChangeEvent: undefined
+				}, "after page load.");
 			})
 			.pressKeys(keys.BACKSPACE) // Delete the 1 char of "France"
 			.execute(executeExpr)
 			.then(function (comboState) { // Filtering happened.
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: "Franc",
-						widgetValue: "",
-						valueNodeValue: "",
-						opened: true,
-						selectedItemsCount: 0,
-						itemRenderersCount: 1,
-						inputEventCounter: 1,
-						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: "",
-						valueNodeValueAtLatestInputEvent: "",
-						widgetValueAtLatestChangeEvent: undefined,
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after removing 1 char.");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: "Franc",
+					widgetValue: "",
+					valueNodeValue: "",
+					opened: true,
+					selectedItemsCount: 0,
+					itemRenderersCount: 1,
+					inputEventCounter: 1,
+					changeEventCounter: 0,
+					widgetValueAtLatestInputEvent: "",
+					valueNodeValueAtLatestInputEvent: "",
+					widgetValueAtLatestChangeEvent: undefined,
+					valueNodeValueAtLatestChangeEvent: undefined
+				}, "after removing 1 char.");
 			})
 			.pressKeys(keys.BACKSPACE) // Delete the 1 char of "Franc"
 			.pressKeys(keys.BACKSPACE) // Delete the 1 char of "Fran"
 			.pressKeys(keys.BACKSPACE) // Delete the 1 char of "Fra" - popup closes.
 			.execute(executeExpr)
 			.then(function (comboState) {
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: "Fr",
-						widgetValue: "",
-						valueNodeValue: "",
-						opened: false,
-						selectedItemsCount: 0,
-						itemRenderersCount: 1,
-						inputEventCounter: 0,
-						changeEventCounter: 0, // popup closed automatically, shouldn't generate change event
-						widgetValueAtLatestInputEvent: "",
-						valueNodeValueAtLatestInputEvent: "",
-						widgetValueAtLatestChangeEvent: undefined,
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after clearing the input partially.");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: "Fr",
+					widgetValue: "",
+					valueNodeValue: "",
+					opened: false,
+					selectedItemsCount: 0,
+					itemRenderersCount: 1,
+					inputEventCounter: 0,
+					changeEventCounter: 0, // popup closed automatically, shouldn't generate change event
+					widgetValueAtLatestInputEvent: "",
+					valueNodeValueAtLatestInputEvent: "",
+					widgetValueAtLatestChangeEvent: undefined,
+					valueNodeValueAtLatestChangeEvent: undefined
+				}, "after clearing the input partially.");
 			})
 			.pressKeys("a") // filters all countries but France.
 			.execute(executeExpr)
 			.then(function (comboState) { // We get full list.
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: "Fra",
-						widgetValue: "",
-						valueNodeValue: "",
-						opened: true,
-						selectedItemsCount: 0,
-						itemRenderersCount: 1,
-						inputEventCounter: 0, // was reset by previous getComboState call.
-						changeEventCounter: 0, //
-						widgetValueAtLatestInputEvent: "",
-						valueNodeValueAtLatestInputEvent: "",
-						widgetValueAtLatestChangeEvent: undefined,
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after typing `a`.");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: "Fra",
+					widgetValue: "",
+					valueNodeValue: "",
+					opened: true,
+					selectedItemsCount: 0,
+					itemRenderersCount: 1,
+					inputEventCounter: 0, // was reset by previous getComboState call.
+					changeEventCounter: 0, //
+					widgetValueAtLatestInputEvent: "",
+					valueNodeValueAtLatestInputEvent: "",
+					widgetValueAtLatestChangeEvent: undefined,
+					valueNodeValueAtLatestChangeEvent: undefined
+				}, "after typing `a`.");
 			})
 			.end();
 	};
@@ -1189,21 +1129,20 @@ define([
 			.click()
 			.execute(executeExpr)
 			.then(function (comboState) {
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: "",
-						widgetValue: "",
-						valueNodeValue: "",
-						opened: false, // click() does not open the popup.
-						selectedItemsCount: 0,
-						itemRenderersCount: 0, // the source is already attached, but items not yet rendered.
-						inputEventCounter: 0, // unchanged
-						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: undefined,
-						valueNodeValueAtLatestInputEvent: undefined,
-						widgetValueAtLatestChangeEvent: undefined,
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after page load.");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: "",
+					widgetValue: "",
+					valueNodeValue: "",
+					opened: false, // click() does not open the popup.
+					selectedItemsCount: 0,
+					itemRenderersCount: 0, // the source is already attached, but items not yet rendered.
+					inputEventCounter: 0, // unchanged
+					changeEventCounter: 0,
+					widgetValueAtLatestInputEvent: undefined,
+					valueNodeValueAtLatestInputEvent: undefined,
+					widgetValueAtLatestChangeEvent: undefined,
+					valueNodeValueAtLatestChangeEvent: undefined
+				}, "after page load.");
 			})
 			.pressKeys("g")
 			.pressKeys("e")
@@ -1211,40 +1150,38 @@ define([
 			.pressKeys("m")
 			.execute(executeExpr)
 			.then(function (comboState) { // Filtering happened.
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: "germ",
-						widgetValue: "",
-						valueNodeValue: "",
-						opened: true,
-						selectedItemsCount: 0,
-						itemRenderersCount: 1,
-						inputEventCounter: 0,
-						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: undefined,
-						valueNodeValueAtLatestInputEvent: undefined,
-						widgetValueAtLatestChangeEvent: undefined,
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after typing `germ` chars.");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: "germ",
+					widgetValue: "",
+					valueNodeValue: "",
+					opened: true,
+					selectedItemsCount: 0,
+					itemRenderersCount: 1,
+					inputEventCounter: 0,
+					changeEventCounter: 0,
+					widgetValueAtLatestInputEvent: undefined,
+					valueNodeValueAtLatestInputEvent: undefined,
+					widgetValueAtLatestChangeEvent: undefined,
+					valueNodeValueAtLatestChangeEvent: undefined
+				}, "after typing `germ` chars.");
 			})
 			.pressKeys("w") // germw -> not matching items
 			.execute(executeExpr)
 			.then(function (comboState) {
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: "germw",
-						widgetValue: "",
-						valueNodeValue: "",
-						opened: true,
-						selectedItemsCount: 0,
-						itemRenderersCount: 0,
-						inputEventCounter: 0,
-						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: undefined,
-						valueNodeValueAtLatestInputEvent: undefined,
-						widgetValueAtLatestChangeEvent: undefined,
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after typing `w`.");
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: "germw",
+					widgetValue: "",
+					valueNodeValue: "",
+					opened: true,
+					selectedItemsCount: 0,
+					itemRenderersCount: 0,
+					inputEventCounter: 0,
+					changeEventCounter: 0,
+					widgetValueAtLatestInputEvent: undefined,
+					valueNodeValueAtLatestInputEvent: undefined,
+					widgetValueAtLatestChangeEvent: undefined,
+					valueNodeValueAtLatestChangeEvent: undefined
+				}, "after typing `w`.");
 			})
 			.end()
 			.findById(comboId + "-list") // List's showNoItems is true.
@@ -1258,28 +1195,25 @@ define([
 			.sleep(250)
 			.end()
 			.execute("storeTestingInfo(document.getElementById(\"" + comboId + "\"));")
-			.findByCssSelector("#" + comboId + "_item0")
-			.click() // Germany selected
+			.findByCssSelector("#" + comboId + "-list d-list-item-renderer").click().end() // "Germany"
 			.sleep(250)
 			.execute(executeExpr)
 			.then(function (comboState) { // We get full list.
-				checkComboState(comboId, comboState,
-					{ // expected combo state
-						inputNodeValue: "Germany",
-						widgetValue: "Germany",
-						valueNodeValue: "Germany",
-						opened: false,
-						selectedItemsCount: 1,
-						itemRenderersCount: 1, // because nothing happens until dropdown is reopened; then it's 37.
-						inputEventCounter: 1, // incremented.
-						changeEventCounter: 1, // there was a commit
-						widgetValueAtLatestInputEvent: "Germany",
-						valueNodeValueAtLatestInputEvent: "Germany",
-						widgetValueAtLatestChangeEvent: "Germany",
-						valueNodeValueAtLatestChangeEvent: "Germany"
-					}, "after selecting `Germany` item.");
-			})
-			.end();
+				checkComboState(comboId, comboState, { // expected combo state
+					inputNodeValue: "Germany",
+					widgetValue: "Germany",
+					valueNodeValue: "Germany",
+					opened: false,
+					selectedItemsCount: 1,
+					itemRenderersCount: 1, // because nothing happens until dropdown is reopened; then it's 37.
+					inputEventCounter: 1, // incremented.
+					changeEventCounter: 1, // there was a commit
+					widgetValueAtLatestInputEvent: "Germany",
+					valueNodeValueAtLatestInputEvent: "Germany",
+					widgetValueAtLatestChangeEvent: "Germany",
+					valueNodeValueAtLatestChangeEvent: "Germany"
+				}, "after selecting `Germany` item.");
+			});
 	};
 
 	registerSuite({
