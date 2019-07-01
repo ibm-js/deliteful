@@ -282,7 +282,9 @@ define([
 			};
 		}),
 
-		connectedCallback: function () {
+		// If no list specified, then create default one.  Do it after arguments parsed but before
+		// template instantiated (simply because ComboPopup template references {{list.id}}.
+		connectedCallback: dcl.before(function () {
 			if (!this.list) {
 				var regexp = /^(?!_)(\w)+(?=Attr$|Func$)/;
 				var listArgs = {
@@ -311,7 +313,7 @@ define([
 			if (!this.list.id) {
 				this.list.id = this.id ? this.id + "-list" : this.widgetId + "-list";
 			}
-		},
+		}),
 
 		computeProperties: function (oldValues) {
 			// If value was specified as a string (like during creation from markup),

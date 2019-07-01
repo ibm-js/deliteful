@@ -37,8 +37,8 @@
 	}
 }
 
-.d-combo-popup-dialog .d-dialog-container, .d-combo-popup-tooltip-dialog .d-tooltip-container {
-	// Override default Dialog/TooltipDialog padding.
+.d-combo-popup-tooltip-dialog .d-tooltip-container {
+	// Override default TooltipDialog padding.
 	padding: 0;
 }
 
@@ -64,8 +64,8 @@
 	padding: 5px;
 }
 
-/* Applies to both the input inside the root node and the input */
-/* conditionally present inside the popup */
+// Applies to both the input inside the root node and the input
+// conditionally present inside the popup
 .d-combobox-input {
 	color: inherit;
 	font-family: inherit;
@@ -104,7 +104,10 @@
 	-webkit-appearance: none;
 	background: white;
 
-	/* Necessary for Safari on iOS to avoid misplacement of the dropdown arrow */
-	/* due to the presence of the hidden input which stores the submitted value.*/
+	// For <input type=button>, align text on left rather than in center.
+	text-align: start;
+
+	// Necessary for Safari on iOS to avoid misplacement of the dropdown arrow
+	// due to the presence of the hidden input which stores the submitted value.
 	margin: 0;
 }

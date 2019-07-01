@@ -15,9 +15,9 @@ define([
 	 *
 	 * This widget is intended for being instantiated only by deliteful/Combobox;
 	 * it should not be instantiated directly.  If needed, its template
-	 * (deliteful/Combobox/ComboPopup.html) can be customized.
+	 * (deliteful/Combobox/Combobox-mobile.html) can be customized.
 	 * @class module:deliteful/Combobox/ComboPopup
-	 * @augments module:delite/ComboboxBase
+	 * @augments module:delite/ComboboxImplementation
 	 */
 	return register("d-combo-popup",
 		[HTMLElement, ComboboxImplementation], /** @lends module:deliteful/Combobox/ComboPopup# */ {
@@ -33,6 +33,10 @@ define([
 
 		// Whether or not to display the list.  Computed value.
 		showList: false,
+
+		postRender: function () {
+			this._showOrHideList();
+		},
 
 		computeProperties: function () {
 			this.showInput = this.autoFilter && this.selectionMode !== "multiple";
@@ -76,15 +80,19 @@ define([
 		},
 
 		/**
-		 * Toggles the list's visibility.
+		 * Toggles the list's visibility, and filters it by latest input.
 		 */
 		_showOrHideList: function () {
 			// Compute whether or not to show the list.  Note that in mobile mode ComboPopup doesn't display a
 			// down arrow icon to manually show/hide the list, so on mobile,
 			// if the Combobox has a down arrow icon, the list is always shown.
-			this.showList = this.inputNode && this.inputNode.value.length >= this.minFilterChars;
+			this.showList = !this.showInput || (this.inputNode && this.inputNode.value.length >= this.minFilterChars);
 			if (this.showList) {
-				this.filter(this.inputNode.value);
+				if (this.showInput) {
+					this.filter(this.inputNode.value);
+				} else {
+					this.list.source = this.source;
+				}
 			}
 			if (this.inputNode) {
 				this.inputNode.setAttribute("aria-expanded", "" + this.showList);

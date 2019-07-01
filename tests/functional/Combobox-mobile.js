@@ -41,7 +41,7 @@ define([
 
 	var checkFilter = function (remote, comboId) {
 		var executeExpr = "return getComboPopupState(\"" + comboId + "\");";
-		return loadFile(remote, "./ComboPopup.html")
+		return loadFile(remote, "./Combobox-mobile.html")
 			.execute("return getComboboxState(\"" + comboId + "\");")
 			.then(function (comboState) {
 				// No item should be selected, the popup is closed initially.
@@ -135,7 +135,7 @@ define([
 	};
 
 	var checkListInPopup = function (remote, comboId, hasFilterInput, isMultiSelect) {
-		return loadFile(remote, "./ComboPopup.html")
+		return loadFile(remote, "./Combobox-mobile.html")
 			.findByCssSelector("#" + comboId + " .d-combobox-arrow").click().end()
 			.sleep(500) // wait for List's loading panel to go away
 
@@ -166,7 +166,7 @@ define([
 
 	var checkSingleSelection = function (remote, comboId) {
 		var executeExpr = "return getComboPopupState(\"" + comboId + "\");";
-		return loadFile(remote, "./ComboPopup.html")
+		return loadFile(remote, "./Combobox-mobile.html")
 			.execute("return getComboboxState(\"" + comboId + "\");")
 			.then(function (comboState) {
 				checkComboState(comboId, comboState, { // expected combo state
@@ -204,7 +204,7 @@ define([
 
 	var checkMultiSelection = function (remote, comboId) {
 		var executeExpr = "return getComboPopupState(\"" + comboId + "\");";
-		return loadFile(remote, "./ComboPopup.html")
+		return loadFile(remote, "./Combobox-mobile.html")
 			.execute("return getComboboxState(\"" + comboId + "\");")
 			.then(function (comboState) {
 				checkComboState(comboId, comboState, { // expected combo state
@@ -269,7 +269,7 @@ define([
 
 	var checkAutoCompleteFilteringWithThreeFilterChars = function (remote, comboId) {
 		var executeExpr = "return getComboPopupState(\"" + comboId + "\");";
-		return loadFile(remote, "./ComboPopup.html")
+		return loadFile(remote, "./Combobox-mobile.html")
 			.execute("return getComboboxState(\"" + comboId + "\");")
 			.then(function (comboState) {
 				checkComboState(comboId, comboState, { // expected combo state
@@ -407,7 +407,7 @@ define([
 
 	var checkAutoCompleteFilteringWithZeroFilterChars = function (remote, comboId) {
 		var executeExpr = "return getComboPopupState(\"" + comboId + "\");";
-		return loadFile(remote, "./ComboPopup.html")
+		return loadFile(remote, "./Combobox-mobile.html")
 			.execute("return getComboboxState(\"" + comboId + "\");")
 			.then(function (comboState) {
 				checkComboState(comboId, comboState, { // expected combo state
@@ -563,7 +563,7 @@ define([
 
 		button: function () {
 			// Since clicking the Combobox opens the ComboPopup, the Combobox should be a button.
-			return loadFile(this.remote, "./ComboPopup.html").execute(function () {
+			return loadFile(this.remote, "./Combobox-mobile.html").execute(function () {
 				return document.getElementById("combo2").inputNode.getAttribute("type");
 			}).then(function (value) {
 				assert.strictEqual(value, "button");
@@ -598,7 +598,7 @@ define([
 
 		"close dialog via [x] icon": function () {
 			var remote = this.remote;
-			return loadFile(remote, "./ComboPopup.html")
+			return loadFile(remote, "./Combobox-mobile.html")
 				.findByCssSelector("#combo3 .d-combobox-input").click().end()
 				.sleep(500) // wait for popup to appear
 				.findByCssSelector("#combo3_dropdown .d-tooltip-dialog-close-icon").click().end()
@@ -618,7 +618,7 @@ define([
 
 		// TODO: merge this into checkAutoCompleteFilteringWithThreeFilterChars().
 		"aria-expanded": function () {
-			return loadFile(this.remote, "./ComboPopup.html")
+			return loadFile(this.remote, "./Combobox-mobile.html")
 				.findByCssSelector("#combo4 .d-combobox-input").click().end()
 				.sleep(500) // wait for List's loading panel to go away
 				.findByCssSelector("#combo4_dropdown input").getAttribute("aria-expanded").then(function (value) {

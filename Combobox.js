@@ -39,7 +39,7 @@ define([
 	/**
 	 * Shared base class for ComboPopupDialog and ComboPopupTooltipDialog.
 	 */
-	var ComboPopupDialogMixin = dcl({
+	var ComboPopupTooltipDialog = register("combo-popup-tooltip-dialog", [TooltipDialog], {
 		focus: function () {
 			// Call ComboPopup#focus().
 			var focused = this.containerNode.firstChild.focus();
@@ -51,8 +51,6 @@ define([
 			}
 		}
 	});
-	var ComboPopupDialog = register("combo-popup-dialog", [Dialog, ComboPopupDialogMixin]);
-	var ComboPopupTooltipDialog = register("combo-popup-tooltip-dialog", [TooltipDialog, ComboPopupDialogMixin]);
 
 	/**
 	 * Methods and properties for the desktop version, which has an <input>
@@ -127,8 +125,9 @@ define([
 		/**
 		 * Opens or closes the dropdown as appropriate.
 		 */
-		_showOrHideList: function (inputElement, suppressChangeEvent) {
+		_showOrHideList: function (suppressChangeEvent) {
 			// Compute whether or not to show the list.  Note that in mobile mode ComboPopup doesn't display a
+			var inputElement = this.inputNode;
 			var showList = inputElement.value.length >= this.minFilterChars;
 			if (showList) {
 				this.openDropDown();
@@ -173,6 +172,8 @@ define([
 				}
 
 				sup.apply(this, arguments);
+
+				// TODO: destroy dropdown?
 			};
 		})
 	});
@@ -202,6 +203,29 @@ define([
 		},
 
 		/**
+		 * Factory method which creates the ComboPopup.
+		 * @protected
+		 */
+		createComboPopup: function (labelledBy) {
+			return new this.ComboPopupConstructor({
+				autoFilter: this.autoFilter,
+				defaultQuery: this.defaultQuery,
+				displayedValue: this.displayedValue,
+				filterDelay: this.filterDelay,
+				filterMode: this.filterMode,
+				ignoreCase: this.ignoreCase,
+				labelledBy: labelledBy,
+				list: this.list,
+				minFilterChars: this.hasDownArrow ? 0 : this.minFilterChars,
+				okMsg: this.okMsg,
+				searchPlaceholder: this.searchPlaceholder,
+				selectionMode: this.selectionMode,
+				source: this.source,
+				value: this.value
+			});
+		},
+
+		/**
 		 * Factory method which creates the Dialog/TooltipDialog holding the ComboPopup.
 		 * @protected
 		 */
@@ -213,40 +237,25 @@ define([
 					this.ownerDocument.getElementById(this.getAttribute("aria-labelledby")));
 			var header = headerNode ? headerNode.textContent.trim() : (this.getAttribute("aria-label") || "");
 
-			var DialogConstructor = this.useCenteredDialog() ? this.DialogConstructor : this.TooltipDialogConstructor;
-			var dialog = new DialogConstructor({
+			var dialog = new this.TooltipDialogConstructor({
 				label: header
 			});
-			dialog.classList.add(this.useCenteredDialog() ? "d-combo-popup-dialog" : "d-combo-popup-tooltip-dialog");
+			dialog.classList.add("d-combo-popup-tooltip-dialog");
 			dialog.deliver();
+
+			var labelledBy = dialog.widgetId + "-label";
+
+			this.list.setAttribute("aria-labelledby", labelledBy);
 
 			// Create ComboPopup.
 			// Since the ComboPopup doesn't have a down arrow, if the Combobox does, then when
 			// user clicks it the ComboPopup list should be instantly shown.
-			this.list.setAttribute("aria-labelledby", dialog.widgetId + "-label");
-			this.comboPopup = new ComboPopup({
-				autoFilter: this.autoFilter,
-				defaultQuery: this.defaultQuery,
-				displayedValue: this.displayedValue,
-				filterDelay: this.filterDelay,
-				filterMode: this.filterMode,
-				ignoreCase: this.ignoreCase,
-				labelledBy: dialog.widgetId + "-label",
-				list: this.list,	// TODO: build list in ComboPopup (via ComboboxImplementation)?
-				minFilterChars: this.hasDownArrow ? 0 : this.minFilterChars,
-				okMsg: this.okMsg,
-				searchPlaceholder: this.searchPlaceholder,
-				selectionMode: this.selectionMode,
-				source: this.source,
-				value: this.value
-			});
+			this.comboPopup = this.createComboPopup(labelledBy);
 
 			this.comboPopup.on("execute", function () {
 				this.value = this.comboPopup.value;
 				this.displayedValue = this.comboPopup.displayedValue;
 			}.bind(this));
-
-			// TODO: pass everything from this._parsedAttributes matching ending in Attr or Func ?
 
 			this.comboPopup.deliver();
 
@@ -264,11 +273,6 @@ define([
 					if (this.hasDownArrow) {
 						this.comboPopup.inputNode.value = this.displayedValue;
 					}
-
-					// We are opening the ComboPopup but may or may not want to show the list.
-					// _showOrHideList() will decide the right thing to do.
-					// TODO: how do I get this to happen in ComboPopup itself, when used standalone?
-					this.comboPopup._showOrHideList(this.comboPopup.inputNode);
 				}.bind(this));
 			};
 		})
@@ -356,13 +360,9 @@ define([
 	var Combobox = register("d-combobox", [HTMLElement, ComboboxAPI, Imp], /** @lends module:deliteful/Combobox# */ {
 		baseClass: "d-combobox",
 
-		/**
-		 * Widget used on phones to display the ComboPopup in a centered dialog.
-		 */
-		DialogConstructor: ComboPopupDialog,
 
 		/**
-		 * Widget used on tables to display the ComboPopup in a tooltip dialog.
+		 * Widget used on mobile to display the ComboPopup in a tooltip dialog / dialog.
 		 */
 		TooltipDialogConstructor: ComboPopupTooltipDialog,
 
@@ -391,7 +391,7 @@ define([
 		}
 	});
 
-	Combobox.ComboPopupDialogMixin = ComboPopupDialogMixin;
+	Combobox.ComboPopupTooltipDialog = ComboPopupTooltipDialog;
 
 	return Combobox;
 });

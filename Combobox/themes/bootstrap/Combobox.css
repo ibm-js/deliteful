@@ -35,7 +35,6 @@
   left: 0;
   right: auto;
 }
-.d-combo-popup-dialog .d-dialog-container,
 .d-combo-popup-tooltip-dialog .d-tooltip-container {
   padding: 0;
 }
@@ -57,8 +56,6 @@
   align-items: center;
   padding: 5px;
 }
-/* Applies to both the input inside the root node and the input */
-/* conditionally present inside the popup */
 .d-combobox-input {
   color: inherit;
   font-family: inherit;
@@ -99,8 +96,7 @@ fieldset[disabled] .d-combobox-input {
   border-radius: 0;
   -webkit-appearance: none;
   background: white;
-  /* Necessary for Safari on iOS to avoid misplacement of the dropdown arrow */
-  /* due to the presence of the hidden input which stores the submitted value.*/
+  text-align: start;
   margin: 0;
 }
 .d-combobox-list .d-active-descendant {

@@ -5,7 +5,7 @@ define([
 	"./Button",
 	"./Checkbox",
 	"./Combobox",
-	"./ComboPopup",
+	"./Combobox-mobile",
 	"./DatePicker",
 	"./Dialog",
 	"./features",

@@ -68,14 +68,6 @@ define([
 
 		_initList: function () {
 			if (this.list) {
-				// TODO
-				// This is a workaround waiting for a proper mechanism (at the level
-				// of delite/Store - delite/StoreMap) to allow a store-based widget
-				// to delegate the store-related functions to a parent widget (delite#323).
-				if (!this.list.attached) {
-					this.list.connectedCallback();
-				}
-
 				// Class added on the list such that Combobox' theme can have a specific
 				// CSS selector for elements inside the List when used as dropdown in
 				// the combo.
@@ -92,6 +84,14 @@ define([
 					"radio" : "multiple";
 
 				this._initHandlers();
+
+				// TODO
+				// This is a workaround waiting for a proper mechanism (at the level
+				// of delite/Store - delite/StoreMap) to allow a store-based widget
+				// to delegate the store-related functions to a parent widget (delite#323).
+				if (!this.list.attached) {
+					this.list.connectedCallback();
+				}
 			}
 		},
 
@@ -124,6 +124,7 @@ define([
 							this.defer(function () {
 								// deferred such that the user can see the selection feedback
 								// before the dropdown closes.
+								this.handleOnChange(this.value);
 								this.list.emit("execute");
 							}.bind(this), 100); // worth exposing a property for the delay?
 						}
@@ -185,11 +186,11 @@ define([
 		},
 
 		/**
-		 * Toggles the lists's visibility.
+		 * Toggles the lists's visibility, and filters it by latest input.
 		 * If in mobile, toggles list visibility.
 		 * If in desktop, closes or opens the popup.
 		 */
-		_showOrHideList: function (/* inputElement, suppressChangeEvent */) {
+		_showOrHideList: function (/* suppressChangeEvent */) {
 			throw new Error("Must be implemented in subclass");
 		},
 
@@ -247,7 +248,7 @@ define([
 				this._timeoutHandle = this.defer(function () {
 					// Note: set suppressChangeEvent=true because we shouldn't get a change event because
 					// the dropdown closed just because the user backspaced while typing in the <input>.
-					this._showOrHideList(inputElement, true);
+					this._showOrHideList(true);
 				}.bind(this), this.filterDelay);
 
 				// Stop the spurious "input" events emitted while the user types

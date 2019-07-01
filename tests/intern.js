@@ -54,10 +54,10 @@ define({
 	},
 
 	// Non-functional test suite(s) to run in each browser
-	suites: [ "deliteful/tests/unit/Combobox"  ],
+	suites: [ "deliteful/tests/unit/all"  ],
 
 	// Functional test suite(s) to run in each browser once non-functional tests are completed
-	functionalSuites: [ "deliteful/tests/functional/Combobox", "deliteful/tests/functional/ComboPopup" ],
+	functionalSuites: [ "deliteful/tests/functional/all" ],
 
 	// Disable instrumentation against SauceLabs.  We do it when running locally.
 	excludeInstrumentation: true,

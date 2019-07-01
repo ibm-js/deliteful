@@ -6,17 +6,9 @@
 		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 
-	<title>deliteful/Combobox/Combopopup test</title>
+	<title>deliteful/Combobox mobile test</title>
 
 	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
-
-	<style>
-		d-combo-popup {
-			border: solid gray thick;
-			max-width: 300px;
-			margin-bottom: 20px;
-		}
-	</style>
 
 	<!-- For testing purposes. Real applications should load the AMD loader directly -->
 	<script type="text/javascript" src="../boilerplate.js"></script>
@@ -26,11 +18,21 @@
 		var ready = false; // set to true when the test page is ready
 		var storeTestingInfo;
 
+		require.config({
+			config: {
+				"requirejs-dplugins/has": {
+					"phone-like-channel": true,
+					"tablet-like-channel": true,
+					"desktop-like-channel": false
+				}
+			}
+		});
+
 		require([
-		  	"dcl/advise",
+			"dcl/advise",
 			"delite/register",
 			"deliteful/list/List",
-			"deliteful/Combobox/ComboPopup",
+			"deliteful/Combobox",
 			"delite/theme!delite/themes/{{theme}}/global.css", // page level CSS
 			"requirejs-domready/domReady!"
 		], function (
@@ -44,7 +46,7 @@
 				// Store ids for item cells such that the automatic functional test
 				// can retrieve them.
 				advise.after(combo, "openDropDown", function () {
-			  		var comboPopup = combo.comboPopup;
+					var comboPopup = combo.comboPopup;
 					if (!comboPopup.init) {
 						comboPopup._inputEventCounter = 0;
 						comboPopup._changeEventCounter = 0;
@@ -75,6 +77,18 @@
 
 			// auto complete mode, min filter char = 0
 			storeTestingInfo(document.getElementById("combo5"));
+
+			// Used by the automatic functional test, for comboboxes in both
+			// single and multiple selection modes.
+			getComboboxState = function (comboId) {
+				var combo = document.getElementById(comboId);
+
+				return {
+					inputNodeValue: combo.inputNode.value,
+					widgetValue: combo.value,
+					valueNodeValue: combo.valueNode.value
+				};
+			};
 
 			// Used by the automatic functional test, for ComboPopups in both
 			// single and multiple selection modes.
@@ -124,21 +138,40 @@
 			ready = true;
 		});
 	</script>
+	<style>
+		/* Put combobox labels on their own lines, but inline checkbox/radiobutton labels */
+		label {
+			display: block;
+			margin: 15px 0 10px 2px;
+		}
+		fieldset label {
+			display: inline;
+		}
+
+		/* Larger margins between the elements inside the list elements */
+		.d-list-item-label {
+			margin-right: 30px;
+		}
+		.d-list-item-right-text {
+			margin-left: 30px;
+		}
+	</style>
 </head>
 <body>
 <header>
 	<h1>
-		Test file for ComboPopup helper widget.
+		Test file for Combobox on mobile
 	</h1>
 	<p>
-		The ComboPopup widget is displayed when clicking a Combobox on mobile.
+		Test file used by Combobox-mobile automated test.
+		Clicking the Combobox should display ComboPopup in a Dialog or TooltipDialog, depending on browser window size.
 	</p>
 </header>
 <main>
 	<label for="combo1-input">
-		id = combo1 - Simple ComboPopup
+		id = combo1 - Simple Combobox popup
 	</label>
-	<d-combo-popup selectionMode="single" autoFilter="false" id="combo1" name="combo1"
+	<d-combobox selectionMode="single" autoFilter="false" id="combo1" name="combo1"
 				displayedValue="France" value="France" righttextAttr="sales" categoryAttr="region">
 		{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
 		{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
@@ -177,12 +210,12 @@
 		{ "label": "Japan28", "sales": 900, "profit": 100, "region": "Asia" },
 		{ "label": "Japan29", "sales": 900, "profit": 100, "region": "Asia" },
 		{ "label": "Japan30", "sales": 900, "profit": 100, "region": "Asia" }
-	</d-combo-popup>
+	</d-combobox>
 
 	<label for="combo2-input">
-		id = combo2 - ComboPopup with &lt;input&gt; (autoFilter=true)
+		id = combo2 - Combobox popup with &lt;input&gt; (autoFilter=true)
 	</label>
-	<d-combo-popup selectionMode="single" autoFilter="true" id="combo2" name="combo2"
+	<d-combobox selectionMode="single" autoFilter="true" id="combo2" name="combo2"
 				displayedValue="France" value="France" righttextAttr="sales" categoryAttr="region" showNoItems="true">
 		{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
 		{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
@@ -221,12 +254,12 @@
 		{ "label": "Japan28", "sales": 900, "profit": 100, "region": "Asia" },
 		{ "label": "Japan29", "sales": 900, "profit": 100, "region": "Asia" },
 		{ "label": "Japan30", "sales": 900, "profit": 100, "region": "Asia" }
-	</d-combo-popup>
+	</d-combobox>
 
 	<label for="combo3-input">
-		id = combo3 - Multiselect ComboPopup
+		id = combo3 - Multiselect Combobox
 	</label>
-	<d-combo-popup selectionMode="multiple" autoFilter="false" id="combo3" name="combo3"
+	<d-combobox selectionMode="multiple" autoFilter="false" id="combo3" name="combo3"
 				righttextAttr="sales" categoryAttr="region">
 		{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
 		{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
@@ -265,12 +298,12 @@
 		{ "label": "Japan28", "sales": 900, "profit": 100, "region": "Asia" },
 		{ "label": "Japan29", "sales": 900, "profit": 100, "region": "Asia" },
 		{ "label": "Japan30", "sales": 900, "profit": 100, "region": "Asia" }
-	</d-combo-popup>
+	</d-combobox>
 
 	<label for="combo4-input">
-		id = combo4 - ComboPopup with &lt;input&gt; autoFilter=true, hasDownArrow=false, minFilterChars=3, "AutoComplete" mode
+		id = combo4 - Combobox popup with &lt;input&gt; autoFilter=true, hasDownArrow=false, minFilterChars=3, "AutoComplete" mode
 	</label>
-	<d-combo-popup selectionMode="single" autoFilter="true" hasDownArrow="false" id="combo4" name="combo4"
+	<d-combobox selectionMode="single" autoFilter="true" hasDownArrow="false" id="combo4" name="combo4"
 				minFilterChars="3" righttextAttr="sales" categoryAttr="region" showNoItems="true">
 		{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
 		{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
@@ -309,12 +342,12 @@
 		{ "label": "Japan28", "sales": 900, "profit": 100, "region": "Asia" },
 		{ "label": "Japan29", "sales": 900, "profit": 100, "region": "Asia" },
 		{ "label": "Japan30", "sales": 900, "profit": 100, "region": "Asia" }
-	</d-combo-popup>
+	</d-combobox>
 
 	<label for="combo5-input">
-		id = combo5 - ComboPopup with &lt;input&gt; (autoFilter=true), hasDownArrow=false, minFilterChars=0, "AutoComplete" mode
+		id = combo5 - Combobox popup with &lt;input&gt; (autoFilter=true), hasDownArrow=false, minFilterChars=0, "AutoComplete" mode
 	</label>
-	<d-combo-popup selectionMode="single" autoFilter="true" hasDownArrow="false" id="combo5" name="combo5"
+	<d-combobox selectionMode="single" autoFilter="true" hasDownArrow="false" id="combo5" name="combo5"
 				minFilterChars="0" righttextAttr="sales" categoryAttr="region" showNoItems="true">
 		{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
 		{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
@@ -353,7 +386,7 @@
 		{ "label": "Japan28", "sales": 900, "profit": 100, "region": "Asia" },
 		{ "label": "Japan29", "sales": 900, "profit": 100, "region": "Asia" },
 		{ "label": "Japan30", "sales": 900, "profit": 100, "region": "Asia" }
-	</d-combo-popup>
+	</d-combobox>
 </main>
 </body>
 </html>
