@@ -94,9 +94,6 @@ define([
 					this.list.source = this.source;
 				}
 			}
-			if (this.inputNode) {
-				this.inputNode.setAttribute("aria-expanded", "" + this.showList);
-			}
 		}
 	});
 });

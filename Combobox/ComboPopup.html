@@ -1,5 +1,5 @@
 <template requires="deliteful/Button" role="presentation">
-	<div role="combobox" aria-expanded="true" aria-owns="{{list.widgetId}}-container"
+	<div role="combobox" aria-expanded="{{showList}}" aria-owns="{{list.widgetId}}-container"
 		 	aria-haspopup="listbox">
 		<input id="{{widgetId}}-input"
 			d-shown="{{showInput}}"
