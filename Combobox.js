@@ -185,16 +185,24 @@ define([
 	var MobileImplementation = dcl([HasDropDown], {
 		template: mobileTemplate,
 
-		// Set aria-hasdropdown=listbox rather than aria-hasdropdown=menu.
+		// Set aria-hasdropdown=dialog rather than aria-hasdropdown=menu.
 		dropDownType: "dialog",
 
 		shouldInitializeRendering: dcl.superCall(function (sup) {
 			return function (oldVals) {
+				this._focusOnRender = this.contains(document.activeElement);
+
 				// Workaround bizarre VoiceOver bug where it keeps announcing the button's original label
 				// regardless of what it was changed to.
 				return sup.call(this, oldVals) || "displayedValue" in oldVals;
 			};
 		}),
+
+		postRender: function () {
+			if (this._focusOnRender) {
+				this.focus();
+			}
+		},
 
 		/**
 		 * Return true if the ComboPopup should be displayed in a centered Dialog,
