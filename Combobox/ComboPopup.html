@@ -10,7 +10,10 @@
 			aria-controls="{{list.widgetId}}-container"
 			autocomplete="off" autocapitalize="none" autocorrect="off"
 			type="text"
-			placeholder="{{searchPlaceHolder}}">
+			placeholder="{{searchPlaceHolder}}"
+			on-keydown="{{inputKeydownHandler}}"
+			on-input="{{inputInputHandler}}"
+			on-change="{{inputChangeHandler}}">
 	</div>
 	<div attach-point="listNode"></div>
 	<div d-shown="{{this.selectionMode === 'multiple'}}" class="d-combo-popup-button-container">

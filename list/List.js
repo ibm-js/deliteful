@@ -834,12 +834,21 @@ define([
 		},
 
 		/**
-		 * Returns whether a renderer is a category renderer or not>.
+		 * Returns whether a renderer is a category renderer or not.
 		 * @param {module:deliteful/list/Renderer} renderer The renderer to test.
 		 * @return {boolean}
 		 */
-		isCategoryRenderer: function (/*deliteful/list/Renderer*/renderer) {
+		isCategoryRenderer: function (renderer) {
 			return renderer.tagName.toLowerCase() === this.categoryRenderer.tag;
+		},
+
+		/**
+		 * Returns whether a renderer is an item renderer or not.
+		 * @param {module:deliteful/list/Renderer} renderer The renderer to test.
+		 * @return {boolean}
+		 */
+		isItemRenderer: function (renderer) {
+			return renderer.tagName.toLowerCase() === this.itemRenderer.tag;
 		},
 
 		/**

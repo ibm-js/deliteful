@@ -621,12 +621,14 @@ define([
 			return loadFile(this.remote, "./Combobox-mobile.html")
 				.findByCssSelector("#combo4 .d-combobox-input").click().end()
 				.sleep(500) // wait for List's loading panel to go away
-				.findByCssSelector("#combo4_dropdown input").getAttribute("aria-expanded").then(function (value) {
+				.findByCssSelector("#combo4_dropdown [role=combobox]").getAttribute("aria-expanded")
+				.then(function (value) {
 					assert.strictEqual(value, "false", "initially not expanded");
 				}).end()
 				.findByCssSelector("#combo4_dropdown input").type("jap").end()
 				.sleep(500)
-				.findByCssSelector("#combo4_dropdown input").getAttribute("aria-expanded").then(function (value) {
+				.findByCssSelector("#combo4_dropdown [role=combobox]").getAttribute("aria-expanded")
+				.then(function (value) {
 					assert.strictEqual(value, "true", "expanded after typing 3 chars");
 				}).end();
 		},

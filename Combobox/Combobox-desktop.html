@@ -5,6 +5,9 @@
 		aria-autocomplete="list"
 		type="text"
 		placeholder="{{searchPlaceHolder}}"
+		on-keydown="{{inputKeydownHandler}}"
+		on-input="{{inputInputHandler}}"
+		on-change="{{inputChangeHandler}}"
 		on-click="{{inputClickHandler}}">
 	<input class="d-hidden"
 		attach-point="valueNode"

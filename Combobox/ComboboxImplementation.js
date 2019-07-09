@@ -5,6 +5,7 @@ define([
 	"dojo/string",
 	"delite/CssState",
 	"delite/FormValueWidget",
+	"../features",
 	"./ComboboxAPI",
 	"delite/theme!./themes/{{theme}}/Combobox.css"
 ], function (
@@ -13,12 +14,15 @@ define([
 	string,
 	CssState,
 	FormValueWidget,
+	has,
 	ComboboxAPI
 ) {
 
 	// Counter used to generate unique ids for the dropdown items, so that aria-activedescendant is set to
 	// a reasonable value.
 	var idCounter = 1;
+
+	var isMobile = !has("desktop-like-channel");
 
 	/**
 	 * Base class for Combobox on desktop, and the ComboPopup dialog opened by Combobox on mobile.
@@ -37,10 +41,6 @@ define([
 		// Avoid that List gives focus to list items when navigating, which would
 		// blur the input field used for entering the filtering criteria.
 		focusDescendants: false,
-
-		postRender: function () {
-			this._prepareInput(this.inputNode);
-		},
 
 		refreshRendering: function (oldValues) {
 			if ("list" in oldValues) {
@@ -107,7 +107,7 @@ define([
 					var navigatedChild = evt.newValue; // never null
 					var rend = this.list.getEnclosingRenderer(navigatedChild);
 					var item = rend.item;
-					if (this.selectionMode === "single" && !this.list.isSelected(item)) {
+					if (this.selectionMode === "single" && item && !this.list.isSelected(item)) {
 						this.list.selectFromEvent(evt, item, rend, true);
 					} // else do not change the selection state of an item already selected
 					if (evt.triggerEvent && // only for keyboard navigation
@@ -120,7 +120,7 @@ define([
 				this.list.on("click", function (evt) {
 					if (this.selectionMode === "single") {
 						var rend = this.list.getEnclosingRenderer(evt.target);
-						if (rend && !this.list.isCategoryRenderer(rend)) {
+						if (rend && this.list.isItemRenderer(rend)) {
 							this.defer(function () {
 								// deferred such that the user can see the selection feedback
 								// before the dropdown closes.
@@ -216,93 +216,110 @@ define([
 			configurable: true
 		}),
 
-		_prepareInput: function (inputElement) {
-			this.on("input", function (evt) {
-				if (this._justFocused) {
-					// Ignore spurious "input" event on IE when focusing an <input> with a placeholder.
-					return;
-				}
-
-				// TODO
-				// Would be nice to also have an "incrementalFilter" boolean property.
-				// On desktop, this would allow to redo the filtering only for "change"
-				// events, triggered when pressing ENTER. This would also fit for Chrome/Android,
-				// where pressing the search key of the virtual keyboard also triggers a
-				// change event. But there's no equivalent on Safari / iOS...
-
-				// save what user typed at each keystroke.
-				this.displayedValue = inputElement.value;
-
-				// Clear value.  No value until user selects something from dropdown again.
-				this.value = "";
-				this._valueSetByUserInput = true;
-				if (this.list && this.list.selectedItems.length > 0) {
-					this.list.selectedItems = [];
-				}
-				this.handleOnInput(this.value); // if we just cleared this.value then emit "input" event
-
-				if (this._timeoutHandle !== undefined) {
-					this._timeoutHandle.remove();
-					delete this._timeoutHandle;
-				}
-				this._timeoutHandle = this.defer(function () {
-					// Note: set suppressChangeEvent=true because we shouldn't get a change event because
-					// the dropdown closed just because the user backspaced while typing in the <input>.
-					this._showOrHideList(true);
-				}.bind(this), this.filterDelay);
-
-				// Stop the spurious "input" events emitted while the user types
-				// such that only the "input" events emitted via FormValueWidget.handleOnInput()
-				// bubble to widget's root node.
+		/**
+		 * Called when there's a "keydown" event on the <input>.
+		 * @param evt
+		 */
+		inputKeydownHandler: function (evt) {
+			/* jshint maxcomplexity: 17 */
+			// deliteful issue #382: prevent the browser from navigating to
+			// the previous page when typing backspace in a readonly input
+			if (this.inputNode.readOnly && evt.key === "Backspace") {
 				evt.stopPropagation();
 				evt.preventDefault();
-			}.bind(this), inputElement);
-
-			this.on("change", function (evt) {
-				// Stop the spurious "change" events emitted while the user types
-				// such that only the "change" events emitted via FormValueWidget.handleOnChange()
-				// bubble to widget's root node.
+			} else if (evt.key === "Enter") {
 				evt.stopPropagation();
 				evt.preventDefault();
-			}.bind(this), inputElement);
-
-			this.on("keydown", function (evt) {
-				/* jshint maxcomplexity: 16 */
-				// deliteful issue #382: prevent the browser from navigating to
-				// the previous page when typing backspace in a readonly input
-				if (inputElement.readOnly && evt.key === "Backspace") {
-					evt.stopPropagation();
-					evt.preventDefault();
-				} else if (evt.key === "Enter") {
-					evt.stopPropagation();
-					evt.preventDefault();
-					if (this.opened) {
-						this.closeDropDown(true/*refocus*/);
+				if (this.selectionMode === "multiple") {
+					// Path for closing multi-select dropdown.
+					this.closeDropDown(true/*refocus*/);
+				} else {
+					// Delegate handling to the list.  This allows subclasses to implement hierarchical menus etc.
+					var activeDescendant = this.opened && this.list.querySelector(".d-active-descendant");
+					if (activeDescendant) {
+						activeDescendant.click();
 					}
-				} else if (evt.key === "Spacebar" && this.opened) {
-					// Simply forwarding the key event to List doesn't allow toggling
-					// the selection, because List's mechanism is based on the event target
-					// which here is the input element outside the List. TODO: see deliteful #500.
-					if (this.selectionMode === "multiple") {
-						var rend = this.list.getEnclosingRenderer(this.list.navigatedDescendant);
-						if (rend) {
-							this.list.selectFromEvent(evt, rend.item, rend, true);
-						}
+				}
+			} else if (evt.key === "Spacebar" && this.opened) {
+				// Simply forwarding the key event to List doesn't allow toggling
+				// the selection, because List's mechanism is based on the event target
+				// which here is the input element outside the List. TODO: see deliteful #500.
+				if (this.selectionMode === "multiple") {
+					var rend = this.list.getEnclosingRenderer(this.list.navigatedDescendant);
+					if (rend) {
+						this.list.selectFromEvent(evt, rend.item, rend, true);
 					}
-					if (this.selectionMode === "multiple" || !this.autoFilter) {
-						evt.stopPropagation();
-						evt.preventDefault();
-					}
-				} else if (evt.key === "ArrowDown" || evt.key === "ArrowUp" ||
-					evt.key === "PageDown" || evt.key === "PageUp" ||
-					evt.key === "Home" || evt.key === "End") {
-					if (this._isMobile) {
-						this.list.emit("keydown", evt);
-					}
+				}
+				if (this.selectionMode === "multiple" || !this.autoFilter) {
 					evt.stopPropagation();
 					evt.preventDefault();
 				}
-			}.bind(this), inputElement);
+			} else if (evt.key === "ArrowDown" || evt.key === "ArrowUp" ||
+				evt.key === "PageDown" || evt.key === "PageUp" ||
+				evt.key === "Home" || evt.key === "End") {
+				if (isMobile) {
+					this.list.emit("keydown", evt);
+				}
+				evt.stopPropagation();
+				evt.preventDefault();
+			}
+		},
+
+		/**
+		 * Called when there's an "input" event on the <input>.
+		 * @param evt
+		 */
+		inputInputHandler: function (evt) {
+			if (this._justFocused) {
+				// Ignore spurious "input" event on IE when focusing an <input> with a placeholder.
+				return;
+			}
+
+			// TODO
+			// Would be nice to also have an "incrementalFilter" boolean property.
+			// On desktop, this would allow to redo the filtering only for "change"
+			// events, triggered when pressing ENTER. This would also fit for Chrome/Android,
+			// where pressing the search key of the virtual keyboard also triggers a
+			// change event. But there's no equivalent on Safari / iOS...
+
+			// save what user typed at each keystroke.
+			this.displayedValue = this.inputNode.value;
+
+			// Clear value.  No value until user selects something from dropdown again.
+			this.value = "";
+			this._valueSetByUserInput = true;
+			if (this.list && this.list.selectedItems.length > 0) {
+				this.list.selectedItems = [];
+			}
+			this.handleOnInput(this.value); // if we just cleared this.value then emit "input" event
+
+			if (this._timeoutHandle !== undefined) {
+				this._timeoutHandle.remove();
+				delete this._timeoutHandle;
+			}
+			this._timeoutHandle = this.defer(function () {
+				// Note: set suppressChangeEvent=true because we shouldn't get a change event because
+				// the dropdown closed just because the user backspaced while typing in the <input>.
+				this._showOrHideList(true);
+			}.bind(this), this.filterDelay);
+
+			// Stop the spurious "input" events emitted while the user types
+			// such that only the "input" events emitted via FormValueWidget.handleOnInput()
+			// bubble to widget's root node.
+			evt.stopPropagation();
+			evt.preventDefault();
+		},
+
+		/**
+		 * Called when there's a "change" event on the <input>.
+		 * @param evt
+		 */
+		inputChangeHandler: function (evt) {
+			// Stop the spurious "change" events emitted while the user types
+			// such that only the "change" events emitted via FormValueWidget.handleOnChange()
+			// bubble to widget's root node.
+			evt.stopPropagation();
+			evt.preventDefault();
 		},
 
 		_validateInput: function () {

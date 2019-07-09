@@ -49,7 +49,6 @@ define([
 					this.list.addClass("fill")
 						.removeClass("d-hidden");
 				}
-				this._prepareInput(this.inputNode);
 			}
 			if ("showList" in oldValues && this.list) {
 				this.list.setAttribute("d-shown", this.showList);
