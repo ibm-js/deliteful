@@ -188,6 +188,14 @@ define([
 		// Set aria-hasdropdown=listbox rather than aria-hasdropdown=menu.
 		dropDownType: "dialog",
 
+		shouldInitializeRendering: dcl.superCall(function (sup) {
+			return function (oldVals) {
+				// Workaround bizarre VoiceOver bug where it keeps announcing the button's original label
+				// regardless of what it was changed to.
+				return sup.call(this, oldVals) || "displayedValue" in oldVals;
+			};
+		}),
+
 		/**
 		 * Return true if the ComboPopup should be displayed in a centered Dialog,
 		 * false to display in a TooltipDialog
