@@ -1,20 +1,14 @@
-define([
-	"intern!object",
-	"intern/chai!assert",
-	"delite/register",
-	"dstore/Memory",
-	"dstore/Trackable",
-	"deliteful/Select"
-], function (
-	registerSuite,
-	assert,
-	register,
-	Memory,
-	Trackable,
-	Select
-) {
+define(function (require) {
+	"use strict";
 
-	function mix(a, b) {
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var register = require("delite/register");
+	var Memory = require("dstore/Memory");
+	var Trackable = require("dstore/Trackable");
+	var Select = require("deliteful/Select");
+
+	function mix (a, b) {
 		for (var n in b) {
 			a[n] = b[n];
 		}
@@ -326,7 +320,7 @@ define([
 	};
 
 	var CommonTestCases = {
-		"Default CSS" : function () {
+		"Default CSS": function () {
 			var select = document.getElementById("select1");
 			select.deliver();
 			assert.isTrue(select.classList.contains(outerCSS),
@@ -346,7 +340,7 @@ define([
 				" CSS class on inner element of select.id: " + select.id);
 		},
 
-		"Default values" : function () {
+		"Default values": function () {
 			var select = document.getElementById("select1");
 			select.deliver();
 			checkDefaultValues(select);
@@ -356,7 +350,7 @@ define([
 			assert.isNull(select.source, "source default is null");
 		},
 
-		"Store.add/remove/put (user's observable Memory store)" : function () {
+		"Store.add/remove/put (user's observable Memory store)": function () {
 			var select = document.getElementById("select1");
 			var source = new Store();
 			select.source = source;
@@ -378,7 +372,7 @@ define([
 			checkTrackableSelect(select); // the default source is observable
 		},
 
-		"Store.add (user's non-observable Memory store)" : function () {
+		"Store.add (user's non-observable Memory store)": function () {
 			var select = document.getElementById("select1");
 			var source = new Memory({});
 			select.source = source;

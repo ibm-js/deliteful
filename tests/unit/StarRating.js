@@ -1,14 +1,15 @@
-define([
-	"intern!object",
-	"intern/chai!assert",
-	"deliteful/StarRating"
-], function (registerSuite, assert, StarRating) {
+define(function (require) {
+	"use strict";
+
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var StarRating = require("deliteful/StarRating");
 
 	var sr = null;
 
 	registerSuite({
-		name: "StarRating",
-		beforeEach: function () {
+		"name": "StarRating",
+		"beforeEach": function () {
 			sr = new StarRating();
 			sr.placeAt(document.body);
 		},
@@ -24,7 +25,7 @@ define([
 			}), 100);
 			return dfd;
 		},
-		teardown: function () {
+		"teardown": function () {
 			if (sr) {
 				sr.destroy();
 			}

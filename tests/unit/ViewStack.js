@@ -1,28 +1,24 @@
-define([
-	"intern!object",
-	"intern/chai!assert",
-	"delite/register",
-	"dcl/advise",
-	"deliteful/ViewStack",
-	"requirejs-dplugins/css!deliteful/ViewStack/transitions/cover.css",
-	"requirejs-dplugins/css!deliteful/ViewStack/transitions/coverv.css",
-	"requirejs-dplugins/css!deliteful/ViewStack/transitions/fade.css",
-	"requirejs-dplugins/css!deliteful/ViewStack/transitions/flip.css",
-	"requirejs-dplugins/css!deliteful/ViewStack/transitions/slidev.css",
-	"requirejs-dplugins/css!deliteful/ViewStack/transitions/revealv.css"
-], function (
-	registerSuite,
-	assert,
-	register,
-	advise
-) {
+define(function (require) {
+	"use strict";
+
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var register = require("delite/register");
+	var advise = require("dcl/advise");
+	require("deliteful/ViewStack");
+	require("requirejs-dplugins/css!deliteful/ViewStack/transitions/cover.css");
+	require("requirejs-dplugins/css!deliteful/ViewStack/transitions/coverv.css");
+	require("requirejs-dplugins/css!deliteful/ViewStack/transitions/fade.css");
+	require("requirejs-dplugins/css!deliteful/ViewStack/transitions/flip.css");
+	require("requirejs-dplugins/css!deliteful/ViewStack/transitions/slidev.css");
+	require("requirejs-dplugins/css!deliteful/ViewStack/transitions/revealv.css");
 	var container, node;
 	var aaa, bbb, ccc, ddd;
 	var asyncHandler, adviseHandler;
 	var htmlContent = "<d-view-stack id='vs'><div id='aaa'>AAA</div><div id='bbb'>BBB</div><div id='ccc'>CCC</div>" +
 		"<div id='ddd'>DDD</div></d-view-stack>";
 
-	function checkNodeVisibility(vs, target) {
+	function checkNodeVisibility (vs, target) {
 		assert.notStrictEqual(target.style.display, "none", target.id + " display");
 		assert.strictEqual(vs.selectedChildId, target.id, "vs.selectedChildId");
 		for (var i = 0; i < vs.children.length; i++) {
@@ -34,16 +30,16 @@ define([
 		}
 	}
 
-	function checkReverse(vs, target) {
+	function checkReverse (vs, target) {
 		assert.isTrue(vs.children[target].classList.contains("-d-view-stack-reverse"), "has -d-view-stack-reverse");
 	}
 
-	function checkNoReverse(vs, target) {
+	function checkNoReverse (vs, target) {
 		assert.isFalse(vs.children[target].classList.contains("-d-view-stack-reverse"),
 			"doesn't have -d-view-stack-reverse");
 	}
 
-	function checkTransition(vs, target, transition) {
+	function checkTransition (vs, target, transition) {
 		switch (transition) {
 		case "slide" :
 			assert.isTrue(vs.children[target].classList.contains("-d-view-stack-slide"), "has -d-view-stack-slide");
@@ -77,8 +73,8 @@ define([
 	}
 
 	registerSuite({
-		name: "ViewStack Markup",
-		setup: function () {
+		"name": "ViewStack Markup",
+		"setup": function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
 			container.innerHTML = htmlContent;
@@ -89,28 +85,28 @@ define([
 			ccc = document.getElementById("ccc");
 			ddd = document.getElementById("ddd");
 		},
-		"Default CSS" : function () {
+		"Default CSS": function () {
 			assert.isTrue(node.classList.contains("d-view-stack"), "has d-view-stack");
 		},
-		"Default values" : function () {
+		"Default values": function () {
 			assert.strictEqual(node.transition, "slide", "node.transition");
 			assert.isFalse(node.reverse, "node.reverse");
 		},
-		"Show (by widget)" : function () {
+		"Show (by widget)": function () {
 			var d = this.async(1000);
 			asyncHandler = node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, bbb);
 			}));
 			node.show(bbb);
 		},
-		"Show (by id)" : function () {
+		"Show (by id)": function () {
 			var d = this.async(1000);
 			asyncHandler = node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, aaa);
 			}));
 			node.show("aaa");
 		},
-		"Show (no transition)" : function () {
+		"Show (no transition)": function () {
 			// Shorter timing if no transition
 			var d = this.async(100);
 			asyncHandler = node.on("delite-after-show", d.callback(function () {
@@ -118,42 +114,42 @@ define([
 			}));
 			node.show(bbb, {transition: "none"});
 		},
-		"Show (reverse)" : function () {
+		"Show (reverse)": function () {
 			var d = this.async(1000);
 			asyncHandler = node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, ccc);
 			}));
 			node.show(ccc, {reverse: true});
 		},
-		"Show (reverse, no transition)" : function () {
+		"Show (reverse, no transition)": function () {
 			var d = this.async(1000);
 			asyncHandler = node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, ddd);
 			}));
 			node.show(ddd, {transition: "none", reverse: true});
 		},
-		"Show (reveal)" : function () {
+		"Show (reveal)": function () {
 			var d = this.async(1000);
 			asyncHandler = node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, aaa);
 			}));
 			node.show(aaa, {transition: "reveal", reverse: false});
 		},
-		"Show (reverse, reveal)" : function () {
+		"Show (reverse, reveal)": function () {
 			var d = this.async(1000);
 			asyncHandler = node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, bbb);
 			}));
 			node.show(bbb, {transition: "reveal", reverse: true});
 		},
-		"Show (flip)" : function () {
+		"Show (flip)": function () {
 			var d = this.async(1000);
 			asyncHandler = node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, ccc);
 			}));
 			node.show(ccc, {transition: "flip", reverse: false});
 		},
-		"Show (reverse, flip)" : function () {
+		"Show (reverse, flip)": function () {
 			var d = this.async(1000);
 			asyncHandler = node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, ddd);
@@ -162,7 +158,7 @@ define([
 				node.show(ddd, {transition: "flip", reverse: true});
 			}, 0);	// avoid chrome problem when setting a new transition class immediately after removing the old one
 		},
-		"Show (slidev)" : function () {
+		"Show (slidev)": function () {
 			var d = this.async(1000);
 			asyncHandler = node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, aaa);
@@ -171,7 +167,7 @@ define([
 				node.show(aaa, {transition: "slidev", reverse: false});
 			}, 0);	// avoid chrome problem when setting a new transition class immediately after removing the old one
 		},
-		"Show (reverse, slidev)" : function () {
+		"Show (reverse, slidev)": function () {
 			var d = this.async(1000);
 			asyncHandler = node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, bbb);
@@ -180,56 +176,56 @@ define([
 				node.show(bbb, {transition: "slidev", reverse: true});
 			}, 0);	// avoid chrome problem when setting a new transition class immediately after removing the old one
 		},
-		"Show (cover)" : function () {
+		"Show (cover)": function () {
 			var d = this.async(1000);
 			asyncHandler = node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, ccc);
 			}));
 			node.show(ccc, {transition: "cover", reverse: false});
 		},
-		"Show (reverse, cover)" : function () {
+		"Show (reverse, cover)": function () {
 			var d = this.async(1000);
 			asyncHandler = node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, ddd);
 			}));
 			node.show(ddd, {transition: "cover", reverse: true});
 		},
-		"Show (coverv)" : function () {
+		"Show (coverv)": function () {
 			var d = this.async(1000);
 			asyncHandler = node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, aaa);
 			}));
 			node.show(aaa, {transition: "coverv", reverse: false});
 		},
-		"Show (reverse, coverv)" : function () {
+		"Show (reverse, coverv)": function () {
 			var d = this.async(1000);
 			asyncHandler = node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, bbb);
 			}));
 			node.show(bbb, {transition: "coverv", reverse: true});
 		},
-		"Show (revealv)" : function () {
+		"Show (revealv)": function () {
 			var d = this.async(1000);
 			asyncHandler = node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, ccc);
 			}));
 			node.show(ccc, {transition: "revealv", reverse: false});
 		},
-		"Show (reverse, revealv)" : function () {
+		"Show (reverse, revealv)": function () {
 			var d = this.async(1000);
 			asyncHandler = node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, ddd);
 			}));
 			node.show(ddd, {transition: "revealv", reverse: true});
 		},
-		"Show (fade)" : function () {
+		"Show (fade)": function () {
 			var d = this.async(1000);
 			asyncHandler = node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, ccc);
 			}));
 			node.show(ccc, {transition: "fade", reverse: false});
 		},
-		"Show (reverse, slide)" : function () {
+		"Show (reverse, slide)": function () {
 			var d = this.async(1000);
 			asyncHandler = node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, bbb);
@@ -272,7 +268,7 @@ define([
 		},
 
 		"Check reverse in showPrevious": {
-			setup: function () {
+			"setup": function () {
 				node.style.display = "";
 				node.parentNode.style.display = "";
 			},
@@ -641,7 +637,7 @@ define([
 				});
 			}
 		},
-		"Check transition" : {
+		"Check transition": {
 			"Show(): Default transition": function () {
 				var d = this.async(1000);
 				adviseHandler = advise(node, "_doTransition", {
@@ -902,10 +898,10 @@ define([
 			}));
 			node.show(aaa);
 		},
-		teardown: function () {
+		"teardown": function () {
 			container.parentNode.removeChild(container);
 		},
-		afterEach: function () {
+		"afterEach": function () {
 			if (asyncHandler) {
 				asyncHandler.remove();
 			}

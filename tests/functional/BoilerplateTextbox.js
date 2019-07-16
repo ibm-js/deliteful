@@ -1,11 +1,11 @@
-define([
-	"require",
-	"intern",
-	"intern!object",
-	"intern/chai!assert",
-	"intern/dojo/node!leadfoot/keys",
-	"intern/dojo/node!leadfoot/helpers/pollUntil"
-], function (require, intern, registerSuite, assert, keys, pollUntil) {
+define(function (require) {
+	"use strict";
+
+	var intern = require("intern");
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var keys = require("intern/dojo/node!leadfoot/keys");
+	var pollUntil = require("intern/dojo/node!leadfoot/helpers/pollUntil");
 
 	// Functional tests for BoilerplateTextbox.
 	// Unfortunately webdriver's imperfect keystroke simulation doesn't work well with BoilerplateTextBox's
@@ -13,16 +13,16 @@ define([
 	// events.
 
 	registerSuite({
-		name: "BoilerplateTextbox functional tests",
+		"name": "BoilerplateTextbox functional tests",
 
-		setup: function () {
+		"setup": function () {
 			return this.remote
 				.get(require.toUrl("./BoilerplateTextbox.html"))
 				.then(pollUntil("return ready || null;", [],
 					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 		},
 
-		afterEach: function () {
+		"afterEach": function () {
 			return this.remote
 				.findById("reset").click().end()		// set BoilerplateTextboxes to original values
 				.execute("resetToOriginalValues();")	// hmm, above doesn't do anything, at least on chrome
@@ -43,7 +43,7 @@ define([
 				});
 		},
 
-		basic: function () {
+		"basic": function () {
 			return this.remote
 				.findByCssSelector("#dt1 .d-input-container-node input").click().end()
 				.execute("return state(dt1);").then(function (v) {
@@ -163,7 +163,7 @@ define([
 				});
 		},
 
-		backspace: function () {
+		"backspace": function () {
 			return this.remote
 				.findById("dt2-month-input").click().end()
 				.execute("return state(dt2);").then(function (v) {
@@ -199,7 +199,7 @@ define([
 				});
 		},
 
-		clicking: {
+		"clicking": {
 			"click on year": function () {
 				return this.remote
 					.findByCssSelector("#dt1 .d-btb-field:last-child").click().end()
@@ -237,7 +237,7 @@ define([
 			}
 		},
 
-		max: function () {
+		"max": function () {
 			return this.remote
 				.findByCssSelector("#dt1 .d-input-container-node input").click().end()
 				.execute("return state(dt1);").then(function (v) {
@@ -300,7 +300,7 @@ define([
 				});
 		},
 
-		min: {
+		"min": {
 			"12 hour clock": function () {
 				return this.remote
 					.findByCssSelector("#tt1 .d-input-container-node input").click().end()

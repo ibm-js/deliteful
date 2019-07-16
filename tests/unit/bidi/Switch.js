@@ -1,9 +1,10 @@
-define([
-	"intern!object",
-	"intern/chai!assert",
-	"delite/register",
-	"deliteful/Switch"
-], function (registerSuite, assert, register, Switch) {
+define(function (require) {
+	"use strict";
+
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var register = require("delite/register");
+	var Switch = require("deliteful/Switch");
 	var container, html = "<d-switch id='b1' checkedLabel='\u05d0\u05d1\u05d2' " +
 		"uncheckedLabel='ABC' checked='true' textDir='ltr'></d-switch>" +
 		"<d-switch id='b2' checkedLabel='\u05d0\u05d1\u05d2' uncheckedLabel='ABC'" +
@@ -21,7 +22,7 @@ define([
 			beforeEach: function () {
 				container.innerHTML = html;
 			},
-			"ltr": function () {
+			ltr: function () {
 				register.deliver();
 				var b1 = document.getElementById("b1");
 				var div1 = b1.querySelector(".d-switch-leading");
@@ -29,7 +30,7 @@ define([
 				assert.strictEqual(b1.effectiveDir === "ltr" ? div1.textContent : div2.textContent,
 					"\u202a\u05d0\u05d1\u05d2\u202c", "ltr: wrong displayed value for 'checkedLabel'");
 			},
-			"rtl": function () {
+			rtl: function () {
 				register.deliver();
 				var b2 = document.getElementById("b2");
 				var div1 = b2.querySelector(".d-switch-leading");
@@ -37,7 +38,7 @@ define([
 				assert.strictEqual(b2.effectiveDir === "ltr" ? div2.textContent : div1.textContent,
 					"\u202bABC\u202c", "rtl: wrong displayed value for 'uncheckedLabel'");
 			},
-			"auto": function () {
+			auto: function () {
 				register.deliver();
 				var b3 = document.getElementById("b3");
 				var div1 = b3.querySelector(".d-switch-leading");
@@ -55,9 +56,11 @@ define([
 			beforeEach: function () {
 				container.innerHTML = html;
 			},
-			"textDir": function () {
-				var b1 = new Switch({id: "b1", checkedLabel: "\u05d0\u05d1\u05d2",
-					uncheckedLabel: "ABC", checked: true});
+			textDir: function () {
+				var b1 = new Switch({id: "b1",
+					checkedLabel: "\u05d0\u05d1\u05d2",
+					uncheckedLabel: "ABC",
+					checked: true});
 				b1.textDir = "ltr";
 				b1.placeAt(container);
 				var div1 = b1.querySelector(".d-switch-leading");
@@ -85,7 +88,7 @@ define([
 				assert.strictEqual(b1.effectiveDir === "ltr" ? div2.textContent : div1.textContent,
 					"\u202aABC\u202c", "auto: wrong displayed value for 'uncheckedLabel'");
 			},
-			"labels": function () {
+			labels: function () {
 				var b2 = new Switch({id: "b2"});
 				b2.textDir = "rtl";
 				b2.uncheckedLabel = "ABC";
@@ -101,7 +104,7 @@ define([
 				assert.strictEqual(b2.effectiveDir === "ltr" ? div1.textContent : div2.textContent,
 					"\u202a\u05d0\u05d1\u05d2\u202c", "checkdLabel: wrong displayed ltr value");
 			},
-			"title": function () {
+			title: function () {
 				var b3 = new Switch({id: "b3"});
 				b3.textDir = "auto";
 				b3.title = "\u05d0\u05d1\u05d2 ABC";

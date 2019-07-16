@@ -1,11 +1,12 @@
-define([
-	"dcl/dcl", "intern!object",
-	"intern/chai!assert",
-	"delite/register",
-	"deliteful/Button"
-], function (dcl, registerSuite, assert, register, Button) {
+define(function (require) {
+	"use strict";
 
-	function mix(a, b) {
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var register = require("delite/register");
+	var Button = require("deliteful/Button");
+
+	function mix (a, b) {
 		for (var n in b) {
 			a[n] = b[n];
 		}
@@ -99,7 +100,7 @@ define([
 			assert.strictEqual(b6.title, "", "b6.title after showLabel set (true).");
 		},
 
-		"pre-set title on showLabel (F/T)" : function () {
+		"pre-set title on showLabel (F/T)": function () {
 			var b7 = document.getElementById("b7");
 			assert.strictEqual(b7.title, "alternative title", "b7.title");
 			b7.showLabel = true;
@@ -107,7 +108,7 @@ define([
 			assert.strictEqual(b7.title, "alternative title", "b7.title after showLabel set.");
 		},
 
-		"pre-set title on showLabel (T/F)" : function () {
+		"pre-set title on showLabel (T/F)": function () {
 			var b8 = document.getElementById("b8");
 			assert.strictEqual(b8.title, "alternative title", "b8.title");
 			b8.showLabel = false;
@@ -115,7 +116,7 @@ define([
 			assert.strictEqual(b8.title, "alternative title", "b8.title after showLabel set.");
 		},
 
-		"pre-set title on label" : function () {
+		"pre-set title on label": function () {
 			var b7 = document.getElementById("b7");
 			assert.strictEqual(b7.label, "on", "b7.title");
 			assert.strictEqual(b7.title, "alternative title", "b7.title");
@@ -147,7 +148,7 @@ define([
 			assert.strictEqual(b.getAttribute("aria-label"), "off", "b6.aria-label on label change");
 		},
 
-		afterEach: function () {
+		"afterEach": function () {
 			container.parentNode.removeChild(container);
 		}
 	};

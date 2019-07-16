@@ -1,12 +1,13 @@
-define([
-	"intern!object",
-	"intern/chai!assert",
-	"deliteful/Slider"
-], function (registerSuite, assert, Slider) {
+define(function (require) {
+	"use strict";
+
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var Slider = require("deliteful/Slider");
 	var msgPrefix = "";
 
 	registerSuite({
-		name: "Single Slider",
+		"name": "Single Slider",
 		"Default values": function () {
 			msgPrefix = this.id;
 			var slider = createSingleSlider();
@@ -87,7 +88,7 @@ define([
 	});
 
 	registerSuite({
-		name: "Dual Slider",
+		"name": "Dual Slider",
 		"Default values": function () {
 			msgPrefix = this.id;
 			var slider = createDualSlider();
@@ -193,27 +194,27 @@ define([
 		}
 	});
 
-	function createSingleSlider() {
+	function createSingleSlider () {
 		var slider = new Slider();
 		slider.placeAt(document.body);
 		return slider;
 	}
-	function createDualSlider() {
+	function createDualSlider () {
 		var slider = new Slider({value: ","});
 		slider.placeAt(document.body);
 		return slider;
 	}
 
-	function destroySlider(slider) {
+	function destroySlider (slider) {
 		slider.destroy();
 		slider = null;
 	}
 
-	function assertMessage(message) {
+	function assertMessage (message) {
 		return "[" + msgPrefix + "] " + message;
 	}
 
-	function checkSliderProperties(slider, min, max, step, flip, vertical, value) {
+	function checkSliderProperties (slider, min, max, step, flip, vertical, value) {
 		// public attribute:min
 		assert.strictEqual(slider.min, min, assertMessage("min"));
 		// public attribute:max

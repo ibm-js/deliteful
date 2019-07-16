@@ -1,20 +1,21 @@
-define([
-	"intern!object",
-	"intern/chai!assert",
-	"dojo/dom-geometry",
-	"delite/register",
-	"delite/uacss",
-	"deliteful/LinearLayout"
-], function (registerSuite, assert, domGeom, register, has) {
+define(function (require) {
+	"use strict";
+
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var domGeom = require("dojo/dom-geometry");
+	var register = require("delite/register");
+	var has = require("delite/uacss");
+	require("deliteful/LinearLayout");
 	var container, node;
 	var htmlContent =
 		"<d-linear-layout id='dlayout' vertical='false' style='width:999px; height:999px'>" +
 			"<div id='divA' class='fill'>A</div><div id='divB' class='fill'>B</div>" +
 			"<div id='divC' class='fill'>C</div></d-linear-layout>";
 	registerSuite({
-		name: "LinearLayout-direction",
+		"name": "LinearLayout-direction",
 
-		setup: function () {
+		"setup": function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
 			container.innerHTML = htmlContent;
@@ -22,7 +23,7 @@ define([
 			node = document.getElementById("dlayout");
 		},
 
-		"Horizontal LinearLayout 3 Equal Width" : function () {
+		"Horizontal LinearLayout 3 Equal Width": function () {
 			var children = node.getChildren();
 			assert.strictEqual(children.length, 3);
 			var box1 = domGeom.getMarginBox(children[0]);
@@ -33,7 +34,7 @@ define([
 			assert.strictEqual(box3.w, 333, "box3.w");
 		},
 
-		"Vertical LinearLayout 3 Equal Height" : function () {
+		"Vertical LinearLayout 3 Equal Height": function () {
 			if (has("safari")) {
 				return this.skip("Changing vertical broken on safari, see " +
 					"https://github.com/ibm-js/deliteful/issues/701");
@@ -50,7 +51,7 @@ define([
 			assert.strictEqual(box3.h, 333, "box3.h");
 		},
 
-		teardown : function () {
+		"teardown": function () {
 			container.parentNode.removeChild(container);
 		}
 

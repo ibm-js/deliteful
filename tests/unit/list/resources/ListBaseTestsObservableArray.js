@@ -1,12 +1,9 @@
-define([
-	"intern/chai!assert",
-	"decor/ObservableArray",
-	"decor/Observable"
-], function (
-	assert,
-	ObservableArray,
-	Observable
-) {
+define(function (require) {
+	"use strict";
+
+	var assert = require("intern/chai!assert");
+	var ObservableArray = require("decor/ObservableArray");
+	var Observable = require("decor/Observable");
 
 	return {
 		/**
@@ -17,8 +14,8 @@ define([
 		buildSuite: function (name,
 			ListConstructor) {
 			return {
-				name: name,
-				beforeEach: function () {
+				"name": name,
+				"beforeEach": function () {
 					if (this.list) {
 						this.list.destroy();
 					}
@@ -57,7 +54,7 @@ define([
 						"item 5", "updated second item");
 				},
 
-				"baseClass update" : function () {
+				"baseClass update": function () {
 					var list = this.parent.list;
 					assert.isTrue(list.classList.contains("d-list"));
 					list.baseClass = "d-round-rect-list";
@@ -240,7 +237,7 @@ define([
 					assert.strictEqual(renderer.renderNode.children[1].innerHTML, "item a");
 				},
 
-				"update item: add, update and remove icon" : function () {
+				"update item: add, update and remove icon": function () {
 					var list = new ListConstructor({source: new ObservableArray()});
 					list.placeAt(document.body);	// StoreMap defers query until node attached to document
 
@@ -343,7 +340,7 @@ define([
 					}
 					list.deliver();
 					assert.isNotNull(list.querySelector(".d-list-no-items[d-shown='true']"),
-					".d-list-no-items must be visible");
+						".d-list-no-items must be visible");
 					list.source.push({id: "0", label: "item 0"});
 					list.source.push({id: "1", label: "item 1"});
 					list.deliver();

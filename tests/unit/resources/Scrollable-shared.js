@@ -1,6 +1,7 @@
-define([
-	"intern/chai!assert"
-], function (assert) {
+define(function (require) {
+	"use strict";
+
+	var assert = require("intern/chai!assert");
 
 	// Test cases for both delite/Scrollable and deliteful/ScrollableContainer.
 	// Since we can not reuse test files across projects, there are two copies of
@@ -17,21 +18,21 @@ define([
 		"Default CSS": function () {
 			var w = document.getElementById("sc1");
 			assert.isTrue(w.classList.contains(shared.containerCSSClassName),
-					"Expecting " + shared.containerCSSClassName + " CSS class! (id='sc1')");
+				"Expecting " + shared.containerCSSClassName + " CSS class! (id='sc1')");
 			assert.isTrue(w.classList.contains("d-scrollable"), // class added by the mixin delite/Scrollable
 				"Expecting d-scrollable CSS class! (id='sc1')");
 
 			w = document.getElementById("sc2"); // with scrollDirection == "none"
 			assert.strictEqual(w.scrollDirection, "none", "wrong scroll direction for id=sc2!");
 			assert.isTrue(w.classList.contains(shared.containerCSSClassName),
-					"Expecting " + shared.containerCSSClassName + " CSS class! (id='sc2')");
+				"Expecting " + shared.containerCSSClassName + " CSS class! (id='sc2')");
 			// when scrollDirection is "none", this CSS class should NOT be present:
 			assert.isFalse(w.classList.contains("d-scrollable"),
 				"Not expecting d-scrollable CSS class! (id='sc2')");
 
 			w = document.getElementById("mysc1");
 			assert.isTrue(w.classList.contains(shared.containerCSSClassName),
-					"Expecting " + shared.containerCSSClassName + " CSS class! (id='mysc1')");
+				"Expecting " + shared.containerCSSClassName + " CSS class! (id='mysc1')");
 			assert.isTrue(w.classList.contains("d-scrollable"), // class added by the mixin delite/Scrollable
 				"Expecting d-scrollable CSS class! (id='mysc1')");
 		},
@@ -39,14 +40,14 @@ define([
 		"CSS class dependency on scrollDirection": function () {
 			var w = document.getElementById("sc1");
 			assert.isTrue(w.classList.contains(shared.containerCSSClassName),
-					"Expecting " + shared.containerCSSClassName + " CSS class! (id='sc1')");
+				"Expecting " + shared.containerCSSClassName + " CSS class! (id='sc1')");
 			assert.isTrue(w.classList.contains("d-scrollable"), // class added by the mixin delite/Scrollable
 				"Expecting d-scrollable CSS class! (id='sc1')");
 
 			w.scrollDirection = "none";
 			w.deliver(); // scrollDirection is an invalidating property
 			assert.isTrue(w.classList.contains(shared.containerCSSClassName),
-					"Expecting " + shared.containerCSSClassName + " CSS class! (scrollDirection='none')");
+				"Expecting " + shared.containerCSSClassName + " CSS class! (scrollDirection='none')");
 			// when scrollDirection is "none", this CSS class should NOT be present:
 			assert.isFalse(w.classList.contains("d-scrollable"),
 				"Not expecting d-scrollable CSS class! (scrollDirection='none')");
@@ -54,28 +55,28 @@ define([
 			w.scrollDirection = "vertical"; // set back to "vertical"
 			w.deliver();
 			assert.isTrue(w.classList.contains(shared.containerCSSClassName),
-					"Expecting " + shared.containerCSSClassName + " CSS class! (scrollDirection='vertical')");
+				"Expecting " + shared.containerCSSClassName + " CSS class! (scrollDirection='vertical')");
 			assert.isTrue(w.classList.contains("d-scrollable"), // class added by the mixin delite/Scrollable
 				"Expecting d-scrollable CSS class! (scrollDirection='vertical')");
 
 			w.scrollDirection = "horizontal"; // same for "horizontal"
 			w.deliver();
 			assert.isTrue(w.classList.contains(shared.containerCSSClassName),
-					"Expecting " + shared.containerCSSClassName + " CSS class! (scrollDirection='horizontal')");
+				"Expecting " + shared.containerCSSClassName + " CSS class! (scrollDirection='horizontal')");
 			assert.isTrue(w.classList.contains("d-scrollable"), // class added by the mixin delite/Scrollable
 				"Expecting d-scrollable CSS class! (scrollDirection='horizontal')");
 
 			w.scrollDirection = "both"; // same for "both"
 			w.deliver();
 			assert.isTrue(w.classList.contains(shared.containerCSSClassName),
-					"Expecting " + shared.containerCSSClassName + " CSS class! (scrollDirection='both')");
+				"Expecting " + shared.containerCSSClassName + " CSS class! (scrollDirection='both')");
 			assert.isTrue(w.classList.contains("d-scrollable"), // class added by the mixin delite/Scrollable
 				"Expecting d-scrollable CSS class! (scrollDirection='both')");
 
 			w.scrollDirection = "none"; // and none again
 			w.deliver();
 			assert.isTrue(w.classList.contains(shared.containerCSSClassName),
-					"Expecting " + shared.containerCSSClassName + " CSS class! (scrollDirection='none')");
+				"Expecting " + shared.containerCSSClassName + " CSS class! (scrollDirection='none')");
 			// when scrollDirection is "none", this CSS class should NOT be present:
 			assert.isFalse(w.classList.contains("d-scrollable"),
 				"Not expecting d-scrollable CSS class! (scrollDirection='none')");

@@ -1,8 +1,9 @@
-define([
-	"dojo/_base/declare",
-	"dstore/Request",
-	"dojo/Deferred"
-], function (declare, Request, Deferred) {
+define(function (require) {
+	"use strict";
+
+	var declare = require("dojo/_base/declare");
+	var Request = require("dstore/Request");
+	var Deferred = require("dojo/Deferred");
 
 	return declare([Request], {
 
@@ -50,8 +51,8 @@ define([
 
 			var randomWait = Math.floor(Math.random() * 5000) + 250;
 			return {
-				data: this.sleepFor(query.beResponsive ? 0 : randomWait, data).then(function (data) {
-					return data.resolve(matchingItems);
+				data: this.sleepFor(query.beResponsive ? 0 : randomWait, data).then(function (data2) {
+					return data2.resolve(matchingItems);
 				}),
 				total: total.resolve(matchingItems.length),
 				response: response.resolve()

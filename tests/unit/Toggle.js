@@ -1,12 +1,12 @@
-define([
-	"dcl/dcl",
-	"intern!object",
-	"intern/chai!assert",
-	"delite/register",
-	"deliteful/Toggle"
-], function (dcl, registerSuite, assert, register, Toggle) {
+define(function (require) {
+	"use strict";
 
-	function mix(a, b) {
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var register = require("delite/register");
+	var Toggle = require("deliteful/Toggle");
+
+	function mix (a, b) {
 		for (var n in b) {
 			a[n] = b[n];
 		}
@@ -40,7 +40,7 @@ define([
 			assert.strictEqual(cb1.checked, !old, "Unexpected value for 'checked' property after set.");
 		},
 
-		toggle: function () {
+		"toggle": function () {
 			var cb1 = document.getElementById("cb1"),
 				old = cb1.checked;
 			cb1.toggle();
@@ -50,7 +50,7 @@ define([
 			assert.strictEqual(cb1.checked, !old, "Unexpected 'checked' value after toggle() in disabled state.");
 		},
 
-		afterEach: function () {
+		"afterEach": function () {
 			container.parentNode.removeChild(container);
 		}
 	};

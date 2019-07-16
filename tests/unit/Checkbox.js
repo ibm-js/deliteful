@@ -1,13 +1,13 @@
-define([
-	"dcl/dcl",
-	"intern!object",
-	"intern/chai!assert",
-	"delite/register",
-	"deliteful/Checkbox",
-	"./resources/Checkbox-shared"
-], function (dcl, registerSuite, assert, register, Checkbox, commonSuite) {
+define(function (require) {
+	"use strict";
 
-	function mix(a, b) {
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var register = require("delite/register");
+	var Checkbox = require("deliteful/Checkbox");
+	var commonSuite = require("./resources/Checkbox-shared");
+
+	function mix (a, b) {
 		for (var n in b) {
 			a[n] = b[n];
 		}
@@ -27,7 +27,7 @@ define([
 				inputType: "checkbox"
 			});
 		},
-		"initState": function () {
+		initState: function () {
 			var cb2 = document.getElementById("cb2");
 			assert.strictEqual(cb2.value, "foo",
 				"Unexpected default value for 'value' property if 'value' specified/unchecked");
@@ -43,7 +43,7 @@ define([
 	// Markup
 	var markupSuite = {
 		name: "deliteful/Checkbox: markup",
-		"beforeEach": function () {
+		beforeEach: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
 			container.innerHTML = html;

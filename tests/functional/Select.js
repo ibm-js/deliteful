@@ -1,10 +1,11 @@
-define(["intern",
-	"intern!object",
-	"intern/dojo/node!leadfoot/helpers/pollUntil",
-	"intern/dojo/node!leadfoot/keys",
-	"intern/chai!assert",
-	"require"
-	], function (intern, registerSuite, pollUntil, keys, assert, require) {
+define(function (require) {
+	"use strict";
+
+	var intern = require("intern");
+	var registerSuite = require("intern!object");
+	var pollUntil = require("intern/dojo/node!leadfoot/helpers/pollUntil");
+	var keys = require("intern/dojo/node!leadfoot/keys");
+	var assert = require("intern/chai!assert");
 	
 	var checkNumberOfOptions = function (remote, selectId, expectedNumberOfOptions) {
 		return remote
@@ -143,9 +144,9 @@ define(["intern",
 		return remote
 			.execute(selectId + ".focus(); " + executeExpr)
 			.then(function (value) {
-				// In a multiple-select no option is selected initially 
+				// In a multiple-select no option is selected initially
 				// (holds for the widget's delite/Selection API as for the
-				// native select). 
+				// native select).
 				assert.strictEqual(value.widgetSelectedItemText, selItemNullStr,
 					"(multiple) after focus, " + selectId + ".selectedItem.text");
 				assert.strictEqual(value.widgetValueNodeSelectedIndex, -1,
@@ -172,7 +173,7 @@ define(["intern",
 				assert.strictEqual(value.widgetValueNodeNSelectedOptions, 1,
 					"(multiple) after first arrow down key, " + selectId +
 					".valueNode_nSelectedOptions");
-				// Changed from no option selected to one option selected: one 
+				// Changed from no option selected to one option selected: one
 				// single select-change event from delite/Selection
 				assert.strictEqual(value.widgetSelectionChangeCounter, 1,
 					"(multiple) after first arrow down key, " + selectId +
@@ -216,7 +217,7 @@ define(["intern",
 				assert.strictEqual(value.widgetValueNodeNSelectedOptions, 2,
 					"(multiple) after shift arrow down key, " + selectId +
 					".valueNode_nSelectedOptions");
-				// Changed from one option selected to two option selected: one 
+				// Changed from one option selected to two option selected: one
 				// single additional select-change event from delite/Selection
 				assert.strictEqual(value.widgetSelectionChangeCounter, 4,
 					"(multiple) after shift arrow down key, " + selectId +
@@ -238,7 +239,7 @@ define(["intern",
 				assert.strictEqual(value.widgetValueNodeNSelectedOptions, 1,
 					"(multiple) after arrow up key, " + selectId +
 					".valueNode_nSelectedOptions");
-				// Changed from two options selected to one option selected: one 
+				// Changed from two options selected to one option selected: one
 				// single additional select-change event from delite/Selection
 				assert.strictEqual(value.widgetSelectionChangeCounter, 5,
 					"(multiple) after arrow up key, " + selectId +
@@ -250,13 +251,13 @@ define(["intern",
 	var nOptions = 40;
 	
 	registerSuite({
-		name: "deliteful/Select - functional",
+		"name": "deliteful/Select - functional",
 
 		"setup": function () {
 			return this.remote
 				.get(require.toUrl("./Select.html"))
 				.then(pollUntil("return ready ? true : null;", [],
-						intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
+					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 		},
 		/* The content of Select.html:
 		1. deliteful/Select created declaratively:
@@ -265,7 +266,7 @@ define(["intern",
 		4. deliteful/Select created programmatically:
 		5. deliteful/Select created declaratively with no options (empty):
 		6. deliteful/Select created programmatically with no options (empty):
-		7. deliteful/Select created declaratively with larger font-size, font-family:Courier, 
+		7. deliteful/Select created declaratively with larger font-size, font-family:Courier,
 		border-radius, and background-color (with default source):
 		*/
 		"init (declaratively, default source)": function () {
@@ -288,7 +289,7 @@ define(["intern",
 		},
 		
 		// Check that after pressing the update button the Select widget still has
-		// the expected number of options and the options now contain the 
+		// the expected number of options and the options now contain the
 		// updated text content.
 		"update (declaratively, default source)": function () {
 			return updateAndCheckNumberOfOptions(

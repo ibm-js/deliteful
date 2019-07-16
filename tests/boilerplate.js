@@ -39,7 +39,7 @@ if (window.location.href.indexOf("?") > -1) {
 
 // Find the <script src="boilerplate.js"> tag, to get test directory and data-config argument
 var scripts = document.getElementsByTagName("script"), script, overrides = {}, testDir;
-for (i = 0; (script = scripts[i]); i++) {
+for (var j = 0; (script = scripts[j]); j++) {
 	var src = script.getAttribute("src"),
 		match = src && src.match(/(.*|^)boilerplate\.js/i);
 	if (match) {
@@ -66,12 +66,12 @@ require = {
 	locale: locale || "en-us",
 	config: {
 		"requirejs-dplugins/has": {
-			"bidi": dir === "rtl"
+			bidi: dir === "rtl"
 		}
 	}
 };
-for (var key in overrides) {
-	require[key] = overrides[key];
+for (var key2 in overrides) {
+	require[key2] = overrides[key2];
 }
 
 // Output the boilerplate text to load the loader.
@@ -93,8 +93,8 @@ boilerplateOnLoad = function () {
 		// pretend all the labels are in an RTL language, because
 		// that affects how they lay out relative to inline form widgets
 		var labels = document.body.querySelectorAll("label");
-		for (var i = 0; i < labels.length; i++) {
-			labels[i].setAttribute("dir", "rtl");
+		for (var k = 0; k < labels.length; k++) {
+			labels[k].setAttribute("dir", "rtl");
 		}
 	}
 };

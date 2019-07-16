@@ -1,16 +1,16 @@
-define([
-    "intern",
-	"intern!object",
-	"intern/dojo/node!leadfoot/helpers/pollUntil",
-	"intern/chai!assert",
-	"intern/dojo/node!leadfoot/keys",
-	"require"
-], function (intern, registerSuite, pollUntil, assert, keys, require) {
+define(function (require) {
+	"use strict";
+
+	var intern = require("intern");
+	var registerSuite = require("intern!object");
+	var pollUntil = require("intern/dojo/node!leadfoot/helpers/pollUntil");
+	var assert = require("intern/chai!assert");
+	var keys = require("intern/dojo/node!leadfoot/keys");
 
 	registerSuite({
-		name: "DatePicker - functional",
+		"name": "DatePicker - functional",
 
-		setup: function () {
+		"setup": function () {
 			return this.remote
 				.get(require.toUrl("./DatePicker.html"))
 				.then(pollUntil("return ready ? true : null;", [],
@@ -62,7 +62,7 @@ define([
 				}).end();
 		},
 
-		selection: {
+		"selection": {
 			"current month": function () {
 				return this.remote
 					.execute("document.getElementById('calendar1').value = new Date(2000, 0, 1);")
@@ -309,7 +309,7 @@ define([
 					.end();
 			},
 
-			navigation: function () {
+			"navigation": function () {
 				return this.remote
 					.execute("document.getElementById('calendar1').value = new Date(2000, 1, 1);")
 
@@ -423,8 +423,8 @@ define([
 			}
 		},
 
-		keyboard: {
-			setup: function () {
+		"keyboard": {
+			"setup": function () {
 				var remote = this.remote;
 				if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 					return this.skip("no keyboard support");

@@ -1,14 +1,15 @@
-define([
-	"intern!object",
-	"intern/chai!assert",
-	"dojo/Deferred",
-	"delite/register",
-	"deliteful/list/Renderer",
-], function (registerSuite, assert, Deferred, register, Renderer) {
-/* jshint nonew: false */
+define(function (require) {
+	"use strict";
+
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var register = require("delite/register");
+	var Renderer = require("deliteful/list/Renderer");
+
+	/* jshint nonew: false */
 	registerSuite({
-		name: "list/Renderer",
-		"Exception thrown if template does not define renderNode" : function () {
+		"name": "list/Renderer",
+		"Exception thrown if template does not define renderNode": function () {
 			var FaultyRenderer = register("d-faulty-renderer", [HTMLElement, Renderer], {
 				render: function () {
 					this.appendChild(this.ownerDocument.createElement("div"));
@@ -29,9 +30,9 @@ define([
 			window.onerror = oldErrorHandler;
 			assert.isNotNull(errorMessage, "error expected");
 			assert.isTrue(errorMessage.indexOf(
-					"render must define a renderNode property on the Renderer") >= 0, "error message");
+				"render must define a renderNode property on the Renderer") >= 0, "error message");
 		},
-		"No exception thrown if render defines renderNode" : function () {
+		"No exception thrown if render defines renderNode": function () {
 			var CorrectRenderer = register("d-correct-renderer", [HTMLElement, Renderer], {
 				render: function () {
 					this.renderNode = this.ownerDocument.createElement("div");

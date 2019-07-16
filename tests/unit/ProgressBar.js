@@ -1,14 +1,15 @@
-define([
-	"intern!object",
-	"intern/chai!assert",
-	"deliteful/ProgressBar"
-], function (registerSuite, assert, ProgressBar) {
+define(function (require) {
+	"use strict";
+
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var ProgressBar = require("deliteful/ProgressBar");
 	var progressBar = null,
 		TEST_MSG = "test custom message"; //test message
 
 	registerSuite({
-		name: "ProgressBar",
-		setup: function () {
+		"name": "ProgressBar",
+		"setup": function () {
 			progressBar = new ProgressBar({lang: "en-US"});
 			progressBar.placeAt(document.body);
 		},
@@ -162,17 +163,17 @@ define([
 			assert.strictEqual(1.0, max);
 			pb.destroy();
 		},
-		teardown: function () {
+		"teardown": function () {
 			progressBar.destroy();
 			progressBar = null;
 		}
 	});
 
-	function removeWhiteSpaces(value) {
+	function removeWhiteSpaces (value) {
 		return value.replace(/ /g, "");
 	}
 
-	function checkFractionDigits(value) {
+	function checkFractionDigits (value) {
 		//check property
 		assert.strictEqual(progressBar.fractionDigits, value);
 		//check that displayed value actually enforces the fractionDigits property
@@ -187,12 +188,12 @@ define([
 	}
 
 	//simple helper to test if an element contains a class
-	function hasClass(element, className) {
+	function hasClass (element, className) {
 		return (" " + element.className.replace(/\s{2,}/g, " ") + " ").indexOf(" " + className + " ") > -1;
 	}
 
 	//check aria attribute definitions and values
-	function checkAria(indeterminate) {
+	function checkAria (indeterminate) {
 		//min: always present
 		assert.ok(progressBar.hasAttribute("aria-valuemin"));
 		assert.strictEqual(progressBar.getAttribute("aria-valuemin"), "0");
@@ -223,7 +224,7 @@ define([
 
 	//check if percentage is ok regarding current value/max props.
 	//set isOutOfRange to true is the value is < 0 or > max
-	function checkPercentage(value, isOutOfRange) {
+	function checkPercentage (value, isOutOfRange) {
 		if (isOutOfRange) {
 			//correct value
 			value = Math.min(Math.max(0, value), progressBar.max);
@@ -235,32 +236,32 @@ define([
 
 	//check indicatorNode width is a percentage.
 	//Returns the percentage value as a number (without the leading %).
-	function checkIndicatorNodeWidth(fractionDigit) {
+	function checkIndicatorNodeWidth (fractionDigit) {
 		var width = progressBar.indicatorNode.style.width;
 		assert.isTrue(/%$/.test(width), "indicatorNode.style.width (" + width + ") should end with %");
 		return Number(width.slice(0, -1)).toFixed(fractionDigit ? fractionDigit : 0);
 	}
 
 	//compute a percentage relative to max and returns a number
-	function computePercentage(value, fractionDigit) {
+	function computePercentage (value, fractionDigit) {
 		return (value / progressBar.max  * 100)
 			.toFixed(fractionDigit ? fractionDigit : 0);
 	}
 
 	//check indeterminate state artifacts
-	function checkIndeterminate() {
+	function checkIndeterminate () {
 		assert.ok(hasClass(progressBar, "d-progress-bar-indeterminate"));
 		assert.notOk(progressBar.indicatorNode.style.width);
 	}
 
 	//check if NOT indeterminate
-	function checkDeterminate() {
+	function checkDeterminate () {
 		assert.notOk(hasClass(progressBar, "d-progress-bar-indeterminate"));
 		assert.ok(progressBar.indicatorNode.style.width);
 	}
 
 	//check message
-	function checkMessage(message, isIndeterminate) {
+	function checkMessage (message, isIndeterminate) {
 		var msg = progressBar.msgNode.innerHTML;
 		if (message) {
 			//custom message: should be displayed as-is
@@ -292,7 +293,7 @@ define([
 	}
 
 	//check extra message
-	function checkExtMsg(isIndeterminate) {
+	function checkExtMsg (isIndeterminate) {
 		if (isIndeterminate) {
 			assert.notOk(hasClass(progressBar.msgNode, "d-progress-bar-msg-ext"),
 				"checkExtMsg: d-progress-bar-msg-ext shouldn't be set when indeterminate");

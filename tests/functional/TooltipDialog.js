@@ -1,11 +1,11 @@
-define([
-    "intern",
-	"intern!object",
-	"intern/dojo/node!leadfoot/helpers/pollUntil",
-	"intern/chai!assert",
-	"intern/dojo/node!leadfoot/keys",
-	"require"
-], function (intern, registerSuite, pollUntil, assert, keys, require) {
+define(function (require) {
+	"use strict";
+
+	var intern = require("intern");
+	var registerSuite = require("intern!object");
+	var pollUntil = require("intern/dojo/node!leadfoot/helpers/pollUntil");
+	var assert = require("intern/chai!assert");
+	var keys = require("intern/dojo/node!leadfoot/keys");
 
 	registerSuite({
 		name: "TooltipDialog - functional",

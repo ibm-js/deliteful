@@ -1,8 +1,9 @@
-define([
-	"intern!object",
-	"deliteful/list/List",
-	"./resources/ListBaseTestsObservableArray"
-], function (registerSuite, List, ListBaseTestsObservableArray) {
+define(function (require) {
+	"use strict";
+
+	var registerSuite = require("intern!object");
+	var List = require("deliteful/list/List");
+	var ListBaseTestsObservableArray = require("./resources/ListBaseTestsObservableArray");
 
 	registerSuite(ListBaseTestsObservableArray.buildSuite("list/List-ObservableArray", List));
 

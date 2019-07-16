@@ -1,71 +1,72 @@
-define(["intern",
-	"intern!object",
-	"intern/dojo/node!leadfoot/helpers/pollUntil",
-	"intern/dojo/node!leadfoot/keys",
-	"intern/chai!assert",
-	"require"
-], function (intern, registerSuite, pollUntil, keys, assert, require) {
+define(function (require) {
+	"use strict";
+
+	var intern = require("intern");
+	var registerSuite = require("intern!object");
+	var pollUntil = require("intern/dojo/node!leadfoot/helpers/pollUntil");
+	var keys = require("intern/dojo/node!leadfoot/keys");
+	var assert = require("intern/chai!assert");
 	var PAGE = "./Accordion.html";
 
-	function checkPanelIsOpen(remote, panel) {
+	function checkPanelIsOpen (remote, panel) {
 		return remote
 			.findById(panel)
-				.getProperty("open")
-				.then(function (open) {
-					assert.isTrue(open, panel + ".open");
-				})
-				.isDisplayed()
-				.then(function (displayed) {
-					assert.isTrue(displayed, panel + " visible");
-				})
-				.end()
+			.getProperty("open")
+			.then(function (open) {
+				assert.isTrue(open, panel + ".open");
+			})
+			.isDisplayed()
+			.then(function (displayed) {
+				assert.isTrue(displayed, panel + " visible");
+			})
+			.end()
 			.findByCssSelector("#" + panel + "-header")
-				.getProperty("open")
-				.then(function (checked) {
-					assert.isTrue(checked, panel + ".header.open");
-				})
-				.end()
+			.getProperty("open")
+			.then(function (checked) {
+				assert.isTrue(checked, panel + ".header.open");
+			})
+			.end()
 			.execute("return document.getElementById(" + panel + ")")
-				.then(function (elem) {
-					pollUntil(function (val) {
-						var classes = val.getAttribute("class");
-						classes = classes.trim().split(/\s+/g);
-						return classes.indexOf("d-accordion-open-panel") !== -1 ? true : null;
-					}, [elem], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL);
-				})
-				.end();
+			.then(function (elem) {
+				pollUntil(function (val) {
+					var classes = val.getAttribute("class");
+					classes = classes.trim().split(/\s+/g);
+					return classes.indexOf("d-accordion-open-panel") !== -1 ? true : null;
+				}, [elem], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL);
+			})
+			.end();
 	}
 
-	function checkPanelIsClosed(remote, panel) {
+	function checkPanelIsClosed (remote, panel) {
 		return remote
 			.findById(panel)
-				.getProperty("open")
-				.then(function (open) {
-					assert.isFalse(open, panel + ".open");
-				})
-				.isDisplayed()
-				.then(function (displayed) {
-					assert.isFalse(displayed, panel + " hidden");
-				})
-				.end()
+			.getProperty("open")
+			.then(function (open) {
+				assert.isFalse(open, panel + ".open");
+			})
+			.isDisplayed()
+			.then(function (displayed) {
+				assert.isFalse(displayed, panel + " hidden");
+			})
+			.end()
 			.findByCssSelector("#" + panel + "-header")
-				.getProperty("open")
-				.then(function (checked) {
-					assert.isFalse(checked, panel + ".header.open");
-				})
-				.end()
+			.getProperty("open")
+			.then(function (checked) {
+				assert.isFalse(checked, panel + ".header.open");
+			})
+			.end()
 			.execute("return document.getElementById(" + panel + ")")
-				.then(function (elem) {
-					pollUntil(function (val) {
-						return val.style.display === "none" ? false : null;
-					}, [elem], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL);
-				})
-				.end();
+			.then(function (elem) {
+				pollUntil(function (val) {
+					return val.style.display === "none" ? false : null;
+				}, [elem], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL);
+			})
+			.end();
 	}
 
 	registerSuite({
-		name: "Accordion tests",
-		setup: function () {
+		"name": "Accordion tests",
+		"setup": function () {
 			var remote = this.remote;
 			return remote
 				.get(require.toUrl(PAGE))
@@ -88,7 +89,7 @@ define(["intern",
 		},
 
 		"SingleOpen Mode - mouse": {
-			beforeEach: function () {
+			"beforeEach": function () {
 				// Try to make the tests independent by starting in a state where the first panel is open.
 				return this.remote
 					.findByCssSelector("#panel1-header [aria-controls]").click().end().sleep(500);
@@ -130,14 +131,14 @@ define(["intern",
 		},
 
 		"SingleOpen Mode - keyboard": {
-			setup: function () {
+			"setup": function () {
 				var remote = this.remote;
 				if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 					return this.skip("no keyboard support");
 				}
 			},
 
-			beforeEach: function () {
+			"beforeEach": function () {
 				// Always start with the first panel open, and focus before the accordion.
 				return this.remote
 					.findByCssSelector("#panel1-header [aria-controls]").click().end()
@@ -295,7 +296,7 @@ define(["intern",
 		},
 
 		"MultipleOpen Mode": {
-			setup: function () {
+			"setup": function () {
 				var remote = this.remote;
 				return remote
 					.execute("document.getElementById('accordion').style.display = 'none'")
@@ -306,12 +307,12 @@ define(["intern",
 				var remote = this.remote;
 				return remote
 					.findByCssSelector("#panel22-header [aria-controls]")
-						.click()
-						.end()
+					.click()
+					.end()
 					.sleep(500)
 					.findByCssSelector("#panel23-header [aria-controls]")
-						.click()
-						.end()
+					.click()
+					.end()
 					.sleep(500)
 					.then(function () {
 						return checkPanelIsOpen(remote, "panel21");
@@ -328,8 +329,8 @@ define(["intern",
 				var remote = this.remote;
 				return remote
 					.findByCssSelector("#panel22-header [aria-controls]")
-						.click()
-						.end()
+					.click()
+					.end()
 					.sleep(500)
 					.then(function () {
 						return checkPanelIsOpen(remote, "panel21");
@@ -341,8 +342,8 @@ define(["intern",
 						return checkPanelIsOpen(remote, "panel23");
 					})
 					.findByCssSelector("#panel23-header [aria-controls]")
-						.click()
-						.end()
+					.click()
+					.end()
 					.sleep(500)
 					.then(function () {
 						return checkPanelIsOpen(remote, "panel21");
@@ -359,8 +360,8 @@ define(["intern",
 				var remote = this.remote;
 				return remote
 					.findByCssSelector("#panel21-header [aria-controls]")
-						.click()
-						.end()
+					.click()
+					.end()
 					.sleep(500)
 					.then(function () {
 						return checkPanelIsOpen(remote, "panel21");
@@ -471,7 +472,7 @@ define(["intern",
 			}
 		},
 
-		allowAllClosed: {
+		"allowAllClosed": {
 			singleOpen: function () {
 				var remote = this.remote;
 				return remote

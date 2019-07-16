@@ -1,11 +1,12 @@
-define([
-	"intern!object",
-	"intern/chai!assert",
-	"deliteful/TimeBase"
-], function (registerSuite, assert, TimeBase) {
+define(function (require) {
+	"use strict";
+
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var TimeBase = require("deliteful/TimeBase");
 
 
-	function dateStruct(date) {
+	function dateStruct (date) {
 		return {
 			year: date.getFullYear(),
 			month: date.getMonth(),
@@ -13,7 +14,7 @@ define([
 		};
 	}
 
-	function dateTimeStruct(date) {
+	function dateTimeStruct (date) {
 		return {
 			year: date.getFullYear(),
 			month: date.getMonth(),

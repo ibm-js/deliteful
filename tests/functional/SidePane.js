@@ -1,14 +1,12 @@
-/**
- * SidePane functional tests
- */
-define(["intern",
-    "intern!object",
-    "intern/dojo/node!leadfoot/helpers/pollUntil",
-	"intern/chai!assert",
-	"require"
-], function (intern, registerSuite, pollUntil, assert, require) {
+define(function (require) {
+	"use strict";
+
+	var intern = require("intern");
+	var registerSuite = require("intern!object");
+	var pollUntil = require("intern/dojo/node!leadfoot/helpers/pollUntil");
+	var assert = require("intern/chai!assert");
 	registerSuite({
-		name: "SidePane",
+		"name": "SidePane",
 		"init": function () {
 			var remote = this.remote;
 			return loadTestPage(remote, "./SidePane.html").sleep(50);
@@ -54,7 +52,7 @@ define(["intern",
 		}*/
 	});
 
-	function checkCssClasses(classString, args) {
+	function checkCssClasses (classString, args) {
 		args = Array.prototype.slice.call(arguments);
 		args.shift();
 		var nodeClasses = classString.split(" ");
@@ -62,12 +60,12 @@ define(["intern",
 		while (args.length > 0) {
 			cls = args.shift();
 			assert.isTrue(nodeClasses.indexOf(cls) !== -1,
-					"SidePane should contains the class " + cls);
+				"SidePane should contains the class " + cls);
 		}
 	}
 
-	function isVisible(element, v) {
-		var errMsg = "SidePane should be" + (v ? " ":" not ") + "visible";
+	function isVisible (element, v) {
+		var errMsg = "SidePane should be" + (v ? " " : " not ") + "visible";
 		element.getComputedStyle("display").then(function (value) {
 			assert.isTrue(value === (v ? "block" : "none"), errMsg);
 		});
@@ -79,11 +77,11 @@ define(["intern",
 		});
 	}
 
-	function loadTestPage(remote, url) {
+	function loadTestPage (remote, url) {
 		return remote
 			.get(require.toUrl(url))
 			.then(pollUntil("return ('ready' in window &&  ready) ? true : null", [],
-					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
+				intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 			.then(function () {
 				return remote.end();
 			});

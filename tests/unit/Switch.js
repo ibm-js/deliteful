@@ -1,18 +1,13 @@
-define([
-	"intern!object",
-	"intern/chai!assert",
-	"delite/register",
-	"deliteful/Switch",
-	"./resources/Checkbox-shared"
-], function (
-	registerSuite,
-	assert,
-	register,
-	Switch,
-	commonSuite
-) {
+define(function (require) {
+	"use strict";
 
-	function mix(a, b) {
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var register = require("delite/register");
+	var Switch = require("deliteful/Switch");
+	var commonSuite = require("./resources/Checkbox-shared");
+
+	function mix (a, b) {
 		for (var n in b) {
 			a[n] = b[n];
 		}
@@ -26,7 +21,7 @@ define([
 
 	var suite = {
 
-		setup: function () {
+		"setup": function () {
 			mix(commonSuite, {
 				baseClass: "d-switch",
 				defaultWidget: "sw1",
@@ -93,7 +88,7 @@ define([
 				"Unexpected text for 'checkedLabel' binding.");
 		},
 
-		afterEach: function () {
+		"afterEach": function () {
 			container.parentNode.removeChild(container);
 		}
 	};

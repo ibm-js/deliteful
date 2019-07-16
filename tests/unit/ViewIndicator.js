@@ -1,18 +1,19 @@
-define([
-	"intern!object",
-	"intern/chai!assert",
-	"delite/register",
-	"deliteful/SwapView",
-	"deliteful/ViewIndicator"
-], function (registerSuite, assert, register) {
+define(function (require) {
+	"use strict";
+
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var register = require("delite/register");
+	require("deliteful/SwapView");
+	require("deliteful/ViewIndicator");
 	var container, vs;
-	var aaa, bbb, ccc, ddd;
+	var bbb, ccc;
 	var vi;
 	var asyncHandler;
 	var htmlContent = "<d-swap-view id='vs'><div id='aaa'>AAA</div><div id='bbb'>BBB</div><div id='ccc'>CCC</div>" +
 		"<div id='ddd'>DDD</div></d-swap-view><d-view-indicator id='vi' viewstack='vs'></d-view-indicator>";
 
-	function checkNodeVisibility(vs, target) {
+	function checkNodeVisibility (target) {
 		for (var i = 0; i < vs.children.length; i++) {
 			assert.isTrue(
 				((vs.children[i] === target && vs.children[i].style.display !== "none" &&
@@ -22,7 +23,7 @@ define([
 		}
 	}
 
-	function checkSelectedDot(vi, index) {
+	function checkSelectedDot (index) {
 		for (var i = 0; i < vi.children.length; i++) {
 			assert.isTrue(vi.children[i].classList.contains("-d-view-indicator-dot"), "d-view-indicator-dot class");
 			assert[i === index ? "isTrue" : "isFalse"](
@@ -32,48 +33,46 @@ define([
 	}
 
 	registerSuite({
-		name: "ViewIndicator Markup",
-		setup: function () {
+		"name": "ViewIndicator Markup",
+		"setup": function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
 			container.innerHTML = htmlContent;
 			register.deliver();
 			vs = document.getElementById("vs");
-			aaa = document.getElementById("aaa");
 			bbb = document.getElementById("bbb");
 			ccc = document.getElementById("ccc");
-			ddd = document.getElementById("ddd");
 			vi = document.getElementById("vi");
 		},
-		"Default CSS" : function () {
+		"Default CSS": function () {
 			assert.isTrue(vi.classList.contains("d-view-indicator"), "d-view-indicator class");
 			assert.equal(vi.children.length, 4, "number of children in ViewIndicator");
-			checkSelectedDot(vi, 0);
+			checkSelectedDot(0);
 		},
-		"Default values" : function () {
+		"Default values": function () {
 			assert.deepEqual(vi.viewStack, vs);
 		},
-		"Update indicator (show by widget)" : function () {
+		"Update indicator (show by widget)": function () {
 			var d = this.async(1000);
 			asyncHandler = vs.on("delite-after-show", d.callback(function () {
-				checkNodeVisibility(vs, bbb);
-				checkSelectedDot(vi, 1);
+				checkNodeVisibility(bbb);
+				checkSelectedDot(1);
 			}));
 			vs.show(bbb);
 		},
-		"Update indicator (show by id)" : function () {
+		"Update indicator (show by id)": function () {
 			var d = this.async(1000);
 			asyncHandler = vs.on("delite-after-show", d.callback(function () {
-				checkNodeVisibility(vs, ccc);
-				checkSelectedDot(vi, 2);
+				checkNodeVisibility(ccc);
+				checkSelectedDot(2);
 			}));
 			vs.show("ccc");
 		},
 
-		teardown: function () {
+		"teardown": function () {
 			container.parentNode.removeChild(container);
 		},
-		afterEach: function () {
+		"afterEach": function () {
 			if (asyncHandler) {
 				asyncHandler.remove();
 			}

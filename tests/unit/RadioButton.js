@@ -1,14 +1,13 @@
-define([
-	"dcl/dcl",
-	"intern!object",
-	"intern/chai!assert",
-	"decor/sniff",
-	"delite/register",
-	"deliteful/RadioButton",
-	"./resources/Checkbox-shared"
-], function (dcl, registerSuite, assert, has, register, RadioButton, commonSuite) {
+define(function (require) {
+	"use strict";
 
-	function mix(a, b) {
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var register = require("delite/register");
+	var RadioButton = require("deliteful/RadioButton");
+	var commonSuite = require("./resources/Checkbox-shared");
+
+	function mix (a, b) {
 		for (var n in b) {
 			a[n] = b[n];
 		}
@@ -23,7 +22,7 @@ define([
 			"<d-radio-button id='rb4'></d-radio-button>";
 
 	var suite = {
-		setup: function () {
+		"setup": function () {
 			mix(commonSuite, {
 				baseClass: "d-radio-button",
 				defaultWidget: "rb4",
@@ -125,9 +124,9 @@ define([
 					["rb1", "rb2"].forEach(function (rb) {
 						rb = document.getElementById(rb);
 						assert.isFalse(rb.checked,
-								"Unexpected checked state for " + rb.id + " in rb3 on-click handler");
+							"Unexpected checked state for " + rb.id + " in rb3 on-click handler");
 						assert.isFalse(rb.focusNode.checked,
-								"Unexpected checked state for " + rb.id +
+							"Unexpected checked state for " + rb.id +
 								"'s wrapped input in rb3 on-click handler");
 					});
 				});
@@ -138,7 +137,7 @@ define([
 			return d;
 		},
 
-		afterEach: function () {
+		"afterEach": function () {
 			container.parentNode.removeChild(container);
 		}
 	};

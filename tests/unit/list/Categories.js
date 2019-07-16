@@ -1,10 +1,11 @@
-define([
-	"intern!object",
-	"intern/chai!assert",
-	"deliteful/list/List",
-	"dstore/Memory",
-	"dstore/Trackable"
-], function (registerSuite, assert, List, Memory, Trackable) {
+define(function (require) {
+	"use strict";
+
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var List = require("deliteful/list/List");
+	var Memory = require("dstore/Memory");
+	var Trackable = require("dstore/Trackable");
 
 	var list = null;
 
@@ -23,8 +24,8 @@ define([
 	};
 
 	registerSuite({
-		name: "list/Categories",
-		beforeEach: function () {
+		"name": "list/Categories",
+		"beforeEach": function () {
 			if (list) {
 				list.destroy();
 			}
@@ -44,7 +45,7 @@ define([
 			list.source.add({category: "C", label: "item 9"});
 			list.deliver();
 		},
-		"categorized items" : function () {
+		"categorized items": function () {
 			var children = list.containerNode.children;
 			assert.strictEqual(children.length, 12);
 			checkCategory(children[0], "A");
@@ -60,7 +61,7 @@ define([
 			checkItem(children[10], "item 8");
 			checkItem(children[11], "item 9");
 		},
-		"remove all items from category (top and bottom of list)" : function () {
+		"remove all items from category (top and bottom of list)": function () {
 			// remove the three first items
 			list.source.remove(list.source.data[0].id);
 			list.source.remove(list.source.data[0].id);
@@ -98,7 +99,7 @@ define([
 			children = list.containerNode.children;
 			assert.strictEqual(children.length, 0);
 		},
-		"remove all items from category (middle of list)" : function () {
+		"remove all items from category (middle of list)": function () {
 			// remove the three items in the middle
 			list.source.remove(list.source.data[3].id);
 			list.source.remove(list.source.data[3].id);
@@ -328,9 +329,11 @@ define([
 			checkItem(children[1], "item 4");
 			checkItem(children[2], "item 5");
 			checkItem(children[3], "item 6");
-			list._renderNewItems([{category: "A", label: "item 1"},
-			                     {category: "A", label: "item 2"},
-			                     {category: "A", label: "item 3"}], true);
+			list._renderNewItems([
+				{category: "A", label: "item 1"},
+				{category: "A", label: "item 2"},
+				{category: "A", label: "item 3"}
+			], true);
 			list.deliver();
 			children = list.containerNode.children;
 			assert.strictEqual(children.length, 7);
@@ -342,7 +345,7 @@ define([
 			checkItem(children[5], "item 5");
 			checkItem(children[6], "item 6");
 		},
-		teardown : function () {
+		"teardown": function () {
 			if (list) {
 				list.destroy();
 			}

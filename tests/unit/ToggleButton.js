@@ -1,16 +1,12 @@
-define([
-	"intern!object",
-	"intern/chai!assert",
-	"delite/register",
-	"deliteful/ToggleButton"
-], function (
-	registerSuite,
-	assert,
-	register,
-	ToggleButton
-) {
+define(function (require) {
+	"use strict";
 
-	function mix(a, b) {
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var register = require("delite/register");
+	var ToggleButton = require("deliteful/ToggleButton");
+
+	function mix (a, b) {
 		for (var n in b) {
 			a[n] = b[n];
 		}
@@ -91,7 +87,7 @@ define([
 			assert.strictEqual(tb4.textContent.trim(), "tb4", "textContent after label set and unchecked.");
 		},
 
-		"checkedIconClass" : function () {
+		"checkedIconClass": function () {
 			var tb3 = document.getElementById("tb3");
 			// test label is properly updated according to checked state when checkedLabel is set a value
 			tb3.checkedIconClass = "ic2";
@@ -102,7 +98,7 @@ define([
 			assert.isTrue(/ic1/.test(tb3.iconNode.className), "css class on iconNode (tb3) [2].");
 		},
 
-		"iconClass" : function () {
+		"iconClass": function () {
 			var tb4 = document.getElementById("tb4");
 			// test label is properly updated according to checked state when checkedLabel is set a value
 			tb4.iconClass = "ic3";
@@ -198,7 +194,7 @@ define([
 			assert.strictEqual(b.getAttribute("aria-label"), "on", "tb5.aria-label on checked change");
 		},
 
-		afterEach: function () {
+		"afterEach": function () {
 			container.parentNode.removeChild(container);
 		}
 	};
@@ -225,14 +221,25 @@ define([
 			tb.placeAt(container);
 			tb = new ToggleButton({id: "tb3", checked: "checked", label: "tb3", iconClass: "ic1"});
 			tb.placeAt(container);
-			tb = new ToggleButton({id: "tb4", checked: "checked", label: "off", checkedLabel: "on",
-				iconClass: "ic1", checkedIconClass: "ic2"});
+			tb = new ToggleButton({id: "tb4",
+				checked: "checked",
+				label: "off",
+				checkedLabel: "on",
+				iconClass: "ic1",
+				checkedIconClass: "ic2"});
 			tb.placeAt(container);
-			tb = new ToggleButton({id: "tb5", label: "off", checkedLabel: "on",
-				iconClass: "ic1", checkedIconClass: "ic2"});
+			tb = new ToggleButton({id: "tb5",
+				label: "off",
+				checkedLabel: "on",
+				iconClass: "ic1",
+				checkedIconClass: "ic2"});
 			tb.placeAt(container);
-			tb = new ToggleButton({id: "tb6", label: "off", checkedLabel: "on",
-				iconClass: "ic1", checkedIconClass: "ic2", title: "bt title"});
+			tb = new ToggleButton({id: "tb6",
+				label: "off",
+				checkedLabel: "on",
+				iconClass: "ic1",
+				checkedIconClass: "ic2",
+				title: "bt title"});
 			tb.placeAt(container);
 		}
 	};

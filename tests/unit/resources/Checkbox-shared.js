@@ -1,6 +1,7 @@
-define([
-	"intern/chai!assert"
-], function (assert) {
+define(function (require) {
+	"use strict";
+
+	var assert = require("intern/chai!assert");
 
 	var commonSuite = {
 		defaultWidget: "",
@@ -39,7 +40,7 @@ define([
 			assert.strictEqual(cb1.checked, inp.checked, "'checked' property of wrapped input");
 		},
 
-		value: function () {
+		"value": function () {
 			var cb = document.getElementById(commonSuite.defaultWidget);
 			cb.value = "foo";
 			//sync template

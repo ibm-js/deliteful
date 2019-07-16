@@ -1,16 +1,14 @@
-/**
- * Slider functional tests
- */
-define(["intern",
-    "intern!object",
-    "intern/dojo/node!leadfoot/helpers/pollUntil",
-	"intern/chai!assert",
-	"require"
-], function (intern, registerSuite, pollUntil, assert, require) {
+define(function (require) {
+	"use strict";
+
+	var intern = require("intern");
+	var registerSuite = require("intern!object");
+	var pollUntil = require("intern/dojo/node!leadfoot/helpers/pollUntil");
+	var assert = require("intern/chai!assert");
 	var debug = false; // set to true for additional feedback on test execution (adds console messages + wait time).
 
 	registerSuite({
-		name: "Slider (markup)",
+		"name": "Slider (markup)",
 		// single
 		"init single slider (default value)": function () {
 			var remote = this.remote;
@@ -134,7 +132,7 @@ define(["intern",
 	});
 
 	registerSuite({
-		name: "Slider (programmatic)",
+		"name": "Slider (programmatic)",
 		"init single slider (default value)": function () {
 			var remote = this.remote;
 			return loadTestPage(remote, "./slider/slider-prg.html")
@@ -186,7 +184,7 @@ define(["intern",
 	/**
 	 * check the value after the slider is started, also check the value of the wrapped input element.
 	 */
-	function checkInitValue(remote, sliderId, expectedValue) {
+	function checkInitValue (remote, sliderId, expectedValue) {
 		return function () {
 			debugMsg("checkInitValue...");
 			return remote.execute("return " + sliderId + "_value.value;")
@@ -209,7 +207,7 @@ define(["intern",
 		};
 	}
 
-	function checkOnChange(remote, sliderId, hasValue) {
+	function checkOnChange (remote, sliderId, hasValue) {
 		return function () {
 			debugMsg("checkOnChange...");
 			return remote.execute("return onchange_target.value;")
@@ -255,7 +253,7 @@ define(["intern",
 		};
 	}
 
-	function checkAria(remote, sliderId, className, ariaOrientation, ariaValueMin, ariaValueMax, ariaValueNow) {
+	function checkAria (remote, sliderId, className, ariaOrientation, ariaValueMin, ariaValueMax, ariaValueNow) {
 		return function () {
 			debugMsg("checkAria " + sliderId + "/" + className + "...");
 			return getSliderElementByCss(remote, sliderId, className)
@@ -292,7 +290,7 @@ define(["intern",
 	 * display msg with information on the not found element and throw an assert to avoid unclear stack trace.
 	 * errors not related to not found element are re-throwned.
 	 */
-	function handleElementNotFound(elementId, error) {
+	function handleElementNotFound (elementId, error) {
 		if (/NoSuchElement|NoSuchWindow|XPathLookupError/.test(error.name)) {
 			var customMsg = "(" + error.name + ") element [" + elementId + "] not found.";
 			console.log("[" + error.name + "] " + customMsg);
@@ -306,7 +304,7 @@ define(["intern",
 	 * return a subelement of d-slider based on a css class (must be the only
 	 * element to contain this class name). Faster than calling getElementById + elementByCssSelector.
 	 */
-	function getSliderElementByCss(remote, sliderId, cssClass) {
+	function getSliderElementByCss (remote, sliderId, cssClass) {
 		return remote
 			.findByXpath("//d-slider[@id='" + sliderId + "']" +
 				"//div[contains(concat(' ', normalize-space(@class), ' '), ' " + cssClass + " ')]")
@@ -318,7 +316,7 @@ define(["intern",
 	/**
 	 * simulate a click on the slider progress bar.
 	 */
-	function clickOnProgressBar(remote, sliderId, moveToX, moveToY) {
+	function clickOnProgressBar (remote, sliderId, moveToX, moveToY) {
 		return function () {
 			debugMsg("clickOnProgressBar...");
 			return remote.findByCssSelector("#" + sliderId + " .d-slider-progress-bar")
@@ -341,7 +339,7 @@ define(["intern",
 		};
 	}
 
-	function clickOnHandle(remote, sliderId) {
+	function clickOnHandle (remote, sliderId) {
 		return function () {
 			debugMsg("clickOnHandle...");
 			return remote.findByCssSelector("#" + sliderId + " .d-slider-handle-max")
@@ -360,7 +358,7 @@ define(["intern",
 		};
 	}
 
-	function moveHandle(remote, sliderId, moveToX, moveToY) {
+	function moveHandle (remote, sliderId, moveToX, moveToY) {
 		return function () {
 			debugMsg("moveHandle...");
 			return remote.findByCssSelector("#" + sliderId + " .d-slider-handle-max")
@@ -376,7 +374,7 @@ define(["intern",
 		};
 	}
 
-	function moveRange(remote, sliderId, moveToX, moveToY) {
+	function moveRange (remote, sliderId, moveToX, moveToY) {
 		return function () {
 			debugMsg("moveRange...");
 			return remote.findByCssSelector("#" + sliderId + " .d-slider-progress-bar")
@@ -393,7 +391,7 @@ define(["intern",
 		};
 	}
 
-	function setSlideRange(remote, sliderId, enable) {
+	function setSlideRange (remote, sliderId, enable) {
 		return function () {
 			debugMsg("setSlideRange...");
 			return remote.execute("document.getElementById('" + sliderId + "').slideRange = " + String(enable) + ";");
@@ -403,29 +401,29 @@ define(["intern",
 	/**
 	 * Load a new test page in the remote session
 	 */
-	function loadTestPage(remote, url) {
+	function loadTestPage (remote, url) {
 		return remote
 			.get(require.toUrl(url))
 			.then(pollUntil("return ('ready' in window && ready) ? true : null;", [],
-					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
+				intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 			.then(function () {
 				debugMsg(url + " loaded.");
 				return remote;
 			});
 	}
 
-	function logMessage(remote, prefix, message) {
+	function logMessage (remote, prefix, message) {
 		return function () {
 			console.log("[" + prefix + "] " + message);
 			return remote;
 		};
 	}
 
-	function waitForDebug(remote) {
+	function waitForDebug (remote) {
 		return debug ? remote.sleep(500) : remote;
 	}
 	
-	function debugMsg(msg) {
+	function debugMsg (msg) {
 		if (debug) {
 			console.log(msg);
 		}

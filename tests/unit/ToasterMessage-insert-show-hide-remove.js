@@ -1,16 +1,17 @@
-define([
-	"intern!object",
-	"intern/chai!assert",
-	"deliteful/Toaster",
-	"deliteful/ToasterMessage"
-], function (registerSuite, assert, Toaster, ToasterMessage) {
+define(function (require) {
+	"use strict";
+
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var Toaster = require("deliteful/Toaster");
+	var ToasterMessage = require("deliteful/ToasterMessage");
 
 	var container, toaster, wrapper, mExpirable, mPersistent;
 
 	registerSuite({
-		name: "ToasterMessage insert/show/hide/remove from DOM",
+		"name": "ToasterMessage insert/show/hide/remove from DOM",
 
-		setup: function () {
+		"setup": function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
 
@@ -71,7 +72,7 @@ define([
 			assert.isTrue(mPersistent._isRemoved);
 			assert.isNull(document.getElementById(mPersistent.id));
 		},
-		teardown: function () {
+		"teardown": function () {
 			container.parentNode.removeChild(container);
 		}
 	});

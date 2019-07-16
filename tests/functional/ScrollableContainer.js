@@ -1,15 +1,16 @@
-define(["intern",
-    "intern!object",
-    "intern/dojo/node!leadfoot/helpers/pollUntil",
-	"intern/chai!assert",
-	"require"
-	], function (intern, registerSuite, pollUntil, assert, require) {
+define(function (require) {
+	"use strict";
+
+	var intern = require("intern");
+	var registerSuite = require("intern!object");
+	var pollUntil = require("intern/dojo/node!leadfoot/helpers/pollUntil");
+	var assert = require("intern/chai!assert");
 
 	var loadFile = function (remote, fileName) {
 		return remote
 			.get(require.toUrl(fileName))
 			.then(pollUntil("return ready ? true : null;", [],
-					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
+				intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 	};
 
 	var checkScrollAmount = function (remote, scrollContainerId, expectedScroll) {
@@ -48,15 +49,15 @@ define(["intern",
 					});
 			});
 	};
-	
+
 	var checkScroll = function (remote, fileName, scrollContainerId,
-								scrollAmount, expectedScroll, checkScrollFunction) {
+		scrollAmount, expectedScroll, checkScrollFunction) {
 		var wd = loadFile(remote, fileName);
 		return checkScrollFunction(remote, wd, scrollContainerId, scrollAmount, expectedScroll);
 	};
 
 	registerSuite({
-		name: "ScrollableContainer - functional",
+		"name": "ScrollableContainer - functional",
 
 		"scroll with animation (via button, inside LinearLayout, scrollDirection=vertical)": function () {
 			return loadFile(this.remote, "./ScrollableContainer.html")
@@ -83,7 +84,7 @@ define(["intern",
 				{x: 0, y: 100}, // expected scroll
 				checkScrollBy); // checking function
 		},
-		
+
 		"scrollTop/scrollLeft (without LinearLayout, scrollDirection=vertical)": function () {
 			return checkScroll(this.remote, "./ScrollableContainer-alone.html", "scrollContainer",
 				{x: 100, y: 100}, // scroll amount
@@ -110,7 +111,7 @@ define(["intern",
 				{x: 100, y: 100}, // expected scroll
 				checkScrollTopLeft); // checking function
 		},
-		
+
 		"scrollBy (non-fullscreen, without LinearLayout, scrollDirection=vertical)": function () {
 			return checkScroll(this.remote, "./ScrollableContainer-alone-small.html", "scrollContainer2",
 				{x: 100, y: 100}, // scroll amount
@@ -137,7 +138,7 @@ define(["intern",
 				{x: 0, y: 100}, // expected scroll
 				checkScrollBy); // checking function
 		},
-		
+
 		"scrollTop/scrollLeft (fullscreen, with LinearLayout, scrollDirection=vertical)": function () {
 			return checkScroll(this.remote, "./ScrollableContainer-full-screen.html", "scrollContainer",
 				{x: 100, y: 100}, // scroll amount
@@ -146,7 +147,7 @@ define(["intern",
 				{x: 0, y: 100}, // expected scroll
 				checkScrollTopLeft); // checking function
 		},
-		
+
 		"scrollBy (fullscreen, as subchild of LinearLayout, scrollDirection=vertical)": function () {
 			return checkScroll(this.remote,
 				"./ScrollableContainer-full-screen-as-subchild-of-LinearLayout.html",
@@ -157,7 +158,7 @@ define(["intern",
 				{x: 0, y: 100}, // expected scroll
 				checkScrollBy); // checking function
 		},
-		
+
 		"scrollTop/scrollLeft (fullscreen, as subchild of LinearLayout, scrollDirection=vertical)": function () {
 			return checkScroll(this.remote,
 				"./ScrollableContainer-full-screen-as-subchild-of-LinearLayout.html",
@@ -168,7 +169,7 @@ define(["intern",
 				{x: 0, y: 100}, // expected scroll
 				checkScrollTopLeft); // checking function
 		},
-		
+
 		"scrollBy (fullscreen, as subsubchild of LinearLayout, scrollDirection=vertical)": function () {
 			return checkScroll(this.remote,
 				"./ScrollableContainer-full-screen-as-subsubchild-of-LinearLayout.html",
@@ -179,7 +180,7 @@ define(["intern",
 				{x: 0, y: 100}, // expected scroll
 				checkScrollBy); // checking function
 		},
-		
+
 		"scrollTop/scrollLeft (fullscreen, as subsubchild of LinearLayout, scrollDirection=vertical)": function () {
 			return checkScroll(this.remote,
 				"./ScrollableContainer-full-screen-as-subsubchild-of-LinearLayout.html",
@@ -190,7 +191,7 @@ define(["intern",
 				{x: 0, y: 100}, // expected scroll
 				checkScrollTopLeft); // checking function
 		},
-		
+
 		"scrollBy (non-fullscreen, with LinearLayout, scrollDirection=both)": function () {
 			return checkScroll(this.remote, "./ScrollableContainer-small.html", "scrollContainer1",
 				{x: 100, y: 100}, // scroll amount
@@ -199,7 +200,7 @@ define(["intern",
 				{x: 100, y: 100}, // expected scroll
 				checkScrollBy); // checking function
 		},
-		
+
 		"scrollTop/scrollLeft (non-fullscreen, with LinearLayout, scrollDirection=both)": function () {
 			return checkScroll(this.remote, "./ScrollableContainer-small.html", "scrollContainer1",
 				{x: 100, y: 100}, // scroll amount
@@ -218,27 +219,27 @@ define(["intern",
 				{x: 0, y: 100}, // expected scroll
 				checkScrollBy); // checking function
 		},
-		
+
 		"scrollBy (non-fullscreen, with LinearLayout, with 1 level of interm. DIV, scrollDirection=vertical)":
 				function () {
-			return checkScroll(this.remote, "./ScrollableContainer-small.html", "scrollContainer3",
-				{x: 100, y: 100}, // scroll amount
-				// Since this container has scrollDirection="vertical", the horizontal part of
-				// scrollTo should have no effect on the amount of scroll.
-				{x: 0, y: 100}, // expected scroll
-				checkScrollBy); // checking function
-		},
-		
+					return checkScroll(this.remote, "./ScrollableContainer-small.html", "scrollContainer3",
+						{x: 100, y: 100}, // scroll amount
+						// Since this container has scrollDirection="vertical", the horizontal part of
+						// scrollTo should have no effect on the amount of scroll.
+						{x: 0, y: 100}, // expected scroll
+						checkScrollBy); // checking function
+				},
+
 		"scrollBy (non-fullscreen, with LinearLayout, with 2 levels of interm. DIV, scrollDirection=vertical)":
 				function () {
-			return checkScroll(this.remote, "./ScrollableContainer-small.html", "scrollContainer4",
-				{x: 100, y: 100}, // scroll amount
-				// Since this container has scrollDirection="vertical", the horizontal part of
-				// scrollTo should have no effect on the amount of scroll.
-				{x: 0, y: 100}, // expected scroll
-				checkScrollBy); // checking function
-		},
-		
+					return checkScroll(this.remote, "./ScrollableContainer-small.html", "scrollContainer4",
+						{x: 100, y: 100}, // scroll amount
+						// Since this container has scrollDirection="vertical", the horizontal part of
+						// scrollTo should have no effect on the amount of scroll.
+						{x: 0, y: 100}, // expected scroll
+						checkScrollBy); // checking function
+				},
+
 		"scrollTop/scrollLeft (non-fullscreen, with LinearLayout, scrollDirection=vertical)": function () {
 			return checkScroll(this.remote, "./ScrollableContainer-small.html", "scrollContainer2",
 				{x: 100, y: 100}, // scroll amount

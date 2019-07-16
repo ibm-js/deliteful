@@ -1,14 +1,10 @@
-define([
-	"intern/chai!assert",
-	"dstore/Memory",
-	"dstore/Trackable",
-	"requirejs-dplugins/Promise!"
-], function (
-	assert,
-	Memory,
-	Trackable,
-	Promise
-) {
+define(function (require) {
+	"use strict";
+
+	var assert = require("intern/chai!assert");
+	var Memory = require("dstore/Memory");
+	var Trackable = require("dstore/Trackable");
+	var Promise = require("requirejs-dplugins/Promise!");
 
 	var Store = Memory.createSubclass([Trackable], {});
 
@@ -20,8 +16,8 @@ define([
 		 */
 		buildSuite: function (name, ListConstructor) {
 			return {
-				name: name,
-				beforeEach: function () {
+				"name": name,
+				"beforeEach": function () {
 					if (this.list) {
 						this.list.destroy();
 					}
@@ -32,7 +28,7 @@ define([
 					this.list.source.add({label: "item 3"});
 					this.list.deliver();
 				},
-				"baseClass update" : function () {
+				"baseClass update": function () {
 					var list = this.parent.list;
 					assert.isTrue(list.classList.contains("d-list"));
 					list.baseClass = "d-round-rect-list";
@@ -64,9 +60,9 @@ define([
 					} catch (error) {
 						assert.isNotNull(error);
 						assert.strictEqual(
-								"'foo' not supported for scrollDirection, keeping the previous value of 'vertical'",
-								error.message,
-								"error message");
+							"'foo' not supported for scrollDirection, keeping the previous value of 'vertical'",
+							error.message,
+							"error message");
 					}
 					assert.strictEqual(list.scrollDirection, "vertical");
 				},
@@ -93,11 +89,11 @@ define([
 					var list = this.parent.list;
 					var children = list.containerNode.children;
 					assert.strictEqual(list.getRendererByItemId(list.source.data[0].id),
-							children[0], "first renderer");
+						children[0], "first renderer");
 					assert.strictEqual(list.getRendererByItemId(list.source.data[1].id),
-							children[1], "second renderer");
+						children[1], "second renderer");
 					assert.strictEqual(list.getRendererByItemId(list.source.data[2].id),
-							children[2], "third renderer");
+						children[2], "third renderer");
 					assert.isNull(list.getRendererByItemId("I'm not an existing id"), "non list item");
 				},
 				"getItemRendererIndex": function () {
@@ -153,7 +149,7 @@ define([
 					assert.strictEqual(renderer.item.label, "item a");
 					assert.strictEqual(renderer.renderNode.children[1].innerHTML, "item a");
 				},
-				"update item: add, update and remove icon" : function () {
+				"update item: add, update and remove icon": function () {
 					var list = this.parent.list;
 					// add
 					list.source.put({label: "item a", iconclass: "my-icon"}, {id: list.source.data[0].id});
@@ -252,7 +248,7 @@ define([
 						assert.isNotNull(focusedElement, "active element not null");
 						assert.isDefined(focusedElement, "active element defined");
 						assert.strictEqual("item 1", focusedElement.parentNode.item.label,
-								"focused element label");
+							"focused element label");
 					}), 10);
 				},
 				"detach and reattach": function () {
@@ -319,7 +315,7 @@ define([
 						".d-list-loading-panel must be hidden");
 				},
 
-				teardown : function () {
+				"teardown": function () {
 					if (this.list) {
 						this.list.destroy();
 					}

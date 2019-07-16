@@ -1,13 +1,13 @@
-define([
-    "intern",
-	"intern!object",
-    "intern/dojo/node!leadfoot/helpers/pollUntil",
-	"intern/chai!assert",
-	"intern/dojo/node!leadfoot/keys",
-	"require"
-], function (intern, registerSuite, pollUntil, assert, keys, require) {
+define(function (require) {
+	"use strict";
 
-	function loadFile(remote, url) {
+	var intern = require("intern");
+	var registerSuite = require("intern!object");
+	var pollUntil = require("intern/dojo/node!leadfoot/helpers/pollUntil");
+	var assert = require("intern/chai!assert");
+	var keys = require("intern/dojo/node!leadfoot/keys");
+
+	function loadFile (remote, url) {
 		return remote
 			.get(require.toUrl(url))
 			.then(pollUntil("return ready ? true : null;", [],
@@ -15,7 +15,7 @@ define([
 	}
 
 	registerSuite({
-		name: "Switch - functional",
+		"name": "Switch - functional",
 
 		"Switch behavior": function () {
 			var remote = this.remote;
@@ -34,7 +34,7 @@ define([
 				.releaseMouseButton()
 				.then(function () {
 					pollUntil("return document.getElementById('sw1').checked ? true : null;", [],
-							2000, intern.config.POLL_INTERVAL);
+						2000, intern.config.POLL_INTERVAL);
 				})
 				.sleep(500)
 				.findById("sw1")
@@ -47,12 +47,12 @@ define([
 				.releaseMouseButton()
 				.then(function () {
 					pollUntil("return document.getElementById('sw1').checked ? null : false;", [],
-							2000, intern.config.POLL_INTERVAL);
+						2000, intern.config.POLL_INTERVAL);
 				})
 				// click on disabled checkbox
 				.then(function () {
 					pollUntil("return document.getElementById('sw2').checked ? null : false;", [],
-							2000, intern.config.POLL_INTERVAL);
+						2000, intern.config.POLL_INTERVAL);
 				})
 				.findById("sw2")
 				.then(function (element) {
@@ -64,7 +64,7 @@ define([
 				.releaseMouseButton()
 				.then(function () {
 					pollUntil("return document.getElementById('sw2').checked ? null : false;", [],
-							2000, intern.config.POLL_INTERVAL);
+						2000, intern.config.POLL_INTERVAL);
 				});
 		},
 
@@ -101,7 +101,7 @@ define([
 				.then(function (v) {
 					assert.equal(v, "End", "focused element after 2nd TAB.");
 				})
-				;
+			;
 		},
 
 		"Switch Form tests": function () {
@@ -134,7 +134,7 @@ define([
 					assert.equal(value, "4", "value for checkbox cb6");
 				})
 				.end()
-				;
+			;
 		},
 		"Switch with disabled attribute": function () {
 			var remote = this.remote;
@@ -149,7 +149,7 @@ define([
 			}
 
 			return loadFile(remote, "./Switch.html")
-				
+
 				// no disabled attribute
 				.execute("return document.getElementById('sw71').checked;")
 				.then(function (value) {
@@ -205,7 +205,7 @@ define([
 					assert.isTrue(value, "the switch should be enabled this time");
 				})
 				.end()
-				;
+			;
 		}
 	});
 });

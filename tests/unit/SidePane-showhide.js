@@ -1,15 +1,16 @@
-define([
-	"intern!object",
-	"intern/chai!assert",
-	"delite/register",
-	"deliteful/SidePane"
-], function (registerSuite, assert, register) {
+define(function (require) {
+	"use strict";
+
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var register = require("delite/register");
+	require("deliteful/SidePane");
 	var container, sp, origBodyStyle;
 	var htmlContent = "<d-side-pane id='sp'></d-side-pane><div id='content'></div>";
 
 	registerSuite({
-		name: "SidePane Show Hide",
-		setup: function () {
+		"name": "SidePane Show Hide",
+		"setup": function () {
 			origBodyStyle = document.body.style.cssText;
 			container = document.createElement("div");
 			document.body.appendChild(container);
@@ -61,7 +62,7 @@ define([
 			});
 		},
 
-		teardown: function () {
+		"teardown": function () {
 			container.parentNode.removeChild(container);
 			document.body.style.cssText = origBodyStyle;	// so page can scroll again
 		}

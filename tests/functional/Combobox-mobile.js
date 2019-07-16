@@ -1,21 +1,20 @@
-define([
-	"intern",
-	"intern!object",
-	"dojo/string",
-	"intern/dojo/node!leadfoot/helpers/pollUntil",
-	"intern/chai!assert",
-	"intern/dojo/node!leadfoot/keys",
-	"require"
-], function (intern, registerSuite, string, pollUntil, assert, keys, require) {
+define(function (require) {
+	"use strict";
+
+	var intern = require("intern");
+	var registerSuite = require("intern!object");
+	var pollUntil = require("intern/dojo/node!leadfoot/helpers/pollUntil");
+	var assert = require("intern/chai!assert");
+	var keys = require("intern/dojo/node!leadfoot/keys");
 	var loadFile = function (remote, fileName) {
 		return remote
 			.get(require.toUrl(fileName))
 			.setWindowSize(600, 1000)
 			.then(pollUntil("return ready ? true : null;", [],
-					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
+				intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 	};
 
-	function checkComboState(comboId, comboState, expectedComboState, stepName) {
+	function checkComboState (comboId, comboState, expectedComboState, stepName) {
 		// comboState is an object retrieved from the browser, containing the state of the ComboPopup.
 
 		var msg =  comboId + " " + "(" + comboState.selectionMode + ")" + " " + stepName + " ";
@@ -46,10 +45,10 @@ define([
 			.then(function (comboState) {
 				// No item should be selected, the popup is closed initially.
 				checkComboState(comboId, comboState, { // expected combo state
-						inputNodeValue: "France",
-						widgetValue: "France",
-						valueNodeValue: "France"
-					}, "right after load");
+					inputNodeValue: "France",
+					widgetValue: "France",
+					valueNodeValue: "France"
+				}, "right after load");
 			})
 			.findByCssSelector("#" + comboId + " .d-combobox-input").click().end()
 			.sleep(500) // wait for List's loading panel to go away
@@ -141,12 +140,12 @@ define([
 
 			// Make sure Dialog's header matches the label of the original Combobox.
 			.findByCssSelector("#" + comboId + "_dropdown .d-tooltip-dialog-label")
-				.getVisibleText().then(function (popupLabel) {
-					return remote.findByCssSelector("label[for=" + comboId + "-input]")
-						.getVisibleText().then(function (comboLabel) {
-							assert.strictEqual(popupLabel.trim(), comboLabel.trim(), "expected label");
-						}).end();
-				}).end()
+			.getVisibleText().then(function (popupLabel) {
+				return remote.findByCssSelector("label[for=" + comboId + "-input]")
+					.getVisibleText().then(function (comboLabel) {
+						assert.strictEqual(popupLabel.trim(), comboLabel.trim(), "expected label");
+					}).end();
+			}).end()
 
 			.findByCssSelector("#" + comboId + "_dropdown input").getAttribute("aria-controls").then(function (listId) {
 				// Use aria-owns attribute to find the <d-list>, and then spot check that the <d-list>
@@ -551,9 +550,9 @@ define([
 	};
 
 	registerSuite({
-		name: "ComboPopup - functional",
+		"name": "ComboPopup - functional",
 
-		setup: function () {
+		"setup": function () {
 			var remote = this.remote;
 
 			if (remote.environmentType.browserName === "internet explorer") {
@@ -561,7 +560,7 @@ define([
 			}
 		},
 
-		button: function () {
+		"button": function () {
 			// Since clicking the Combobox opens the ComboPopup, the Combobox should be a button.
 			return loadFile(this.remote, "./Combobox-mobile.html").execute(function () {
 				return document.getElementById("combo2").inputNode.getAttribute("type");

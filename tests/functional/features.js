@@ -1,19 +1,19 @@
-define([
-	"intern",
-	"intern!object",
-	"intern/dojo/node!leadfoot/helpers/pollUntil",
-	"intern/chai!assert",
-	"require"
-], function (intern, registerSuite, pollUntil, assert, require) {
-	
-	function loadFile(remote, fileName) {
+define(function (require) {
+	"use strict";
+
+	var intern = require("intern");
+	var registerSuite = require("intern!object");
+	var pollUntil = require("intern/dojo/node!leadfoot/helpers/pollUntil");
+	var assert = require("intern/chai!assert");
+
+	function loadFile (remote, fileName) {
 		return remote
 			.get(require.toUrl(fileName))
 			.then(pollUntil("return ready ? true : null;", [],
 				intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 	}
-	
-	function checkChannelFlags(has, isPhone, isTablet, isDesktop, description) {
+
+	function checkChannelFlags (has, isPhone, isTablet, isDesktop, description) {
 		assert.strictEqual(has["phone-like-channel"], isPhone,
 			"phone-like-channel on " + description);
 		assert.strictEqual(has["tablet-like-channel"], isTablet,
@@ -21,18 +21,18 @@ define([
 		assert.strictEqual(has["desktop-like-channel"], isDesktop,
 			"desktop-like-channel on " + description);
 	}
-	function checkChannelFlagsPhone(has, description) {
+	function checkChannelFlagsPhone (has, description) {
 		checkChannelFlags(has, true, false, false, description);
 	}
-	function checkChannelFlagsTablet(has, description) {
+	function checkChannelFlagsTablet (has, description) {
 		checkChannelFlags(has, false, true, false, description);
 	}
-	function checkChannelFlagsDesktop(has, description) {
+	function checkChannelFlagsDesktop (has, description) {
 		checkChannelFlags(has, false, false, true, description);
 	}
-	
+
 	registerSuite({
-		name: "deliteful/features - functional",
+		"name": "deliteful/features - functional",
 
 		"channel flags and breakpoint flags": function () {
 			var remote = this.remote;

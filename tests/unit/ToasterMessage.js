@@ -1,16 +1,16 @@
-define([
-	"intern!object",
-	"intern/chai!assert",
-	"delite/register",
-	"deliteful/Toaster",
-	"deliteful/ToasterMessage"
-], function (registerSuite, assert, register, Toaster, ToasterMessage) {
+define(function (require) {
+	"use strict";
+
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var Toaster = require("deliteful/Toaster");
+	var ToasterMessage = require("deliteful/ToasterMessage");
 
 	var container, toaster;
 	registerSuite({
-		name: "ToasterMessage",
+		"name": "ToasterMessage",
 
-		setup: function () {
+		"setup": function () {
 			container = document.createElement("div");
 			container.setAttribute("id", "container");
 			document.body.appendChild(container);
@@ -125,7 +125,7 @@ define([
 				assert.strictEqual(m.duration, d);
 			});
 		},
-		teardown: function () {
+		"teardown": function () {
 			container.parentNode.removeChild(container);
 		}
 	});

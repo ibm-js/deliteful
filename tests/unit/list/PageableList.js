@@ -1,15 +1,14 @@
-define([
-	"decor/sniff",
-	"intern!object",
-	"intern/chai!assert",
-	"dojo/Deferred",
-    "dstore/Memory",
-	"dstore/Trackable",
-	"delite/popup",
-	"delite/register",
-	"deliteful/list/PageableList",
-	"./resources/ListBaseTests"
-], function (has, registerSuite, assert, Deferred, Memory, Trackable, popup, register, PageableList, ListBaseTests) {
+define(function (require) {
+	"use strict";
+
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var Deferred = require("dojo/Deferred");
+	var Memory = require("dstore/Memory");
+	var Trackable = require("dstore/Trackable");
+	var popup = require("delite/popup");
+	var PageableList = require("deliteful/list/PageableList");
+	var ListBaseTests = require("./resources/ListBaseTests");
 
 	var Store = Memory.createSubclass([Trackable], {});
 
@@ -25,8 +24,8 @@ define([
 
 	var list = null;
 
-	var waitForCondition = function (func, timeout, interval) {
-		var wait = function (def, start) {
+	function waitForCondition (func, timeout, interval) {
+		function wait (def, start) {
 			setTimeout(function () {
 				if (func()) {
 					def.resolve();
@@ -38,27 +37,27 @@ define([
 					}
 				}
 			}, interval);
-		};
+		}
 		var def = new Deferred();
 		var start = new Date();
 		wait(def, start);
 		return def;
-	};
+	}
 
-	var removeTabsAndReturns = function (str) {
+	function removeTabsAndReturns (str) {
 		return str.replace(/\t/g, "").replace(/\n/g, "");
-	};
+	}
 
 	/* jshint maxcomplexity: 11 */
-	var assertList = function (list, firstItemNumber, lastItemNumber, missingItemNumbers,
+	function assertList (l, firstItemNumber, lastItemNumber, missingItemNumbers,
 			previousPageLoader, nextPageLoader, hint) {
 		hint = hint || "";
-		var listContent = list.containerNode;
+		var listContent = l.containerNode;
 		var numberOfItems = lastItemNumber - firstItemNumber + 1 - missingItemNumbers.length;
 		assert.strictEqual(listContent.children.length, numberOfItems, hint + " number of children");
-		if (previousPageLoader && list._previousPageLoaderVisible) {
-			assert.strictEqual(removeTabsAndReturns(list.previousPageLoader.labelNode.textContent),
-					"Click to load " + list.pageLength + " more items", hint + " previous page loader");
+		if (previousPageLoader && l._previousPageLoaderVisible) {
+			assert.strictEqual(removeTabsAndReturns(l.previousPageLoader.labelNode.textContent),
+				"Click to load " + l.pageLength + " more items", hint + " previous page loader");
 		}
 		for (var i = 0, index = firstItemNumber; i < numberOfItems; i++, index++) {
 			if (missingItemNumbers.length) {
@@ -69,21 +68,21 @@ define([
 			assert.strictEqual(
 				removeTabsAndReturns(listContent.children[i].textContent), "item " + index, hint);
 		}
-		if (nextPageLoader && list._nextPageLoaderVisible) {
-			assert.strictEqual(removeTabsAndReturns(list.nextPageLoader.labelNode.textContent),
-					"Click to load " + list.pageLength + " more items", hint + " previous page loader");
+		if (nextPageLoader && l._nextPageLoaderVisible) {
+			assert.strictEqual(removeTabsAndReturns(l.nextPageLoader.labelNode.textContent),
+				"Click to load " + l.pageLength + " more items", hint + " previous page loader");
 		}
-	};
+	}
 
-	var assertCategorizedList = function (list, numberOfItems, firstItemNumber, previousPageLoader, nextPageLoader) {
+	function assertCategorizedList (l, numberOfItems, firstItemNumber, previousPageLoader, nextPageLoader) {
 		var numberOfCategories = Math.floor((firstItemNumber + numberOfItems - 1) / 10)
 								- Math.floor(firstItemNumber / 10) + 1;
 		var lastCategory = null;
-		var listContent = list.containerNode;
+		var listContent = l.containerNode;
 		assert.strictEqual(numberOfCategories + numberOfItems, listContent.children.length, "number of children");
-		if (previousPageLoader && list._previousPageLoaderVisible) {
-			assert.strictEqual(removeTabsAndReturns(list.previousPageLoader.labelNode.textContent),
-					"Click to load " + list.pageLength + " more items", "previous page loader");
+		if (previousPageLoader && l._previousPageLoaderVisible) {
+			assert.strictEqual(removeTabsAndReturns(l.previousPageLoader.labelNode.textContent),
+				"Click to load " + l.pageLength + " more items", "previous page loader");
 		}
 		for (var childIndex = 0, itemIndex = firstItemNumber; itemIndex < firstItemNumber + numberOfItems;
 			itemIndex++, childIndex++) {
@@ -91,28 +90,28 @@ define([
 			if (category !== lastCategory) {
 				lastCategory = category;
 				assert.strictEqual(removeTabsAndReturns(listContent.children[childIndex].textContent),
-						"Category " + category);
+					"Category " + category);
 				childIndex++;
 			}
 			assert.strictEqual(
-					removeTabsAndReturns(listContent.children[childIndex].textContent), "item " + itemIndex);
+				removeTabsAndReturns(listContent.children[childIndex].textContent), "item " + itemIndex);
 		}
-		if (nextPageLoader && list._nextPageLoaderVisible) {
-			assert.strictEqual(removeTabsAndReturns(list.nextPageLoader.labelNode.textContent),
-					"Click to load " + list.pageLength + " more items", "previous page loader");
+		if (nextPageLoader && l._nextPageLoaderVisible) {
+			assert.strictEqual(removeTabsAndReturns(l.nextPageLoader.labelNode.textContent),
+				"Click to load " + l.pageLength + " more items", "previous page loader");
 		}
-	};
+	}
 
-	var clickPreviousPageLoader = function (list) {
-		return list._loadPreviousPage();
-	};
+	function clickPreviousPageLoader (l) {
+		return l._loadPreviousPage();
+	}
 
-	var clickNextPageLoader = function (list) {
-		return list._loadNextPage();
-	};
+	function clickNextPageLoader (l) {
+		return l._loadNextPage();
+	}
 
 	var testHelpers = {
-		"Helper: Removing items in displayed pages": function (/*Deferred*/dfd) {
+		"removing items in displayed pages": function (/*Deferred*/dfd) {
 			/*jshint maxlen: 135*/
 			var store = new Store();
 			for (var i = 0; i < 92; i++) {
@@ -128,8 +127,8 @@ define([
 			// check internal pages references
 			assert.strictEqual(list._idPages.length, 1, "A: expect one page loaded");
 			assert.strictEqual(list._idPages[0].length, 23, "A: page size");
-			for (i = 0; i < 23; i++) {
-				assert(list._idPages[0][i] === i);
+			for (var j = 0; j < 23; j++) {
+				assert(list._idPages[0][j] === j);
 			}
 			// remove two items in the first page (page 1 size will be 21)
 			list.source.remove(0); // remove item 0
@@ -141,8 +140,8 @@ define([
 			assert.strictEqual(list._idPages[0].length, 21, "B: page size");
 			assert(list._idPages[0][0] === 1);
 			assert(list._idPages[0][1] === 3);
-			for (i = 2; i < 21; i++) {
-				assert(list._idPages[0][i] === i + 2);
+			for (var k = 2; k < 21; k++) {
+				assert(list._idPages[0][k] === k + 2);
 			}
 			// load next page (pages 1 and 2 loaded)
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
@@ -173,17 +172,17 @@ define([
 								clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 									list.deliver();
 									assertList(list, 46, 91, [], true, false,
-											"page 3 and 4 loaded and next loader disappears");
+										"page 3 and 4 loaded and next loader disappears");
 									// load previous page (pages 2 and 3 loaded)
 									clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
 										list.deliver();
 										assertList(list, 21, 68, [43, 45], true, true,
-												"page 2 and 3 loaded (third time)");
+											"page 2 and 3 loaded (third time)");
 										// load previous page (pages 1 and 2 loaded)
 										clickPreviousPageLoader(list).then(dfd.callback(function () {
 											list.deliver();
 											assertList(list, 1, 44, [2, 43], false, true,
-													"page 1 and 2 loaded (third time)");
+												"page 1 and 2 loaded (third time)");
 										}));
 									}));
 								}));
@@ -197,7 +196,7 @@ define([
 			return dfd;
 		},
 
-		"Helper: Removing items in next non displayed page": function (/*Deferred*/dfd) {
+		"removing items in next non displayed page": function (/*Deferred*/dfd) {
 			var store = new Store();
 			for (var i = 0; i < 92; i++) {
 				store.add({label: "item " + i, id: i});
@@ -222,7 +221,7 @@ define([
 			return dfd;
 		},
 
-		"Helper: Removing items in previous non displayed page": function (/*Deferred*/dfd) {
+		"removing items in previous non displayed page": function (/*Deferred*/dfd) {
 			var store = new Store();
 			for (var i = 0; i < 92; i++) {
 				store.add({label: "item " + i, id: i});
@@ -253,7 +252,7 @@ define([
 			return dfd;
 		},
 
-		"Helper: Remove item and browse": function (/*Deferred*/dfd) {
+		"remove item and browse": function (/*Deferred*/dfd) {
 			var store = new Store();
 			for (var i = 0; i < 91; i++) {
 				store.add({label: "item " + i, id: i});
@@ -290,37 +289,37 @@ define([
 			return dfd;
 		},
 
-		"Helper: Remove all items in non displayed first page removes previous page loader":
+		"remove all items in non displayed first page removes previous page loader":
 			function (/*Deferred*/dfd) {
-			var store = new Store();
-			for (var i = 0; i < 91; i++) {
-				store.add({label: "item " + i, id: i});
-			}
+				var store = new Store();
+				for (var i = 0; i < 91; i++) {
+					store.add({label: "item " + i, id: i});
+				}
 
-			list = new PageableList({source: store});
-			list.pageLength = 23;
-			list.maxPages = 2;
-			list.style.height = "200px";
-			list.placeAt(document.body);
-			list.deliver();
+				list = new PageableList({source: store});
+				list.pageLength = 23;
+				list.maxPages = 2;
+				list.style.height = "200px";
+				list.placeAt(document.body);
+				list.deliver();
 
-			// Click next page loader two times
-			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-				clickNextPageLoader(list).then(dfd.callback(function () {
-					// remove all items in the first page
-					for (var i = 0; i < 23; i++) {
-						list.source.remove(i);
-					}
-					list.deliver();
-					// check that the previous page loader has been removed
-					assertList(list, 23, 68, [], false, true);
+				// Click next page loader two times
+				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+					clickNextPageLoader(list).then(dfd.callback(function () {
+						// remove all items in the first page
+						for (var j = 0; j < 23; j++) {
+							list.source.remove(j);
+						}
+						list.deliver();
+						// check that the previous page loader has been removed
+						assertList(list, 23, 68, [], false, true);
+					}));
 				}));
-			}));
 
-			return dfd;
-		},
+				return dfd;
+			},
 
-		"Helper: Add items in displayed page": function (/*Deferred*/dfd) {
+		"add items in displayed page": function (/*Deferred*/dfd) {
 			/*jshint maxlen: 140*/
 			var store = new Store();
 			for (var i = 0; i < 92; i++) {
@@ -340,14 +339,14 @@ define([
 			// Check internal page representation
 			assert.strictEqual(list._idPages.length, 1, "A: number of pages");
 			assert.deepEqual(list._idPages[0],
-					[0, "A", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, "B", 22]);
+				[0, "A", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, "B", 22]);
 			assert.strictEqual(list._idPages[0].length, 25, "A: number of items in page");
 			assert.strictEqual(list.containerNode.children.length, 25, "A: number of list children");
 			list.deliver();
 			assert.strictEqual(removeTabsAndReturns(list.containerNode.children[0].textContent), "item 0", "A");
 			assert.strictEqual(removeTabsAndReturns(list.containerNode.children[1].textContent), "item A", "A");
-			for (i = 2; i <= 22; i++) {
-				assert.strictEqual(removeTabsAndReturns(list.containerNode.children[i].textContent), "item " + (i - 1), "A");
+			for (var j = 2; j <= 22; j++) {
+				assert.strictEqual(removeTabsAndReturns(list.containerNode.children[j].textContent), "item " + (j - 1), "A");
 			}
 			assert.strictEqual(removeTabsAndReturns(list.containerNode.children[23].textContent), "item B", "A");
 			assert.strictEqual(removeTabsAndReturns(list.containerNode.children[24].textContent), "item 22", "A");
@@ -357,66 +356,66 @@ define([
 				list.deliver();
 				assert.strictEqual(removeTabsAndReturns(list.containerNode.children[0].textContent), "item 0", "B");
 				assert.strictEqual(removeTabsAndReturns(list.containerNode.children[1].textContent), "item A", "B");
-				for (i = 2; i <= 22; i++) {
-					assert.strictEqual(removeTabsAndReturns(list.containerNode.children[i].textContent), "item " + (i - 1), "B");
+				for (var k = 2; k <= 22; k++) {
+					assert.strictEqual(removeTabsAndReturns(list.containerNode.children[k].textContent), "item " + (k - 1), "B");
 				}
 				assert.strictEqual(removeTabsAndReturns(list.containerNode.children[23].textContent), "item B", "B");
-				for (i = 24; i <= 47; i++) {
-					assert.strictEqual(removeTabsAndReturns(list.containerNode.children[i].textContent), "item " + (i - 2), "B");
+				for (var l = 24; l <= 47; l++) {
+					assert.strictEqual(removeTabsAndReturns(list.containerNode.children[l].textContent), "item " + (l - 2), "B");
 				}
 				assert.strictEqual(removeTabsAndReturns(list.nextPageLoader.labelNode.textContent),
-						"Click to load 23 more items", "B");
+					"Click to load 23 more items", "B");
 				// Add an item
 				list.source.add({id: "C", label: "item C"}, {beforeId: 23});
 				list.deliver();
 				assert.strictEqual(list.containerNode.children.length, 49, "C: number of list children");
 				assert.strictEqual(removeTabsAndReturns(list.containerNode.children[0].textContent), "item 0", "C");
 				assert.strictEqual(removeTabsAndReturns(list.containerNode.children[1].textContent), "item A", "C");
-				for (i = 2; i <= 22; i++) {
-					assert.strictEqual(removeTabsAndReturns(list.containerNode.children[i].textContent), "item " + (i - 1), "C");
+				for (var m = 2; m <= 22; m++) {
+					assert.strictEqual(removeTabsAndReturns(list.containerNode.children[m].textContent), "item " + (m - 1), "C");
 				}
 				assert.strictEqual(removeTabsAndReturns(list.containerNode.children[23].textContent), "item B", "C");
 				assert.strictEqual(removeTabsAndReturns(list.containerNode.children[24].textContent), "item 22", "C");
 				assert.strictEqual(removeTabsAndReturns(list.containerNode.children[25].textContent), "item C", "C");
-				for (i = 26; i <= 48; i++) {
-					assert.strictEqual(removeTabsAndReturns(list.containerNode.children[i].textContent), "item " + (i - 3), "C");
+				for (var n = 26; n <= 48; n++) {
+					assert.strictEqual(removeTabsAndReturns(list.containerNode.children[n].textContent), "item " + (n - 3), "C");
 				}
 				assert.strictEqual(removeTabsAndReturns(list.nextPageLoader.labelNode.textContent),
-						"Click to load 23 more items", "C");
+					"Click to load 23 more items", "C");
 				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 					list.deliver();
 					assert.strictEqual(list.containerNode.children.length, 47, "D: number of list children");
 					assert.strictEqual(removeTabsAndReturns(list.previousPageLoader.labelNode.textContent),
-							"Click to load 23 more items",
-							"C: previous page loader");
+						"Click to load 23 more items",
+						"C: previous page loader");
 					assert.strictEqual(removeTabsAndReturns(list.containerNode.children[0].textContent), "item C", "C");
 					assert.strictEqual(removeTabsAndReturns(list.containerNode.children[46].textContent), "item 68", "C");
 					assert.strictEqual(removeTabsAndReturns(list.nextPageLoader.labelNode.textContent),
-							"Click to load 23 more items",
-							"C: next page loader");
+						"Click to load 23 more items",
+						"C: next page loader");
 					clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
 						list.deliver();
 						assert.strictEqual(list.containerNode.children.length, 47, "D: number of list children");
 						assert.strictEqual(removeTabsAndReturns(list.previousPageLoader.labelNode.textContent),
-								"Click to load 23 more items",
-								"D: previous page loader");
+							"Click to load 23 more items",
+							"D: previous page loader");
 						assert.strictEqual(removeTabsAndReturns(list.containerNode.children[0].textContent), "item 1", "D");
 						assert.strictEqual(removeTabsAndReturns(list.containerNode.children[46].textContent), "item 45", "D");
 						assert.strictEqual(removeTabsAndReturns(list.nextPageLoader.labelNode.textContent),
-								"Click to load 23 more items",
-								"D: next page loader");
+							"Click to load 23 more items",
+							"D: next page loader");
 						clickPreviousPageLoader(list).then(dfd.callback(function () {
 							list.deliver();
 							assert.strictEqual(list.containerNode.children.length, 25, "E: number of list children");
 							assert.strictEqual(removeTabsAndReturns(list.containerNode.children[0].textContent),
-									"item 0", "E");
+								"item 0", "E");
 							assert.strictEqual(removeTabsAndReturns(list.containerNode.children[1].textContent),
-									"item A", "E");
+								"item A", "E");
 							assert.strictEqual(removeTabsAndReturns(list.containerNode.children[24].textContent),
-									"item 22", "E");
+								"item 22", "E");
 							assert.strictEqual(removeTabsAndReturns(list.nextPageLoader.labelNode.textContent),
-									"Click to load 23 more items",
-									"E: next page loader");
+								"Click to load 23 more items",
+								"E: next page loader");
 						}));
 					}));
 				}));
@@ -426,7 +425,7 @@ define([
 			return dfd;
 		},
 
-		"Helper: add item before first page creates loader": function (/*Deferred*/dfd) {
+		"add item before first page creates loader": function (/*Deferred*/dfd) {
 			var store = new Store();
 			for (var i = 0; i < 24; i++) {
 				store.add({label: "item " + i, id: i});
@@ -442,35 +441,35 @@ define([
 			// Check internal page representation
 			assert.strictEqual(list._idPages.length, 1, "A: number of pages");
 			assert.deepEqual(list._idPages[0],
-					[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]);
+				[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]);
 			assert.strictEqual(list._idPages[0].length, 23, "A: number of items in page");
 			assert.strictEqual(list.containerNode.children.length, 23, "A: number of list children");
 			assert.strictEqual(removeTabsAndReturns(list.previousPageLoader.labelNode.textContent),
-					"Click to load 23 more items",
-					"A (previous page loader)");
-			for (i = 0; i < 23; i++) {
+				"Click to load 23 more items",
+				"A (previous page loader)");
+			for (var j = 0; j < 23; j++) {
 				assert.strictEqual(
-						removeTabsAndReturns(list.containerNode.children[i].textContent), "item " + i, "A");
+					removeTabsAndReturns(list.containerNode.children[j].textContent), "item " + j, "A");
 			}
 			assert.strictEqual(removeTabsAndReturns(list.nextPageLoader.labelNode.textContent),
-					"Click to load 23 more items",
-					"A (next page loader)");
+				"Click to load 23 more items",
+				"A (next page loader)");
 			clickPreviousPageLoader(list).then(dfd.callback(function () {
 				list.deliver();
 				assert.strictEqual(list.containerNode.children.length, 24, "B: number of list children");
 				assert.strictEqual(removeTabsAndReturns(list.containerNode.children[0].textContent), "item A", "B");
-				for (i = 1; i < 23; i++) {
-					assert.strictEqual(removeTabsAndReturns(list.containerNode.children[i].textContent),
-							"item " + (i - 1), "B");
+				for (var k = 1; k < 23; k++) {
+					assert.strictEqual(removeTabsAndReturns(list.containerNode.children[k].textContent),
+						"item " + (k - 1), "B");
 				}
 				assert.strictEqual(removeTabsAndReturns(list.nextPageLoader.labelNode.textContent),
-						"Click to load 23 more items", "B");
+					"Click to load 23 more items", "B");
 			}));
 
 			return dfd;
 		},
 
-		"Helper: add item after last page creates loader": function (/*Deferred*/dfd) {
+		"add item after last page creates loader": function (/*Deferred*/dfd) {
 			var store = new Store();
 			for (var i = 0; i < 23; i++) {
 				store.add({label: "item " + i, id: i});
@@ -483,8 +482,8 @@ define([
 			list.deliver();
 			assert.strictEqual(list.containerNode.children.length, 23, "0: number of list children");
 			assert.strictEqual(removeTabsAndReturns(list.nextPageLoader.labelNode.textContent),
-					"Click to load 23 more items",
-					"0: last children is next page loader");
+				"Click to load 23 more items",
+				"0: last children is next page loader");
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 				// Add an item at the end
 				list.source.add({id: "A", label: "item A"});
@@ -492,31 +491,31 @@ define([
 				// Check internal page representation
 				assert.strictEqual(list._idPages.length, 1, "A: number of pages");
 				assert.deepEqual(list._idPages[0],
-						[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]);
+					[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]);
 				assert.strictEqual(list._idPages[0].length, 23, "A: number of items in page");
 				assert.strictEqual(list.containerNode.children.length, 23, "A: number of list children");
-				for (i = 0; i <= 22; i++) {
+				for (var j = 0; j <= 22; j++) {
 					assert.strictEqual(
-							removeTabsAndReturns(list.containerNode.children[i].textContent), "item " + i, "A");
+						removeTabsAndReturns(list.containerNode.children[j].textContent), "item " + j, "A");
 				}
 				assert.strictEqual(removeTabsAndReturns(list.nextPageLoader.labelNode.textContent),
-						"Click to load 23 more items",
-						"A (next page loader)");
+					"Click to load 23 more items",
+					"A (next page loader)");
 				clickNextPageLoader(list).then(dfd.callback(function () {
 					list.deliver();
 					assert.strictEqual(list.containerNode.children.length, 24, "B: number of list children");
-					for (i = 0; i <= 22; i++) {
-						assert.strictEqual(removeTabsAndReturns(list.containerNode.children[i].textContent),
-								"item " + i, "B");
+					for (var k = 0; k <= 22; k++) {
+						assert.strictEqual(removeTabsAndReturns(list.containerNode.children[k].textContent),
+							"item " + k, "B");
 					}
 					assert.strictEqual(removeTabsAndReturns(list.containerNode.children[23].textContent),
-							"item A", "B");
+						"item A", "B");
 				}));
 			}));
 			return dfd;
 		},
 
-		"Helper: add item to undisplayed page": function (/*Deferred*/dfd) {
+		"add item to undisplayed page": function (/*Deferred*/dfd) {
 			var store = new Store();
 			for (var i = 0; i < 100; i++) {
 				store.add({label: "item " + i, id: i});
@@ -536,34 +535,34 @@ define([
 				list.deliver();
 				assert.strictEqual(list.containerNode.children.length, 23, "B: list number of children");
 				assert.strictEqual(removeTabsAndReturns(list.previousPageLoader.labelNode.textContent),
-						"Click to load 23 more items",
-						"B: previous page loader");
+					"Click to load 23 more items",
+					"B: previous page loader");
 				assert.strictEqual(removeTabsAndReturns(list.containerNode.children[0].textContent), "item A", "B");
-				for (i = 2; i < 23; i++) {
-					assert.strictEqual(removeTabsAndReturns(list.containerNode.children[i].textContent),
-							"item " + (i + 22), "B");
+				for (var j = 2; j < 23; j++) {
+					assert.strictEqual(removeTabsAndReturns(list.containerNode.children[j].textContent),
+						"item " + (j + 22), "B");
 				}
 				assert.strictEqual(removeTabsAndReturns(list.nextPageLoader.labelNode.textContent),
-						"Click to load 23 more items",
-						"B: next page loader");
+					"Click to load 23 more items",
+					"B: next page loader");
 				list.source.add({id: "B", label: "item B"}, {beforeId: 22});
 				clickPreviousPageLoader(list).then(dfd.callback(function () {
 					list.deliver();
 					assert.strictEqual(list.containerNode.children.length, 23, "C: list number of children");
 					assert.strictEqual(removeTabsAndReturns(list.previousPageLoader.labelNode.textContent),
-							"Click to load 23 more items",
-							"C: previous page loader");
-					for (i = 0; i < 21; i++) {
-						assert.strictEqual(removeTabsAndReturns(list.containerNode.children[i].textContent),
-								"item " + (i + 1), "C");
+						"Click to load 23 more items",
+						"C: previous page loader");
+					for (var k = 0; k < 21; k++) {
+						assert.strictEqual(removeTabsAndReturns(list.containerNode.children[k].textContent),
+							"item " + (k + 1), "C");
 					}
 					assert.strictEqual(removeTabsAndReturns(list.containerNode.children[21].textContent),
-							"item B", "C");
+						"item B", "C");
 					assert.strictEqual(removeTabsAndReturns(list.containerNode.children[22].textContent),
-							"item 22", "C");
+						"item 22", "C");
 					assert.strictEqual(removeTabsAndReturns(list.nextPageLoader.labelNode.textContent),
-							"Click to load 23 more items",
-							"C: next page loader");
+						"Click to load 23 more items",
+						"C: next page loader");
 				}));
 			}));
 
@@ -572,9 +571,9 @@ define([
 	};
 
 	registerSuite({
-		name: "list/PageableList",
+		"name": "list/PageableList",
 
-		beforeEach: function () {
+		"beforeEach": function () {
 			if (list) {
 				list.destroy();
 			}
@@ -685,7 +684,7 @@ define([
 			assert.strictEqual(list._lastLoaded, 6, "7");
 		},
 
-		"Loading all next pages (pageLength 20, maxPages 0)" : function () {
+		"Loading all next pages (pageLength 20, maxPages 0)": function () {
 			var dfd = this.async(3000);
 
 			var store = new Store();
@@ -730,7 +729,7 @@ define([
 			return dfd;
 		},
 
-		"Categorized list: Loading all next pages (pageLength 25, maxPages 0)" : function () {
+		"Categorized list: Loading all next pages (pageLength 25, maxPages 0)": function () {
 			var dfd = this.async(3000);
 
 			var store = new Store();
@@ -771,7 +770,7 @@ define([
 			return dfd;
 		},
 
-		"Loading all next pages, and then loading all previous pages (pageLength 20, maxPages 2)" : function () {
+		"Loading all next pages, and then loading all previous pages (pageLength 20, maxPages 2)": function () {
 			/*jshint maxlen: 138*/
 			var dfd = this.async(3000);
 
@@ -833,59 +832,59 @@ define([
 			return dfd;
 		},
 
-		"Categorized List: loading all next pages, and then loading all previous pages (pageLength 20, maxPages 2)" :
+		"Categorized List: loading all next pages, and then loading all previous pages (pageLength 20, maxPages 2)":
 			function () {
-			var dfd = this.async(3000);
+				var dfd = this.async(3000);
 
-			var store = new Store();
-			for (var i = 0; i < 100; i++) {
-				store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
-			}
+				var store = new Store();
+				for (var i = 0; i < 100; i++) {
+					store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
+				}
 
-			list = new PageableList({source: store});
-			list.categoryAttr = "category";
-			list.pageLength = 25;
-			list.maxPages = 2;
-			list.placeAt(document.body);
-			list.deliver();
-
-			// initial load
-			assertCategorizedList(list, 25, 0, false, true);
-			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+				list = new PageableList({source: store});
+				list.categoryAttr = "category";
+				list.pageLength = 25;
+				list.maxPages = 2;
+				list.placeAt(document.body);
 				list.deliver();
-				// after second page is loaded
-				assertCategorizedList(list, 50, 0, false, true);
+
+				// initial load
+				assertCategorizedList(list, 25, 0, false, true);
 				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 					list.deliver();
-					// after third page is loaded and first page is unloaded
-					assertCategorizedList(list, 50, 25, true, true);
+					// after second page is loaded
+					assertCategorizedList(list, 50, 0, false, true);
 					clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 						list.deliver();
-						// after fourth page is loaded and second page is unloaded
-						assertCategorizedList(list, 50, 50, true, true);
+						// after third page is loaded and first page is unloaded
+						assertCategorizedList(list, 50, 25, true, true);
 						clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 							list.deliver();
-							// after last click
-							assertCategorizedList(list, 50, 50, true, false);
-							clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
+							// after fourth page is loaded and second page is unloaded
+							assertCategorizedList(list, 50, 50, true, true);
+							clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 								list.deliver();
-								// after fourth page is unloaded and second page is loaded
-								assertCategorizedList(list, 50, 25, true, true);
-								clickPreviousPageLoader(list).then(dfd.callback(function () {
+								// after last click
+								assertCategorizedList(list, 50, 50, true, false);
+								clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
 									list.deliver();
-									// after third page is unloaded and first page is loaded
-									assertCategorizedList(list, 50, 0, false, true);
+									// after fourth page is unloaded and second page is loaded
+									assertCategorizedList(list, 50, 25, true, true);
+									clickPreviousPageLoader(list).then(dfd.callback(function () {
+										list.deliver();
+										// after third page is unloaded and first page is loaded
+										assertCategorizedList(list, 50, 0, false, true);
+									}));
 								}));
 							}));
 						}));
 					}));
 				}));
-			}));
 
-			return dfd;
-		},
+				return dfd;
+			},
 
-		"pageLength equal to the total number of item (maxPages 0)" : function () {
+		"pageLength equal to the total number of item (maxPages 0)": function () {
 			var dfd = this.async(3000);
 
 			var store = new Store();
@@ -910,7 +909,7 @@ define([
 			return dfd;
 		},
 
-		"Categorized List: pageLength equal to the total number of item (maxPages 0)" : function () {
+		"Categorized List: pageLength equal to the total number of item (maxPages 0)": function () {
 			var dfd = this.async(3000);
 
 			var store = new Store();
@@ -936,7 +935,7 @@ define([
 			return dfd;
 		},
 
-		"pageLength equal to the total number of item (maxPages 2)" : function () {
+		"pageLength equal to the total number of item (maxPages 2)": function () {
 			var dfd = this.async(3000);
 
 			var store = new Store();
@@ -961,7 +960,7 @@ define([
 			return dfd;
 		},
 
-		"Categorized List: pageLength equal to the total number of item (maxPages 2)" : function () {
+		"Categorized List: pageLength equal to the total number of item (maxPages 2)": function () {
 			var dfd = this.async(3000);
 
 			var store = new Store();
@@ -987,7 +986,7 @@ define([
 			return dfd;
 		},
 
-		"pageLength greater than the total number of item (maxPages 0)" : function () {
+		"pageLength greater than the total number of item (maxPages 0)": function () {
 			var store = new Store();
 			for (var i = 0; i < 100; i++) {
 				store.add({label: "item " + i});
@@ -1003,7 +1002,7 @@ define([
 			assertList(list, 0, 99, [], false, false);
 		},
 
-		"Categorized List: pageLength greater than the total number of item (maxPages 0)" : function () {
+		"Categorized List: pageLength greater than the total number of item (maxPages 0)": function () {
 			var store = new Store();
 			for (var i = 0; i < 100; i++) {
 				store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
@@ -1020,7 +1019,7 @@ define([
 			assertCategorizedList(list, 100, 0, false, false);
 		},
 
-		"pageLength greater than the total number of item (maxPages 2)" : function () {
+		"pageLength greater than the total number of item (maxPages 2)": function () {
 			var store = new Store();
 			for (var i = 0; i < 100; i++) {
 				store.add({label: "item " + i});
@@ -1036,7 +1035,7 @@ define([
 			assertList(list, 0, 99, [], false, false);
 		},
 
-		"Categorized List: pageLength greater than the total number of item (maxPages 2)" : function () {
+		"Categorized List: pageLength greater than the total number of item (maxPages 2)": function () {
 			var store = new Store();
 			for (var i = 0; i < 100; i++) {
 				store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
@@ -1053,7 +1052,7 @@ define([
 			assertCategorizedList(list, 100, 0, false, false);
 		},
 
-		"list in a popup" : function () {
+		"list in a popup": function () {
 			var store = new Store();
 			for (var i = 0; i < 100; i++) {
 				store.add({label: "item " + i});
@@ -1081,7 +1080,7 @@ define([
 			}
 		},
 
-		"list with categories in a popup" : function () {
+		"list with categories in a popup": function () {
 			var store = new Store();
 			for (var i = 0; i < 100; i++) {
 				store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
@@ -1114,48 +1113,48 @@ define([
 		///////////////////////////////////////////
 		// TEST REMOVING ITEMS
 		///////////////////////////////////////////
-		"Removing items in displayed pages": function () {
-			return testHelpers["Helper: Removing items in displayed pages"](this.async(3000), false);
+		"removing items in displayed pages": function () {
+			return testHelpers["removing items in displayed pages"](this.async(3000), false);
 		},
 
-		"Removing items in next non displayed page": function () {
-			return testHelpers["Helper: Removing items in next non displayed page"](this.async(3000), false);
+		"removing items in next non displayed page": function () {
+			return testHelpers["removing items in next non displayed page"](this.async(3000), false);
 		},
 
-		"Removing items in previous non displayed page": function () {
-			return testHelpers["Helper: Removing items in previous non displayed page"](this.async(3000), false);
+		"removing items in previous non displayed page": function () {
+			return testHelpers["removing items in previous non displayed page"](this.async(3000), false);
 		},
 
-		"Remove all items in non displayed first page": function () {
+		"remove all items in non displayed first page": function () {
 			return testHelpers[
-			                   "Helper: Remove all items in non displayed first page removes previous page loader"
-			                   ](this.async(3000), false);
+				"remove all items in non displayed first page removes previous page loader"
+			](this.async(3000), false);
 		},
 
-		"Remove item and browse": function () {
-			return testHelpers["Helper: Remove item and browse"](this.async(3000), false);
+		"remove item and browse": function () {
+			return testHelpers["remove item and browse"](this.async(3000), false);
 		},
 
 		///////////////////////////////////////////
 		// TEST ADDING ITEMS
 		///////////////////////////////////////////
-		"Add items in displayed pages": function () {
-			return testHelpers["Helper: Add items in displayed page"](this.async(3000), false);
+		"add items in displayed pages": function () {
+			return testHelpers["add items in displayed page"](this.async(3000), false);
 		},
 
-		"Add item before first page creates loader": function () {
-			return testHelpers["Helper: add item before first page creates loader"](this.async(3000), false);
+		"add item before first page creates loader": function () {
+			return testHelpers["add item before first page creates loader"](this.async(3000), false);
 		},
 
-		"Add item after last page creates loader": function () {
-			return testHelpers["Helper: add item after last page creates loader"](this.async(3000), false);
+		"add item after last page creates loader": function () {
+			return testHelpers["add item after last page creates loader"](this.async(3000), false);
 		},
 
-		"Add item to undisplayed page": function () {
-			return testHelpers["Helper: add item to undisplayed page"](this.async(3000), false);
+		"add item to undisplayed page": function () {
+			return testHelpers["add item to undisplayed page"](this.async(3000), false);
 		},
 
-		"Update items in displayed page with index page > maxpages": function () {
+		"update items in displayed page with index page > maxpages": function () {
 			var dfd = this.async(3000);
 
 			var store = new Store();
@@ -1180,7 +1179,7 @@ define([
 			return dfd;
 		},
 
-		"Reload list content": function () {
+		"reload list content": function () {
 			var dfd = this.async(3000);
 
 			var store = new Store();
@@ -1202,8 +1201,8 @@ define([
 				assertCategorizedList(list, 50, 0, false, true);
 				// Create a new source and assign it to the list
 				var source = new Store();
-				for (var i = 1000; i < 1100; i++) {
-					source.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
+				for (var j = 1000; j < 1100; j++) {
+					source.add({label: "item " + j, category: "Category " + Math.floor(j / 10)});
 				}
 				list.source = source;
 				list.deliver();
@@ -1213,7 +1212,7 @@ define([
 			return dfd;
 		},
 
-		"Update pageLength": function () {
+		"update pageLength": function () {
 			var dfd = this.async(3000);
 
 			var store = new Store();
@@ -1248,7 +1247,7 @@ define([
 			return dfd;
 		},
 
-		"Update maxPages": function () {
+		"update maxPages": function () {
 			var dfd = this.async(3000);
 
 			var store = new Store();
@@ -1281,7 +1280,7 @@ define([
 			return dfd;
 		},
 
-		"Update loadPreviousMessage": function () {
+		"update loadPreviousMessage": function () {
 			var dfd = this.async(3000);
 
 			var store = new Store();
@@ -1301,13 +1300,13 @@ define([
 				list.loadPreviousMessage = "foo";
 				list.deliver();
 				assert.strictEqual(removeTabsAndReturns(list.previousPageLoader.labelNode.textContent),
-						"foo", "loader label not updated");
+					"foo", "loader label not updated");
 			}));
 
 			return dfd;
 		},
 
-		"Update loadNextMessage": function () {
+		"update loadNextMessage": function () {
 			var dfd = this.async(3000);
 
 			var store = new Store();
@@ -1327,13 +1326,13 @@ define([
 				list.loadNextMessage = "foo";
 				list.deliver();
 				assert.strictEqual(removeTabsAndReturns(list.nextPageLoader.labelNode.textContent),
-						"foo", "loader label not updated");
+					"foo", "loader label not updated");
 			}));
 
 			return dfd;
 		},
 
-		"hideOnPageLoad: hidding panel removed after loading the last page" : function () {
+		"hideOnPageLoad: hidding panel removed after loading the last page": function () {
 			var dfd = this.async(3000);
 
 			var store = new Store();
@@ -1356,13 +1355,13 @@ define([
 				assertList(list, 0, 38, [], false, false);
 				// verify that loading panel is not displayed
 				assert.isNotNull(list.querySelector(".d-list-loading-panel[d-shown='false']"),
-						"loading panel should not be visible");
+					"loading panel should not be visible");
 			}));
 
 			return dfd;
 		},
 
-		"hideOnPageLoad: check loading panel, list and loaders visibility" : function () {
+		"hideOnPageLoad: check loading panel, list and loaders visibility": function () {
 			var dfd = this.async(3000);
 
 			var store = new Store();
@@ -1381,33 +1380,33 @@ define([
 
 			// verify that loading panel is displayed, list and prev/next loader not visible.
 			assert.isNotNull(list.querySelector(".d-list-loading-panel[d-shown='true']"),
-						"loading panel should be visible");
+				"loading panel should be visible");
 			assert.isNotNull(list.querySelector(".d-list-container[d-shown='false']"),
-						"list containerNode should not be visible");
+				"list containerNode should not be visible");
 			assert.isNotNull(list.querySelector(".d-list-previous-loader[d-shown='false']"),
-						"previous loader should not be visible");
+				"previous loader should not be visible");
 			assert.isNotNull(list.querySelector(".d-list-next-loader[d-shown='false']"),
-						"next loader should not be visible");
+				"next loader should not be visible");
 			list.hideOnPageLoad = false;
 			list.deliver();
 
 			// verify that loading panel and prev loader are not shown,
 			// list and next loader are visible when busy equals to true.
 			assert.isNotNull(list.querySelector(".d-list-loading-panel[d-shown='false']"),
-						"loading panel should not be visible");
+				"loading panel should not be visible");
 			assert.isNotNull(list.querySelector(".d-list-container[d-shown='true']"),
-						"list containerNode should be visible");
+				"list containerNode should be visible");
 			assert.isNotNull(list.querySelector(".d-list-previous-loader[d-shown='false']"),
-						"previous loader should not be visible");
+				"previous loader should not be visible");
 			assert.isNotNull(list.querySelector(".d-list-next-loader[d-shown='true']"),
-					"next loader should be visible");
+				"next loader should be visible");
 			list._busy = false;
 
 			clickNextPageLoader(list).then(dfd.callback(function () {
 				list.deliver();
 				// verify that loading panel is not displayed
 				assert.isNotNull(list.querySelector(".d-list-loading-panel[d-shown='false']"),
-						"loading panel should be visible");
+					"loading panel should be visible");
 			}));
 
 			return dfd;
@@ -1449,9 +1448,9 @@ define([
 					list.deliver();
 					assertCategorizedList(list, 50, 0, false, true);
 					assert.strictEqual(
-							removeTabsAndReturns(list._getLastVisibleRenderer().textContent),
-							"item 24",
-							"last visible renderer after first page load");
+						removeTabsAndReturns(list._getLastVisibleRenderer().textContent),
+						"item 24",
+						"last visible renderer after first page load");
 					setTimeout(def.rejectOnError(function () {
 						// scroll a little to remove the "_atExtremity" marker
 						list.scrollTop =
@@ -1512,7 +1511,7 @@ define([
 			clickNextPageLoader(list).then(dfd.callback(function () {
 				list.deliver();
 				assert.strictEqual("item 10",
-						removeTabsAndReturns(list.getItemRendererByIndex(0).textContent));
+					removeTabsAndReturns(list.getItemRendererByIndex(0).textContent));
 			}));
 
 			return dfd;
@@ -1521,9 +1520,9 @@ define([
 		///////////////////////////////////////////
 		// TODO: TEST MOVING ITEMS ?
 		///////////////////////////////////////////
-		teardown : function () {
-//			list.destroy();
-//			list = null;
+		"teardown": function () {
+			//			list.destroy();
+			//			list = null;
 		}
 	});
 

@@ -1,8 +1,9 @@
-define([
-	"intern!object",
-	"intern/chai!assert",
-	"deliteful/DatePicker"
-], function (registerSuite, assert, DatePicker) {
+define(function (require) {
+	"use strict";
+
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var DatePicker = require("deliteful/DatePicker");
 
 	registerSuite({
 		name: "DatePicker",

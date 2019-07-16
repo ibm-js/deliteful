@@ -1,19 +1,20 @@
-define(["intern",
-        "intern!object",
-        "intern/dojo/node!leadfoot/helpers/pollUntil",
-        "intern/dojo/node!leadfoot/keys",
-        "intern/chai!assert",
-        "require"
-        ], function (intern, registerSuite, pollUntil, keys, assert, require) {
+define(function (require) {
+	"use strict";
 
-	function loadNextPage(remote, listId, pageSize, expectedActiveTextAfterLoad, comment) {
+	var intern = require("intern");
+	var registerSuite = require("intern!object");
+	var pollUntil = require("intern/dojo/node!leadfoot/helpers/pollUntil");
+	var keys = require("intern/dojo/node!leadfoot/keys");
+	var assert = require("intern/chai!assert");
+
+	function loadNextPage (remote, listId, pageSize, expectedActiveTextAfterLoad, comment) {
 		return remote.pressKeys(keys.PAGE_DOWN)
 			.pressKeys(keys.TAB)
 			.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "Click to load " + pageSize + " more items", comment + " (a)");
-				})
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "Click to load " + pageSize + " more items", comment + " (a)");
+			})
 			.end()
 			.pressKeys(keys.SPACE)
 			.getActiveElement()
@@ -24,15 +25,15 @@ define(["intern",
 			.end();
 	}
 
-	function loadPreviousPage(remote, listId, pageSize, expectedActiveTextAfterLoad, comment) {
+	function loadPreviousPage (remote, listId, pageSize, expectedActiveTextAfterLoad, comment) {
 		return remote.pressKeys(keys.PAGE_UP)
 			.pressKeys(keys.SHIFT + keys.TAB)
 			.pressKeys(keys.SHIFT) // release shift
 			.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "Click to load " + pageSize + " more items", comment + " (a)");
-				})
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "Click to load " + pageSize + " more items", comment + " (a)");
+			})
 			.end()
 			.pressKeys(keys.SPACE)
 			.getActiveElement()
@@ -44,7 +45,7 @@ define(["intern",
 	}
 
 	registerSuite({
-		name: "Pageable tests",
+		"name": "Pageable tests",
 		"Pageable list keyboard navigation": function () {
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
@@ -57,12 +58,12 @@ define(["intern",
 						+ "&& document.getElementById('" + listId + "') "
 						+ "&& !document.querySelector('#" + listId + " .d-list-container')"
 						+	".getAttribute('aria-busy') === false) ? true : null;",
-						[],
-						intern.config.WAIT_TIMEOUT,
-						intern.config.POLL_INTERVAL))
+				[],
+				intern.config.WAIT_TIMEOUT,
+				intern.config.POLL_INTERVAL))
 				.getActiveElement()
 				// For some reason, tab navigation doesn't succeed on IE if not typing a value before
-					.type("test")
+				.type("test")
 				.end()
 				.pressKeys(keys.TAB)
 				.then(function () {
@@ -103,9 +104,9 @@ define(["intern",
 					+ "&& document.getElementById('" + listId + "') "
 					+ "&& !document.querySelector('#" + listId + " .d-list-container')"
 					+	".getAttribute('aria-busy') === false) ? true : null;",
-					[],
-					intern.config.WAIT_TIMEOUT,
-					intern.config.POLL_INTERVAL))
+				[],
+				intern.config.WAIT_TIMEOUT,
+				intern.config.POLL_INTERVAL))
 				.pressKeys(keys.TAB)
 				.then(function () {
 					return loadNextPage(remote, listId, 25, "Programmatic item of order 25", "loadNext #1");

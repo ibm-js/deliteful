@@ -1,22 +1,15 @@
-define([
-	"intern!object",
-	"intern/chai!assert",
-	"decor/sniff",
-	"delite/register",
-	"dstore/Memory",
-	"dstore/Trackable",
-	"deliteful/Combobox"
-], function (
-	registerSuite,
-	assert,
-	has,
-	register,
-	Memory,
-	Trackable,
-	Combobox
-) {
+define(function (require) {
+	"use strict";
 
-	function mix(a, b) {
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var has = require("decor/sniff");
+	var register = require("delite/register");
+	var Memory = require("dstore/Memory");
+	var Trackable = require("dstore/Trackable");
+	var Combobox = require("deliteful/Combobox");
+
+	function mix (a, b) {
 		for (var n in b) {
 			a[n] = b[n];
 		}
@@ -97,7 +90,7 @@ define([
 
 	var initSource = function (combo, trackable) {
 		var TrackableMemoryStore = Memory.createSubclass(Trackable);
-		var source = trackable ? new TrackableMemoryStore({}): new Memory();
+		var source = trackable ? new TrackableMemoryStore({}) : new Memory();
 		combo.source = source;
 		var dataItems = addOptions(combo, 0, nOptions - 1);
 		combo._testDataItems = dataItems; // stored for debugging purposes.
@@ -105,7 +98,7 @@ define([
 	};
 
 	var createCombobox = function (id, trackable, multiple) {
-		var selectionMode = multiple ? "multiple": "single";
+		var selectionMode = multiple ? "multiple" : "single";
 		var combo = new Combobox({id: id, selectionMode: selectionMode});
 		initSource(combo, trackable);
 		combo.placeAt(container);
@@ -168,28 +161,28 @@ define([
 			var delay = 200;
 			setTimeout(d.callback(function () {
 				assert.strictEqual(combo.valueNode.value, "Option 2",
-						"item2.item.label: " + item2.item.label +
+					"item2.item.label: " + item2.item.label +
 							" combo.valueNode.value after selecting item2 on combo.id: " +
 						combo.id + " selectionMode: " + combo.selectionMode);
 				assert.strictEqual(combo.value, "Option 2",
-						"item2.item.label: " + item2.item.label + " combo.value after selecting item2 on combo.id: " +
+					"item2.item.label: " + item2.item.label + " combo.value after selecting item2 on combo.id: " +
 						combo.id + " selectionMode: " + combo.selectionMode);
 				assert.strictEqual(combo.value, combo.valueNode.value,
-						"combo.value equal to combo.valueNode.value after selecting item2 on combo.id: " +
+					"combo.value equal to combo.valueNode.value after selecting item2 on combo.id: " +
 						combo.id);
 				var dataObj = combo.list.selectedItem.__item;
 				var itemLabel = combo.list.labelFunc ?
-					combo.list.labelFunc(dataObj): dataObj[combo.list.labelAttr];
+					combo.list.labelFunc(dataObj) : dataObj[combo.list.labelAttr];
 				assert.strictEqual(itemLabel, "Option 2",
-						"label of combo.list.selectedItem after selecting item2 on combo.id: " + combo.id);
+					"label of combo.list.selectedItem after selecting item2 on combo.id: " + combo.id);
 				assert.strictEqual(combo.list.selectedItems.length, 1,
-						"combo.list.selectedItems.length after selecting item2 on combo.id: " +
+					"combo.list.selectedItems.length after selecting item2 on combo.id: " +
 						combo.id);
 				dataObj = combo.list.selectedItems[0].__item;
 				itemLabel = combo.list.labelFunc ?
-					combo.list.labelFunc(dataObj): dataObj[combo.list.labelAttr];
+					combo.list.labelFunc(dataObj) : dataObj[combo.list.labelAttr];
 				assert.strictEqual(itemLabel, "Option 2",
-						"label of combo.list.selectedItems[2] after selecting item2 on combo.id: " +
+					"label of combo.list.selectedItems[2] after selecting item2 on combo.id: " +
 						combo.id);
 
 				combo.closeDropDown();
@@ -212,13 +205,13 @@ define([
 		"Default CSS": function () {
 			var combo = document.getElementById("combo1");
 			assert.isTrue(combo.classList.contains(outerCSS),
-					"Expecting " + outerCSS +
+				"Expecting " + outerCSS +
 					" CSS class on outer element of combo.id: " + combo.id);
 			assert.isTrue(combo.inputNode.classList.contains(inputCSS),
-					"Expecting " + inputCSS +
+				"Expecting " + inputCSS +
 					" CSS class on inner input element of combo.id: " + combo.id);
 			assert.isTrue(combo.valueNode.classList.contains(hiddenInputCSS),
-					"Expecting " + hiddenInputCSS +
+				"Expecting " + hiddenInputCSS +
 					" CSS class on inner valueNode (hidden input) of combo.id: " + combo.id);
 
 			combo = document.getElementById("mycombo1");
@@ -228,13 +221,13 @@ define([
 			} // else the declarative case
 
 			assert.isTrue(combo.classList.contains(outerCSS),
-					"Expecting " + outerCSS +
+				"Expecting " + outerCSS +
 					" CSS class on outer element of combo.id: " + combo.id);
 			assert.isTrue(combo.inputNode.classList.contains(inputCSS),
-					"Expecting " + inputCSS +
+				"Expecting " + inputCSS +
 					" CSS class on inner input element of combo.id: " + combo.id);
 			assert.isTrue(combo.valueNode.classList.contains(hiddenInputCSS),
-					"Expecting " + hiddenInputCSS +
+				"Expecting " + hiddenInputCSS +
 					" CSS class on inner valueNode (hidden input) of combo.id: " + combo.id);
 		},
 
@@ -252,14 +245,14 @@ define([
 	register("my-combobox", [Combobox], {});
 
 	registerSuite({
-		name: "deliteful/Combobox: markup",
+		"name": "deliteful/Combobox: markup",
 
-		beforeEach: function () {
+		"beforeEach": function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
 		},
 
-		afterEach: function () {
+		"afterEach": function () {
 			container.parentNode.removeChild(container);
 		},
 
@@ -308,8 +301,8 @@ define([
 	var MyCombobox = register("my-combo-prog", [Combobox], {});
 
 	registerSuite({
-		name: "deliteful/Combobox: programatic",
-		beforeEach: function () {
+		"name": "deliteful/Combobox: programatic",
+		"beforeEach": function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
 		},
@@ -373,7 +366,7 @@ define([
 		},
 
 		"programmatically set value and displayedValue (selectionMode=single)": {
-			simple: function () {
+			"simple": function () {
 				// Simple Combobox, displayedValue not specified but it defaults to value.
 				var source = new Memory({
 					data: [
@@ -404,7 +397,7 @@ define([
 				assert.strictEqual(combo.inputNode.value, "Japan", "changed inputNode.value");
 			},
 
-			label: function () {
+			"label": function () {
 				// Combobox where value and displayedValue are different, so at creation both
 				// displayedValue and value are specified.
 				var source = new Memory({
@@ -615,18 +608,18 @@ define([
 					"Just opening the dropdown should not emit any input event");
 
 				var checkAfterClickItem = function (changeCounterExpectedValue, inputCounterExpectedValue,
-													itemName, expectedValue) {
+					itemName, expectedValue) {
 					assert.strictEqual(inputCounter, inputCounterExpectedValue,
-							"inputCounter after clicking " + itemName + " (single)");
+						"inputCounter after clicking " + itemName + " (single)");
 					assert.strictEqual(changeCounter, changeCounterExpectedValue,
-							"changeCounter after clicking " + itemName + " (single)");
+						"changeCounter after clicking " + itemName + " (single)");
 					changeCounter = 0; // reinit
 					inputCounter = 0; // reinit
 					assert.strictEqual(changeValue, expectedValue,
-							"changeValue: wrong value when receiving change event after clicking " +
+						"changeValue: wrong value when receiving change event after clicking " +
 							itemName + " (single)");
 					assert.strictEqual(inputValue, expectedValue,
-							"inputValue: wrong value when receiving input event after clicking " +
+						"inputValue: wrong value when receiving input event after clicking " +
 							itemName + " (single)");
 					changeValue = null; // reinit
 					inputValue = null; // reinit
@@ -699,16 +692,16 @@ define([
 					"Just opening the dropdown should not emit any input event");
 
 				var checkAfterClickItem = function (changeCounterExpectedValue, inputCounterExpectedValue, itemName,
-													expectedChangeValue, expectedInputValue) {
+					expectedChangeValue, expectedInputValue) {
 					assert.strictEqual(inputCounter, inputCounterExpectedValue,
-							"inputCounter after clicking " + itemName + " (multiple)");
+						"inputCounter after clicking " + itemName + " (multiple)");
 					assert.strictEqual(changeCounter, changeCounterExpectedValue,
-							"changeCounter after clicking " + itemName + " (multiple)");
+						"changeCounter after clicking " + itemName + " (multiple)");
 					assert.deepEqual(changeValue, expectedChangeValue,
-							"changeValue: wrong value when receiving change event after clicking " +
+						"changeValue: wrong value when receiving change event after clicking " +
 							itemName + " (multiple)");
 					assert.deepEqual(inputValue, expectedInputValue,
-							"inputValue: wrong value when receiving input event after clicking " +
+						"inputValue: wrong value when receiving input event after clicking " +
 							itemName + " (multiple)");
 				};
 				var item2 = combo.list.getItemRenderers()[2];
@@ -757,14 +750,14 @@ define([
 				var delay = 200;
 				setTimeout(d.rejectOnError(function () {
 					assert.strictEqual(combo.value, "US",
-							"(single) Value after clicking item with label USA should be US, " +
+						"(single) Value after clicking item with label USA should be US, " +
 							"not USA, as defined in the custom myValue field of the data item");
 					combo.openDropDown().then(d.rejectOnError(function () {
 						var item4 = combo.list.getItemRenderers()[4];
 						item4.click();
 						setTimeout(d.callback(function () {
 							assert.strictEqual(combo.value, "CA",
-									"(single) Value after clicking item with label Canada should be CA, " +
+								"(single) Value after clicking item with label Canada should be CA, " +
 									"not Canada, as defined in the custom myValue field of the data item");
 						}), delay);
 					}));
@@ -792,14 +785,14 @@ define([
 				var delay = 200;
 				setTimeout(d.rejectOnError(function () {
 					assert.deepEqual(combo.value, ["US"],
-							"(multiple) Value after clicking item with label USA should be ['US'], " +
+						"(multiple) Value after clicking item with label USA should be ['US'], " +
 							"not ['USA'], as defined in the custom myValue field of the data item");
 					var item4 = combo.list.getItemRenderers()[4];
 					item4.click();
 					setTimeout(d.callback(function () {
 						combo.closeDropDown();
 						assert.deepEqual(combo.value, ["CA", "US"],
-								"(multiple) Value after clicking item with label Canada should be ['CA', 'US'], " +
+							"(multiple) Value after clicking item with label Canada should be ['CA', 'US'], " +
 								"not ['Canada', 'USA'], as defined in the custom myValue field " +
 								"of the data item");
 					}), delay);
@@ -830,7 +823,7 @@ define([
 		// 	assert.isNull(combo.list.source, "combo.list.source");
 		// },
 
-		afterEach: function () {
+		"afterEach": function () {
 			container.parentNode.removeChild(container);
 		}
 	});

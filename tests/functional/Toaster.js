@@ -1,13 +1,14 @@
-define(["intern",
-	"intern!object",
-	"intern/dojo/node!leadfoot/helpers/pollUntil",
-	"intern/chai!assert",
-	"require"
-], function (intern, registerSuite, pollUntil, assert, require) {
+define(function (require) {
+	"use strict";
+
+	var intern = require("intern");
+	var registerSuite = require("intern!object");
+	var pollUntil = require("intern/dojo/node!leadfoot/helpers/pollUntil");
+	var assert = require("intern/chai!assert");
 	var PAGE = "./Toaster.html";
 
 	// helpers
-	function attrValueToArray(value) {
+	function attrValueToArray (value) {
 		return value.trim().split(/\s+/g);
 	}
 
@@ -47,7 +48,7 @@ define(["intern",
 
 	// check functions
 
-	function checkAriaAttr(remote, widgetId) {
+	function checkAriaAttr (remote, widgetId) {
 		return remote
 			.findById(widgetId)
 			.getAttribute("aria-relevant")
@@ -57,7 +58,7 @@ define(["intern",
 			.end();
 	}
 
-	function checkNumberOfMessages(remote, toasterId, expected) {
+	function checkNumberOfMessages (remote, toasterId, expected) {
 		return remote
 			.execute("return document.querySelectorAll('#" + toasterId + " .d-toaster-message').length;")
 			.then(function (length) {
@@ -65,14 +66,14 @@ define(["intern",
 			});
 	}
 
-	function clickButton(remote, buttonId) {
+	function clickButton (remote, buttonId) {
 		return remote
 			.findById(buttonId)
 			.click()
 			.end();
 	}
 
-	function checkInsertion(remote, elementId) {
+	function checkInsertion (remote, elementId) {
 		return remote
 			.execute("return document.getElementById('" + elementId + "');")
 			.then(function (element) {
@@ -81,7 +82,7 @@ define(["intern",
 			.end();
 	}
 
-	function checkHasClass(remote, elementId, className) {
+	function checkHasClass (remote, elementId, className) {
 		return remote
 			.findById(elementId)
 			.getAttribute("class")
@@ -91,25 +92,25 @@ define(["intern",
 			.end();
 	}
 
-	function checkHasElement(remote, elementId) {
+	function checkHasElement (remote, elementId) {
 		return remote
 			.findById(elementId)
 			.then(function () {
 				// noop
-		}, function () {
+			}, function () {
 				assert.fail(true, false, elementId + " was not found");
 			})
 			.end();
 	}
 
-	function checkHasNotElement(remote, elementId) {
+	function checkHasNotElement (remote, elementId) {
 		return remote
 			.findById(elementId)
 			.then(function () {
 				assert.fail(true, false, elementId + " was found");
 			}, function () {
 				// noop
-		})
+			})
 			.end();
 	}
 
@@ -130,14 +131,14 @@ define(["intern",
 	*/
 
 	registerSuite({
-		name: "Toaster tests",
-		setup: function () {},
-		beforeEach: function () {
+		"name": "Toaster tests",
+		"setup": function () {},
+		"beforeEach": function () {
 			var remote = this.remote;
 			return remote
 				.get(require.toUrl(PAGE))
 				.then(pollUntil("return ('ready' in window && ready) ? true : null;", [],
-						intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
+					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 		},
 		"Check Aria/initial nb of messages/posting": function () {
 			var remote = this.remote;
@@ -152,7 +153,7 @@ define(["intern",
 					return clickButton(remote, "trigger-button");
 				})
 				.then(pollUntil("return document.querySelectorAll('.d-toaster-message');", [],
-						5000, intern.config.POLL_INTERVAL))
+					5000, intern.config.POLL_INTERVAL))
 				.then(function () {
 					return checkNumberOfMessages(remote, "myToaster", 1);
 				});
@@ -253,7 +254,7 @@ define(["intern",
 		"Check message types": function () {
 			var remote = this.remote;
 
-			function checkType(remote, action) {
+			function checkType (action) {
 				return remote
 					.findById(action.buttonId)
 					.click()
@@ -273,20 +274,20 @@ define(["intern",
 					remote
 						.getCurrentUrl()
 						.then(function () {
-							return checkType(remote, actions["Type info"]);
+							return checkType(actions["Type info"]);
 						})
 						.then(function () {
-							return checkType(remote, actions["Type warning"]);
+							return checkType(actions["Type warning"]);
 						})
 						.then(function () {
-							return checkType(remote, actions["Type error"]);
+							return checkType(actions["Type error"]);
 						})
 						.end();
 				})
 				.end();
 		},
 
-		"Check visibility on hover" : function () {
+		"Check visibility on hover": function () {
 			return this.skip("moveMouseTo doesn't seem to work anywhere");
 			/*
 			var remote = this.remote;

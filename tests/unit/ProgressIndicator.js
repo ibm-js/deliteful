@@ -1,20 +1,21 @@
-define([
-	"intern!object",
-	"intern/chai!assert",
-	"deliteful/ProgressIndicator"
-], function (registerSuite, assert, ProgressIndicator) {
+define(function (require) {
+	"use strict";
+
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var ProgressIndicator = require("deliteful/ProgressIndicator");
 	var progressIndicator = null,
 		FRAME_DELAY = 150, //delay, in ms, to test for value changed in animation frame
 		FRAME_TIMEOUT = FRAME_DELAY + 50;
 
 	//check progressIndicator node visibility style value.
-	function checkVisibility(visibility, msg) {
+	function checkVisibility (visibility, msg) {
 		assert.strictEqual(window.getComputedStyle(progressIndicator).getPropertyValue("visibility"), visibility, msg);
 	}
 
 	registerSuite({
-		name: "ProgressIndicator",
-		setup: function () {
+		"name": "ProgressIndicator",
+		"setup": function () {
 			progressIndicator = new ProgressIndicator();
 			progressIndicator.placeAt(document.body);
 		},
@@ -196,7 +197,7 @@ define([
 			}), FRAME_DELAY);
 			return def;
 		},
-		teardown: function () {
+		"teardown": function () {
 			progressIndicator = null;
 		}
 	});

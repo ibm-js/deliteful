@@ -1,9 +1,10 @@
-define([
-	"intern!object",
-	"intern/chai!assert",
-	"deliteful/Toaster",
-	"deliteful/ToasterMessage"
-], function (registerSuite, assert, Toaster, ToasterMessage) {
+define(function (require) {
+	"use strict";
+
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var Toaster = require("deliteful/Toaster");
+	var ToasterMessage = require("deliteful/ToasterMessage");
 
 	var _assert = {}; // this object will contain custom assertions methods
 
@@ -30,20 +31,20 @@ define([
 
 	registerSuite({
 
-		name: "Toaster",
+		"name": "Toaster",
 
-		setup: function () {
+		"setup": function () {
 			container = document.createElement("div");
 			container.setAttribute("id", "container");
 			document.body.appendChild(container);
 		},
 
-		beforeEach: function () {
+		"beforeEach": function () {
 			toaster = new Toaster();
 			toaster.placeAt("container");
 		},
 
-		afterEach: function () {
+		"afterEach": function () {
 			if (toaster) {
 				toaster.destroy();
 				toaster = null;
@@ -115,22 +116,22 @@ define([
 		},
 		"Testing behaviour of _allExpAreRemovable and _getRemovableMsg #1": function () {
 			for (var i = 0; i < 100; i++) {
-				var m = new ToasterMessage({message: "Hello, World", duration: 1000});
-				toaster.postMessage(m);
+				var m1 = new ToasterMessage({message: "Hello, World", duration: 1000});
+				toaster.postMessage(m1);
 			}
 
 			// some messages are removable (those in removableMsgs0) and some are not
 			var removableMsgs0 = [];
-			toaster.messages.forEach(function (m, i) {
+			toaster.messages.forEach(function (m2, j) {
 				// NOTE: updating `_toBeRemoved` is done separately on purpose
 				// doing it in the previous for loop would have a side effect on the
 				// `toaster.messages` list as `postMessage` invokes `refreshRendering`
 
-				if (i % 2) {
-					removableMsgs0.push(m);
-					m._toBeRemoved = true; // some are removable
+				if (j % 2) {
+					removableMsgs0.push(m2);
+					m2._toBeRemoved = true; // some are removable
 				} else {
-					m._toBeRemoved = false; // and some are not
+					m2._toBeRemoved = false; // and some are not
 				}
 			});
 			assert.isFalse(toaster._allExpAreRemovable(),
@@ -148,13 +149,13 @@ define([
 
 		"Testing behaviour of _allExpAreRemovable and _getRemovableMsg #2": function () {
 			for (var i = 0; i < 100; i++) {
-				var m = new ToasterMessage({message: "Hello, World", duration: 1000});
-				toaster.postMessage(m);
+				var m1 = new ToasterMessage({message: "Hello, World", duration: 1000});
+				toaster.postMessage(m1);
 			}
 
 			// all messages are removable
-			toaster.messages.forEach(function (m) {
-				m._toBeRemoved = true;
+			toaster.messages.forEach(function (m2) {
+				m2._toBeRemoved = true;
 			});
 			assert.isTrue(toaster._allExpAreRemovable(), "all messages are removable");
 			var removableMsgs = toaster._getRemovableMsg();
@@ -166,13 +167,13 @@ define([
 
 		"Testing behaviour of _allExpAreRemovable and _getRemovableMsg #3": function () {
 			for (var i = 0; i < 100; i++) {
-				var m = new ToasterMessage({message: "Hello, World", duration: 1000});
-				toaster.postMessage(m);
+				var m1 = new ToasterMessage({message: "Hello, World", duration: 1000});
+				toaster.postMessage(m1);
 			}
 
 			// all messages are non removable
-			toaster.messages.forEach(function (m) {
-				m._toBeRemoved = false; // no removable messages
+			toaster.messages.forEach(function (m2) {
+				m2._toBeRemoved = false; // no removable messages
 			});
 			assert.isFalse(toaster._allExpAreRemovable(),
 				"make sure _hasOnlyRemovableMsg outputs false");
@@ -242,7 +243,7 @@ define([
 				"there are no removable messages");
 		},
 
-		teardown: function () {
+		"teardown": function () {
 			container.parentNode.removeChild(container);
 		}
 	});

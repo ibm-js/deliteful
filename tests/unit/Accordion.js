@@ -1,15 +1,15 @@
-define([
-	"dcl/dcl",
-	"intern!object",
-	"intern/chai!assert",
-	"requirejs-dplugins/Promise!",
-	"delite/register",
-	"deliteful/Accordion",
-	"deliteful/Panel",
-	"dojo/domReady!"
-], function (dcl, registerSuite, assert, Promise, register, Accordion, Panel) {
+define(function (require) {
+	"use strict";
 
-	function mix(a, b) {
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var Promise = require("requirejs-dplugins/Promise!");
+	var register = require("delite/register");
+	var Accordion = require("deliteful/Accordion");
+	var Panel = require("deliteful/Panel");
+	require("dojo/domReady!");
+
+	function mix (a, b) {
 		for (var n in b) {
 			a[n] = b[n];
 		}
@@ -41,7 +41,7 @@ define([
 
 	var asyncHandler;
 
-	function checkUniqueOpenPanel(ac, target, message) {
+	function checkUniqueOpenPanel (ac, target, message) {
 		ac.getChildren().forEach(function (child) {
 			assert.isTrue(
 				(child.headerNode.style.display !== "none" &&
@@ -50,27 +50,27 @@ define([
 						child.classList.contains("d-accordion-open-panel")) ||
 					(child !== target && child.style.display === "none" && !child.open &&
 						!child.headerNode.open && !(child.classList.contains("d-accordion-open-panel"))))),
-			message + " checking " + child.id);
+				message + " checking " + child.id);
 		});
 	}
 
-	function checkPanelsStatus(openPanels, closedPanels, message) {
+	function checkPanelsStatus (openPanels, closedPanels, message) {
 		openPanels.forEach(function (panel) {
 			assert.isTrue(
 				(panel.headerNode.style.display !== "none" && panel.style.display !== "none" &&
 					panel.open && panel.headerNode.open && panel.classList.contains("d-accordion-open-panel")),
-			message);
+				message);
 		});
 		closedPanels.forEach(function (panel) {
 			assert.isTrue(
 				(panel.headerNode.style.display !== "none" && panel.style.display === "none" &&
 					!panel.open && !panel.headerNode.open && !panel.classList.contains("d-accordion-open-panel")),
-			message);
+				message);
 		});
 		checkAriaProperties(openPanels, closedPanels);
 	}
 
-	function checkPanelIconProperties(panel, poic, pcic, hoic, hcic, open) {
+	function checkPanelIconProperties (panel, poic, pcic, hoic, hcic, open) {
 		assert.strictEqual(panel.openIconClass, poic, "panel openIconClass");
 		assert.strictEqual(panel.closedIconClass, pcic, "panel closedIconClass");
 		assert.strictEqual(panel.headerNode.openIconClass, hoic, "header openIconClass");
@@ -78,7 +78,7 @@ define([
 		assert.isTrue(panel.headerNode.iconNode.classList.contains(open ? hoic : hcic), "header.iconNode class");
 	}
 
-	function checkAriaProperties(openPanels, closedPanels) {
+	function checkAriaProperties (openPanels, closedPanels) {
 		openPanels.forEach(function (panel) {
 			var header = panel.headerNode,
 				button = header.querySelector("[aria-controls]");
@@ -110,7 +110,7 @@ define([
 		});
 	}
 
-	function loadData(id) {
+	function loadData (id) {
 		return new Promise(function (resolve) {
 			var view = document.createElement("div");
 			view.innerHTML = "<h3>New Content</h3>";
@@ -354,11 +354,11 @@ define([
 			container.innerHTML = html;
 			register.deliver();
 		},
-		"Controller": {
+		Controller: {
 			setup: function () {
 				accordion4 = document.getElementById("accordion4");
 			},
-			"loadContentEmptyPanel": function () {
+			loadContentEmptyPanel: function () {
 				var handler;
 
 				accordion4.addEventListener("delite-display-load", handler = function (evt) {
@@ -403,8 +403,8 @@ define([
 
 	//Programmatic
 	suite = {
-		name: "Accordion: Programmatic",
-		setup: function () {
+		"name": "Accordion: Programmatic",
+		"setup": function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
 			var ac = new Accordion({id: "accordion"});
@@ -437,8 +437,10 @@ define([
 			p22.appendChild(c22);
 			p23.appendChild(c23);
 			ac2.placeAt(container, "last");
-			var ac3 = new Accordion({id: "accordion3", mode: "multipleOpen",
-				openIconClass: "oic", closedIconClass: "cic"});
+			var ac3 = new Accordion({id: "accordion3",
+				mode: "multipleOpen",
+				openIconClass: "oic",
+				closedIconClass: "cic"});
 			ac3.style.height = "400px";
 			var p31 = new Panel({id: "panel31", label: "panel31"});
 			var p32 = new Panel({id: "panel32", label: "panel32", openIconClass: "poic"});
@@ -478,7 +480,7 @@ define([
 			assert.deepEqual(ac._panelList, [p2], "_panelList after remove");
 		},
 
-		Controller: {
+		"Controller": {
 			setup: function () {
 				accordion4 = new Accordion();
 				var p40 = new Panel();
@@ -486,7 +488,7 @@ define([
 				accordion4.style.height = "400px";
 				accordion4.placeAt(container);
 			},
-			"newPanelLoadContent": function () {
+			newPanelLoadContent: function () {
 				var handler;
 
 				accordion4.addEventListener("delite-display-load", handler = function (evt) {
@@ -519,7 +521,7 @@ define([
 			}
 		},
 
-		allowAllClosed: function () {
+		"allowAllClosed": function () {
 			var ac = new Accordion({
 				id: "accordionAllowAllClosed",
 				allowAllClosed: true
@@ -560,11 +562,11 @@ define([
 			});
 		},
 
-		teardown: function () {
+		"teardown": function () {
 			container.parentNode.removeChild(container);
 		},
 
-		afterEach: function () {
+		"afterEach": function () {
 			if (asyncHandler) {
 				asyncHandler.remove();
 			}

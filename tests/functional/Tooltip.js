@@ -1,23 +1,23 @@
-define([
-    "intern",
-	"intern!object",
-	"intern/dojo/node!leadfoot/helpers/pollUntil",
-	"intern/chai!assert",
-	"require"
-], function (intern, registerSuite, pollUntil, assert, require) {
+define(function (require) {
+	"use strict";
+
+	var intern = require("intern");
+	var registerSuite = require("intern!object");
+	var pollUntil = require("intern/dojo/node!leadfoot/helpers/pollUntil");
+	var assert = require("intern/chai!assert");
 
 	registerSuite({
-		name: "Tooltip - functional",
+		"name": "Tooltip - functional",
 
-		setup: function () {
+		"setup": function () {
 			var remote = this.remote;
 
 			return remote.get(require.toUrl("./Tooltip.html")).then(pollUntil("return ready || null;", [],
 				intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 		},
 
-		layout: {
-			below: function () {
+		"layout": {
+			"below": function () {
 				return this.remote
 					.findById("top").click().end()
 					.execute("return getPos('top')").then(function (res) {
@@ -34,7 +34,7 @@ define([
 					});
 			},
 
-			right: function () {
+			"right": function () {
 				return this.remote
 					.findById("left").click().end()
 					.execute("return getPos('left')").then(function (res) {
@@ -101,19 +101,19 @@ define([
 				});
 		},
 
-		aria: function () {
+		"aria": function () {
 			return this.remote
 				// Open drop down.
 				.findById("top").click().end()
 				.execute("return document.getElementById('top').getAttribute('aria-describedby');")
-						.then(function (val) {
+				.then(function (val) {
 					assert.strictEqual(val, "top-tooltip", "aria-describedby value");
 				})
 
 				// And then close it.
 				.findById("top").click().end()
 				.execute("return document.getElementById('top').hasAttribute('aria-describedby');")
-						.then(function (val) {
+				.then(function (val) {
 					assert.isFalse(val,  "aria-describedby attribute removed");
 				});
 		}

@@ -1,14 +1,10 @@
-define([
-	"intern!object",
-	"intern/chai!assert",
-	"dojo/dom-geometry",
-	"delite/register"
-], function (
-	registerSuite,
-	assert,
-	domGeom,
-	register
-) {
+define(function (require) {
+	"use strict";
+
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var domGeom = require("dojo/dom-geometry");
+	var register = require("delite/register");
 	var container, node1, node2;
 	var htmlContent =
 		"<d-linear-layout id='dlayout1' style='height:500px'>" +
@@ -21,8 +17,8 @@ define([
 		"</d-linear-layout>";
 
 	registerSuite({
-		name: "Vertical LinearLayout",
-		setup: function () {
+		"name": "Vertical LinearLayout",
+		"setup": function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
 			container.innerHTML = htmlContent;
@@ -53,7 +49,7 @@ define([
 			assert.strictEqual(box2.h, 250, "box2");
 		},
 
-		teardown: function () {
+		"teardown": function () {
 			container.parentNode.removeChild(container);
 		}
 	});

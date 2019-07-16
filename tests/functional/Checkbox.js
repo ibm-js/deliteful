@@ -1,13 +1,13 @@
-define([
-    "intern",
-	"intern!object",
-	"intern/dojo/node!leadfoot/helpers/pollUntil",
-	"intern/chai!assert",
-	"intern/dojo/node!leadfoot/keys",
-	"require"
-], function (intern, registerSuite, pollUntil, assert, keys, require) {
+define(function (require) {
+	"use strict";
 
-	function loadFile(remote, url) {
+	var intern = require("intern");
+	var registerSuite = require("intern!object");
+	var pollUntil = require("intern/dojo/node!leadfoot/helpers/pollUntil");
+	var assert = require("intern/chai!assert");
+	var keys = require("intern/dojo/node!leadfoot/keys");
+
+	function loadFile (remote, url) {
 		return remote
 			.get(require.toUrl(url))
 			.then(pollUntil("return ready ? true : null;", [],
@@ -17,7 +17,7 @@ define([
 	registerSuite({
 		name: "Checkbox - functional",
 
-		"mouse": function () {
+		mouse: function () {
 			var remote = this.remote;
 			return loadFile(remote, "./Checkbox.html")
 				// default click action
@@ -30,7 +30,7 @@ define([
 				});
 		},
 
-		"keyboard": function () {
+		keyboard: function () {
 			// keyboard nav
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
@@ -55,7 +55,7 @@ define([
 				});
 		},
 
-		"form": function () {
+		form: function () {
 			//
 			// Form tests
 			//

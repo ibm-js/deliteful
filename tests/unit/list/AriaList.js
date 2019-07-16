@@ -1,14 +1,15 @@
-define([
-	"intern!object",
-	"intern/chai!assert",
-	"deliteful/list/List"
-], function (registerSuite, assert, List) {
+define(function (require) {
+	"use strict";
+
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var List = require("deliteful/list/List");
 
 	var list = null;
 
 	registerSuite({
-		name: "list/AriaList",
-		beforeEach: function () {
+		"name": "list/AriaList",
+		"beforeEach": function () {
 			if (list) {
 				list.destroy();
 			}
@@ -39,13 +40,13 @@ define([
 				"aria-readonly only for role=grid");
 			assert.strictEqual(list.containerNode.children[0].getAttribute("role"), null, "first renderer role");
 			assert.strictEqual(list.containerNode.children[0].renderNode.getAttribute("role"), "listitem",
-					"first renderNode role");
+				"first renderNode role");
 			assert.strictEqual(list.containerNode.children[1].getAttribute("role"), null, "second renderer role");
 			assert.strictEqual(list.containerNode.children[1].renderNode.getAttribute("role"), "listitem",
-					"second renderNode role");
+				"second renderNode role");
 			assert.strictEqual(list.containerNode.children[2].getAttribute("role"), null, "third renderer role");
 			assert.strictEqual(list.containerNode.children[2].renderNode.getAttribute("role"), "listitem",
-					"third renderNode role");
+				"third renderNode role");
 		},
 
 		"aria properties when moving from list to grid": function () {
@@ -58,16 +59,16 @@ define([
 				"aria-readonly for role=grid");
 			assert.strictEqual(list.containerNode.children[0].getAttribute("role"), "row", "first renderer role");
 			assert.strictEqual(list.containerNode.children[0].renderNode.getAttribute("role"), "gridcell",
-					"first renderNode role");
+				"first renderNode role");
 			assert.strictEqual(list.containerNode.children[1].getAttribute("role"), "row", "second renderer role");
 			assert.strictEqual(list.containerNode.children[1].renderNode.getAttribute("role"), "gridcell",
-					"second renderNode role");
+				"second renderNode role");
 			assert.strictEqual(list.containerNode.children[2].getAttribute("role"), "row", "third renderer role");
 			assert.strictEqual(list.containerNode.children[2].renderNode.getAttribute("role"), "gridcell",
-					"third renderNode role");
+				"third renderNode role");
 		},
 
-		teardown : function () {
+		"teardown": function () {
 			if (list) {
 				list.destroy();
 			}

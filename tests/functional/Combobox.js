@@ -1,21 +1,21 @@
-define([
-	"intern",
-	"intern!object",
-	"intern/dojo/node!leadfoot/helpers/pollUntil",
-	"intern/chai!assert",
-	"intern/dojo/node!leadfoot/keys",
-	"require",
-	"dojo/string"
-], function (intern, registerSuite, pollUntil, assert, keys, require, string) {
+define(function (require) {
+	"use strict";
+
+	var intern = require("intern");
+	var registerSuite = require("intern!object");
+	var pollUntil = require("intern/dojo/node!leadfoot/helpers/pollUntil");
+	var assert = require("intern/chai!assert");
+	var keys = require("intern/dojo/node!leadfoot/keys");
+	var string = require("dojo/string");
 
 	var loadFile = function (remote, fileName) {
 		return remote
 			.get(require.toUrl(fileName))
 			.then(pollUntil("return ready ? true : null;", [],
-					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
+				intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 	};
 
-	function checkComboState(comboId, comboState, expectedComboState, stepName) {
+	function checkComboState (comboId, comboState, expectedComboState, stepName) {
 		// comboState is an object retrieved from the browser, containing the state of the Combobox.
 
 		var msg =  comboId + " " + "(" + comboState.selectionMode + ")" + " " + stepName + " ";
@@ -170,7 +170,7 @@ define([
 		// Additional tests for autoFilter=true
 		if (autoFilter) {
 			res = res
-			.pressKeys(keys.ARROW_DOWN)
+				.pressKeys(keys.ARROW_DOWN)
 				.execute(executeExpr)
 				.then(function (comboState) {
 					// Just reopens the dropdown. No other state change.
@@ -574,7 +574,7 @@ define([
 			// "unknown error: Element is not clickable at point (118, 136). Other element
 			// would receive the click". Hence, instead of
 			//.findByCssSelector("#" + comboId + "-list d-list-category-renderer").click().end()
-/*			.sleep(500) // wait before checking because events are triggered async
+		/*			.sleep(500) // wait before checking because events are triggered async
 			.execute(executeExpr)
 			.then(function (comboState) {
 				// The click on the first item does not change the state because it is a category
@@ -663,7 +663,7 @@ define([
 				}, "after click on root node");
 			})
 			.end()
-/*			.findByCssSelector("#" + comboId + "-list d-list-category-renderer").click().end() // "Germany"
+		/*			.findByCssSelector("#" + comboId + "-list d-list-category-renderer").click().end() // "Germany"
 			.sleep(500) // wait before checking because events are triggered async
 			.execute(executeExpr)
 			.then(function (comboState) {
@@ -1217,9 +1217,9 @@ define([
 	};
 
 	registerSuite({
-		name: "Combobox - functional",
+		"name": "Combobox - functional",
 
-		setup: function () {
+		"setup": function () {
 			if (this.remote.environmentType.platformName === "iOS") {
 				// Skip all the tests on mobile because they aren't designed to interact w/the ComboPopup.
 				return this.skip("test designed for desktop Combobox, not mobile");

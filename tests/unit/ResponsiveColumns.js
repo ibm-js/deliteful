@@ -1,11 +1,12 @@
-define([
-	"intern!object",
-	"intern/chai!assert",
-	"deliteful/ResponsiveColumns"
-], function (registerSuite, assert, ResponsiveColumns) {
+define(function (require) {
+	"use strict";
+
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var ResponsiveColumns = require("deliteful/ResponsiveColumns");
 	var container;
 
-	function testLayout(element, origTargetSize, tolerance, targetClass) {
+	function testLayout (element, origTargetSize, tolerance, targetClass) {
 		var elementStyle = function (key) {
 			if (key === "flex") {
 				var flexAttrs = ["-webkit-box-flex", "-moz-box-flex", "-webkit-flex", "-ms-flex", "flex"];
@@ -47,14 +48,14 @@ define([
 	}
 
 	registerSuite({
-		name: "ResponsiveColumns",
-		setup: function () {
+		"name": "ResponsiveColumns",
+		"setup": function () {
 			var nospace = document.createElement("style");
 			nospace.innerHTML = "*{padding: 0; margin: 0}";
 			window.document.body.appendChild(nospace);
 
 			//container = new ResponsiveColumns();
-			container = new ResponsiveColumns({"breakpoints" : "{'small': '500px', 'medium': '900px', 'large': ''}"});
+			container = new ResponsiveColumns({breakpoints: "{'small': '500px', 'medium': '900px', 'large': ''}"});
 
 			//container.breakpoints = "{'small': '500px', 'medium': '900px', 'large': ''}";
 			var child = document.createElement("div");
@@ -149,7 +150,7 @@ define([
 			testLayout(children[2], w3, 12, targetClass);
 		},
 
-		teardown: function () {
+		"teardown": function () {
 			document.body.removeChild(container);
 		}
 	});

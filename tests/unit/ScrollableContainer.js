@@ -1,16 +1,14 @@
-define([
-	"dcl/dcl",
-	"intern!object",
-	"intern/chai!assert",
-	"delite/register",
-	"deliteful/ScrollableContainer",
-	"deliteful/tests/unit/resources/Scrollable-shared" // same test cases as for the tests of delite/Scrollable
-], function (dcl, registerSuite, assert, register,
-	ScrollableContainer, ScrollableSharedTests) {
-	
+define(function (require) {
+	"use strict";
+
+	var registerSuite = require("intern!object");
+	var register = require("delite/register");
+	var ScrollableContainer = require("deliteful/ScrollableContainer");
+	var ScrollableSharedTests = require("deliteful/tests/unit/resources/Scrollable-shared");
+
 	// Note that the actual testing is done in ScrollableContainer-shared.
 
-	function mix(a, b) {
+	function mix (a, b) {
 		for (var n in b) {
 			a[n] = b[n];
 		}
@@ -26,9 +24,9 @@ define([
 			</my-scrolable-container> \
 			<d-scrollable-container scrollDirection='none' id='sc2'> \
 			</d-scrollable-container>";
-	
+
 	// Markup use-case
-	
+
 	var suite = {
 		name: "deliteful/ScrollableContainer: markup",
 		setup: function () {
@@ -46,19 +44,19 @@ define([
 	};
 
 	ScrollableSharedTests.containerCSSClassName = "d-scrollable-container";
-	
+
 	mix(suite, ScrollableSharedTests.testCases);
 
 	registerSuite(suite);
-	
-	// Programatic creation 
-	
+
+	// Programatic creation
+
 	suite = {
 		name: "deliteful/ScrollableContainer: programatic",
 		setup: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
-			
+
 			MyScrollableContainer = register("my-sc-prog", [ScrollableContainer], {});
 
 			var w = new ScrollableContainer({ id: "sc1" });

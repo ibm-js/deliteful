@@ -1,10 +1,11 @@
-define([
-	"intern!object",
-	"intern/chai!assert",
-	"dojo/dom-geometry",
-	"delite/register",
-	"deliteful/LinearLayout"
-], function (registerSuite, assert, domGeom, register) {
+define(function (require) {
+	"use strict";
+
+	var registerSuite = require("intern!object");
+	var assert = require("intern/chai!assert");
+	var domGeom = require("dojo/dom-geometry");
+	var register = require("delite/register");
+	require("deliteful/LinearLayout");
 	var container, node;
 	var htmlContent =
 			"<d-linear-layout id='dlayout' vertical='false' style='width:680px'>" +
@@ -12,9 +13,9 @@ define([
 				"<div id='divB' class='fill'>B</div><div id='divC' style='width:40px'>C</div></d-linear-layout>";
 
 	registerSuite({
-		name: "LinearLayout-horizontal-mixedwidth",
+		"name": "LinearLayout-horizontal-mixedwidth",
 
-		setup: function () {
+		"setup": function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
 			container.innerHTML = htmlContent;
@@ -22,7 +23,7 @@ define([
 			node = document.getElementById("dlayout");
 		},
 
-		"Horizontal LinearLayout Various Width" : function () {
+		"Horizontal LinearLayout Various Width": function () {
 			var children = node.getChildren();
 			assert.strictEqual(children.length, 3);
 			var box1 = domGeom.getMarginBox(children[0]);
@@ -33,7 +34,7 @@ define([
 			assert.strictEqual(box3.w, 40, "box3.w");
 		},
 
-		teardown : function () {
+		"teardown": function () {
 			container.parentNode.removeChild(container);
 		}
 
