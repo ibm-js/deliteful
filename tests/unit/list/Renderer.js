@@ -1,14 +1,13 @@
 define(function (require) {
 	"use strict";
 
-	var registerSuite = require("intern!object");
-	var assert = require("intern/chai!assert");
+	var registerSuite = intern.getPlugin("interface.object").registerSuite;
+	var assert = intern.getPlugin("chai").assert;
 	var register = require("delite/register");
 	var Renderer = require("deliteful/list/Renderer");
 
 	/* jshint nonew: false */
-	registerSuite({
-		"name": "list/Renderer",
+	registerSuite("list/Renderer", {
 		"Exception thrown if template does not define renderNode": function () {
 			var FaultyRenderer = register("d-faulty-renderer", [HTMLElement, Renderer], {
 				render: function () {
@@ -32,6 +31,7 @@ define(function (require) {
 			assert.isTrue(errorMessage.indexOf(
 				"render must define a renderNode property on the Renderer") >= 0, "error message");
 		},
+
 		"No exception thrown if render defines renderNode": function () {
 			var CorrectRenderer = register("d-correct-renderer", [HTMLElement, Renderer], {
 				render: function () {

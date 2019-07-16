@@ -1,18 +1,12 @@
 define(function (require) {
 	"use strict";
 
-	var registerSuite = require("intern!object");
+	var registerSuite = intern.getPlugin("interface.object").registerSuite;
 	var register = require("delite/register");
 	var ScrollableContainer = require("deliteful/ScrollableContainer");
 	var ScrollableSharedTests = require("deliteful/tests/unit/resources/Scrollable-shared");
 
 	// Note that the actual testing is done in ScrollableContainer-shared.
-
-	function mix (a, b) {
-		for (var n in b) {
-			a[n] = b[n];
-		}
-	}
 
 	var container, MyScrollableContainer;
 	/*jshint multistr: true */
@@ -20,40 +14,36 @@ define(function (require) {
 			style='position: absolute; width: 200px; height: 200px;'> \
 			<div id='sc1content' style='width: 2000px; height: 2000px;'></div> \
 			</d-scrollable-container>\
-			<my-scrolable-container id='mysc1'> \
-			</my-scrolable-container> \
+			<my-scrollable-container id='mysc1'> \
+			</my-scrollable-container> \
 			<d-scrollable-container scrollDirection='none' id='sc2'> \
 			</d-scrollable-container>";
 
 	// Markup use-case
+	ScrollableSharedTests.containerCSSClassName = "d-scrollable-container";
 
-	var suite = {
-		name: "deliteful/ScrollableContainer: markup",
-		setup: function () {
-			register("my-scrolable-container", [ScrollableContainer], {});
+	registerSuite("deliteful/ScrollableContainer: markup", {
+		before: function () {
+			register("my-scrollable-container", [ScrollableContainer], {});
 		},
+
 		beforeEach: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
 			container.innerHTML = html;
 			register.deliver();
 		},
+
 		afterEach: function () {
 			container.parentNode.removeChild(container);
-		}
-	};
+		},
 
-	ScrollableSharedTests.containerCSSClassName = "d-scrollable-container";
-
-	mix(suite, ScrollableSharedTests.testCases);
-
-	registerSuite(suite);
+		tests: ScrollableSharedTests.testCases
+	});
 
 	// Programatic creation
-
-	suite = {
-		name: "deliteful/ScrollableContainer: programatic",
-		setup: function () {
+	registerSuite("deliteful/ScrollableContainer: programatic", {
+		before: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
 
@@ -78,12 +68,11 @@ define(function (require) {
 			w.scrollDirection = "none";
 			container.appendChild(w);
 		},
-		teardown: function () {
+
+		after: function () {
 			container.parentNode.removeChild(container);
-		}
-	};
+		},
 
-	mix(suite, ScrollableSharedTests.testCases);
-
-	registerSuite(suite);
+		tests: ScrollableSharedTests.testCases
+	});
 });

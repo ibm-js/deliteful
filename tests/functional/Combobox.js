@@ -1,21 +1,20 @@
 define(function (require) {
 	"use strict";
 
-	var intern = require("intern");
-	var registerSuite = require("intern!object");
-	var pollUntil = require("intern/dojo/node!leadfoot/helpers/pollUntil");
-	var assert = require("intern/chai!assert");
-	var keys = require("intern/dojo/node!leadfoot/keys");
+	var registerSuite = intern.getPlugin("interface.object").registerSuite;
+	var pollUntil = require("@theintern/leadfoot/helpers/pollUntil").default;
+	var assert = intern.getPlugin("chai").assert;
+	var keys = require("@theintern/leadfoot/keys").default;
 	var string = require("dojo/string");
 
-	var loadFile = function (remote, fileName) {
+	function loadFile(remote, fileName) {
 		return remote
-			.get(require.toUrl(fileName))
+			.get(require.toUrl("deliteful/tests/functional/" + fileName))
 			.then(pollUntil("return ready ? true : null;", [],
 				intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
-	};
+	}
 
-	function checkComboState (comboId, comboState, expectedComboState, stepName) {
+	function checkComboState(comboId, comboState, expectedComboState, stepName) {
 		// comboState is an object retrieved from the browser, containing the state of the Combobox.
 
 		var msg =  comboId + " " + "(" + comboState.selectionMode + ")" + " " + stepName + " ";
@@ -40,13 +39,13 @@ define(function (require) {
 	}
 
 	// Check the state of the widget after selecting options using the keyboard.
-	var checkKeyboardNavigationSingleSelection = function (remote, comboId, autoFilter) {
+	function checkKeyboardNavigationSingleSelection(remote, comboId, autoFilter) {
 		// Expression executed in the browser for collecting data allowing to
 		// check the state of the widget. The function getComboState() is defined in
 		// the loaded HTML file. Note that each call of getComboState() resets the
 		// event counters (inputEventCounter and changeEventCounter).
 		var executeExpr = "return getComboState(\"" + comboId + "\");";
-		var res = loadFile(remote, "./Combobox-decl.html")
+		var res = loadFile(remote, "Combobox-decl.html")
 			.execute(comboId + ".focus();  " + executeExpr)
 			.then(function (comboState) {
 				// No selection by default
@@ -284,16 +283,16 @@ define(function (require) {
 		}
 
 		return res;
-	};
+	}
 
 	// Check the state of the widget after selecting options using the keyboard.
-	var checkKeyboardNavigationMultipleSelection = function (remote, comboId) {
+	function checkKeyboardNavigationMultipleSelection(remote, comboId) {
 		// Expression executed in the browser for collecting data allowing to
 		// check the state of the widget. The function getComboState() is defined in
 		// the loaded HTML file. Note that each call of getComboState() resets the
 		// event counters (inputEventCounter and changeEventCounter).
 		var executeExpr = "return getComboState(\"" + comboId + "\");";
-		return loadFile(remote, "./Combobox-decl.html")
+		return loadFile(remote, "Combobox-decl.html")
 			.execute(comboId + ".focus(); " + executeExpr)
 			.then(function (comboState) {
 				// In a multiple-select no option is selected initially
@@ -515,16 +514,16 @@ define(function (require) {
 					valueNodeValueAtLatestChangeEvent: "Germany,France"
 				}, "after ESCAPE");
 			});
-	};
+	}
 
 	// Check the state of the widget after selecting options using the mouse (clicks).
-	var checkMouseNavigationSingleSelection = function (remote, comboId) {
+	function checkMouseNavigationSingleSelection(remote, comboId) {
 		// Expression executed in the browser for collecting data allowing to
 		// check the state of the widget. The function getComboState() is defined in
 		// the loaded HTML file. Note that each call of getComboState() resets the
 		// event counters (inputEventCounter and changeEventCounter).
 		var executeExpr = "return getComboState(\"" + comboId + "\");";
-		return loadFile(remote, "./Combobox-decl.html")
+		return loadFile(remote, "Combobox-decl.html")
 			.findById(comboId)
 			.execute(executeExpr)
 			.then(function (comboState) {
@@ -613,16 +612,16 @@ define(function (require) {
 					valueNodeValueAtLatestChangeEvent: "Germany"
 				}, "after clicking the third option (Germany)");
 			});
-	};
+	}
 
 	// Check the state of the widget after selecting options using the mouse (clicks).
-	var checkMouseNavigationMultipleSelection = function (remote, comboId) {
+	function checkMouseNavigationMultipleSelection(remote, comboId) {
 		// Expression executed in the browser for collecting data allowing to
 		// check the state of the widget. The function getComboState() is defined in
 		// the loaded HTML file. Note that each call of getComboState() resets the
 		// event counters (inputEventCounter and changeEventCounter).
 		var executeExpr = "return getComboState(\"" + comboId + "\");";
-		return loadFile(remote, "./Combobox-decl.html")
+		return loadFile(remote, "Combobox-decl.html")
 			.execute(executeExpr)
 			.then(function (comboState) {
 				// No item should be selected, the popup is closed initially.
@@ -745,11 +744,11 @@ define(function (require) {
 				}, "after clicking again the root node (close)");
 			})
 			.end();
-	};
+	}
 
 	// Check the autoscroll mechanism
-	var checkKeyboardNavigationAutoscroll = function (remote, comboId) {
-		return loadFile(remote, "./Combobox-decl.html")
+	function checkKeyboardNavigationAutoscroll(remote, comboId) {
+		return loadFile(remote, "Combobox-decl.html")
 			.findByCssSelector("#" + comboId + " .d-combobox-arrow")
 			.click()
 			.sleep(500)
@@ -766,11 +765,11 @@ define(function (require) {
 					"scroll on the bottom");
 			})
 			.execute(comboId + ".closeDropDown();");
-	};
+	}
 
-	var checkNavigatedDescendantNoSelection = function (remote, comboId) {
+	function checkNavigatedDescendantNoSelection(remote, comboId) {
 		var executeExpr = "return getNavigatedDescendant(\"" + comboId + "\");";
-		return loadFile(remote, "./Combobox-decl.html")
+		return loadFile(remote, "Combobox-decl.html")
 			.execute(comboId + ".focus();")
 			.pressKeys(keys.ARROW_DOWN)
 			.sleep(500)
@@ -813,11 +812,11 @@ define(function (require) {
 			.then(function (navigatedDescendant) {
 				assert.match(navigatedDescendant, /^China/, "navigatedDescendant after two ARROW_DOWN");
 			});
-	};
+	}
 
-	var checkNavigatedDescendantWithSelection = function (remote, comboId) {
+	function checkNavigatedDescendantWithSelection(remote, comboId) {
 		var executeExpr = "return getNavigatedDescendant(\"" + comboId + "\");";
-		return loadFile(remote, "./Combobox-decl.html")
+		return loadFile(remote, "Combobox-decl.html")
 			.execute(comboId + ".focus();")
 			.pressKeys(keys.ARROW_DOWN)
 			.sleep(500)
@@ -866,11 +865,11 @@ define(function (require) {
 			.then(function (navigatedDescendant) {
 				assert.match(navigatedDescendant, /^China/, "navigatedDescendant after two ARROW_DOWN");
 			});
-	};
+	}
 
-	var checkNavigatedDescendantWithPreSelection = function (remote, comboId) {
+	function checkNavigatedDescendantWithPreSelection(remote, comboId) {
 		var executeExpr = "return getNavigatedDescendant(\"" + comboId + "\");";
-		return loadFile(remote, "./Combobox-decl.html")
+		return loadFile(remote, "Combobox-decl.html")
 			.execute("document.getElementById(\"" + comboId + "\").focus();")
 			.pressKeys(keys.ARROW_DOWN)
 			.sleep(500)
@@ -894,10 +893,10 @@ define(function (require) {
 				// note: on opening, the widget does focus on the first selected element
 				assert.match(navigatedDescendant, /^Germany/, "navigatedDescendant after opening the popup");
 			});
-	};
+	}
 
-	var checkPopupPosition = function (remote, comboId, position) {
-		return loadFile(remote, "./Combobox-decl.html")
+	function checkPopupPosition(remote, comboId, position) {
+		return loadFile(remote, "Combobox-decl.html")
 			.execute("return moveToBottom(\"" + comboId + "\");")
 			.findByCssSelector("#" + comboId + " .d-combobox-arrow").click().end()  // opens popup
 			.sleep(500)
@@ -923,11 +922,11 @@ define(function (require) {
 				assert.isTrue(value.isAligned, comboId + "'s popup alignment #3");
 			})
 			.end();
-	};
+	}
 
-	var checkRequestCount = function (remote, comboId) {
+	function checkRequestCount(remote, comboId) {
 		// NOTE: filterDelay = 100ms.
-		return loadFile(remote, "./Combobox-decl.html")
+		return loadFile(remote, "Combobox-decl.html")
 			.findById(comboId)
 			.execute("return getQueryCount(\"" + comboId + "\");")
 			.then(function (value) {
@@ -952,11 +951,11 @@ define(function (require) {
 				assert.strictEqual(value, 2, comboId + ": after typing 'a'");
 			})
 			.end();
-	};
+	}
 
-	var checkFilteringWithZeroFilterChars = function (remote, comboId) {
+	function checkFilteringWithZeroFilterChars(remote, comboId) {
 		var executeExpr = "return getComboState(\"" + comboId + "\");";
-		return loadFile(remote, "./Combobox-decl.html")
+		return loadFile(remote, "Combobox-decl.html")
 			.findById(comboId)
 			.click() // popup opens.
 			.execute(executeExpr)
@@ -1035,11 +1034,11 @@ define(function (require) {
 				}, "after typing `U`.");
 			})
 			.end();
-	};
+	}
 
-	var checkFilteringWithThreeFilterChars = function (remote, comboId) {
+	function checkFilteringWithThreeFilterChars(remote, comboId) {
 		var executeExpr = "return getComboState(\"" + comboId + "\");";
-		return loadFile(remote, "./Combobox-decl.html")
+		return loadFile(remote, "Combobox-decl.html")
 			.findById(comboId)
 			.click()
 			.execute(executeExpr)
@@ -1116,11 +1115,11 @@ define(function (require) {
 				}, "after typing `a`.");
 			})
 			.end();
-	};
+	}
 
-	var checkFilteringAutoCompleteMode = function (remote, comboId) {
+	function checkFilteringAutoCompleteMode(remote, comboId) {
 		var executeExpr = "return getComboState(\"" + comboId + "\");";
-		return loadFile(remote, "./Combobox-decl.html")
+		return loadFile(remote, "Combobox-decl.html")
 			.findByCssSelector("#" + comboId + " .d-combobox-input")
 			.getAttribute("readonly")
 			.then(function (value) {
@@ -1214,357 +1213,356 @@ define(function (require) {
 					valueNodeValueAtLatestChangeEvent: "Germany"
 				}, "after selecting `Germany` item.");
 			});
-	};
+	}
 
-	registerSuite({
-		"name": "Combobox - functional",
-
-		"setup": function () {
+	registerSuite("Combobox - functional", {
+		before: function () {
 			if (this.remote.environmentType.platformName === "iOS") {
 				// Skip all the tests on mobile because they aren't designed to interact w/the ComboPopup.
 				return this.skip("test designed for desktop Combobox, not mobile");
 			}
 		},
 
-		"Combobox Form submit": function () {
-			return loadFile(this.remote, "./Combobox-decl.html")
-				.findById("form1")
-				.submit()
-				.end()
-				.sleep(100)		// try to avoid intermittent IE11 error
-				.setFindTimeout(intern.config.WAIT_TIMEOUT)
-				.findById("valueFor_combo1")
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "France", "Combobox combo1");
-				})
-				.end()
-				.findById("valueFor_combo2")
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "France", "Combobox combo2");
-				})
-				.end()
-				.findById("valueFor_combo3")
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "", "Combobox combo3");
-				})
-				.end()
-				.execute("return document.getElementById('valueFor_combo1-disabled');")
-				.then(function (value) {
-					assert.isNull(value, "disabled Combobox combo1-disabled");
-				})
-				.execute("return document.getElementById('valueFor_combo2-disabled');")
-				.then(function (value) {
-					assert.isNull(value, "disabled Combobox combo2-disabled");
-				})
-				.execute("return document.getElementById('valueFor_combo3-disabled');")
-				.then(function (value) {
-					assert.isNull(value, "disabled Combobox combo3-disabled");
-				})
-				.findById("valueFor_combo1-value")
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "FR", "Combobox combo1-value");
-				})
-				.end()
-				.findById("valueFor_combo3-value")
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "FR", "Combobox combo3-value");
-				})
-				.end()
-				.findById("valueFor_combo1-single-rtl")
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "France", "Combobox combo1-single-rtl");
-				})
-				.end();
-		},
+		tests: {
+			"Combobox Form submit": function () {
+				return loadFile(this.remote, "Combobox-decl.html")
+					.findById("form1")
+					.submit()
+					.end()
+					.sleep(100)		// try to avoid intermittent IE11 error
+					.setFindTimeout(intern.config.WAIT_TIMEOUT)
+					.findById("valueFor_combo1")
+					.getVisibleText()
+					.then(function (value) {
+						assert.strictEqual(value, "France", "Combobox combo1");
+					})
+					.end()
+					.findById("valueFor_combo2")
+					.getVisibleText()
+					.then(function (value) {
+						assert.strictEqual(value, "France", "Combobox combo2");
+					})
+					.end()
+					.findById("valueFor_combo3")
+					.getVisibleText()
+					.then(function (value) {
+						assert.strictEqual(value, "", "Combobox combo3");
+					})
+					.end()
+					.execute("return document.getElementById('valueFor_combo1-disabled');")
+					.then(function (value) {
+						assert.isNull(value, "disabled Combobox combo1-disabled");
+					})
+					.execute("return document.getElementById('valueFor_combo2-disabled');")
+					.then(function (value) {
+						assert.isNull(value, "disabled Combobox combo2-disabled");
+					})
+					.execute("return document.getElementById('valueFor_combo3-disabled');")
+					.then(function (value) {
+						assert.isNull(value, "disabled Combobox combo3-disabled");
+					})
+					.findById("valueFor_combo1-value")
+					.getVisibleText()
+					.then(function (value) {
+						assert.strictEqual(value, "FR", "Combobox combo1-value");
+					})
+					.end()
+					.findById("valueFor_combo3-value")
+					.getVisibleText()
+					.then(function (value) {
+						assert.strictEqual(value, "FR", "Combobox combo3-value");
+					})
+					.end()
+					.findById("valueFor_combo1-single-rtl")
+					.getVisibleText()
+					.then(function (value) {
+						assert.strictEqual(value, "France", "Combobox combo1-single-rtl");
+					})
+					.end();
+			},
 
-		"keyboard navigation selectionMode=single, autoFilter=false": function () {
-			var remote = this.remote;
-			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
-				return this.skip("no keyboard support");
+			"keyboard navigation selectionMode=single, autoFilter=false": function () {
+				var remote = this.remote;
+				if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+					return this.skip("no keyboard support");
+				}
+				return checkKeyboardNavigationSingleSelection(remote, "combo1", false);
+			},
+
+			"keyboard navigation selectionMode=single, autoFilter=true": function () {
+				var remote = this.remote;
+				if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+					return this.skip("no keyboard support");
+				}
+
+				if (remote.environmentType.browserName.toLowerCase() === "internet explorer") {
+					// TODO: This test fails on IE because the backspace to clear "France" doesn't work since
+					// the caret is at the beginning of the <input> rather than the end.  (Note the test is
+					// complicated because it opens the dropdown first and then does backspace.)
+					// Actually I'm not sure how the test is passing on other browsers
+					// https://github.com/ibm-js/deliteful/issues/689
+					return this.skip("caret in wrong position, backspace doesn't work");
+				}
+
+				return checkKeyboardNavigationSingleSelection(remote, "combo2", true);
+			},
+
+			"keyboard navigation selectionMode = multiple": function () {
+				var remote = this.remote;
+				if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+					return this.skip("no keyboard support");
+				}
+				return checkKeyboardNavigationMultipleSelection(remote, "combo3");
+			},
+
+			"keyboard navigation selectionMode = multiple, initial selection (combo3-value)": function () {
+				var remote = this.remote,
+					comboId = "combo3-value";
+				if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+					return this.skip("no keyboard support");
+				}
+				var executeExpr = "return getComboState(\"" + comboId + "\");";
+				return loadFile(remote, "Combobox-decl.html")
+					.execute("document.getElementById('" + comboId + "').focus(); " + executeExpr)
+					.then(function (comboState) {
+						// France initially selcted
+						checkComboState(comboId, comboState, { // expected combo state
+							inputNodeValue: "France",
+							widgetValue: ["FR"],
+							valueNodeValue: "FR",
+							opened: false,
+							selectedItemsCount: 0,
+							itemRenderersCount: 0,
+							inputEventCounter: 0,
+							changeEventCounter: 0,
+							widgetValueAtLatestInputEvent: undefined, // never received
+							valueNodeValueAtLatestInputEvent: undefined,
+							widgetValueAtLatestChangeEvent: undefined,
+							valueNodeValueAtLatestChangeEvent: undefined
+						}, "after initial focus");
+					})
+					.pressKeys(keys.ARROW_DOWN)
+					.sleep(2000)
+					.execute(executeExpr)
+					.then(function (comboState) {
+						// ARROW_DOWN opens the dropdown and focuses France
+						checkComboState(comboId, comboState, { // expected combo state
+							inputNodeValue: "France",
+							widgetValue: ["FR"],
+							valueNodeValue: "FR",
+							opened: true,
+							selectedItemsCount: 1,
+							itemRenderersCount: 8,
+							inputEventCounter: 0,
+							changeEventCounter: 0,
+							widgetValueAtLatestInputEvent: undefined, // never received
+							valueNodeValueAtLatestInputEvent: undefined,
+							widgetValueAtLatestChangeEvent: undefined,
+							valueNodeValueAtLatestChangeEvent: undefined
+						}, "after first ARROW_DOWN");
+					})
+					.pressKeys(keys.ARROW_DOWN)
+					.execute(executeExpr)
+					.then(function (comboState) {
+						// Change the navigated/highlighted item of the List.
+						checkComboState(comboId, comboState, { // expected combo state
+							inputNodeValue: "France",
+							widgetValue: ["FR"],
+							valueNodeValue: "FR",
+							opened: true,
+							selectedItemsCount: 1,
+							itemRenderersCount: 8,
+							inputEventCounter: 0,
+							changeEventCounter: 0,
+							widgetValueAtLatestInputEvent: undefined, // never received
+							valueNodeValueAtLatestInputEvent: undefined,
+							widgetValueAtLatestChangeEvent: undefined,
+							valueNodeValueAtLatestChangeEvent: undefined
+						}, "after second ARROW_DOWN");
+						assert.match(comboState.activeDescendant, /^Germany/,
+							"activeDescendant after second ARROW_DOWN");
+					})
+					.pressKeys(keys.SPACE)
+					.execute(executeExpr)
+					.then(function (comboState) {
+						// Now France and Germany should be selected.
+						checkComboState(comboId, comboState, { // expected combo state
+							inputNodeValue: "2 selected",
+							widgetValue: ["DE", "FR"],
+							valueNodeValue: "DE,FR",
+							opened: true,
+							selectedItemsCount: 2,
+							itemRenderersCount: 8,
+							inputEventCounter: 1, // incremented
+							changeEventCounter: 0, // still 0 till validation by close popup
+							widgetValueAtLatestInputEvent: ["DE", "FR"],
+							valueNodeValueAtLatestInputEvent: "DE,FR",
+							widgetValueAtLatestChangeEvent: undefined, // never received
+							valueNodeValueAtLatestChangeEvent: undefined
+						}, "after first SPACE on Germany item");
+					})
+					.pressKeys(keys.SPACE) // unselect Germany
+					.execute(executeExpr)
+					.then(function (comboState) {
+						// Now only France should be selected.
+						checkComboState(comboId, comboState, { // expected combo state
+							inputNodeValue: "France",
+							widgetValue: ["FR"],
+							valueNodeValue: "FR",
+							opened: true,
+							selectedItemsCount: 1,
+							itemRenderersCount: 8,
+							inputEventCounter: 1, // incremented
+							changeEventCounter: 0, // still 0 till validation by close popup
+							widgetValueAtLatestInputEvent: ["FR"],
+							valueNodeValueAtLatestInputEvent: "FR",
+							widgetValueAtLatestChangeEvent: undefined, // never received
+							valueNodeValueAtLatestChangeEvent: undefined
+						}, "after second SPACE on Germany item");
+					})
+					.pressKeys(keys.ARROW_UP)
+					.pressKeys(keys.SPACE) // deselect France too
+					.execute(executeExpr)
+					.then(function (comboState) {
+						// Now nothing should be selected.
+						checkComboState(comboId, comboState, { // expected combo state
+							inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
+							widgetValue: [],
+							valueNodeValue: "",
+							opened: true,
+							selectedItemsCount: 0,
+							itemRenderersCount: 8,
+							inputEventCounter: 1, // incremented
+							changeEventCounter: 0, // still 0 till validation by close popup
+							widgetValueAtLatestInputEvent: [],
+							valueNodeValueAtLatestInputEvent: "",
+							widgetValueAtLatestChangeEvent: undefined, // never received
+							valueNodeValueAtLatestChangeEvent: undefined
+						}, "after first SPACE on France item");
+					});
+			},
+
+			"keyboard navigation - autoscroll (single)": function () {
+				var remote = this.remote;
+				if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+					return this.skip("no keyboard support");
+				}
+				return checkKeyboardNavigationAutoscroll(remote, "combo1");
+			},
+
+			"keyboard navigation - autoscroll (multiple)": function () {
+				var remote = this.remote;
+				if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+					return this.skip("no keyboard support");
+				}
+				return checkKeyboardNavigationAutoscroll(remote, "combo3");
+			},
+
+			"check navigatedDescendant (no selection)": function () {
+				var remote = this.remote;
+				if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+					return this.skip("no keyboard support");
+				}
+				return checkNavigatedDescendantNoSelection(remote, "combo3");
+			},
+
+			"check navigatedDescendant (with selection)": function () {
+				var remote = this.remote;
+				if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+					return this.skip("no keyboard support");
+				}
+				return checkNavigatedDescendantWithSelection(remote, "combo3");
+			},
+
+			"check navigatedDescendant (with pre-selection)": function () {
+				var remote = this.remote;
+				if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+					return this.skip("no keyboard support");
+				}
+				return checkNavigatedDescendantWithPreSelection(remote, "combo2-custom-sel-multiple");
+			},
+
+			"mouse navigation selectionMode=single, autoFilter=false": function () {
+				return checkMouseNavigationSingleSelection(this.remote, "combo1");
+			},
+
+			"mouse navigation selectionMode=multiple": function () {
+				return checkMouseNavigationMultipleSelection(this.remote, "combo3");
+			},
+
+			"popup position after filter": function () {
+				var remote = this.remote;
+				if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+					return this.skip("no keyboard support");
+				}
+
+				return checkPopupPosition(remote, "combo2-custom-sel-single", "above");
+			},
+
+			"select item with currently displayed value": function () {
+				var remote = this.remote;
+
+				if (remote.environmentType.browserName.toLowerCase() === "internet explorer") {
+					// TODO: This test fails on IE because the backspace to clear "France" doesn't work.
+					return this.skip("caret in wrong position, backspace doesn't work");
+				}
+				if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+					return this.skip("no keyboard support");
+				}
+
+				return loadFile(remote, "Combobox-decl.html")
+					.execute("document.getElementById('combo2-value').focus();")
+					.pressKeys(keys.BACKSPACE) // "Franc"
+					.pressKeys(keys.BACKSPACE) // "Fran"
+					.pressKeys(keys.BACKSPACE) // "Fra"
+					.pressKeys(keys.BACKSPACE) // "Fr"
+					.pressKeys(keys.BACKSPACE) // "F"
+					.pressKeys(keys.BACKSPACE) // "" - At this stage the popup should be closed.
+					.pressKeys("Germany")		// At this point popup should be open w/one entry marked Germany.
+					.execute("return document.getElementById('combo2-value').inputNode.value;").then(function (value) {
+						assert.strictEqual(value, "Germany", "<input> after typed Germany");
+					})
+					.pressKeys(keys.ARROW_DOWN)
+					.pressKeys(keys.ENTER)		// Select "Germany".
+					.execute("return document.getElementById('combo2-value').inputNode.value;").then(function (value) {
+						assert.strictEqual(value, "Germany", "<input> after selected Germany");
+					})
+					.execute("return document.getElementById('combo2-value').value;").then(function (value) {
+						assert.strictEqual(value, "DE", "combo.value after selected Germany");
+					});
+			},
+
+			"check for number of request (using SlowStore)": function () {
+				var remote = this.remote;
+				if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+					return this.skip("no keyboard support");
+				}
+				return checkRequestCount(remote, "combo-slowstore");
+			},
+
+			"filtering with minimum characters (0)": function () {
+				var remote = this.remote;
+				if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+					return this.skip("no keyboard support");
+				}
+				return checkFilteringWithZeroFilterChars(remote, "combo-minfilterchars0");
+			},
+
+			"filtering with minimum characters (3)": function () {
+				var remote = this.remote;
+				if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+					return this.skip("no keyboard support");
+				}
+				return checkFilteringWithThreeFilterChars(remote, "combo-minfilterchars3");
+			},
+
+			"filtering in auto complete mode": function () {
+				var remote = this.remote;
+				if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+					return this.skip("no keyboard support");
+				}
+				return checkFilteringAutoCompleteMode(remote, "combo-autocomplete");
 			}
-			return checkKeyboardNavigationSingleSelection(remote, "combo1", false);
-		},
-
-		"keyboard navigation selectionMode=single, autoFilter=true": function () {
-			var remote = this.remote;
-			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
-				return this.skip("no keyboard support");
-			}
-
-			if (remote.environmentType.browserName === "internet explorer") {
-				// TODO: This test fails on IE because the backspace to clear "France" doesn't work since
-				// the caret is at the beginning of the <input> rather than the end.  (Note the test is
-				// complicated because it opens the dropdown first and then does backspace.)
-				// Actually I'm not sure how the test is passing on other browsers
-				// https://github.com/ibm-js/deliteful/issues/689
-				return this.skip("caret in wrong position, backspace doesn't work");
-			}
-
-			return checkKeyboardNavigationSingleSelection(remote, "combo2", true);
-		},
-
-		"keyboard navigation selectionMode = multiple": function () {
-			var remote = this.remote;
-			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
-				return this.skip("no keyboard support");
-			}
-			return checkKeyboardNavigationMultipleSelection(remote, "combo3");
-		},
-
-		"keyboard navigation selectionMode = multiple, initial selection (combo3-value)": function () {
-			var remote = this.remote,
-				comboId = "combo3-value";
-			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
-				return this.skip("no keyboard support");
-			}
-			var executeExpr = "return getComboState(\"" + comboId + "\");";
-			return loadFile(remote, "./Combobox-decl.html")
-				.execute("document.getElementById('" + comboId + "').focus(); " + executeExpr)
-				.then(function (comboState) {
-					// France initially selcted
-					checkComboState(comboId, comboState, { // expected combo state
-						inputNodeValue: "France",
-						widgetValue: ["FR"],
-						valueNodeValue: "FR",
-						opened: false,
-						selectedItemsCount: 0,
-						itemRenderersCount: 0,
-						inputEventCounter: 0,
-						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: undefined, // never received
-						valueNodeValueAtLatestInputEvent: undefined,
-						widgetValueAtLatestChangeEvent: undefined,
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after initial focus");
-				})
-				.pressKeys(keys.ARROW_DOWN)
-				.sleep(2000)
-				.execute(executeExpr)
-				.then(function (comboState) {
-					// ARROW_DOWN opens the dropdown and focuses France
-					checkComboState(comboId, comboState, { // expected combo state
-						inputNodeValue: "France",
-						widgetValue: ["FR"],
-						valueNodeValue: "FR",
-						opened: true,
-						selectedItemsCount: 1,
-						itemRenderersCount: 8,
-						inputEventCounter: 0,
-						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: undefined, // never received
-						valueNodeValueAtLatestInputEvent: undefined,
-						widgetValueAtLatestChangeEvent: undefined,
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after first ARROW_DOWN");
-				})
-				.pressKeys(keys.ARROW_DOWN)
-				.execute(executeExpr)
-				.then(function (comboState) {
-					// Change the navigated/highlighted item of the List.
-					checkComboState(comboId, comboState, { // expected combo state
-						inputNodeValue: "France",
-						widgetValue: ["FR"],
-						valueNodeValue: "FR",
-						opened: true,
-						selectedItemsCount: 1,
-						itemRenderersCount: 8,
-						inputEventCounter: 0,
-						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: undefined, // never received
-						valueNodeValueAtLatestInputEvent: undefined,
-						widgetValueAtLatestChangeEvent: undefined,
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after second ARROW_DOWN");
-					assert.match(comboState.activeDescendant, /^Germany/, "activeDescendant after second ARROW_DOWN");
-				})
-				.pressKeys(keys.SPACE)
-				.execute(executeExpr)
-				.then(function (comboState) {
-					// Now France and Germany should be selected.
-					checkComboState(comboId, comboState, { // expected combo state
-						inputNodeValue: "2 selected",
-						widgetValue: ["DE", "FR"],
-						valueNodeValue: "DE,FR",
-						opened: true,
-						selectedItemsCount: 2,
-						itemRenderersCount: 8,
-						inputEventCounter: 1, // incremented
-						changeEventCounter: 0, // still 0 till validation by close popup
-						widgetValueAtLatestInputEvent: ["DE", "FR"],
-						valueNodeValueAtLatestInputEvent: "DE,FR",
-						widgetValueAtLatestChangeEvent: undefined, // never received
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after first SPACE on Germany item");
-				})
-				.pressKeys(keys.SPACE) // unselect Germany
-				.execute(executeExpr)
-				.then(function (comboState) {
-					// Now only France should be selected.
-					checkComboState(comboId, comboState, { // expected combo state
-						inputNodeValue: "France",
-						widgetValue: ["FR"],
-						valueNodeValue: "FR",
-						opened: true,
-						selectedItemsCount: 1,
-						itemRenderersCount: 8,
-						inputEventCounter: 1, // incremented
-						changeEventCounter: 0, // still 0 till validation by close popup
-						widgetValueAtLatestInputEvent: ["FR"],
-						valueNodeValueAtLatestInputEvent: "FR",
-						widgetValueAtLatestChangeEvent: undefined, // never received
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after second SPACE on Germany item");
-				})
-				.pressKeys(keys.ARROW_UP)
-				.pressKeys(keys.SPACE) // deselect France too
-				.execute(executeExpr)
-				.then(function (comboState) {
-					// Now nothing should be selected.
-					checkComboState(comboId, comboState, { // expected combo state
-						inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
-						widgetValue: [],
-						valueNodeValue: "",
-						opened: true,
-						selectedItemsCount: 0,
-						itemRenderersCount: 8,
-						inputEventCounter: 1, // incremented
-						changeEventCounter: 0, // still 0 till validation by close popup
-						widgetValueAtLatestInputEvent: [],
-						valueNodeValueAtLatestInputEvent: "",
-						widgetValueAtLatestChangeEvent: undefined, // never received
-						valueNodeValueAtLatestChangeEvent: undefined
-					}, "after first SPACE on France item");
-				});
-		},
-
-		"keyboard navigation - autoscroll (single)": function () {
-			var remote = this.remote;
-			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
-				return this.skip("no keyboard support");
-			}
-			return checkKeyboardNavigationAutoscroll(remote, "combo1");
-		},
-
-		"keyboard navigation - autoscroll (multiple)": function () {
-			var remote = this.remote;
-			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
-				return this.skip("no keyboard support");
-			}
-			return checkKeyboardNavigationAutoscroll(remote, "combo3");
-		},
-
-		"check navigatedDescendant (no selection)": function () {
-			var remote = this.remote;
-			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
-				return this.skip("no keyboard support");
-			}
-			return checkNavigatedDescendantNoSelection(remote, "combo3");
-		},
-
-		"check navigatedDescendant (with selection)": function () {
-			var remote = this.remote;
-			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
-				return this.skip("no keyboard support");
-			}
-			return checkNavigatedDescendantWithSelection(remote, "combo3");
-		},
-
-		"check navigatedDescendant (with pre-selection)": function () {
-			var remote = this.remote;
-			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
-				return this.skip("no keyboard support");
-			}
-			return checkNavigatedDescendantWithPreSelection(remote, "combo2-custom-sel-multiple");
-		},
-
-		"mouse navigation selectionMode=single, autoFilter=false": function () {
-			return checkMouseNavigationSingleSelection(this.remote, "combo1");
-		},
-
-		"mouse navigation selectionMode=multiple": function () {
-			return checkMouseNavigationMultipleSelection(this.remote, "combo3");
-		},
-
-		"popup position after filter": function () {
-			var remote = this.remote;
-			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
-				return this.skip("no keyboard support");
-			}
-
-			return checkPopupPosition(remote, "combo2-custom-sel-single", "above");
-		},
-
-		"select item with currently displayed value": function () {
-			var remote = this.remote;
-
-			if (remote.environmentType.browserName === "internet explorer") {
-				// TODO: This test fails on IE because the backspace to clear "France" doesn't work.
-				return this.skip("caret in wrong position, backspace doesn't work");
-			}
-			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
-				return this.skip("no keyboard support");
-			}
-
-			var comboId = "combo2-value";
-
-			return loadFile(remote, "./Combobox-decl.html")
-				.execute("document.getElementById('" + comboId + "').focus();")
-				.pressKeys(keys.BACKSPACE) // "Franc"
-				.pressKeys(keys.BACKSPACE) // "Fran"
-				.pressKeys(keys.BACKSPACE) // "Fra"
-				.pressKeys(keys.BACKSPACE) // "Fr"
-				.pressKeys(keys.BACKSPACE) // "F"
-				.pressKeys(keys.BACKSPACE) // "" - At this stage the popup should be closed.
-				.pressKeys("Germany")		// At this point popup should be open w/one entry marked Germany.
-				.execute("return document.getElementById('" + comboId + "').inputNode.value;").then(function (value) {
-					assert.strictEqual(value, "Germany", "<input> after typed Germany");
-				})
-				.pressKeys(keys.ARROW_DOWN)
-				.pressKeys(keys.ENTER)		// Select "Germany".
-				.execute("return document.getElementById('" + comboId + "').inputNode.value;").then(function (value) {
-					assert.strictEqual(value, "Germany", "<input> after selected Germany");
-				})
-				.execute("return document.getElementById('" + comboId + "').value;").then(function (value) {
-					assert.strictEqual(value, "DE", "combo.value after selected Germany");
-				});
-		},
-
-		"check for number of request (using SlowStore)": function () {
-			var remote = this.remote;
-			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
-				return this.skip("no keyboard support");
-			}
-			return checkRequestCount(remote, "combo-slowstore");
-		},
-
-		"filtering with minimum characters (0)": function () {
-			var remote = this.remote;
-			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
-				return this.skip("no keyboard support");
-			}
-			return checkFilteringWithZeroFilterChars(remote, "combo-minfilterchars0");
-		},
-
-		"filtering with minimum characters (3)": function () {
-			var remote = this.remote;
-			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
-				return this.skip("no keyboard support");
-			}
-			return checkFilteringWithThreeFilterChars(remote, "combo-minfilterchars3");
-		},
-
-		"filtering in auto complete mode": function () {
-			var remote = this.remote;
-			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
-				return this.skip("no keyboard support");
-			}
-			return checkFilteringAutoCompleteMode(remote, "combo-autocomplete");
 		}
 	});
 });

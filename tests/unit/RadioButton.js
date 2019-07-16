@@ -1,13 +1,13 @@
 define(function (require) {
 	"use strict";
 
-	var registerSuite = require("intern!object");
-	var assert = require("intern/chai!assert");
+	var registerSuite = intern.getPlugin("interface.object").registerSuite;
+	var assert = intern.getPlugin("chai").assert;
 	var register = require("delite/register");
 	var RadioButton = require("deliteful/RadioButton");
 	var commonSuite = require("./resources/Checkbox-shared");
 
-	function mix (a, b) {
+	function mix(a, b) {
 		for (var n in b) {
 			a[n] = b[n];
 		}
@@ -22,7 +22,7 @@ define(function (require) {
 			"<d-radio-button id='rb4'></d-radio-button>";
 
 	var suite = {
-		"setup": function () {
+		before: function () {
 			mix(commonSuite, {
 				baseClass: "d-radio-button",
 				defaultWidget: "rb4",
@@ -31,121 +31,124 @@ define(function (require) {
 			});
 		},
 
-		"init state": function () {
-			var d = this.async(1000);
-			setTimeout(d.callback(function () {
-				var rb = document.getElementById("rb4");
-				var elt = rb.querySelector("input[type='radio']");
-				assert.ok(elt, "Missing wrapped input element");
-				assert.strictEqual(rb.valueNode, rb.querySelector("input"), "'valueNode' property");
-				assert.strictEqual(rb.valueNode, rb.focusNode, "'focusNode' property");
-				rb = document.getElementById("rb3");
-				assert.strictEqual(rb.value, "rb3",
-					"Unexpected default value for 'value' property if 'value' specified/unchecked");
-				assert.strictEqual(rb.value, rb.valueNode.value,
-					"'rb3' wrapped input 'value' property");
-				assert.strictEqual(rb.name, "choice",
-					"Unexpected default value for 'value' property if 'value' specified/unchecked");
-				assert.strictEqual(rb.name, rb.valueNode.name,
-					"'rb3' wrapped input 'name' property");
-				rb = document.getElementById("rb2");
-				assert.ok(rb.checked, "Unexpected default value for 'checked' property if 'checked' specified");
-			}), 300);
-			return d;
-		},
-
-		"checked (RadioButton)": function () {
-			var d = this.async(1000);
-			setTimeout(d.callback(function () {
-				var rb = document.getElementById("rb1"),
-					inp = rb.valueNode;
-				rb.checked = true;
-				rb.deliver();
-				rb = document.getElementById("rb1");
-				assert.isTrue(rb.checked, "'checked' property after set");
-				assert.strictEqual(rb.checked, inp.checked,
-					"'checked' property of wrapped input");
-				// check it's the only checked button in the form
-				var rb2 = document.getElementById("rb2");
-				assert.isFalse(rb2.checked, "rb2 'checked' property after set");
-				assert.isFalse(rb2.valueNode.checked, "rb2 'checked' property of wrapped input");
-				var rb3 = document.getElementById("rb3");
-				assert.isFalse(rb3.checked, "rb3 'checked' property after set");
-				assert.isFalse(rb3.valueNode.checked, "rb3 'checked' property of wrapped input");
-			}), 100);
-			return d;
-		},
-
-		"toggle": function () {
-			// a checked radio button should not be unchecked by toggle
-			var rb = document.getElementById("rb2");
-			rb.toggle();
-			rb.deliver();
-			assert.isTrue(rb.checked, "'checked' property after toggle() on rb2");
-			rb = document.getElementById("rb1");
-			rb.toggle();
-			rb.deliver();
-			assert.isTrue(rb.checked, "'checked' property after toggle() on rb1");
-		},
-
-		// overrides shared impl.
-		"changeEvent (RadioButton)": function () {
-			var d = this.async(1000);
-			setTimeout(d.callback(function () {
-				var rb3 = document.getElementById("rb3"),
-					lbl4 = document.getElementById("lbl4"),
-					fired = false;
-				rb3.on("change", function () {
-					fired = true;
-				});
-				rb3.focusNode.click();
-				assert.isTrue(fired, "Missing 'change' event when input node is clicked");
-				fired = false;
-				var rb1 = document.getElementById("rb1");
-				rb1.checked = true;
-				rb1.deliver();
-				lbl4.click();
-				assert.isTrue(fired, "Missing 'change' event when labelFor is clicked");
-			}));
-			return d;
-		},
-
-		"on-click": function () {
-			// test issue raised in https://bugs.dojotoolkit.org/ticket/17613
-			var d = this.async(1000),
-				rb3 = document.getElementById("rb3");
-			setTimeout(d.rejectOnError(function () {
-				rb3.on("click", function () {
-					// TODO: These asserts are meaningless since they run in separate threads.
-					// Test needs to be redesigned.
-					assert.isTrue(rb3.checked, "Unexpected checked state for rb3 after in rb3 on-click handler");
-					assert.isTrue(rb3.focusNode.checked,
-						"Unexpected checked state for rb3's wrapped input in rb3 on-click handler");
-					["rb1", "rb2"].forEach(function (rb) {
-						rb = document.getElementById(rb);
-						assert.isFalse(rb.checked,
-							"Unexpected checked state for " + rb.id + " in rb3 on-click handler");
-						assert.isFalse(rb.focusNode.checked,
-							"Unexpected checked state for " + rb.id +
-								"'s wrapped input in rb3 on-click handler");
-					});
-				});
+		tests: {
+			"init state": function () {
+				var d = this.async(1000);
 				setTimeout(d.callback(function () {
-					rb3.focusNode.click();
+					var rb = document.getElementById("rb4");
+					var elt = rb.querySelector("input[type='radio']");
+					assert.ok(elt, "Missing wrapped input element");
+					assert.strictEqual(rb.valueNode, rb.querySelector("input"), "'valueNode' property");
+					assert.strictEqual(rb.valueNode, rb.focusNode, "'focusNode' property");
+					rb = document.getElementById("rb3");
+					assert.strictEqual(rb.value, "rb3",
+						"Unexpected default value for 'value' property if 'value' specified/unchecked");
+					assert.strictEqual(rb.value, rb.valueNode.value,
+						"'rb3' wrapped input 'value' property");
+					assert.strictEqual(rb.name, "choice",
+						"Unexpected default value for 'value' property if 'value' specified/unchecked");
+					assert.strictEqual(rb.name, rb.valueNode.name,
+						"'rb3' wrapped input 'name' property");
+					rb = document.getElementById("rb2");
+					assert.ok(rb.checked, "Unexpected default value for 'checked' property if 'checked' specified");
 				}), 300);
-			}), 300);
-			return d;
+				return d;
+			},
+
+			"checked (RadioButton)": function () {
+				var d = this.async(1000);
+				setTimeout(d.callback(function () {
+					var rb = document.getElementById("rb1"),
+						inp = rb.valueNode;
+					rb.checked = true;
+					rb.deliver();
+					rb = document.getElementById("rb1");
+					assert.isTrue(rb.checked, "'checked' property after set");
+					assert.strictEqual(rb.checked, inp.checked,
+						"'checked' property of wrapped input");
+					// check it's the only checked button in the form
+					var rb2 = document.getElementById("rb2");
+					assert.isFalse(rb2.checked, "rb2 'checked' property after set");
+					assert.isFalse(rb2.valueNode.checked, "rb2 'checked' property of wrapped input");
+					var rb3 = document.getElementById("rb3");
+					assert.isFalse(rb3.checked, "rb3 'checked' property after set");
+					assert.isFalse(rb3.valueNode.checked, "rb3 'checked' property of wrapped input");
+				}), 100);
+				return d;
+			},
+
+			"toggle": function () {
+				// a checked radio button should not be unchecked by toggle
+				var rb = document.getElementById("rb2");
+				rb.toggle();
+				rb.deliver();
+				assert.isTrue(rb.checked, "'checked' property after toggle() on rb2");
+				rb = document.getElementById("rb1");
+				rb.toggle();
+				rb.deliver();
+				assert.isTrue(rb.checked, "'checked' property after toggle() on rb1");
+			},
+
+			// overrides shared impl.
+			"changeEvent (RadioButton)": function () {
+				var d = this.async(1000);
+				setTimeout(d.callback(function () {
+					var rb3 = document.getElementById("rb3"),
+						lbl4 = document.getElementById("lbl4"),
+						fired = false;
+					rb3.on("change", function () {
+						fired = true;
+					});
+					rb3.focusNode.click();
+					assert.isTrue(fired, "Missing 'change' event when input node is clicked");
+					fired = false;
+					var rb1 = document.getElementById("rb1");
+					rb1.checked = true;
+					rb1.deliver();
+					lbl4.click();
+					assert.isTrue(fired, "Missing 'change' event when labelFor is clicked");
+				}));
+				return d;
+			},
+
+			"on-click": function () {
+				// test issue raised in https://bugs.dojotoolkit.org/ticket/17613
+				var d = this.async(1000),
+					rb3 = document.getElementById("rb3");
+				setTimeout(d.rejectOnError(function () {
+					rb3.on("click", function () {
+						// TODO: These asserts are meaningless since they run in separate threads.
+						// Test needs to be redesigned.
+						/*
+						assert.isTrue(rb3.checked, "Unexpected checked state for rb3 after in rb3 on-click handler");
+						assert.isTrue(rb3.focusNode.checked,
+							"Unexpected checked state for rb3's wrapped input in rb3 on-click handler");
+						["rb1", "rb2"].forEach(function (rb) {
+							rb = document.getElementById(rb);
+							assert.isFalse(rb.checked,
+								"Unexpected checked state for " + rb.id + " in rb3 on-click handler");
+							assert.isFalse(rb.focusNode.checked,
+								"Unexpected checked state for " + rb.id +
+								"'s wrapped input in rb3 on-click handler");
+						});
+						 */
+					});
+					setTimeout(d.callback(function () {
+						rb3.focusNode.click();
+					}), 300);
+				}), 300);
+				return d;
+			}
 		},
 
-		"afterEach": function () {
+		afterEach: function () {
 			container.parentNode.removeChild(container);
 		}
 	};
-	mix(suite, commonSuite.testCases);
+	mix(suite.tests, commonSuite.testCases);
 
 	// Markup
 	var markupSuite = {
-		name: "deliteful/RadioButton: markup",
 		beforeEach: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
@@ -154,10 +157,9 @@ define(function (require) {
 		}
 	};
 	mix(markupSuite, suite);
-	registerSuite(markupSuite);
+	registerSuite("deliteful/RadioButton: markup", markupSuite);
 
-	var progSuite = {
-		name: "deliteful/RadioButton: programmatic",
+	var programmaticSuite = {
 		beforeEach: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
@@ -180,6 +182,6 @@ define(function (require) {
 			rb.placeAt(form);
 		}
 	};
-	mix(progSuite, suite);
-	registerSuite(progSuite);
+	mix(programmaticSuite, suite);
+	registerSuite("deliteful/RadioButton: programmatic", programmaticSuite);
 });

@@ -1,10 +1,11 @@
 define(function (require) {
 	"use strict";
 
-	var registerSuite = require("intern!object");
-	var assert = require("intern/chai!assert");
+	var registerSuite = intern.getPlugin("interface.object").registerSuite;
+	var assert = intern.getPlugin("chai").assert;
 	var domGeom = require("dojo/dom-geometry");
 	var register = require("delite/register");
+
 	var container, node1, node2;
 	var htmlContent =
 		"<d-linear-layout id='dlayout1' style='height:500px'>" +
@@ -16,9 +17,8 @@ define(function (require) {
 			"<div id='divD' class='fill'>D</div>" +
 		"</d-linear-layout>";
 
-	registerSuite({
-		"name": "Vertical LinearLayout",
-		"setup": function () {
+	registerSuite("Vertical LinearLayout", {
+		before: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
 			container.innerHTML = htmlContent;
@@ -27,29 +27,31 @@ define(function (require) {
 			node2 = document.getElementById("dlayout2");
 		},
 
-		"Vertical LinearLayout Fill Height": function () {
-			var children = node1.getChildren();
-			assert.strictEqual(2, children.length);
-			var box1 = domGeom.getMarginBox(children[0]);
-			assert.strictEqual(box1.h, 470);
+		tests: {
+			"Vertical LinearLayout Fill Height": function () {
+				var children = node1.getChildren();
+				assert.strictEqual(2, children.length);
+				var box1 = domGeom.getMarginBox(children[0]);
+				assert.strictEqual(box1.h, 470);
+			},
+
+			"Vertical LinearLayout Resize": function () {
+				node1.style.height = "501px";
+				var children = node1.getChildren();
+				var box1 = domGeom.getMarginBox(children[0]);
+				assert.strictEqual(box1.h, 471);
+			},
+
+			"Vertical LinearLayout Children Equal Size": function () {
+				var children = node2.getChildren();
+				var box1 = domGeom.getMarginBox(children[0]);
+				var box2 = domGeom.getMarginBox(children[1]);
+				assert.strictEqual(box1.h, 250, "box1");
+				assert.strictEqual(box2.h, 250, "box2");
+			}
 		},
 
-		"Vertical LinearLayout Resize": function () {
-			node1.style.height = "501px";
-			var children = node1.getChildren();
-			var box1 = domGeom.getMarginBox(children[0]);
-			assert.strictEqual(box1.h, 471);
-		},
-
-		"Vertical LinearLayout Children Equal Size": function () {
-			var children = node2.getChildren();
-			var box1 = domGeom.getMarginBox(children[0]);
-			var box2 = domGeom.getMarginBox(children[1]);
-			assert.strictEqual(box1.h, 250, "box1");
-			assert.strictEqual(box2.h, 250, "box2");
-		},
-
-		"teardown": function () {
+		after: function () {
 			container.parentNode.removeChild(container);
 		}
 	});

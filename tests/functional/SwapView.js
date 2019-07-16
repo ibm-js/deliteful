@@ -1,24 +1,21 @@
 define(function (require) {
 	"use strict";
 
-	var intern = require("intern");
-	var registerSuite = require("intern!object");
-	var pollUntil = require("intern/dojo/node!leadfoot/helpers/pollUntil");
-	var assert = require("intern/chai!assert");
+	var registerSuite = intern.getPlugin("interface.object").registerSuite;
+	var pollUntil = require("@theintern/leadfoot/helpers/pollUntil").default;
+	var assert = intern.getPlugin("chai").assert;
 
-	function loadFile (remote, url) {
+	function loadFile(remote, fileName) {
 		return remote
-			.get(require.toUrl(url))
+			.get(require.toUrl("deliteful/tests/functional/" + fileName))
 			.then(pollUntil("return ready ? true : null;", [],
 				intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 	}
 
-	registerSuite({
-		"name": "SwapView - functional",
-
+	registerSuite("SwapView - functional", {
 		"SwapView load": function () {
 			var remote = this.remote;
-			return loadFile(remote, "./SwapView.html").findById("sv").then(function () {
+			return loadFile(remote, "SwapView.html").findById("sv").then(function () {
 				pollUntil("return document.getElementById('sv').className == 'd-swap-view d-view-stack'", [], 2000,
 					intern.config.POLL_INTERVAL);
 			})

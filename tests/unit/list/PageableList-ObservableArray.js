@@ -1,8 +1,8 @@
 define(function (require) {
 	"use strict";
 
-	var registerSuite = require("intern!object");
-	var assert = require("intern/chai!assert");
+	var registerSuite = intern.getPlugin("interface.object").registerSuite;
+	var assert = intern.getPlugin("chai").assert;
 	var Deferred = require("dojo/Deferred");
 	var ObservableArray = require("decor/ObservableArray");
 	var PageableList = require("deliteful/list/PageableList");
@@ -13,9 +13,8 @@ define(function (require) {
 	// List base tests
 	/////////////////////////////////
 
-	registerSuite(
-		ListBaseTestsObservableArray.buildSuite("list/PageableList-ObservableArray-noPagination-baseListTests",
-			PageableList));
+	registerSuite("list/PageableList-ObservableArray-noPagination-baseListTests",
+		ListBaseTestsObservableArray.buildSuite(PageableList));
 
 	/////////////////////////////////
 	// PageableList specific tests
@@ -23,8 +22,8 @@ define(function (require) {
 
 	var list = null;
 
-	function waitForCondition (func, timeout, interval) {
-		function wait (def, start) {
+	function waitForCondition(func, timeout, interval) {
+		function wait(def, start) {
 			setTimeout(function () {
 				if (func()) {
 					def.resolve();
@@ -43,13 +42,13 @@ define(function (require) {
 		return def;
 	}
 
-	function removeTabsAndReturns (str) {
+	function removeTabsAndReturns(str) {
 		return str.replace(/\t/g, "").replace(/\n/g, "");
 	}
 
 	/* jshint maxcomplexity: 11 */
-	function assertList (l, firstItemNumber, lastItemNumber, missingItemNumbers,
-			previousPageLoader, nextPageLoader, hint) {
+	function assertList(l, firstItemNumber, lastItemNumber, missingItemNumbers,
+		previousPageLoader, nextPageLoader, hint) {
 		hint = hint || "";
 		var listContent = l.containerNode;
 		var numberOfItems = lastItemNumber - firstItemNumber + 1 - missingItemNumbers.length;
@@ -73,7 +72,7 @@ define(function (require) {
 		}
 	}
 
-	function assertCategorizedList (l, numberOfItems, firstItemNumber, previousPageLoader, nextPageLoader) {
+	function assertCategorizedList(l, numberOfItems, firstItemNumber, previousPageLoader, nextPageLoader) {
 		var numberOfCategories = Math.floor((firstItemNumber + numberOfItems - 1) / 10)
 			- Math.floor(firstItemNumber / 10) + 1;
 		var lastCategory = null;
@@ -101,11 +100,11 @@ define(function (require) {
 		}
 	}
 
-	function clickPreviousPageLoader (l) {
+	function clickPreviousPageLoader(l) {
 		return l._loadPreviousPage();
 	}
 
-	function clickNextPageLoader (l) {
+	function clickNextPageLoader(l) {
 		return l._loadNextPage();
 	}
 
@@ -203,6 +202,7 @@ define(function (require) {
 			/*jshint maxlen: 120*/
 			return dfd;
 		},
+
 		"removing items in next non displayed page": function (/*Deferred*/dfd) {
 			var TIMEOUT = 2000;
 			var INTERVAL = 100;
@@ -230,114 +230,115 @@ define(function (require) {
 			}));
 			return dfd;
 		},
-		"removing items in previous non displayed page":
-			function (/*Deferred*/dfd) {
-				var TIMEOUT = 2000;
-				var INTERVAL = 100;
-				list = new PageableList({source: new ObservableArray()});
-				for (var i = 0; i < 92; i++) {
-					list.source.push({label: "item " + i, id: i});
-				}
-				list.pageLength = 23;
-				list.maxPages = 2;
-				list.placeAt(document.body);
-				list.deliver();
-				waitForCondition(function () {
-					return list.textContent.indexOf("item 22") >= 0;
-				}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
+
+		"removing items in previous non displayed page": function (/*Deferred*/dfd) {
+			var TIMEOUT = 2000;
+			var INTERVAL = 100;
+			list = new PageableList({source: new ObservableArray()});
+			for (var i = 0; i < 92; i++) {
+				list.source.push({label: "item " + i, id: i});
+			}
+			list.pageLength = 23;
+			list.maxPages = 2;
+			list.placeAt(document.body);
+			list.deliver();
+			waitForCondition(function () {
+				return list.textContent.indexOf("item 22") >= 0;
+			}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
+				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 					clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-						clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+						list.deliver();
+						// initial load (page 1 loaded)
+						assertList(list, 23, 68, [], true, true, "assert 1");
+						// Remove items in the previous page
+						list.source.splice(0, 1); // remove item 0
+						list.source.splice(11, 1); // remove item 12
+						list.source.splice(20, 1); // remove item 22
+						list.deliver();
+						clickPreviousPageLoader(list).then(dfd.callback(function () {
 							list.deliver();
-							// initial load (page 1 loaded)
-							assertList(list, 23, 68, [], true, true, "assert 1");
-							// Remove items in the previous page
-							list.source.splice(0, 1); // remove item 0
-							list.source.splice(11, 1); // remove item 12
-							list.source.splice(20, 1); // remove item 22
-							list.deliver();
-							clickPreviousPageLoader(list).then(dfd.callback(function () {
-								list.deliver();
-								assertList(list, 1, 45, [12, 22], false, true, "assert 2");
-							}));
+							assertList(list, 1, 45, [12, 22], false, true, "assert 2");
 						}));
 					}));
 				}));
-				return dfd;
-			},
-		"remove item and browse":
-			function (/*Deferred*/dfd) {
-				var TIMEOUT = 2000;
-				var INTERVAL = 100;
-				list = new PageableList({source: new ObservableArray()});
-				for (var i = 0; i < 91; i++) {
-					list.source.push({label: "item " + i, id: i});
-				}
-				list.pageLength = 23;
-				list.maxPages = 2;
-				list.style.height = "200px";
-				list.on("new-query-asked", function (evt) {
-					evt.setPromise(new Promise(function (resolve) {
-						resolve(list.source.slice(evt.start, evt.end));
-					}));
-				});
-				list.placeAt(document.body);
-				list.deliver();
-				waitForCondition(function () {
-					return list.textContent.indexOf("item 22") >= 0;
-				}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
-					// Click next page loader three times
+			}));
+			return dfd;
+		},
+
+		"remove item and browse": function (/*Deferred*/dfd) {
+			var TIMEOUT = 2000;
+			var INTERVAL = 100;
+			list = new PageableList({source: new ObservableArray()});
+			for (var i = 0; i < 91; i++) {
+				list.source.push({label: "item " + i, id: i});
+			}
+			list.pageLength = 23;
+			list.maxPages = 2;
+			list.style.height = "200px";
+			list.on("new-query-asked", function (evt) {
+				evt.setPromise(new Promise(function (resolve) {
+					resolve(list.source.slice(evt.start, evt.end));
+				}));
+			});
+			list.placeAt(document.body);
+			list.deliver();
+			waitForCondition(function () {
+				return list.textContent.indexOf("item 22") >= 0;
+			}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
+				// Click next page loader three times
+				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 					clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 						clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-							clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-								// remove item 45
-								list.source.splice(45, 1);
-								list.deliver();
-								// Click previous page loader two times
+							// remove item 45
+							list.source.splice(45, 1);
+							list.deliver();
+							// Click previous page loader two times
+							clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
 								clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
-									clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
-										// Click load next page
-										clickNextPageLoader(list).then(dfd.callback(function () {
-											list.deliver();
-											// Check the content of the list
-											assertList(list, 22, 68, [45], true, true);
-										}));
+									// Click load next page
+									clickNextPageLoader(list).then(dfd.callback(function () {
+										list.deliver();
+										// Check the content of the list
+										assertList(list, 22, 68, [45], true, true);
 									}));
 								}));
 							}));
 						}));
 					}));
 				}));
-				return dfd;
-			},
-		"remove all items in non displayed first page removes previous page loader":
-			function (/*Deferred*/dfd) {
-				var TIMEOUT = 2000;
-				var INTERVAL = 100;
-				list = new PageableList({source: new ObservableArray()});
-				for (var i = 0; i < 91; i++) {
-					list.source.push({label: "item " + i, id: i});
-				}
-				list.pageLength = 23;
-				list.maxPages = 2;
-				list.style.height = "200px";
-				list.placeAt(document.body);
-				list.deliver();
-				waitForCondition(function () {
-					return list.textContent.indexOf("item 22") >= 0;
-				}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
-					// Click next page loader two times
-					clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-						clickNextPageLoader(list).then(dfd.callback(function () {
-							// remove all items in the first page
-							list.source.splice(0, 23);
-							list.deliver();
-							// check that the previous page loader has been removed
-							assertList(list, 23, 68, [], false, true);
-						}));
+			}));
+			return dfd;
+		},
+
+		"remove all items in non displayed first page removes previous page loader": function (/*Deferred*/dfd) {
+			var TIMEOUT = 2000;
+			var INTERVAL = 100;
+			list = new PageableList({source: new ObservableArray()});
+			for (var i = 0; i < 91; i++) {
+				list.source.push({label: "item " + i, id: i});
+			}
+			list.pageLength = 23;
+			list.maxPages = 2;
+			list.style.height = "200px";
+			list.placeAt(document.body);
+			list.deliver();
+			waitForCondition(function () {
+				return list.textContent.indexOf("item 22") >= 0;
+			}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
+				// Click next page loader two times
+				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+					clickNextPageLoader(list).then(dfd.callback(function () {
+						// remove all items in the first page
+						list.source.splice(0, 23);
+						list.deliver();
+						// check that the previous page loader has been removed
+						assertList(list, 23, 68, [], false, true);
 					}));
 				}));
-				return dfd;
-			},
+			}));
+			return dfd;
+		},
+
 		"add items in displayed page": function (/*Deferred*/dfd) {
 			/*jshint maxlen: 140*/
 			var TIMEOUT = 2000;
@@ -444,6 +445,7 @@ define(function (require) {
 			/*jshint maxlen: 120*/
 			return dfd;
 		},
+
 		"add item before first page creates loader": function (/*Deferred*/dfd) {
 			var TIMEOUT = 2000;
 			var INTERVAL = 100;
@@ -490,6 +492,7 @@ define(function (require) {
 			}));
 			return dfd;
 		},
+
 		"add item after last page creates loader": function (/*Deferred*/dfd) {
 			var TIMEOUT = 2000;
 			var INTERVAL = 100;
@@ -544,6 +547,7 @@ define(function (require) {
 			}));
 			return dfd;
 		},
+
 		"add item to undisplayed page": function (/*Deferred*/dfd) {
 			var TIMEOUT = 2000;
 			var INTERVAL = 100;
@@ -600,278 +604,217 @@ define(function (require) {
 		}
 	};
 
-	registerSuite({
-		"name": "list/PageableList-ObservableArray",
-		"beforeEach": function () {
+	registerSuite("list/PageableList-ObservableArray", {
+		beforeEach: function () {
 			if (list) {
 				list.destroy();
 			}
 		},
-		"itemAdded": function () {
-			list = new PageableList({source: new ObservableArray()});
-			list.pageLength = 100;
-			var resetList = function () {
-				list._idPages = [[1, 2, 3], [4, 5, 6]];
-				list._firstLoaded = 1;
-				list._lastLoaded = 6;
-				list.deliver();
-			};
-			list.getIdentity = function (item) {
-				return item.id !== undefined ? item.id : this.data.indexOf(item);
-			};
-			resetList();
-			list.itemAdded(0, {id: "A"});
-			assert.deepEqual(list._idPages, [[1, 2, 3], [4, 5, 6]]);
-			assert.strictEqual(list._firstLoaded, 2, "A");
-			assert.strictEqual(list._lastLoaded, 7, "A");
-			resetList();
-			list.itemAdded(1, {id: "B"});
-			assert.deepEqual(list._idPages, [[1, 2, 3], [4, 5, 6]]);
-			assert.strictEqual(list._firstLoaded, 2, "B");
-			assert.strictEqual(list._lastLoaded, 7, "B");
-			resetList();
-			list.itemAdded(2, {id: "C"});
-			assert.deepEqual(list._idPages, [[1, "C", 2, 3], [4, 5, 6]]);
-			assert.strictEqual(list._firstLoaded, 1, "C");
-			assert.strictEqual(list._lastLoaded, 7, "C");
-			resetList();
-			list.itemAdded(3, {id: "D"});
-			assert.deepEqual(list._idPages, [[1, 2, "D", 3], [4, 5, 6]]);
-			assert.strictEqual(list._firstLoaded, 1, "D");
-			assert.strictEqual(list._lastLoaded, 7, "D");
-			resetList();
-			list.itemAdded(4, {id: "E"});
-			assert.deepEqual(list._idPages, [[1, 2, 3], ["E", 4, 5, 6]]);
-			assert.strictEqual(list._firstLoaded, 1, "E");
-			assert.strictEqual(list._lastLoaded, 7, "E");
-			resetList();
-			list.itemAdded(5, {id: "F"});
-			assert.deepEqual(list._idPages, [[1, 2, 3], [4, "F", 5, 6]]);
-			assert.strictEqual(list._firstLoaded, 1, "F");
-			assert.strictEqual(list._lastLoaded, 7, "F");
-			resetList();
-			list.itemAdded(6, {id: "G"});
-			assert.deepEqual(list._idPages, [[1, 2, 3], [4, 5, "G", 6]]);
-			assert.strictEqual(list._firstLoaded, 1, "G");
-			assert.strictEqual(list._lastLoaded, 7, "G");
-			resetList();
-			list.itemAdded(7, {id: "H"});
-			assert.deepEqual(list._idPages, [[1, 2, 3], [4, 5, 6]]);
-			assert.strictEqual(list._firstLoaded, 1, "H");
-			assert.strictEqual(list._lastLoaded, 6, "H");
-		},
-		"itemRemoved": function () {
-			list = new PageableList({source: new ObservableArray()});
-			list.pageLength = 100;
-			var resetList = function () {
-				list._idPages = [[1, 2, 3], [4, 5, 6]];
-				list._firstLoaded = 1;
-				list._lastLoaded = 6;
-				list.deliver();
-			};
-			resetList();
-			list.itemRemoved(0);
-			assert.deepEqual(list._idPages, [[1, 2, 3], [4, 5, 6]]);
-			assert.strictEqual(list._firstLoaded, 0, "0");
-			assert.strictEqual(list._lastLoaded, 5, "0");
-			resetList();
-			list.itemRemoved(1);
-			assert.deepEqual(list._idPages, [[2, 3], [4, 5, 6]]);
-			assert.strictEqual(list._firstLoaded, 1, "1");
-			assert.strictEqual(list._lastLoaded, 5, "1");
-			resetList();
-			list.itemRemoved(2);
-			assert.deepEqual(list._idPages, [[1, 3], [4, 5, 6]]);
-			assert.strictEqual(list._firstLoaded, 1, "2");
-			assert.strictEqual(list._lastLoaded, 5, "2");
-			resetList();
-			list.itemRemoved(3);
-			assert.deepEqual(list._idPages, [[1, 2], [4, 5, 6]]);
-			assert.strictEqual(list._firstLoaded, 1, "3");
-			assert.strictEqual(list._lastLoaded, 5, "3");
-			resetList();
-			list.itemRemoved(4);
-			assert.deepEqual(list._idPages, [[1, 2, 3], [5, 6]]);
-			assert.strictEqual(list._firstLoaded, 1, "4");
-			assert.strictEqual(list._lastLoaded, 5, "4");
-			resetList();
-			list.itemRemoved(5);
-			assert.deepEqual(list._idPages, [[1, 2, 3], [4, 6]]);
-			assert.strictEqual(list._firstLoaded, 1, "5");
-			assert.strictEqual(list._lastLoaded, 5, "5");
-			resetList();
-			list.itemRemoved(6);
-			assert.deepEqual(list._idPages, [[1, 2, 3], [4, 5]]);
-			assert.strictEqual(list._firstLoaded, 1, "6");
-			assert.strictEqual(list._lastLoaded, 5, "6");
-			resetList();
-			list.itemRemoved(7);
-			assert.deepEqual(list._idPages, [[1, 2, 3], [4, 5, 6]]);
-			assert.strictEqual(list._firstLoaded, 1, "7");
-			assert.strictEqual(list._lastLoaded, 6, "7");
-		},
-		"Loading all next pages (pageLength 20, maxPages 0)": function () {
-			var dfd = this.async(3000);
-			var TIMEOUT = 2000;
-			var INTERVAL = 100;
-			list = new PageableList({source: new ObservableArray()});
-			for (var i = 0; i < 100; i++) {
-				list.source.push({label: "item " + i});
-			}
-			list.pageLength = 20;
-			list.maxPages = 0;
-			list.on("new-query-asked", function (evt) {
-				evt.setPromise(new Promise(function (resolve) {
-					resolve(list.source.slice(evt.start, evt.end));
-				}));
-			});
-			list.placeAt(document.body);
-			list.deliver();
-			waitForCondition(function () {
-				return list.textContent.indexOf("item 19") >= 0;
-			}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
-				// initial load
-				assertList(list, 0, 19, [], false, true);
-				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+
+		tests: {
+			"itemAdded": function () {
+				list = new PageableList({source: new ObservableArray()});
+				list.pageLength = 100;
+				var resetList = function () {
+					list._idPages = [[1, 2, 3], [4, 5, 6]];
+					list._firstLoaded = 1;
+					list._lastLoaded = 6;
 					list.deliver();
-					// after second page is loaded
-					assertList(list, 0, 39, [], false, true);
+				};
+				list.getIdentity = function (item) {
+					return item.id !== undefined ? item.id : this.data.indexOf(item);
+				};
+				resetList();
+				list.itemAdded(0, {id: "A"});
+				assert.deepEqual(list._idPages, [[1, 2, 3], [4, 5, 6]]);
+				assert.strictEqual(list._firstLoaded, 2, "A");
+				assert.strictEqual(list._lastLoaded, 7, "A");
+				resetList();
+				list.itemAdded(1, {id: "B"});
+				assert.deepEqual(list._idPages, [[1, 2, 3], [4, 5, 6]]);
+				assert.strictEqual(list._firstLoaded, 2, "B");
+				assert.strictEqual(list._lastLoaded, 7, "B");
+				resetList();
+				list.itemAdded(2, {id: "C"});
+				assert.deepEqual(list._idPages, [[1, "C", 2, 3], [4, 5, 6]]);
+				assert.strictEqual(list._firstLoaded, 1, "C");
+				assert.strictEqual(list._lastLoaded, 7, "C");
+				resetList();
+				list.itemAdded(3, {id: "D"});
+				assert.deepEqual(list._idPages, [[1, 2, "D", 3], [4, 5, 6]]);
+				assert.strictEqual(list._firstLoaded, 1, "D");
+				assert.strictEqual(list._lastLoaded, 7, "D");
+				resetList();
+				list.itemAdded(4, {id: "E"});
+				assert.deepEqual(list._idPages, [[1, 2, 3], ["E", 4, 5, 6]]);
+				assert.strictEqual(list._firstLoaded, 1, "E");
+				assert.strictEqual(list._lastLoaded, 7, "E");
+				resetList();
+				list.itemAdded(5, {id: "F"});
+				assert.deepEqual(list._idPages, [[1, 2, 3], [4, "F", 5, 6]]);
+				assert.strictEqual(list._firstLoaded, 1, "F");
+				assert.strictEqual(list._lastLoaded, 7, "F");
+				resetList();
+				list.itemAdded(6, {id: "G"});
+				assert.deepEqual(list._idPages, [[1, 2, 3], [4, 5, "G", 6]]);
+				assert.strictEqual(list._firstLoaded, 1, "G");
+				assert.strictEqual(list._lastLoaded, 7, "G");
+				resetList();
+				list.itemAdded(7, {id: "H"});
+				assert.deepEqual(list._idPages, [[1, 2, 3], [4, 5, 6]]);
+				assert.strictEqual(list._firstLoaded, 1, "H");
+				assert.strictEqual(list._lastLoaded, 6, "H");
+			},
+
+			"itemRemoved": function () {
+				list = new PageableList({source: new ObservableArray()});
+				list.pageLength = 100;
+				var resetList = function () {
+					list._idPages = [[1, 2, 3], [4, 5, 6]];
+					list._firstLoaded = 1;
+					list._lastLoaded = 6;
+					list.deliver();
+				};
+				resetList();
+				list.itemRemoved(0);
+				assert.deepEqual(list._idPages, [[1, 2, 3], [4, 5, 6]]);
+				assert.strictEqual(list._firstLoaded, 0, "0");
+				assert.strictEqual(list._lastLoaded, 5, "0");
+				resetList();
+				list.itemRemoved(1);
+				assert.deepEqual(list._idPages, [[2, 3], [4, 5, 6]]);
+				assert.strictEqual(list._firstLoaded, 1, "1");
+				assert.strictEqual(list._lastLoaded, 5, "1");
+				resetList();
+				list.itemRemoved(2);
+				assert.deepEqual(list._idPages, [[1, 3], [4, 5, 6]]);
+				assert.strictEqual(list._firstLoaded, 1, "2");
+				assert.strictEqual(list._lastLoaded, 5, "2");
+				resetList();
+				list.itemRemoved(3);
+				assert.deepEqual(list._idPages, [[1, 2], [4, 5, 6]]);
+				assert.strictEqual(list._firstLoaded, 1, "3");
+				assert.strictEqual(list._lastLoaded, 5, "3");
+				resetList();
+				list.itemRemoved(4);
+				assert.deepEqual(list._idPages, [[1, 2, 3], [5, 6]]);
+				assert.strictEqual(list._firstLoaded, 1, "4");
+				assert.strictEqual(list._lastLoaded, 5, "4");
+				resetList();
+				list.itemRemoved(5);
+				assert.deepEqual(list._idPages, [[1, 2, 3], [4, 6]]);
+				assert.strictEqual(list._firstLoaded, 1, "5");
+				assert.strictEqual(list._lastLoaded, 5, "5");
+				resetList();
+				list.itemRemoved(6);
+				assert.deepEqual(list._idPages, [[1, 2, 3], [4, 5]]);
+				assert.strictEqual(list._firstLoaded, 1, "6");
+				assert.strictEqual(list._lastLoaded, 5, "6");
+				resetList();
+				list.itemRemoved(7);
+				assert.deepEqual(list._idPages, [[1, 2, 3], [4, 5, 6]]);
+				assert.strictEqual(list._firstLoaded, 1, "7");
+				assert.strictEqual(list._lastLoaded, 6, "7");
+			},
+
+			"Loading all next pages (pageLength 20, maxPages 0)": function () {
+				var dfd = this.async(3000);
+				var TIMEOUT = 2000;
+				var INTERVAL = 100;
+				list = new PageableList({source: new ObservableArray()});
+				for (var i = 0; i < 100; i++) {
+					list.source.push({label: "item " + i});
+				}
+				list.pageLength = 20;
+				list.maxPages = 0;
+				list.on("new-query-asked", function (evt) {
+					evt.setPromise(new Promise(function (resolve) {
+						resolve(list.source.slice(evt.start, evt.end));
+					}));
+				});
+				list.placeAt(document.body);
+				list.deliver();
+				waitForCondition(function () {
+					return list.textContent.indexOf("item 19") >= 0;
+				}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
+					// initial load
+					assertList(list, 0, 19, [], false, true);
 					clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 						list.deliver();
-						// after third page is loaded
-						assertList(list, 0, 59, [], false, true);
-						clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-							list.deliver();
-							// after fourth page is loaded
-							assertList(list, 0, 79, [], false, true);
-							clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-								list.deliver();
-								// after fifth page is loaded
-								assertList(list, 0, 99, [], false, true);
-								clickNextPageLoader(list).then(dfd.callback(function () {
-									list.deliver();
-									// after last click
-									assertList(list, 0, 99, [], false, false);
-								}));
-							}));
-						}));
-					}));
-				}));
-			}));
-			return dfd;
-		},
-		"Categorized list: Loading all next pages (pageLength 25, maxPages 0)": function () {
-			var dfd = this.async(3000);
-			var TIMEOUT = 2000;
-			var INTERVAL = 100;
-			list = new PageableList({source: new ObservableArray()});
-			for (var i = 0; i < 100; i++) {
-				list.source.push({label: "item " + i, category: "Category " + Math.floor(i / 10)});
-			}
-			list.pageLength = 25;
-			list.maxPages = 0;
-			list.categoryAttr = "category";
-			list.on("new-query-asked", function (evt) {
-				evt.setPromise(new Promise(function (resolve) {
-					resolve(list.source.slice(evt.start, evt.end));
-				}));
-			});
-			list.placeAt(document.body);
-			list.deliver();
-			waitForCondition(function () {
-				return list.textContent.indexOf("item 24") >= 0;
-			}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
-				assertCategorizedList(list, 25, 0, false, true);
-				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-					list.deliver();
-					// after second page is loaded
-					waitForCondition(function () {
-						return list.textContent.indexOf("item 49") >= 0;
-					}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
-						assertCategorizedList(list, 50, 0, false, true);
+						// after second page is loaded
+						assertList(list, 0, 39, [], false, true);
 						clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 							list.deliver();
 							// after third page is loaded
-							waitForCondition(function () {
-								return list.textContent.indexOf("item 74") >= 0;
-							}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
-								assertCategorizedList(list, 75, 0, false, true);
+							assertList(list, 0, 59, [], false, true);
+							clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+								list.deliver();
+								// after fourth page is loaded
+								assertList(list, 0, 79, [], false, true);
 								clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 									list.deliver();
-									// after fourth page is loaded
-									waitForCondition(function () {
-										return list.textContent.indexOf("item 99") >= 0;
-									}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
-										assertCategorizedList(list, 100, 0, false, true);
-										clickNextPageLoader(list).then(dfd.callback(function () {
-											list.deliver();
-											// after last click
-											assertCategorizedList(list, 100, 0, false, false);
-										}));
+									// after fifth page is loaded
+									assertList(list, 0, 99, [], false, true);
+									clickNextPageLoader(list).then(dfd.callback(function () {
+										list.deliver();
+										// after last click
+										assertList(list, 0, 99, [], false, false);
 									}));
 								}));
 							}));
 						}));
 					}));
 				}));
-			}));
-			return dfd;
-		},
-		"Loading all next pages, and then loading all previous pages (pageLength 20, maxPages 2)": function () {
-			/*jshint maxlen: 138*/
-			var dfd = this.async(3000);
-			var TIMEOUT = 2000;
-			var INTERVAL = 100;
-			list = new PageableList({source: new ObservableArray()});
-			for (var i = 0; i < 100; i++) {
-				list.source.push({label: "item " + i});
-			}
-			list.pageLength = 20;
-			list.maxPages = 2;
-			list.on("new-query-asked", function (evt) {
-				evt.setPromise(new Promise(function (resolve) {
-					resolve(list.source.slice(evt.start, evt.end));
-				}));
-			});
-			list.placeAt(document.body);
-			list.deliver();
-			waitForCondition(function () {
-				return list.textContent.indexOf("item 19") >= 0;
-			}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
-				// initial load
-				assertList(list, 0, 19, [], false, true);
-				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-					list.deliver();
-					// after second page is loaded
-					assertList(list, 0, 39, [], false, true);
+				return dfd;
+			},
+
+			"Categorized list: Loading all next pages (pageLength 25, maxPages 0)": function () {
+				var dfd = this.async(3000);
+				var TIMEOUT = 2000;
+				var INTERVAL = 100;
+				list = new PageableList({source: new ObservableArray()});
+				for (var i = 0; i < 100; i++) {
+					list.source.push({label: "item " + i, category: "Category " + Math.floor(i / 10)});
+				}
+				list.pageLength = 25;
+				list.maxPages = 0;
+				list.categoryAttr = "category";
+				list.on("new-query-asked", function (evt) {
+					evt.setPromise(new Promise(function (resolve) {
+						resolve(list.source.slice(evt.start, evt.end));
+					}));
+				});
+				list.placeAt(document.body);
+				list.deliver();
+				waitForCondition(function () {
+					return list.textContent.indexOf("item 24") >= 0;
+				}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
+					assertCategorizedList(list, 25, 0, false, true);
 					clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 						list.deliver();
-						// after third page is loaded and first page is unloaded
-						assertList(list, 20, 59, [], true, true);
-						clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-							list.deliver();
-							// after fourth page is loaded and second page is unloaded
-							assertList(list, 40, 79, [], true, true);
+						// after second page is loaded
+						waitForCondition(function () {
+							return list.textContent.indexOf("item 49") >= 0;
+						}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
+							assertCategorizedList(list, 50, 0, false, true);
 							clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 								list.deliver();
-								// after fifth page is loaded and third page is unloaded
-								assertList(list, 60, 99, [], true, true);
-								clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-									list.deliver();
-									// after last click
-									assertList(list, 60, 99, [], true, false);
-									clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
+								// after third page is loaded
+								waitForCondition(function () {
+									return list.textContent.indexOf("item 74") >= 0;
+								}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
+									assertCategorizedList(list, 75, 0, false, true);
+									clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 										list.deliver();
-										// after fifth page is unloaded and third page is loaded
-										assertList(list, 40, 79, [], true, true);
-										clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
-											list.deliver();
-											// after fourth page is unloaded and second page is loaded
-											assertList(list, 20, 59, [], true, true);
-											clickPreviousPageLoader(list).then(dfd.callback(function () {
+										// after fourth page is loaded
+										waitForCondition(function () {
+											return list.textContent.indexOf("item 99") >= 0;
+										}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
+											assertCategorizedList(list, 100, 0, false, true);
+											clickNextPageLoader(list).then(dfd.callback(function () {
 												list.deliver();
-												// after third page is unloaded and first page is loaded
-												assertList(list, 0, 39, [], false, true);
+												// after last click
+												assertCategorizedList(list, 100, 0, false, false);
 											}));
 										}));
 									}));
@@ -880,12 +823,79 @@ define(function (require) {
 						}));
 					}));
 				}));
-			}));
-			/*jshint maxlen: 120*/
-			return dfd;
-		},
-		"categorized list: loading all next pages, and then loading all previous pages (pageLength 20, maxPages 2)":
-			function () {
+				return dfd;
+			},
+
+			"Loading all next pages, and then loading all previous pages (pageLength 20, maxPages 2)": function () {
+				/*jshint maxlen: 138*/
+				var dfd = this.async(3000);
+				var TIMEOUT = 2000;
+				var INTERVAL = 100;
+				list = new PageableList({source: new ObservableArray()});
+				for (var i = 0; i < 100; i++) {
+					list.source.push({label: "item " + i});
+				}
+				list.pageLength = 20;
+				list.maxPages = 2;
+				list.on("new-query-asked", function (evt) {
+					evt.setPromise(new Promise(function (resolve) {
+						resolve(list.source.slice(evt.start, evt.end));
+					}));
+				});
+				list.placeAt(document.body);
+				list.deliver();
+				waitForCondition(function () {
+					return list.textContent.indexOf("item 19") >= 0;
+				}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
+					// initial load
+					assertList(list, 0, 19, [], false, true);
+					clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+						list.deliver();
+						// after second page is loaded
+						assertList(list, 0, 39, [], false, true);
+						clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+							list.deliver();
+							// after third page is loaded and first page is unloaded
+							assertList(list, 20, 59, [], true, true);
+							clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+								list.deliver();
+								// after fourth page is loaded and second page is unloaded
+								assertList(list, 40, 79, [], true, true);
+								clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+									list.deliver();
+									// after fifth page is loaded and third page is unloaded
+									assertList(list, 60, 99, [], true, true);
+									clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+										list.deliver();
+										// after last click
+										assertList(list, 60, 99, [], true, false);
+										clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
+											list.deliver();
+											// after fifth page is unloaded and third page is loaded
+											assertList(list, 40, 79, [], true, true);
+											clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
+												list.deliver();
+												// after fourth page is unloaded and second page is loaded
+												assertList(list, 20, 59, [], true, true);
+												clickPreviousPageLoader(list).then(dfd.callback(function () {
+													list.deliver();
+													// after third page is unloaded and first page is loaded
+													assertList(list, 0, 39, [], false, true);
+												}));
+											}));
+										}));
+									}));
+								}));
+							}));
+						}));
+					}));
+				}));
+				/*jshint maxlen: 120*/
+				return dfd;
+			},
+
+			/*jshint maxlen: 200*/
+			"categorized list: loading all next pages, and then loading all previous pages (pageLength 20, maxPages 2)": function () {
 				var dfd = this.async(3000);
 				var TIMEOUT = 2000;
 				var INTERVAL = 100;
@@ -941,571 +951,599 @@ define(function (require) {
 				}));
 				return dfd;
 			},
-		"pageLength equal to the total number of item (maxPages 0)": function () {
-			var dfd = this.async(3000);
-			var TIMEOUT = 2000;
-			var INTERVAL = 100;
-			list = new PageableList({source: new ObservableArray()});
-			for (var i = 0; i < 100; i++) {
-				list.source.push({label: "item " + i});
-			}
-			list.pageLength = 100;
-			list.maxPages = 0;
-			list.on("new-query-asked", function (evt) {
-				evt.setPromise(new Promise(function (resolve) {
-					resolve(list.source.slice(evt.start, evt.end));
-				}));
-			});
-			list.placeAt(document.body);
-			list.deliver();
-			waitForCondition(function () {
-				return list.textContent.indexOf("item 99") >= 0;
-			}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
-				// initial load
-				assertList(list, 0, 99, [], false, true);
-				clickNextPageLoader(list).then(dfd.callback(function () {
-					list.deliver();
-					// after a click on the next page loader
-					assertList(list, 0, 99, [], false, false);
-				}));
-			}));
-			return dfd;
-		},
-		"categorized list: pageLength equal to the total number of item (maxPages 0)": function () {
-			var dfd = this.async(3000);
-			var TIMEOUT = 2000;
-			var INTERVAL = 100;
-			list = new PageableList({source: new ObservableArray()});
-			for (var i = 0; i < 100; i++) {
-				list.source.push({label: "item " + i, category: "Category " + Math.floor(i / 10)});
-			}
-			list.categoryAttr = "category";
-			list.pageLength = 100;
-			list.maxPages = 0;
-			list.on("new-query-asked", function (evt) {
-				evt.setPromise(new Promise(function (resolve) {
-					resolve(list.source.slice(evt.start, evt.end));
-				}));
-			});
-			list.placeAt(document.body);
-			// initial load
-			list.deliver();
-			waitForCondition(function () {
-				return list.textContent.indexOf("item 99") >= 0;
-			}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
-				assertCategorizedList(list, 100, 0, false, true);
-				clickNextPageLoader(list).then(dfd.callback(function () {
-					list.deliver();
-					// after a click on the next page loader
-					assertCategorizedList(list, 100, 0, false, false);
-				}));
-			}));
-			return dfd;
-		},
-		"pageLength equal to the total number of item (maxPages 2)": function () {
-			var dfd = this.async(3000);
-			var TIMEOUT = 2000;
-			var INTERVAL = 100;
-			list = new PageableList({source: new ObservableArray()});
-			for (var i = 0; i < 100; i++) {
-				list.source.push({label: "item " + i});
-			}
-			list.pageLength = 100;
-			list.maxPages = 0;
-			list.on("new-query-asked", function (evt) {
-				evt.setPromise(new Promise(function (resolve) {
-					resolve(list.source.slice(evt.start, evt.end));
-				}));
-			});
-			list.placeAt(document.body);
-			// initial load
-			list.deliver();
-			waitForCondition(function () {
-				return list.textContent.indexOf("item 99") >= 0;
-			}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
-				assertList(list, 0, 99, [], false, true);
-				clickNextPageLoader(list).then(dfd.callback(function () {
-					list.deliver();
-					// after a click on the next page loader
-					assertList(list, 0, 99, [], false, false);
-				}));
-			}));
-			return dfd;
-		},
-		"categorized list: pageLength equal to the total number of item (maxPages 2)": function () {
-			var dfd = this.async(3000);
-			var TIMEOUT = 2000;
-			var INTERVAL = 100;
-			list = new PageableList({source: new ObservableArray()});
-			for (var i = 0; i < 100; i++) {
-				list.source.push({label: "item " + i, category: "Category " + Math.floor(i / 10)});
-			}
-			list.categoryAttr = "category";
-			list.pageLength = 100;
-			list.maxPages = 0;
-			list.on("new-query-asked", function (evt) {
-				evt.setPromise(new Promise(function (resolve) {
-					resolve(list.source.slice(evt.start, evt.end));
-				}));
-			});
-			list.placeAt(document.body);
-			list.deliver();
-			waitForCondition(function () {
-				return list.textContent.indexOf("item 99") >= 0;
-			}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
-				// initial load
-				assertCategorizedList(list, 100, 0, false, true);
-				clickNextPageLoader(list).then(dfd.callback(function () {
-					list.deliver();
-					// after a click on the next page loader
-					assertCategorizedList(list, 100, 0, false, false);
-				}));
-			}));
-			return dfd;
-		},
-		"pageLength greater than the total number of item (maxPages 0)": function () {
-			var dfd = this.async(3000);
-			var TIMEOUT = 2000;
-			var INTERVAL = 100;
-			list = new PageableList({source: new ObservableArray()});
-			for (var i = 0; i < 100; i++) {
-				list.source.push({label: "item " + i});
-			}
-			list.pageLength = 101;
-			list.maxPages = 0;
-			list.on("new-query-asked", function (evt) {
-				evt.setPromise(new Promise(function (resolve) {
-					resolve(list.source.slice(evt.start, evt.end));
-				}));
-			});
-			list.placeAt(document.body);
-			// initial load
-			list.deliver();
-			waitForCondition(function () {
-				return list.textContent.indexOf("item 99") >= 0;
-			}, TIMEOUT, INTERVAL).then(dfd.callback(function () {
-				assertList(list, 0, 99, [], false, false);
-			}));
-			return dfd;
-		},
-		"categorized list: pageLength greater than the total number of item (maxPages 0)": function () {
-			var dfd = this.async(3000);
-			var TIMEOUT = 2000;
-			var INTERVAL = 100;
-			list = new PageableList({source: new ObservableArray()});
-			for (var i = 0; i < 100; i++) {
-				list.source.push({label: "item " + i, category: "Category " + Math.floor(i / 10)});
-			}
-			list.categoryAttr = "category";
-			list.pageLength = 101;
-			list.maxPages = 0;
-			list.on("new-query-asked", function (evt) {
-				evt.setPromise(new Promise(function (resolve) {
-					resolve(list.source.slice(evt.start, evt.end));
-				}));
-			});
-			list.placeAt(document.body);
-			list.deliver();
-			waitForCondition(function () {
-				return list.textContent.indexOf("item 99") >= 0;
-			}, TIMEOUT, INTERVAL).then(dfd.callback(function () {
-				// initial load
-				assertCategorizedList(list, 100, 0, false, false);
-			}));
-			return dfd;
-		},
-		"pageLength greater than the total number of item (maxPages 2)": function () {
-			var dfd = this.async(3000);
-			var TIMEOUT = 2000;
-			var INTERVAL = 100;
-			list = new PageableList({source: new ObservableArray()});
-			for (var i = 0; i < 100; i++) {
-				list.source.push({label: "item " + i});
-			}
-			list.pageLength = 101;
-			list.maxPages = 0;
-			list.on("new-query-asked", function (evt) {
-				evt.setPromise(new Promise(function (resolve) {
-					resolve(list.source.slice(evt.start, evt.end));
-				}));
-			});
-			list.placeAt(document.body);
-			list.deliver();
-			waitForCondition(function () {
-				return list.textContent.indexOf("item 99") >= 0;
-			}, TIMEOUT, INTERVAL).then(dfd.callback(function () {
-				// initial load
-				assertList(list, 0, 99, [], false, false);
-			}));
-			return dfd;
-		},
-		"categorized list: pageLength greater than the total number of item (maxPages 2)": function () {
-			var dfd = this.async(3000);
-			var TIMEOUT = 2000;
-			var INTERVAL = 100;
-			list = new PageableList({source: new ObservableArray()});
-			for (var i = 0; i < 100; i++) {
-				list.source.push({label: "item " + i, category: "Category " + Math.floor(i / 10)});
-			}
-			list.categoryAttr = "category";
-			list.pageLength = 101;
-			list.maxPages = 0;
-			list.on("new-query-asked", function (evt) {
-				evt.setPromise(new Promise(function (resolve) {
-					resolve(list.source.slice(evt.start, evt.end));
-				}));
-			});
-			list.placeAt(document.body);
-			list.deliver();
-			waitForCondition(function () {
-				return list.textContent.indexOf("item 99") >= 0;
-			}, TIMEOUT, INTERVAL).then(dfd.callback(function () {
-				// initial load
-				assertCategorizedList(list, 100, 0, false, false);
-			}));
-			return dfd;
-		},
-		//	///////////////////////////////////////////
-		//	// TEST REMOVING ITEMS
-		//	///////////////////////////////////////////
-		"removing items in displayed pages": function () {
-			return testHelpers["removing items in displayed pages"](this.async(3000), false);
-		},
-		"removing items in next non displayed page": function () {
-			return testHelpers["removing items in next non displayed page"](this.async(3000), false);
-		},
-		"removing items in previous non displayed page": function () {
-			return testHelpers["removing items in previous non displayed page"](this.async(3000), false);
-		},
-		"remove all items in non displayed first page": function () {
-			return testHelpers[
-				"remove all items in non displayed first page removes previous page loader"
-			](this.async(3000), false);
-		},
-		"remove item and browse": function () {
-			return testHelpers["remove item and browse"](this.async(3000), false);
-		},
-		//	///////////////////////////////////////////
-		//	// TEST ADDING ITEMS
-		//	///////////////////////////////////////////
-		"add items in displayed pages": function () {
-			return testHelpers["add items in displayed page"](this.async(3000), false);
-		},
-		"add item before first page creates loader": function () {
-			return testHelpers["add item before first page creates loader"](this.async(3000), false);
-		},
-		"add item after last page creates loader": function () {
-			return testHelpers["add item after last page creates loader"](this.async(3000), false);
-		},
-		"add item to undisplayed page": function () {
-			return testHelpers["add item to undisplayed page"](this.async(3000), false);
-		},
-		"reload list content": function () {
-			var dfd = this.async(3000);
-			var TIMEOUT = 2000;
-			var INTERVAL = 100;
-			list = new PageableList({source: new ObservableArray()});
-			for (var i = 0; i < 100; i++) {
-				list.source.push({label: "item " + i, category: "Category " + Math.floor(i / 10)});
-			}
-			list.categoryAttr = "category";
-			list.pageLength = 25;
-			list.maxPages = 0;
-			list.placeAt(document.body);
-			// initial load
-			list.deliver();
-			waitForCondition(function () {
-				return list.textContent.indexOf("item 24") >= 0;
-			}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
-				assertCategorizedList(list, 25, 0, false, true);
-				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-					list.deliver();
-					assertCategorizedList(list, 50, 0, false, true);
-					// Create a new source and assign it to the list
-					var source = new ObservableArray();
-					for (var j = 1000; j < 1100; j++) {
-						source.push({label: "item " + j, category: "Category " + Math.floor(j / 10)});
-					}
-					list.source = source;
-					list.deliver();
-					waitForCondition(function () {
-						return list.textContent.indexOf("item 1000") >= 0;
-					}, TIMEOUT, INTERVAL).then(dfd.callback(function () {
-						assertCategorizedList(list, 25, 1000, false, true);
+
+			"pageLength equal to the total number of item (maxPages 0)": function () {
+				var dfd = this.async(3000);
+				var TIMEOUT = 2000;
+				var INTERVAL = 100;
+				list = new PageableList({source: new ObservableArray()});
+				for (var i = 0; i < 100; i++) {
+					list.source.push({label: "item " + i});
+				}
+				list.pageLength = 100;
+				list.maxPages = 0;
+				list.on("new-query-asked", function (evt) {
+					evt.setPromise(new Promise(function (resolve) {
+						resolve(list.source.slice(evt.start, evt.end));
+					}));
+				});
+				list.placeAt(document.body);
+				list.deliver();
+				waitForCondition(function () {
+					return list.textContent.indexOf("item 99") >= 0;
+				}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
+					// initial load
+					assertList(list, 0, 99, [], false, true);
+					clickNextPageLoader(list).then(dfd.callback(function () {
+						list.deliver();
+						// after a click on the next page loader
+						assertList(list, 0, 99, [], false, false);
 					}));
 				}));
-			}));
-			return dfd;
-		},
-		"update pageLength": function () {
-			var dfd = this.async(3000);
-			var TIMEOUT = 2000;
-			var INTERVAL = 100;
-			list = new PageableList({source: new ObservableArray()});
-			for (var i = 0; i < 100; i++) {
-				list.source.push({label: "item " + i});
-			}
-			list.pageLength = 10;
-			list.maxPages = 2;
-			list.placeAt(document.body);
-			list.deliver();
-			waitForCondition(function () {
-				return list.textContent.indexOf("item 9") >= 0;
-			}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
-				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-					list.deliver();
-					assertList(list, 0, 19, [], false, true, "A");
-					list.pageLength = 20;
+				return dfd;
+			},
+
+			"categorized list: pageLength equal to the total number of item (maxPages 0)": function () {
+				var dfd = this.async(3000);
+				var TIMEOUT = 2000;
+				var INTERVAL = 100;
+				list = new PageableList({source: new ObservableArray()});
+				for (var i = 0; i < 100; i++) {
+					list.source.push({label: "item " + i, category: "Category " + Math.floor(i / 10)});
+				}
+				list.categoryAttr = "category";
+				list.pageLength = 100;
+				list.maxPages = 0;
+				list.on("new-query-asked", function (evt) {
+					evt.setPromise(new Promise(function (resolve) {
+						resolve(list.source.slice(evt.start, evt.end));
+					}));
+				});
+				list.placeAt(document.body);
+				// initial load
+				list.deliver();
+				waitForCondition(function () {
+					return list.textContent.indexOf("item 99") >= 0;
+				}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
+					assertCategorizedList(list, 100, 0, false, true);
+					clickNextPageLoader(list).then(dfd.callback(function () {
+						list.deliver();
+						// after a click on the next page loader
+						assertCategorizedList(list, 100, 0, false, false);
+					}));
+				}));
+				return dfd;
+			},
+
+			"pageLength equal to the total number of item (maxPages 2)": function () {
+				var dfd = this.async(3000);
+				var TIMEOUT = 2000;
+				var INTERVAL = 100;
+				list = new PageableList({source: new ObservableArray()});
+				for (var i = 0; i < 100; i++) {
+					list.source.push({label: "item " + i});
+				}
+				list.pageLength = 100;
+				list.maxPages = 0;
+				list.on("new-query-asked", function (evt) {
+					evt.setPromise(new Promise(function (resolve) {
+						resolve(list.source.slice(evt.start, evt.end));
+					}));
+				});
+				list.placeAt(document.body);
+				// initial load
+				list.deliver();
+				waitForCondition(function () {
+					return list.textContent.indexOf("item 99") >= 0;
+				}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
+					assertList(list, 0, 99, [], false, true);
+					clickNextPageLoader(list).then(dfd.callback(function () {
+						list.deliver();
+						// after a click on the next page loader
+						assertList(list, 0, 99, [], false, false);
+					}));
+				}));
+				return dfd;
+			},
+
+			"categorized list: pageLength equal to the total number of item (maxPages 2)": function () {
+				var dfd = this.async(3000);
+				var TIMEOUT = 2000;
+				var INTERVAL = 100;
+				list = new PageableList({source: new ObservableArray()});
+				for (var i = 0; i < 100; i++) {
+					list.source.push({label: "item " + i, category: "Category " + Math.floor(i / 10)});
+				}
+				list.categoryAttr = "category";
+				list.pageLength = 100;
+				list.maxPages = 0;
+				list.on("new-query-asked", function (evt) {
+					evt.setPromise(new Promise(function (resolve) {
+						resolve(list.source.slice(evt.start, evt.end));
+					}));
+				});
+				list.placeAt(document.body);
+				list.deliver();
+				waitForCondition(function () {
+					return list.textContent.indexOf("item 99") >= 0;
+				}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
+					// initial load
+					assertCategorizedList(list, 100, 0, false, true);
+					clickNextPageLoader(list).then(dfd.callback(function () {
+						list.deliver();
+						// after a click on the next page loader
+						assertCategorizedList(list, 100, 0, false, false);
+					}));
+				}));
+				return dfd;
+			},
+
+			"pageLength greater than the total number of item (maxPages 0)": function () {
+				var dfd = this.async(3000);
+				var TIMEOUT = 2000;
+				var INTERVAL = 100;
+				list = new PageableList({source: new ObservableArray()});
+				for (var i = 0; i < 100; i++) {
+					list.source.push({label: "item " + i});
+				}
+				list.pageLength = 101;
+				list.maxPages = 0;
+				list.on("new-query-asked", function (evt) {
+					evt.setPromise(new Promise(function (resolve) {
+						resolve(list.source.slice(evt.start, evt.end));
+					}));
+				});
+				list.placeAt(document.body);
+				// initial load
+				list.deliver();
+				waitForCondition(function () {
+					return list.textContent.indexOf("item 99") >= 0;
+				}, TIMEOUT, INTERVAL).then(dfd.callback(function () {
+					assertList(list, 0, 99, [], false, false);
+				}));
+				return dfd;
+			},
+
+			"categorized list: pageLength greater than the total number of item (maxPages 0)": function () {
+				var dfd = this.async(3000);
+				var TIMEOUT = 2000;
+				var INTERVAL = 100;
+				list = new PageableList({source: new ObservableArray()});
+				for (var i = 0; i < 100; i++) {
+					list.source.push({label: "item " + i, category: "Category " + Math.floor(i / 10)});
+				}
+				list.categoryAttr = "category";
+				list.pageLength = 101;
+				list.maxPages = 0;
+				list.on("new-query-asked", function (evt) {
+					evt.setPromise(new Promise(function (resolve) {
+						resolve(list.source.slice(evt.start, evt.end));
+					}));
+				});
+				list.placeAt(document.body);
+				list.deliver();
+				waitForCondition(function () {
+					return list.textContent.indexOf("item 99") >= 0;
+				}, TIMEOUT, INTERVAL).then(dfd.callback(function () {
+					// initial load
+					assertCategorizedList(list, 100, 0, false, false);
+				}));
+				return dfd;
+			},
+
+			"pageLength greater than the total number of item (maxPages 2)": function () {
+				var dfd = this.async(3000);
+				var TIMEOUT = 2000;
+				var INTERVAL = 100;
+				list = new PageableList({source: new ObservableArray()});
+				for (var i = 0; i < 100; i++) {
+					list.source.push({label: "item " + i});
+				}
+				list.pageLength = 101;
+				list.maxPages = 0;
+				list.on("new-query-asked", function (evt) {
+					evt.setPromise(new Promise(function (resolve) {
+						resolve(list.source.slice(evt.start, evt.end));
+					}));
+				});
+				list.placeAt(document.body);
+				list.deliver();
+				waitForCondition(function () {
+					return list.textContent.indexOf("item 99") >= 0;
+				}, TIMEOUT, INTERVAL).then(dfd.callback(function () {
+					// initial load
+					assertList(list, 0, 99, [], false, false);
+				}));
+				return dfd;
+			},
+
+			"categorized list: pageLength greater than the total number of item (maxPages 2)": function () {
+				var dfd = this.async(3000);
+				var TIMEOUT = 2000;
+				var INTERVAL = 100;
+				list = new PageableList({source: new ObservableArray()});
+				for (var i = 0; i < 100; i++) {
+					list.source.push({label: "item " + i, category: "Category " + Math.floor(i / 10)});
+				}
+				list.categoryAttr = "category";
+				list.pageLength = 101;
+				list.maxPages = 0;
+				list.on("new-query-asked", function (evt) {
+					evt.setPromise(new Promise(function (resolve) {
+						resolve(list.source.slice(evt.start, evt.end));
+					}));
+				});
+				list.placeAt(document.body);
+				list.deliver();
+				waitForCondition(function () {
+					return list.textContent.indexOf("item 99") >= 0;
+				}, TIMEOUT, INTERVAL).then(dfd.callback(function () {
+					// initial load
+					assertCategorizedList(list, 100, 0, false, false);
+				}));
+				return dfd;
+			},
+
+			//	///////////////////////////////////////////
+			//	// TEST REMOVING ITEMS
+			//	///////////////////////////////////////////
+
+			"removing items in displayed pages": function () {
+				return testHelpers["removing items in displayed pages"](this.async(3000), false);
+			},
+
+			"removing items in next non displayed page": function () {
+				return testHelpers["removing items in next non displayed page"](this.async(3000), false);
+			},
+
+			"removing items in previous non displayed page": function () {
+				return testHelpers["removing items in previous non displayed page"](this.async(3000), false);
+			},
+
+			"remove all items in non displayed first page": function () {
+				return testHelpers[
+					"remove all items in non displayed first page removes previous page loader"
+				](this.async(3000), false);
+			},
+
+			"remove item and browse": function () {
+				return testHelpers["remove item and browse"](this.async(3000), false);
+			},
+
+			//	///////////////////////////////////////////
+			//	// TEST ADDING ITEMS
+			//	///////////////////////////////////////////
+
+			"add items in displayed pages": function () {
+				return testHelpers["add items in displayed page"](this.async(3000), false);
+			},
+
+			"add item before first page creates loader": function () {
+				return testHelpers["add item before first page creates loader"](this.async(3000), false);
+			},
+
+			"add item after last page creates loader": function () {
+				return testHelpers["add item after last page creates loader"](this.async(3000), false);
+			},
+
+			"add item to undisplayed page": function () {
+				return testHelpers["add item to undisplayed page"](this.async(3000), false);
+			},
+
+			"reload list content": function () {
+				var dfd = this.async(3000);
+				var TIMEOUT = 2000;
+				var INTERVAL = 100;
+				list = new PageableList({source: new ObservableArray()});
+				for (var i = 0; i < 100; i++) {
+					list.source.push({label: "item " + i, category: "Category " + Math.floor(i / 10)});
+				}
+				list.categoryAttr = "category";
+				list.pageLength = 25;
+				list.maxPages = 0;
+				list.placeAt(document.body);
+				// initial load
+				list.deliver();
+				waitForCondition(function () {
+					return list.textContent.indexOf("item 24") >= 0;
+				}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
+					assertCategorizedList(list, 25, 0, false, true);
 					clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 						list.deliver();
-						assertList(list, 10, 39, [], true, true, "B");
-						clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-							list.deliver();
-							assertList(list, 20, 59, [], true, true, "C");
-							clickPreviousPageLoader(list).then(dfd.callback(function () {
-								list.deliver();
-								assertList(list, 0, 39, [], false, true, "D");
-							}));
+						assertCategorizedList(list, 50, 0, false, true);
+						// Create a new source and assign it to the list
+						var source = new ObservableArray();
+						for (var j = 1000; j < 1100; j++) {
+							source.push({label: "item " + j, category: "Category " + Math.floor(j / 10)});
+						}
+						list.source = source;
+						list.deliver();
+						waitForCondition(function () {
+							return list.textContent.indexOf("item 1000") >= 0;
+						}, TIMEOUT, INTERVAL).then(dfd.callback(function () {
+							assertCategorizedList(list, 25, 1000, false, true);
 						}));
 					}));
 				}));
-			}));
-			return dfd;
-		},
-		"update maxPages": function () {
-			var dfd = this.async(3000);
-			var TIMEOUT = 2000;
-			var INTERVAL = 100;
-			list = new PageableList({source: new ObservableArray()});
-			for (var i = 0; i < 100; i++) {
-				list.source.push({label: "item " + i});
-			}
-			list.pageLength = 10;
-			list.maxPages = 2;
-			list.placeAt(document.body);
-			list.deliver();
-			waitForCondition(function () {
-				return list.textContent.indexOf("item 9") >= 0;
-			}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
-				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+				return dfd;
+			},
+
+			"update pageLength": function () {
+				var dfd = this.async(3000);
+				var TIMEOUT = 2000;
+				var INTERVAL = 100;
+				list = new PageableList({source: new ObservableArray()});
+				for (var i = 0; i < 100; i++) {
+					list.source.push({label: "item " + i});
+				}
+				list.pageLength = 10;
+				list.maxPages = 2;
+				list.placeAt(document.body);
+				list.deliver();
+				waitForCondition(function () {
+					return list.textContent.indexOf("item 9") >= 0;
+				}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
 					clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 						list.deliver();
-						assertList(list, 10, 29, [], true, true, "A");
-						list.maxPages = 3;
+						assertList(list, 0, 19, [], false, true, "A");
+						list.pageLength = 20;
 						clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 							list.deliver();
 							assertList(list, 10, 39, [], true, true, "B");
-							clickNextPageLoader(list).then(dfd.callback(function () {
+							clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 								list.deliver();
-								assertList(list, 20, 49, [], true, true, "C");
+								assertList(list, 20, 59, [], true, true, "C");
+								clickPreviousPageLoader(list).then(dfd.callback(function () {
+									list.deliver();
+									assertList(list, 0, 39, [], false, true, "D");
+								}));
 							}));
 						}));
 					}));
 				}));
-			}));
-			return dfd;
-		},
-		"update loadPreviousMessage": function () {
-			var dfd = this.async(3000);
-			var TIMEOUT = 2000;
-			var INTERVAL = 100;
-			list = new PageableList({source: new ObservableArray()});
-			for (var i = 0; i < 100; i++) {
-				list.source.push({label: "item " + i});
-			}
-			list.pageLength = 10;
-			list.maxPages = 1;
-			list.placeAt(document.body);
-			list.deliver();
-			waitForCondition(function () {
-				return list.textContent.indexOf("item 9") >= 0;
-			}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
-				clickNextPageLoader(list).then(dfd.callback(function () {
-					list.deliver();
-					assertList(list, 10, 19, [], true, true, "A");
-					list.loadPreviousMessage = "foo";
-					list.deliver();
-					assert.strictEqual(removeTabsAndReturns(list.previousPageLoader.labelNode.textContent), "foo",
-						"loader label not updated");
-				}));
-			}));
-			return dfd;
-		},
-		"update loadNextMessage": function () {
-			var dfd = this.async(3000);
-			var TIMEOUT = 2000;
-			var INTERVAL = 100;
-			list = new PageableList({source: new ObservableArray()});
-			for (var i = 0; i < 100; i++) {
-				list.source.push({label: "item " + i});
-			}
-			list.pageLength = 10;
-			list.maxPages = 1;
-			list.placeAt(document.body);
-			list.deliver();
-			waitForCondition(function () {
-				return list.textContent.indexOf("item 9") >= 0;
-			}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
-				clickNextPageLoader(list).then(dfd.callback(function () {
-					list.deliver();
-					assertList(list, 10, 19, [], true, true, "A");
-					list.loadNextMessage = "foo";
-					list.deliver();
-					assert.strictEqual(removeTabsAndReturns(list.nextPageLoader.labelNode.textContent),
-						"foo", "loader label not updated");
-				}));
-			}));
-			return dfd;
-		},
-		"hideOnPageLoad: hiding panel removed after loading the last page": function () {
-			var dfd = this.async(3000);
-			var TIMEOUT = 2000;
-			var INTERVAL = 100;
-			list = new PageableList({source: new ObservableArray()});
-			for (var i = 0; i < 39; i++) {
-				list.source.push({label: "item " + i});
-			}
-			list.hideOnPageLoad = true;
-			list.pageLength = 20;
-			list.maxPages = 0;
-			list.on("new-query-asked", function (evt) {
-				evt.setPromise(new Promise(function (resolve) {
-					resolve(list.source.slice(evt.start, evt.end));
-				}));
-			});
-			list.placeAt(document.body);
-			list.deliver();
-			waitForCondition(function () {
-				return list.textContent.indexOf("item 19") >= 0;
-			}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
-				// initial load
-				assertList(list, 0, 19, [], false, true);
-				clickNextPageLoader(list).then(dfd.callback(function () {
-					list.deliver();
-					// after second page is loaded
-					assertList(list, 0, 38, [], false, false);
-					// verify that loading panel is not displayed
-					assert.isNotNull(list.querySelector(".d-list-loading-panel[d-shown='false']"),
-						"loading panel should not be visible");
-				}));
-			}));
-			return dfd;
-		},
-		"autoPaging: categorized list with category headers destroyed when loading pages": function () {
-			var TIMEOUT = 2000;
-			var INTERVAL = 100;
-			if (navigator.userAgent.indexOf("Firefox") >= 0) {
-				// This test is not reliable on Firefox
-				return;
-			}
-			var def = this.async(1000 + 3 * TIMEOUT);
-			list = new PageableList({source: new ObservableArray()});
-			list.categoryAttr = "category";
-			list.pageLength = 25;
-			list.maxPages = 2;
-			list.style.height = "200px";
-			list.autoPaging = true;
-			for (var i = 0; i < 100; i++) {
-				list.source.push({label: "item " + i, category: "Category " + Math.floor(i / 10)});
-			}
-			list.placeAt(document.body);
-			list.deliver();
-			setTimeout(def.rejectOnError(function () {
+				return dfd;
+			},
+
+			"update maxPages": function () {
+				var dfd = this.async(3000);
+				var TIMEOUT = 2000;
+				var INTERVAL = 100;
+				list = new PageableList({source: new ObservableArray()});
+				for (var i = 0; i < 100; i++) {
+					list.source.push({label: "item " + i});
+				}
+				list.pageLength = 10;
+				list.maxPages = 2;
+				list.placeAt(document.body);
+				list.deliver();
 				waitForCondition(function () {
-					return list.textContent.indexOf("item 24") >= 0;
-				}, TIMEOUT, INTERVAL).then(def.rejectOnError(function () {
-					list.deliver();
-					// initial load
-					assertCategorizedList(list, 25, 0, false, true);
-					setTimeout(def.rejectOnError(function () {
-						// scroll to the bottom
-						list.scrollTop =
-							(list.scrollHeight - list.offsetHeight);
-						waitForCondition(function () {
-							return list.textContent.indexOf("item 49") >= 0;
-						}, TIMEOUT, INTERVAL).then(def.rejectOnError(function () {
+					return list.textContent.indexOf("item 9") >= 0;
+				}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
+					clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+						clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 							list.deliver();
-							assertCategorizedList(list, 50, 0, false, true);
-							assert.strictEqual(
-								removeTabsAndReturns(list._getLastVisibleRenderer().textContent),
-								"item 24",
-								"last visible renderer after first page load");
-							setTimeout(def.rejectOnError(function () {
-								// scroll a little to remove the "_atExtremity" marker
-								list.scrollTop =
-									((list.scrollHeight - list.offsetHeight) / 2);
-								setTimeout(def.rejectOnError(function () {
-									// scroll to the bottom
-									list.scrollTop =
-										((list.scrollHeight - list.offsetHeight));
-									waitForCondition(function () {
-										return list.textContent.indexOf("item 74") >= 0;
-									}, TIMEOUT, INTERVAL).then(def.rejectOnError(function () {
-										list.deliver();
-										assertCategorizedList(list, 50, 25, true, true);
-										assert.strictEqual(
-											removeTabsAndReturns(list._getLastVisibleRenderer().textContent),
-											"item 73",
-											"last visible renderer after second page load");
-										setTimeout(def.rejectOnError(function () {
-											// scroll a little to remove the "_atExtremity" marker
-											list.scrollTop = 100;
-											setTimeout(def.rejectOnError(function () {
-												// scroll to the top
-												list.scrollTop = 0;
-												waitForCondition(function () {
-													return list.textContent.indexOf("item 24") >= 0;
-												}, TIMEOUT, INTERVAL).then(def.callback(function () {
-													assertCategorizedList(list, 50, 0, false, true);
-													assert.strictEqual(
-														removeTabsAndReturns(
-															list._getFirstVisibleRenderer().textContent),
-														"Category 0",
-														"first visible renderer");
-												}));
-											}), 10);
-										}), 10);
-									}));
-								}), 10);
-							}), 10);
+							assertList(list, 10, 29, [], true, true, "A");
+							list.maxPages = 3;
+							clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+								list.deliver();
+								assertList(list, 10, 39, [], true, true, "B");
+								clickNextPageLoader(list).then(dfd.callback(function () {
+									list.deliver();
+									assertList(list, 20, 49, [], true, true, "C");
+								}));
+							}));
 						}));
-					}), 10);
+					}));
 				}));
-			}), 10);
-			return def;
-		},
-		"getItemRendererByIndex ignores page loaders": function () {
-			var dfd = this.async(3000);
-			var TIMEOUT = 2000;
-			var INTERVAL = 100;
-			list = new PageableList({source: new ObservableArray()});
-			for (var i = 0; i < 100; i++) {
-				list.source.push({label: "item " + i});
+				return dfd;
+			},
+
+			"update loadPreviousMessage": function () {
+				var dfd = this.async(3000);
+				var TIMEOUT = 2000;
+				var INTERVAL = 100;
+				list = new PageableList({source: new ObservableArray()});
+				for (var i = 0; i < 100; i++) {
+					list.source.push({label: "item " + i});
+				}
+				list.pageLength = 10;
+				list.maxPages = 1;
+				list.placeAt(document.body);
+				list.deliver();
+				waitForCondition(function () {
+					return list.textContent.indexOf("item 9") >= 0;
+				}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
+					clickNextPageLoader(list).then(dfd.callback(function () {
+						list.deliver();
+						assertList(list, 10, 19, [], true, true, "A");
+						list.loadPreviousMessage = "foo";
+						list.deliver();
+						assert.strictEqual(removeTabsAndReturns(list.previousPageLoader.labelNode.textContent), "foo",
+							"loader label not updated");
+					}));
+				}));
+				return dfd;
+			},
+
+			"update loadNextMessage": function () {
+				var dfd = this.async(3000);
+				var TIMEOUT = 2000;
+				var INTERVAL = 100;
+				list = new PageableList({source: new ObservableArray()});
+				for (var i = 0; i < 100; i++) {
+					list.source.push({label: "item " + i});
+				}
+				list.pageLength = 10;
+				list.maxPages = 1;
+				list.placeAt(document.body);
+				list.deliver();
+				waitForCondition(function () {
+					return list.textContent.indexOf("item 9") >= 0;
+				}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
+					clickNextPageLoader(list).then(dfd.callback(function () {
+						list.deliver();
+						assertList(list, 10, 19, [], true, true, "A");
+						list.loadNextMessage = "foo";
+						list.deliver();
+						assert.strictEqual(removeTabsAndReturns(list.nextPageLoader.labelNode.textContent),
+							"foo", "loader label not updated");
+					}));
+				}));
+				return dfd;
+			},
+
+			"hideOnPageLoad: hiding panel removed after loading the last page": function () {
+				var dfd = this.async(3000);
+				var TIMEOUT = 2000;
+				var INTERVAL = 100;
+				list = new PageableList({source: new ObservableArray()});
+				for (var i = 0; i < 39; i++) {
+					list.source.push({label: "item " + i});
+				}
+				list.hideOnPageLoad = true;
+				list.pageLength = 20;
+				list.maxPages = 0;
+				list.on("new-query-asked", function (evt) {
+					evt.setPromise(new Promise(function (resolve) {
+						resolve(list.source.slice(evt.start, evt.end));
+					}));
+				});
+				list.placeAt(document.body);
+				list.deliver();
+				waitForCondition(function () {
+					return list.textContent.indexOf("item 19") >= 0;
+				}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
+					// initial load
+					assertList(list, 0, 19, [], false, true);
+					clickNextPageLoader(list).then(dfd.callback(function () {
+						list.deliver();
+						// after second page is loaded
+						assertList(list, 0, 38, [], false, false);
+						// verify that loading panel is not displayed
+						assert.isNotNull(list.querySelector(".d-list-loading-panel[d-shown='false']"),
+							"loading panel should not be visible");
+					}));
+				}));
+				return dfd;
+			},
+
+			"autoPaging: categorized list with category headers destroyed when loading pages": function () {
+				var TIMEOUT = 2000;
+				var INTERVAL = 100;
+				if (navigator.userAgent.indexOf("Firefox") >= 0) {
+					// This test is not reliable on Firefox
+					return;
+				}
+				var def = this.async(1000 + 3 * TIMEOUT);
+				list = new PageableList({source: new ObservableArray()});
+				list.categoryAttr = "category";
+				list.pageLength = 25;
+				list.maxPages = 2;
+				list.style.height = "200px";
+				list.autoPaging = true;
+				for (var i = 0; i < 100; i++) {
+					list.source.push({label: "item " + i, category: "Category " + Math.floor(i / 10)});
+				}
+				list.placeAt(document.body);
+				list.deliver();
+				setTimeout(def.rejectOnError(function () {
+					waitForCondition(function () {
+						return list.textContent.indexOf("item 24") >= 0;
+					}, TIMEOUT, INTERVAL).then(def.rejectOnError(function () {
+						list.deliver();
+						// initial load
+						assertCategorizedList(list, 25, 0, false, true);
+						setTimeout(def.rejectOnError(function () {
+							// scroll to the bottom
+							list.scrollTop =
+								(list.scrollHeight - list.offsetHeight);
+							waitForCondition(function () {
+								return list.textContent.indexOf("item 49") >= 0;
+							}, TIMEOUT, INTERVAL).then(def.rejectOnError(function () {
+								list.deliver();
+								assertCategorizedList(list, 50, 0, false, true);
+								assert.strictEqual(
+									removeTabsAndReturns(list._getLastVisibleRenderer().textContent),
+									"item 24",
+									"last visible renderer after first page load");
+								setTimeout(def.rejectOnError(function () {
+									// scroll a little to remove the "_atExtremity" marker
+									list.scrollTop =
+										((list.scrollHeight - list.offsetHeight) / 2);
+									setTimeout(def.rejectOnError(function () {
+										// scroll to the bottom
+										list.scrollTop =
+											((list.scrollHeight - list.offsetHeight));
+										waitForCondition(function () {
+											return list.textContent.indexOf("item 74") >= 0;
+										}, TIMEOUT, INTERVAL).then(def.rejectOnError(function () {
+											list.deliver();
+											assertCategorizedList(list, 50, 25, true, true);
+											assert.strictEqual(
+												removeTabsAndReturns(list._getLastVisibleRenderer().textContent),
+												"item 73",
+												"last visible renderer after second page load");
+											setTimeout(def.rejectOnError(function () {
+												// scroll a little to remove the "_atExtremity" marker
+												list.scrollTop = 100;
+												setTimeout(def.rejectOnError(function () {
+													// scroll to the top
+													list.scrollTop = 0;
+													waitForCondition(function () {
+														return list.textContent.indexOf("item 24") >= 0;
+													}, TIMEOUT, INTERVAL).then(def.callback(function () {
+														assertCategorizedList(list, 50, 0, false, true);
+														assert.strictEqual(
+															removeTabsAndReturns(
+																list._getFirstVisibleRenderer().textContent),
+															"Category 0",
+															"first visible renderer");
+													}));
+												}), 10);
+											}), 10);
+										}));
+									}), 10);
+								}), 10);
+							}));
+						}), 10);
+					}));
+				}), 10);
+				return def;
+			},
+
+			"getItemRendererByIndex ignores page loaders": function () {
+				var dfd = this.async(3000);
+				var TIMEOUT = 2000;
+				var INTERVAL = 100;
+				list = new PageableList({source: new ObservableArray()});
+				for (var i = 0; i < 100; i++) {
+					list.source.push({label: "item " + i});
+				}
+				list.pageLength = 10;
+				list.maxPages = 1;
+				list.placeAt(document.body);
+				list.deliver();
+				waitForCondition(function () {
+					return list.textContent.indexOf("item 9") >= 0;
+				}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
+					clickNextPageLoader(list).then(dfd.callback(function () {
+						list.deliver();
+						assert.strictEqual("item 10",
+							removeTabsAndReturns(list.getItemRendererByIndex(0).textContent));
+					}));
+				}));
+				return dfd;
 			}
-			list.pageLength = 10;
-			list.maxPages = 1;
-			list.placeAt(document.body);
-			list.deliver();
-			waitForCondition(function () {
-				return list.textContent.indexOf("item 9") >= 0;
-			}, TIMEOUT, INTERVAL).then(dfd.rejectOnError(function () {
-				clickNextPageLoader(list).then(dfd.callback(function () {
-					list.deliver();
-					assert.strictEqual("item 10",
-						removeTabsAndReturns(list.getItemRendererByIndex(0).textContent));
-				}));
-			}));
-			return dfd;
+			///////////////////////////////////////////
+			// TODO: TEST MOVING ITEMS ?
+			///////////////////////////////////////////
 		},
-		///////////////////////////////////////////
-		// TODO: TEST MOVING ITEMS ?
-		///////////////////////////////////////////
-		"teardown": function () {
+
+		after: function () {
 			if (list) {
 				list.destroy();
 			}
 			list = null;
 		}
 	});
-
 });

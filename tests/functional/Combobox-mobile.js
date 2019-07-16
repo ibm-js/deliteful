@@ -1,20 +1,20 @@
 define(function (require) {
 	"use strict";
 
-	var intern = require("intern");
-	var registerSuite = require("intern!object");
-	var pollUntil = require("intern/dojo/node!leadfoot/helpers/pollUntil");
-	var assert = require("intern/chai!assert");
-	var keys = require("intern/dojo/node!leadfoot/keys");
-	var loadFile = function (remote, fileName) {
+	var registerSuite = intern.getPlugin("interface.object").registerSuite;
+	var pollUntil = require("@theintern/leadfoot/helpers/pollUntil").default;
+	var assert = intern.getPlugin("chai").assert;
+	var keys = require("@theintern/leadfoot/keys").default;
+
+	function loadFile(remote, fileName) {
 		return remote
-			.get(require.toUrl(fileName))
+			.get(require.toUrl("deliteful/tests/functional/" + fileName))
 			.setWindowSize(600, 1000)
 			.then(pollUntil("return ready ? true : null;", [],
 				intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
-	};
+	}
 
-	function checkComboState (comboId, comboState, expectedComboState, stepName) {
+	function checkComboState(comboId, comboState, expectedComboState, stepName) {
 		// comboState is an object retrieved from the browser, containing the state of the ComboPopup.
 
 		var msg =  comboId + " " + "(" + comboState.selectionMode + ")" + " " + stepName + " ";
@@ -38,9 +38,9 @@ define(function (require) {
 		// Note that the event counters count the new events since the previous check.
 	}
 
-	var checkFilter = function (remote, comboId) {
+	function checkFilter(remote, comboId) {
 		var executeExpr = "return getComboPopupState(\"" + comboId + "\");";
-		return loadFile(remote, "./Combobox-mobile.html")
+		return loadFile(remote, "Combobox-mobile.html")
 			.execute("return getComboboxState(\"" + comboId + "\");")
 			.then(function (comboState) {
 				// No item should be selected, the popup is closed initially.
@@ -131,10 +131,10 @@ define(function (require) {
 				}, "after typed `u` into input field.");
 			})
 			.end();
-	};
+	}
 
-	var checkListInPopup = function (remote, comboId, hasFilterInput, isMultiSelect) {
-		return loadFile(remote, "./Combobox-mobile.html")
+	function checkListInPopup(remote, comboId, hasFilterInput, isMultiSelect) {
+		return loadFile(remote, "Combobox-mobile.html")
 			.findByCssSelector("#" + comboId + " .d-combobox-arrow").click().end()
 			.sleep(500) // wait for List's loading panel to go away
 
@@ -161,11 +161,11 @@ define(function (require) {
 			.end()
 			.findByCssSelector(".d-combo-popup .d-combo-popup-button-container[d-shown='" + isMultiSelect + "']")
 			.end();
-	};
+	}
 
-	var checkSingleSelection = function (remote, comboId) {
+	function checkSingleSelection(remote, comboId) {
 		var executeExpr = "return getComboPopupState(\"" + comboId + "\");";
-		return loadFile(remote, "./Combobox-mobile.html")
+		return loadFile(remote, "Combobox-mobile.html")
 			.execute("return getComboboxState(\"" + comboId + "\");")
 			.then(function (comboState) {
 				checkComboState(comboId, comboState, { // expected combo state
@@ -199,11 +199,11 @@ define(function (require) {
 					valueNodeValue: "Germany"
 				}, "after clicking the third option (Germany)");
 			});
-	};
+	}
 
-	var checkMultiSelection = function (remote, comboId) {
+	function checkMultiSelection(remote, comboId) {
 		var executeExpr = "return getComboPopupState(\"" + comboId + "\");";
-		return loadFile(remote, "./Combobox-mobile.html")
+		return loadFile(remote, "Combobox-mobile.html")
 			.execute("return getComboboxState(\"" + comboId + "\");")
 			.then(function (comboState) {
 				checkComboState(comboId, comboState, { // expected combo state
@@ -264,11 +264,11 @@ define(function (require) {
 					valueNodeValue: "China,Germany"
 				}, "after clicking OK button (close)");
 			});
-	};
+	}
 
-	var checkAutoCompleteFilteringWithThreeFilterChars = function (remote, comboId) {
+	function checkAutoCompleteFilteringWithThreeFilterChars(remote, comboId) {
 		var executeExpr = "return getComboPopupState(\"" + comboId + "\");";
-		return loadFile(remote, "./Combobox-mobile.html")
+		return loadFile(remote, "Combobox-mobile.html")
 			.execute("return getComboboxState(\"" + comboId + "\");")
 			.then(function (comboState) {
 				checkComboState(comboId, comboState, { // expected combo state
@@ -402,11 +402,11 @@ define(function (require) {
 				assert.isTrue(isVisible, "popup must be visible at this stage.");
 			})
 			.end();
-	};
+	}
 
-	var checkAutoCompleteFilteringWithZeroFilterChars = function (remote, comboId) {
+	function checkAutoCompleteFilteringWithZeroFilterChars(remote, comboId) {
 		var executeExpr = "return getComboPopupState(\"" + comboId + "\");";
-		return loadFile(remote, "./Combobox-mobile.html")
+		return loadFile(remote, "Combobox-mobile.html")
 			.execute("return getComboboxState(\"" + comboId + "\");")
 			.then(function (comboState) {
 				checkComboState(comboId, comboState, { // expected combo state
@@ -547,113 +547,115 @@ define(function (require) {
 				assert.isTrue(isVisible, "popup must be visible at this stage.");
 			})
 			.end();
-	};
+	}
 
-	registerSuite({
-		"name": "ComboPopup - functional",
-
-		"setup": function () {
+	registerSuite("ComboPopup - functional", {
+		before: function () {
 			var remote = this.remote;
 
-			if (remote.environmentType.browserName === "internet explorer") {
+			if (remote.environmentType.browserName.toLowerCase() === "internet explorer") {
 				return this.skip("ComboPopup broken on IE");
 			}
 		},
 
-		"button": function () {
-			// Since clicking the Combobox opens the ComboPopup, the Combobox should be a button.
-			return loadFile(this.remote, "./Combobox-mobile.html").execute(function () {
-				return document.getElementById("combo2").inputNode.getAttribute("type");
-			}).then(function (value) {
-				assert.strictEqual(value, "button");
-			});
-		},
+		tests: {
+			"button": function () {
+				// Since clicking the Combobox opens the ComboPopup, the Combobox should be a button.
+				return loadFile(this.remote, "Combobox-mobile.html").execute(function () {
+					return document.getElementById("combo2").inputNode.getAttribute("type");
+				}).then(function (value) {
+					assert.strictEqual(value, "button");
+				});
+			},
 
-		"list in popup (combo1)": function () {
-			return checkListInPopup(this.remote, "combo1", false, false);
-		},
+			"list in popup (combo1)": function () {
+				return checkListInPopup(this.remote, "combo1", false, false);
+			},
 
-		"list in popup (combo2)": function () {
-			return checkListInPopup(this.remote, "combo2", true, false);
-		},
+			"list in popup (combo2)": function () {
+				return checkListInPopup(this.remote, "combo2", true, false);
+			},
 
-		"list in popup (combo3)": function () {
-			return checkListInPopup(this.remote, "combo3", false, true);
-		},
+			"list in popup (combo3)": function () {
+				return checkListInPopup(this.remote, "combo3", false, true);
+			},
 
-		"filtering (combo2)": function () {
-			var remote = this.remote;
+			"filtering (combo2)": function () {
+				var remote = this.remote;
 
-			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
-				return this.skip("no keyboard support");
+				if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+					return this.skip("no keyboard support");
+				}
+
+				return checkFilter(remote, "combo2");
+			},
+
+			"single selection (combo1)": function () {
+				return checkSingleSelection(this.remote, "combo1");
+			},
+
+			"close dialog via [x] icon": function () {
+				var remote = this.remote;
+				return loadFile(remote, "Combobox-mobile.html")
+					.findByCssSelector("#combo3 .d-combobox-input").click().end()
+					.sleep(500) // wait for popup to appear
+					.findByCssSelector("#combo3_dropdown .d-tooltip-dialog-close-icon").click().end()
+					.findById("combo3_dropdown")
+					.isDisplayed().then(function (displayed) {
+						assert.isFalse(displayed, "clicking close icon hid popup");
+					}).end();
+			},
+
+			"single selection (combo2)": function () {
+				return checkSingleSelection(this.remote, "combo2");
+			},
+
+			"multi selection (combo3)": function () {
+				return checkMultiSelection(this.remote, "combo3");
+			},
+
+			// TODO: merge this into checkAutoCompleteFilteringWithThreeFilterChars().
+			"aria-expanded": function () {
+				return loadFile(this.remote, "Combobox-mobile.html")
+					.findByCssSelector("#combo4 .d-combobox-input").click().end()
+					.sleep(500) // wait for List's loading panel to go away
+					.findByCssSelector("#combo4_dropdown [role=combobox]").getAttribute("aria-expanded")
+					.then(function (value) {
+						assert.strictEqual(value, "false", "initially not expanded");
+					}).end()
+					.findByCssSelector("#combo4_dropdown input").type("jap").end()
+					.sleep(500)
+					.findByCssSelector("#combo4_dropdown [role=combobox]").getAttribute("aria-expanded")
+					.then(function (value) {
+						assert.strictEqual(value, "true", "expanded after typing 3 chars");
+					}).end();
+			},
+
+			"autocomplete filtering - minFilterChars = 3 (combo4)": function () {
+				var remote = this.remote;
+
+				if (remote.environmentType.platformName === "iOS" || remote.environmentType.safari ||
+					remote.environmentType.browserName.toLowerCase() === "safari" ||
+					remote.environmentType.brokenSendKeys ||
+					!remote.environmentType.nativeEvents) {
+					return this.skip("no keyboard support - brokenSendKeys");
+				}
+
+				return checkAutoCompleteFilteringWithThreeFilterChars(remote, "combo4");
+			},
+
+			"autocomplete filtering - minFilterChars = 0 (combo5)": function () {
+				var remote = this.remote;
+
+				if (remote.environmentType.platformName === "iOS" || remote.environmentType.safari ||
+					remote.environmentType.browserName.toLowerCase() === "safari"
+					|| remote.environmentType.brokenSendKeys ||
+					!remote.environmentType.nativeEvents) {
+					return this.skip("no keyboard support - brokenSendKeys");
+				}
+
+				return checkAutoCompleteFilteringWithZeroFilterChars(remote, "combo5");
 			}
-
-			return checkFilter(remote, "combo2");
-		},
-
-		"single selection (combo1)": function () {
-			return checkSingleSelection(this.remote, "combo1");
-		},
-
-		"close dialog via [x] icon": function () {
-			var remote = this.remote;
-			return loadFile(remote, "./Combobox-mobile.html")
-				.findByCssSelector("#combo3 .d-combobox-input").click().end()
-				.sleep(500) // wait for popup to appear
-				.findByCssSelector("#combo3_dropdown .d-tooltip-dialog-close-icon").click().end()
-				.findById("combo3_dropdown")
-				.isDisplayed().then(function (displayed) {
-					assert.isFalse(displayed, "clicking close icon hid popup");
-				}).end();
-		},
-
-		"single selection (combo2)": function () {
-			return checkSingleSelection(this.remote, "combo2");
-		},
-
-		"multi selection (combo3)": function () {
-			return checkMultiSelection(this.remote, "combo3");
-		},
-
-		// TODO: merge this into checkAutoCompleteFilteringWithThreeFilterChars().
-		"aria-expanded": function () {
-			return loadFile(this.remote, "./Combobox-mobile.html")
-				.findByCssSelector("#combo4 .d-combobox-input").click().end()
-				.sleep(500) // wait for List's loading panel to go away
-				.findByCssSelector("#combo4_dropdown [role=combobox]").getAttribute("aria-expanded")
-				.then(function (value) {
-					assert.strictEqual(value, "false", "initially not expanded");
-				}).end()
-				.findByCssSelector("#combo4_dropdown input").type("jap").end()
-				.sleep(500)
-				.findByCssSelector("#combo4_dropdown [role=combobox]").getAttribute("aria-expanded")
-				.then(function (value) {
-					assert.strictEqual(value, "true", "expanded after typing 3 chars");
-				}).end();
-		},
-
-		"autocomplete filtering - minFilterChars = 3 (combo4)": function () {
-			var remote = this.remote;
-
-			if (remote.environmentType.platformName === "iOS" || remote.environmentType.safari ||
-				remote.environmentType.browserName === "safari" || remote.environmentType.brokenSendKeys ||
-				!remote.environmentType.nativeEvents) {
-				return this.skip("no keyboard support - brokenSendKeys");
-			}
-
-			return checkAutoCompleteFilteringWithThreeFilterChars(remote, "combo4");
-		},
-
-		"autocomplete filtering - minFilterChars = 0 (combo5)": function () {
-			var remote = this.remote;
-
-			if (remote.environmentType.platformName === "iOS" || remote.environmentType.safari ||
-				remote.environmentType.browserName === "safari" || remote.environmentType.brokenSendKeys ||
-				!remote.environmentType.nativeEvents) {
-				return this.skip("no keyboard support - brokenSendKeys");
-			}
-
-			return checkAutoCompleteFilteringWithZeroFilterChars(remote, "combo5");
 		}
 	});
 });

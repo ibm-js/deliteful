@@ -1,13 +1,11 @@
 define(function (require) {
 	"use strict";
 
-	var registerSuite = require("intern!object");
-	var assert = require("intern/chai!assert");
+	var registerSuite = intern.getPlugin("interface.object").registerSuite;
+	var assert = intern.getPlugin("chai").assert;
 	var DatePicker = require("deliteful/DatePicker");
 
-	registerSuite({
-		name: "DatePicker",
-
+	registerSuite("DatePicker", {
 		layout: function () {
 			var dp = new DatePicker({
 				value: new Date(2000, 1, 1)

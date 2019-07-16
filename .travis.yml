@@ -14,5 +14,6 @@ install:
    - bower install
 
 script:
-   - grunt jshint test:remote
+   - grunt jshint
+   - npx intern config=@sauce
 

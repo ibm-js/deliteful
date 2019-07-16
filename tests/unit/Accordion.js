@@ -1,15 +1,14 @@
 define(function (require) {
 	"use strict";
 
-	var registerSuite = require("intern!object");
-	var assert = require("intern/chai!assert");
+	var registerSuite = intern.getPlugin("interface.object").registerSuite;
+	var assert = intern.getPlugin("chai").assert;
 	var Promise = require("requirejs-dplugins/Promise!");
 	var register = require("delite/register");
 	var Accordion = require("deliteful/Accordion");
 	var Panel = require("deliteful/Panel");
-	require("dojo/domReady!");
 
-	function mix (a, b) {
+	function mix(a, b) {
 		for (var n in b) {
 			a[n] = b[n];
 		}
@@ -41,7 +40,7 @@ define(function (require) {
 
 	var asyncHandler;
 
-	function checkUniqueOpenPanel (ac, target, message) {
+	function checkUniqueOpenPanel(ac, target, message) {
 		ac.getChildren().forEach(function (child) {
 			assert.isTrue(
 				(child.headerNode.style.display !== "none" &&
@@ -54,7 +53,7 @@ define(function (require) {
 		});
 	}
 
-	function checkPanelsStatus (openPanels, closedPanels, message) {
+	function checkPanelsStatus(openPanels, closedPanels, message) {
 		openPanels.forEach(function (panel) {
 			assert.isTrue(
 				(panel.headerNode.style.display !== "none" && panel.style.display !== "none" &&
@@ -70,7 +69,7 @@ define(function (require) {
 		checkAriaProperties(openPanels, closedPanels);
 	}
 
-	function checkPanelIconProperties (panel, poic, pcic, hoic, hcic, open) {
+	function checkPanelIconProperties(panel, poic, pcic, hoic, hcic, open) {
 		assert.strictEqual(panel.openIconClass, poic, "panel openIconClass");
 		assert.strictEqual(panel.closedIconClass, pcic, "panel closedIconClass");
 		assert.strictEqual(panel.headerNode.openIconClass, hoic, "header openIconClass");
@@ -78,7 +77,7 @@ define(function (require) {
 		assert.isTrue(panel.headerNode.iconNode.classList.contains(open ? hoic : hcic), "header.iconNode class");
 	}
 
-	function checkAriaProperties (openPanels, closedPanels) {
+	function checkAriaProperties(openPanels, closedPanels) {
 		openPanels.forEach(function (panel) {
 			var header = panel.headerNode,
 				button = header.querySelector("[aria-controls]");
@@ -110,7 +109,7 @@ define(function (require) {
 		});
 	}
 
-	function loadData (id) {
+	function loadData(id) {
 		return new Promise(function (resolve) {
 			var view = document.createElement("div");
 			view.innerHTML = "<h3>New Content</h3>";
@@ -124,6 +123,7 @@ define(function (require) {
 			accordion = document.getElementById("accordion");
 			assert.isTrue(accordion.classList.contains("d-accordion"));
 		},
+
 		"Default values": function () {
 			accordion = document.getElementById("accordion");
 			assert.strictEqual(accordion.mode, "singleOpen", "mode");
@@ -131,266 +131,310 @@ define(function (require) {
 			assert.strictEqual(accordion.selectedChildId, "panel1", "by default the selectedChild is the first one");
 			assert.strictEqual(accordion.openIconClass, "", "openIconClass doesn't have a default value");
 			assert.strictEqual(accordion.closedIconClass, "", "closedIconClass doesn't have a default value");
-
 		},
+
 		"SingleOpen Mode": {
-			"setup": function () {
+			before: function () {
 				accordion = document.getElementById("accordion");
 				panel1 = document.getElementById("panel1");
 				panel2 = document.getElementById("panel2");
 				panel3 = document.getElementById("panel3");
 			},
-			"Default open panel": function () {
-				checkUniqueOpenPanel(accordion, panel1, "Only panel1 should be open");
-				checkAriaProperties([panel1], [panel2, panel3]);
-			},
-			"Show(by id)": function () {
-				return accordion.show("panel3").then(function () {
-					checkUniqueOpenPanel(accordion, panel3, "Only panel3 should be open");
-					checkAriaProperties([panel3], [panel1, panel2]);
-				});
-			},
-			"Show(by widget)": function () {
-				return accordion.show(panel2).then(function () {
-					checkUniqueOpenPanel(accordion, panel2, "Only panel2 should be open");
-					checkAriaProperties([panel2], [panel1, panel3]);
-				});
-			},
-			"Show(already open panel)": function () {
-				return accordion.show(panel2).then(function () {
-					checkUniqueOpenPanel(accordion, panel2, "Accordion status shouldn't change");
-					checkAriaProperties([panel2], [panel1, panel3]);
-				});
-			},
-			"Trying to hide open panel": function () {
-				return accordion.hide(panel2).then(function () {
-					checkUniqueOpenPanel(accordion, panel2, "Accordion status shouldn't change");
-					checkAriaProperties([panel2], [panel1, panel3]);
-				});
-			},
-			"Trying to hide closed panel": function () {
-				return accordion.hide(panel1).then(function () {
-					checkUniqueOpenPanel(accordion, panel2, "Accordion status shouldn't change");
-					checkAriaProperties([panel2], [panel1, panel3]);
-				});
-			},
-			"Changing selectedChildId": function () {
-				var d = this.async(1000);
-				asyncHandler = accordion.on("delite-after-show", d.callback(function () {
+
+			tests: {
+				"Default open panel": function () {
 					checkUniqueOpenPanel(accordion, panel1, "Only panel1 should be open");
 					checkAriaProperties([panel1], [panel2, panel3]);
-				}));
-				accordion.selectedChildId = "panel1";
-			},
-			"Show() without animation": function () {
-				accordion.animate = false;
-				return accordion.show(panel2).then(function () {
-					checkUniqueOpenPanel(accordion, panel2, "Only panel2 should be open");
-					checkAriaProperties([panel2], [panel1, panel3]);
-					accordion.animate = true;
-				});
-			},
-			"Show() Invisible Accordion": function () {
-				accordion.style.display = "none";
-				return accordion.show(panel3).then(function () {
-					checkUniqueOpenPanel(accordion, panel3, "Only panel3 should be open");
-					accordion.style.display = "";
-					checkAriaProperties([panel3], [panel1, panel2]);
-				});
-			},
-			"Show() Invisible Parent": function () {
-				accordion.parentNode.style.display = "none";
-				return accordion.show(panel1).then(function () {
-					checkUniqueOpenPanel(accordion, panel1, "Only panel1 should be open");
-					accordion.parentNode.style.display = "";
-					checkAriaProperties([panel1], [panel2, panel3]);
-				});
+				},
+
+				"Show(by id)": function () {
+					return accordion.show("panel3").then(function () {
+						checkUniqueOpenPanel(accordion, panel3, "Only panel3 should be open");
+						checkAriaProperties([panel3], [panel1, panel2]);
+					});
+				},
+
+				"Show(by widget)": function () {
+					return accordion.show(panel2).then(function () {
+						checkUniqueOpenPanel(accordion, panel2, "Only panel2 should be open");
+						checkAriaProperties([panel2], [panel1, panel3]);
+					});
+				},
+
+				"Show(already open panel)": function () {
+					return accordion.show(panel2).then(function () {
+						checkUniqueOpenPanel(accordion, panel2, "Accordion status shouldn't change");
+						checkAriaProperties([panel2], [panel1, panel3]);
+					});
+				},
+
+				"Trying to hide open panel": function () {
+					return accordion.hide(panel2).then(function () {
+						checkUniqueOpenPanel(accordion, panel2, "Accordion status shouldn't change");
+						checkAriaProperties([panel2], [panel1, panel3]);
+					});
+				},
+
+				"Trying to hide closed panel": function () {
+					return accordion.hide(panel1).then(function () {
+						checkUniqueOpenPanel(accordion, panel2, "Accordion status shouldn't change");
+						checkAriaProperties([panel2], [panel1, panel3]);
+					});
+				},
+
+				"Changing selectedChildId": function () {
+					var d = this.async(1000);
+					asyncHandler = accordion.on("delite-after-show", d.callback(function () {
+						checkUniqueOpenPanel(accordion, panel1, "Only panel1 should be open");
+						checkAriaProperties([panel1], [panel2, panel3]);
+					}));
+					accordion.selectedChildId = "panel1";
+				},
+
+				"Show() without animation": function () {
+					accordion.animate = false;
+					return accordion.show(panel2).then(function () {
+						checkUniqueOpenPanel(accordion, panel2, "Only panel2 should be open");
+						checkAriaProperties([panel2], [panel1, panel3]);
+						accordion.animate = true;
+					});
+				},
+
+				"Show() Invisible Accordion": function () {
+					accordion.style.display = "none";
+					return accordion.show(panel3).then(function () {
+						checkUniqueOpenPanel(accordion, panel3, "Only panel3 should be open");
+						accordion.style.display = "";
+						checkAriaProperties([panel3], [panel1, panel2]);
+					});
+				},
+
+				"Show() Invisible Parent": function () {
+					accordion.parentNode.style.display = "none";
+					return accordion.show(panel1).then(function () {
+						checkUniqueOpenPanel(accordion, panel1, "Only panel1 should be open");
+						accordion.parentNode.style.display = "";
+						checkAriaProperties([panel1], [panel2, panel3]);
+					});
+				}
 			}
 		},
+
 		"MultipleOpen Mode": {
-			"setup": function () {
+			before: function () {
 				accordion2 = document.getElementById("accordion2");
 				panel21 = document.getElementById("panel21");
 				panel22 = document.getElementById("panel22");
 				panel23 = document.getElementById("panel23");
 			},
-			"Default open panel": function () {
-				checkPanelsStatus([panel21], [panel22, panel23], "Only panel1 should be open");
-			},
-			"Show(by id)": function () {
-				return accordion2.show("panel22").then(function () {
-					checkPanelsStatus([panel21, panel22], [panel23], "Invalid panels status");
-				});
-			},
-			"Show(by widget)": function () {
-				return accordion2.show(panel23).then(function () {
-					checkPanelsStatus([panel21, panel22, panel23], [], "Invalid panels status");
-				});
-			},
-			"Hide(by id)": function () {
-				return accordion2.hide("panel22").then(function () {
-					checkPanelsStatus([panel21, panel23], [panel22], "Invalid panels status");
-				});
-			},
-			"Hide(by widget)": function () {
-				return accordion2.hide(panel23).then(function () {
-					checkPanelsStatus([panel21], [panel22, panel23], "Invalid panels status");
-				});
-			},
-			"Show(already open panel)": function () {
-				return accordion2.show(panel21).then(function () {
-					checkPanelsStatus([panel21], [panel22, panel23], "Accordion status shouldn't change");
-				});
-			},
-			"Trying to hide closed panel": function () {
-				return accordion2.hide(panel22).then(function () {
-					checkPanelsStatus([panel21], [panel22, panel23], "Accordion status shouldn't change");
-				});
-			},
-			"Trying to hide last open panel": function () {
-				return accordion2.hide(panel21).then(function () {
-					checkPanelsStatus([panel21], [panel22, panel23], "Accordion status shouldn't change");
-				});
-			},
-			"Show() without animation": function () {
-				accordion2.animate = false;
-				return accordion2.show(panel22).then(function () {
-					checkPanelsStatus([panel21, panel22], [panel23], "Invalid panels status");
-					accordion2.animate = true;
-				});
-			},
-			"Hide() without animation": function () {
-				accordion2.animate = false;
-				return accordion2.hide(panel22).then(function () {
-					checkPanelsStatus([panel21], [panel22, panel23], "Invalid panels status");
-					accordion2.animate = true;
-				});
-			},
-			"Show() Invisible Accordion": function () {
-				accordion2.style.display = "none";
-				return accordion2.show(panel22).then(function () {
-					checkPanelsStatus([panel21, panel22], [panel23], "Invalid panels status");
-					accordion2.style.display = "";
-				});
-			},
-			"Show() Invisible Parent": function () {
-				accordion2.parentNode.style.display = "none";
-				return accordion2.show(panel23).then(function () {
-					checkPanelsStatus([panel21, panel22, panel23], [], "Invalid panels status");
-					accordion2.parentNode.style.display = "";
-				});
-			},
-			"Hide() Invisible Accordion": function () {
-				accordion2.style.display = "none";
-				return accordion2.hide(panel22).then(function () {
-					checkPanelsStatus([panel21, panel23], [panel22], "Invalid panels status");
-					accordion2.style.display = "";
-				});
-			},
-			"Hide() Invisible Parent": function () {
-				accordion2.parentNode.style.display = "none";
-				return accordion2.hide(panel23).then(function () {
-					checkPanelsStatus([panel21], [panel22, panel23], "Invalid panels status");
-					accordion2.parentNode.style.display = "";
-				});
+
+			tests: {
+				"Default open panel": function () {
+					checkPanelsStatus([panel21], [panel22, panel23], "Only panel1 should be open");
+				},
+
+				"Show(by id)": function () {
+					return accordion2.show("panel22").then(function () {
+						checkPanelsStatus([panel21, panel22], [panel23], "Invalid panels status");
+					});
+				},
+
+				"Show(by widget)": function () {
+					return accordion2.show(panel23).then(function () {
+						checkPanelsStatus([panel21, panel22, panel23], [], "Invalid panels status");
+					});
+				},
+
+				"Hide(by id)": function () {
+					return accordion2.hide("panel22").then(function () {
+						checkPanelsStatus([panel21, panel23], [panel22], "Invalid panels status");
+					});
+				},
+
+				"Hide(by widget)": function () {
+					return accordion2.hide(panel23).then(function () {
+						checkPanelsStatus([panel21], [panel22, panel23], "Invalid panels status");
+					});
+				},
+
+				"Show(already open panel)": function () {
+					return accordion2.show(panel21).then(function () {
+						checkPanelsStatus([panel21], [panel22, panel23], "Accordion status shouldn't change");
+					});
+				},
+
+				"Trying to hide closed panel": function () {
+					return accordion2.hide(panel22).then(function () {
+						checkPanelsStatus([panel21], [panel22, panel23], "Accordion status shouldn't change");
+					});
+				},
+
+				"Trying to hide last open panel": function () {
+					return accordion2.hide(panel21).then(function () {
+						checkPanelsStatus([panel21], [panel22, panel23], "Accordion status shouldn't change");
+					});
+				},
+
+				"Show() without animation": function () {
+					accordion2.animate = false;
+					return accordion2.show(panel22).then(function () {
+						checkPanelsStatus([panel21, panel22], [panel23], "Invalid panels status");
+						accordion2.animate = true;
+					});
+				},
+
+				"Hide() without animation": function () {
+					accordion2.animate = false;
+					return accordion2.hide(panel22).then(function () {
+						checkPanelsStatus([panel21], [panel22, panel23], "Invalid panels status");
+						accordion2.animate = true;
+					});
+				},
+
+				"Show() Invisible Accordion": function () {
+					accordion2.style.display = "none";
+					return accordion2.show(panel22).then(function () {
+						checkPanelsStatus([panel21, panel22], [panel23], "Invalid panels status");
+						accordion2.style.display = "";
+					});
+				},
+
+				"Show() Invisible Parent": function () {
+					accordion2.parentNode.style.display = "none";
+					return accordion2.show(panel23).then(function () {
+						checkPanelsStatus([panel21, panel22, panel23], [], "Invalid panels status");
+						accordion2.parentNode.style.display = "";
+					});
+				},
+
+				"Hide() Invisible Accordion": function () {
+					accordion2.style.display = "none";
+					return accordion2.hide(panel22).then(function () {
+						checkPanelsStatus([panel21, panel23], [panel22], "Invalid panels status");
+						accordion2.style.display = "";
+					});
+				},
+
+				"Hide() Invisible Parent": function () {
+					accordion2.parentNode.style.display = "none";
+					return accordion2.hide(panel23).then(function () {
+						checkPanelsStatus([panel21], [panel22, panel23], "Invalid panels status");
+						accordion2.parentNode.style.display = "";
+					});
+				}
 			}
 		},
+
 		"Icon Support": {
-			"setup": function () {
+			before: function () {
 				accordion3 = document.getElementById("accordion3");
 				panel31 = document.getElementById("panel31");
 				panel32 = document.getElementById("panel32");
 				panel33 = document.getElementById("panel33");
 			},
-			"Initial Setting": function () {
-				assert.strictEqual(accordion3.openIconClass, "oic");
-				assert.strictEqual(accordion3.closedIconClass, "cic");
-				checkPanelIconProperties(panel31, "", "", "oic", "cic", true);
-				checkPanelIconProperties(panel32, "poic", "", "poic", "cic", false);
-				checkPanelIconProperties(panel33, "poic", "pcic", "poic", "pcic", false);
-			},
-			"Changing accordion openIconClass": function () {
-				accordion3.openIconClass = "ic6";
-				accordion3.deliver();
-				panel31.headerNode.deliver();
-				checkPanelIconProperties(panel31, "", "", "ic6", "cic", true);
-				checkPanelIconProperties(panel32, "poic", "", "poic", "cic", false);
-				checkPanelIconProperties(panel33, "poic", "pcic", "poic", "pcic", false);
-			},
-			"Changing accordion closedIconClass": function () {
-				accordion3.closedIconClass = "ic7";
-				accordion3.deliver();
-				panel31.headerNode.deliver();
-				panel32.headerNode.deliver();
-				checkPanelIconProperties(panel31, "", "", "ic6", "ic7", true);
-				checkPanelIconProperties(panel32, "poic", "", "poic", "ic7", false);
-				checkPanelIconProperties(panel33, "poic", "pcic", "poic", "pcic", false);
-			},
-			"Changing panel openIconClass": function () {
-				panel31.openIconClass = "ic8";
-				panel31.deliver();
-				panel31.headerNode.deliver();
-				checkPanelIconProperties(panel31, "ic8", "", "ic8", "ic7", true);
-				checkPanelIconProperties(panel32, "poic", "", "poic", "ic7", false);
-				checkPanelIconProperties(panel33, "poic", "pcic", "poic", "pcic", false);
-			},
-			"Changing panel closedIconClass": function () {
-				panel31.closedIconClass = "ic9";
-				panel31.deliver();
-				panel31.headerNode.deliver();
-				checkPanelIconProperties(panel31, "ic8", "ic9", "ic8", "ic9", true);
-				checkPanelIconProperties(panel32, "poic", "", "poic", "ic7", false);
-				checkPanelIconProperties(panel33, "poic", "pcic", "poic", "pcic", false);
+
+			tests: {
+				"Initial Setting": function () {
+					assert.strictEqual(accordion3.openIconClass, "oic");
+					assert.strictEqual(accordion3.closedIconClass, "cic");
+					checkPanelIconProperties(panel31, "", "", "oic", "cic", true);
+					checkPanelIconProperties(panel32, "poic", "", "poic", "cic", false);
+					checkPanelIconProperties(panel33, "poic", "pcic", "poic", "pcic", false);
+				},
+
+				"Changing accordion openIconClass": function () {
+					accordion3.openIconClass = "ic6";
+					accordion3.deliver();
+					panel31.headerNode.deliver();
+					checkPanelIconProperties(panel31, "", "", "ic6", "cic", true);
+					checkPanelIconProperties(panel32, "poic", "", "poic", "cic", false);
+					checkPanelIconProperties(panel33, "poic", "pcic", "poic", "pcic", false);
+				},
+
+				"Changing accordion closedIconClass": function () {
+					accordion3.closedIconClass = "ic7";
+					accordion3.deliver();
+					panel31.headerNode.deliver();
+					panel32.headerNode.deliver();
+					checkPanelIconProperties(panel31, "", "", "ic6", "ic7", true);
+					checkPanelIconProperties(panel32, "poic", "", "poic", "ic7", false);
+					checkPanelIconProperties(panel33, "poic", "pcic", "poic", "pcic", false);
+				},
+
+				"Changing panel openIconClass": function () {
+					panel31.openIconClass = "ic8";
+					panel31.deliver();
+					panel31.headerNode.deliver();
+					checkPanelIconProperties(panel31, "ic8", "", "ic8", "ic7", true);
+					checkPanelIconProperties(panel32, "poic", "", "poic", "ic7", false);
+					checkPanelIconProperties(panel33, "poic", "pcic", "poic", "pcic", false);
+				},
+
+				"Changing panel closedIconClass": function () {
+					panel31.closedIconClass = "ic9";
+					panel31.deliver();
+					panel31.headerNode.deliver();
+					checkPanelIconProperties(panel31, "ic8", "ic9", "ic8", "ic9", true);
+					checkPanelIconProperties(panel32, "poic", "", "poic", "ic7", false);
+					checkPanelIconProperties(panel33, "poic", "pcic", "poic", "pcic", false);
+				}
 			}
 		}
 	};
 
 	//Markup
-	var suite = {
-		name: "Accordion: Markup",
-		setup: function () {
+	var markupSuite = {
+		before: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
 			container.innerHTML = html;
 			register.deliver();
 		},
-		Controller: {
-			setup: function () {
-				accordion4 = document.getElementById("accordion4");
-			},
-			loadContentEmptyPanel: function () {
-				var handler;
 
-				accordion4.addEventListener("delite-display-load", handler = function (evt) {
-					if (!evt.hide) {
-						evt.setChild(new Promise(function (resolve) {
-							// load the content for the specified id, then set that data to the panel
-							loadData(evt.contentId).then(function (data) {
-								evt.setContent(evt.dest, data);
-								resolve({child: evt.dest});
-							});
-						}));
+		tests: {
+			Controller: {
+				before: function () {
+					accordion4 = document.getElementById("accordion4");
+				},
+
+				tests: {
+					loadContentEmptyPanel: function () {
+						var handler;
+
+						accordion4.addEventListener("delite-display-load", handler = function (evt) {
+							if (!evt.hide) {
+								evt.setChild(new Promise(function (resolve) {
+									// load the content for the specified id, then set that data to the panel
+									loadData(evt.contentId).then(function (data) {
+										evt.setContent(evt.dest, data);
+										resolve({child: evt.dest});
+									});
+								}));
+							}
+						});
+
+						var panel41 = document.getElementById("panel41");
+						var panel42 = document.getElementById("panel42");
+
+						return accordion4.show(panel42, {contentId: "newContent1"}).then(function () {
+							assert(panel42.children.length > 0, "has content");
+							checkUniqueOpenPanel(accordion4, panel42, "Only panel42 should be open");
+						}).then(function () {
+							return accordion4.show(panel41, {contentId: "newContent2"});
+						}).then(function () {
+							assert(panel41.children.length > 0, "has content");
+							checkUniqueOpenPanel(accordion4, panel41, "Only panel41 should be open");
+							accordion4.removeEventListener("delite-display-load", handler);
+						});
 					}
-				});
-
-				var panel41 = document.getElementById("panel41");
-				var panel42 = document.getElementById("panel42");
-
-				return accordion4.show(panel42, {contentId: "newContent1"}).then(function () {
-					assert(panel42.children.length > 0, "has content");
-					checkUniqueOpenPanel(accordion4, panel42, "Only panel42 should be open");
-				}).then(function () {
-					return accordion4.show(panel41, {contentId: "newContent2"});
-				}).then(function () {
-					assert(panel41.children.length > 0, "has content");
-					checkUniqueOpenPanel(accordion4, panel41, "Only panel41 should be open");
-					accordion4.removeEventListener("delite-display-load", handler);
-				});
+				}
 			}
 		},
-		teardown: function () {
+
+		after: function () {
 			container.parentNode.removeChild(container);
 		},
+
 		afterEach: function () {
 			if (asyncHandler) {
 				asyncHandler.remove();
@@ -398,13 +442,12 @@ define(function (require) {
 		}
 	};
 
-	mix(suite, commonSuite);
-	registerSuite(suite);
+	mix(markupSuite.tests, commonSuite);
+	registerSuite("Accordion: Markup", markupSuite);
 
 	//Programmatic
-	suite = {
-		"name": "Accordion: Programmatic",
-		"setup": function () {
+	var programmaticSuite = {
+		before: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
 			var ac = new Accordion({id: "accordion"});
@@ -457,122 +500,126 @@ define(function (require) {
 			ac3.placeAt(container, "last");
 		},
 
-		"add/remove children": function () {
-			var ac = new Accordion();
-			ac.deliver();
+		tests: {
+			"add/remove children": function () {
+				var ac = new Accordion();
+				ac.deliver();
 
-			var p1 = new Panel({id: "add1", label: "panel 1"});
-			var p2 = new Panel({id: "add2", label: "panel 2"});
-			ac.appendChild(p1);
-			ac.appendChild(p2);
+				var p1 = new Panel({id: "add1", label: "panel 1"});
+				var p2 = new Panel({id: "add2", label: "panel 2"});
+				ac.appendChild(p1);
+				ac.appendChild(p2);
 
-			var childIds1 = Array.prototype.map.call(ac.children, function (child) {
-				return child.id;
-			});
-			assert.deepEqual(childIds1, ["add1-header", "add1", "add2-header", "add2"], "childIds1");
-			assert.deepEqual(ac._panelList, [p1, p2], "_panelList after adds");
+				var childIds1 = Array.prototype.map.call(ac.children, function (child) {
+					return child.id;
+				});
+				assert.deepEqual(childIds1, ["add1-header", "add1", "add2-header", "add2"], "childIds1");
+				assert.deepEqual(ac._panelList, [p1, p2], "_panelList after adds");
 
-			ac.removeChild(p1);
-			var childIds2 = Array.prototype.map.call(ac.children, function (child) {
-				return child.id;
-			});
-			assert.deepEqual(childIds2, ["add2-header", "add2"], "childIds2");
-			assert.deepEqual(ac._panelList, [p2], "_panelList after remove");
-		},
-
-		"Controller": {
-			setup: function () {
-				accordion4 = new Accordion();
-				var p40 = new Panel();
-				accordion4.appendChild(p40);
-				accordion4.style.height = "400px";
-				accordion4.placeAt(container);
+				ac.removeChild(p1);
+				var childIds2 = Array.prototype.map.call(ac.children, function (child) {
+					return child.id;
+				});
+				assert.deepEqual(childIds2, ["add2-header", "add2"], "childIds2");
+				assert.deepEqual(ac._panelList, [p2], "_panelList after remove");
 			},
-			newPanelLoadContent: function () {
-				var handler;
 
-				accordion4.addEventListener("delite-display-load", handler = function (evt) {
-					if (!evt.hide) {
-						evt.setChild(new Promise(function (resolve) {
-							console.log("id: " + evt.dest);
-							// load the data for the specified id, then create a panel with that data
-							loadData(evt.contentId).then(function (data) {
-								var child = new Panel({label: evt.dest, id: evt.dest});
-								evt.setContent(child, data);
-								resolve({child: child});
-							});
-						}));
+			"Controller": {
+				before: function () {
+					accordion4 = new Accordion();
+					var p40 = new Panel();
+					accordion4.appendChild(p40);
+					accordion4.style.height = "400px";
+					accordion4.placeAt(container);
+				},
+
+				tests: {
+					newPanelLoadContent: function () {
+						var handler;
+
+						accordion4.addEventListener("delite-display-load", handler = function (evt) {
+							if (!evt.hide) {
+								evt.setChild(new Promise(function (resolve) {
+									console.log("id: " + evt.dest);
+									// load the data for the specified id, then create a panel with that data
+									loadData(evt.contentId).then(function (data) {
+										var child = new Panel({label: evt.dest, id: evt.dest});
+										evt.setContent(child, data);
+										resolve({child: child});
+									});
+								}));
+							}
+						});
+
+						return accordion4.show("panel41", {contentId: "newContent1"}).then(function () {
+							var panel = document.getElementById("panel41");
+							assert(panel.children.length > 0, "has content");
+							checkUniqueOpenPanel(accordion4, panel, "Only panel41 should be open");
+						}).then(function () {
+							return accordion4.show("panel42", {contentId: "newContent2"});
+						}).then(function () {
+							var panel = document.getElementById("panel42");
+							assert(panel.children.length > 0, "has content");
+							checkUniqueOpenPanel(accordion4, panel, "Only panel42 should be open");
+							accordion4.removeEventListener("delite-display-load", handler);
+						});
 					}
-				});
+				}
+			},
 
-				return accordion4.show("panel41", {contentId: "newContent1"}).then(function () {
-					var panel = document.getElementById("panel41");
-					assert(panel.children.length > 0, "has content");
-					checkUniqueOpenPanel(accordion4, panel, "Only panel41 should be open");
-				}).then(function () {
-					return accordion4.show("panel42", {contentId: "newContent2"});
-				}).then(function () {
-					var panel = document.getElementById("panel42");
-					assert(panel.children.length > 0, "has content");
-					checkUniqueOpenPanel(accordion4, panel, "Only panel42 should be open");
-					accordion4.removeEventListener("delite-display-load", handler);
+			"allowAllClosed": function () {
+				var ac = new Accordion({
+					id: "accordionAllowAllClosed",
+					allowAllClosed: true
 				});
+				ac.style.display = "block; height: auto";	// override flex styling
+				var p1 = new Panel({id: "acPanel1", label: "All Closeable Panel1"});
+				var p2 = new Panel({id: "acPanel2", label: "All Closeable Panel2"});
+				var p3 = new Panel({id: "acPanel3", label: "All Closeable Panel3"});
+				ac.appendChild(p1);
+				ac.appendChild(p2);
+				ac.appendChild(p3);
+				ac.placeAt(container);
+				ac.deliver();
 
+				assert.isFalse(p1.open, "p1.open 1");
+				assert.strictEqual(p1.getAttribute("aria-hidden"), "true", "p1 aria-hidden 3");
+				assert.isFalse(p2.open, "p2.open 1");
+				assert.strictEqual(p2.getAttribute("aria-hidden"), "true", "p2 aria-hidden 3");
+				assert.isFalse(p3.open, "p3.open 1");
+				assert.strictEqual(p3.getAttribute("aria-hidden"), "true", "p3 aria-hidden 3");
+
+				return ac.show(p1).then(function () {
+					assert.isTrue(p1.open, "p1.open 2");
+					assert.strictEqual(p1.getAttribute("aria-hidden"), "false", "p1 aria-hidden 2");
+					assert.isFalse(p2.open, "p2.open 2");
+					assert.strictEqual(p2.getAttribute("aria-hidden"), "true", "p2 aria-hidden 2");
+					assert.isFalse(p3.open, "p3.open 2");
+					assert.strictEqual(p3.getAttribute("aria-hidden"), "true", "p3 aria-hidden 2");
+				}).then(function () {
+					return ac.hide(p1);
+				}).then(function () {
+					assert.isFalse(p1.open, "p1.open 3");
+					assert.strictEqual(p1.getAttribute("aria-hidden"), "true", "p1 aria-hidden 3");
+					assert.isFalse(p2.open, "p2.open 3");
+					assert.strictEqual(p2.getAttribute("aria-hidden"), "true", "p2 aria-hidden 3");
+					assert.isFalse(p3.open, "p3.open 3");
+					assert.strictEqual(p3.getAttribute("aria-hidden"), "true", "p3 aria-hidden 3");
+				});
 			}
 		},
 
-		"allowAllClosed": function () {
-			var ac = new Accordion({
-				id: "accordionAllowAllClosed",
-				allowAllClosed: true
-			});
-			ac.style.display = "block; height: auto";	// override flex styling
-			var p1 = new Panel({id: "acPanel1", label: "All Closeable Panel1"});
-			var p2 = new Panel({id: "acPanel2", label: "All Closeable Panel2"});
-			var p3 = new Panel({id: "acPanel3", label: "All Closeable Panel3"});
-			ac.appendChild(p1);
-			ac.appendChild(p2);
-			ac.appendChild(p3);
-			ac.placeAt(container);
-			ac.deliver();
-
-			assert.isFalse(p1.open, "p1.open 1");
-			assert.strictEqual(p1.getAttribute("aria-hidden"), "true", "p1 aria-hidden 3");
-			assert.isFalse(p2.open, "p2.open 1");
-			assert.strictEqual(p2.getAttribute("aria-hidden"), "true", "p2 aria-hidden 3");
-			assert.isFalse(p3.open, "p3.open 1");
-			assert.strictEqual(p3.getAttribute("aria-hidden"), "true", "p3 aria-hidden 3");
-
-			return ac.show(p1).then(function () {
-				assert.isTrue(p1.open, "p1.open 2");
-				assert.strictEqual(p1.getAttribute("aria-hidden"), "false", "p1 aria-hidden 2");
-				assert.isFalse(p2.open, "p2.open 2");
-				assert.strictEqual(p2.getAttribute("aria-hidden"), "true", "p2 aria-hidden 2");
-				assert.isFalse(p3.open, "p3.open 2");
-				assert.strictEqual(p3.getAttribute("aria-hidden"), "true", "p3 aria-hidden 2");
-			}).then(function () {
-				return ac.hide(p1);
-			}).then(function () {
-				assert.isFalse(p1.open, "p1.open 3");
-				assert.strictEqual(p1.getAttribute("aria-hidden"), "true", "p1 aria-hidden 3");
-				assert.isFalse(p2.open, "p2.open 3");
-				assert.strictEqual(p2.getAttribute("aria-hidden"), "true", "p2 aria-hidden 3");
-				assert.isFalse(p3.open, "p3.open 3");
-				assert.strictEqual(p3.getAttribute("aria-hidden"), "true", "p3 aria-hidden 3");
-			});
-		},
-
-		"teardown": function () {
+		after: function () {
 			container.parentNode.removeChild(container);
 		},
 
-		"afterEach": function () {
+		afterEach: function () {
 			if (asyncHandler) {
 				asyncHandler.remove();
 			}
 		}
 	};
 
-	mix(suite, commonSuite);
-	registerSuite(suite);
+	mix(programmaticSuite.tests, commonSuite);
+	registerSuite("Accordion: programmatic", programmaticSuite);
 });

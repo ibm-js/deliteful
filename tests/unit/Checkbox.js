@@ -1,13 +1,13 @@
 define(function (require) {
 	"use strict";
 
-	var registerSuite = require("intern!object");
-	var assert = require("intern/chai!assert");
+	var registerSuite = intern.getPlugin("interface.object").registerSuite;
+	var assert = intern.getPlugin("chai").assert;
 	var register = require("delite/register");
 	var Checkbox = require("deliteful/Checkbox");
 	var commonSuite = require("./resources/Checkbox-shared");
 
-	function mix (a, b) {
+	function mix(a, b) {
 		for (var n in b) {
 			a[n] = b[n];
 		}
@@ -19,7 +19,7 @@ define(function (require) {
 			"<label id='lbl4' for='cb3-input'>cb3</label>";
 
 	var suite = {
-		setup: function () {
+		before: function () {
 			mix(commonSuite, {
 				baseClass: "d-checkbox",
 				defaultWidget: "cb1",
@@ -27,22 +27,25 @@ define(function (require) {
 				inputType: "checkbox"
 			});
 		},
-		initState: function () {
-			var cb2 = document.getElementById("cb2");
-			assert.strictEqual(cb2.value, "foo",
-				"Unexpected default value for 'value' property if 'value' specified/unchecked");
-			var cb = document.getElementById("cb3");
-			assert.ok(cb.checked, "Unexpected default value for 'checked' property if 'checked' specified.");
+
+		tests: {
+			initState: function () {
+				var cb2 = document.getElementById("cb2");
+				assert.strictEqual(cb2.value, "foo",
+					"Unexpected default value for 'value' property if 'value' specified/unchecked");
+				var cb = document.getElementById("cb3");
+				assert.ok(cb.checked, "Unexpected default value for 'checked' property if 'checked' specified.");
+			}
 		},
+
 		afterEach: function () {
 			container.parentNode.removeChild(container);
 		}
 	};
-	mix(suite, commonSuite.testCases);
+	mix(suite.tests, commonSuite.testCases);
 
 	// Markup
 	var markupSuite = {
-		name: "deliteful/Checkbox: markup",
 		beforeEach: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
@@ -51,10 +54,9 @@ define(function (require) {
 		}
 	};
 	mix(markupSuite, suite);
-	registerSuite(markupSuite);
+	registerSuite("deliteful/Checkbox: markup", markupSuite);
 
-	var progSuite = {
-		name: "deliteful/Checkbox: programmatic",
+	var programmaticSuite = {
 		beforeEach: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
@@ -71,6 +73,6 @@ define(function (require) {
 			cb.placeAt(container);
 		}
 	};
-	mix(progSuite, suite);
-	registerSuite(progSuite);
+	mix(programmaticSuite, suite);
+	registerSuite("deliteful/Checkbox: programmatic", programmaticSuite);
 });

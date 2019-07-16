@@ -1,29 +1,26 @@
 define(function (require) {
 	"use strict";
 
-	var intern = require("intern");
-	var registerSuite = require("intern!object");
-	var pollUntil = require("intern/dojo/node!leadfoot/helpers/pollUntil");
-	var assert = require("intern/chai!assert");
-	var keys = require("intern/dojo/node!leadfoot/keys");
+	var registerSuite = intern.getPlugin("interface.object").registerSuite;
+	var pollUntil = require("@theintern/leadfoot/helpers/pollUntil").default;
+	var assert = intern.getPlugin("chai").assert;
+	var keys = require("@theintern/leadfoot/keys").default;
 
-	function loadFile (remote, url) {
+	function loadFile(remote, fileName) {
 		return remote
-			.get(require.toUrl(url))
+			.get(require.toUrl("deliteful/tests/functional/" + fileName))
 			.then(pollUntil("return ready ? true : null;", [],
 				intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 	}
 
-	registerSuite({
-		"name": "Switch - functional",
-
+	registerSuite("Switch - functional", {
 		"Switch behavior": function () {
 			var remote = this.remote;
-			if (/safari|firefox|selendroid/.test(remote.environmentType.browserName)) {
+			if (/safari|firefox|selendroid/i.test(remote.environmentType.browserName)) {
 				// See https://code.google.com/p/selenium/issues/detail?id=4136
 				return this.skip("moveMouseTo() unsupported");
 			}
-			return loadFile(remote, "./Switch.html")
+			return loadFile(remote, "Switch.html")
 				.findById("sw1")
 				.then(function (element) {
 					return remote.moveMouseTo(element, 60, 9);
@@ -73,7 +70,7 @@ define(function (require) {
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
 			}
-			return loadFile(remote, "./Switch.html")
+			return loadFile(remote, "Switch.html")
 				// keyb nav
 				// give the focus to the button to have a ref starting point in the chain
 				.execute("return document.getElementById('b1').focus();")
@@ -106,7 +103,7 @@ define(function (require) {
 
 		"Switch Form tests": function () {
 			var remote = this.remote;
-			return loadFile(remote, "./Switch.html")
+			return loadFile(remote, "Switch.html")
 				.findById("form1")
 				.submit()
 				.end()
@@ -136,6 +133,7 @@ define(function (require) {
 				.end()
 			;
 		},
+
 		"Switch with disabled attribute": function () {
 			var remote = this.remote;
 
@@ -148,7 +146,7 @@ define(function (require) {
 				return this.skip("click() doesn't generate touchstart/touchend, so Switch won't move");
 			}
 
-			return loadFile(remote, "./Switch.html")
+			return loadFile(remote, "Switch.html")
 
 				// no disabled attribute
 				.execute("return document.getElementById('sw71').checked;")

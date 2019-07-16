@@ -1,12 +1,12 @@
 define(function (require) {
 	"use strict";
 
-	var registerSuite = require("intern!object");
-	var assert = require("intern/chai!assert");
+	var registerSuite = intern.getPlugin("interface.object").registerSuite;
+	var assert = intern.getPlugin("chai").assert;
 	var TimeBase = require("deliteful/TimeBase");
 
 
-	function dateStruct (date) {
+	function dateStruct(date) {
 		return {
 			year: date.getFullYear(),
 			month: date.getMonth(),
@@ -14,7 +14,7 @@ define(function (require) {
 		};
 	}
 
-	function dateTimeStruct (date) {
+	function dateTimeStruct(date) {
 		return {
 			year: date.getFullYear(),
 			month: date.getMonth(),
@@ -27,9 +27,7 @@ define(function (require) {
 
 	var tb = new TimeBase();
 
-	registerSuite({
-		name: "TimeBase",
-
+	registerSuite("TimeBase", {
 		isWeekEnd: function () {
 			assert.isFalse(tb.isWeekEnd(new Date(2017, 1, 3)), "2017-Feb-3");
 			assert.isTrue(tb.isWeekEnd(new Date(2017, 1, 4)), "2017-Feb-4");

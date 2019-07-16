@@ -1,25 +1,22 @@
 define(function (require) {
 	"use strict";
 
-	var intern = require("intern");
-	var registerSuite = require("intern!object");
-	var pollUntil = require("intern/dojo/node!leadfoot/helpers/pollUntil");
-	var assert = require("intern/chai!assert");
-	var keys = require("intern/dojo/node!leadfoot/keys");
+	var registerSuite = intern.getPlugin("interface.object").registerSuite;
+	var pollUntil = require("@theintern/leadfoot/helpers/pollUntil").default;
+	var assert = intern.getPlugin("chai").assert;
+	var keys = require("@theintern/leadfoot/keys").default;
 
-	function loadFile (remote, url) {
+	function loadFile(remote, fileName) {
 		return remote
-			.get(require.toUrl(url))
+			.get(require.toUrl("deliteful/tests/functional/" + fileName))
 			.then(pollUntil("return ready ? true : null;", [],
 				intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 	}
 
-	registerSuite({
-		name: "Checkbox - functional",
-
+	registerSuite("Checkbox - functional", {
 		mouse: function () {
 			var remote = this.remote;
-			return loadFile(remote, "./Checkbox.html")
+			return loadFile(remote, "Checkbox.html")
 				// default click action
 				.execute("return document.getElementById('cb1').checked;").then(function (checked) {
 					assert.isFalse(checked, "cb1 initially unchecked");
@@ -36,7 +33,7 @@ define(function (require) {
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
 			}
-			return loadFile(remote, "./Checkbox.html")
+			return loadFile(remote, "Checkbox.html")
 				.findById("b1").click().end()
 				.getActiveElement().getAttribute("id").then(function (v) {
 					assert.strictEqual(v, "b1", "focused b1");
@@ -60,10 +57,10 @@ define(function (require) {
 			// Form tests
 			//
 			var remote = this.remote;
-			if (/selendroid/.test(remote.environmentType.browserName)) {
+			if (/selendroid/i.test(remote.environmentType.browserName)) {
 				return this.skip();
 			}
-			return loadFile(remote, "./Checkbox.html")
+			return loadFile(remote, "Checkbox.html")
 				.findById("form1").submit().end()
 				.setFindTimeout(intern.config.WAIT_TIMEOUT)
 				.find("id", "parameters").end()	// TODO: shouldn't this be checking something?

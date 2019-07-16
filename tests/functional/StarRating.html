@@ -17,14 +17,14 @@
 		"requirejs-domready/domReady!"
 	], function(register, StarRating){
 
-		increment = function(suffix){
+		increment = function () {
 			if(val == 1){ return; }
 			val += 0.5;
 			document.getElementById("star").value = val;
 			document.getElementById("value").innerHTML = val;
 		};
 
-		decrement = function(suffix){
+		decrement = function () {
 			if(val == 0){ return; }
 			val -= 0.5;
 			document.getElementById("star").value = val;
@@ -95,6 +95,6 @@
 			<span id="disabled-label">Disabled:</span>
 			<d-star-rating id="disabled" max=7 value="3" disabled aria-labelledby="disabled-label"></d-star-rating>
 		</div>
-	</div>	
+	</div>
 </body>
 </html>

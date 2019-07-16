@@ -1,19 +1,20 @@
 define(function (require) {
 	"use strict";
 
-	var registerSuite = require("intern!object");
-	var assert = require("intern/chai!assert");
+	var registerSuite = intern.getPlugin("interface.object").registerSuite;
+	var assert = intern.getPlugin("chai").assert;
 	var Slider = require("deliteful/Slider");
+
 	var msgPrefix = "";
 
-	registerSuite({
-		"name": "Single Slider",
+	registerSuite("Single Slider", {
 		"Default values": function () {
 			msgPrefix = this.id;
 			var slider = createSingleSlider();
 			checkSliderProperties(slider, 0, 100, 1, false, false, "50");
 			destroySlider(slider);
 		},
+
 		"Updating min in bound": function () {
 			msgPrefix = this.id;
 			var slider = createSingleSlider();
@@ -22,6 +23,7 @@ define(function (require) {
 			checkSliderProperties(slider, 20, 100, 1, false, false, "50");
 			destroySlider(slider);
 		},
+
 		"Updating min out of bound": function () {
 			msgPrefix = this.id;
 			var slider = createSingleSlider();
@@ -30,6 +32,7 @@ define(function (require) {
 			checkSliderProperties(slider, 60, 100, 1, false, false, "60");
 			destroySlider(slider);
 		},
+
 		"Updating max in bound": function () {
 			msgPrefix = this.id;
 			var slider = createSingleSlider();
@@ -38,6 +41,7 @@ define(function (require) {
 			checkSliderProperties(slider, 0, 80, 1, false, false, "50");
 			destroySlider(slider);
 		},
+
 		"Updating max out of bound": function () {
 			msgPrefix = this.id;
 			var slider = createSingleSlider();
@@ -46,6 +50,7 @@ define(function (require) {
 			checkSliderProperties(slider, 0, 40, 1, false, false, "40");
 			destroySlider(slider);
 		},
+
 		"Step mismatch": function () {
 			msgPrefix = this.id;
 			var slider = createSingleSlider();
@@ -63,6 +68,7 @@ define(function (require) {
 			checkSliderProperties(slider, 0, 100, 20, false, false, "100");
 			destroySlider(slider);
 		},
+
 		"Value in bound": function () {
 			msgPrefix = this.id;
 			var slider = createSingleSlider();
@@ -74,6 +80,7 @@ define(function (require) {
 			checkSliderProperties(slider, 0, 100, 1, false, false, "90");
 			destroySlider(slider);
 		},
+
 		"Value out of bound": function () {
 			msgPrefix = this.id;
 			var slider = createSingleSlider();
@@ -87,14 +94,14 @@ define(function (require) {
 		}
 	});
 
-	registerSuite({
-		"name": "Dual Slider",
+	registerSuite("Dual Slider", {
 		"Default values": function () {
 			msgPrefix = this.id;
 			var slider = createDualSlider();
 			checkSliderProperties(slider, 0, 100, 1, false, false, "25,75");
 			destroySlider(slider);
 		},
+
 		"Updating min in bound": function () {
 			msgPrefix = this.id;
 			var slider = createDualSlider();
@@ -103,6 +110,7 @@ define(function (require) {
 			checkSliderProperties(slider, 20, 100, 1, false, false, "25,75");
 			destroySlider(slider);
 		},
+
 		"Updating min out of bound": function () {
 			msgPrefix = this.id;
 			var slider = createDualSlider();
@@ -111,6 +119,7 @@ define(function (require) {
 			checkSliderProperties(slider, 50, 100, 1, false, false, "50,75");
 			destroySlider(slider);
 		},
+
 		"Updating max in bound": function () {
 			msgPrefix = this.id;
 			var slider = createDualSlider();
@@ -119,6 +128,7 @@ define(function (require) {
 			checkSliderProperties(slider, 0, 80, 1, false, false, "25,75");
 			destroySlider(slider);
 		},
+
 		"Updating max out of bound": function () {
 			msgPrefix = this.id;
 			var slider = createDualSlider();
@@ -127,6 +137,7 @@ define(function (require) {
 			checkSliderProperties(slider, 0, 60, 1, false, false, "25,60");
 			destroySlider(slider);
 		},
+
 		"Step mismatch": function () {
 			msgPrefix = this.id;
 			var slider = createDualSlider();
@@ -139,6 +150,7 @@ define(function (require) {
 			checkSliderProperties(slider, 0, 100, 20, false, false, "20,100");
 			destroySlider(slider);
 		},
+
 		"Value in bound": function () {
 			msgPrefix = this.id;
 			var slider = createDualSlider();
@@ -150,6 +162,7 @@ define(function (require) {
 			checkSliderProperties(slider, 0, 100, 1, false, false, "60,90");
 			destroySlider(slider);
 		},
+
 		"Value out of bound": function () {
 			msgPrefix = this.id;
 			var slider = createSingleSlider();
@@ -167,6 +180,7 @@ define(function (require) {
 			checkSliderProperties(slider, 0, 100, 1, false, false, "100,100");
 			destroySlider(slider);
 		},
+
 		"Inverted values": function () {
 			msgPrefix = this.id;
 			var slider = createSingleSlider();
@@ -184,6 +198,7 @@ define(function (require) {
 			checkSliderProperties(slider, 0, 100, 1, false, false, "0,100");
 			destroySlider(slider);
 		},
+
 		"Switch from single to dual": function () {
 			var slider = new Slider({}).placeAt(document.body);
 			slider.value = "25,75";
@@ -194,27 +209,27 @@ define(function (require) {
 		}
 	});
 
-	function createSingleSlider () {
+	function createSingleSlider() {
 		var slider = new Slider();
 		slider.placeAt(document.body);
 		return slider;
 	}
-	function createDualSlider () {
+	function createDualSlider() {
 		var slider = new Slider({value: ","});
 		slider.placeAt(document.body);
 		return slider;
 	}
 
-	function destroySlider (slider) {
+	function destroySlider(slider) {
 		slider.destroy();
 		slider = null;
 	}
 
-	function assertMessage (message) {
+	function assertMessage(message) {
 		return "[" + msgPrefix + "] " + message;
 	}
 
-	function checkSliderProperties (slider, min, max, step, flip, vertical, value) {
+	function checkSliderProperties(slider, min, max, step, flip, vertical, value) {
 		// public attribute:min
 		assert.strictEqual(slider.min, min, assertMessage("min"));
 		// public attribute:max

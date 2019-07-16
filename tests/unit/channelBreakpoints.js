@@ -1,12 +1,10 @@
-define(function (require) {
+define(function () {
 	"use strict";
 
-	var registerSuite = require("intern!object");
-	var assert = require("intern/chai!assert");
+	var registerSuite = intern.getPlugin("interface.object").registerSuite;
+	var assert = intern.getPlugin("chai").assert;
 
-	registerSuite({
-		"name": "deliteful/channelBreakpoints",
-
+	registerSuite("deliteful/channelBreakpoints", {
 		"default values": function () {
 			var dfd = this.async();
 

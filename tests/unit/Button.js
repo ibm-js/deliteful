@@ -1,16 +1,10 @@
 define(function (require) {
 	"use strict";
 
-	var registerSuite = require("intern!object");
-	var assert = require("intern/chai!assert");
+	var registerSuite = intern.getPlugin("interface.object").registerSuite;
+	var assert = intern.getPlugin("chai").assert;
 	var register = require("delite/register");
 	var Button = require("deliteful/Button");
-
-	function mix (a, b) {
-		for (var n in b) {
-			a[n] = b[n];
-		}
-	}
 
 	var container, html = "<d-button id='b1'>b1</d-button>" +
 		"<d-button id='b3' iconClass='ic1'>b3</d-button>" +
@@ -146,28 +140,25 @@ define(function (require) {
 			b.label = "off";
 			b.deliver();
 			assert.strictEqual(b.getAttribute("aria-label"), "off", "b6.aria-label on label change");
-		},
-
-		"afterEach": function () {
-			container.parentNode.removeChild(container);
 		}
 	};
 
-	// Markup
-	var suite = {
-		name: "deliteful/Button: markup",
+	registerSuite("deliteful/Button: markup", {
 		beforeEach: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
 			container.innerHTML = html;
 			register.deliver();
-		}
-	};
-	mix(suite, commonSuite);
-	registerSuite(suite);
+		},
 
-	suite = {
-		name: "deliteful/Button: programmatic",
+		tests: commonSuite,
+
+		afterEach: function () {
+			container.parentNode.removeChild(container);
+		}
+	});
+
+	registerSuite("deliteful/Button: programmatic", {
 		beforeEach: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
@@ -185,8 +176,12 @@ define(function (require) {
 			b.placeAt(container);
 			b = new Button({id: "b8", label: "on", title: "alternative title"});
 			b.placeAt(container);
+		},
+
+		tests: commonSuite,
+
+		afterEach: function () {
+			container.parentNode.removeChild(container);
 		}
-	};
-	mix(suite, commonSuite);
-	registerSuite(suite);
+	});
 });

@@ -1,89 +1,96 @@
 define(function (require) {
 	"use strict";
 
-	var intern = require("intern");
-	var registerSuite = require("intern!object");
-	var pollUntil = require("intern/dojo/node!leadfoot/helpers/pollUntil");
-	var assert = require("intern/chai!assert");
-	registerSuite({
-		"name": "SidePane",
-		"init": function () {
-			var remote = this.remote;
-			return loadTestPage(remote, "./SidePane.html").sleep(50);
-		},
-		"test initial state": function () {
-			var remote = this.remote;
-			var element = remote.findById("sp");
-			var test = element.getAttribute("class").then(function (classString) {
-				checkCssClasses(classString, "d-side-pane", "-d-side-pane-push", "-d-side-pane-start",
-					"-d-side-pane-hidden", "-d-side-pane-animate");
-			});
-			test = test.then(isVisible(element, false));
+	var registerSuite = intern.getPlugin("interface.object").registerSuite;
+	var pollUntil = require("@theintern/leadfoot/helpers/pollUntil").default;
+	var assert = intern.getPlugin("chai").assert;
 
-			return test;
-		},
-		"test opening": function () {
-			if (/safari/.test(this.remote.environmentType.browserName)
-				|| this.remote.environmentType.safari) {
-				return this.skip("Interactions tests are broken on Mac and iOS simulators. See #25");
-			}
-			return this.remote.findById("showButton").click().end()
-				.sleep(800)
-				.then(isVisible(this.remote.findById("sp"), true));
-		},
-		"test closing": function () {
-			if (/safari/.test(this.remote.environmentType.browserName)
-				|| this.remote.environmentType.safari) {
-				return this.skip("Interactions tests are broken on Mac and iOS simulators. See #25");
-			}
-			return this.remote.findById("hideButton").click().end()
-				.sleep(800)
-				.then(isVisible(this.remote.findById("sp"), false));
-		}/*,
-		"test swipe closing": function () {
-			if (/safari/.test(this.remote.environmentType.browserName)
-				|| this.remote.environmentType.safari) {
-				return this.skip("Interactions tests are broken on Mac and iOS simulators. See #25");
-			}
-			return this.remote.findById("showButton").click().end().sleep(800)
-				.findById("page").moveMouseTo(30, 300).pressMouseButton().moveMouseTo(10, 300)
-				.sleep(800)
-				.then(isVisible(this.remote.findById("sp"), false));
-		}*/
-	});
-
-	function checkCssClasses (classString, args) {
-		args = Array.prototype.slice.call(arguments);
-		args.shift();
-		var nodeClasses = classString.split(" ");
-		var cls;
-		while (args.length > 0) {
-			cls = args.shift();
-			assert.isTrue(nodeClasses.indexOf(cls) !== -1,
-				"SidePane should contains the class " + cls);
-		}
-	}
-
-	function isVisible (element, v) {
-		var errMsg = "SidePane should be" + (v ? " " : " not ") + "visible";
-		element.getComputedStyle("display").then(function (value) {
-			assert.isTrue(value === (v ? "block" : "none"), errMsg);
-		});
-		element.getComputedStyle("visibility").then(function (value) {
-			assert.isTrue(value === (v ? "visible" : "hidden"), errMsg);
-		});
-		element.getAttribute("class").then(function (classString) {
-			checkCssClasses(classString, v ? "-d-side-pane-visible" : "-d-side-pane-hidden");
-		});
-	}
-
-	function loadTestPage (remote, url) {
+	function loadFile(remote, fileName) {
 		return remote
-			.get(require.toUrl(url))
+			.get(require.toUrl("deliteful/tests/functional/" + fileName))
 			.then(pollUntil("return ('ready' in window &&  ready) ? true : null", [],
-				intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
-			.then(function () {
-				return remote.end();
-			});
+				intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 	}
+
+	function checkCssClasses(classString /*,  expected_class ... */) {
+		var nodeClasses = classString.split(" ");
+		var expectedClasses = Array.prototype.slice.call(arguments, 1);
+		expectedClasses.forEach(function (cls) {
+			assert(nodeClasses.indexOf(cls) >= 0, "SidePane class " + classString + " should contain " + cls);
+		});
+	}
+
+	function isVisible(remote, v) {
+		var errMsg = "SidePane should be" + (v ? " " : " not ") + "visible";
+		return remote.findById("sp")
+			.getComputedStyle("display").then(function (value) {
+				assert.strictEqual(value, (v ? "block" : "none"), errMsg);
+			}).getComputedStyle("visibility").then(function (value) {
+				assert.strictEqual(value, (v ? "visible" : "hidden"), errMsg);
+			}).getAttribute("class").then(function (classString) {
+				checkCssClasses(classString, v ? "-d-side-pane-visible" : "-d-side-pane-hidden");
+			}).end();
+	}
+
+	registerSuite("SidePane", {
+		before: function () {
+			return loadFile(this.remote, "SidePane.html");
+		},
+
+		tests: {
+			"test initial state": function () {
+				var remote = this.remote;
+				return this.remote.findById("sp").getAttribute("class").then(function (classString) {
+					checkCssClasses(classString, "d-side-pane", "-d-side-pane-push", "-d-side-pane-start",
+						"-d-side-pane-hidden", "-d-side-pane-animate");
+				}).end()
+				.then(function () {
+					return isVisible(remote, false);
+				});
+			},
+
+			"test opening": function () {
+				if (/safari/i.test(this.remote.environmentType.browserName)
+					|| this.remote.environmentType.safari) {
+					return this.skip("Interactions tests are broken on Mac and iOS simulators. See #25");
+				}
+
+				var remote = this.remote;
+				return this.remote.findById("showButton").click().end()
+					.sleep(800)
+					.then(function () {
+						return isVisible(remote, true);
+					}).end();
+			},
+
+			"test closing": function () {
+				if (/safari/i.test(this.remote.environmentType.browserName)
+					|| this.remote.environmentType.safari) {
+					return this.skip("Interactions tests are broken on Mac and iOS simulators. See #25");
+				}
+
+				var remote = this.remote;
+				return this.remote.findById("hideButton").click().end()
+					.sleep(800)
+					.then(function () {
+						return isVisible(remote, false);
+					}).end();
+			}/*,
+
+			"test swipe closing": function () {
+				if (/safari/i.test(this.remote.environmentType.browserName)
+					|| this.remote.environmentType.safari) {
+					return this.skip("Interactions tests are broken on Mac and iOS simulators. See #25");
+				}
+
+				var remote = this.remote;
+				return this.remote.findById("showButton").click().end().sleep(800)
+					.findById("page").moveMouseTo(30, 300).pressMouseButton().moveMouseTo(10, 300)
+					.sleep(800)
+					.then(function () {
+						return isVisible(remote, false);
+					});
+			}*/
+		}
+	});
 });

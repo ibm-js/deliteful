@@ -1,8 +1,8 @@
 define(function (require) {
 	"use strict";
 
-	var registerSuite = require("intern!object");
-	var assert = require("intern/chai!assert");
+	var registerSuite = intern.getPlugin("interface.object").registerSuite;
+	var assert = intern.getPlugin("chai").assert;
 	var List = require("deliteful/list/List");
 	var Memory = require("dstore/Memory");
 	var Trackable = require("dstore/Trackable");
@@ -221,13 +221,13 @@ define(function (require) {
 			}
 			list.selectionMode = "single";
 			list.deliver();
-			assert.isTrue(list.containerNode.className.indexOf("d-selectable") >= 0, "d-selectable class");
-			assert.isTrue(list.containerNode.className.indexOf("d-multiselectable") === -1,
+			assert(list.containerNode.className.indexOf("d-selectable") >= 0, "d-selectable class");
+			assert(list.containerNode.className.indexOf("d-multiselectable") === -1,
 				"d-multiselectable class");
 			assert.isFalse(list.containerNode.hasAttribute("aria-multiselectable"),
 				"no aria-multiselectable attribute expected");
 			var firstItem = list.containerNode.children[0];
-			assert.isTrue(firstItem.className.indexOf("d-selected") === -1, "no d-selected class expected");
+			assert(firstItem.className.indexOf("d-selected") === -1, "no d-selected class expected");
 			assert.strictEqual(firstItem.renderNode.getAttribute("aria-selected"), "false",
 				"no aria-selected attribute 'false' expected on first item");
 
@@ -235,7 +235,7 @@ define(function (require) {
 			firstItem.emit("keydown", {key: "Spacebar"});
 			firstItem.emit("keyup", {key: "Spacebar"});
 
-			assert.isTrue(firstItem.className.indexOf("d-selected") >= 0, "d-selected class expected");
+			assert(firstItem.className.indexOf("d-selected") >= 0, "d-selected class expected");
 			assert.strictEqual(firstItem.renderNode.getAttribute("aria-selected"), "true",
 				"aria-selected attribute 'true' expected on first item after selection");
 		},
@@ -246,13 +246,13 @@ define(function (require) {
 			}
 			list.selectionMode = "radio";
 			list.deliver();
-			assert.isTrue(list.containerNode.className.indexOf("d-selectable") >= 0, "d-selectable class");
-			assert.isTrue(list.containerNode.className.indexOf("d-multiselectable") === -1,
+			assert(list.containerNode.className.indexOf("d-selectable") >= 0, "d-selectable class");
+			assert(list.containerNode.className.indexOf("d-multiselectable") === -1,
 				"d-multiselectable class");
 			assert.isFalse(list.hasAttribute("aria-multiselectable"),
 				"no aria-multiselectable attribute expected");
 			var firstItem = list.containerNode.children[0];
-			assert.isTrue(firstItem.className.indexOf("d-selected") === -1, "no d-selected class expected");
+			assert(firstItem.className.indexOf("d-selected") === -1, "no d-selected class expected");
 			assert.strictEqual(firstItem.renderNode.getAttribute("aria-selected"), "false",
 				"no aria-selected attribute 'false' expected on first item");
 
@@ -260,7 +260,7 @@ define(function (require) {
 			firstItem.emit("keydown", {key: "Spacebar"});
 			firstItem.emit("keyup", {key: "Spacebar"});
 
-			assert.isTrue(firstItem.className.indexOf("d-selected") >= 0, "d-selected class expected");
+			assert(firstItem.className.indexOf("d-selected") >= 0, "d-selected class expected");
 			assert.strictEqual(firstItem.renderNode.getAttribute("aria-selected"), "true",
 				"aria-selected attribute 'true' expected on first item after selection");
 		},
@@ -272,13 +272,13 @@ define(function (require) {
 				}
 				list.selectionMode = "multiple";
 				list.deliver();
-				assert.isTrue(list.containerNode.className.indexOf("d-selectable") === -1, "d-selectable class");
-				assert.isTrue(list.containerNode.className.indexOf("d-multiselectable") >= 0,
+				assert(list.containerNode.className.indexOf("d-selectable") === -1, "d-selectable class");
+				assert(list.containerNode.className.indexOf("d-multiselectable") >= 0,
 					"d-multiselectable class");
 				assert.strictEqual(list.containerNode.getAttribute("aria-multiselectable"), "true",
 					"aria-multiselectable attribute expected");
 				var firstItem = list.containerNode.children[0];
-				assert.isTrue(firstItem.className.indexOf("d-selected") === -1, "no d-selected class expected");
+				assert(firstItem.className.indexOf("d-selected") === -1, "no d-selected class expected");
 				assert.strictEqual(firstItem.renderNode.getAttribute("aria-selected"), "false",
 					"aria-selected attribute expected on first item");
 
@@ -286,16 +286,14 @@ define(function (require) {
 				firstItem.emit("keydown", {key: "Spacebar"});
 				firstItem.emit("keyup", {key: "Spacebar"});
 
-				assert.isTrue(firstItem.className.indexOf("d-selected") >= 0, "d-selected class expected");
+				assert(firstItem.className.indexOf("d-selected") >= 0, "d-selected class expected");
 				assert.strictEqual(firstItem.renderNode.getAttribute("aria-selected"), "true",
 					"aria-selected attribute expected on first item after selection");
 			}
 	};
 
-	registerSuite({
-		"name": "list/Selection",
-
-		"beforeEach": function () {
+	registerSuite("list/Selection", {
+		beforeEach: function () {
 			if (list) {
 				list.destroy();
 			}
@@ -309,186 +307,188 @@ define(function (require) {
 			list.deliver();
 		},
 
-		"aria listbox with selectionMode 'multiple'": function () {
-			testHelper["selectionMode 'multiple'"](true);
+		tests: {
+			"aria listbox with selectionMode 'multiple'": function () {
+				testHelper["selectionMode 'multiple'"](true);
+			},
+
+			"selectionMode 'multiple'": function () {
+				testHelper["selectionMode 'multiple'"]();
+			},
+
+			"aria listbox with selectionMode 'single'": function () {
+				testHelper["selectionMode 'single'"](true);
+			},
+
+			"selectionMode 'single'": function () {
+				testHelper["selectionMode 'single'"]();
+			},
+
+			"aria listbox with selectionMode 'radio'": function () {
+				testHelper["selectionMode 'radio'"](true);
+			},
+
+			"selectionMode 'radio'": function () {
+				testHelper["selectionMode 'radio'"]();
+			},
+
+			"selectionMode 'none'": function () {
+				var selectionChangeEvent = null;
+				var firstItem = list.containerNode.children[0];
+				list.selectionMode = "none";
+				list.deliver();
+				list.on("selection-change", function (event) {
+					selectionChangeEvent = event;
+				});
+				assert.strictEqual(firstItem.className, "d-list-item");
+
+				// Selection event on first item (no effect)
+				firstItem.emit("keydown", {key: "Spacebar"});
+				firstItem.emit("keyup", {key: "Spacebar"});
+
+				assert.isNull(selectionChangeEvent);
+				assert.strictEqual(firstItem.className, "d-list-item");
+			},
+
+			"revert selection to 'none' clears selection": function () {
+				list.selectionMode = "multiple";
+				list.deliver();
+				list.setSelected(list.getItemRendererByIndex(0).item, true);
+				list.setSelected(list.getItemRendererByIndex(1).item, true);
+				assert.deepEqual(list.selectedItems,
+					[list.getItemRendererByIndex(1).item, list.getItemRendererByIndex(0).item]);
+				list.selectionMode = "none";
+				list.deliver();
+				assert.deepEqual(list.selectedItems, []);
+			},
+
+			"aria listbox delete selected item": function () {
+				testHelper["delete selected item"](true);
+			},
+
+			"delete selected item": function () {
+				testHelper["delete selected item"]();
+			},
+
+			"aria listbox move selected item": function () {
+				testHelper["move selected item"](true);
+			},
+
+			"move selected item": function () {
+				testHelper["move selected item"]();
+			},
+
+			"aria listbox aria properties and classes when selection mode is single": function () {
+				testHelper["aria properties and classes when selection mode is single"](true);
+			},
+
+			"aria properties and classes when selection mode is single": function () {
+				testHelper["aria properties and classes when selection mode is single"]();
+			},
+
+			"aria listbox aria properties and classes when selection mode is radio": function () {
+				testHelper["aria properties and classes when selection mode is radio"](true);
+			},
+
+			"aria properties and classes when selection mode is radio": function () {
+				testHelper["aria properties and classes when selection mode is radio"]();
+			},
+
+			"aria listbox aria properties and classes when selection mode is multiple": function () {
+				testHelper["aria properties and classes when selection mode is multiple"](true);
+			},
+
+			"aria properties and classes when selection mode is multiple": function () {
+				testHelper["aria properties and classes when selection mode is multiple"]();
+			},
+
+			"aria properties and classes when selection mode is none": function () {
+				list.selectionMode = "none";
+				list.deliver();
+				assert(list.containerNode.className.indexOf("d-selectable") === -1, "d-selectable class");
+				assert(list.containerNode.className.indexOf("d-multiselectable") === -1, "d-multiselectable class");
+				var firstItem = list.containerNode.children[0];
+				assert(firstItem.className.indexOf("d-selected") === -1, "no d-selected class expected");
+			},
+
+			"aria properties and classes updated when selection mode is changed": function () {
+				list.selectionMode = "single";
+				list.deliver();
+				var firstItem = list.containerNode.children[0];
+
+				// select first item
+				firstItem.emit("keydown", {key: "Spacebar"});
+				firstItem.emit("keyup", {key: "Spacebar"});
+
+				// list
+				assert.isFalse(list.containerNode.hasAttribute("aria-multiselectable"),
+					"A: no aria-multiselectable attribute expected");
+				assert(list.containerNode.className.indexOf("d-multiselectable") === -1,
+					"A: d-multiselectable class");
+				assert(list.containerNode.className.indexOf("d-selectable") >= 0, "A: d-selectable class");
+				// first item
+				assert.strictEqual(firstItem.renderNode.getAttribute("aria-selected"), "true",
+					"A: aria-selected attribute expected on first item");
+				assert(firstItem.className.indexOf("d-selected") >= 0, "A: d-selected class on first item");
+				// second item
+				assert.strictEqual(list.containerNode.children[1].renderNode.getAttribute("aria-selected"), "false",
+					"A: aria-selected 'false' expected on second item");
+				assert(list.containerNode.children[1].className.indexOf("d-selected") === -1,
+					"A: no d-selected class on second item");
+				// third item
+				assert.strictEqual(list.containerNode.children[2].renderNode.getAttribute("aria-selected"), "false",
+					"A: aria-selected 'false' expected on third item");
+				assert(list.containerNode.children[2].className.indexOf("d-selected") === -1,
+					"A: no d-selected class on third item");
+				list.selectionMode = "multiple";
+				list.deliver();
+				// list
+				assert(list.containerNode.hasAttribute("aria-multiselectable"),
+					"B: aria-multiselectable attribute expected");
+				assert(list.containerNode.className.indexOf("d-multiselectable") >= 0, "B: d-multiselectable class");
+				assert(list.containerNode.className.indexOf("d-selectable") === -1, "B: d-selectable class");
+				// first item
+				assert.strictEqual(list.containerNode.children[0].renderNode.getAttribute("aria-selected"), "true",
+					"B: aria-selected attribute expected on first item");
+				assert(list.containerNode.children[0].className.indexOf("d-selected") >= 0,
+					"B: d-selected class on first item");
+				// second item
+				assert.strictEqual(list.containerNode.children[1].renderNode.getAttribute("aria-selected"), "false",
+					"B: aria-selected attribute expected on second item");
+				assert(list.containerNode.children[1].className.indexOf("d-selected") === -1,
+					"B: d-selected class on second item");
+				// third item
+				assert.strictEqual(list.containerNode.children[2].renderNode.getAttribute("aria-selected"), "false",
+					"B: aria-selected attribute expected on third item");
+				assert(list.containerNode.children[2].className.indexOf("d-selected") === -1,
+					"B: d-selected class on third item");
+				list.selectionMode = "none";
+				list.deliver();
+				// list
+				assert.isFalse(list.containerNode.hasAttribute("aria-multiselectable"),
+					"C: no aria-multiselectable attribute expected");
+				assert(list.containerNode.className.indexOf("d-multiselectable") === -1,
+					"C: d-multiselectable class");
+				assert(list.containerNode.className.indexOf("d-selectable") === -1, "C: d-selectable class");
+				// first item
+				assert.isFalse(list.containerNode.children[0].renderNode.hasAttribute("aria-selected"),
+					"C: no aria-selected attribute expected on first item");
+				assert(list.containerNode.children[0].className.indexOf("d-selected") === -1,
+					"C: d-selected class on first item");
+				// second item
+				assert.isFalse(list.containerNode.children[1].renderNode.hasAttribute("aria-selected"),
+					"C: no aria-selected attribute expected on second item");
+				assert(list.containerNode.children[1].className.indexOf("d-selected") === -1,
+					"C: d-selected class on second item");
+				// third item
+				assert.isFalse(list.containerNode.children[2].renderNode.hasAttribute("aria-selected"),
+					"C: no aria-selected attribute expected on third item");
+				assert(list.containerNode.children[2].className.indexOf("d-selected") === -1,
+					"C: d-selected class on third item");
+			}
 		},
 
-		"selectionMode 'multiple'": function () {
-			testHelper["selectionMode 'multiple'"]();
-		},
-
-		"aria listbox with selectionMode 'single'": function () {
-			testHelper["selectionMode 'single'"](true);
-		},
-
-		"selectionMode 'single'": function () {
-			testHelper["selectionMode 'single'"]();
-		},
-
-		"aria listbox with selectionMode 'radio'": function () {
-			testHelper["selectionMode 'radio'"](true);
-		},
-
-		"selectionMode 'radio'": function () {
-			testHelper["selectionMode 'radio'"]();
-		},
-
-		"selectionMode 'none'": function () {
-			var selectionChangeEvent = null;
-			var firstItem = list.containerNode.children[0];
-			list.selectionMode = "none";
-			list.deliver();
-			list.on("selection-change", function (event) {
-				selectionChangeEvent = event;
-			});
-			assert.strictEqual(firstItem.className, "d-list-item");
-
-			// Selection event on first item (no effect)
-			firstItem.emit("keydown", {key: "Spacebar"});
-			firstItem.emit("keyup", {key: "Spacebar"});
-
-			assert.isNull(selectionChangeEvent);
-			assert.strictEqual(firstItem.className, "d-list-item");
-		},
-
-		"revert selection to 'none' clears selection": function () {
-			list.selectionMode = "multiple";
-			list.deliver();
-			list.setSelected(list.getItemRendererByIndex(0).item, true);
-			list.setSelected(list.getItemRendererByIndex(1).item, true);
-			assert.deepEqual(list.selectedItems,
-				[list.getItemRendererByIndex(1).item, list.getItemRendererByIndex(0).item]);
-			list.selectionMode = "none";
-			list.deliver();
-			assert.deepEqual(list.selectedItems, []);
-		},
-
-		"aria listbox delete selected item": function () {
-			testHelper["delete selected item"](true);
-		},
-
-		"delete selected item": function () {
-			testHelper["delete selected item"]();
-		},
-
-		"aria listbox move selected item": function () {
-			testHelper["move selected item"](true);
-		},
-
-		"move selected item": function () {
-			testHelper["move selected item"]();
-		},
-
-		"aria listbox aria properties and classes when selection mode is single": function () {
-			testHelper["aria properties and classes when selection mode is single"](true);
-		},
-
-		"aria properties and classes when selection mode is single": function () {
-			testHelper["aria properties and classes when selection mode is single"]();
-		},
-
-		"aria listbox aria properties and classes when selection mode is radio": function () {
-			testHelper["aria properties and classes when selection mode is radio"](true);
-		},
-
-		"aria properties and classes when selection mode is radio": function () {
-			testHelper["aria properties and classes when selection mode is radio"]();
-		},
-
-		"aria listbox aria properties and classes when selection mode is multiple": function () {
-			testHelper["aria properties and classes when selection mode is multiple"](true);
-		},
-
-		"aria properties and classes when selection mode is multiple": function () {
-			testHelper["aria properties and classes when selection mode is multiple"]();
-		},
-
-		"aria properties and classes when selection mode is none": function () {
-			list.selectionMode = "none";
-			list.deliver();
-			assert.isTrue(list.containerNode.className.indexOf("d-selectable") === -1, "d-selectable class");
-			assert.isTrue(list.containerNode.className.indexOf("d-multiselectable") === -1, "d-multiselectable class");
-			var firstItem = list.containerNode.children[0];
-			assert.isTrue(firstItem.className.indexOf("d-selected") === -1, "no d-selected class expected");
-		},
-
-		"aria properties and classes updated when selection mode is changed": function () {
-			list.selectionMode = "single";
-			list.deliver();
-			var firstItem = list.containerNode.children[0];
-
-			// select first item
-			firstItem.emit("keydown", {key: "Spacebar"});
-			firstItem.emit("keyup", {key: "Spacebar"});
-
-			// list
-			assert.isFalse(list.containerNode.hasAttribute("aria-multiselectable"),
-				"A: no aria-multiselectable attribute expected");
-			assert.isTrue(list.containerNode.className.indexOf("d-multiselectable") === -1,
-				"A: d-multiselectable class");
-			assert.isTrue(list.containerNode.className.indexOf("d-selectable") >= 0, "A: d-selectable class");
-			// first item
-			assert.strictEqual(firstItem.renderNode.getAttribute("aria-selected"), "true",
-				"A: aria-selected attribute expected on first item");
-			assert.isTrue(firstItem.className.indexOf("d-selected") >= 0, "A: d-selected class on first item");
-			// second item
-			assert.strictEqual(list.containerNode.children[1].renderNode.getAttribute("aria-selected"), "false",
-				"A: aria-selected 'false' expected on second item");
-			assert.isTrue(list.containerNode.children[1].className.indexOf("d-selected") === -1,
-				"A: no d-selected class on second item");
-			// third item
-			assert.strictEqual(list.containerNode.children[2].renderNode.getAttribute("aria-selected"), "false",
-				"A: aria-selected 'false' expected on third item");
-			assert.isTrue(list.containerNode.children[2].className.indexOf("d-selected") === -1,
-				"A: no d-selected class on third item");
-			list.selectionMode = "multiple";
-			list.deliver();
-			// list
-			assert.isTrue(list.containerNode.hasAttribute("aria-multiselectable"),
-				"B: aria-multiselectable attribute expected");
-			assert.isTrue(list.containerNode.className.indexOf("d-multiselectable") >= 0, "B: d-multiselectable class");
-			assert.isTrue(list.containerNode.className.indexOf("d-selectable") === -1, "B: d-selectable class");
-			// first item
-			assert.strictEqual(list.containerNode.children[0].renderNode.getAttribute("aria-selected"), "true",
-				"B: aria-selected attribute expected on first item");
-			assert.isTrue(list.containerNode.children[0].className.indexOf("d-selected") >= 0,
-				"B: d-selected class on first item");
-			// second item
-			assert.strictEqual(list.containerNode.children[1].renderNode.getAttribute("aria-selected"), "false",
-				"B: aria-selected attribute expected on second item");
-			assert.isTrue(list.containerNode.children[1].className.indexOf("d-selected") === -1,
-				"B: d-selected class on second item");
-			// third item
-			assert.strictEqual(list.containerNode.children[2].renderNode.getAttribute("aria-selected"), "false",
-				"B: aria-selected attribute expected on third item");
-			assert.isTrue(list.containerNode.children[2].className.indexOf("d-selected") === -1,
-				"B: d-selected class on third item");
-			list.selectionMode = "none";
-			list.deliver();
-			// list
-			assert.isFalse(list.containerNode.hasAttribute("aria-multiselectable"),
-				"C: no aria-multiselectable attribute expected");
-			assert.isTrue(list.containerNode.className.indexOf("d-multiselectable") === -1,
-				"C: d-multiselectable class");
-			assert.isTrue(list.containerNode.className.indexOf("d-selectable") === -1, "C: d-selectable class");
-			// first item
-			assert.isFalse(list.containerNode.children[0].renderNode.hasAttribute("aria-selected"),
-				"C: no aria-selected attribute expected on first item");
-			assert.isTrue(list.containerNode.children[0].className.indexOf("d-selected") === -1,
-				"C: d-selected class on first item");
-			// second item
-			assert.isFalse(list.containerNode.children[1].renderNode.hasAttribute("aria-selected"),
-				"C: no aria-selected attribute expected on second item");
-			assert.isTrue(list.containerNode.children[1].className.indexOf("d-selected") === -1,
-				"C: d-selected class on second item");
-			// third item
-			assert.isFalse(list.containerNode.children[2].renderNode.hasAttribute("aria-selected"),
-				"C: no aria-selected attribute expected on third item");
-			assert.isTrue(list.containerNode.children[2].className.indexOf("d-selected") === -1,
-				"C: d-selected class on third item");
-		},
-
-		"teardown": function () {
+		after: function () {
 			if (list) {
 				list.destroy();
 			}

@@ -1,12 +1,12 @@
 define(function (require) {
 	"use strict";
 
-	var registerSuite = require("intern!object");
-	var assert = require("intern/chai!assert");
+	var registerSuite = intern.getPlugin("interface.object").registerSuite;
+	var assert = intern.getPlugin("chai").assert;
 	var ResponsiveColumns = require("deliteful/ResponsiveColumns");
 	var container;
 
-	function testLayout (element, origTargetSize, tolerance, targetClass) {
+	function testLayout(element, origTargetSize, tolerance, targetClass) {
 		var elementStyle = function (key) {
 			if (key === "flex") {
 				var flexAttrs = ["-webkit-box-flex", "-moz-box-flex", "-webkit-flex", "-ms-flex", "flex"];
@@ -47,9 +47,8 @@ define(function (require) {
 		}
 	}
 
-	registerSuite({
-		"name": "ResponsiveColumns",
-		"setup": function () {
+	registerSuite("ResponsiveColumns", {
+		before: function () {
 			var nospace = document.createElement("style");
 			nospace.innerHTML = "*{padding: 0; margin: 0}";
 			window.document.body.appendChild(nospace);
@@ -77,80 +76,84 @@ define(function (require) {
 			container.placeAt(window.document.body);
 		},
 
-		"Media Query Test 1": function () {
-			var iw = window.innerWidth;
-			var targetClass, w1, w2, w3;
-			if (iw < 500) {
-				targetClass = "small";
-				w1 = "100%";
-				w2 = "hidden";
-				w3 = "hidden";
-			} else if (iw < 900) {
-				targetClass = "medium";
-				w1 = "200px";
-				w2 = "fill";
-				w3 = "hidden";
-			} else {
-				targetClass = "large";
-				w1 = "10%";
-				w2 = "30%";
-				w3 = "60%";
+		tests: {
+			"Media Query Test 1": function () {
+				var iw = window.innerWidth;
+				var targetClass, w1, w2, w3;
+				if (iw < 500) {
+					targetClass = "small";
+					w1 = "100%";
+					w2 = "hidden";
+					w3 = "hidden";
+				} else if (iw < 900) {
+					targetClass = "medium";
+					w1 = "200px";
+					w2 = "fill";
+					w3 = "hidden";
+				} else {
+					targetClass = "large";
+					w1 = "10%";
+					w2 = "30%";
+					w3 = "60%";
+				}
+				console.log("targetClass =" + targetClass + " w1=" + w1 + " w2=" + w2 + " w3=" + w3);
+				assert.strictEqual(container.screenClass, targetClass);
+				var children = container.getChildren();
+				testLayout(children[0], w1, 3, targetClass);
+			},
+
+			"Media Query Test 2": function () {
+				var iw = window.innerWidth;
+				var targetClass, w1, w2, w3;
+				if (iw < 500) {
+					targetClass = "small";
+					w1 = "100%";
+					w2 = "hidden";
+					w3 = "hidden";
+				} else if (iw < 900) {
+					targetClass = "medium";
+					w1 = "200px";
+					w2 = "fill";
+					w3 = "hidden";
+				} else {
+					targetClass = "large";
+					w1 = "10%";
+					w2 = "30%";
+					w3 = "60%";
+				}
+				console.log("targetClass =" + targetClass + " w1=" + w1 + " w2=" + w2 + " w3=" + w3);
+				assert.strictEqual(container.screenClass, targetClass);
+				var children = container.getChildren();
+				testLayout(children[1], w2, 7, targetClass);
+			},
+
+			"Media Query Test 3": function () {
+				var iw = window.innerWidth;
+				var targetClass, w1, w2, w3;
+				if (iw < 500) {
+					targetClass = "small";
+					w1 = "100%";
+					w2 = "hidden";
+					w3 = "hidden";
+				} else if (iw < 900) {
+					targetClass = "medium";
+					w1 = "200px";
+					w2 = "fill";
+					w3 = "hidden";
+				} else {
+					targetClass = "large";
+					w1 = "10%";
+					w2 = "30%";
+					w3 = "60%";
+				}
+				console.log("targetClass =" + targetClass + " w1=" + w1 + " w2=" + w2 + " w3=" + w3);
+				assert.strictEqual(container.screenClass, targetClass);
+				var children = container.getChildren();
+				testLayout(children[2], w3, 12, targetClass);
 			}
-			console.log("targetClass =" + targetClass + " w1=" + w1 + " w2=" + w2 + " w3=" + w3);
-			assert.strictEqual(container.screenClass, targetClass);
-			var children = container.getChildren();
-			testLayout(children[0], w1, 3, targetClass);
-		},
-		"Media Query Test 2": function () {
-			var iw = window.innerWidth;
-			var targetClass, w1, w2, w3;
-			if (iw < 500) {
-				targetClass = "small";
-				w1 = "100%";
-				w2 = "hidden";
-				w3 = "hidden";
-			} else if (iw < 900) {
-				targetClass = "medium";
-				w1 = "200px";
-				w2 = "fill";
-				w3 = "hidden";
-			} else {
-				targetClass = "large";
-				w1 = "10%";
-				w2 = "30%";
-				w3 = "60%";
-			}
-			console.log("targetClass =" + targetClass + " w1=" + w1 + " w2=" + w2 + " w3=" + w3);
-			assert.strictEqual(container.screenClass, targetClass);
-			var children = container.getChildren();
-			testLayout(children[1], w2, 7, targetClass);
-		},
-		"Media Query Test 3": function () {
-			var iw = window.innerWidth;
-			var targetClass, w1, w2, w3;
-			if (iw < 500) {
-				targetClass = "small";
-				w1 = "100%";
-				w2 = "hidden";
-				w3 = "hidden";
-			} else if (iw < 900) {
-				targetClass = "medium";
-				w1 = "200px";
-				w2 = "fill";
-				w3 = "hidden";
-			} else {
-				targetClass = "large";
-				w1 = "10%";
-				w2 = "30%";
-				w3 = "60%";
-			}
-			console.log("targetClass =" + targetClass + " w1=" + w1 + " w2=" + w2 + " w3=" + w3);
-			assert.strictEqual(container.screenClass, targetClass);
-			var children = container.getChildren();
-			testLayout(children[2], w3, 12, targetClass);
 		},
 
-		"teardown": function () {
+		after: function () {
 			document.body.removeChild(container);
 		}
 	});

@@ -1,0 +1,288 @@
+{
+	"environments": [
+		{
+			"browserName": "chrome",
+			"chromeOptions": {
+				"args": ["headless", "disable-gpu"]
+			},
+			"fixSessionCapabilities": "no-detect"
+		}
+	],
+
+	"leaveRemoteOpen": false,
+
+	"basePath": "../",
+
+	"node": {
+		"loader": {
+			"script": "./intern-requirejs-loader.js",
+			"options": {
+				"baseUrl": "."
+			}
+		}
+	},
+
+	"browser": {
+		"loader": {
+			"script": "deliteful/intern-requirejs-loader.js",
+			"options": {
+				"baseUrl": "../../..",
+				"packages": [
+					{ "name": "intern", "location": "deliteful/node_modules/intern" }
+				]
+			}
+		}
+	},
+
+	"suites": [
+		"deliteful/tests/unit/Accordion",
+		"deliteful/tests/unit/Checkbox",
+		"deliteful/tests/unit/DatePicker",
+		"deliteful/tests/unit/LinearLayout-direction",
+		"deliteful/tests/unit/LinearLayout-horizontal",
+		"deliteful/tests/unit/LinearLayout-horizontal-3width",
+		"deliteful/tests/unit/LinearLayout-horizontal-mixedwidth",
+		"deliteful/tests/unit/LinearLayout-vertical",
+		"deliteful/tests/unit/list/all",
+		"deliteful/tests/unit/ProgressBar",
+		"deliteful/tests/unit/ProgressIndicator",
+		"deliteful/tests/unit/RadioButton",
+		"deliteful/tests/unit/ScrollableContainer",
+		"deliteful/tests/unit/Select",
+		"deliteful/tests/unit/SidePane",
+		"deliteful/tests/unit/SidePane-showhide",
+		"deliteful/tests/unit/Slider",
+		"deliteful/tests/unit/StarRating",
+		"deliteful/tests/unit/Switch",
+		"deliteful/tests/unit/TimeBase",
+		"deliteful/tests/unit/Toaster",
+		"deliteful/tests/unit/ToasterMessage",
+		"deliteful/tests/unit/ToasterMessage-insert-show-hide-remove",
+		"deliteful/tests/unit/Toggle",
+		"deliteful/tests/unit/Button",
+		"deliteful/tests/unit/ToggleButton",
+		"deliteful/tests/unit/RadioButton",
+		"deliteful/tests/unit/ResponsiveColumns",
+		"deliteful/tests/unit/ViewStack",
+		"deliteful/tests/unit/SwapView",
+		"deliteful/tests/unit/ViewIndicator",
+		"deliteful/tests/unit/Combobox",
+		"deliteful/tests/unit/channelBreakpoints"
+	],
+
+	"functionalSuites": [
+		"./tests/functional/Accordion",
+		"./tests/functional/BoilerplateTextbox",
+		"./tests/functional/Button",
+		"./tests/functional/Checkbox",
+		"./tests/functional/Combobox",
+		"./tests/functional/Combobox-mobile",
+		"./tests/functional/DatePicker",
+		"./tests/functional/Dialog",
+		"./tests/functional/features",
+		"./tests/functional/list/all",
+		"./tests/functional/ScrollableContainer",
+		"./tests/functional/Select",
+		"./tests/functional/SidePane",
+		"./tests/functional/Slider",
+		"./tests/functional/StarRating",
+		"./tests/functional/SwapView",
+		"./tests/functional/Switch",
+		"./tests/functional/Toaster",
+		"./tests/functional/Tooltip",
+		"./tests/functional/TooltipDialog"
+	],
+
+	"coverage": [
+		"**/*.js",
+		"!nls/**",
+		"!node_modules/**",
+		"!samples/**",
+		"!tests/**",
+		"!intern*",
+		"!Gruntfile.js"
+	],
+
+	"tunnelOptions": {
+		"drivers": [ "firefox", "internet explorer", "MicrosoftEdge" ]
+	},
+
+	"WAIT_TIMEOUT": 30000,
+	"POLL_INTERVAL": 500,
+
+	"defaultTimeout": 120000,
+	"functionalTimeouts": {
+		"connectTimeout": 60000,
+		"executeAsync": 30000,
+		"find": 10000,
+		"pageLoad": 60000
+	},
+
+	"configs": {
+		"chrome-debug": {
+			"description": "Run locally with Chrome visible and leave it open at end",
+			"leaveRemoteOpen": true,
+			"environments": [
+				{ "browser": "chrome", "fixSessionCapabilities": false }
+			]
+		},
+
+		"firefox": {
+			"description": "Run locally with Firefox",
+			"environments": [
+				{
+					"browserName": "firefox",
+					"fixSessionCapabilities": false,
+					"moz:firefoxOptions": {
+						"args": [
+							"-headless", "--window-size=1024,768"
+						]
+					}
+				}
+			]
+		},
+
+		"firefox-debug": {
+			"description": "Run locally with Firefox visible and leave it open at end",
+			"leaveRemoteOpen": true,
+			"environments": [
+				{ "browser": "firefox", "fixSessionCapabilities": false }
+			]
+		},
+
+		"safari": {
+			"description": "Run locally with Safari visible and leave it open at end",
+			"leaveRemoteOpen": true,
+			"environments": [
+				{ "browser": "safari", "fixSessionCapabilities": false }
+			]
+		},
+
+		"grid": {
+			"description": "Run tests against selenium grid, must specify serverUrl and tunnelOptions.hostname on command line",
+			"tunnel": "null",
+			"environments": [
+				{ "browser": "chrome" }
+			]
+		},
+
+		"browserstack": {
+			"description": "Run tests on BrowserStack.",
+			"tunnel": "browserstack",
+			"maxConcurrency": 2,
+			"capabilities": {
+				"idle-timeout": 60,
+				"fixSessionCapabilities": "no-detect"
+			},
+			"environments": [
+				{ "browser": "internet explorer", "version": ["11"] },
+				{
+					"browser": "firefox",
+					"version": ["latest"],
+					"platform": ["WINDOWS"]
+				},
+				{
+					"browser": "chrome",
+					"version": ["latest"],
+					"platform": ["WINDOWS"]
+				},
+				{ "browser": "safari", "version": ["10"] }
+			]
+		},
+
+		"browserstack-ie": {
+			"description": "Run tests on IE on BrowserStack.",
+			"extends": ["browserstack"],
+			"environments": [
+				{ "browserName": "internet explorer", "version": "11", "name": "deliteful"}
+			]
+		},
+
+		"sauce": {
+			"description": "Run tests on SauceLabs",
+			"environments": [
+				{ "browserName": "MicrosoftEdge", "fixSessionCapabilities": false, "name": "deliteful"},
+				{ "browserName": "internet explorer", "version": "11", "fixSessionCapabilities": false, "name": "deliteful"},
+				{ "browserName": "firefox", "platform": [ "Windows 10" ], "fixSessionCapabilities": false, "name": "deliteful" },
+				{ "browserName": "chrome", "platform": [ "Windows 10" ], "fixSessionCapabilities": false, "name": "deliteful" },
+				{ "browserName": "safari", "fixSessionCapabilities": false, "name": "deliteful" }
+			],
+
+			"proxyPort": 9000,
+			"maxConcurrency": 5,
+			"coverage": false,
+			"tunnel": "saucelabs"
+		},
+
+		"sauce-chrome": {
+			"description": "Run tests on Chrome/Windows 10 on SauceLabs",
+			"environments": [
+				{ "browserName": "chrome", "platform": [ "Windows 10" ], "fixSessionCapabilities": false, "name": "deliteful" }
+			],
+
+			"proxyPort": 9000,
+			"maxConcurrency": 5,
+			"coverage": false,
+			"tunnel": "saucelabs"
+		},
+
+		"sauce-firefox ": {
+			"description": "Run tests on Firefox/Windows 10 on SauceLabs",
+			"environments": [
+				{ "browserName": "firefox", "platform": [ "Windows 10" ], "fixSessionCapabilities": false, "name": "deliteful" }
+			],
+
+			"proxyPort": 9000,
+			"maxConcurrency": 5,
+			"coverage": false,
+			"tunnel": "saucelabs"
+		},
+
+		"sauce-ie": {
+			"description": "Run tests on IE on SauceLabs.",
+			"extends": ["sauce"],
+			"environments": [
+				{ "browserName": "internet explorer", "version": "11", "fixSessionCapabilities": "no-detect",
+					"name": "deliteful" }
+			],
+			"coverage": null
+		},
+
+		"sauce-safari": {
+			"description": "Run tests on Safari (Mac) on SauceLabs",
+			"environments": [
+				{ "browserName": "safari", "fixSessionCapabilities": false, "name": "deliteful" }
+			],
+
+			"proxyPort": 9000,
+			"maxConcurrency": 5,
+			"coverage": false,
+			"tunnel": "saucelabs"
+		},
+
+		"sauce-ios": {
+			"description": "Run tests on iOS on SauceLabs (currently hangs).",
+			"extends": [
+				"sauce"
+			],
+			"environments": [
+				{ "browserName": "Safari", "platformName": "iOS", "platformVersion": "12.2", "deviceName": "iPad Simulator",
+					"fixSessionCapabilities": "no-detect", "name": "deliteful" }
+			],
+			"coverage": null
+		},
+
+		"sauce-android": {
+			"description": "Run tests on android on SauceLabs.",
+			"extends": [
+				"sauce"
+			],
+			"environments": [
+				{ "browserName": "android", "platform": "Linux", "version": "6.0", "deviceName": "Android Emulator",
+					"deviceType": "tablet", "fixSessionCapabilities": "no-detect", "name": "deliteful" }
+			],
+			"coverage": null
+		}
+
+	}
+}

@@ -1,13 +1,12 @@
 define(function (require) {
 	"use strict";
 
-	var intern = require("intern");
-	var registerSuite = require("intern!object");
-	var pollUntil = require("intern/dojo/node!leadfoot/helpers/pollUntil");
-	var keys = require("intern/dojo/node!leadfoot/keys");
-	var assert = require("intern/chai!assert");
+	var registerSuite = intern.getPlugin("interface.object").registerSuite;
+	var pollUntil = require("@theintern/leadfoot/helpers/pollUntil").default;
+	var keys = require("@theintern/leadfoot/keys").default;
+	var assert = intern.getPlugin("chai").assert;
 
-	function loadNextPage (remote, listId, pageSize, expectedActiveTextAfterLoad, comment) {
+	function loadNextPage(remote, listId, pageSize, expectedActiveTextAfterLoad, comment) {
 		return remote.pressKeys(keys.PAGE_DOWN)
 			.pressKeys(keys.TAB)
 			.getActiveElement()
@@ -25,7 +24,7 @@ define(function (require) {
 			.end();
 	}
 
-	function loadPreviousPage (remote, listId, pageSize, expectedActiveTextAfterLoad, comment) {
+	function loadPreviousPage(remote, listId, pageSize, expectedActiveTextAfterLoad, comment) {
 		return remote.pressKeys(keys.PAGE_UP)
 			.pressKeys(keys.SHIFT + keys.TAB)
 			.pressKeys(keys.SHIFT) // release shift
@@ -44,8 +43,7 @@ define(function (require) {
 			.end();
 	}
 
-	registerSuite({
-		"name": "Pageable tests",
+	registerSuite("Pageable tests", {
 		"Pageable list keyboard navigation": function () {
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
@@ -53,7 +51,7 @@ define(function (require) {
 			}
 			var listId = "pageable-prog-1";
 			return remote
-				.get(require.toUrl("./pageable-prog-1.html"))
+				.get(require.toUrl("deliteful/tests/functional/list/pageable-prog-1.html"))
 				.then(pollUntil("return ('ready' in window &&  ready "
 						+ "&& document.getElementById('" + listId + "') "
 						+ "&& !document.querySelector('#" + listId + " .d-list-container')"
@@ -99,7 +97,7 @@ define(function (require) {
 			}
 			var listId = "pageable-prog-2";
 			return remote
-				.get(require.toUrl("./pageable-prog-2.html"))
+				.get(require.toUrl("deliteful/tests/functional/list/pageable-prog-2.html"))
 				.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('" + listId + "') "
 					+ "&& !document.querySelector('#" + listId + " .d-list-container')"

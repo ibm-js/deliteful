@@ -6,7 +6,6 @@ define(function (require) {
 	var Deferred = require("dojo/Deferred");
 
 	return declare([Request], {
-
 		items: [
 			{ "label": "France", "world-cup-victories": 1, "region": "EU" },
 			{ "label": "Germany", "world-cup-victories": 4, "region": "EU" },

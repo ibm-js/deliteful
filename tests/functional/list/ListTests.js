@@ -1,15 +1,14 @@
 define(function (require) {
 	"use strict";
 
-	var intern = require("intern");
-	var registerSuite = require("intern!object");
-	var pollUntil = require("intern/dojo/node!leadfoot/helpers/pollUntil");
-	var keys = require("intern/dojo/node!leadfoot/keys");
-	var assert = require("intern/chai!assert");
+	var registerSuite = intern.getPlugin("interface.object").registerSuite;
+	var pollUntil = require("@theintern/leadfoot/helpers/pollUntil").default;
+	var keys = require("@theintern/leadfoot/keys").default;
+	var assert = intern.getPlugin("chai").assert;
 
-	function basicTest (remote, testPage, listId, numberOfItemsExpected, numberOfCategoriesExpected, itemTag) {
+	function basicTest(remote, testPage, listId, numberOfItemsExpected, numberOfCategoriesExpected, itemTag) {
 		return remote
-			.get(require.toUrl(testPage))
+			.get(require.toUrl("deliteful/tests/functional/list/" + testPage))
 			.then(pollUntil("return ('ready' in window &&  ready "
 				+ "&& document.getElementById('" + listId + "') "
 				+ "&& !document.querySelector('#" + listId + " .d-list-container')"
@@ -31,38 +30,36 @@ define(function (require) {
 			});
 	}
 
-	registerSuite({
-		"name": "List tests",
-
+	registerSuite("List tests", {
 		"list-prog-1.html": function () {
-			return basicTest(this.remote, "./list-prog-1.html", "list-prog-1", 100, 0, "d-list-item-renderer");
+			return basicTest(this.remote, "list-prog-1.html", "list-prog-1", 100, 0, "d-list-item-renderer");
 		},
 
 		"list-mark-1.html": function () {
-			return basicTest(this.remote, "./list-mark-1.html", "list-mark-1", 10, 0, "d-list-item-renderer");
+			return basicTest(this.remote, "list-mark-1.html", "list-mark-1", 10, 0, "d-list-item-renderer");
 		},
 
 		"list-mark-2.html": function () {
-			return basicTest(this.remote, "./list-mark-2.html", "list-mark-2", 10, 0, "d-list-item-renderer");
+			return basicTest(this.remote, "list-mark-2.html", "list-mark-2", 10, 0, "d-list-item-renderer");
 		},
 
 		"list-mark-3.html": function () {
-			return basicTest(this.remote, "./list-mark-3.html", "list-mark-3", 10, 2, "d-list-item-renderer");
+			return basicTest(this.remote, "list-mark-3.html", "list-mark-3", 10, 2, "d-list-item-renderer");
 		},
 
 		"list-mark-4.html": function () {
-			return basicTest(this.remote, "./list-mark-4.html", "list-mark-4", 10, 0, "d-list-item-renderer");
+			return basicTest(this.remote, "list-mark-4.html", "list-mark-4", 10, 0, "d-list-item-renderer");
 		},
 
 		"list-cust-1.html": function () {
-			return basicTest(this.remote, "./list-cust-1.html", "list-cust-1", 40, 0, "d-customnav-item");
+			return basicTest(this.remote, "list-cust-1.html", "list-cust-1", 40, 0, "d-customnav-item");
 		},
 
 		"selectionMode 'none'": function () {
 			var remote = this.remote;
 			var listId = "list-mark-3";
 			return remote
-				.get(require.toUrl("./list-mark-3.html"))
+				.get(require.toUrl("deliteful/tests/functional/list/list-mark-3.html"))
 				.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('" + listId + "') "
 					+ "&& !document.querySelector('#" + listId + " .d-list-container')"
@@ -87,7 +84,7 @@ define(function (require) {
 			var remote = this.remote;
 			var listId = "list-mark-1";
 			return remote
-				.get(require.toUrl("./list-mark-1.html"))
+				.get(require.toUrl("deliteful/tests/functional/list/list-mark-1.html"))
 				.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('" + listId + "') "
 					+ "&& !document.querySelector('#" + listId + " .d-list-container')"
@@ -139,7 +136,7 @@ define(function (require) {
 			var remote = this.remote;
 			var listId = "list-mark-2";
 			return remote
-				.get(require.toUrl("./list-mark-2.html"))
+				.get(require.toUrl("deliteful/tests/functional/list/list-mark-2.html"))
 				.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('" + listId + "') "
 					+ "&& !document.querySelector('#" + listId + " .d-list-container')"
@@ -191,7 +188,7 @@ define(function (require) {
 			var remote = this.remote;
 			var listId = "list-mark-5";
 			return remote
-				.get(require.toUrl("./list-mark-5.html"))
+				.get(require.toUrl("deliteful/tests/functional/list/list-mark-5.html"))
 				.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('" + listId + "') "
 					+ "&& !document.querySelector('#" + listId + " .d-list-container')"
@@ -240,7 +237,7 @@ define(function (require) {
 				return this.skip("no keyboard support");
 			}
 			return remote
-				.get(require.toUrl("./list-prog-1.html"))
+				.get(require.toUrl("deliteful/tests/functional/list/list-prog-1.html"))
 				.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('list-prog-1') "
 					+ "&& !document.querySelector('#list-prog-1 .d-list-container')"
@@ -334,14 +331,14 @@ define(function (require) {
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
 			}
-			if (remote.environmentType.browserName === "internet explorer") {
+			if (remote.environmentType.browserName.toLowerCase() === "internet explorer") {
 				// Since evt.shiftKey not set (webdriver bug), Shift-TAB is getting treated like a normal TAB,
 				// and we go to an unexpected element, leading to a test failure.  Shift-TAB works when manually
 				// tested though, and Shift-TAB works in some other Intern tests too.  Strange.
 				return this.skip("shift-tab getting treated as normal tab, spurious test failure");
 			}
 			return remote
-				.get(require.toUrl("./list-cust-2.html"))
+				.get(require.toUrl("deliteful/tests/functional/list/list-cust-2.html"))
 				.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('list-cust-2') "
 					+ "&& !document.querySelector('#list-cust-2 .d-list-container')"
@@ -490,7 +487,7 @@ define(function (require) {
 				return this.skip("no keyboard support");
 			}
 			return remote
-				.get(require.toUrl("./list-mark-1.html"))
+				.get(require.toUrl("deliteful/tests/functional/list/list-mark-1.html"))
 				.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('list-mark-1') "
 					+ "&& !document.querySelector('#list-mark-1 .d-list-container')"
@@ -575,7 +572,7 @@ define(function (require) {
 				return this.skip("no keyboard support");
 			}
 			return remote
-				.get(require.toUrl("./list-mark-2.html"))
+				.get(require.toUrl("deliteful/tests/functional/list/list-mark-2.html"))
 				.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('list-mark-2') "
 					+ "&& !document.querySelector('#list-mark-2 .d-list-container')"
@@ -661,7 +658,7 @@ define(function (require) {
 				return this.skip("no keyboard support");
 			}
 			return remote
-				.get(require.toUrl("./list-mark-5.html"))
+				.get(require.toUrl("deliteful/tests/functional/list/list-mark-5.html"))
 				.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('list-mark-5') "
 					+ "&& !document.querySelector('#list-mark-5 .d-list-container')"
@@ -707,7 +704,7 @@ define(function (require) {
 				return this.skip("no keyboard support");
 			}
 			return remote
-				.get(require.toUrl("./list-mark-1.html"))
+				.get(require.toUrl("deliteful/tests/functional/list/list-mark-1.html"))
 				.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('list-mark-1') "
 					+ "&& !document.querySelector('#list-mark-1 .d-list-container')"
@@ -761,7 +758,7 @@ define(function (require) {
 				return this.skip("no keyboard support");
 			}
 			return remote
-				.get(require.toUrl("./list-cust-1.html"))
+				.get(require.toUrl("deliteful/tests/functional/list/list-cust-1.html"))
 				.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('list-cust-1') "
 					+ "&& !document.querySelector('#list-cust-1 .d-list-container')"

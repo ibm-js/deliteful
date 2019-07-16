@@ -1,18 +1,16 @@
 define(function (require) {
 	"use strict";
 
-	var intern = require("intern");
-	var registerSuite = require("intern!object");
-	var pollUntil = require("intern/dojo/node!leadfoot/helpers/pollUntil");
-	var assert = require("intern/chai!assert");
+	var registerSuite = intern.getPlugin("interface.object").registerSuite;
+	var pollUntil = require("@theintern/leadfoot/helpers/pollUntil").default;
+	var assert = intern.getPlugin("chai").assert;
 
-	registerSuite({
-		"name": "AriaListbox tests",
+	registerSuite("AriaListbox tests", {
 		"selectionMode 'multiple'": function () {
 			var remote = this.remote;
 			var listId = "list-mark-1";
 			return remote
-				.get(require.toUrl("./listbox-mark-1.html"))
+				.get(require.toUrl("deliteful/tests/functional/list/listbox-mark-1.html"))
 				.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('" + listId + "') "
 					+ "&& !document.querySelector('#" + listId + " .d-list-container')"
@@ -68,11 +66,12 @@ define(function (require) {
 						.end();
 				});
 		},
+
 		"selectionMode 'single'": function () {
 			var remote = this.remote;
 			var listId = "list-mark-2";
 			return remote
-				.get(require.toUrl("./listbox-mark-2.html"))
+				.get(require.toUrl("deliteful/tests/functional/list/listbox-mark-2.html"))
 				.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('" + listId + "') "
 					+ "&& !document.querySelector('#" + listId + " .d-list-container')"
@@ -122,13 +121,14 @@ define(function (require) {
 						.end();
 				});
 		},
+
 		"keyboard navigation with default renderers": function () {
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
 			}
 			return remote
-				.get(require.toUrl("./listbox-prog-1.html"))
+				.get(require.toUrl("deliteful/tests/functional/list/listbox-prog-1.html"))
 				.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('list-prog-1') "
 					+ "&& !document.querySelector('#list-prog-1 .d-list-container')"
@@ -198,13 +198,14 @@ define(function (require) {
 						.end();
 				});
 		},
+
 		"keyboard navigation with categorized items": function () {
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
 			}
 			return remote
-				.get(require.toUrl("./listbox-mark-3.html"))
+				.get(require.toUrl("deliteful/tests/functional/list/listbox-mark-3.html"))
 				.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('list-mark-3') "
 					+ "&& !document.querySelector('#list-mark-3 .d-list-container')"
@@ -247,6 +248,7 @@ define(function (require) {
 						.end();
 				});
 		},
+
 		// TODO: ADD A TEST: CLICKING ON A CATEGORY HEADER (see https://github.com/ibm-js/delite/issues/229)
 		"keyboard multiple selection": function () {
 			var remote = this.remote;
@@ -254,7 +256,7 @@ define(function (require) {
 				return this.skip("no keyboard support");
 			}
 			return remote
-				.get(require.toUrl("./listbox-mark-1.html"))
+				.get(require.toUrl("deliteful/tests/functional/list/listbox-mark-1.html"))
 				.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('list-mark-1') "
 					+ "&& !document.querySelector('#list-mark-1 .d-list-container')"
@@ -295,13 +297,14 @@ define(function (require) {
 						.end();
 				});
 		},
+
 		"keyboard single selection": function () {
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
 			}
 			return remote
-				.get(require.toUrl("./listbox-mark-2.html"))
+				.get(require.toUrl("deliteful/tests/functional/list/listbox-mark-2.html"))
 				.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('list-mark-2') "
 					+ "&& !document.querySelector('#list-mark-2 .d-list-container')"
@@ -401,13 +404,14 @@ define(function (require) {
 						.end();
 				});
 		},
+
 		"keyboard search": function () {
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
 			}
 			return remote
-				.get(require.toUrl("./listbox-mark-1.html"))
+				.get(require.toUrl("deliteful/tests/functional/list/listbox-mark-1.html"))
 				.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('list-mark-1') "
 					+ "&& !document.querySelector('#list-mark-1 .d-list-container')"

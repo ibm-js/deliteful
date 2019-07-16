@@ -1,7 +1,7 @@
-define(function (require) {
+define(function () {
 	"use strict";
 
-	var assert = require("intern/chai!assert");
+	var assert = intern.getPlugin("chai").assert;
 
 	// Test cases for both delite/Scrollable and deliteful/ScrollableContainer.
 	// Since we can not reuse test files across projects, there are two copies of

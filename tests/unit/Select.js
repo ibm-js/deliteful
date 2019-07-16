@@ -1,18 +1,12 @@
 define(function (require) {
 	"use strict";
 
-	var registerSuite = require("intern!object");
-	var assert = require("intern/chai!assert");
+	var registerSuite = intern.getPlugin("interface.object").registerSuite;
+	var assert = intern.getPlugin("chai").assert;
 	var register = require("delite/register");
 	var Memory = require("dstore/Memory");
 	var Trackable = require("dstore/Trackable");
 	var Select = require("deliteful/Select");
-
-	function mix (a, b) {
-		for (var n in b) {
-			a[n] = b[n];
-		}
-	}
 
 	var Store = Memory.createSubclass([Trackable], {});
 
@@ -27,7 +21,7 @@ define(function (require) {
 	var innerCSS = "d-select-inner";
 	var nOptions = 10;
 
-	var addOptions = function (select, min, max) {
+	function addOptions(select, min, max) {
 		if (!min && !max) {
 			min = select.valueNode.length + 1;
 			max = min;
@@ -53,20 +47,20 @@ define(function (require) {
 		select._observe = observe; // to be able to deliver
 
 		return dataItems;
-	};
+	}
 
-	var removeOption = function (select, id) {
+	function removeOption(select, id) {
 		select.source.removeSync(id);
-	};
+	}
 
-	var updateOption = function (select, id) {
+	function updateOption(select, id) {
 		var source = select.source;
 		var dataItem = source.getSync(id);
 		dataItem.text = "new text";
 		select.source.putSync(dataItem);
-	};
+	}
 
-	var checkSelect = function (select, observableSource) {
+	function checkSelect(select, observableSource) {
 		// These checks are common to both cases: observable and non-observable sources
 
 		assert.strictEqual(select.valueNode.length, 0,
@@ -193,9 +187,9 @@ define(function (require) {
 		assert.strictEqual(select.selectedItems[1].value, 1,
 			"(multiple) select.selectedItems[1].value after selecting dataItems[0] and [1] on select.id: " +
 			select.id);
-	};
+	}
 
-	var checkTrackableSelect = function (select) {
+	function checkTrackableSelect(select) {
 		checkSelect(select, true);
 
 		// The following additional checks are specific to trackable stores:
@@ -307,9 +301,9 @@ define(function (require) {
 			"Custom mapping (value) (select.id: " + select.id + ")");
 		assert.isFalse(!!optionWithCustomMapping.getAttribute("disabled"),
 			"Custom mapping (disabled) (select.id: " + select.id + ")");
-	};
+	}
 
-	var checkDefaultValues = function (select) {
+	function checkDefaultValues(select) {
 		assert.isNull(select.source, "source default is null");
 		assert.strictEqual(select.selectionMode, "single", "Select.selectionMode");
 		assert.strictEqual(select.size, 0, "Select.size");
@@ -317,7 +311,7 @@ define(function (require) {
 		assert.strictEqual(select.valueAttr, "value", "Select.valueAttr");
 		assert.strictEqual(select.disabledAttr, "disabled", "Select.disabledAttr");
 		assert.strictEqual(select.baseClass, outerCSS, "Select.baseClass");
-	};
+	}
 
 	var CommonTestCases = {
 		"Default CSS": function () {
@@ -388,34 +382,31 @@ define(function (require) {
 	};
 
 	// Markup use-case
-
-	var suite = {
-		name: "deliteful/Select: markup",
-		setup: function () {
+	registerSuite("deliteful/Select: markup", {
+		before: function () {
 			register("my-select", [Select], {});
 		},
+
 		beforeEach: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
 			container.innerHTML = html;
 			register.deliver();
 		},
+
 		afterEach: function () {
 			container.parentNode.removeChild(container);
-		}
-	};
+		},
 
-	mix(suite, CommonTestCases);
-
-	registerSuite(suite);
+		tests: CommonTestCases
+	});
 
 	// Programatic creation
-
-	suite = {
-		name: "deliteful/Select: programatic",
-		setup: function () {
+	registerSuite("deliteful/Select: programatic", {
+		before: function () {
 			MySelect = register("my-select-prog", [Select], {});
 		},
+
 		beforeEach: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
@@ -426,12 +417,11 @@ define(function (require) {
 			w = new MySelect({ id: "myselect1" });
 			w.placeAt(container);
 		},
+
 		afterEach: function () {
 			container.parentNode.removeChild(container);
-		}
-	};
+		},
 
-	mix(suite, CommonTestCases);
-
-	registerSuite(suite);
+		tests: CommonTestCases
+	});
 });
