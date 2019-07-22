@@ -13,14 +13,14 @@ define(function (require) {
 
 	function checkCategory(node, expectedCategory) {
 		assert.strictEqual(node.tagName, "D-LIST-CATEGORY-RENDERER");
-		assert.strictEqual(node.className, "d-list-category");
-		assert.strictEqual(node.textContent, expectedCategory);
+		assert.isTrue(node.classList.contains("d-list-category"), "d-list-category");
+		assert.strictEqual(node.textContent, expectedCategory, "node.textContent");
 	}
 
 	function checkItem(node, expectedLabel) {
 		assert.strictEqual(node.tagName, "D-LIST-ITEM-RENDERER");
 		assert.strictEqual(node.className, "d-list-item");
-		assert.strictEqual(node.getElementsByClassName("d-list-item-label")[0].innerHTML, expectedLabel);
+		assert.strictEqual(node.getElementsByClassName("d-list-item-label")[0].innerHTML, expectedLabel, "label");
 	}
 
 	registerSuite("list/Categories", {

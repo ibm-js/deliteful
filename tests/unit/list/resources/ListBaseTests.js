@@ -143,7 +143,7 @@ define(function (require) {
 						list.categoryAttr = "label";
 						list.deliver();
 						children = list.containerNode.children;
-						assert.strictEqual(children[0].className, "d-list-category", "first is category");
+						assert.isTrue(children[0].classList.contains("d-list-category"), "first is category");
 						assert.strictEqual(list._getFirst(), children[0].renderNode, "first renderer is category");
 					},
 

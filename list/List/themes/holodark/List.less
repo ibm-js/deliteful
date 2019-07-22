@@ -1,4 +1,3 @@
-@import "../../../../../delite/themes/holodark/includes";
 /*
  * -----------------------------------------------
  *  Theme     : holodark
@@ -6,62 +5,82 @@
  *  baseClass : d-list or d-round-rect-list
  * -----------------------------------------------
  */
- 
+
+@import "../../../../../delite/themes/holodark/includes";
+@import "../List_template";
+
 @category-height: 22px;
 @cell-height: 43px;
 @round-radius: 8px;
 
-.d-list-category-styles() {
+.d-round-rect-list {
+	border: 1px solid #adaaad;
+	border-radius: @round-radius;
+	background-color: #ffffff;
+}
+
+.d-round-rect-list {
+	> *:first-child {
+		border-top-left-radius: @round-radius;
+		border-top-right-radius: @round-radius;
+	}
+
+	> *:last-child {
+		border-bottom-left-radius: @round-radius;
+		border-bottom-right-radius: @round-radius;
+	}
+}
+
+.d-list-category {
 	font-family: Helvetica;
 	font-size: 16px;
 	font-weight: bold;
 	color: white;
-	text-shadow: rgba(0, 0, 0, 0.6) 0 -1px 0;	
+	text-shadow: rgba(0, 0, 0, 0.6) 0 -1px 0;
 	border-top: 1px solid #a4b0b9;
 	border-bottom: 1px solid #979da3;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#8f9ea9), to(#b7c0c7));
 	background-image: linear-gradient(to bottom, #8f9ea9 0%, #b7c0c7 100%);
-	.d-list-cell {
-		padding: 0 10px;
-	}
+	padding: 0 10px;
+	height: @category-height;
 }
 
-.d-list-item-styles() {
+.d-list-item {
 	border-bottom: 1px solid #adaaad;
 	background-color: #ffffff;
-	.d-list-cell {
-		padding: 0 8px;
-	}
 }
 
-.d-last-renderer-style() {
-	 .d-list-cell {
+.d-list-cell {
+	height: @cell-height;
+	padding: 0 8px;
+}
+
+.d-list > *:last-child, .d-round-rect-list > *:last-child {
+	&.d-list-cell, .d-list-cell {
 		border-bottom-width: 0;
 		/* padding-bottom to compensate the fact that the bottom width is 0 instead of 1 */
 		padding-bottom: 1px;
 	 }
  }
 
-.d-list-item-selected-style() {
-	background-color: white;
-	color: black;
+.d-selectable, .d-multiselectable {
+	.d-list-item.d-selected {
+		background-color: white;
+		color: black;
+		font-weight: bold;
+	}
+}
+
+.d-list-item-label {
 	font-weight: bold;
 }
 
-.d-list-item-label-style() {
-	font-weight: bold;
-}
-
-.d-list-item-right-text-style() {
+.d-list-item-right-text {
 	font-weight: bold;
 	color: #324f85;
 }
 
-.d-progress-indicator-lines-style() {
-	stroke: #808080
-}
-
-.d-list-loader-style() {
+.d-list-loader {
 	font-weight: bold;
 	color: #324f85;
 	height: @cell-height;
@@ -69,17 +88,15 @@
 	border-bottom: 1px solid #adaaad;
 }
 
-.d-list-loading-style() {
+.d-list-loader.d-loading {
 	color: #808080;
 	font-weight: normal;
 	font-style: italic;
 }
 
-.d-list-loading-panel-style() {
+.d-list-loading-panel {
 	color: #808080;
 	background-color: #c5ccd3;
 	font-size: medium;
 	font-style: italic;
 }
-
-@import "../List_template";

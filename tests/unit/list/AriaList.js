@@ -24,12 +24,6 @@ define(function (require) {
 				assert.strictEqual(list.containerNode.children[0].getAttribute("role"), "row", "first renderer role");
 				assert.strictEqual(list.containerNode.children[0].renderNode.getAttribute("role"), "gridcell",
 					"first renderNode role");
-				assert.strictEqual(list.containerNode.children[1].getAttribute("role"), "row", "second renderer role");
-				assert.strictEqual(list.containerNode.children[1].renderNode.getAttribute("role"), "gridcell",
-					"second renderNode role");
-				assert.strictEqual(list.containerNode.children[2].getAttribute("role"), "row", "third renderer role");
-				assert.strictEqual(list.containerNode.children[2].renderNode.getAttribute("role"), "gridcell",
-					"third renderNode role");
 			},
 
 			"aria properties for role=list": function () {
@@ -38,15 +32,8 @@ define(function (require) {
 				assert.strictEqual(list.type, "list", "role");
 				assert.strictEqual(list.containerNode.hasAttribute("aria-readonly"), false,
 					"aria-readonly only for role=grid");
-				assert.strictEqual(list.containerNode.children[0].getAttribute("role"), null, "first renderer role");
-				assert.strictEqual(list.containerNode.children[0].renderNode.getAttribute("role"), "listitem",
-					"first renderNode role");
-				assert.strictEqual(list.containerNode.children[1].getAttribute("role"), null, "second renderer role");
-				assert.strictEqual(list.containerNode.children[1].renderNode.getAttribute("role"), "listitem",
-					"second renderNode role");
-				assert.strictEqual(list.containerNode.children[2].getAttribute("role"), null, "third renderer role");
-				assert.strictEqual(list.containerNode.children[2].renderNode.getAttribute("role"), "listitem",
-					"third renderNode role");
+				assert.strictEqual(list.containerNode.children[0].getAttribute("role"), "listitem",
+					"first renderer role");
 			},
 
 			"aria properties when moving from list to grid": function () {
@@ -60,12 +47,6 @@ define(function (require) {
 				assert.strictEqual(list.containerNode.children[0].getAttribute("role"), "row", "first renderer role");
 				assert.strictEqual(list.containerNode.children[0].renderNode.getAttribute("role"), "gridcell",
 					"first renderNode role");
-				assert.strictEqual(list.containerNode.children[1].getAttribute("role"), "row", "second renderer role");
-				assert.strictEqual(list.containerNode.children[1].renderNode.getAttribute("role"), "gridcell",
-					"second renderNode role");
-				assert.strictEqual(list.containerNode.children[2].getAttribute("role"), "row", "third renderer role");
-				assert.strictEqual(list.containerNode.children[2].renderNode.getAttribute("role"), "gridcell",
-					"third renderNode role");
 			}
 		},
 

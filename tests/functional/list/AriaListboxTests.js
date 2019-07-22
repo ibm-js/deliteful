@@ -26,7 +26,7 @@ define(function (require) {
 							assert.strictEqual(value, "listbox");
 						})
 						.end()
-						.findByCssSelector("#" + listId + " .d-list-item:nth-child(3) [role=option]")
+						.findByCssSelector("#" + listId + " [role=option]:nth-child(3)")
 						.getAttribute("aria-selected")
 						.then(function (value) {
 							assert.strictEqual(value, "false");
@@ -47,7 +47,7 @@ define(function (require) {
 							assert.strictEqual(value, "true");
 						})
 						.end()
-						.findByCssSelector("#" + listId + " .d-list-item:nth-child(4) [role=option]")
+						.findByCssSelector("#" + listId + " [role=option]:nth-child(4)")
 						.getAttribute("aria-selected")
 						.then(function (value) {
 							assert.strictEqual(value, "false");
@@ -58,7 +58,7 @@ define(function (require) {
 							assert.strictEqual(value, "true");
 						})
 						.end()
-						.findByCssSelector("#" + listId + " .d-list-item:nth-child(3) [role=option]")
+						.findByCssSelector("#" + listId + " [role=option]:nth-child(3)")
 						.getAttribute("aria-selected")
 						.then(function (value) {
 							assert.strictEqual(value, "true");
@@ -81,7 +81,7 @@ define(function (require) {
 				intern.config.POLL_INTERVAL))
 				.then(function () {
 					return remote
-						.findByCssSelector("#" + listId + " .d-list-item:nth-child(3) [role=option]")
+						.findByCssSelector("#" + listId + " [role=option]:nth-child(3)")
 						.getAttribute("aria-selected")
 						.then(function (value) {
 							assert.strictEqual(value, "false", "test 1");
@@ -102,7 +102,7 @@ define(function (require) {
 							assert.strictEqual(value, "true", "test 4");
 						})
 						.end()
-						.findByCssSelector("#" + listId + " .d-list-item:nth-child(4) [role=option]")
+						.findByCssSelector("#" + listId + " [role=option]:nth-child(4)")
 						.getAttribute("aria-selected")
 						.then(function (value) {
 							assert.strictEqual(value, "false", "test 5");
@@ -113,7 +113,7 @@ define(function (require) {
 							assert.strictEqual(value, "true", "test 6");
 						})
 						.end()
-						.findByCssSelector("#" + listId + " .d-list-item:nth-child(3) [role=option]")
+						.findByCssSelector("#" + listId + " [role=option]:nth-child(3)")
 						.getAttribute("aria-selected")
 						.then(function (value) {
 							assert.strictEqual(value, "false", "test 7");

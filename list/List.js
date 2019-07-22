@@ -336,7 +336,24 @@ define([
 		refreshRendering: function (props) {
 			//	List attributes have been updated.
 			/*jshint maxcomplexity:15*/
-			if ("selectionMode" in props) {
+
+
+			if ("type" in props) {
+				this.getRenderers().forEach(function (renderer) {
+					renderer.parentRole = this.type;
+					if (renderer.deliver) {
+						// Be sure the ItemRenderers are [re]rendered before the code below that sets aria-selected.
+						renderer.deliver();
+					}
+				}.bind(this));
+				if (this.type === "grid") {
+					this.containerNode.setAttribute("aria-readonly", "true");
+				} else {
+					this.containerNode.removeAttribute("aria-readonly");
+				}
+			}
+
+			if ("selectionMode" in props || "type" in props) {
 				// Update aria attributes
 				classList.removeClass(this.containerNode, this._cssClasses.selectable);
 				classList.removeClass(this.containerNode, this._cssClasses.multiselectable);
@@ -370,20 +387,6 @@ define([
 							}
 						}
 					}
-				}
-			}
-
-			if ("type" in props) {
-				this.getRenderers().forEach(function (renderer) {
-					renderer.parentRole = this.type;
-					if (renderer.deliver) {
-						renderer.deliver();
-					}
-				}.bind(this));
-				if (this.type === "grid") {
-					this.containerNode.setAttribute("aria-readonly", true);
-				} else {
-					this.containerNode.removeAttribute("aria-readonly");
 				}
 			}
 		},

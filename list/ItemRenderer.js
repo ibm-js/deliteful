@@ -2,8 +2,9 @@
 define([
 	"delite/register",
 	"./Renderer",
-	"delite/handlebars!./List/ItemRenderer.html"
-], function (register, Renderer, template) {
+	"delite/handlebars!./List/ItemRenderer.html",
+	"delite/handlebars!./List/GridItemRenderer.html"
+], function (register, Renderer, ItemTemplate, GridItemTemplate) {
 
 	/**
 	 * Default item renderer for the {@link module:deliteful/list/List deliteful/list/List widget}.
@@ -35,24 +36,23 @@ define([
 		 */
 		baseClass: "d-list-item",
 
-		template: template,
+		// Computed from parentRole.
+		role: "",
 
 		//////////// PROTECTED METHODS ///////////////////////////////////////
 
-		refreshRendering: function (oldVals) {
-			if ("parentRole" in oldVals) {
-				if (this.parentRole === "grid") {
-					this.setAttribute("role", "row");
-					this.renderNode.setAttribute("role", "gridcell");
-				} else {
-					this.removeAttribute("role");		// alternately, set role=presentation
-					this.renderNode.setAttribute("role", {
-						listbox: "option",
-						menu: "menuitem",	// there's also menuitemcheckbox and menuitemradio
-						list: "listitem"
-					}[this.parentRole]);
-				}
+		computeProperties: function () {
+			// If subclass hasn't set the template in the prototype, then set it here, according to parentRole.
+			if (!this.constructor.prototype.template && this.parentRole) {
+				this.template = this.parentRole === "grid" ? GridItemTemplate : ItemTemplate;
 			}
+
+			this.role = {
+				grid: "row",
+				listbox: "option",
+				menu: "menuitem",	// there's also menuitemcheckbox and menuitemradio
+				list: "listitem"
+			}[this.parentRole];
 		}
 	});
 });

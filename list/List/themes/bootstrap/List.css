@@ -5,18 +5,20 @@
  *  baseClass : d-list or d-round-rect-list
  * -----------------------------------------------
  */
-.d-list {
-  border: 1px solid #dddddd;
-  background-color: #ffffff;
-}
-.d-selectable .d-list-item:hover,
-.d-multiselectable .d-list-item:hover {
-  background-color: #f5f5f5;
+.d-list,
+.d-round-rect-list {
+  /* edit display at your own risk */
+  display: block;
+  /* Position relative is needed by List.getBottomDistance(). */
+  /* The List must be positioned to be the offsetNode of renderers. */
+  /* Otherwise, the offsetTop value is computed against a wrong parent */
+  position: relative;
+  padding: 0;
+  /* Do not change this margin setting when customizing list in the app css*/
+  margin: 0;
 }
 .d-round-rect-list {
-  border: 1px solid #dddddd;
-  border-radius: 4px;
-  background-color: #ffffff;
+  margin: 0 9px;
 }
 .d-list-category {
   /* No position should be defined, as the List is using offsetTop to measure distance of elements within the list */
@@ -26,29 +28,11 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.d-list-category .d-list-cell {
-  background-color: #f5f5f5;
-  color: #333333;
-  border-bottom: 1px solid #dddddd;
-  padding: 0 10px;
-}
-.d-list-category .d-list-cell {
-  height: 35px;
-}
 .d-list-item {
-  /* No position should be defined, as the List is using offsetTop to measure distance of elements within the list */
   list-style-type: none;
   display: block;
 }
-.d-list-item .d-list-cell {
-  border-bottom: 1px solid #dddddd;
-  padding: 0px 8px;
-}
-.d-list-item .d-list-cell {
-  height: 40px;
-}
-.d-list .d-list-cell,
-.d-round-rect-list .d-list-cell {
+.d-list-cell {
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
@@ -65,8 +49,7 @@
   -webkit-align-items: center;
   outline-offset: -2px;
 }
-.d-list .d-list-cell .d-spacer,
-.d-round-rect-list .d-list-cell .d-spacer {
+.d-list-cell .d-spacer {
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
   -webkit-flex: 1;
@@ -108,6 +91,101 @@
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
+}
+.d-list-loader .d-progress-indicator {
+  width: 24px;
+  height: 24px;
+  vertical-align: top;
+}
+.d-list-loader.d-loading {
+  cursor: wait;
+}
+.d-list-loader .d-list-loader-label {
+  padding-left: 10px;
+}
+.d-list-loading-panel {
+  display: table;
+  z-index: 2;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  cursor: wait;
+}
+.d-list-loading-panel .d-list-loading-panel-info {
+  display: table-cell;
+  vertical-align: middle;
+}
+.d-list-loading-panel .d-list-loading-panel-info .d-progress-indicator {
+  width: 48px;
+  height: 48px;
+  vertical-align: top;
+}
+.d-list-loading-panel .d-list-loading-panel-info div {
+  vertical-align: middle;
+}
+.d-list-loading-panel .d-list-loading-panel-info svg {
+  vertical-align: middle;
+}
+.d-list-loading-panel .d-list-loading-panel-info .d-list-loading-panel-info-label {
+  padding-left: 10px;
+}
+.d-list-loader .d-progress-indicator-lines,
+.d-list-loading-panel .d-progress-indicator-lines {
+  stroke: #808080;
+}
+.d-list-no-items {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: auto;
+  vertical-align: middle;
+  line-height: 40px;
+  text-align: center;
+}
+.d-selectable,
+.d-multiselectable {
+  cursor: pointer;
+}
+.d-list {
+  border: 1px solid #dddddd;
+  background-color: #ffffff;
+}
+.d-round-rect-list {
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  background-color: #ffffff;
+}
+.d-round-rect-list > *:first-child {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+.d-round-rect-list > *:last-child {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+.d-list-category {
+  background-color: #f5f5f5;
+  color: #333333;
+  border-bottom: 1px solid #dddddd;
+  padding: 0 10px;
+  height: 35px;
+}
+.d-list-cell {
+  border-bottom: 1px solid #dddddd;
+  padding: 0px 8px;
+  height: 40px;
+}
+.d-selectable .d-list-item:hover,
+.d-multiselectable .d-list-item:hover {
+  background-color: #f5f5f5;
+}
+.d-selectable .d-list-cell.d-selected,
+.d-multiselectable .d-list-cell.d-selected {
+  border-bottom: 1px solid #428bca;
+  background-color: #428bca;
+  color: #ffffff;
+  font-weight: bold;
+}
+.d-list-loader {
   font-weight: 500;
   height: 38px;
 }
@@ -125,16 +203,7 @@
   /* padding-bottom to compensate the fact that the bottom width is 0 instead of 1 */
   padding-bottom: 1px;
 }
-.d-list-loader .d-progress-indicator {
-  width: 24px;
-  height: 24px;
-  vertical-align: top;
-}
-.d-list-loader .d-progress-indicator-lines {
-  stroke: #808080;
-}
 .d-list-loader.d-loading {
-  cursor: wait;
   color: #999999;
   font-weight: normal;
   font-style: italic;
@@ -142,95 +211,8 @@
 .d-list-loader.d-loading:hover {
   background-color: inherit;
 }
-.d-list-loader .d-list-loader-label {
-  padding-left: 10px;
-}
 .d-list-loading-panel {
-  display: table;
-  z-index: 2;
-  height: 100%;
-  width: 100%;
-  text-align: center;
-  cursor: wait;
   color: #999999;
   background-color: #ffffff;
   font-style: italic;
-}
-.d-list-loading-panel .d-list-loading-panel-info {
-  display: table-cell;
-  vertical-align: middle;
-}
-.d-list-loading-panel .d-list-loading-panel-info .d-progress-indicator {
-  width: 48px;
-  height: 48px;
-  vertical-align: top;
-}
-.d-list-loading-panel .d-list-loading-panel-info .d-progress-indicator-lines {
-  stroke: #808080;
-}
-.d-list-loading-panel .d-list-loading-panel-info div {
-  vertical-align: middle;
-}
-.d-list-loading-panel .d-list-loading-panel-info svg {
-  vertical-align: middle;
-}
-.d-list-loading-panel .d-list-loading-panel-info .d-list-loading-panel-info-label {
-  padding-left: 10px;
-}
-.d-list-no-items {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  width: auto;
-  vertical-align: middle;
-  line-height: 40px;
-  text-align: center;
-}
-.d-selectable,
-.d-multiselectable {
-  cursor: pointer;
-}
-.d-selectable .d-list-item.d-selected .d-list-cell,
-.d-multiselectable .d-list-item.d-selected .d-list-cell {
-  border-bottom: 1px solid #428bca;
-  background-color: #428bca;
-  color: #ffffff;
-  font-weight: bold;
-}
-/*******************************/
-/* iOS theme for RoundRectList */
-/*                             */
-/* IMPORTANT: a renderer MUST      */
-/* have the same height (inc.  */
-/* borders) whatever its index */
-/* in the list !               */
-/*******************************/
-.d-round-rect-list {
-  /* edit display at your own risk */
-  display: block;
-  /* Position relative is needed by List.getBottomDistance(). */
-  /* The List must be positioned to be the offsetNode of renderers. */
-  /* Otherwise, the offsetTop value is computed against a wrong parent */
-  position: relative;
-  /* Do not change this margin setting when customizing list in the app css */
-  margin: 0 9px;
-  padding: 0;
-}
-.d-round-rect-list > *:first-child {
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-}
-.d-round-rect-list > *:last-child {
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
-}
-.d-list {
-  /* edit display at your own risk */
-  display: block;
-  /* Position relative is needed by List.getBottomDistance(). */
-  /* The List must be positioned to be the offsetNode of renderers. */
-  /* Otherwise, the offsetTop value is computed against a wrong parent */
-  position: relative;
-  padding: 0;
-  /* Do not change this margin setting when customizing list in the app css*/
-  margin: 0;
 }

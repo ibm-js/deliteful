@@ -24,7 +24,7 @@ define(function (require) {
 			list.on("selection-change", function (event) {
 				selectionChangeEvent = event;
 			});
-			assert.strictEqual(firstItem.className, "d-list-item");
+			assert.isTrue(firstItem.classList.contains("d-list-item"));
 
 			// Selection event on first item (select)
 			firstItem.emit("keydown", {key: "Spacebar"});
@@ -79,7 +79,7 @@ define(function (require) {
 			list.on("selection-change", function (event) {
 				selectionChangeEvent = event;
 			});
-			assert.strictEqual(firstItem.className, "d-list-item");
+			assert.isTrue(firstItem.classList.contains("d-list-item"));
 
 			// Selection event on first item (select)
 			firstItem.emit("keydown", {key: "Spacebar"});
@@ -134,7 +134,7 @@ define(function (require) {
 			list.on("selection-change", function (event) {
 				selectionChangeEvent = event;
 			});
-			assert.strictEqual(firstItem.className, "d-list-item");
+			assert.isTrue(firstItem.classList.contains("d-list-item"));
 
 			// Selection event on first item (select)
 			firstItem.emit("keydown", {key: "Spacebar"});
@@ -340,14 +340,14 @@ define(function (require) {
 				list.on("selection-change", function (event) {
 					selectionChangeEvent = event;
 				});
-				assert.strictEqual(firstItem.className, "d-list-item");
+				assert.isTrue(firstItem.classList.contains("d-list-item"));
 
 				// Selection event on first item (no effect)
 				firstItem.emit("keydown", {key: "Spacebar"});
 				firstItem.emit("keyup", {key: "Spacebar"});
 
 				assert.isNull(selectionChangeEvent);
-				assert.strictEqual(firstItem.className, "d-list-item");
+				assert.isTrue(firstItem.classList.contains("d-list-item"));
 			},
 
 			"revert selection to 'none' clears selection": function () {

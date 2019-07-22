@@ -5,6 +5,21 @@
  *  baseClass : d-list or d-round-rect-list
  * -----------------------------------------------
  */
+.d-list,
+.d-round-rect-list {
+  /* edit display at your own risk */
+  display: block;
+  /* Position relative is needed by List.getBottomDistance(). */
+  /* The List must be positioned to be the offsetNode of renderers. */
+  /* Otherwise, the offsetTop value is computed against a wrong parent */
+  position: relative;
+  padding: 0;
+  /* Do not change this margin setting when customizing list in the app css*/
+  margin: 0;
+}
+.d-round-rect-list {
+  margin: 0 9px;
+}
 .d-list-category {
   /* No position should be defined, as the List is using offsetTop to measure distance of elements within the list */
   /* Edit display at your own risk */
@@ -12,37 +27,12 @@
   margin: 0;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-family: Helvetica;
-  font-size: 16px;
-  font-weight: bold;
-  color: white;
-  text-shadow: rgba(0, 0, 0, 0.6) 0 -1px 0;
-  border-top: 1px solid #a4b0b9;
-  border-bottom: 1px solid #979da3;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#8f9ea9), to(#b7c0c7));
-  background-image: linear-gradient(to bottom, #8f9ea9 0%, #b7c0c7 100%);
-}
-.d-list-category .d-list-cell {
-  padding: 0 10px;
-}
-.d-list-category .d-list-cell {
-  height: 22px;
 }
 .d-list-item {
-  /* No position should be defined, as the List is using offsetTop to measure distance of elements within the list */
   list-style-type: none;
   display: block;
-  border-bottom: 1px solid #adaaad;
-  background-color: #ffffff;
 }
-.d-list-item .d-list-cell {
-  padding: 0 8px;
-}
-.d-list-item .d-list-cell {
-  height: 43px;
-}
-.d-list .d-list-cell,
-.d-round-rect-list .d-list-cell {
+.d-list-cell {
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
@@ -59,8 +49,7 @@
   -webkit-align-items: center;
   outline-offset: -2px;
 }
-.d-list .d-list-cell .d-spacer,
-.d-round-rect-list .d-list-cell .d-spacer {
+.d-list-cell .d-spacer {
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
   -webkit-flex: 1;
@@ -77,14 +66,11 @@
 .d-list-item-label {
   white-space: nowrap;
   text-overflow: ellipsis;
-  font-weight: bold;
 }
 .d-list-item-right-text {
   padding-right: 4px;
   white-space: nowrap;
   text-overflow: ellipsis;
-  font-weight: bold;
-  color: #324f85;
 }
 .d-list.d-rtl .d-list-item-right-text {
   padding-right: 0px;
@@ -105,25 +91,14 @@
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
-  font-weight: bold;
-  color: #324f85;
-  height: 43px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #adaaad;
 }
 .d-list-loader .d-progress-indicator {
   width: 24px;
   height: 24px;
   vertical-align: top;
 }
-.d-list-loader .d-progress-indicator-lines {
-  stroke: #808080;
-}
 .d-list-loader.d-loading {
   cursor: wait;
-  color: #808080;
-  font-weight: normal;
-  font-style: italic;
 }
 .d-list-loader .d-list-loader-label {
   padding-left: 10px;
@@ -135,10 +110,6 @@
   width: 100%;
   text-align: center;
   cursor: wait;
-  color: #808080;
-  background-color: #c5ccd3;
-  font-size: medium;
-  font-style: italic;
 }
 .d-list-loading-panel .d-list-loading-panel-info {
   display: table-cell;
@@ -149,9 +120,6 @@
   height: 48px;
   vertical-align: top;
 }
-.d-list-loading-panel .d-list-loading-panel-info .d-progress-indicator-lines {
-  stroke: #808080;
-}
 .d-list-loading-panel .d-list-loading-panel-info div {
   vertical-align: middle;
 }
@@ -160,6 +128,10 @@
 }
 .d-list-loading-panel .d-list-loading-panel-info .d-list-loading-panel-info-label {
   padding-left: 10px;
+}
+.d-list-loader .d-progress-indicator-lines,
+.d-list-loading-panel .d-progress-indicator-lines {
+  stroke: #808080;
 }
 .d-list-no-items {
   white-space: nowrap;
@@ -173,29 +145,10 @@
 .d-multiselectable {
   cursor: pointer;
 }
-.d-selectable .d-list-item.d-selected,
-.d-multiselectable .d-list-item.d-selected {
-  background-color: #adaaad;
-  font-weight: bold;
-}
-/*******************************/
-/* iOS theme for RoundRectList */
-/*                             */
-/* IMPORTANT: a renderer MUST      */
-/* have the same height (inc.  */
-/* borders) whatever its index */
-/* in the list !               */
-/*******************************/
 .d-round-rect-list {
-  /* edit display at your own risk */
-  display: block;
-  /* Position relative is needed by List.getBottomDistance(). */
-  /* The List must be positioned to be the offsetNode of renderers. */
-  /* Otherwise, the offsetTop value is computed against a wrong parent */
-  position: relative;
-  /* Do not change this margin setting when customizing list in the app css */
-  margin: 0 9px;
-  padding: 0;
+  border: 1px solid #adaaad;
+  border-radius: 8px;
+  background-color: #ffffff;
 }
 .d-round-rect-list > *:first-child {
   border-top-left-radius: 8px;
@@ -205,14 +158,62 @@
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
 }
-.d-list {
-  /* edit display at your own risk */
-  display: block;
-  /* Position relative is needed by List.getBottomDistance(). */
-  /* The List must be positioned to be the offsetNode of renderers. */
-  /* Otherwise, the offsetTop value is computed against a wrong parent */
-  position: relative;
-  padding: 0;
-  /* Do not change this margin setting when customizing list in the app css*/
-  margin: 0;
+.d-list-category {
+  font-family: Helvetica;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  text-shadow: rgba(0, 0, 0, 0.6) 0 -1px 0;
+  border-top: 1px solid #a4b0b9;
+  border-bottom: 1px solid #979da3;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#8f9ea9), to(#b7c0c7));
+  background-image: linear-gradient(to bottom, #8f9ea9 0%, #b7c0c7 100%);
+  padding: 0 10px;
+  height: 22px;
+}
+.d-list-item {
+  border-bottom: 1px solid #adaaad;
+  background-color: #ffffff;
+}
+.d-list-cell {
+  height: 43px;
+  padding: 0 8px;
+}
+.d-list > *:last-child.d-list-cell,
+.d-round-rect-list > *:last-child.d-list-cell,
+.d-list > *:last-child .d-list-cell,
+.d-round-rect-list > *:last-child .d-list-cell {
+  border-bottom-width: 0;
+  /* padding-bottom to compensate the fact that the bottom width is 0 instead of 1 */
+  padding-bottom: 1px;
+}
+.d-selectable .d-list-item.d-selected,
+.d-multiselectable .d-list-item.d-selected {
+  background-color: #adaaad;
+  font-weight: bold;
+}
+.d-list-item-label {
+  font-weight: bold;
+}
+.d-list-item-right-text {
+  font-weight: bold;
+  color: #324f85;
+}
+.d-list-loader {
+  font-weight: bold;
+  color: #324f85;
+  height: 43px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #adaaad;
+}
+.d-list-loader.d-loading {
+  color: #808080;
+  font-weight: normal;
+  font-style: italic;
+}
+.d-list-loading-panel {
+  color: #808080;
+  background-color: #c5ccd3;
+  font-size: medium;
+  font-style: italic;
 }

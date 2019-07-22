@@ -24,15 +24,8 @@ define(function (require) {
 				assert.strictEqual(list.type, "menu", "role");
 				assert.strictEqual(list.containerNode.hasAttribute("aria-readonly"), false,
 					"aria-readonly only for role=grid");
-				assert.strictEqual(list.containerNode.children[0].getAttribute("role"), null, "first renderer role");
-				assert.strictEqual(list.containerNode.children[0].renderNode.getAttribute("role"), "menuitem",
-					"first renderNode role");
-				assert.strictEqual(list.containerNode.children[1].getAttribute("role"), null, "second renderer role");
-				assert.strictEqual(list.containerNode.children[1].renderNode.getAttribute("role"), "menuitem",
-					"second renderNode role");
-				assert.strictEqual(list.containerNode.children[2].getAttribute("role"), null, "third renderer role");
-				assert.strictEqual(list.containerNode.children[2].renderNode.getAttribute("role"), "menuitem",
-					"third renderNode role");
+				assert.strictEqual(list.containerNode.children[0].getAttribute("role"), "menuitem",
+					"first renderer role");
 			},
 
 			"programmatic selection": function () {
@@ -60,12 +53,6 @@ define(function (require) {
 				assert.strictEqual(list.containerNode.children[0].getAttribute("role"), "row", "first renderer role");
 				assert.strictEqual(list.containerNode.children[0].renderNode.getAttribute("role"), "gridcell",
 					"first renderNode role");
-				assert.strictEqual(list.containerNode.children[1].getAttribute("role"), "row", "second renderer role");
-				assert.strictEqual(list.containerNode.children[1].renderNode.getAttribute("role"), "gridcell",
-					"second renderNode role");
-				assert.strictEqual(list.containerNode.children[2].getAttribute("role"), "row", "third renderer role");
-				assert.strictEqual(list.containerNode.children[2].renderNode.getAttribute("role"), "gridcell",
-					"third renderNode role");
 			}
 		},
 

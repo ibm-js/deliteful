@@ -21,6 +21,29 @@
 	-webkit-align-items: @align;
 }
 
+// Container for standard list, and list with rounded corners.
+.d-list, .d-round-rect-list {
+	/* edit display at your own risk */
+	display: block;
+
+	/* Position relative is needed by List.getBottomDistance(). */
+	/* The List must be positioned to be the offsetNode of renderers. */
+	/* Otherwise, the offsetTop value is computed against a wrong parent */
+	position: relative;
+
+	padding: 0;
+	/* Do not change this margin setting when customizing list in the app css*/
+	margin: 0;
+}
+
+// iOS theme for RoundRectList
+// IMPORTANT: a renderer MUST have the same height (inc.borders) whatever its index in the list !
+.d-round-rect-list {
+	// Do not change this margin setting when customizing list in the app css.
+	margin: 0 9px;
+}
+
+// Category list item.
 .d-list-category {
 	/* No position should be defined, as the List is using offsetTop to measure distance of elements within the list */
 	/* Edit display at your own risk */
@@ -28,23 +51,18 @@
 	margin: 0;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	.d-list-category-styles;
-	.d-list-cell {
-		height: @category-height;
-	}
 }
 
+// Normal list item.
 .d-list-item {
-	/* No position should be defined, as the List is using offsetTop to measure distance of elements within the list */
+	// No position should be defined, as the List is using offsetTop to measure distance of elements within the list.
 	list-style-type: none;
 	display: block;
-	.d-list-item-styles;
-	.d-list-cell {
-		height: @cell-height;
-	}
 }
 
-.d-list .d-list-cell, .d-round-rect-list .d-list-cell {
+// This is the same node as the d-list-item except when the List is role=grid,
+// in which case it's the d-list-item's child
+.d-list-cell {
 	.flex-display();
 	.flex-grow(1);
 	.flex-align(center);
@@ -65,23 +83,19 @@
 .d-list-item-label {
 	white-space: nowrap;
 	text-overflow: ellipsis;
-	.d-list-item-label-style;
 }
 
 .d-list-item-right-text {
 	padding-right: 4px;
 	white-space: nowrap;
 	text-overflow: ellipsis;
-	.d-list-item-right-text-style;
 	.d-list.d-rtl & {
 		padding-right: 0px;
 		padding-left: 4px;
 	}
 }
 
-.d-list-item-right-icon {
-}
-
+// Displayed while PageableList is loading a new page.
 .d-list-loader {
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -89,24 +103,20 @@
 	padding: 0px 8px;
 	.flex-display();
 	.flex-grow(1);
-	.d-list-loader-style;
 	.d-progress-indicator {
 		width: 24px;
 		height: 24px;
 		vertical-align: top;
 	}
-	.d-progress-indicator-lines {
-		.d-progress-indicator-lines-style;
-	}
 	&.d-loading {
 		cursor: wait;
-		.d-list-loading-style;
 	}
 	.d-list-loader-label {
 		padding-left: 10px;
 	}
 }
 
+// Displayed while List is loading.
 .d-list-loading-panel {
 	display: table;
 	z-index: 2;
@@ -114,7 +124,6 @@
 	width: 100%;
 	text-align: center;
 	cursor: wait;
-	.d-list-loading-panel-style;
 
 	.d-list-loading-panel-info {
 		display: table-cell;
@@ -125,9 +134,6 @@
 			height: 48px;
 			vertical-align: top;
 		}
-		.d-progress-indicator-lines {
-			.d-progress-indicator-lines-style;
-		}
 		div {
 			vertical-align: middle;
 		}
@@ -137,6 +143,12 @@
 		.d-list-loading-panel-info-label {
 			padding-left: 10px;
 		}
+	}
+}
+
+.d-list-loader, .d-list-loading-panel {
+	.d-progress-indicator-lines {
+		stroke: #808080
 	}
 }
 
@@ -151,54 +163,4 @@
 
 .d-selectable, .d-multiselectable {
 	cursor: pointer;
-	.d-list-item.d-selected {
-		.d-list-item-selected-style;
-	}
-}
-
-/*******************************/
-/* iOS theme for RoundRectList */
-/*                             */
-/* IMPORTANT: a renderer MUST      */
-/* have the same height (inc.  */
-/* borders) whatever its index */
-/* in the list !               */
-/*******************************/
-
-.d-round-rect-list {
-	/* edit display at your own risk */
-	display: block;
-
-	/* Position relative is needed by List.getBottomDistance(). */
-	/* The List must be positioned to be the offsetNode of renderers. */
-	/* Otherwise, the offsetTop value is computed against a wrong parent */
-	position: relative;
-
-	/* Do not change this margin setting when customizing list in the app css */
-	margin: 0 9px;
-	padding: 0;
-}
-
-.d-round-rect-list > *:first-child {
-	border-top-left-radius: @round-radius;
-	border-top-right-radius: @round-radius;
-}
-
-.d-round-rect-list > *:last-child {
-	border-bottom-left-radius: @round-radius;
-	border-bottom-right-radius: @round-radius;
-}
-
-.d-list {
-	/* edit display at your own risk */
-	display: block;
-
-	/* Position relative is needed by List.getBottomDistance(). */
-	/* The List must be positioned to be the offsetNode of renderers. */
-	/* Otherwise, the offsetTop value is computed against a wrong parent */
-	position: relative;
-
-	padding: 0;
-	/* Do not change this margin setting when customizing list in the app css*/
-	margin: 0;
 }
