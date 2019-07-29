@@ -317,8 +317,7 @@ define(function (require) {
 			.sleep(2000)
 			.execute(executeExpr)
 			.then(function (comboState) {
-				// For now there should still be no option selected, the first
-				// ARROW_DOWN only opens the dropdown
+				// No option selected, the first ARROW_DOWN only opens the dropdown and focuses the first item.
 				checkComboState(comboId, comboState, { // expected combo state
 					inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
 					widgetValue: [],
@@ -333,27 +332,7 @@ define(function (require) {
 					widgetValueAtLatestChangeEvent: undefined,
 					valueNodeValueAtLatestChangeEvent: undefined
 				}, "after first ARROW_DOWN");
-			})
-			.pressKeys(keys.ARROW_DOWN)
-			.execute(executeExpr)
-			.then(function (comboState) {
-				// Still no selection after the second ARROW_DOWN; in multiple
-				// mode it only changes the navigated/highlighted item of the List.
-				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
-					widgetValue: [],
-					valueNodeValue: "",
-					opened: true,
-					selectedItemsCount: 0,
-					itemRenderersCount: 37,
-					inputEventCounter: 0,
-					changeEventCounter: 0,
-					widgetValueAtLatestInputEvent: undefined, // never received
-					valueNodeValueAtLatestInputEvent: undefined,
-					widgetValueAtLatestChangeEvent: undefined,
-					valueNodeValueAtLatestChangeEvent: undefined
-				}, "after second ARROW_DOWN");
-				assert.match(comboState.activeDescendant, /^France/, "activeDescendant after second ARROW_DOWN");
+				assert.match(comboState.activeDescendant, /^France/, "activeDescendant after first ARROW_DOWN");
 			})
 			.pressKeys(keys.SPACE) // toggles selection state of the navigated item
 			.execute(executeExpr)
@@ -767,7 +746,7 @@ define(function (require) {
 			.execute(comboId + ".closeDropDown();");
 	}
 
-	function checkNavigatedDescendantNoSelection(remote, comboId) {
+	function checkNavigatedDescendantMultipleNoSelection(remote, comboId) {
 		var executeExpr = "return getNavigatedDescendant(\"" + comboId + "\");";
 		return loadFile(remote, "Combobox-decl.html")
 			.execute(comboId + ".focus();")
@@ -775,55 +754,25 @@ define(function (require) {
 			.sleep(500)
 			.execute(executeExpr)
 			.then(function (navigatedDescendant) {
-				assert.isNull(navigatedDescendant, "navigatedDescendant should be still null.");
-			})
-			.pressKeys(keys.ARROW_DOWN)
-			.sleep(500)
-			.execute(executeExpr)
-			.then(function (navigatedDescendant) {
+				// For multiple mode, first arrow navigates to first item in list (but doesn't toggle its selection).
 				assert.match(navigatedDescendant, /^France/, "navigatedDescendant after first ARROW_DOWN");
 			})
 			.pressKeys(keys.ARROW_DOWN)
 			.pressKeys(keys.ARROW_DOWN)
 			.pressKeys(keys.ARROW_DOWN)
-			.pressKeys(keys.ARROW_DOWN) // focus on Cananda
+			.pressKeys(keys.ARROW_DOWN) // focus on Canada
 			.sleep(500)
 			.execute(executeExpr)
 			.then(function (navigatedDescendant) {
 				assert.match(navigatedDescendant, /^Canada/, "navigatedDescendant after forth ARROW_DOWN");
 			})
-			.pressKeys(keys.ESCAPE)
-			.sleep(500) // wait for async closing
-			.execute(executeExpr)
-			.then(function (navigatedDescendant) {
-				// note: even if the popup it's closed, list should maintain its navigatedDescendant set.
-				assert.match(navigatedDescendant, /^Canada/, "navigatedDescendant after closing the popup");
-			})
-			.pressKeys(keys.ARROW_DOWN)
-			.sleep(500) // wait for async opening
-			.execute(executeExpr)
-			.then(function (navigatedDescendant) {
-				assert.match(navigatedDescendant, /^Canada/, "navigatedDescendant after opening the popup");
-			})
-			.pressKeys(keys.ARROW_DOWN)
-			.pressKeys(keys.ARROW_DOWN) // focus on Cananda
-			.sleep(500)
-			.execute(executeExpr)
-			.then(function (navigatedDescendant) {
-				assert.match(navigatedDescendant, /^China/, "navigatedDescendant after two ARROW_DOWN");
-			});
+			.pressKeys(keys.ESCAPE);
 	}
 
-	function checkNavigatedDescendantWithSelection(remote, comboId) {
+	function checkNavigatedDescendantMultipleWithSelection(remote, comboId) {
 		var executeExpr = "return getNavigatedDescendant(\"" + comboId + "\");";
 		return loadFile(remote, "Combobox-decl.html")
 			.execute(comboId + ".focus();")
-			.pressKeys(keys.ARROW_DOWN)
-			.sleep(500)
-			.execute(executeExpr)
-			.then(function (navigatedDescendant) {
-				assert.isNull(navigatedDescendant, "navigatedDescendant should be still null.");
-			})
 			.pressKeys(keys.ARROW_DOWN)
 			.sleep(500)
 			.execute(executeExpr)
@@ -845,54 +794,7 @@ define(function (require) {
 				assert.match(navigatedDescendant, /^Canada/, "navigatedDescendant after other two ARROW_DOWN");
 			})
 			.pressKeys(keys.ESCAPE)
-			.sleep(500) // wait for async closing
-			.execute(executeExpr)
-			.then(function (navigatedDescendant) {
-				// note: even if the popup it's closed, list should maintain its navigatedDescendant set.
-				assert.match(navigatedDescendant, /^Canada/, "navigatedDescendant after closing the popup");
-			})
-			.pressKeys(keys.ARROW_DOWN)
-			.sleep(500) // wait for async opening
-			.execute(executeExpr)
-			.then(function (navigatedDescendant) {
-				// note: on opening, the widget does focus on the navigated descendant
-				assert.match(navigatedDescendant, /^Canada/, "navigatedDescendant after opening the popup");
-			})
-			.pressKeys(keys.ARROW_DOWN)
-			.pressKeys(keys.ARROW_DOWN) // focus on Cananda
-			.sleep(500)
-			.execute(executeExpr)
-			.then(function (navigatedDescendant) {
-				assert.match(navigatedDescendant, /^China/, "navigatedDescendant after two ARROW_DOWN");
-			});
-	}
-
-	function checkNavigatedDescendantWithPreSelection(remote, comboId) {
-		var executeExpr = "return getNavigatedDescendant(\"" + comboId + "\");";
-		return loadFile(remote, "Combobox-decl.html")
-			.execute("document.getElementById(\"" + comboId + "\").focus();")
-			.pressKeys(keys.ARROW_DOWN)
-			.sleep(500)
-			.execute(executeExpr)
-			.then(function (navigatedDescendant) {
-				// note: Germany is preselected.
-				assert.match(navigatedDescendant, /^Germany/, "navigatedDescendant after first ARROW_DOWN");
-			})
-			.pressKeys(keys.ARROW_DOWN)
-			.sleep(500)
-			.execute(executeExpr)
-			.then(function (navigatedDescendant) {
-				assert.match(navigatedDescendant, /^UK/, "navigatedDescendant after second ARROW_DOWN");
-			})
-			.pressKeys(keys.ESCAPE)
-			.sleep(500) // wait for async closing
-			.pressKeys(keys.ARROW_DOWN)
-			.sleep(500) // wait for async opening
-			.execute(executeExpr)
-			.then(function (navigatedDescendant) {
-				// note: on opening, the widget does focus on the first selected element
-				assert.match(navigatedDescendant, /^Germany/, "navigatedDescendant after opening the popup");
-			});
+			.sleep(500); // wait for async closing
 	}
 
 	function checkPopupPosition(remote, comboId, position) {
@@ -1458,28 +1360,20 @@ define(function (require) {
 				return checkKeyboardNavigationAutoscroll(remote, "combo3");
 			},
 
-			"check navigatedDescendant (no selection)": function () {
+			"check navigatedDescendant (multiple, no selection)": function () {
 				var remote = this.remote;
 				if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 					return this.skip("no keyboard support");
 				}
-				return checkNavigatedDescendantNoSelection(remote, "combo3");
+				return checkNavigatedDescendantMultipleNoSelection(remote, "combo3");
 			},
 
-			"check navigatedDescendant (with selection)": function () {
+			"check navigatedDescendant (multiple, with selection)": function () {
 				var remote = this.remote;
 				if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 					return this.skip("no keyboard support");
 				}
-				return checkNavigatedDescendantWithSelection(remote, "combo3");
-			},
-
-			"check navigatedDescendant (with pre-selection)": function () {
-				var remote = this.remote;
-				if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
-					return this.skip("no keyboard support");
-				}
-				return checkNavigatedDescendantWithPreSelection(remote, "combo2-custom-sel-multiple");
+				return checkNavigatedDescendantMultipleWithSelection(remote, "combo3");
 			},
 
 			"mouse navigation selectionMode=single, autoFilter=false": function () {

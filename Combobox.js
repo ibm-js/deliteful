@@ -67,7 +67,6 @@ define([
 
 		// Leave focus in the original <input>.
 		focusOnPointerOpen: false,
-		focusOnKeyboardOpen: false,
 
 		/**
 		 * Handle clicks on the `<input>`.
@@ -88,6 +87,10 @@ define([
 
 		computeProperties: function () {
 			this._inputReadOnly = this.readOnly || !this.autoFilter || this.selectionMode === "multiple";
+
+			// Leave focus in the original <input>, except for multi-select mode, where you need to
+			// focus the list to get JAWS to work.
+			this.focusOnKeyboardOpen = this.selectionMode === "multiple";
 		},
 
 		refreshRendering: function (oldValues) {
@@ -144,7 +147,9 @@ define([
 				var promise = sup.apply(this, arguments);
 
 				return promise.then(function () {
-					this.dropDown.focusDescendants = false;
+					// For single mode, keep focus on <input>, so user can type a search string.
+					// But for multiple mode, send focus to the List, to make JAWS work.
+					this.dropDown.focusDescendants = this.selectionMode === "multiple";
 
 					// Aria-owns and aria-controls must point to the role=listbox, not the wrapper node.
 					// See https://www.w3.org/TR/wai-aria-practices/#combobox.
