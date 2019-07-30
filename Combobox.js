@@ -246,15 +246,8 @@ define([
 		 * @protected
 		 */
 		createDialog: function () {
-			// Use my label as ComboPopupDialog header.
-			var headerNode = (this.focusNode.id &&
-				this.ownerDocument.querySelector("label[for=" + this.focusNode.id + "]")) ||
-				(this.hasAttribute("aria-labelledby") &&
-					this.ownerDocument.getElementById(this.getAttribute("aria-labelledby")));
-			var header = headerNode ? headerNode.textContent.trim() : (this.getAttribute("aria-label") || "");
-
 			var dialog = new this.TooltipDialogConstructor({
-				label: header
+				label: this.getLabel()
 			});
 			dialog.classList.add("d-combo-popup-tooltip-dialog");
 			dialog.deliver();
@@ -376,7 +369,6 @@ define([
 	var Combobox = register("d-combobox", [HTMLElement, ComboboxAPI, Imp], /** @lends module:deliteful/Combobox# */ {
 		baseClass: "d-combobox",
 
-
 		/**
 		 * Widget used on mobile to display the ComboPopup in a tooltip dialog / dialog.
 		 */
@@ -391,6 +383,18 @@ define([
 			this.focusNode.focus();
 		},
 
+		/**
+		 * Search for label of Combobox, so it can be applied to dropdown too.
+		 * @returns {any}
+		 */
+		getLabel: function () {
+			var labelNode = (this.focusNode.id &&
+				this.ownerDocument.querySelector("label[for=" + this.focusNode.id + "]")) ||
+				(this.hasAttribute("aria-labelledby") &&
+					this.ownerDocument.getElementById(this.getAttribute("aria-labelledby")));
+			return labelNode ? labelNode.textContent.trim() : (this.getAttribute("aria-label") || "");
+		},
+
 		loadDropDown: function () {
 			var dropDown = isMobile ? this.createDialog() : this.list;
 
@@ -399,6 +403,11 @@ define([
 			var dir = this.getAttribute("dir");
 			if (dir) {
 				dropDown.setAttribute("dir", dir);
+			}
+
+			// Mobile dialog already has a label, but plain this.list doesn't.
+			if (dropDown === this.list) {
+				dropDown.setAttribute("aria-label", this.getLabel());
 			}
 
 			this.dropDown = dropDown; // delite/HasDropDown's property
