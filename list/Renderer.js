@@ -53,8 +53,6 @@ define([
 						+ " Example using attach-point in a template: "
 						+ "<template><div attach-point='renderNode'></div></template>");
 			}
-			this.renderNode.tabIndex = -1;
-			classList.addClass(this.renderNode, "d-list-cell");
 			this.updateFocusableChildren();
 		}),
 

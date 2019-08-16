@@ -7,7 +7,8 @@ define([
 
 	/**
 	 * Default category renderer for the {@link module:deliteful/list/List deliteful/list/List widget}.
-	 * 
+	 *
+	 * @class module:deliteful/list/CategoryRenderer
 	 * @class module:deliteful/list/CategoryRenderer
 	 */
 	return register("d-list-category-renderer", [HTMLElement, Renderer],
