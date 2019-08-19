@@ -104,7 +104,7 @@
 	],
 
 	"tunnelOptions": {
-		"drivers": [ "firefox", "internet explorer", "MicrosoftEdge" ]
+		"drivers": [ "firefox", "internet explorer", "MicrosoftEdge", {"name": "chrome", "version": "76.0.3809.68" } ]
 	},
 
 	"WAIT_TIMEOUT": 30000,
