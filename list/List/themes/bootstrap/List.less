@@ -36,7 +36,8 @@
 	}
 }
 
-.d-list-category {
+// Handle both for role=grid -> role=row -> role=columnheader case, and the role=listitem, etc. --> role=header case.
+.d-list-category.d-list-cell,  .d-list-category .d-list-cell {
 	background-color: @panel-default-heading-bg;
 	color: @panel-default-text;
 	border-bottom: 1px solid @list-group-border;

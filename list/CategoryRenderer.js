@@ -1,10 +1,15 @@
 /** @module deliteful/list/CategoryRenderer */
 define([
 	"delite/register",
+	"./Renderer",
 	"delite/handlebars!./List/CategoryRenderer.html",
-	"./Renderer"
-], function (register, template, Renderer) {
-
+	"delite/handlebars!./List/GridCategoryRenderer.html",
+], function (
+	register,
+	Renderer,
+	CategoryTemplate,
+	GridCategoryTemplate
+) {
 	/**
 	 * Default category renderer for the {@link module:deliteful/list/List deliteful/list/List widget}.
 	 *
@@ -21,20 +26,12 @@ define([
 		 */
 		baseClass: "d-list-category",
 
-		template: template,
-
 		//////////// PROTECTED METHODS ///////////////////////////////////////
 
-		refreshRendering: function (oldVals) {
-			if ("parentRole" in oldVals) {
-				if (this.parentRole === "grid") {
-					this.setAttribute("role", "row");
-					this.renderNode.setAttribute("role", "columnheader");
-				} else {
-					this.removeAttribute("role");		// alternately, set role=presentation
-					this.renderNode.removeAttribute("tabindex");	// todo: do opposite for when parentRole === grid
-					this.renderNode.setAttribute("role", "heading");
-				}
+		computeProperties: function () {
+			// If subclass hasn't set the template in the prototype, then set it here, according to parentRole.
+			if (!this.constructor.prototype.template && this.parentRole) {
+				this.template = this.parentRole === "grid" ? GridCategoryTemplate : CategoryTemplate;
 			}
 		}
 	});
