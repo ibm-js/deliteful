@@ -28,7 +28,7 @@
 			"requirejs-domready/domReady!"
 		], function (register, Memory, Trackable, ItemRenderer, List, template) {
 			var Store = Memory.createSubclass([Trackable], {});
-			var MyCustomRenderer = register("d-book-item", [HTMLElement, ItemRenderer], {
+			var MyCustomRenderer = register("d-book-item", [ItemRenderer], {
 				template: template
 			});
 			var list = new List();
@@ -46,14 +46,14 @@
 			document.body.style.display = "";
 		});
 	</script>
-	
+
 	<style>
 		.d-list-item {
 			background-color: black;
 			color: white;
 			font-family: monospace;
 			height: 45px;
-		}		
+		}
 	</style>
 </head>
 <body style="display: none" role="application">

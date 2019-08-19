@@ -18,19 +18,30 @@
 
 	<script type="text/javascript">
 		require([
+			"dcl/dcl",
 			"delite/register",
 			"dstore/Memory",
 			"dstore/Trackable",
 			"deliteful/list/ItemRenderer",
 			"deliteful/list/List",
 			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
-		], function (register, Memory, Trackable, ItemRenderer, List) {
-			var Store = Memory.createSubclass([Trackable], {});
-			var MyCustomRenderer = register("d-dataform-item", [HTMLElement, ItemRenderer], {
+		], function (
+			dcl,
+			register,
+			Memory,
+			Trackable,
+			ItemRenderer,
+			List
+		) {
+			var MyCustomRenderer = register("d-dataform-item", [ItemRenderer], {
 				counter: 1,
 				render: function () {
-					this.renderNode = this.ownerDocument.createElement("div");
-					this.appendChild(this.renderNode);
+					this.setAttribute("role", "row");
+					var renderNode = this.renderNode = this.ownerDocument.createElement("div");
+					renderNode.setAttribute("role", "gridcell");
+					renderNode.setAttribute("class", "d-list-cell");
+					renderNode.setAttribute("tabindex", "-1");
+					this.appendChild(renderNode);
 					this._firstNameNode = this.appendField("First name");
 					this._lastNameNode = this.appendField("Last name");
 					this._dateOfBirthNode = this.appendField("Date of birth");
@@ -40,7 +51,7 @@
 					button.onclick = function () {
 						alert("record updated");
 					};
-					this.renderNode.appendChild(button);
+					renderNode.appendChild(button);
 				},
 				appendField: function(name) {
 					var label = this.ownerDocument.createElement("label");
@@ -68,16 +79,21 @@
 					configurable: true
 				})
 			});
-			var list = new List();
-			list.source = new Store();
+
+			var Store = Memory.createSubclass([Trackable], {});
+			var source = new Store();
+			source.add({firstName: "John", lastName: "Doe", dateOfBirth: "12/01/1967"});
+			source.add({firstName: "Jane", lastName: "Doe", dateOfBirth: "03/04/1973"});
+			source.add({firstName: "Paul", lastName: "Smith", dateOfBirth: "11/10/1982"});
+			source.add({firstName: "Anthony", lastName: "Platters", dateOfBirth: "08/15/1964"});
+			source.add({firstName: "Lydia", lastName: "Melrose", dateOfBirth: "07/03/1982"});
+
+			var list = new List({
+				itemRenderer: MyCustomRenderer,
+				copyAllItemProps: true,
+				source: source
+			});
 			list.setAttribute("aria-label", "Sample list which items are data forms");
-			list.itemRenderer = MyCustomRenderer;
-			list.copyAllItemProps = true;
-			list.source.add({firstName: "John", lastName: "Doe", dateOfBirth: "12/01/1967"});
-			list.source.add({firstName: "Jane", lastName: "Doe", dateOfBirth: "03/04/1973"});
-			list.source.add({firstName: "Paul", lastName: "Smith", dateOfBirth: "11/10/1982"});
-			list.source.add({firstName: "Anthony", lastName: "Platters", dateOfBirth: "08/15/1964"});
-			list.source.add({firstName: "Lydia", lastName: "Melrose", dateOfBirth: "07/03/1982"});
 			list.placeAt(document.body);
 			list.setAttribute("aria-readonly", "false");
 
@@ -85,11 +101,9 @@
 		});
 	</script>
 	<style type="text/css">
-		
  		input {
  			margin-right: 10px;
  		}
-		
 	</style>
 </head>
 <body style="display: none" role="application">

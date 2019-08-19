@@ -4,6 +4,7 @@ define(function (require) {
 	var registerSuite = intern.getPlugin("interface.object").registerSuite;
 	var pollUntil = require("@theintern/leadfoot/helpers/pollUntil").default;
 	var assert = intern.getPlugin("chai").assert;
+	var keys = require("@theintern/leadfoot/keys").default;
 
 	registerSuite("AriaListbox tests", {
 		"selectionMode 'multiple'": function () {
@@ -138,58 +139,58 @@ define(function (require) {
 				intern.config.POLL_INTERVAL))
 				.then(function () {
 					return remote
-						.pressKeys("\uE004") // Press TAB
+						.pressKeys(keys.TAB)
 						.getActiveElement()
 						.getVisibleText()
 						.then(function (value) {
 							assert.strictEqual(value, "Programmatic item of order 0\nlist-prog-1");
 						})
 						.end()
-						.pressKeys("\uE015") // Press DOWN ARROW
+						.pressKeys(keys.ARROW_DOWN)
 						.getActiveElement()
 						.getVisibleText()
 						.then(function (value) {
 							assert.strictEqual(value, "Programmatic item of order 1\nlist-prog-1");
 						})
 						.end()
-						.pressKeys("\uE015") // Press DOWN ARROW
+						.pressKeys(keys.ARROW_DOWN)
 						.getActiveElement()
 						.getVisibleText()
 						.then(function (value) {
 							assert.strictEqual(value, "Programmatic item of order 2\nlist-prog-1");
 						})
 						.end()
-						.pressKeys("\uE014") // Press RIGHT ARROW
+						.pressKeys(keys.ARROW_RIGHT)
 						.getActiveElement()
 						.getVisibleText()
 						.then(function (value) {
 							assert.strictEqual(value, "Programmatic item of order 2\nlist-prog-1");
 						})
 						.end()
-						.pressKeys("\uE006") // Press ENTER
+						.pressKeys(keys.ENTER)
 						.getActiveElement()
 						.getVisibleText()
 						.then(function (value) {
 							assert.strictEqual(value, "Programmatic item of order 2\nlist-prog-1");
 						})
 						.end()
-						.pressKeys("\uE013") // Press UP ARROW
+						.pressKeys(keys.ARROW_UP)
 						.getActiveElement()
 						.getVisibleText()
 						.then(function (value) {
 							assert.strictEqual(value, "Programmatic item of order 1\nlist-prog-1");
 						})
 						.end()
-						.pressKeys("\uE004") // Press TAB
-						.pressKeys("\uE008\uE004") // Press Shift + TAB
-						.pressKeys("\uE008") // release shift
+						.pressKeys(keys.TAB)
+						.pressKeys(keys.SHIFT + keys.TAB)
+						.pressKeys(keys.SHIFT) // release shift
 						.getActiveElement()
 						.getVisibleText()
 						.then(function (value) {
 							assert.strictEqual(value, "Programmatic item of order 1\nlist-prog-1");
 						})
 						.end()
-						.pressKeys("\uE032") // Press F2
+						.pressKeys(keys.F2)
 						.getActiveElement()
 						.getVisibleText()
 						.then(function (value) {
@@ -215,31 +216,18 @@ define(function (require) {
 				intern.config.POLL_INTERVAL))
 				.then(function () {
 					return remote
-						.pressKeys("\uE004") // Press TAB
+						.pressKeys(keys.TAB)
 						.getActiveElement()
 						.getVisibleText()
 						.then(function (value) {
 							assert.strictEqual(value, "list item 0\nA");
 						})
 						.end()
-						.pressKeys("\uE013") // Press UP ARROW
-						.getActiveElement()
-						.getVisibleText()
-						.then(function (value) {
-							assert.strictEqual(value, "list item 9\nB");
-						})
-						.end()
-						.pressKeys("\uE015") // Press DOWN ARROW
-						.getActiveElement()
-						.getVisibleText()
-						.then(function (value) {
-							assert.strictEqual(value, "list item 0\nA");
-						})
-						.pressKeys("\uE015") // Press DOWN ARROW 5 times
-						.pressKeys("\uE015")
-						.pressKeys("\uE015")
-						.pressKeys("\uE015")
-						.pressKeys("\uE015")
+						.pressKeys(keys.ARROW_DOWN) 	//5 times
+						.pressKeys(keys.ARROW_DOWN)
+						.pressKeys(keys.ARROW_DOWN)
+						.pressKeys(keys.ARROW_DOWN)
+						.pressKeys(keys.ARROW_DOWN)
 						.getActiveElement()
 						.getVisibleText()
 						.then(function (value) {
@@ -266,14 +254,14 @@ define(function (require) {
 				intern.config.POLL_INTERVAL))
 				.then(function () {
 					return remote
-						.pressKeys("\uE004") // Press TAB
+						.pressKeys(keys.TAB)
 						.getActiveElement()
 						.getVisibleText()
 						.then(function (value) {
 							assert.strictEqual(value, "list item 0\nright text A");
 						})
 						.end()
-						.pressKeys("\uE00D") // Press SPACE
+						.pressKeys(keys.SPACE)
 						.getActiveElement()
 						.getVisibleText()
 						.then(function (value) {
@@ -284,7 +272,7 @@ define(function (require) {
 							assert.strictEqual(value, "true");
 						})
 						.end()
-						.pressKeys("\uE00D") // Press SPACE
+						.pressKeys(keys.SPACE)
 						.getActiveElement()
 						.getVisibleText()
 						.then(function (value) {
@@ -314,14 +302,14 @@ define(function (require) {
 				intern.config.POLL_INTERVAL))
 				.then(function () {
 					return remote
-						.pressKeys("\uE004") // Press TAB
+						.pressKeys(keys.TAB)
 						.getActiveElement()
 						.getVisibleText()
 						.then(function (value) {
 							assert.strictEqual(value, "list item 0\nright text 1", "keystroke 1");
 						})
 						.end()
-						.pressKeys("\uE00D") // Press SPACE
+						.pressKeys(keys.SPACE)
 						.getActiveElement()
 						.getVisibleText()
 						.then(function (value) {
@@ -333,7 +321,7 @@ define(function (require) {
 						})
 						.end()
 						.sleep(10)
-						.pressKeys("\uE00D") // Press SPACE
+						.pressKeys(keys.SPACE)
 						.getActiveElement()
 						.getVisibleText()
 						.then(function (value) {
@@ -344,7 +332,7 @@ define(function (require) {
 							assert.strictEqual(value, "false", "keystroke 3");
 						})
 						.end()
-						.pressKeys("\uE010") // Press END
+						.pressKeys(keys.END)
 						.getActiveElement()
 						.getVisibleText()
 						.then(function (value) {
@@ -355,7 +343,7 @@ define(function (require) {
 							assert.strictEqual(value, "false", "keystroke 4");
 						})
 						.end()
-						.pressKeys("\uE00F") // Press PAGE DOWN
+						.pressKeys(keys.PAGE_DOWN)
 						.getActiveElement()
 						.getVisibleText()
 						.then(function (value) {
@@ -366,7 +354,7 @@ define(function (require) {
 							assert.strictEqual(value, "false", "keystroke 5");
 						})
 						.end()
-						.pressKeys("\uE011") // Press HOME
+						.pressKeys(keys.HOME)
 						.getActiveElement()
 						.getVisibleText()
 						.then(function (value) {
@@ -377,7 +365,7 @@ define(function (require) {
 							assert.strictEqual(value, "false", "keystroke 6");
 						})
 						.end()
-						.pressKeys("\uE00E") // Press PAGE UP
+						.pressKeys(keys.PAGE_UP)
 						.getActiveElement()
 						.getVisibleText()
 						.then(function (value) {
@@ -386,20 +374,6 @@ define(function (require) {
 						.getAttribute("aria-selected")
 						.then(function (value) {
 							assert.strictEqual(value, "false", "keystroke 7");
-						})
-						.end()
-						.pressKeys("\uE013") // Press UP ARROW
-						.getActiveElement()
-						.getVisibleText()
-						.then(function (value) {
-							assert.strictEqual(value, "list item 9\nright text 10", "keystroke 8");
-						})
-						.end()
-						.pressKeys("\uE015") // Press DOWN ARROW
-						.getActiveElement()
-						.getVisibleText()
-						.then(function (value) {
-							assert.strictEqual(value, "list item 0\nright text 1", "keystroke 9");
 						})
 						.end();
 				});
@@ -421,7 +395,7 @@ define(function (require) {
 				intern.config.POLL_INTERVAL))
 				.then(function () {
 					return remote
-						.pressKeys("\uE004") // Press TAB
+						.pressKeys(keys.TAB)
 						.getActiveElement()
 						.getVisibleText()
 						.then(function (value) {

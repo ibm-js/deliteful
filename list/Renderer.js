@@ -48,11 +48,6 @@ define([
 		//////////// PROTECTED METHODS ///////////////////////////////////////
 
 		render: dcl.after(function () {
-			if (!this.renderNode) {
-				throw new Error("render must define a renderNode property on the Renderer."
-						+ " Example using attach-point in a template: "
-						+ "<template><div attach-point='renderNode'></div></template>");
-			}
 			this.updateFocusableChildren();
 		}),
 
@@ -119,8 +114,8 @@ define([
 					delete this._focusableChildren[i].tabIndex;
 				}
 			}
-			// parse the renderNode content to retrieve the ordered list of focusable children
-			var nodes = Array.prototype.slice.call(this.renderNode.querySelectorAll("[navindex]"), 0);
+			// parse the content to retrieve the ordered list of focusable children
+			var nodes = Array.prototype.slice.call(this.querySelectorAll("[navindex]"), 0);
 			this._focusableChildren = nodes.slice(0).sort(function (a, b) {
 				var navindexA = parseInt(a.getAttribute("navindex"), 10);
 				var navindexB = parseInt(b.getAttribute("navindex"), 10);

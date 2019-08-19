@@ -307,7 +307,7 @@ define([
 				renderer = this._getLastVisibleRenderer();
 			}
 			if (renderer) {
-				this.navigateTo(renderer.renderNode);
+				this.navigateTo(this.type === "grid" ? renderer.firstElementChild : renderer);
 			}
 		},
 

@@ -475,7 +475,8 @@ define([
 				if (renderer) {
 					this.list.scrollBy({y: this.list.getBottomDistance(renderer)});
 					if (navigate) {
-						this.list.navigatedDescendant = renderer.renderNode;
+						this.list.navigatedDescendant = this.list.type === "grid" ?
+							renderer.firstElementChild : renderer;
 					}
 				} // null if the list is empty because no item matches the auto-filtering
 			}

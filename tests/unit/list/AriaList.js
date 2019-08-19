@@ -22,8 +22,8 @@ define(function (require) {
 				assert.strictEqual(list.type, "grid", "role");
 				assert(list.containerNode.hasAttribute("aria-readonly"), "aria-readonly for role=grid");
 				assert.strictEqual(list.containerNode.children[0].getAttribute("role"), "row", "first renderer role");
-				assert.strictEqual(list.containerNode.children[0].renderNode.getAttribute("role"), "gridcell",
-					"first renderNode role");
+				assert.strictEqual(list.containerNode.children[0].firstElementChild.getAttribute("role"), "gridcell",
+					"first gridcell role");
 			},
 
 			"aria properties for role=list": function () {
@@ -45,8 +45,8 @@ define(function (require) {
 				assert.strictEqual(list.containerNode.getAttribute("aria-readonly"), "true",
 					"aria-readonly for role=grid");
 				assert.strictEqual(list.containerNode.children[0].getAttribute("role"), "row", "first renderer role");
-				assert.strictEqual(list.containerNode.children[0].renderNode.getAttribute("role"), "gridcell",
-					"first renderNode role");
+				assert.strictEqual(list.containerNode.children[0].firstElementChild.getAttribute("role"), "gridcell",
+					"first gridcell role");
 			}
 		},
 

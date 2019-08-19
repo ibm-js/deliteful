@@ -23,7 +23,7 @@
 			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
 		], function(register, ItemRenderer, template){
 			// Custom item renderer that renders a navigation button
-			NavigationItemRenderer = register("d-navigation-item", [HTMLElement, ItemRenderer], {
+			NavigationItemRenderer = register("d-navigation-item", [ItemRenderer], {
 				template: template
 			});
 			require([
@@ -49,7 +49,7 @@
 		body {
 			height: 100%;
 		}
-		
+
 		d-view-stack {
 			width: 100%;
 		}

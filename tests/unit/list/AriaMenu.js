@@ -51,8 +51,8 @@ define(function (require) {
 				list.deliver();
 				assert.strictEqual(list.type, "grid", "role");
 				assert.strictEqual(list.containerNode.children[0].getAttribute("role"), "row", "first renderer role");
-				assert.strictEqual(list.containerNode.children[0].renderNode.getAttribute("role"), "gridcell",
-					"first renderNode role");
+				assert.strictEqual(list.containerNode.children[0].firstElementChild.getAttribute("role"), "gridcell",
+					"first gridcell role");
 			}
 		},
 

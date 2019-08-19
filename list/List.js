@@ -1,10 +1,9 @@
 /** @module deliteful/list/List */
 define([
 	"dcl/dcl",
-	"delite/Widget",
+	"delite/features",
 	"delite/register",
 	"delite/classList",
-	"delite/CustomElement",
 	"delite/Selection",
 	"delite/KeyNav",
 	"delite/StoreMap",
@@ -16,10 +15,9 @@ define([
 	"delite/theme!./List/themes/{{theme}}/List.css"
 ], function (
 	dcl,
-	Widget,
+	has,
 	register,
 	classList,
-	CustomElement,
 	Selection,
 	KeyNav,
 	StoreMap,
@@ -46,8 +44,8 @@ define([
 	 * @augments module:delite/Scrollable
 	 */
 
-	return register("d-list", [HTMLElement, Selection, KeyNav, StoreMap, Scrollable],
-		/** @lends module:deliteful/list/List# */ {
+	var mixins = [HTMLElement, Selection, KeyNav, StoreMap, Scrollable];
+	return register("d-list", mixins, /** @lends module:deliteful/list/List# */ {
 
 		/**
 		 * Dojo object store that contains the items to render in the list.
@@ -337,7 +335,6 @@ define([
 			//	List attributes have been updated.
 			/*jshint maxcomplexity:15*/
 
-
 			if ("type" in props) {
 				this.getRenderers().forEach(function (renderer) {
 					renderer.parentRole = this.type;
@@ -362,9 +359,8 @@ define([
 					// update aria-selected attribute on unselected items
 					for (var i = 0; i < this.containerNode.children.length; i++) {
 						var child = this.containerNode.children[i];
-						if (child.renderNode // no renderNode for the loading panel child
-							&& child.renderNode.hasAttribute("aria-selected")) {
-							child.renderNode.removeAttribute("aria-selected");
+						if (child.hasAttribute("aria-selected")) {
+							child.removeAttribute("aria-selected");
 							classList.removeClass(child, this._cssClasses.selected);
 						}
 					}
@@ -380,9 +376,8 @@ define([
 						for (i = 0; i < this.containerNode.children.length; i++) {
 							child = this.containerNode.children[i];
 							if (child.tagName.toLowerCase() === this.itemRenderer.tag
-									&& child.renderNode // no renderNode for the loading panel child
-									&& !child.renderNode.hasAttribute("aria-selected")) {
-								child.renderNode.setAttribute("aria-selected", "false");
+									&& !child.hasAttribute("aria-selected")) {
+								child.setAttribute("aria-selected", "false");
 								classList.removeClass(child, this._cssClasses.selected); // TODO: NOT NEEDED ?
 							}
 						}
@@ -529,14 +524,53 @@ define([
 		 * @returns {module:deliteful/list/Renderer}
 		 */
 		getEnclosingRenderer: function (node) {
-			var currentNode = node;
-			while (currentNode) {
-				if (currentNode.parentNode && currentNode.parentNode === this.containerNode) {
-					break;
-				}
-				currentNode = currentNode.parentNode;
+			while (node && node.parentNode !== this.containerNode) {
+				node = node.parentNode;
 			}
-			return currentNode;
+			return node;
+		},
+
+		/**
+		 * Returns the row enclosing a dom node, or null
+		 * if there is none.
+		 *
+		 * For non-grid type Lists, same as getEnclosingRenderer().
+		 *
+		 * @param {Element} node The dom node.
+		 * @returns {module:deliteful/list/Renderer}
+		 */
+		getEnclosingRow: function (node) {
+			if (this.type === "grid") {
+				var currentCell = this.getEnclosingCell(node);
+				return currentCell ? currentCell.parentNode : null;
+			} else {
+				return this.getEnclosingRenderer(node);
+			}
+		},
+
+		/**
+		 * For type=grid Lists, returns the cell enclosing a dom node, or null if there is none.
+		 * Otherwise, just return the renderer.
+		 * @param {Element} node The dom node.
+		 * @returns {Element}
+		 */
+		getEnclosingCell: function (node) {
+			if (this.type === "grid") {
+				while (node) {
+					var parent = node.parentNode,
+						grandparent = parent.parentNode;
+					// Don't match gridcell in nested Lists, only for this List.  However, account
+					// for both case when renderer is "rowgroup" containing a "row", or it's just a "row".
+					if (/^(gridcell|columnheader|rowheader)$/.test(node.getAttribute("role")) &&
+						(grandparent === this.containerNode || grandparent.parentNode === this.containerNode)) {
+						break;
+					}
+					node = parent;
+				}
+				return node;
+			} else {
+				return this.getEnclosingRenderer(node);
+			}
 		},
 
 		//////////// delite/Selection implementation ///////////////////////////////////////
@@ -559,7 +593,7 @@ define([
 						// According to https://www.w3.org/TR/wai-aria/states_and_properties#aria-selected
 						// aria-selected shouldn't be set on role=menuitem nodes.  That's what the future
 						// https://www.w3.org/TR/wai-aria-1.1/#aria-current role is for.
-						renderer.renderNode.setAttribute("aria-selected", itemSelected ? "true" : "false");
+						renderer.setAttribute("aria-selected", itemSelected ? "true" : "false");
 					}
 					classList.toggleClass(renderer, this._cssClasses.selected, itemSelected);
 				}
@@ -783,7 +817,10 @@ define([
 			if (this._getFocusedRenderer() === renderer) {
 				var nextFocusRenderer = this._getNextRenderer(renderer, 1) || this._getNextRenderer(renderer, -1);
 				if (nextFocusRenderer) {
-					this.navigateTo(nextFocusRenderer.renderNode);
+					this.navigateTo(this.type === "grid" ?
+						nextFocusRenderer.querySelector("[role=gridcell], [role=columnheader], [role=rowheader]") :
+						nextFocusRenderer
+					);
 				}
 			}
 			if (!keepSelection && !this.isCategoryRenderer(renderer) && this.isSelected(renderer.item)) {
@@ -814,7 +851,7 @@ define([
 			renderer.deliver();
 			if (this.selectionMode !== "none" && (this.type === "grid" || this.type === "listbox")) {
 				var itemSelected = !!this.isSelected(item);
-				renderer.renderNode.setAttribute("aria-selected", itemSelected ? "true" : "false");
+				renderer.setAttribute("aria-selected", itemSelected ? "true" : "false");
 				classList.toggleClass(renderer, this._cssClasses.selected, itemSelected);
 			}
 			return renderer;
@@ -1014,14 +1051,37 @@ define([
 
 		/**
 		 * Test if the child is navigable.  Skips category renderers when role=listbox,
-		 * role=list or role=menu.
+		 * role=list or role=menu.  Also skips cells in child Lists.
 		 * @private
 		 */
 		descendantSelector: function (child) {
-			var enclosingRenderer = this.getEnclosingRenderer(child);
-			return enclosingRenderer &&
-				(this.type === "grid" || !this.isCategoryRenderer(enclosingRenderer)) &&
-				(classList.hasClass(child, this._cssClasses.cell) || child.hasAttribute("navindex"));
+			if (child.hasAttribute("navindex")) {
+				// Handle actionable mode.
+				for (var parent = child.parentNode; parent !== this.containerNode; parent = parent.parentNode) {
+					// Return false if child is inside a nested List
+					var role = parent.getAttribute("role");
+					if (role === "list" || role === "listbox" || role === "menu" || role === "grid") {
+						return false;
+					}
+				}
+
+				// Otherwise return true;
+				return true;
+			} else {
+				// Normal mode.
+				var matchesFuncName = has("dom-matches");
+
+				if (this.type === "grid") {
+					return child[matchesFuncName](
+						"#" + this.containerNode.id + " > [role=row] > *, " +
+						"#" + this.containerNode.id + " > [role=rowgroup] > [role=row] > *"
+					);
+				} else {
+					return child[matchesFuncName](
+						"#" + this.containerNode.id + " > *:not(" + this.categoryRenderer.tag + ")"
+					);
+				}
+			}
 		},
 
 		/**
@@ -1041,20 +1101,17 @@ define([
 		}),
 
 		focus: function () {
-			// Focus the previously focused child of the first visible grid cell
+			// Focus the previously focused child or the first visible row.
 			if (this._previousFocusedChild) {
 				this.navigateTo(this._previousFocusedChild);
 			} else {
-				var cell = this._getFirst();
-				if (cell) {
-					while (cell) {
-						if (this.getTopDistance(cell) >= 0) {
-							break;
-						}
-						var nextRenderer = cell.parentNode.nextElementSibling;
-						cell = nextRenderer ? nextRenderer.renderNode : null;
+				var rows = this.getNavigableRows();
+				for (var i = 0; i < rows.length; i++) {
+					var row = rows[i];
+					if (this.getTopDistance(row) >= 0) {
+						this.navigateTo(this.getRowCell(row, 0));
+						break;
 					}
-					this.navigateTo(cell);
 				}
 			}
 		},
@@ -1071,82 +1128,98 @@ define([
 		}),
 
 		/**
-		 * Returns the first cell in the list.
-		 * For role=listbox, role=list and role=menu, skips category renderers.
-		 * However, it doesn't skip navigation renderers ("click to load previous rows ...").
-		 * @private
-		 * @returns {Element}
+		 * For type=grid, returns the [role=row] nodes, excluding nodes in child lists.
+		 *
+		 * For other List types, simply returns the list of navigable renderers, i.e. the renderers
+		 * that aren't categories.
 		 */
-		_getFirst: function () {
-			var firstRenderer = this.containerNode.childNodes[0],
-				firstCell = firstRenderer && firstRenderer.renderNode;
-			if (this.type !== "grid" && firstRenderer && this.isCategoryRenderer(firstRenderer)) {
-				firstCell = this.getNext(firstCell, 1);
-			}
-			return firstCell;
+		getNavigableRows: function () {
+			var idSelector = "#" + this.containerNode.id;
+			var selector = this.type === "grid" ?
+				idSelector + " > [role=rowgroup] > [role=row], " + idSelector + " > [role=row]" :
+				idSelector + " > *:not(" + this.categoryRenderer.tag + ")";
+			return this.querySelectorAll(selector);
 		},
 
 		/**
-		 * Returns the last cell in the list.
-		 * For role=listbox, role=list and role=menu, skips category renderers.
-		 * However, it doesn't skip navigation renderers ("click to load more rows ...").
-		 * @private
-		 * @returns {Element}
+		 * For type=grid, returns the next [role=row], which is generally the next renderer,
+		 * unless the current renderer is a [role=rowgroup] with multiple rows.
+		 *
+		 * For other List types, simply returns the next navigable renderer, i.e. the next renderer
+		 * that isn't a category.
+		 *
+		 * @param {Element} child
+		 * @param {Number} dir - 1 for next, -1 for previous
 		 */
-		_getLast: function () {
-			var lastRenderer = this.containerNode.childNodes[this.containerNode.childNodes.length - 1],
-				lastCell = lastRenderer && lastRenderer.renderNode;
-			if (this.type !== "grid" && lastRenderer && this.isCategoryRenderer(lastRenderer)) {
-				lastCell = this.getNext(lastCell, -1);
-			}
-			return lastCell || null;
+		getNextNavigableRow: function (child, dir) {
+			var rows = this.getNavigableRows();
+
+			var currentRow = child && this.getEnclosingRow(child);
+			var idx = Array.prototype.indexOf.call(rows, currentRow) + dir;
+
+			return rows[idx];
 		},
 
 		/**
-		 * Get the next or previous cell, compared to the specified one.
-		 * @param child
-		 * @param dir
+		 * Return the nth cell of the specified row, or if no such cell exists, then the last cell of the row.
+		 * @param row
+		 * @param idx
 		 * @returns {Element}
 		 */
-		getNext: function (child, dir) {
-			if (child === this.containerNode) {
-				return dir > 0 ? this._getFirst() : this._getLast();
+		getRowCell: function (row, idx) {
+			if (this.type === "grid") {
+				return row.children[idx] || row.lastElementChild;
+			} else {
+				return row;
 			}
-
-			var renderer = this.getEnclosingRenderer(child);
-			return dir > 0 ? renderer.nextElementSibling ? renderer.nextElementSibling.renderNode : this._getFirst() :
-				renderer.previousElementSibling ? renderer.previousElementSibling.renderNode : this._getLast();
 		},
 
 		// Simple arrow key support.
-		downKeyHandler: function (evt) {
+
+		upDownKeyHandler: function (evt, dir) {
 			if (this.navigatedDescendant && this.navigatedDescendant.hasAttribute("navindex")) {
 				return;
 			}
-			var focusedRenderer = this._getFocusedRenderer();
-			var next = null;
-			if (focusedRenderer) {
-				next = focusedRenderer.nextElementSibling;
-				if (next && this.type !== "grid" && this.isCategoryRenderer(next)) {
-					next = next.nextElementSibling;
-				}
+			var focusedCell = this._getFocusedCell(),
+				newRow = this.getNextNavigableRow(focusedCell, dir);
+
+			if (newRow) {
+				var idx = Array.prototype.indexOf.call(focusedCell.parentNode.children, focusedCell),
+					newCell = this.getRowCell(newRow, idx);
+				this.navigateTo(newCell, false, evt);
 			}
-			this.navigateTo(next ? next.renderNode : this._getFirst(), false, evt);
+		},
+
+		downKeyHandler: function (evt) {
+			this.upDownKeyHandler(evt, 1);
 		},
 
 		upKeyHandler: function (evt) {
+			this.upDownKeyHandler(evt, -1);
+		},
+
+		previousKeyHandler: function () {
+			if (this.type !== "grid") {
+				return;
+			}
 			if (this.navigatedDescendant && this.navigatedDescendant.hasAttribute("navindex")) {
 				return;
 			}
-			var focusedRenderer = this._getFocusedRenderer();
-			var next = null;
-			if (focusedRenderer) {
-				next = focusedRenderer.previousElementSibling;
-				if (next && this.type !== "grid" && this.isCategoryRenderer(next)) {
-					next = next.previousElementSibling;
-				}
+			if (this.navigatedDescendant.previousElementSibling) {
+				this.navigateTo(this.navigatedDescendant.previousElementSibling);
 			}
-			this.navigateTo(next ? next.renderNode : this._getLast(), false, evt);
+		},
+
+		nextKeyHandler: function () {
+			if (this.type !== "grid") {
+				return;
+			}
+			if (this.navigatedDescendant && this.navigatedDescendant.hasAttribute("navindex")) {
+				return;
+			}
+			if (this.navigatedDescendant.nextElementSibling) {
+				this.navigateTo(this.navigatedDescendant.nextElementSibling);
+			}
 		},
 
 		// Remap Page Up -> Home and Page Down -> End
@@ -1180,7 +1253,7 @@ define([
 		},
 
 		/**
-		 * Handles keydown events for the aria role grid
+		 * Handles keydown events for the aria role grid.
 		 * @param {Event} evt the keydown event
 		 * @private
 		 */
@@ -1192,12 +1265,18 @@ define([
 					evt.preventDefault();
 					evt.stopPropagation();
 					var renderer = this._getFocusedRenderer();
+
+					// First try to find another [navindex] node inside current renderer.
 					var next = renderer[evt.shiftKey ? "getPrev" : "getNext"](this.navigatedDescendant);
+
+					// If there isn't one, then loop through other renderers until we find one with a [navindex] child.
 					while (!next) {
-						renderer = renderer[evt.shiftKey ? "previousElementSibling" : "nextElementSibling"]
-							|| this[evt.shiftKey ? "_getLast" : "_getFirst"]().parentNode;
+						// Go to next/previous renderer, or if we are at end/beginning, then loop around.
+						renderer = this._getNextRenderer(renderer, evt.shiftKey ? -1 : 1)
+							|| (evt.shiftKey ? this._getLastRenderer() : this._getFirstRenderer());
 						next = renderer[evt.shiftKey ? "getLast" : "getFirst"]();
 					}
+
 					this.navigateTo(next);
 				} else if (evt.key === "Escape") {
 					// Leave Actionable mode
@@ -1232,17 +1311,28 @@ define([
 		 * @private
 		 */
 		_leaveActionableMode: function () {
-			this.navigateTo(this._getFocusedRenderer().renderNode);
+			var cell = this._getFocusedCell();
+			this.navigateTo(cell);
 		},
 
 		/**
-		 * Returns the renderer that currently has the focused or is
+		 * Returns the renderer that currently has the focus or is
 		 * an ancestor of the focused node.
 		 * @return {module:deliteful/list/Renderer}
 		 * @private
 		 */
 		_getFocusedRenderer: function () {
 			return this.navigatedDescendant ? this.getEnclosingRenderer(this.navigatedDescendant) : null;
+		},
+
+		/**
+		 * For type=grid Lists, returns the cell that currently has the focus or is
+		 * an ancestor of the focused cell.
+		 * @return {Element}
+		 * @private
+		 */
+		_getFocusedCell: function () {
+			return this.navigatedDescendant ? this.getEnclosingCell(this.navigatedDescendant) : null;
 		}
 	});
 });

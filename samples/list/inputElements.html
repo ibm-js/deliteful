@@ -24,17 +24,18 @@
 			"delite/handlebars!deliteful/samples/list/templates/BlankItemRenderer.html",
 			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
 		], function (register, ItemRenderer, List, template) {
-			var MyCustomRenderer = register("d-configuration-item", [HTMLElement, ItemRenderer], {
+			var MyCustomRenderer = register("d-configuration-item", [ItemRenderer], {
 				template: template,
 				refreshRendering: function (oldVals) {
 					if ("item" in oldVals) {
-						this.renderNode.innerHTML = "";
+						var renderNode = this.firstElementChild;
+						renderNode.innerHTML = "";
 						if (this.item.elementTag) {
-							var elementNode = this.renderNode.appendChild(this._createElement(this.item.elementTag, this.item.elementAttrs));
+							var elementNode = renderNode.appendChild(this._createElement(this.item.elementTag, this.item.elementAttrs));
 							elementNode.setAttribute("navindex", "0");
 							this.updateFocusableChildren();
 							if (this.item.label) {
-								var labelNode = this.renderNode.appendChild(this.ownerDocument.createElement("SPAN"));
+								var labelNode = renderNode.appendChild(this.ownerDocument.createElement("SPAN"));
 								labelNode.className = "label";
 								labelNode.innerHTML = this.item.label;
 								elementNode.setAttribute("aria-label", this.item.label);
@@ -72,7 +73,6 @@
 		});
 	</script>
 	<style type="text/css">
-		
 		.d-list .d-list-cell {
 			display: block;
 		}
@@ -84,7 +84,6 @@
 		input {
 			float: right;
 		}
-		
 	</style>
 </head>
 <body style="display: none" role="application">

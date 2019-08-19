@@ -23,9 +23,9 @@ An item renderer is a subclass of `deliteful/list/ItemRenderer` that defines the
 Add the following code in `js/app.js`, before the `refreshPhotoList()` call:
 
 ```js
-photolist.itemRenderer = register("d-photo-item", [HTMLElement, ItemRenderer], {
-	template: handlebars.compile("<template>" +
-		"<div attach-point='renderNode'>" +
+photolist.itemRenderer = register("d-photo-item", [ItemRenderer], {
+	template: handlebars.compile("<template role=row>" +
+		"<div role=gridcell class='d-list-cell' tabindex=-1>" +
 			"<div class='photoThumbnailBg'>" +
 				"<img class='photoThumbnail' src='{%raw%}{{item.media.m}}{%endraw%}'>" +
 			"</div>" +

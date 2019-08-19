@@ -300,10 +300,10 @@ The actual rendering of the items in the list is delegated to an item renderer w
 The default one is `deliteful/list/ItemRenderer`, but a custom item renderer can be specified
 using the `itemRenderer` property of the list.
 
-A custom item renderer must extends `deliteful/list/ItemRenderer`. It accesses the item to render in its `item` property.
-It must assign to its `renderNode` property the node in which the item is rendered .
+A custom item renderer must extend `deliteful/list/ItemRenderer`.
+It accesses the item to render in its `item` property.
 
-If the rendered item have actionable / keyboard navigable nodes, those are set using the `navindex` attribute,
+If the rendered item has actionable / keyboard navigable nodes, those are set using the `navindex` attribute,
 which behaves similarly to the standard `tabindex` attribute.
 
 Here is an example of custom item renderer that illustrates these concepts:

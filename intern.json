@@ -5,7 +5,7 @@
 			"chromeOptions": {
 				"args": ["headless", "disable-gpu"]
 			},
-			"fixSessionCapabilities": "no-detect"
+			"fixSessionCapabilities": "true"
 		}
 	],
 

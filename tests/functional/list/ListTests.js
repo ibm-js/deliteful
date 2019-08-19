@@ -67,7 +67,7 @@ define(function (require) {
 				[],
 				intern.config.WAIT_TIMEOUT,
 				intern.config.POLL_INTERVAL))
-				.findByCssSelector("#" + listId + " .d-list-item:nth-child(3) [role=gridcell]")
+				.findByCssSelector("#" + listId + " .d-list-item:nth-child(3)")
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, null, "aria-selected initial");
@@ -92,7 +92,7 @@ define(function (require) {
 				[],
 				intern.config.WAIT_TIMEOUT,
 				intern.config.POLL_INTERVAL))
-				.findByCssSelector("#" + listId + " .d-list-item:nth-child(3) [role=gridcell]")
+				.findByCssSelector("#" + listId + " .d-list-item:nth-child(3)")
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, "false", "3rd child, initial aria-selected");
@@ -113,7 +113,7 @@ define(function (require) {
 					assert.strictEqual(value, "true", "3rd child, aria-selected after third click");
 				})
 				.end()
-				.findByCssSelector("#" + listId + " .d-list-item:nth-child(4) [role=gridcell]")
+				.findByCssSelector("#" + listId + " .d-list-item:nth-child(4)")
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, "false", "4th child, initial aria-selected");
@@ -124,7 +124,7 @@ define(function (require) {
 					assert.strictEqual(value, "true", "4th child, aria-selected after click");
 				})
 				.end()
-				.findByCssSelector("#" + listId + " .d-list-item:nth-child(3) [role=gridcell]")
+				.findByCssSelector("#" + listId + " .d-list-item:nth-child(3)")
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, "true", "3rd child, aria-selected at end");
@@ -144,7 +144,7 @@ define(function (require) {
 				[],
 				intern.config.WAIT_TIMEOUT,
 				intern.config.POLL_INTERVAL))
-				.findByCssSelector("#" + listId + " .d-list-item:nth-child(3) [role=gridcell]")
+				.findByCssSelector("#" + listId + " .d-list-item:nth-child(3)")
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, "false", "3rd child, initial aria-selected");
@@ -165,7 +165,7 @@ define(function (require) {
 					assert.strictEqual(value, "true", "3rd child, aria-selected after third click");
 				})
 				.end()
-				.findByCssSelector("#" + listId + " .d-list-item:nth-child(4) [role=gridcell]")
+				.findByCssSelector("#" + listId + " .d-list-item:nth-child(4)")
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, "false", "4th child, initial aria-selected");
@@ -176,7 +176,7 @@ define(function (require) {
 					assert.strictEqual(value, "true", "4th child, aria-selected after click");
 				})
 				.end()
-				.findByCssSelector("#" + listId + " .d-list-item:nth-child(3) [role=gridcell]")
+				.findByCssSelector("#" + listId + " .d-list-item:nth-child(3)")
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, "false", "3rd child, aria-selected at end");
@@ -196,7 +196,7 @@ define(function (require) {
 				[],
 				intern.config.WAIT_TIMEOUT,
 				intern.config.POLL_INTERVAL))
-				.findByCssSelector("#" + listId + " .d-list-item:nth-child(3) [role=gridcell]")
+				.findByCssSelector("#" + listId + " .d-list-item:nth-child(3)")
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, "false", "3rd child, initial aria-selected");
@@ -212,7 +212,7 @@ define(function (require) {
 					assert.strictEqual(value, "true", "3rd child, aria-selected after second click");
 				})
 				.end()
-				.findByCssSelector("#" + listId + " .d-list-item:nth-child(4) [role=gridcell]")
+				.findByCssSelector("#" + listId + " .d-list-item:nth-child(4)")
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, "false", "4th child, initial aria-selected");
@@ -223,7 +223,7 @@ define(function (require) {
 					assert.strictEqual(value, "true", "4th child, aria-selected after click");
 				})
 				.end()
-				.findByCssSelector("#" + listId + " .d-list-item:nth-child(3) [role=gridcell]")
+				.findByCssSelector("#" + listId + " .d-list-item:nth-child(3)")
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, "false", "3rd child, aria-selected at end");
@@ -508,6 +508,8 @@ define(function (require) {
 				.then(function (value) {
 					assert.strictEqual(value, "list item 0\nright text A");
 				})
+				.end()
+				.findByCssSelector("[role=row]")	// aria-selected is on row, not cell
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, "true", "aria-selected list item 0, after space");
@@ -519,6 +521,8 @@ define(function (require) {
 				.then(function (value) {
 					assert.strictEqual(value, "list item 0\nright text A");
 				})
+				.end()
+				.findByCssSelector("[role=row]")	// aria-selected is on row, not cell
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, "false", "aria-selected list item 0, after second space");
@@ -530,6 +534,8 @@ define(function (require) {
 				.then(function (value) {
 					assert.strictEqual(value, "list item 0\nright text A");
 				})
+				.end()
+				.findByCssSelector("[role=row]")	// aria-selected is on row, not cell
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, "true", "aria-selected list item 0, after third space");
@@ -548,6 +554,8 @@ define(function (require) {
 				.then(function (value) {
 					assert.strictEqual(value, "list item 1\nright text B");
 				})
+				.end()
+				.findByCssSelector("[role=row]:nth-child(2)")	// aria-selected is on row, not cell
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, "true", "aria-selected list item 1, after space");
@@ -559,6 +567,8 @@ define(function (require) {
 				.then(function (value) {
 					assert.strictEqual(value, "list item 0\nright text A");
 				})
+				.end()
+				.findByCssSelector("[role=row]")	// aria-selected is on row, not cell
 				.getAttribute("aria-selected", "aria-selected list item 0, at end")
 				.then(function (value) {
 					assert.strictEqual(value, "true");
@@ -593,6 +603,8 @@ define(function (require) {
 				.then(function (value) {
 					assert.strictEqual(value, "list item 0\nright text 1");
 				})
+				.end()
+				.findByCssSelector("[role=row]")	// aria-selected is on row, not cell
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, "true", "aria-selected list item 0, after space");
@@ -605,6 +617,8 @@ define(function (require) {
 				.then(function (value) {
 					assert.strictEqual(value, "list item 0\nright text 1");
 				})
+				.end()
+				.findByCssSelector("[role=row]")	// aria-selected is on row, not cell
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, "false", "aria-selected list item 0, after second space");
@@ -616,6 +630,8 @@ define(function (require) {
 				.then(function (value) {
 					assert.strictEqual(value, "list item 0\nright text 1");
 				})
+				.end()
+				.findByCssSelector("[role=row]")	// aria-selected is on row, not cell
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, "true", "aria-selected list item 0, after third space");
@@ -634,6 +650,8 @@ define(function (require) {
 				.then(function (value) {
 					assert.strictEqual(value, "list item 1\nright text 2");
 				})
+				.end()
+				.findByCssSelector("[role=row]:nth-child(2)")	// aria-selected is on row, not cell
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, "true", "aria-selected list item 1, after space");
@@ -645,6 +663,8 @@ define(function (require) {
 				.then(function (value) {
 					assert.strictEqual(value, "list item 0\nright text 1");
 				})
+				.end()
+				.findByCssSelector("[role=row]")	// aria-selected is on row, not cell
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, "false", "aria-selected list item 0, at end");
@@ -679,6 +699,8 @@ define(function (require) {
 				.then(function (value) {
 					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 2");
 				})
+				.end()
+				.findByCssSelector("[role=row]")	// aria-selected is on row, not cell
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, "true", "keystroke 2");
@@ -691,6 +713,8 @@ define(function (require) {
 				.then(function (value) {
 					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 3");
 				})
+				.end()
+				.findByCssSelector("[role=row]")	// aria-selected is on row, not cell
 				.getAttribute("aria-selected")
 				.then(function (value) {
 					assert.strictEqual(value, "true", "keystroke 3");
@@ -807,6 +831,93 @@ define(function (require) {
 				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "6 navindex -2");
+				})
+				.end();
+		},
+
+		"table (multiple gridcells per row)": function () {
+			var remote = this.remote;
+			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support");
+			}
+			return remote
+				.get(require.toUrl("deliteful/tests/functional/list/table-1.html"))
+				.then(pollUntil("return ('ready' in window &&  ready "
+					+ "&& document.getElementById('table-1') "
+					+ "&& !document.querySelector('#table-1 .d-list-container')"
+					+	".getAttribute('aria-busy') === false) ? true : null;",
+					[],
+					intern.config.WAIT_TIMEOUT,
+					intern.config.POLL_INTERVAL))
+				.pressKeys(keys.TAB)
+				.getActiveElement()
+				.getVisibleText()
+				.then(function (value) {
+					assert.strictEqual(value, "Amazon", "after tabbing into table");
+				})
+				.end()
+				.pressKeys(keys.ARROW_DOWN)
+				.getActiveElement()
+				.getVisibleText()
+				.then(function (value) {
+					assert.strictEqual(value, "Dojo: The Definitive Guide", "after arrow down");
+				})
+				.end()
+				.pressKeys(keys.ARROW_RIGHT)
+				.getActiveElement()
+				.getVisibleText()
+				.then(function (value) {
+					assert.strictEqual(value, "ISBN: 0596516487", "after arrow right");
+				})
+				.end()
+				.pressKeys(keys.ARROW_UP)
+				.getActiveElement()
+				.getVisibleText()
+				.then(function (value) {
+					assert.strictEqual(value, "http://www.amazon.com", "after arrow up");
+				})
+				.end()
+				.pressKeys(keys.ENTER)
+				.getActiveElement()
+				.getVisibleText()
+				.then(function (value) {
+					assert.strictEqual(value, "http://www.amazon.com", "after ENTER");
+				})
+				.end()
+				.pressKeys(keys.TAB)
+				.getActiveElement()
+				.getVisibleText()
+				.then(function (value) {
+					assert.strictEqual(value, "http://www.fnac.fr", "after tab");
+				})
+				.end()
+				.pressKeys(keys.TAB)
+				.getActiveElement()
+				.getVisibleText()
+				.then(function (value) {
+					assert.strictEqual(value, "http://www.amazon.com", "after tab, loop to top");
+				})
+				.end()
+				.pressKeys(keys.SHIFT + keys.TAB) // Press Shift + TAB
+				.pressKeys(keys.SHIFT) // release shift
+				.getActiveElement()
+				.getVisibleText()
+				.then(function (value) {
+					assert.strictEqual(value, "http://www.fnac.fr", "after shift-tab, loop back to bottom");
+				})
+				.end()
+				.pressKeys(keys.ESCAPE)
+				.getActiveElement()
+				.getVisibleText()
+				.then(function (value) {
+					assert.strictEqual(value, "http://www.fnac.fr", "after ESCAPE");
+				})
+				.end()
+				.pressKeys(keys.ARROW_LEFT)
+				.getActiveElement()
+				.getVisibleText()
+				.then(function (value) {
+					assert.strictEqual(value, "FNAC", "after left arrow");
 				})
 				.end();
 		}

@@ -137,30 +137,13 @@ define(function (require) {
 						assert.strictEqual(children[8].item.label, "item f", "last added 3");
 					},
 
-					"_getFirst": function () {
-						var list = this.parent.list;
-						var children = list.containerNode.children;
-						assert.strictEqual(list._getFirst(), children[0].renderNode);
-						list.categoryAttr = "label";
-						list.deliver();
-						children = list.containerNode.children;
-						assert.isTrue(children[0].classList.contains("d-list-category"), "first is category");
-						assert.strictEqual(list._getFirst(), children[0].renderNode, "first renderer is category");
-					},
-
-					"_getLast": function () {
-						var list = this.parent.list;
-						var children = list.containerNode.children;
-						assert.strictEqual(list._getLast(), children[2].renderNode);
-					},
-
 					"update item label": function () {
 						var list = this.parent.list;
 						list.source.put({label: "item a"}, {id: list.source.data[0].id});
 						list.deliver();
 						var renderer = list.containerNode.children[0];
 						assert.strictEqual(renderer.item.label, "item a");
-						assert.strictEqual(renderer.renderNode.children[1].innerHTML, "item a");
+						assert.strictEqual(renderer.firstElementChild.children[1].innerHTML, "item a");
 					},
 
 					"update item: add, update and remove icon": function () {
@@ -170,28 +153,29 @@ define(function (require) {
 						list.deliver();
 						var renderer = list.containerNode.children[0];
 						assert.strictEqual(renderer.item.label, "item a");
-						assert.strictEqual(renderer.renderNode.getAttribute("role"), "gridcell");
-						assert.strictEqual(renderer.renderNode.firstChild.className, "d-list-item-icon my-icon");
-						assert.strictEqual(renderer.renderNode.children[1].className, "d-list-item-label");
-						assert.strictEqual(renderer.renderNode.children[1].innerHTML, "item a");
+						assert.strictEqual(renderer.firstElementChild.getAttribute("role"), "gridcell");
+						assert.strictEqual(renderer.firstElementChild.firstChild.className, "d-list-item-icon my-icon");
+						assert.strictEqual(renderer.firstElementChild.children[1].className, "d-list-item-label");
+						assert.strictEqual(renderer.firstElementChild.children[1].innerHTML, "item a");
 						// update
 						list.source.put({label: "item a", iconclass: "my-other-icon"},
 							{id: list.source.data[0].id});
 						list.deliver();
 						renderer = list.containerNode.children[0];
 						assert.strictEqual(renderer.item.label, "item a");
-						assert.strictEqual(renderer.renderNode.getAttribute("role"), "gridcell");
-						assert.strictEqual(renderer.renderNode.firstChild.className, "d-list-item-icon my-other-icon");
-						assert.strictEqual(renderer.renderNode.children[1].className, "d-list-item-label");
-						assert.strictEqual(renderer.renderNode.children[1].innerHTML, "item a");
+						assert.strictEqual(renderer.firstElementChild.getAttribute("role"), "gridcell");
+						assert.strictEqual(renderer.firstElementChild.firstChild.className,
+							"d-list-item-icon my-other-icon");
+						assert.strictEqual(renderer.firstElementChild.children[1].className, "d-list-item-label");
+						assert.strictEqual(renderer.firstElementChild.children[1].innerHTML, "item a");
 						// remove
 						list.source.put({label: "item a"}, {id: list.source.data[0].id});
 						list.deliver();
 						renderer = list.containerNode.children[0];
 						assert.strictEqual(renderer.item.label, "item a");
-						assert.strictEqual(renderer.renderNode.getAttribute("role"), "gridcell");
-						assert.strictEqual(renderer.renderNode.children[1].className, "d-list-item-label");
-						assert.strictEqual(renderer.renderNode.children[1].innerHTML, "item a");
+						assert.strictEqual(renderer.firstElementChild.getAttribute("role"), "gridcell");
+						assert.strictEqual(renderer.firstElementChild.children[1].className, "d-list-item-label");
+						assert.strictEqual(renderer.firstElementChild.children[1].innerHTML, "item a");
 					},
 
 					"item category attribute is not undefined by StoreMap": function () {

@@ -28,7 +28,7 @@
 			"requirejs-domready/domReady!"
 		], function (register, Memory, Trackable, CategoryRenderer, List, template) {
 			var Store = Memory.createSubclass([Trackable], {});
-			var MyCustomRenderer = register("d-cust-category", [HTMLElement, CategoryRenderer], {
+			var MyCustomRenderer = register("d-cust-category", [CategoryRenderer], {
 				template: template
 			});
 			var list = new List();
@@ -51,7 +51,7 @@
 			document.body.style.display = "";
 		});
 	</script>
-	
+
 	<style>
 		.d-list-category .d-list-cell {
 			background-image: none;

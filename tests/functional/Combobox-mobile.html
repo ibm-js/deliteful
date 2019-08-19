@@ -111,11 +111,11 @@
 				var itemRenderers = comboPopup.list.getItemRenderers();
 				var i;
 				for (i = 0; i < itemRenderers.length; i++) {
-					itemRenderers[i].renderNode.id = comboId + "_item" + i;
+					itemRenderers[i].id = comboId + "_item" + i;
 				}
 				var categoryRenderers = comboPopup.list.querySelectorAll("." + comboPopup.list._cssClasses.category);
 				for (i = 0; i < categoryRenderers.length; i++) {
-					categoryRenderers.item(i).renderNode.id = comboId + "_category" + i;
+					categoryRenderers.item(i).id = comboId + "_category" + i;
 				}
 
 				return {
