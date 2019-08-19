@@ -12,7 +12,7 @@
   border-color: #66afe9;
 }
 .d-switch.d-disabled {
-  opacity: .6;
+  opacity: 0.6;
 }
 .-d-switch-block {
   display: inline-block;
@@ -27,9 +27,9 @@
   border-width: 0px;
 }
 .d-switch-leading {
-  background-color: #0c86af;
+  background-color: #0C86AF;
   background-image: none;
-  color: #ffffff;
+  color: white;
   right: 50%;
   text-align: center;
 }
@@ -40,7 +40,7 @@
 .d-switch-trailing {
   background-color: #333333;
   background-image: none;
-  color: #ffffff;
+  color: white;
   left: 50%;
   text-align: center;
 }

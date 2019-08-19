@@ -6,7 +6,7 @@
   padding: 0;
   color: #555555;
   font-size: 14px;
-  line-height: 1.428571429;
+  line-height: 1.42857143;
 }
 .d-combobox-arrow {
   cursor: pointer;
@@ -63,7 +63,7 @@
   line-height: normal;
   cursor: text;
   padding: 6px 34px 6px 12px;
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   border-radius: 4px;
 }
 .d-combobox-input[disabled],

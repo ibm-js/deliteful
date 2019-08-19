@@ -13,7 +13,7 @@
   text-align: center;
   content: "\00A0";
   font-family: Times;
-  border-color: #5c5c5c;
+  border-color: #5C5C5C;
   border-style: solid;
   border-width: 1px;
   border-radius: 0px;
@@ -27,20 +27,20 @@
 }
 .d-checkbox.d-checked .d-checkbox-icon::before {
   content: "\2714";
-  color: #61c6eb;
+  color: #61C6EB;
   background-color: transparent;
   background-image: none;
 }
 .d-checkbox.d-indeterminate .d-checkbox-icon::before {
   content: "-";
-  color: #61c6eb;
+  color: #61C6EB;
   background-color: transparent;
   background-image: none;
 }
 .d-checkbox:active .d-checkbox-icon::before {
-  border-color: #99bbca;
-  box-shadow: 0px 0px 1px 4px #1f5366;
-  background-color: #1f5366;
+  border-color: #99BBCA;
+  box-shadow: 0px 0px 1px 4px #1F5366;
+  background-color: #1F5366;
 }
 .d-checkbox.d-disabled {
   color: #333333;

@@ -30,17 +30,17 @@
 }
 .d-star-rating-empty::before {
   content: "\2605";
-  color: #f8f8f8;
+  color: #F8F8F8;
 }
 .d-star-rating-full::before {
   content: "\2605";
-  color: #ffff00;
+  color: yellow;
 }
 .d-star-rating-disabled .d-star-rating-star-icon::before {
-  color: #808080;
+  color: gray;
 }
 .d-star-rating-readonly .d-star-rating-star-icon::before {
-  color: #808080;
+  color: gray;
 }
 .d-star-rating-end.d-star-rating-star-icon::before {
   margin-left: -0.5em;

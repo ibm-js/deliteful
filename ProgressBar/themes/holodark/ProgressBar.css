@@ -76,7 +76,7 @@
   -webkit-transition: width 0.3s linear 0s;
   transition: width 0.3s linear 0s;
   height: 100%;
-  background: #33b5e5;
+  background: #33B5E5;
   position: absolute;
 }
 .d-progress-bar.d-rtl .d-progress-bar-indicator {
@@ -114,7 +114,7 @@
 .d-progress-bar-indeterminate .d-progress-bar-background {
   margin: 0;
   padding: 0;
-  background: #33b5e5;
+  background: #33B5E5;
 }
 .d-progress-bar-indeterminate .d-progress-bar-indicator {
   margin: 0;

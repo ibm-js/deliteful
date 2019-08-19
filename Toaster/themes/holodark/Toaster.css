@@ -65,7 +65,7 @@ button.d-toaster-dismiss {
   font-weight: 700;
   line-height: 1;
   text-shadow: 0 1px 0 #fff;
-  opacity: .2;
+  opacity: 0.2;
 }
 .d-toaster-message {
   position: relative;
@@ -119,14 +119,14 @@ button.d-toaster-dismiss {
   animation-fill-mode: both;
 }
 .d-toaster-inner {
-  margin: .1em auto;
+  margin: 0.1em auto;
 }
 .d-toaster-message {
   background: rgba(11, 11, 11, 0.9);
   border-radius: 3px;
   color: white;
-  margin: .3em;
-  padding: .5em;
+  margin: 0.3em;
+  padding: 0.5em;
   text-align: center;
 }
 .d-toaster-is-visible {
@@ -136,5 +136,5 @@ button.d-toaster-dismiss {
 .d-toaster-dismiss {
   margin-left: 1.7em;
   color: white;
-  opacity: .5;
+  opacity: 0.5;
 }

@@ -22,7 +22,7 @@
   content: "\25CB";
 }
 .-d-view-indicator-dot-selected::before {
-  color: #ffffff;
+  color: white;
 }
 .d-hc .-d-view-indicator-dot-selected::before {
   content: "\25CF";

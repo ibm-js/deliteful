@@ -19,9 +19,9 @@
   -webkit-user-select: none;
   -ms-user-select: none;
   -moz-user-select: none;
-  color: #333333;
-  background-color: #ffffff;
-  border-color: #cccccc;
+  color: #333;
+  background-color: #fff;
+  border-color: #ccc;
 }
 .d-button:focus,
 .d-button:active:focus,
@@ -32,7 +32,7 @@
 }
 .d-button:hover,
 .d-button:focus {
-  color: #333333;
+  color: #333;
   text-decoration: none;
 }
 .d-button:active,
@@ -44,7 +44,7 @@
 .d-button[aria-disabled=true],
 fieldset[disabled] .d-button {
   cursor: not-allowed;
-  opacity: .65;
+  opacity: 0.65;
   box-shadow: none;
   pointer-events: none;
 }
@@ -52,7 +52,7 @@ fieldset[disabled] .d-button {
 .d-button:focus,
 .d-button:active,
 .d-button.active {
-  color: #333333;
+  color: #333;
   background-color: #ebebeb;
   border-color: #adadad;
 }
@@ -65,11 +65,11 @@ fieldset[disabled] .d-button {
 .d-button[aria-disabled=true]:focus,
 .d-button[aria-disabled=true]:active,
 .d-button[aria-disabled=true].active {
-  background-color: #ffffff;
-  border-color: #cccccc;
+  background-color: #fff;
+  border-color: #ccc;
 }
 .d-button-primary {
-  color: #ffffff;
+  color: #fff;
   background-color: #428bca;
   border-color: #357ebd;
 }
@@ -77,7 +77,7 @@ fieldset[disabled] .d-button {
 .d-button-primary:focus,
 .d-button-primary:active,
 .d-button-primary.active {
-  color: #ffffff;
+  color: #fff;
   background-color: #3276b1;
   border-color: #285e8e;
 }
@@ -94,7 +94,7 @@ fieldset[disabled] .d-button {
   border-color: #357ebd;
 }
 .d-button-success {
-  color: #ffffff;
+  color: #fff;
   background-color: #5cb85c;
   border-color: #4cae4c;
 }
@@ -102,7 +102,7 @@ fieldset[disabled] .d-button {
 .d-button-success:focus,
 .d-button-success:active,
 .d-button-success.active {
-  color: #ffffff;
+  color: #fff;
   background-color: #47a447;
   border-color: #398439;
 }
@@ -119,7 +119,7 @@ fieldset[disabled] .d-button {
   border-color: #4cae4c;
 }
 .d-button-info {
-  color: #ffffff;
+  color: #fff;
   background-color: #5bc0de;
   border-color: #46b8da;
 }
@@ -127,7 +127,7 @@ fieldset[disabled] .d-button {
 .d-button-info:focus,
 .d-button-info:active,
 .d-button-info.active {
-  color: #ffffff;
+  color: #fff;
   background-color: #39b3d7;
   border-color: #269abc;
 }
@@ -144,7 +144,7 @@ fieldset[disabled] .d-button {
   border-color: #46b8da;
 }
 .d-button-warning {
-  color: #ffffff;
+  color: #fff;
   background-color: #f0ad4e;
   border-color: #eea236;
 }
@@ -152,7 +152,7 @@ fieldset[disabled] .d-button {
 .d-button-warning:focus,
 .d-button-warning:active,
 .d-button-warning.active {
-  color: #ffffff;
+  color: #fff;
   background-color: #ed9c28;
   border-color: #d58512;
 }
@@ -169,7 +169,7 @@ fieldset[disabled] .d-button {
   border-color: #eea236;
 }
 .d-button-danger {
-  color: #ffffff;
+  color: #fff;
   background-color: #d9534f;
   border-color: #d43f3a;
 }
@@ -177,7 +177,7 @@ fieldset[disabled] .d-button {
 .d-button-danger:focus,
 .d-button-danger:active,
 .d-button-danger.active {
-  color: #ffffff;
+  color: #fff;
   background-color: #d2322d;
   border-color: #ac2925;
 }
@@ -214,9 +214,9 @@ fieldset[disabled] .d-button {
   -webkit-user-select: none;
   -ms-user-select: none;
   -moz-user-select: none;
-  color: #333333;
-  background-color: #ffffff;
-  border-color: #cccccc;
+  color: #333;
+  background-color: #fff;
+  border-color: #ccc;
 }
 .d-toggle-button:focus,
 .d-toggle-button:active:focus,
@@ -227,7 +227,7 @@ fieldset[disabled] .d-button {
 }
 .d-toggle-button:hover,
 .d-toggle-button:focus {
-  color: #333333;
+  color: #333;
   text-decoration: none;
 }
 .d-toggle-button:active,
@@ -239,7 +239,7 @@ fieldset[disabled] .d-button {
 .d-toggle-button[aria-disabled=true],
 fieldset[disabled] .d-toggle-button {
   cursor: not-allowed;
-  opacity: .65;
+  opacity: 0.65;
   box-shadow: none;
   pointer-events: none;
 }
@@ -247,7 +247,7 @@ fieldset[disabled] .d-toggle-button {
 .d-toggle-button:focus,
 .d-toggle-button:active,
 .d-toggle-button.active {
-  color: #333333;
+  color: #333;
   background-color: #ebebeb;
   border-color: #adadad;
 }
@@ -260,8 +260,8 @@ fieldset[disabled] .d-toggle-button {
 .d-toggle-button[aria-disabled=true]:focus,
 .d-toggle-button[aria-disabled=true]:active,
 .d-toggle-button[aria-disabled=true].active {
-  background-color: #ffffff;
-  border-color: #cccccc;
+  background-color: #fff;
+  border-color: #ccc;
 }
 .d-toggle-button span {
   border: dotted 2px transparent;

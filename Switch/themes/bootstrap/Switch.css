@@ -13,7 +13,7 @@
   border-color: #66afe9;
 }
 .d-switch.d-disabled {
-  opacity: .6;
+  opacity: 0.6;
 }
 .-d-switch-block {
   display: inline-block;

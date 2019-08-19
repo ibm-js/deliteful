@@ -23,8 +23,8 @@
 .d-progress-indicator-lines {
   stroke-width: 9%;
   stroke-linecap: round;
-  stroke: #333333;
+  stroke: #333;
 }
 .d-progress-indicator text {
-  fill: #333333;
+  fill: #333;
 }

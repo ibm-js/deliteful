@@ -14,7 +14,7 @@
   display: none;
 }
 .d-slider .d-slider-bar {
-  border: 1px inset #cccccc;
+  border: 1px inset #ccc;
   border-radius: 4px;
   padding: 0;
   margin: 0;
@@ -79,7 +79,7 @@
 }
 .d-slider-handle:hover,
 .d-slider-handle:focus {
-  color: #333333;
+  color: #333;
   text-decoration: none;
 }
 .d-slider-handle:focus + .d-slider-handle {

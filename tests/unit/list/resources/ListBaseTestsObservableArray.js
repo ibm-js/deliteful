@@ -5,6 +5,8 @@ define(function (require) {
 	var ObservableArray = require("decor/ObservableArray");
 	var Observable = require("decor/Observable");
 
+	/* jshint maxlen: 124 */
+
 	return {
 		/**
 		 * Build a test suite for a List class
@@ -71,7 +73,6 @@ define(function (require) {
 						} catch (error) {
 							assert.isNotNull(error);
 							console.log(error);
-							/* jshint maxlen: 124 */
 							assert.strictEqual(
 								"'horizontal' not supported for scrollDirection, keeping the previous value of 'vertical'",
 								error.message,

@@ -9,11 +9,11 @@
   padding: 0;
   overflow: hidden;
   /* clip for the rounding */
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   border-radius: 4px;
   color: #555555;
   font-size: 14px;
-  line-height: 1.428571429;
+  line-height: 1.42857143;
 }
 .d-select-inner {
   height: inherit;

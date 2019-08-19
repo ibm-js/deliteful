@@ -12,14 +12,14 @@
   border-top-width: 1px;
   border-radius: 2px;
   height: 40px;
-  color: #ffffff;
+  color: white;
 }
 .d-button-text {
   margin: 10px;
 }
 .d-button:active,
 .d-button-selected {
-  color: #ffffff;
+  color: white;
   border-color: transparent;
   background-image: none;
   background-color: #2C94BB;

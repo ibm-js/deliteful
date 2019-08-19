@@ -68,7 +68,7 @@
   -webkit-transition: width 0.3s linear 0s;
   transition: width 0.3s linear 0s;
   border-radius: 40px;
-  background-color: #ffffff;
+  background-color: white;
 }
 .d-progress-bar.d-rtl .d-progress-bar-indicator {
   -webkit-transition: width 0.3s linear 0s;
