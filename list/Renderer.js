@@ -1,22 +1,24 @@
 /** @module deliteful/list/Renderer */
 define([
 	"dcl/dcl",
-	"delite/register",
-	"delite/classList",
+	"delite/a11y",
 	"delite/Widget"
-], function (dcl, register, classList, Widget) {
-
+], function (
+	dcl,
+	a11y,
+	Widget
+) {
 	/**
-	 * The base class for a widget that render an item or its category inside a deliteful/list/List widget.
+	 * The base class for a widget that renders an item or its category inside a deliteful/list/List widget.
 	 *
 	 * This base class provide all the infrastructure that a deliteful/list/List widget
-	 * expect from a renderer, including keyboard navigation support.
+	 * expects from a renderer, including keyboard navigation support.
 	 *
 	 * Focusability and Keyboard navigation order for a renderer instance is defined using
 	 * the navindex attribute on the rendered nodes:
 	 * - no navindex attribute value means that the node is not focusable
 	 * - a navindex attribute means that the node is focusable. When navigating
-	 *  the renderer instance using arrow keys, the traversal order is the following:
+	 *  the renderer instance using the tab key, the traversal order is the following:
 	 *  - the nodes with the lowest navindex value comes first
 	 *  - if two nodes have the same navindex value, the one that is before the other one in the DOM
 	 *  comes first.
@@ -33,8 +35,7 @@ define([
 
 		/**
 		 * Contains all the renderer nodes that can be focused, in the same order
-		 * that they are to be focused during keyboard navigation with the left and right arrow
-		 * keys.
+		 * that they are to be focused during keyboard navigation with the tab key.
 		 * @member {Node[]}
 		 * @private
 		 */
@@ -59,11 +60,15 @@ define([
 		 * @protected
 		 */
 		getFirst: function () {
-			if (this._focusableChildren && this._focusableChildren.length) {
-				return this._focusableChildren[0];
-			} else {
-				return null;
+			if (this._focusableChildren) {
+				for (var i = 0; i < this._focusableChildren.length; i++) {
+					var child = this._focusableChildren[i];
+					if (a11y._isElementShown(child)) {
+						return child;
+					}
+				}
 			}
+			return null;
 		},
 
 		/**
@@ -72,11 +77,15 @@ define([
 		 * @protected
 		 */
 		getLast: function () {
-			if (this._focusableChildren && this._focusableChildren.length) {
-				return this._focusableChildren[this._focusableChildren.length - 1];
-			} else {
-				return null;
+			if (this._focusableChildren) {
+				for (var i = this._focusableChildren.length - 1; i >= 0; i--) {
+					var child = this._focusableChildren[i];
+					if (a11y._isElementShown(child)) {
+						return child;
+					}
+				}
 			}
+			return null;
 		},
 
 		/**
@@ -134,9 +143,9 @@ define([
 		},
 
 		/**
-		 * Get the next renderer child that can be focused using arrow keys.
-		 * @param {Element} fromChild The child from which the next focusable child is requested
-		 * @param {number} dir The direction, from fromChild, of the next child: 1 for the child that
+		 * Get the next or previous renderer child that can be focused using tab key (in actionable mode).
+		 * @param {Element} fromChild - The child from which the next focusable child is requested
+		 * @param {number} dir - The direction, from fromChild, of the next child: 1 for the child that
 		 * comes after in the focusable order, -1 for the child that comes before.
 		 * @returns {Element} The next focusable child if there is one.
 		 * @protected
@@ -144,16 +153,15 @@ define([
 		getNextFocusableChild: function (fromChild, dir) {
 			if (this._focusableChildren && fromChild !== this) {
 				// retrieve the position of the from node
-				var fromChildIndex = fromChild ? this._focusableChildren.indexOf(fromChild) : -1;
-				var nextChildIndex = fromChildIndex + dir;
-				if (nextChildIndex >= 0 && nextChildIndex < this._focusableChildren.length) {
-					return this._focusableChildren[nextChildIndex]; // Widget
-				} else {
-					return null;
-				}
+				var fromChildIndex = fromChild ? this._focusableChildren.indexOf(fromChild) : -1,
+					nextChildIndex = fromChildIndex,
+					nextChild;
+				do {
+					nextChildIndex = nextChildIndex + dir;
+					nextChild = this._focusableChildren[nextChildIndex];
+				} while (nextChild && !a11y._isElementShown(nextChild));
+				return nextChild || null;
 			}
 		}
-
 	});
-
 });
