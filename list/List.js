@@ -1180,13 +1180,19 @@ define([
 			if (this.navigatedDescendant && this.navigatedDescendant.hasAttribute("navindex")) {
 				return;
 			}
-			var focusedCell = this._getFocusedCell(),
-				newRow = this.getNextNavigableRow(focusedCell, dir);
 
-			if (newRow) {
-				var idx = Array.prototype.indexOf.call(focusedCell.parentNode.children, focusedCell),
-					newCell = this.getRowCell(newRow, idx);
-				this.navigateTo(newCell, false, evt);
+			var focusedCell = this._getFocusedCell();
+			if (focusedCell) {
+				var newRow = this.getNextNavigableRow(focusedCell, dir);
+
+				if (newRow) {
+					var idx = Array.prototype.indexOf.call(focusedCell.parentNode.children, focusedCell),
+						newCell = this.getRowCell(newRow, idx);
+					this.navigateTo(newCell, false, evt);
+				}
+			} else {
+				// Handle down-arrow from Combobox where there's no initially selected value.
+				this.focus();
 			}
 		},
 
