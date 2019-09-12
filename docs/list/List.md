@@ -303,15 +303,6 @@ using the `itemRenderer` property of the list.
 A custom item renderer must extend `deliteful/list/ItemRenderer`.
 It accesses the item to render in its `item` property.
 
-If the rendered item has actionable / keyboard navigable nodes, those are set using the `navindex` attribute,
-which behaves similarly to the standard `tabindex` attribute.
-
-Here is an example of custom item renderer that illustrates these concepts:
-
-<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0"
-src="http://jsfiddle.net/ibmjs/36XDP/embedded/result,js,css">
-<a href="http://jsfiddle.net/ibmjs/36XDP">checkout the sample on JSFiddle</a></iframe>
-
 #### Custom category renderer
 
 The actual rendering of the categories in the list is delegated to a category renderer widget.
@@ -556,12 +547,9 @@ while the last item has focus will focus the first item. Pressing the UP arrow w
 has the focus will focus the last item. Note that in some browsers (such as Firefox) the List needs
 first to be given focus by pressing TAB after loading the page before using the UP and DOWN arrow keys.
 
-When a List item has the focus, you can press the ENTER or F2 keys to focus its first actionable node (if any),
-and then use the (Shift+)TAB key to move from one actionable node to the (previous)next.
-Pressing the ESC key will end actionable nodes navigation and return to the previous mode.
-
-Note that Enter and F2 only activate the Actionable Mode when using a custom renderer that renders
-DOM nodes with a ```navindex``` attribute, as the default renderers do not render any actionable nodes.
+When a cell is focused, you can press the ENTER or F2 keys to focus its first navigable child (if any),
+and then use the (Shift+)TAB key to move from one navigable child to the next.
+Pressing the ESC key will return to the grid navigation mode.
 
 Pressing the PAGE UP key will focus the first item of the list, while pressing the PAGE DOWN key will focus
 the last one.

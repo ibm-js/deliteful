@@ -21,8 +21,7 @@ define([
 	 * - `righticonclass`: css class to apply to a DIV element on the right side of the list item
 	 * in order to display an icon.
 	 * Rendered with CSS class `d-list-item-right-icon2` + the value of the attribute;
-	 * By default, none of the nodes that renders the attributes are focusable with keyboard navigation
-	 * (no navindex attribute on the nodes).
+	 * By default, none of the nodes that renders the attributes are focusable with keyboard navigation.
 	 *
 	 * @class module:deliteful/list/ItemRenderer
 	 * @augments module:deliteful/list/Renderer

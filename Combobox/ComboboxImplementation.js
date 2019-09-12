@@ -137,16 +137,6 @@ define([
 					this.handleOnInput(this.value); // emit "input" event
 				}.bind(this)),
 
-				// For selectionMode=multiple, when focus is on the list, make ENTER key close the list,
-				// to be consistent with selectionMode=single.
-				this.list.on("keydown", function (evt) {
-					if (evt.key === "Enter") {
-						evt.stopPropagation();
-						evt.preventDefault();
-						this.list.emit("execute");
-					}
-				}.bind(this)),
-
 				this.list.on("query-success", this._setSelectedItems.bind(this))
 			];
 		},

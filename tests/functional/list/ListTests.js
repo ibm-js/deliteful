@@ -393,7 +393,7 @@ define(function (require) {
 				.getActiveElement()
 				.getVisibleText()
 				.then(function (value) {
-					assert.strictEqual(value, "http://www.amazon.com", "keystroke 7");
+					assert.strictEqual(value, "ISBN: 0596516487", "keystroke 7");
 				})
 				.end()
 				.pressKeys(keys.TAB) // Press TAB
@@ -414,38 +414,21 @@ define(function (require) {
 				.getActiveElement()
 				.getVisibleText()
 				.then(function (value) {
-					assert.strictEqual(value, "Dojo: Using the Dojo JavaScript Library to Build Ajax Applications",
-						"keystroke 10");
-				})
-				.end()
-				.pressKeys(keys.SHIFT + keys.TAB)
-				.pressKeys(keys.SHIFT) // release shift
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "ISBN: 0596516487", "keystroke 11");
-				})
-				.end()
-				.pressKeys(keys.SHIFT + keys.TAB)
-				.pressKeys(keys.SHIFT) // release shift
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "Dojo: The Definitive Guide", "keystroke 12");
+					assert.strictEqual(value, "Dojo: The Definitive Guide", "keystroke 10");
 				})
 				.end()
 				.pressKeys(keys.ARROW_UP) // Up arrow should have no effect in Actionable Mode.
 				.getActiveElement()
 				.getVisibleText()
 				.then(function (value) {
-					assert.strictEqual(value, "Dojo: The Definitive Guide", "keystroke 13");
+					assert.strictEqual(value, "Dojo: The Definitive Guide", "keystroke 11");
 				})
 				.end()
 				.pressKeys(keys.ARROW_DOWN) // Down arrow should have no effect in Actionable Mode.
 				.getActiveElement()
 				.getVisibleText()
 				.then(function (value) {
-					assert.strictEqual(value, "Dojo: The Definitive Guide", "keystroke 14");
+					assert.strictEqual(value, "Dojo: The Definitive Guide", "keystroke 12");
 				})
 				.end()
 				.execute("document.getElementById('keydownEvent').innerHTML = '';")
@@ -453,15 +436,11 @@ define(function (require) {
 				.getActiveElement()
 				.getVisibleText()
 				.then(function (value) {
-					assert.strictEqual(value, "Dojo: The Definitive Guide\nISBN: 0596516487", "keystroke 15");
+					assert.strictEqual(value, "Dojo: The Definitive Guide\nISBN: 0596516487", "keystroke 13");
 				})
 				.end()
 				.execute("return document.getElementById('keydownEvent').textContent;").then(function (text) {
 					assert.strictEqual(text, "", "no keydown event on <body>");
-				})
-				.pressKeys(keys.ESCAPE) // ESC outside of Actionable Mode should bubble (to close tooltip etc.)
-				.execute("return document.getElementById('keydownEvent').textContent;").then(function (text) {
-					assert.strictEqual(text, "Escape", "keydown event on <body>");
 				})
 				.pressKeys(keys.SHIFT + keys.TAB)
 				.pressKeys(keys.SHIFT) // release shift
@@ -469,14 +448,14 @@ define(function (require) {
 				.getActiveElement()
 				.getVisibleText()
 				.then(function (value) {
-					assert.strictEqual(value, "Dojo: The Definitive Guide\nISBN: 0596516487", "keystroke 16");
+					assert.strictEqual(value, "Dojo: The Definitive Guide\nISBN: 0596516487", "keystroke 14");
 				})
 				.end()
 				.pressKeys(keys.F2) // Press F2
 				.getActiveElement()
 				.getVisibleText()
 				.then(function (value) {
-					assert.strictEqual(value, "Dojo: The Definitive Guide", "keystroke 17");
+					assert.strictEqual(value, "Dojo: The Definitive Guide", "keystroke 15");
 				})
 				.end();
 		},
@@ -792,47 +771,25 @@ define(function (require) {
 				intern.config.POLL_INTERVAL))
 				.pressKeys(keys.TAB) // Press TAB
 				.pressKeys(keys.ENTER) // Press ENTER
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "6 navindex -2");
-				})
-				.end()
+				.getActiveElement().getVisibleText().then(function (value) {
+					assert.strictEqual(value, "1 tabindex 1");
+				}).end()
 				.pressKeys(keys.TAB) // Press TAB
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "1 navindex -1");
-				})
-				.end()
+				.getActiveElement().getVisibleText().then(function (value) {
+					assert.strictEqual(value, "4 tabindex 2");
+				}).end()
 				.pressKeys(keys.TAB) // Press TAB
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "4 navindex 0");
-				})
-				.end()
+				.getActiveElement().getVisibleText().then(function (value) {
+					assert.strictEqual(value, "2 tabindex 3");
+				}).end()
 				.pressKeys(keys.TAB) // Press TAB
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "2 navindex 1");
-				})
-				.end()
+				.getActiveElement().getVisibleText().then(function (value) {
+					assert.strictEqual(value, "5 tabindex 3");
+				}).end()
 				.pressKeys(keys.TAB) // Press TAB
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "5 navindex 1");
-				})
-				.end()
-				.pressKeys(keys.TAB) // Press TAB
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "6 navindex -2");
-				})
-				.end();
+				.getActiveElement().getVisibleText().then(function (value) {
+					assert.strictEqual(value, "6 tabindex 0");
+				}).end();
 		},
 
 		"table (multiple gridcells per row)": function () {
@@ -888,36 +845,21 @@ define(function (require) {
 				.getActiveElement()
 				.getVisibleText()
 				.then(function (value) {
-					assert.strictEqual(value, "http://www.fnac.fr", "after tab");
-				})
-				.end()
-				.pressKeys(keys.TAB)
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "http://www.amazon.com", "after tab, loop to top");
-				})
-				.end()
-				.pressKeys(keys.SHIFT + keys.TAB) // Press Shift + TAB
-				.pressKeys(keys.SHIFT) // release shift
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "http://www.fnac.fr", "after shift-tab, loop back to bottom");
+					assert.strictEqual(value, "http://www.amazon.com", "tab stays in cell");
 				})
 				.end()
 				.pressKeys(keys.ESCAPE)
 				.getActiveElement()
 				.getVisibleText()
 				.then(function (value) {
-					assert.strictEqual(value, "http://www.fnac.fr", "after ESCAPE");
+					assert.strictEqual(value, "http://www.amazon.com", "after ESCAPE");
 				})
 				.end()
-				.pressKeys(keys.ARROW_LEFT)
+				.pressKeys(keys.ARROW_RIGHT)
 				.getActiveElement()
 				.getVisibleText()
 				.then(function (value) {
-					assert.strictEqual(value, "FNAC", "after left arrow");
+					assert.strictEqual(value, "http://www.amazon.com", "after right arrow");
 				})
 				.end();
 		}

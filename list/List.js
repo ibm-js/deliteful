@@ -1,6 +1,7 @@
 /** @module deliteful/list/List */
 define([
 	"dcl/dcl",
+	"delite/a11y",
 	"delite/features",
 	"delite/register",
 	"delite/classList",
@@ -15,6 +16,7 @@ define([
 	"delite/theme!./List/themes/{{theme}}/List.css"
 ], function (
 	dcl,
+	a11y,
 	has,
 	register,
 	classList,
@@ -606,7 +608,7 @@ define([
 		 * @return {boolean}
 		 * @protected
 		 */
-		hasSelectionModifier: function (/*jshint unused: vars*/event) {
+		hasSelectionModifier: function (/*event*/) {
 			return true;
 		},
 
@@ -617,7 +619,7 @@ define([
 		 *    event target has an enclosing item renderer. Returns `false` otherwise.
 		 * @protected
 		 */
-		handleSelection: function (/*Event*/event) {
+		handleSelection: function (event) {
 			var eventRenderer = this.getEnclosingRenderer(event.target);
 			if (eventRenderer) {
 				if (!this.isCategoryRenderer(eventRenderer)) {
@@ -656,12 +658,12 @@ define([
 
 		/**
 		 * Renders new items within the list widget.
-		 * @param {Object[]} items The new items to render.
-		 * @param {boolean} atTheTop If true, the new items are rendered at the top of the list.
+		 * @param {Object[]} items - The new items to render.
+		 * @param {boolean} atTheTop - If true, the new items are rendered at the top of the list.
 		 * If false, they are rendered at the bottom of the list.
 		 * @private
 		 */
-		_renderNewItems: function (/*Array*/ items, /*boolean*/atTheTop) {
+		_renderNewItems: function (items, atTheTop) {
 			if (!this.containerNode.firstElementChild) {
 				this.containerNode.appendChild(this._createRenderers(items, 0, items.length, null));
 			} else {
@@ -1050,55 +1052,25 @@ define([
 		// http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid
 
 		/**
-		 * Test if the child is navigable.  Skips category renderers when role=listbox,
-		 * role=list or role=menu.  Also skips cells in child Lists.
+		 * Test if the child is navigable via grid navigation.
+		 * See https://www.w3.org/TR/wai-aria-practices/#gridNav_focus.
+		 * Skips category renderers when role=listbox, role=list or role=menu.  Also skips cells in child Lists.
 		 * @private
 		 */
 		descendantSelector: function (child) {
-			if (child.hasAttribute("navindex")) {
-				// Handle actionable mode.
-				for (var parent = child.parentNode; parent !== this.containerNode; parent = parent.parentNode) {
-					// Return false if child is inside a nested List
-					var role = parent.getAttribute("role");
-					if (role === "list" || role === "listbox" || role === "menu" || role === "grid") {
-						return false;
-					}
-				}
+			var matchesFuncName = has("dom-matches");
 
-				// Otherwise return true;
-				return true;
+			if (this.type === "grid") {
+				return child[matchesFuncName](
+					"#" + this.containerNode.id + " > [role=row] > *, " +
+					"#" + this.containerNode.id + " > [role=rowgroup] > [role=row] > *"
+				);
 			} else {
-				// Normal mode.
-				var matchesFuncName = has("dom-matches");
-
-				if (this.type === "grid") {
-					return child[matchesFuncName](
-						"#" + this.containerNode.id + " > [role=row] > *, " +
-						"#" + this.containerNode.id + " > [role=rowgroup] > [role=row] > *"
-					);
-				} else {
-					return child[matchesFuncName](
-						"#" + this.containerNode.id + " > *:not(" + this.categoryRenderer.tag + ")"
-					);
-				}
+				return child[matchesFuncName](
+					"#" + this.containerNode.id + " > *:not(" + this.categoryRenderer.tag + ")"
+				);
 			}
 		},
-
-		/**
-		 * Handle keydown events.
-		 * @private
-		 */
-		_keynavKeyDownHandler: dcl.before(function (evt) {
-			if (!evt.defaultPrevented) {
-				if ((evt.key === "Spacebar" && !this._searchTimer)) {
-					this._spaceKeydownHandler(evt);
-				} else {
-					if (this.type === "grid") {
-						this._gridKeydownHandler(evt);
-					}
-				}
-			}
-		}),
 
 		focus: function () {
 			// Focus the previously focused child or the first visible row.
@@ -1177,7 +1149,9 @@ define([
 		// Simple arrow key support.
 
 		upDownKeyHandler: function (evt, dir) {
-			if (this.navigatedDescendant && this.navigatedDescendant.hasAttribute("navindex")) {
+			// Ignore arrow keys if not focused on an element inside a grid cell.  But don't ignore
+			// them in the Combobox case, where arrow key is forwarded from the Combobox's <input> node.
+			if (this.focusDescendants && !this.descendantSelector(evt.target)) {
 				return;
 			}
 
@@ -1204,25 +1178,29 @@ define([
 			this.upDownKeyHandler(evt, -1);
 		},
 
-		previousKeyHandler: function () {
+		previousKeyHandler: function (evt) {
 			if (this.type !== "grid") {
 				return;
 			}
-			if (this.navigatedDescendant && this.navigatedDescendant.hasAttribute("navindex")) {
+			// Ignore arrow keys if not focused on a grid cell.
+			if (!this.descendantSelector(evt.target)) {
 				return;
 			}
+
 			if (this.navigatedDescendant.previousElementSibling) {
 				this.navigateTo(this.navigatedDescendant.previousElementSibling);
 			}
 		},
 
-		nextKeyHandler: function () {
+		nextKeyHandler: function (evt) {
 			if (this.type !== "grid") {
 				return;
 			}
-			if (this.navigatedDescendant && this.navigatedDescendant.hasAttribute("navindex")) {
+			// Ignore arrow keys if not focused on a grid cell.
+			if (!this.descendantSelector(evt.target)) {
 				return;
 			}
+
 			if (this.navigatedDescendant.nextElementSibling) {
 				this.navigateTo(this.navigatedDescendant.nextElementSibling);
 			}
@@ -1245,10 +1223,8 @@ define([
 		 * @param {Event} evt the keydown event
 		 * @private
 		 */
-		_spaceKeydownHandler: function (evt) {
+		spacebarKeyHandler: function (evt) {
 			if (this.selectionMode !== "none" && this.getEnclosingRenderer(evt.target)) {
-				evt.preventDefault();
-
 				// Wait until keyup to fire the selection event, so widgets like ComboButton don't switch focus
 				// too early, sending a stray keyup event to the ComboButton anchor node.
 				var handle = this.on("keyup", function (evt2) {
@@ -1258,63 +1234,73 @@ define([
 			}
 		},
 
-		/**
-		 * Handles keydown events for the aria role grid.
-		 * @param {Event} evt the keydown event
-		 * @private
-		 */
-		_gridKeydownHandler: function (evt) {
-			// jshint maxcomplexity:12
-			if (this.navigatedDescendant && this.navigatedDescendant.hasAttribute("navindex")) {
-				// We are in Actionable mode
-				if (evt.key === "Tab") {
-					evt.preventDefault();
-					evt.stopPropagation();
-					var renderer = this._getFocusedRenderer();
+		tabKeyHandler: function (evt) {
+			if (this.descendantSelector(evt.target)) {
+				// We are in grid navigation mode, so this tab key needs to send focus past the entire List.
+				// Do this programatically in case List contains some tab-navigable descendants.
+				var newNode = a11y.getNextInTabbingOrder(this.containerNode || this, evt.shiftKey ? -1 : 1);
+				if (newNode) {
+					newNode.focus();
+				}
+			} else {
+				// We are in navigating inside a cell.
+				// Let tab keep work naturally except when we hit first or last tab stop in the cell,
+				// and then loop around, ala the Dialog behavior.
+				var cell = this._getFocusedCell();
+				var tabStops = a11y._getTabNavigable(cell);
+				var index = tabStops.indexOf(evt.target),
+					newIndex = (index + tabStops.length + (evt.shiftKey ? -1 : 1)) % tabStops.length;
+				tabStops[newIndex].focus();
+			}
+		},
 
-					// First try to find another [navindex] node inside current renderer.
-					var next = renderer[evt.shiftKey ? "getPrev" : "getNext"](this.navigatedDescendant);
+		enterKeyHandler: function (evt) {
+			if (this.type === "grid") {
+				if (this.descendantSelector(evt.target)) {
+					// Switch from grid navigation mode to navigation inside cell.
+					this._enterActionableMode();
+				}
+			} else {
+				// Close the combobox dropdown in multiple mode.
+				this.emit("execute");
+			}
+		},
 
-					// If there isn't one, then loop through other renderers until we find one with a [navindex] child.
-					while (!next) {
-						// Go to next/previous renderer, or if we are at end/beginning, then loop around.
-						renderer = this._getNextRenderer(renderer, evt.shiftKey ? -1 : 1)
-							|| (evt.shiftKey ? this._getLastRenderer() : this._getFirstRenderer());
-						next = renderer[evt.shiftKey ? "getLast" : "getFirst"]();
-					}
+		escapeKeyHandler: function (evt) {
+			if (this.type === "grid" && !this.descendantSelector(evt.target)) {
+				// We are in navigating inside a cell.  Return focus to the cell.
+				this._leaveActionableMode();
+			} else {
+				// Close the combobox dropdown in multiple mode.
+				this.emit("execute");
+			}
+		},
 
-					this.navigateTo(next);
-				} else if (evt.key === "Escape") {
-					// Leave Actionable mode
-					evt.preventDefault();
-					evt.stopPropagation();
+		f2KeyHandler: function (evt) {
+			if (this.type === "grid") {
+				if (this.descendantSelector(evt.target)) {
+					// Switch from grid navigation mode to navigation inside cell.
+					this._enterActionableMode();
+				} else {
+					// We are in navigating inside a cell.  Return focus to the cell.
 					this._leaveActionableMode();
 				}
-			} else if (evt.key === "Enter" || evt.key === "F2") {
-				// Enter Actionable Mode
-				// TODO: prevent default ONLY IF autoAction is false on the renderer ?
-				// See http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid
-				evt.preventDefault();
-				evt.stopPropagation();
-				this._enterActionableMode();
 			}
 		},
 
 		/**
-		 * @private
+		 * Switch to navigation inside a cell.
 		 */
 		_enterActionableMode: function () {
-			var focusedRenderer = this._getFocusedRenderer();
-			if (focusedRenderer) {
-				var next = focusedRenderer.getFirst();
-				if (next) {
-					this.navigateTo(next);
-				}
+			var cell = this._getFocusedCell();
+			var firstTabStop = a11y.getFirstInTabbingOrder(cell);
+			if (firstTabStop) {
+				firstTabStop.focus();
 			}
 		},
 
 		/**
-		 * @private
+		 * Switch back to grid navigation, i.e. navigating between cells.
 		 */
 		_leaveActionableMode: function () {
 			var cell = this._getFocusedCell();
