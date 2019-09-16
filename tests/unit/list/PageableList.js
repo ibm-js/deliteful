@@ -3,7 +3,6 @@ define(function (require) {
 
 	var registerSuite = intern.getPlugin("interface.object").registerSuite;
 	var assert = intern.getPlugin("chai").assert;
-	var Deferred = require("dojo/Deferred");
 	var Memory = require("dstore/Memory");
 	var Trackable = require("dstore/Trackable");
 	var popup = require("delite/popup");
@@ -23,26 +22,6 @@ define(function (require) {
 	/////////////////////////////////
 
 	var list = null;
-
-	function waitForCondition(func, timeout, interval) {
-		function wait(def, start) {
-			setTimeout(function () {
-				if (func()) {
-					def.resolve();
-				} else {
-					if (new Date() - start > timeout) {
-						def.reject(new Error("timeout"));
-					} else {
-						wait(def, start);
-					}
-				}
-			}, interval);
-		}
-		var def = new Deferred();
-		var start = new Date();
-		wait(def, start);
-		return def;
-	}
 
 	function removeTabsAndReturns(str) {
 		return str.replace(/\t/g, "").replace(/\n/g, "");
@@ -1409,88 +1388,6 @@ define(function (require) {
 				}));
 
 				return dfd;
-			},
-
-			"autoPaging: categorized list with category headers destroyed when loading pages": function () {
-				var TIMEOUT = 3000;
-				var INTERVAL = 500;
-				if (navigator.userAgent.indexOf("Firefox") >= 0) {
-					// This test is not reliable on Firefox
-					return;
-				}
-				var def = this.async(1000 + 3 * TIMEOUT);
-
-				var store = new Store();
-				for (var i = 0; i < 100; i++) {
-					store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
-				}
-
-				list = new PageableList({source: store});
-				list.categoryAttr = "category";
-				list.pageLength = 25;
-				list.maxPages = 2;
-				list.style.height = "200px";
-				list.autoPaging = true;
-
-				list.placeAt(document.body);
-				list.deliver();
-
-				// initial load
-				assertCategorizedList(list, 25, 0, false, true);
-				setTimeout(def.rejectOnError(function () {
-					// scroll to the bottom
-					list.scrollTop =
-						(list.scrollHeight - list.offsetHeight);
-					waitForCondition(function () {
-						return list.textContent.indexOf("item 49") >= 0;
-					}, TIMEOUT, INTERVAL).then(def.rejectOnError(function () {
-						list.deliver();
-						assertCategorizedList(list, 50, 0, false, true);
-						assert.strictEqual(
-							removeTabsAndReturns(list._getLastVisibleRenderer().textContent),
-							"item 24",
-							"last visible renderer after first page load");
-						setTimeout(def.rejectOnError(function () {
-							// scroll a little to remove the "_atExtremity" marker
-							list.scrollTop =
-								((list.scrollHeight - list.offsetHeight) / 2);
-							setTimeout(def.rejectOnError(function () {
-								// scroll to the bottom
-								list.scrollTop =
-									((list.scrollHeight - list.offsetHeight));
-								waitForCondition(function () {
-									return list.textContent.indexOf("item 74") >= 0;
-								}, TIMEOUT, INTERVAL).then(def.rejectOnError(function () {
-									list.deliver();
-									assertCategorizedList(list, 50, 25, true, true);
-									assert.strictEqual(
-										removeTabsAndReturns(list._getLastVisibleRenderer().textContent),
-										"item 73",
-										"last visible renderer after second page load");
-									setTimeout(def.rejectOnError(function () {
-										// scroll a little to remove the "_atExtremity" marker
-										list.scrollTop = 100;
-										setTimeout(def.rejectOnError(function () {
-											// scroll to the top
-											list.scrollTop = 0;
-											waitForCondition(function () {
-												return list.textContent.indexOf("item 24") >= 0;
-											}, TIMEOUT, INTERVAL).then(def.callback(function () {
-												assertCategorizedList(list, 50, 0, false, true);
-												assert.strictEqual(
-													removeTabsAndReturns(list._getFirstVisibleRenderer().textContent),
-													"Category 0",
-													"first visible renderer");
-											}));
-										}), 10);
-									}), 10);
-								}));
-							}), 10);
-						}), 10);
-					}));
-				}), 10);
-
-				return def;
 			},
 
 			"getItemRendererByIndex ignores page loaders": function () {
