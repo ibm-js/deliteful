@@ -29,29 +29,6 @@ define(function (require) {
 				.then(checkOnChange(remote, "singleSlider03", false))
 				.then(checkAria(remote, "singleSlider03", "d-slider-handle-max", "horizontal", "0", "100", "100"));
 		},
-		"single slider interaction": function () {
-			var remote = this.remote;
-			// See https://code.google.com/p/selenium/issues/detail?id=4136
-			if (/safari|firefox|selendroid/i.test(remote.environmentType.browserName)) {
-				return this.skip("moveMouseTo() unsupported");
-			}
-			if (remote.environmentType.brokenMouseEvents) {
-				// https://github.com/theintern/leadfoot/issues/103
-				return this.skip("IE uses synthetic mouse events and doesn't fire pointer events");
-			}
-			return remote
-				.then(logMessage(remote, this.id, "click on handle..."))
-				.then(clickOnHandle(remote, "singleSlider01"))
-				.then(checkOnChange(remote, "singleSlider01", false))
-
-				.then(logMessage(remote, this.id, "click on progress bar"))
-				.then(clickOnProgressBar(remote, "singleSlider01", 50, 3))
-				.then(checkOnChange(remote, "singleSlider01", true))
-
-				.then(logMessage(remote, this.id, "move handle"))
-				.then(moveHandle(remote, "singleSlider01", 26, 10))
-				.then(checkOnChange(remote, "singleSlider01", true));
-		},
 		// range
 		"init range slider (default value)": function () {
 			var remote = this.remote;
@@ -76,56 +53,6 @@ define(function (require) {
 				.then(checkOnChange(remote, "rangeSlider03", false))
 				.then(checkAria(remote, "rangeSlider03", "d-slider-handle-min", "horizontal", "0", "100", "80"))
 				.then(checkAria(remote, "rangeSlider03", "d-slider-handle-max", "horizontal", "80", "100", "100"));
-		},
-		"range slider interaction": function () {
-			var remote = this.remote;
-			// See https://code.google.com/p/selenium/issues/detail?id=4136
-			if (/safari|firefox|selendroid|internet explorer/i.test(remote.environmentType.browserName)) {
-				return this.skip("moveMouseTo not supported");
-			}
-			if (remote.environmentType.brokenMouseEvents) {
-				// https://github.com/theintern/leadfoot/issues/103
-				return this.skip("IE uses synthetic mouse events and doesn't fire pointer events");
-			}
-			return remote
-				.then(logMessage(remote, this.id, "click on handle..."))
-				.then(clickOnHandle(remote, "rangeSlider01"))
-				.then(checkOnChange(remote, "rangeSlider01", false))
-
-				.then(logMessage(remote, this.id, "click on progress bar"))
-				.then(clickOnProgressBar(remote, "rangeSlider01", 50, 3))
-				.then(checkOnChange(remote, "rangeSlider01", false))// no action when slideRange=true
-
-				.then(logMessage(remote, this.id, "move handle"))
-				.then(moveHandle(remote, "rangeSlider01", 26, 10))
-				.then(checkOnChange(remote, "rangeSlider01", true))
-
-				.then(logMessage(remote, this.id, "move range (slideRange=true)"))
-				.then(moveRange(remote, "rangeSlider01", 31, 10))
-				.then(checkOnChange(remote, "rangeSlider01", true))
-
-				.then(logMessage(remote, this.id, "click on progress bar (slideRange=false)"))
-				.then(setSlideRange(remote, "rangeSlider01", false))
-				.then(clickOnProgressBar(remote, "rangeSlider01", 50, 3))
-				.then(checkOnChange(remote, "rangeSlider01", true));
-		},
-		"range slider interaction inside a listening parent": function () {
-			var remote = this.remote;
-			if (/safari|firefox|selendroid|internet explorer/i.test(remote.environmentType.browserName)) {
-				// See https://code.google.com/p/selenium/issues/detail?id=4136
-				return this.skip("moveMouseTo not supported");
-			}
-
-			return remote
-				.then(logMessage(remote, this.id, "move handle"))
-				.then(clickOnHandle(remote, "rangeSlider01"))
-				.then(moveHandle(remote, "rangeSlider01", 70, 30))
-				.execute("return rangeSlider01parent")
-				.then(function (rangeSlider01parent) {
-					assert.equal(rangeSlider01parent.pointerdowns, 0, "parent did not detect pointerdown");
-					assert.equal(rangeSlider01parent.pointermoves, 0, "parent did not detect pointermove");
-				})
-				.end();
 		}
 	});
 
@@ -204,16 +131,18 @@ define(function (require) {
 		};
 	}
 
-	function checkOnChange(remote, sliderId, hasValue) {
+	function checkOnChange(remote, sliderId, hasValue, hint) {
 		return function () {
 			debugMsg("checkOnChange...");
+			var prefix = hint ? hint + ": " : "";
 			return remote.execute("return onchange_target.value;")
 				.then(function (target) {
 					debugMsg("checkOnChange: onchange event target id");
 					if (hasValue) {
-						assert.strictEqual(target, sliderId, "onchange target id");
+						assert.strictEqual(target, sliderId, prefix + "onchange target id");
 					} else {
-						assert.strictEqual(target.length, 0, "unexpected change event received from [" + target + "]");
+						assert.strictEqual(target.length, 0,
+							prefix + "unexpected change event received from [" + target + "]");
 					}
 				})
 				.findById("onchange_target")
@@ -224,7 +153,7 @@ define(function (require) {
 						return remote.execute("return onchange_value.value")
 							.then(function (value) {
 								debugMsg("checkOnChange: onchange received?");
-								assert.ok(value, "onchange value is expected");
+								assert.ok(value, prefix + "onchange value is expected");
 							})
 							.findById("onchange_value")
 							.clearValue()
@@ -233,7 +162,7 @@ define(function (require) {
 								return remote.execute("return onchange_input.value;")
 									.then(function (value) {
 										debugMsg("checkOnChange: input.value?");
-										assert.ok(value, "incorrect input value");
+										assert.ok(value, prefix + "incorrect input value");
 									})
 									.findById("onchange_input")
 									.clearValue()
@@ -311,91 +240,6 @@ define(function (require) {
 	}
 
 	/**
-	 * simulate a click on the slider progress bar.
-	 */
-	function clickOnProgressBar(remote, sliderId, moveToX, moveToY) {
-		return function () {
-			debugMsg("clickOnProgressBar...");
-			return remote.findByCssSelector("#" + sliderId + " .d-slider-progress-bar")
-				.then(function (element) {
-					return remote.moveMouseTo(element, moveToX, moveToY);
-				})
-				.sleep(50)
-				// 1. There is a pb with "change" event not fired after a click() on FF with selenium:
-				// https://code.google.com/p/selenium/issues/detail?id=157
-				// Slider does not listen on click events, so send mouseDown+Up to bypass FF problem.
-				// 2. click() seems to click on the center of the element whatever the previous moveMouseTo(x,y)
-				// on Chrome
-				.pressMouseButton(0)
-				.sleep(50)
-				.releaseMouseButton(0)
-				.end()
-				.then(function () {
-					return waitForDebug(remote);
-				});
-		};
-	}
-
-	function clickOnHandle(remote, sliderId) {
-		return function () {
-			debugMsg("clickOnHandle...");
-			return remote.findByCssSelector("#" + sliderId + " .d-slider-handle-max")
-				.then(function (element) {
-					return remote.moveMouseTo(element);
-				})
-				// Simulate click with button down/up to bypass this issue:
-				// "change" event is not fired when click() on FF with selenium
-				// https://code.google.com/p/selenium/issues/detail?id=157
-				.pressMouseButton()
-				.releaseMouseButton()
-				.end()
-				.then(function () {
-					return waitForDebug(remote);
-				});
-		};
-	}
-
-	function moveHandle(remote, sliderId, moveToX, moveToY) {
-		return function () {
-			debugMsg("moveHandle...");
-			return remote.findByCssSelector("#" + sliderId + " .d-slider-handle-max")
-				.then(function (element) {
-					return remote.pressMouseButton()
-						.moveMouseTo(element, moveToX, moveToY)
-						.releaseMouseButton();
-				})
-				.end()
-				.then(function () {
-					return waitForDebug(remote);
-				});
-		};
-	}
-
-	function moveRange(remote, sliderId, moveToX, moveToY) {
-		return function () {
-			debugMsg("moveRange...");
-			return remote.findByCssSelector("#" + sliderId + " .d-slider-progress-bar")
-				.then(function (element) {
-					return remote.moveMouseTo(element)
-						.pressMouseButton()
-						.moveMouseTo(element, moveToX, moveToY)
-						.releaseMouseButton();
-				})
-				.end()
-				.then(function () {
-					return waitForDebug(remote);
-				});
-		};
-	}
-
-	function setSlideRange(remote, sliderId, enable) {
-		return function () {
-			debugMsg("setSlideRange...");
-			return remote.execute("document.getElementById('" + sliderId + "').slideRange = " + String(enable) + ";");
-		};
-	}
-
-	/**
 	 * Load a new test page in the remote session
 	 */
 	function loadFile(remote, fileName) {
@@ -407,13 +251,6 @@ define(function (require) {
 				debugMsg(fileName + " loaded.");
 				return remote;
 			});
-	}
-
-	function logMessage(remote, prefix, message) {
-		return function () {
-			console.log("[" + prefix + "] " + message);
-			return remote;
-		};
 	}
 
 	function waitForDebug(remote) {
