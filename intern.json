@@ -104,7 +104,7 @@
 	],
 
 	"tunnelOptions": {
-		"drivers": [ "firefox", "internet explorer", "MicrosoftEdge", {"name": "chrome", "version": "76.0.3809.68" } ]
+		"drivers": [ "firefox", "internet explorer", "MicrosoftEdge", {"name": "chrome", "version": "77.0.3865.10" } ]
 	},
 
 	"WAIT_TIMEOUT": 30000,
@@ -226,7 +226,7 @@
 			"tunnel": "saucelabs"
 		},
 
-		"sauce-firefox ": {
+		"sauce-firefox": {
 			"description": "Run tests on Firefox/Windows 10 on SauceLabs",
 			"environments": [
 				{ "browserName": "firefox", "platform": [ "Windows 10" ], "fixSessionCapabilities": false, "name": "deliteful" }
@@ -236,6 +236,15 @@
 			"maxConcurrency": 5,
 			"coverage": false,
 			"tunnel": "saucelabs"
+		},
+
+		"sauce-edge": {
+			"description": "Run tests on Microsoft Edge on SauceLabs.",
+			"extends": ["sauce"],
+			"environments": [
+				{ "browserName": "MicrosoftEdge", "fixSessionCapabilities": false, "name": "deliteful"}
+			],
+			"coverage": null
 		},
 
 		"sauce-ie": {
