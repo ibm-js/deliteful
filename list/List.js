@@ -1058,18 +1058,21 @@ define([
 		 * @private
 		 */
 		descendantSelector: function (child) {
-			var matchesFuncName = has("dom-matches");
+			// Navigate to cells, except when the cells contain a single control, in which
+			// case navigate directly to the control.
+			var selectors = this.type === "grid" ? [
+					"#" + this.containerNode.id + " > [role=row] > *:not(.d-list-control-cell)",
+					"#" + this.containerNode.id + " > [role=row] > .d-list-control-cell > *",
+					"#" + this.containerNode.id + " > [role=rowgroup] > [role=row] > *:not(.d-list-control-cell)",
+					"#" + this.containerNode.id + " > [role=rowgroup] > [role=row] > .d-list-control-cell > *"
+				] : [
+					"#" + this.containerNode.id +
+						" > *:not(" + this.categoryRenderer.tag + "):not(.d-list-control-cell)",
+					"#" + this.containerNode.id + " > .d-list-control-cell > *"
+				];
 
-			if (this.type === "grid") {
-				return child[matchesFuncName](
-					"#" + this.containerNode.id + " > [role=row] > *, " +
-					"#" + this.containerNode.id + " > [role=rowgroup] > [role=row] > *"
-				);
-			} else {
-				return child[matchesFuncName](
-					"#" + this.containerNode.id + " > *:not(" + this.categoryRenderer.tag + ")"
-				);
-			}
+			var matchesFuncName = has("dom-matches");
+			return child[matchesFuncName](selectors.join(", "));
 		},
 
 		focus: function () {
@@ -1146,6 +1149,16 @@ define([
 			}
 		},
 
+		// Override KeyNav#navigateTo() to focus the control inside of a control cell rather than the cell itself.
+		navigateTo: dcl.superCall(function (sup) {
+			return function (child, triggerEvent) {
+				if (child.firstElementChild && this.descendantSelector(child.firstElementChild)) {
+					child = child.firstElementChild;
+				}
+				return sup.call(this, child, triggerEvent);
+			}
+		}),
+
 		// Simple arrow key support.
 
 		upDownKeyHandler: function (evt, dir) {
@@ -1187,8 +1200,9 @@ define([
 				return;
 			}
 
-			if (this.navigatedDescendant.previousElementSibling) {
-				this.navigateTo(this.navigatedDescendant.previousElementSibling);
+			var focusedCell = this._getFocusedCell();
+			if (focusedCell.previousElementSibling) {
+				this.navigateTo(focusedCell.previousElementSibling);
 			}
 		},
 
@@ -1201,8 +1215,9 @@ define([
 				return;
 			}
 
-			if (this.navigatedDescendant.nextElementSibling) {
-				this.navigateTo(this.navigatedDescendant.nextElementSibling);
+			var focusedCell = this._getFocusedCell();
+			if (focusedCell.nextElementSibling) {
+				this.navigateTo(focusedCell.nextElementSibling);
 			}
 		},
 

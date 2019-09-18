@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<title>Table</title>
+
+	<script type="text/javascript" src="../../boilerplate.js"></script>
+
+	<script type="text/javascript">
+		var ready = false;
+		require([
+			"delite/on",
+			"delite/register",
+			"deliteful/list/ItemRenderer",
+			"deliteful/list/List",
+			"delite/handlebars!deliteful/tests/functional/list/templates/ComplexRowRenderer.html",
+			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
+		], function (on, register, ItemRenderer, List, complexRowTemplate) {
+			var ComplexRowRenderer = register("complex-row", [ItemRenderer], {
+				template: complexRowTemplate
+			});
+			var list = new List({
+				id: "table-2",
+				itemRenderer: ComplexRowRenderer,
+				copyAllItemProps: true,
+				source: [
+					{id: "apple", title: "Apple"},
+					{id: "orange", title: "Orange"},
+					{id: "pear", title: "Pear"}
+				]
+			});
+			list.placeAt(document.getElementById("listPlaceholder"), "replace");
+
+			on(document.body, "keydown", function (e) {
+				document.getElementById("keydownEvent").textContent = e.key;
+			});
+
+			ready = true;
+		});
+	</script>
+
+	<style>
+		.d-list-item {
+			display: flex;	/* TODO: include in List CSS? */
+			background-color: black;
+			color: white;
+			font-family: monospace;
+			height: 45px;
+		}
+
+		d-book-store.d-list-item {
+			background-color: white;
+			color: black;
+		}
+	</style>
+</head>
+<body role="application">
+	<h1>Test of List with type=grid and multiple gridcells per row, with gridcells with multiple controls</h1>
+	<input id="before" autofocus>
+	<div id="listPlaceholder"></div>
+	<input id="after">
+	Last keydown event on &lt;body&gt;: <span id="keydownEvent"></span>
+</body>
+</html>

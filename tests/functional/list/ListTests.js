@@ -792,7 +792,9 @@ define(function (require) {
 				}).end();
 		},
 
-		"table (multiple gridcells per row)": function () {
+		// Test of the recommended table layout, where each cell is either text or a single control.
+		// Arrow key navigation goes directly to the controls.
+		"table (multiple gridcells per row) with control cells": function () {
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
@@ -807,61 +809,102 @@ define(function (require) {
 					intern.config.WAIT_TIMEOUT,
 					intern.config.POLL_INTERVAL))
 				.pressKeys(keys.TAB)
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
+				.getActiveElement().getVisibleText().then(function (value) {
 					assert.strictEqual(value, "Amazon", "after tabbing into table");
-				})
-				.end()
+				}).end()
+				.pressKeys(keys.TAB)
+				.getActiveElement().getAttribute("id").then(function (value) {
+					assert.strictEqual(value, "after", "focus after shift-tab");
+				}).end()
+				.pressKeys(keys.SHIFT + keys.TAB)
+				.pressKeys(keys.SHIFT)		// release shift key
+				.getActiveElement().getVisibleText().then(function (value) {
+					assert.strictEqual(value, "Amazon", "after shift-tabbing back into table");
+				}).end()
 				.pressKeys(keys.ARROW_DOWN)
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
+				.getActiveElement().getVisibleText().then(function (value) {
 					assert.strictEqual(value, "Dojo: The Definitive Guide", "after arrow down");
-				})
-				.end()
+				}).end()
 				.pressKeys(keys.ARROW_RIGHT)
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
+				.getActiveElement().getVisibleText().then(function (value) {
 					assert.strictEqual(value, "ISBN: 0596516487", "after arrow right");
-				})
-				.end()
+				}).end()
 				.pressKeys(keys.ARROW_UP)
 				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "http://www.amazon.com", "after arrow up");
-				})
+					.getVisibleText().then(function (value) {
+						assert.strictEqual(value, "http://www.amazon.com", "after arrow up, link text");
+					})
+					.getAttribute("href").then(function (value) {
+						assert.strictEqual(value, "http://www.amazon.com", "focused on link, not cell");
+					})
 				.end()
-				.pressKeys(keys.ENTER)
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "http://www.amazon.com", "after ENTER");
-				})
-				.end()
+				.pressKeys(keys.ARROW_LEFT)
+				.getActiveElement().getVisibleText().then(function (value) {
+					assert.strictEqual(value, "Amazon", "after left arrow");
+				}).end();
+		},
+
+		// Test of old-style where you need to use ENTER and ESC (or F2) to navigate the widgets within a cell.
+		"table (multiple gridcells per row) with column with multiple widgets": function () {
+			var remote = this.remote;
+			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support");
+			}
+			return remote
+				.get(require.toUrl("deliteful/tests/functional/list/table-2.html"))
+				.then(pollUntil("return ('ready' in window &&  ready "
+					+ "&& document.getElementById('table-2') "
+					+ "&& !document.querySelector('#table-2 .d-list-container')"
+					+	".getAttribute('aria-busy') === false) ? true : null;",
+					[],
+					intern.config.WAIT_TIMEOUT,
+					intern.config.POLL_INTERVAL))
 				.pressKeys(keys.TAB)
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "http://www.amazon.com", "tab stays in cell");
-				})
-				.end()
-				.pressKeys(keys.ESCAPE)
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "http://www.amazon.com", "after ESCAPE");
-				})
-				.end()
+				.getActiveElement().getVisibleText().then(function (value) {
+					assert.strictEqual(value, "Apple", "after tabbing into table");
+				}).end()
+				.pressKeys(keys.TAB)
+				.getActiveElement().getAttribute("id").then(function (value) {
+					assert.strictEqual(value, "after", "focus after shift-tab");
+				}).end()
+				.pressKeys(keys.SHIFT + keys.TAB)
+				.pressKeys(keys.SHIFT)		// release shift key
+				.getActiveElement().getVisibleText().then(function (value) {
+					assert.strictEqual(value, "Apple", "after shift-tabbing back into table");
+				}).end()
 				.pressKeys(keys.ARROW_RIGHT)
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "http://www.amazon.com", "after right arrow");
-				})
-				.end();
+				.getActiveElement().getAttribute("class").then(function (value) {
+					assert.match(value, /complex-cell/, "after arrow right, focused on second cell");
+				}).end()
+				.pressKeys(keys.ENTER)
+				.getActiveElement().getAttribute("id").then(function (value) {
+					assert.strictEqual(value, "apple-input1", "after Enter, focused on first input");
+				}).end()
+				.pressKeys("abd")
+				.pressKeys(keys.ARROW_LEFT)		// should navigate within <input>
+				.pressKeys("c")
+				.getActiveElement().getAttribute("id").then(function (value) {
+					assert.strictEqual(value, "apple-input1", "still focused on first input");
+				}).end()
+				.execute("return document.activeElement.value;").then(function (value) {
+					assert.strictEqual(value, "abcd", "first input value, confirms left arrow navigated within it");
+				}).end()
+				.pressKeys(keys.TAB)
+				.getActiveElement().getAttribute("id").then(function (value) {
+					assert.strictEqual(value, "apple-input2", "tabbed to second input");
+				}).end()
+				.pressKeys(keys.TAB)
+				.getActiveElement().getAttribute("id").then(function (value) {
+					assert.strictEqual(value, "apple-input1", "tabbed back to first input");
+				}).end()
+				.pressKeys(keys.ESCAPE)
+				.getActiveElement().getAttribute("class").then(function (value) {
+					assert.match(value, /complex-cell/, "after esc, focused on second cell");
+				}).end()
+				.pressKeys(keys.ARROW_LEFT)
+				.getActiveElement().getVisibleText().then(function (value) {
+					assert.strictEqual(value, "Apple", "arrow left back to first cell");
+				}).end();
 		}
 	});
 });
