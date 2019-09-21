@@ -416,6 +416,22 @@ define([
 					HTMLElement.prototype.removeAttribute.call(this, this.attributes[i].name);
 				}
 			}
+
+			// Navigate to cells, except when the cells contain a single control, in which
+			// case navigate directly to the control. See https://www.w3.org/TR/wai-aria-practices/#gridNav_focus.
+			// Skips category renderers when role=listbox, role=list or role=menu.  Also skips cells in child Lists.
+			var selectors = this.type === "grid" ? [
+				"#" + this.containerNode.id + " > [role=row] > *:not(.d-list-control-cell)",
+				"#" + this.containerNode.id + " > [role=row] > .d-list-control-cell > *",
+				"#" + this.containerNode.id + " > [role=rowgroup] > [role=row] > *:not(.d-list-control-cell)",
+				"#" + this.containerNode.id + " > [role=rowgroup] > [role=row] > .d-list-control-cell > *"
+			] : [
+				"#" + this.containerNode.id +
+				" > *:not(" + this.categoryRenderer.tag + "):not(.d-list-control-cell)",
+				"#" + this.containerNode.id + " > .d-list-control-cell > *"
+			];
+
+			this.descendantSelector = selectors.join(", ");
 		},
 
 		destroy: function () {
@@ -1051,30 +1067,6 @@ define([
 		// Keyboard navigation is based on WAI ARIA Pattern for Grid:
 		// http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid
 
-		/**
-		 * Test if the child is navigable via grid navigation.
-		 * See https://www.w3.org/TR/wai-aria-practices/#gridNav_focus.
-		 * Skips category renderers when role=listbox, role=list or role=menu.  Also skips cells in child Lists.
-		 * @private
-		 */
-		descendantSelector: function (child) {
-			// Navigate to cells, except when the cells contain a single control, in which
-			// case navigate directly to the control.
-			var selectors = this.type === "grid" ? [
-					"#" + this.containerNode.id + " > [role=row] > *:not(.d-list-control-cell)",
-					"#" + this.containerNode.id + " > [role=row] > .d-list-control-cell > *",
-					"#" + this.containerNode.id + " > [role=rowgroup] > [role=row] > *:not(.d-list-control-cell)",
-					"#" + this.containerNode.id + " > [role=rowgroup] > [role=row] > .d-list-control-cell > *"
-				] : [
-					"#" + this.containerNode.id +
-						" > *:not(" + this.categoryRenderer.tag + "):not(.d-list-control-cell)",
-					"#" + this.containerNode.id + " > .d-list-control-cell > *"
-				];
-
-			var matchesFuncName = has("dom-matches");
-			return child[matchesFuncName](selectors.join(", "));
-		},
-
 		focus: function () {
 			// Focus the previously focused child or the first visible row.
 			if (this._previousFocusedChild) {
@@ -1150,13 +1142,14 @@ define([
 		},
 
 		// Override KeyNav#navigateTo() to focus the control inside of a control cell rather than the cell itself.
+		// descendantSelector() should match either the cell or the control inside it, but not both.
 		navigateTo: dcl.superCall(function (sup) {
 			return function (child, triggerEvent) {
-				if (child.firstElementChild && this.descendantSelector(child.firstElementChild)) {
-					child = child.firstElementChild;
+				if (!this.isNavigable(child)) {
+					child = child.querySelector(this.descendantSelector);
 				}
 				return sup.call(this, child, triggerEvent);
-			}
+			};
 		}),
 
 		// Simple arrow key support.
@@ -1164,7 +1157,7 @@ define([
 		upDownKeyHandler: function (evt, dir) {
 			// Ignore arrow keys if not focused on an element inside a grid cell.  But don't ignore
 			// them in the Combobox case, where arrow key is forwarded from the Combobox's <input> node.
-			if (this.focusDescendants && !this.descendantSelector(evt.target)) {
+			if (this.focusDescendants && !this.isNavigable(evt.target)) {
 				return;
 			}
 
@@ -1196,7 +1189,7 @@ define([
 				return;
 			}
 			// Ignore arrow keys if not focused on a grid cell.
-			if (!this.descendantSelector(evt.target)) {
+			if (!this.isNavigable(evt.target)) {
 				return;
 			}
 
@@ -1211,7 +1204,7 @@ define([
 				return;
 			}
 			// Ignore arrow keys if not focused on a grid cell.
-			if (!this.descendantSelector(evt.target)) {
+			if (!this.isNavigable(evt.target)) {
 				return;
 			}
 
@@ -1250,7 +1243,7 @@ define([
 		},
 
 		tabKeyHandler: function (evt) {
-			if (this.descendantSelector(evt.target)) {
+			if (this.isNavigable(evt.target)) {
 				// We are in grid navigation mode, so this tab key needs to send focus past the entire List.
 				// Do this programatically in case List contains some tab-navigable descendants.
 				var newNode = a11y.getNextInTabbingOrder(this.containerNode || this, evt.shiftKey ? -1 : 1);
@@ -1271,7 +1264,7 @@ define([
 
 		enterKeyHandler: function (evt) {
 			if (this.type === "grid") {
-				if (this.descendantSelector(evt.target)) {
+				if (this.isNavigable(evt.target)) {
 					// Switch from grid navigation mode to navigation inside cell.
 					this._enterActionableMode();
 				}
@@ -1282,7 +1275,7 @@ define([
 		},
 
 		escapeKeyHandler: function (evt) {
-			if (this.type === "grid" && !this.descendantSelector(evt.target)) {
+			if (this.type === "grid" && !this.isNavigable(evt.target)) {
 				// We are in navigating inside a cell.  Return focus to the cell.
 				this._leaveActionableMode();
 			} else {
@@ -1293,7 +1286,7 @@ define([
 
 		f2KeyHandler: function (evt) {
 			if (this.type === "grid") {
-				if (this.descendantSelector(evt.target)) {
+				if (this.isNavigable(evt.target)) {
 					// Switch from grid navigation mode to navigation inside cell.
 					this._enterActionableMode();
 				} else {
