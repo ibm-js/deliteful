@@ -5,7 +5,6 @@ define([
 	"delite/a11yclick",
 	"delite/register",
 	"delite/Widget",
-	"requirejs-dplugins/has!bidi?./Button/bidi/Button",
 	"delite/handlebars!./Button/Button.html",
 	"delite/theme!./Button/themes/{{theme}}/Button.css"
 ], function (
@@ -14,10 +13,8 @@ define([
 	a11yclick,
 	register,
 	Widget,
-	BidiButton,
 	template
 ) {
-
 	/**
 	 * A form-aware button widget.
 	 * A Button can display a label, an icon, or both.  Icon is specified via the iconClass property that
@@ -134,8 +131,7 @@ define([
 		}
 	});
 
-	var ButtonElt = register("d-button", has("bidi") ? [HTMLElement, Button, BidiButton] :
-		[HTMLElement, Button]);
+	var ButtonElt = register("d-button", [HTMLElement, Button]);
 	ButtonElt.Impl = Button;
 	return ButtonElt;
 });

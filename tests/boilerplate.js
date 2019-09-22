@@ -6,7 +6,7 @@
 //
 //		In addition, by URL flags you can specify:
 //			- locale=... to set the locale
-//			- dir=rtl to turn on the has("bidi") flag and set the page to RTL mode
+//			- dir=rtl to set the page to RTL mode
 //
 //		You should NOT be using this in a production environment.  Rather, load
 //		the AMD loader directly, for example:
@@ -63,12 +63,7 @@ for (var j = 0; (script = scripts[j]); j++) {
 /* global require:true */
 require = {
 	baseUrl: testDir + "../../",
-	locale: locale || "en-us",
-	config: {
-		"requirejs-dplugins/has": {
-			bidi: dir === "rtl"
-		}
-	}
+	locale: locale || "en-us"
 };
 for (var key2 in overrides) {
 	require[key2] = overrides[key2];
@@ -85,7 +80,7 @@ document.write("<script type='text/javascript' src='" + testDir + "boilerplateOn
 boilerplateOnLoad = function () {
 	// This function is the first registered domReady() callback.
 
-	// BIDI
+	// RTL
 	if (dir === "rtl") {
 		// set dir=rtl on <html> node
 		document.body.parentNode.setAttribute("dir", "rtl");

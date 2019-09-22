@@ -6,9 +6,8 @@ define([
 	"delite/classList",
 	"deliteful/Checkbox",
 	"delite/handlebars!./Switch/Switch.html",
-	"requirejs-dplugins/has!bidi?./Switch/bidi/Switch",
 	"delite/theme!./Switch/themes/{{theme}}/Switch.css"
-], function (has, pointer, register, classList, Checkbox, template, BidiSwitch) {
+], function (has, pointer, register, classList, Checkbox, template) {
 
 	/**
 	 * A form-aware switch widget that represents a toggle switch with a sliding knob.
@@ -17,8 +16,7 @@ define([
 	 * @class module:deliteful/Switch
 	 * @augments module:deliteful/Checkbox
 	 */
-	return register("d-switch", has("bidi") ? [HTMLElement, Checkbox, BidiSwitch] :
-		[HTMLElement, Checkbox], /** @lends module:deliteful/Switch# */ {
+	return register("d-switch", [HTMLElement, Checkbox], /** @lends module:deliteful/Switch# */ {
 
 		/**
 		 * The label corresponding to the checked state.

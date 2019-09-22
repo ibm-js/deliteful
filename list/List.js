@@ -417,9 +417,11 @@ define([
 				}
 			}
 
-			// Navigate to cells, except when the cells contain a single control, in which
-			// case navigate directly to the control. See https://www.w3.org/TR/wai-aria-practices/#gridNav_focus.
-			// Skips category renderers when role=listbox, role=list or role=menu.  Also skips cells in child Lists.
+			// Set descendantSelector() to navigate to cells, except when the cells contain a single control, in which
+			// case navigate directly to the control.  See https://www.w3.org/TR/wai-aria-practices/#gridNav_focus.
+			// Note: descendantSelector() should match the cell or the embedded control, but not both
+			// Most of this fancy CSS is to skip cells and controls in nested lists/tables.
+			// Also skips category renderers when role=listbox, role=list or role=menu.
 			var selectors = this.type === "grid" ? [
 				"#" + this.containerNode.id + " > [role=row] > *:not(.d-list-control-cell)",
 				"#" + this.containerNode.id + " > [role=row] > .d-list-control-cell > *",

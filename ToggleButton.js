@@ -5,10 +5,9 @@ define([
 	"requirejs-dplugins/has",
 	"./Button",
 	"./Toggle",
-	"requirejs-dplugins/has!bidi?./ToggleButton/bidi/ToggleButton",
 	"delite/handlebars!./ToggleButton/ToggleButton.html",
 	"delite/theme!./ToggleButton/themes/{{theme}}/ToggleButton.css"
-], function (dcl, register, has, Button, Toggle, BidiToggleButton, template) {
+], function (dcl, register, has, Button, Toggle, template) {
 
 	/**
 	 * A 2-state toggle button widget that represents a form-aware 2-states (pressed or unpressed) button with optional
@@ -40,10 +39,10 @@ define([
 	 * </style>
 	 * <d-toggle-button checked="true" checkedIconClass="iconOn">Off</d-toggle-button>
 	 * @class module:deliteful/ToggleButton
+	 * @augments module:deliteful/Button
 	 * @augments module:deliteful/Toggle
-	 * @augments module:deliteful/Button.Mixin
 	 */
-	var ToggleButton = dcl([Button.Impl, Toggle], /** @lends module:deliteful/ToggleButton# */ {
+	return register("d-toggle-button", [Button, Toggle], /** @lends module:deliteful/ToggleButton# */ {
 		/**
 		 * The component css base class.
 		 * @member {string}
@@ -78,7 +77,4 @@ define([
 			}
 		}
 	});
-
-	return register("d-toggle-button",  has("bidi") ? [HTMLElement, ToggleButton, BidiToggleButton] :
-		[HTMLElement, ToggleButton]);
 });
