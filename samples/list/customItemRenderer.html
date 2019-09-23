@@ -24,7 +24,7 @@
 			"deliteful/list/ItemRenderer",
 			"deliteful/list/List",
 			"delite/handlebars!deliteful/samples/list/templates/CustomItemRenderer.html",
-			"delite/theme!delite/themes/{{theme}}/global.css", // page level CSS
+			"requirejs-dplugins/css!delite/css/global.css", // page level CSS
 			"requirejs-domready/domReady!"
 		], function (register, Memory, Trackable, ItemRenderer, List, template) {
 			var Store = Memory.createSubclass([Trackable], {});

@@ -140,7 +140,7 @@ The `require(["js/app"])` call loads the `js/app` AMD module which will be the a
 ```js
 /* js/app.js */
 define([
-	"delite/theme!delite/themes/{%raw%}{{theme}}{%endraw%}/global.css", "deliteful/ViewStack",
+	"requirejs-dplugins/css!requirejs-dplugins/css/{%raw%}{{theme}}{%endraw%}/global.css", "deliteful/ViewStack",
 	"deliteful/SidePane", "deliteful/LinearLayout", "deliteful/Button", "deliteful/StarRating",
 	"deliteful/ProgressBar", "deliteful/list/List", "requirejs-domready/domReady!"
 ], function () {

@@ -2,14 +2,14 @@
 <html>
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-	<meta name="viewport" 
+	<meta name="viewport"
 		content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>ScrollableContainer (alone)</title>
 	<!-- alone means without LinearLayout -->
-	
-	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
-	
+
+	<link rel="stylesheet" href="../../../delite/css/defaultapp.css">
+
 	<!-- For testing purposes. Real applications should load the AMD loader directly -->
 	<script type="text/javascript" src="../boilerplate.js"></script>
 
@@ -18,15 +18,15 @@
 		require([
 			"delite/register",
 			"deliteful/ScrollableContainer",
-			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+			"requirejs-dplugins/css!delite/css/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
 		], function(register){
 			register.deliver();
-			
+
 			scrollContainer.on("scroll", function() {
 				console.log("scroll");
 			}, scrollContainer.scrollableNode);
-			
+
 			ready = true;
 		});
 	</script>

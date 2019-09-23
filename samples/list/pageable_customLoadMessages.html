@@ -7,7 +7,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 
 	<title>deliteful/list/PageableList samples.</title>
-	
+
 	<script type="text/javascript">
 	require = {
 			baseUrl: "../../../",
@@ -21,7 +21,7 @@
 			"dstore/Memory",
 			"dstore/Trackable",
 			"deliteful/list/PageableList",
-			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
+			"requirejs-dplugins/css!delite/css/global.css"	// page level CSS
 		], function (register, Memory, Trackable, PageableList) {
 			var Store = Memory.createSubclass([Trackable], {});
 			var list = new PageableList();

@@ -7,7 +7,7 @@ define([
 	"delite/FormValueWidget",
 	"../features",
 	"./ComboboxAPI",
-	"delite/theme!./themes/{{theme}}/Combobox.css"
+	"requirejs-dplugins/css!./Combobox.css"
 ], function (
 	dcl,
 	Filter,

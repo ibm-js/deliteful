@@ -9,7 +9,7 @@
 	<title>deliteful/list/List samples.</title>
 
 	<script type="text/javascript" src="../../../requirejs/require.js"></script>
-	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
+	<link rel="stylesheet" href="../../../delite/css/defaultapp.css">
 	<script type="text/javascript">
 		require.config({
 			baseUrl: "../../../"
@@ -22,7 +22,7 @@
 			"dstore/Trackable",
 			"deliteful/list/List",
 			"deliteful/LinearLayout",
-			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
+			"requirejs-dplugins/css!delite/css/global.css"	// page level CSS
 		], function (Memory, Trackable, List) {
 			var Store = Memory.createSubclass([Trackable], {});
 			list.source = new Store();

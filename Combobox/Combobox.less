@@ -1,0 +1,155 @@
+@import "../../requirejs-dplugins/css/includes";
+
+@import "../../requirejs-dplugins/css/variables.less";
+
+@d-combobox-border-size: 1px;
+@d-combobox-arrow-width: 10px;
+
+.d-combobox-styles() {
+	color: @input-color;
+	font-size: @font-size-base;
+	line-height: @line-height-base;
+}
+
+.d-combobox-arrow-styles() {
+	padding: (@padding-base-vertical + @d-combobox-border-size) @padding-base-horizontal;
+
+	&::after {
+		font-size: @d-combobox-arrow-width;
+	}
+}
+
+.d-combobox-input-styles() {
+	@arrow-width: ((@padding-base-horizontal * 2) + @d-combobox-arrow-width);
+	padding: @padding-base-vertical @arrow-width @padding-base-vertical @padding-base-horizontal;
+	border: @d-combobox-border-size solid @input-border;
+	border-radius: @input-border-radius;
+
+	&:focus {
+		/* defined in requirejs-dplugins/css/bootstrap/mixins.less */
+		.tab-focus();
+	}
+
+	.d-combobox.d-rtl & {
+		padding: @padding-base-vertical @padding-base-horizontal @padding-base-vertical @arrow-width;
+	}
+}
+
+.d-combobox {
+	display: inline-block;
+	position: relative;
+	vertical-align: middle;
+	margin: 0;
+	padding: 0;
+
+	.d-combobox-styles;
+}
+
+.d-combobox-arrow {
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-size: inherit;
+	text-align: center;
+	line-height: normal;
+
+	.d-combobox-arrow-styles;
+
+	&::after {
+		content: "\25BC";
+		display: inline-block;
+		padding: 0;
+		line-height: normal;
+
+		.d-disabled& {
+			opacity: 0.5;
+			cursor: auto;
+		}
+	}
+
+	.d-combobox.d-rtl & {
+		left: 0;
+		right: auto;
+	}
+}
+
+.d-combo-popup-tooltip-dialog .d-tooltip-container {
+	// Override default TooltipDialog padding.
+	padding: 0;
+}
+
+.d-combo-popup {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	background-color: white;
+
+	input {
+		width: 100%
+	}
+
+	.d-list {
+		flex: 1;
+	}
+}
+
+.d-combo-popup-button-container {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	padding: 5px;
+}
+
+// Applies to both the input inside the root node and the input
+// conditionally present inside the popup
+.d-combobox-input {
+	color: inherit;
+	font-family: inherit;
+	font-size: inherit;
+	line-height: normal;
+	cursor: text;
+
+	&[disabled],
+	fieldset[disabled] & {
+		opacity: 0.5;
+		cursor: auto;
+	}
+
+	// So you can't select text on readonly input.
+	&[readonly] {
+		-webkit-touch-callout: none;	// iOS Safari
+		-webkit-user-select: none;		// Safari
+		-khtml-user-select: none;		// Konqueror HTML
+		-moz-user-select: none;			// Firefox
+		-ms-user-select: none;			// Internet Explorer/Edge
+		user-select: none;				// Chrome, Opera
+	}
+
+	.d-combobox-input-styles;
+}
+
+/* Applies to the input inside the root node but does not apply */
+/* to the input conditionally present inside the popup */
+.d-combobox .d-combobox-input {
+	height: 100%;
+	vertical-align: inherit;
+
+	// Avoid webkit's rounded-button styling etc.  The button to open the ComboPopup
+	// should look like a normal <input>.
+	border-radius: 0;
+	-webkit-appearance: none;
+	background: white;
+
+	// For <input type=button>, align text on left rather than in center.
+	text-align: start;
+
+	// Necessary for Safari on iOS to avoid misplacement of the dropdown arrow
+	// due to the presence of the hidden input which stores the submitted value.
+	margin: 0;
+}
+
+.d-combobox-list .d-active-descendant {
+	/* defined in requirejs-dplugins/css/bootstrap/mixins.less */
+	.tab-focus();
+}

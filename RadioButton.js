@@ -4,7 +4,7 @@ define([
 	"delite/register",
 	"./Checkbox",
 	"delite/handlebars!./RadioButton/RadioButton.html",
-	"delite/theme!./RadioButton/themes/{{theme}}/RadioButton.css"
+	"requirejs-dplugins/css!./RadioButton/RadioButton.css"
 ], function (
 	dcl,
 	register,

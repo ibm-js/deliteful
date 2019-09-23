@@ -5,7 +5,7 @@ define([
 	"./Tooltip",
 	"delite/handlebars!./TooltipDialog/TooltipDialog.html",
 	"requirejs-dplugins/i18n!./Dialog/nls/Dialog",
-	"delite/theme!./TooltipDialog/themes/{{theme}}/TooltipDialog.css",
+	"requirejs-dplugins/css!./TooltipDialog/TooltipDialog.css",
 	"delite/uacss"	// TooltipDialog.less uses d-ie class
 ], function (
 	register,

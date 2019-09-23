@@ -6,7 +6,7 @@ define([
 	"delite/classList",
 	"delite/FormValueWidget",
 	"requirejs-dplugins/i18n!./StarRating/nls/StarRating",
-	"delite/theme!./StarRating/themes/{{theme}}/StarRating.css"
+	"requirejs-dplugins/css!./StarRating/StarRating.css"
 ], function (dcl, pointer, register, classList, FormValueWidget, messages) {
 	/**
 	 * A widget that displays a rating, usually with stars, and that allows setting a different rating value

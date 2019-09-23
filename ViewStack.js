@@ -6,7 +6,7 @@ define([
 	"delite/register",
 	"delite/classList",
 	"delite/DisplayContainer",
-	"delite/theme!./ViewStack/themes/{{theme}}/ViewStack.css",
+	"requirejs-dplugins/css!./ViewStack/ViewStack.css",
 	"requirejs-dplugins/css!./ViewStack/transitions/slide.css",
 	"requirejs-dplugins/css!./ViewStack/transitions/reveal.css"
 ], function (dcl, has, Promise, register, classList, DisplayContainer) {

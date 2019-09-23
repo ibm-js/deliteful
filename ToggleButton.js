@@ -6,7 +6,7 @@ define([
 	"./Button",
 	"./Toggle",
 	"delite/handlebars!./ToggleButton/ToggleButton.html",
-	"delite/theme!./ToggleButton/themes/{{theme}}/ToggleButton.css"
+	"requirejs-dplugins/css!./ToggleButton/ToggleButton.css"
 ], function (dcl, register, has, Button, Toggle, template) {
 
 	/**

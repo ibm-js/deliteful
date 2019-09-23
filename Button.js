@@ -6,7 +6,7 @@ define([
 	"delite/register",
 	"delite/Widget",
 	"delite/handlebars!./Button/Button.html",
-	"delite/theme!./Button/themes/{{theme}}/Button.css"
+	"requirejs-dplugins/css!./Button/Button.css"
 ], function (
 	dcl,
 	has,

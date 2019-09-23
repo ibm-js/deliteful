@@ -2,7 +2,7 @@
 define([
 	"dcl/dcl", "delite/register",
 	"dpointer/events", "./ViewStack",
-	"delite/theme!./SwapView/themes/{{theme}}/SwapView.css"
+	"requirejs-dplugins/css!./SwapView/SwapView.css"
 ], function (dcl, register, dpointer, ViewStack) {
 	/**
 	 * SwapView container widget. Extends ViewStack to let the user swap the visible child using a swipe gesture.

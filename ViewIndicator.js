@@ -5,7 +5,7 @@ define([
 	"dpointer/events",
 	"delite/Widget",
 	"delite/hc",
-	"delite/theme!./ViewIndicator/themes/{{theme}}/ViewIndicator.css"
+	"requirejs-dplugins/css!./ViewIndicator/ViewIndicator.css"
 ], function (dcl, register, dpointer, Widget) {
 
 	/**
@@ -55,7 +55,7 @@ define([
 		postRender: function () {
 			dpointer.setTouchAction(this, "none");
 		},
-		
+
 		refreshRendering: function (props) {
 			if ("viewStack" in props) {
 				this._attachViewStack();

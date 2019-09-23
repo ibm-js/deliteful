@@ -9,7 +9,7 @@ define([
 	"delite/handlebars!./BoilerplateTextbox/BoilerplateTextbox.html",
 	"delite/handlebars!./BoilerplateTextbox/Field.html",
 	"delite/activationTracker",
-	"delite/theme!./BoilerplateTextbox/themes/{{theme}}/BoilerplateTextbox.css"
+	"requirejs-dplugins/css!./BoilerplateTextbox/BoilerplateTextbox.css"
 ], function (
 	dcl,
 	register,

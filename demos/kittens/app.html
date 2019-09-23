@@ -7,20 +7,11 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>Deliteful Application With Native Themes</title>
 
-	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
+	<link rel="stylesheet" href="../../../delite/css/defaultapp.css">
 	<script type="text/javascript" src="../../../requirejs/require.js"></script>
 	<script type="text/javascript">
 		require.config({
-			baseUrl: "../../../",
-			config: {
-				"delite/theme": {
-					themeMap: [
-						[/Holodark|Android/, "holodark"],
-						[/iPhone|iPad/, "ios"],
-						[/.*/, "bootstrap"] // chrome, firefox, IE
-					]
-				}
-			}
+			baseUrl: "../../../"
 		});
 	</script>
 	<script type="text/javascript">
@@ -29,11 +20,11 @@
 			"deliteful/Slider",
 			"deliteful/LinearLayout",
 			"deliteful/Button",
-			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+			"requirejs-dplugins/css!delite/css/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
 		], function(){
 			// load the application theme AFTER the widget themes have been loaded
-			require(["delite/theme!deliteful/demos/kittens/themes/{{theme}}/app.css"], function () {
+			require(["requirejs-dplugins/css!deliteful/demos/kittens/app.css"], function () {
 				document.body.style.display = "";
 			});
 		});

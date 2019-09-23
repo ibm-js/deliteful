@@ -13,7 +13,7 @@
 		require([
 			"delite/register",
 			"deliteful/list/List",
-			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+			"requirejs-dplugins/css!delite/css/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
 		], function (register) {
 			register.deliver();
@@ -26,7 +26,7 @@
 			margin: 0;
 			padding: 0;
 		}
-		
+
 		.left-icon-1::before {
 			content: '\2605';
 			color: red;
@@ -56,12 +56,12 @@
 			content: '\2605';
 			color: brown;
 		}
-		
+
 		.left-icon-7::before {
 			content: '\2605';
 			color: silver;
 		}
-		
+
 		.left-icon-8::before {
 			content: '\2605';
 			color: gold;
@@ -106,12 +106,12 @@
 			content: '\2764';
 			color: blueviolet;
 		}
-		
+
 		.right-icon-2-7::before {
 			content: '\2764';
 			color: fuchsia;
 		}
-		
+
 		.right-icon-2-8::before {
 			content: '\2764';
 			color: burlywood;

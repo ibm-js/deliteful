@@ -21,11 +21,11 @@ module.exports = function (grunt) {
 				files: [
 					{
 						expand: true,
-						src: ["*/themes/*/*.less", "*/themes/*.less",
-							"!*/themes/*_template{,_*}.less", "!**/variables.less",
-							"list/*/themes/*/*.less",
-							"!{dijit,mobile}/themes/*/*.less", "*/css/*.less",
-							"ViewStack/transitions/*.less"],
+						src: [
+							"**/*.less",
+							"!**/variables.less",
+							"!node_modules/**"
+						],
 						ext: ".css"
 					}
 				]
@@ -59,7 +59,7 @@ module.exports = function (grunt) {
 						],
 						paths: {
 							"decor": "../../../../decor/docs/api/0.3.0/decor",
-							"delite": "../../../../delite/docs/api/0.4.0/delite"
+							"delite": "../../delite/docs/api/0.4.0/delite"
 						},
 						packagePathFormat: "${name}/docs/api/${version}",
 						includeEventsInTOC: "false"

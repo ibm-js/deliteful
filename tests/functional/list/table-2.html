@@ -18,7 +18,7 @@
 			"deliteful/list/ItemRenderer",
 			"deliteful/list/List",
 			"delite/handlebars!deliteful/tests/functional/list/templates/ComplexRowRenderer.html",
-			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
+			"requirejs-dplugins/css!delite/css/global.css"	// page level CSS
 		], function (on, register, ItemRenderer, List, complexRowTemplate) {
 			var ComplexRowRenderer = register("complex-row", [ItemRenderer], {
 				template: complexRowTemplate

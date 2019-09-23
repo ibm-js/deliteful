@@ -1,0 +1,50 @@
+@import "../../requirejs-dplugins/css/includes";
+
+@import "../../requirejs-dplugins/css/variables.less";
+
+/* Wrapping the select in a span avoids rounding the select element itself,
+  thus avoids a different rendering on FF and IE than in Chrome on desktop. */
+.d-select {
+	/* Do not hardcode a height because this would misbehave multi-select */
+	display: inline-block;
+	vertical-align: middle;
+	margin: 0;
+	padding: 0;
+	overflow: hidden; /* clip for the rounding */
+	.d-select-styles;
+}
+
+.d-select-inner {
+	height: inherit;
+	width: inherit;
+	color: inherit;
+	font-family: inherit;
+	font-size: inherit;
+	line-height: inherit;
+	.d-select-inner-styles;
+
+	&[disabled],
+	fieldset[disabled] & {
+		opacity: 0.5;
+	}
+}
+
+@d-select-border-size: 1px;
+
+.d-select-styles() {
+	border: @d-select-border-size solid @input-border;
+	border-radius: @input-border-radius;
+	color: @input-color;
+	font-size: @font-size-base;
+	line-height: @line-height-base;
+}
+
+.d-select-inner-styles() {
+	padding: @padding-base-vertical @padding-base-horizontal;
+	margin: -@d-select-border-size; /* to compensate the border on d-select */
+	.box-shadow(inset 0 1px 1px rgba(0,0,0,.075));
+}
+
+.d-select-focus {
+	.tab-focus(); /* defined in requirejs-dplugins/css/bootstrap/mixins.less */
+}

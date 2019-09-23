@@ -7,7 +7,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>Select</title>
 
-	<link rel="stylesheet" href="../../delite/themes/defaultapp.css">
+	<link rel="stylesheet" href="../../delite/css/defaultapp.css">
 
 	<script type="text/javascript" src="../../requirejs/require.js"></script>
 
@@ -22,7 +22,7 @@
 			"dstore/Memory",
 			"deliteful/Select",
 			"deliteful/Button",
-			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+			"requirejs-dplugins/css!delite/css/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
 		], function (Memory) {
 
@@ -30,7 +30,7 @@
 				storePlayers = new Memory({});
 			var teams = ["Brazil", "France", "USA", "Togo"],
 				players = ["Zidane", "Platini", "Maradona", "Hagi", "Buffon"];
-			
+
 			storeTeams.add({text: "Select a team", value: ""});
 			teams.forEach(function (team) {
 				storeTeams.add({text: team});
@@ -40,7 +40,7 @@
 			});
 			selectTeam.source = storeTeams;
 			selectPlayer.source = storePlayers;
-			
+
 			showResults = function () {
 				var getSelectedItemsTxt = function (select) {
 					var res = "", noOptionSelected = "no option selected";
@@ -58,7 +58,7 @@
 					}
 					return res;
 				};
-				alert("Thanks for filling the form!\n" + 
+				alert("Thanks for filling the form!\n" +
 					"Your favorite team: " + getSelectedItemsTxt(selectTeam) +
 					"\nYour favorite players: " + getSelectedItemsTxt(selectPlayer));
 			};
@@ -66,7 +66,7 @@
 			document.body.style.display = "";
 		});
 	</script>
-	
+
 	<style>
 	html {
 		margin: 5px;

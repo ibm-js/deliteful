@@ -6,7 +6,7 @@ define([
 	"delite/classList",
 	"deliteful/Checkbox",
 	"delite/handlebars!./Switch/Switch.html",
-	"delite/theme!./Switch/themes/{{theme}}/Switch.css"
+	"requirejs-dplugins/css!./Switch/Switch.css"
 ], function (has, pointer, register, classList, Checkbox, template) {
 
 	/**

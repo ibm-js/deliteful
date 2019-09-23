@@ -17,7 +17,7 @@
 		require([
 			"delite/register",
 			"deliteful/Slider",
-			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+			"requirejs-dplugins/css!delite/css/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
 		], function (register, Slider) {
 			// programmatic creation and initialization
@@ -34,7 +34,7 @@
 			range2.placeAt("rangeSlider02_ph");
 			var range3 = new Slider({ id: "rangeSlider03", value: "80,100" });
 			range3.placeAt("rangeSlider03_ph");
-			
+
 			// read value from d-slider elements and set to span.innerHTML for intern functional test suite.
 			var nodeList = document.querySelectorAll("d-slider");
 			for (i = 0; i < nodeList.length; ++i) {
@@ -64,13 +64,13 @@
 	<tr>
 		<th scope="row">Default</th>
 		<td id="singleSlider01_ph">
-			<input autocomplete=off value=""  type="text" size="5" id="singleSlider01_value"> 
+			<input autocomplete=off value=""  type="text" size="5" id="singleSlider01_value">
 		</td>
 	</tr>
 	<tr>
 		<th scope="row">In bound</th>
 		<td id="singleSlider02_ph">
-			<input autocomplete=off value=""  type="text" size="5" id="singleSlider02_value"> 
+			<input autocomplete=off value=""  type="text" size="5" id="singleSlider02_value">
 		</td>
 	</tr>
 	<tr>
@@ -88,19 +88,19 @@
 	<tr>
 		<th scope="row">Default</th>
 		<td id="rangeSlider01_ph">
-			<input autocomplete=off value=""  type="text" size="5" id="rangeSlider01_value"> 
+			<input autocomplete=off value=""  type="text" size="5" id="rangeSlider01_value">
 		</td>
 	</tr>
 	<tr>
 		<th scope="row">In bound</th>
 		<td id="rangeSlider02_ph">
-			<input autocomplete=off value=""  type="text" size="5" id="rangeSlider02_value"> 
+			<input autocomplete=off value=""  type="text" size="5" id="rangeSlider02_value">
 		</td>
 	</tr>
 	<tr>
 		<th scope="row">Out of bound</th>
 		<td id="rangeSlider03_ph">
-			<input autocomplete=off value=""  type="text" size="5" id="rangeSlider03_value"> 
+			<input autocomplete=off value=""  type="text" size="5" id="rangeSlider03_value">
 		</td>
 	</tr>
 	</tbody>

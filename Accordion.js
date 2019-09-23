@@ -8,7 +8,7 @@ define([
 	"delite/DisplayContainer",
 	"./Accordion/AccordionHeader",
 	"./features",
-	"delite/theme!./Accordion/themes/{{theme}}/Accordion.css"
+	"requirejs-dplugins/css!./Accordion/Accordion.css"
 ], function (dcl, has, Promise, register, classList, DisplayContainer, AccordionHeader) {
 
 	function setVisibility(node, val) {

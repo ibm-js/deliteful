@@ -124,7 +124,7 @@ Open `js/app.js` and let's remove things that we don't need: the `"deliteful/Sta
 
 ```js
 define([
-	"delite/theme!delite/themes/{%raw%}{{theme}}{%endraw%}/global.css", "deliteful/ViewStack",
+	"requirejs-dplugins/css!requirejs-dplugins/css/{%raw%}{{theme}}{%endraw%}/global.css", "deliteful/ViewStack",
 	"deliteful/SidePane", "deliteful/LinearLayout", "deliteful/Button",
 	"deliteful/list/List", "requirejs-domready/domReady!"
 ], function () {

@@ -9,7 +9,7 @@ define([
 	"./ResizeHandle",
 	"delite/handlebars!./Dialog/Dialog.html",
 	"requirejs-dplugins/i18n!./Dialog/nls/Dialog",
-	"delite/theme!./Dialog/themes/{{theme}}/Dialog.css",
+	"requirejs-dplugins/css!./Dialog/Dialog.css",
 	"delite/uacss"		// Dialog.css references "d-ie" class
 ], function (
 	advise,

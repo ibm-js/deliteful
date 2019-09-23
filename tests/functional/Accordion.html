@@ -6,7 +6,7 @@
 			  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 		<meta name="apple-mobile-web-app-capable" content="yes"/>
 		<title>Accordion Tests</title>
-		<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
+		<link rel="stylesheet" href="../../../delite/css/defaultapp.css">
 		<script type="text/javascript" src="../boilerplate.js"></script>
 		<script type="text/javascript">
 			var ready = false; // set to true when the test page is ready
@@ -15,7 +15,7 @@
 				"deliteful/Accordion",
 				"deliteful/Accordion/AccordionHeader",
 				"delite/handlebars!deliteful/tests/functional/MyAccordionHeader.html",
-				"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+				"requirejs-dplugins/css!delite/css/global.css",	// page level CSS
 				"deliteful/Panel",
 				"requirejs-domready/domReady!"
 			], function(register, Accordion, AccordionHeader, headerTemplate) {

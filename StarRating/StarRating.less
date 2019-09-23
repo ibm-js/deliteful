@@ -1,0 +1,77 @@
+@import "../../requirejs-dplugins/css/includes";
+
+@star-icon-size: 2.85em;
+@star-icon-full: "\2605"; // The black star character
+@star-icon-full-color: @brand-primary;
+@star-icon-empty: "\2606"; // The white star character
+@star-icon-empty-color: @brand-primary;
+@star-icon-readonly-color: @gray-light;
+@star-icon-disabled-color: @gray-light;
+
+// Template for StarRating CSS, included from themes/*/StarRating.less files
+
+.d-star-rating {
+  /* Do not modify the display style */
+  display: inline-block;
+  font-size: @star-icon-size;
+  line-height: 1em;
+  vertical-align: middle;
+  &.d-star-rating-hovered {
+    opacity: 0.5;
+  }
+}
+
+.d-star-rating-zero {
+  /* Do not modify the display style */
+  display: inline-block;
+  width: 0.5em;
+}
+.d-star-rating-zero::before {
+  // Give some content so it's the proper height, to prevent spurious test failures on Edge
+  // (when we try to click it).
+  content: "\00a0"
+}
+
+.d-star-rating-star-icon {
+  /* Do not modify the display style */
+  display: inline-block;
+  overflow: hidden; // Clip the star character at 50% horizontally (height: 1em, width: 0.5em)
+  width: 0.5em;
+}
+
+.d-star-rating-star-icon::before {
+  width: 1em;
+  display: inline-block;
+  text-align: center;
+  line-height: 1em;
+}
+
+.d-star-rating-empty::before {
+  content: @star-icon-empty;
+  color: @star-icon-empty-color;
+}
+
+.d-star-rating-full::before {
+  content: @star-icon-full;
+  color: @star-icon-full-color;
+}
+
+.d-star-rating-disabled .d-star-rating-star-icon::before {
+  color: @star-icon-disabled-color;
+}
+
+.d-star-rating-readonly .d-star-rating-star-icon::before {
+  color: @star-icon-readonly-color;
+}
+
+.d-star-rating-end.d-star-rating-star-icon::before {
+  margin-left: (-0.5em);
+
+  .d-star-rating.d-rtl &  {
+    margin-left: 0px;
+    margin-right: (-0.5em);
+  }
+}
+
+
+

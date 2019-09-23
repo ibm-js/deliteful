@@ -7,7 +7,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>Deliteful Mobile Application</title>
 
-	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
+	<link rel="stylesheet" href="../../../delite/css/defaultapp.css">
 	<link rel="stylesheet" href="app.css">
 	<script type="text/javascript" src="../../../requirejs/require.js"></script>
 	<script type="text/javascript">
@@ -25,18 +25,18 @@
 			"deliteful/LinearLayout",
 			"deliteful/list/List",
 			"requirejs-dplugins/css!deliteful/ViewStack/transitions/fade.css",
-			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+			"requirejs-dplugins/css!delite/css/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
 		], function(Memory, Trackable){
 			var Store = Memory.createSubclass([Trackable], {});
 			list.source = new Store();
-			
+
 			for (var i = 1; i < 100; i++){
 				list.source.add({label: "Item #" + i});
 			}
-			
+
 			menulist.source = new Store();
-			
+
 			// Some data to enable scrolling
 			menulist.source.add({label: "View A", target:"aaa"});
 			menulist.source.add({label: "View B", target:"bbb"});

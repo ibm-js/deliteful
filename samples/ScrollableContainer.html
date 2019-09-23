@@ -2,12 +2,12 @@
 <html>
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-	<meta name="viewport" 
+	<meta name="viewport"
 		content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>ScrollableContainer</title>
 
-	<link rel="stylesheet" href="../../delite/themes/defaultapp.css">
+	<link rel="stylesheet" href="../../delite/css/defaultapp.css">
 
 	<script type="text/javascript" src="../../requirejs/require.js"></script>
 
@@ -20,7 +20,7 @@
 	<script type="text/javascript">
 		require([
 			"deliteful/ScrollableContainer",
-			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+			"requirejs-dplugins/css!delite/css/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
 		], function(){
 			document.body.style.display = "";
@@ -66,22 +66,22 @@
 <body style="display: none">
 	<div class="container1">
 		<div class="header">H+V scroll</div>
-		
+
 		<!-- Scrolling in both directions (horizontal and vertical) -->
 		<d-scrollable-container class="scrollContainer"
 			id="scrollContainer1" scrollDirection="both">
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 			Duis cursus odio eu nisl ultrices dictum.
-			<p>Sed tincidunt metus et magna placerat eget vehicula dolor faucibus. 
+			<p>Sed tincidunt metus et magna placerat eget vehicula dolor faucibus.
 			Nunc nec augue ac mi rutrum congue. Donec at augue felis.</p>
-			<p>Proin et lectus at mauris adipiscing pulvinar tempor vitae lacus. 
-			Aliquam erat volutpat. Sed eget sem eu turpis ultrices ullamcorper 
+			<p>Proin et lectus at mauris adipiscing pulvinar tempor vitae lacus.
+			Aliquam erat volutpat. Sed eget sem eu turpis ultrices ullamcorper
 			sed ut augue.</p>
 			<p>Nunc in augue lectus. Curabitur ac posuere libero. Duis luctus dignissim nisl
 			suscipit vehicula. Cras ut augue odio.</p>
 			<p>Integer blandit ligula congue erat pellentesque nec egestas mi
 			hendrerit</p>
-			<p>Nunc sollicitudin nisl sed est porta vitae viverra nulla rutrum. 
+			<p>Nunc sollicitudin nisl sed est porta vitae viverra nulla rutrum.
 			Praesent erat tortor, scelerisque sit amet gravida a, sodales a libero.</p>
 			<p>Pellentesque nec arcu nulla, id laoreet orci. Vivamus sit amet quam eu ante
 			pulvinar rhoncus sit amet non ipsum.</p>
@@ -92,10 +92,10 @@
 			massa ut venenatis. Mauris ultrices hendrerit dui vel fermentum.</p>
 		</d-scrollable-container>
 	</div>
-	
+
 	<div class="container2">
 		<div class="header">V scroll</div>
-		
+
 		<!-- Using default scrollDirection, which is "vertical" -->
 		<d-scrollable-container class="scrollContainer" id="scrollContainer2">
 			<ul>

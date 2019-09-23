@@ -4,7 +4,7 @@ define([
 	"delite/register",
 	"delite/Container",
 	"delite/handlebars!./Tooltip/Tooltip.html",
-	"delite/theme!./Tooltip/themes/{{theme}}/Tooltip.css"
+	"requirejs-dplugins/css!./Tooltip/Tooltip.css"
 ], function (place, register, Container, template) {
 
 	/**

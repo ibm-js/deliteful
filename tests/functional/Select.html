@@ -7,8 +7,8 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>Select</title>
 
-	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
-	
+	<link rel="stylesheet" href="../../../delite/css/defaultapp.css">
+
 	<!-- For testing purposes. Real applications should load the AMD loader directly -->
 	<script type="text/javascript" src="../boilerplate.js"></script>
 
@@ -16,13 +16,13 @@
 		var ready = false; // set to true when the test page is ready
 
 		var addOptions, removeFirstOption, updateOptions, show, getSelectedOptionsArray;
-		
+
 		require([
 			"delite/register",
 			"dstore/Memory",
 			"dstore/Trackable",
 			"deliteful/Select",
-			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+			"requirejs-dplugins/css!delite/css/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
 		], function (register, Memory, Trackable, Select) {
 			register.deliver();
@@ -30,7 +30,7 @@
 			var Store = Memory.createSubclass([Trackable], {});
 
 			var nOptions = 40;
-	
+
 			// Add options using the store API
 			addOptions = function (select, min, max) {
 				var updateCounter = select._updateCounter ? select._updateCounter : 0;
@@ -47,21 +47,21 @@
 					});
 				}
 			};
-			
+
 			removeFirstOption = function (select) {
 				if (select.source) {
 					var option = select.source.data[0]; // holds for the dstore/Memory used in this test
 					select.source.removeSync(select.source.getIdentity(option));
 				}
 			};
-			
+
 			var removeAllOptions = function (select) {
 				if (select.source) {
 					select.source.setData([]); // This bypasses the notification of observable stores, hence:
 					select.renderItems = []; // needed because of delite issue #187. TODO: remove when this is fixed.
 				}
 			};
-			
+
 			show = function (select) {
 				var collectSelectedItems = function() {
 					var selectedOptions = getSelectedOptionsArray(select);
@@ -74,7 +74,7 @@
 				alert("select.id: " + select.id + "\n" +
 					"select.value: " + select.value + "\n" +
 					"select.selectedItem" +
-					(select.selectedItem ? 
+					(select.selectedItem ?
 						".text: " + select.selectedItem.text : ": null") + "\n" +
 					"select.selectedItems: " +
 					(select.selectedItems.length > 0 ?
@@ -82,7 +82,7 @@
 					"select._selection_change_counter: " + select._selection_change_counter
 					);
 			};
-			
+
 			var initSelect = function (select, min, max, source) {
 				if (!source) {
 					select.source = new (Memory.createSubclass(Trackable))({});
@@ -90,7 +90,7 @@
 					select.source = source;
 				}
 				addOptions(select, min, max);
-				
+
 				select.on("selection-change", function (event) {
 					// Store for testing purposes
 					if (!select._selection_change_counter) {
@@ -99,24 +99,24 @@
 						select._selection_change_counter++;
 					}
 				});
-				
+
 				select.observe(function (oldValues) {
 					if ("value" in oldValues) {
 						// Store for testing purposes
 						select._notifiedSelectValue = select.value;
 					}
 				});
-				
+
 				select._selection_change_counter = 0; // used in tests/functional/Select.js
 				select._notifiedSelectValue = null;
 			};
-			
+
 			var createSelect = function (selectDiv, min, max, defaultSource) {
 				var select = new Select({id: selectDiv.id}).placeAt(selectDiv, "replace");
 				initSelect(select, min, max, defaultSource);
 			};
-				
-			/* attempt to workaround IE's behavior which is to close 
+
+			/* attempt to workaround IE's behavior which is to close
 			the dropdown as soon as an option is added/removed - but this doesn't do the trick */
 			/* var openDropdown = function (node) {
 				// var event = document.createEvent('MouseEvents');
@@ -127,13 +127,13 @@
 				// node.focus();
 				// node.click();
 			}; */
-			
+
 			var updateOptionsImpl = function (select, async, min, max) {
 				if (!min) {
 					min = 1;
 				}
 				if (!max) {
-					max = select.valueNode ? 
+					max = select.valueNode ?
 						select.valueNode.length :
 						select.children.length;
 				}
@@ -142,7 +142,7 @@
 				} else {
 					select._updateCounter++;
 				}
-				
+
 				var updateSelectContent = function(select, min, max) {
 					removeAllOptions(select); // removing then adding works around misbehavior of
 					// the scrollbar of the dropdown in Chrome 34/Win7.
@@ -161,21 +161,21 @@
 					updateSelectContent(select, min, max);
 				}
 			};
-			
+
 			updateOptions = function (select, min, max) {
 				// Async is available for checking what happens if the set of options is
 				// modified while the dropwdown is open.
 				var async = document.getElementById("async").checked;
 				updateOptionsImpl(select, async, min, max);
 			};
-			
+
 			// Utility function called by the functional test (tests/functional/Select.js)
 			getSelectedOptionsArray = function (select) {
 				var selectedOptions = select.valueNode.selectedOptions;
 				// HTMLSelectElement.selectedOptions is not present in all browsers...
 				// At least IE10/Win misses it. Hence:
 				if (selectedOptions === undefined) {
-					var options = [].map.call(select.valueNode.options, 
+					var options = [].map.call(select.valueNode.options,
 						function (option) {
 							return option;
 						});
@@ -184,14 +184,14 @@
 					});
 				} else {
 					// convert HTMLCollection into array (to be able to use array.indexOf)
-					selectedOptions = [].map.call(selectedOptions, 
+					selectedOptions = [].map.call(selectedOptions,
 						function (option) {
 							return option;
 						});
 				}
 				return selectedOptions;
 			};
-			
+
 			// Fill with options the Select already created declaratively:
 			initSelect(select1, 1, nOptions);
 			var source = new Store();
@@ -204,7 +204,7 @@
 			initSelect(d_select_form6, 1, nOptions);
 			initSelect(d_select_form7, 1, nOptions);
 			initSelect(select8, 1, nOptions);
-			
+
 			// Create the Select programmatically:
 			source = new Store();
 			createSelect(select2, 1, nOptions, source);
@@ -213,7 +213,7 @@
 			ready = true;
 		});
 	</script>
-	
+
 	<style>
 		/* For comparison */
 		.bootstrap-form-control {
@@ -241,7 +241,7 @@
 			background-color: red; /* cannot set on parent because issue in FF and IE10 */
 			height: 50px; /* argh, needed by Chrome/Android4.4.2! */
 		}
-		
+
 		.native-select-with-style {
 			border-radius: 15px;
 			height: 50px;
@@ -401,7 +401,7 @@
 
 <br/><br/>
 
-8. deliteful/Select created declaratively with larger font-size, font-family:Courier, 
+8. deliteful/Select created declaratively with larger font-size, font-family:Courier,
 border-radius, color and background-color (with default source):
 <br/>
 <d-select id="select8">

@@ -7,7 +7,7 @@ define([
 	"./DatePicker/YearPicker",
 	"delite/handlebars!./DatePicker/DatePicker.html",
 	"requirejs-dplugins/i18n!./DatePicker/nls/DatePicker",
-	"delite/theme!./DatePicker/themes/{{theme}}/DatePicker.css"
+	"requirejs-dplugins/css!./DatePicker/DatePicker.css"
 ], function (
 	register,
 	Widget,
@@ -29,7 +29,7 @@ define([
 		template: template,
 
 		messages: messages,
-		
+
 		/**
 		 * Selected date.
 		 * @member {Date}

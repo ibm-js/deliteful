@@ -20,7 +20,7 @@
 		require([
 			"delite/register",
 			"deliteful/Slider",
-			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+			"requirejs-dplugins/css!delite/css/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
 		], function (register) {
 			register.deliver();
@@ -70,21 +70,21 @@
 	<tr>
 		<th scope="row">Default</th>
 		<td>
-			<input autocomplete=off  type="text"  id="singleSlider01_value"> 
+			<input autocomplete=off  type="text"  id="singleSlider01_value">
 			<d-slider id="singleSlider01"></d-slider>
 		</td>
 	</tr>
 	<tr>
 		<th scope="row">In bound</th>
 		<td>
-			<input autocomplete=off  type="text"  id="singleSlider02_value"> 
+			<input autocomplete=off  type="text"  id="singleSlider02_value">
 			<d-slider id="singleSlider02" value="25"></d-slider>
 		</td>
 	</tr>
 	<tr>
 		<th scope="row">Out of bound</th>
 		<td>
-			<input autocomplete=off  type="text"  id="singleSlider03_value"> 
+			<input autocomplete=off  type="text"  id="singleSlider03_value">
 			<d-slider id="singleSlider03" value="150"></d-slider>
 		</td>
 	</tr>

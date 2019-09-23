@@ -1,0 +1,10 @@
+@import "../../requirejs-dplugins/css/includes";
+
+.d-swap-view {
+  .user-select(none); // make sure dragging will not select text on desktop
+}
+
+.-d-swap-view-drag {
+  overflow-x: hidden; // Clip during drag.
+  overflow-y: hidden; // Clip during drag.
+}

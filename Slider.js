@@ -6,7 +6,7 @@ define([
 	"delite/FormValueWidget",
 	"delite/CssState",
 	"delite/handlebars!./Slider/Slider.html",
-	"delite/theme!./Slider/themes/{{theme}}/Slider.css"
+	"requirejs-dplugins/css!./Slider/Slider.css"
 ], function (
 	dcl,
 	dpointer,

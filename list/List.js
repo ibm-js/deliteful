@@ -13,7 +13,7 @@ define([
 	"./CategoryRenderer",
 	"delite/handlebars!./List/List.html",
 	"requirejs-dplugins/i18n!./List/nls/List",
-	"delite/theme!./List/themes/{{theme}}/List.css"
+	"requirejs-dplugins/css!./List/List.css"
 ], function (
 	dcl,
 	a11y,

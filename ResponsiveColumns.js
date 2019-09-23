@@ -4,7 +4,7 @@ define([
 	"delite/classList",
 	"delite/DisplayContainer",
 	"./channelBreakpoints",
-	"delite/theme!./ResponsiveColumns/themes/{{theme}}/ResponsiveColumns.css"
+	"requirejs-dplugins/css!./ResponsiveColumns/ResponsiveColumns.css"
 ], function (register, classList, DisplayContainer, channelBreakpoints) {
 	/**
 	 * A container that lays out its children according to the screen width. This widget relies on CSS media queries

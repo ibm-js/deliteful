@@ -1,0 +1,134 @@
+@import "../../requirejs-dplugins/css/mixins";
+@import "../../requirejs-dplugins/css/variables";
+@import "./variables";
+
+.d-switch-on-styles() {
+	background: @brand-success;
+	font-weight: bold;
+	color: #ffffff;
+}
+.d-switch-off-styles() {
+	background: @gray-lighter;
+	font-weight: bold;
+	color: @gray;
+}
+.d-switch-knob-styles() {
+	box-shadow: 0 1px 6px darken(@gray-lighter, 30%);
+	background: @gray-lighter;
+	border: 1px solid transparent; // NOTE: becomes visible in high contrast mode.
+	top: -1px; // NOTE: compensates for the above border
+}
+.d-switch-styles() {
+	border: 1px solid darken(@gray-lighter, 15%);
+}
+.d-switch-focused-styles() {
+	.box-shadow(0 0 8px rgba(102,175,233,.6));
+	border-color: rgba(102,175,233,1);
+}
+
+// public class that might be redefined to set a custom width
+.d-switch {
+	display: inline-block;
+	font-size: 0.9em;
+	position:relative;
+	overflow:hidden;
+	margin: 3px;
+	white-space:nowrap;
+	.d-switch-styles();
+	&.d-focused {
+		outline:0;
+		.d-switch-focused-styles();
+	}
+	&.d-disabled {
+		opacity: .6;
+	}
+}
+
+// internal classes
+.-d-switch-block {
+	display: inline-block;
+	position: absolute;
+	top:0;
+	border-width: 0px;
+}
+.-d-switch-inner {
+	position:absolute;
+	width: @d-switch-knob-w;
+	top:0;
+	border-width: 0px;
+}
+
+.d-switch-leading {
+	.d-switch-on-styles();
+	right: 50%;
+	text-align:center;
+	.d-switch.d-rtl & {
+		left: 50%;
+		right: auto;
+	}
+}
+
+.d-switch-trailing {
+	.d-switch-off-styles();
+	left: 50%;
+	text-align:center;
+	.d-switch.d-rtl & {
+		right: 50%;
+		left: auto;
+	}
+}
+
+.-d-switch-knob {
+	width: @d-switch-knob-w;
+	left: 50%;
+	margin-left: -@d-switch-knob-w/2;
+	z-index:5;
+
+	.d-switch-knob-styles();
+}
+
+.-d-switch-knobglass {
+	display: inline-block;
+	position: absolute;
+	width: @d-switch-knob-w;
+	height:100%;
+	z-index: 10;
+}
+
+
+
+.-d-switch-inner-wrapper {
+	position:relative;
+	display:inline-block;
+}
+
+.-d-switch-push {
+	display:inline-block;
+	width: 0;
+	margin-left: 0px;
+}
+
+.-d-switch-input {
+	position:absolute;
+	opacity: 0;
+	z-index: 1;
+	height: 100%;
+	margin: 0px;
+	&:checked + .-d-switch-push {
+		margin-left: -@d-switch-knob-w;
+	}
+}
+
+.-d-switch-transition {
+	-webkit-transition: margin-left 100ms ease-in, width 100ms ease-in;
+	transition: margin-left 100ms ease-in, width 100ms ease-in;
+}
+
+.d-switch-width {
+	width: @d-switch-w;
+}
+
+.d-switch-rounded {
+	border-radius: @d-switch-rounded-radius;
+}
+

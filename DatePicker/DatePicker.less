@@ -1,0 +1,121 @@
+@import "../../requirejs-dplugins/css/includes";
+
+.d-date-picker {
+	display: inline-block;
+
+	// Override ViewStack's display:block and height:100%.
+	// Also set width so DatePicker is constant width regardless of which panel is displayed
+	// (day picker, month picker, year picker), and which month of the day picker is displayed.
+	.d-view-stack {
+		display: inline-block;
+		height: auto;
+		min-height: 300px;
+		min-width: 300px;
+	}
+
+	border: solid black 1px;
+	background: white;
+
+	-webkit-touch-callout: none; // iOS Safari
+	-webkit-user-select: none;   // Chrome/Safari/Opera
+	-moz-user-select: none;      // Firefox
+	-ms-user-select: none;       // Internet Explorer/Edge
+	user-select: none;           // Non-prefixed version, currently not supported by any browser
+
+	// Top level styling for each panel.
+	// Each panel has (optional) header, grid element, and (optional) footer.
+	// The grid element stretches to the remaining width and height, with each element
+	// taking the same amount of width.
+	.d-view-stack > * {
+		display: flex;
+		flex-direction: column;
+
+		padding: 5px;
+
+		// Need to set a background or you can see one panel behind the other (when using "flip" transition).
+		background: white;
+	}
+
+	// Styling for each panel's header and footer.
+	// Arrows are aligned with the first and last column of the day panel grid.
+	.d-date-picker-header, .d-date-picker-footer {
+		display: flex;
+		justify-content: space-between;
+		color: blue;
+		> * {
+			padding: 5px;
+		}
+		.d-label {
+			text-align: center;
+			flex: 5;	// make next/previous arrows align with first and last column of day grid
+		}
+	}
+
+	// Arrows to go to next/previous month/year/range of years, and also the clickable labels.
+	.d-date-picker-button {
+		cursor: pointer;
+		&:hover {
+			background: lightgray;
+		}
+		width: 35px;	// match grid cells
+		text-align: center;
+	}
+	.d-caret-previous::before {
+		content: "<";
+		.d-rtl& {
+			content: ">";
+		}
+	}
+	.d-caret-next::before {
+		content: ">";
+		.d-rtl& {
+			content: "<";
+		}
+	}
+
+	// Styling for each panel's grid (grid of days, months, or years).
+	[role=grid] {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+	[role=row] {
+		display: flex;
+		flex: 1;
+		> * {
+			flex: 1;
+			margin: 0;
+
+			// Center text horizontally and vertically.  Text must be nested in a <span>.
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+	}
+
+	// Table cell with date number for current month (on day panel),
+	// month name (on month panel), or year (on year panel).
+	.d-date-picker-date, .d-month-picker [role=gridcell], .d-year-picker [role=gridcell] {
+		cursor: pointer;
+		&:hover {
+			background: lightgray;
+		}
+
+		// Table cell for the selected day/month/year (not necessarily the currently focused element).
+		&.d-date-picker-selected {
+			color: white;
+			background: blue;
+		}
+	}
+
+	// Table cell for next or previous month.
+	.d-date-picker-other-month {
+		color: purple;
+	}
+
+	// Table cell for today's date.
+	.d-date-picker-today {
+		color: blue;
+	}
+}

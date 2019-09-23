@@ -19,7 +19,7 @@
 	<script type="text/javascript">
 		require([
 			"deliteful/StarRating",
-			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+			"requirejs-dplugins/css!delite/css/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
 		], function () {
 			document.body.style.display = "";
@@ -43,7 +43,7 @@
 			content: "\2605";
 			color: #CCC;
 		}
-		
+
 		.yellowgray .d-star-rating-full::before {
 			content: "\2605";
 			color: yellow;
@@ -71,7 +71,7 @@
 			content: "\2665";
 			color: #CCC;
 		}
-		
+
 		.heart .d-star-rating-full::before {
 			content: "\2665";
 			color: red;
@@ -88,7 +88,7 @@
 		.image-sprite .d-star-rating-start.d-star-rating-empty::before {
 			margin-left: -1em;
 		}
-		
+
 		.image-sprite .d-star-rating-end.d-star-rating-empty::before {
 			margin-left: -1.5em;
 		}

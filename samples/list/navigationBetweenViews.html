@@ -20,7 +20,7 @@
 			"deliteful/list/ItemRenderer",
 			"delite/handlebars!deliteful/samples/list/templates/NavigationItemRenderer.html",
 			"deliteful/ViewStack",
-			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
+			"requirejs-dplugins/css!delite/css/global.css"	// page level CSS
 		], function(register, ItemRenderer, template){
 			// Custom item renderer that renders a navigation button
 			NavigationItemRenderer = register("d-navigation-item", [ItemRenderer], {

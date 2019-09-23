@@ -7,7 +7,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 
 	<title>List</title>
-	
+
 	<script type="text/javascript" src="../../boilerplate.js"></script>
 
 	<script type="text/javascript">
@@ -19,7 +19,7 @@
 			"deliteful/list/List",
 			"delite/handlebars!deliteful/tests/functional/list/templates/BookRenderer.html",
 			"delite/handlebars!deliteful/tests/functional/list/templates/BookStoreRenderer.html",
-			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
+			"requirejs-dplugins/css!delite/css/global.css"	// page level CSS
 		], function (on, register, ItemRenderer, List, bookTemplate, bookStoreTemplate) {
 			var BookRenderer = register("d-book-item", [ItemRenderer], {
 				template: bookTemplate
@@ -57,7 +57,7 @@
 			ready = true;
 		});
 	</script>
-	
+
 	<style>
 		.d-list-item {
 			background-color: black;
@@ -65,7 +65,7 @@
 			font-family: monospace;
 			height: 45px;
 		}
-		
+
 		d-book-store.d-list-item {
 			background-color: white;
 			color: black;

@@ -1,0 +1,110 @@
+@import "../../requirejs-dplugins/css/mixins";
+@import "../../requirejs-dplugins/css/variables";
+
+.d-checkbox-styles () {
+	margin-left: 4px;
+	margin-right: 4px;
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+.d-checkbox-active-styles () {
+}
+
+.d-checkbox-focused () {
+	outline: thin dotted;
+	//WebKit
+	outline: 5px auto -webkit-focus-ring-color;
+	outline-offset: -2px;
+}
+
+.d-checkbox-before-styles () {
+	border-color: @input-border;
+	border-style: solid;
+	border-width: 1px;
+	border-radius: @input-border-radius;
+	background-image: linear-gradient(to bottom, #ededed 0%, #dedede 100%);
+	height: 1em;
+	width: 1em;
+	line-height: 1em;
+	font-size: 1em;
+}
+
+@d-checkbox-disabled-color: @input-bg-disabled;
+
+.d-checkbox-checked-before-styles () {
+	color: @input-color;
+}
+
+.d-checkbox-before-disabled-styles () {
+	color: @btn-link-disabled-color;
+	background-color: @input-bg-disabled;
+}
+
+.d-checkbox-input-styles () {
+	width: 1em;
+	height: 1em;
+	margin: 0px;
+}
+
+.d-checkbox {
+	position: relative;
+	display: inline-block;
+	.d-checkbox-styles();
+	&.d-focused { // from tab-focus()
+		.d-checkbox-focused();
+	}
+	.d-checkbox-icon::before {
+		display: inline-block;
+		text-align: center;
+		content: "\00A0";			// non-breaking space
+		font-family: Times;			// just in case app is using a custom font
+		.d-checkbox-before-styles();
+	}
+	&.d-rtl .d-checkbox-icon::before {
+		right: 0px;
+	}
+	&.d-checked .d-checkbox-icon::before {
+		content: "\2714";   		// check mark
+		.d-checkbox-checked-before-styles();
+	}
+	&.d-indeterminate .d-checkbox-icon::before {
+		content: "-";   		// indeterminate marker
+		.d-checkbox-checked-before-styles();
+	}
+	&:active .d-checkbox-icon::before {
+		.d-checkbox-active-styles();
+	}
+	&.d-disabled {
+		color: @d-checkbox-disabled-color;
+		&::before {
+			.d-checkbox-before-disabled-styles();
+		}
+	}
+	&.d-disabled,
+	fieldset[disabled] & {
+		cursor: not-allowed;
+	}
+}
+
+.d-checkbox > input[type=checkbox] {
+	.d-checkbox-input-styles();
+	opacity: 0.01;
+	position: absolute;
+	top: 0;
+	left: 0;
+	font: inherit;
+	cursor: pointer;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	&[disabled],
+	fieldset[disabled] & {
+		cursor: not-allowed;
+	}
+}
+
+label[for] {
+	// fixes a ios bug that makes it so that the handler set on document,
+	// listening for clicks on label, is never called.
+	cursor: pointer;
+}

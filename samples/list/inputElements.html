@@ -22,7 +22,7 @@
 			"deliteful/list/ItemRenderer",
 			"deliteful/list/List",
 			"delite/handlebars!deliteful/samples/list/templates/BlankItemRenderer.html",
-			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
+			"requirejs-dplugins/css!delite/css/global.css"	// page level CSS
 		], function (register, ItemRenderer, List, template) {
 			var MyCustomRenderer = register("d-configuration-item", [ItemRenderer], {
 				template: template,

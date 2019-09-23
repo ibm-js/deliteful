@@ -2,14 +2,14 @@
 <html>
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-	<meta name="viewport" 
+	<meta name="viewport"
 		content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>ScrollableContainer (small)</title>
 	<!-- small means non-fullscreen -->
 
-	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
-	
+	<link rel="stylesheet" href="../../../delite/css/defaultapp.css">
+
 	<!-- For testing purposes. Real applications should load the AMD loader directly -->
 	<script type="text/javascript" src="../boilerplate.js"></script>
 
@@ -19,27 +19,27 @@
 			"delite/register",
 			"deliteful/ScrollableContainer",
 			"deliteful/LinearLayout",
-			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+			"requirejs-dplugins/css!delite/css/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
 		], function(register){
 			register.deliver();
-			
+
 			scrollContainer1.on("scroll", function() {
 				console.log("scroll1");
 			}, scrollContainer1.scrollableNode);
-			
+
 			scrollContainer2.on("scroll", function() {
 				console.log("scroll2");
 			}, scrollContainer2.scrollableNode);
-			
+
 			scrollContainer3.on("scroll", function() {
 				console.log("scroll3");
 			}, scrollContainer3.scrollableNode);
-			
+
 			scrollContainer4.on("scroll", function() {
 				console.log("scroll4");
 			}, scrollContainer4.scrollableNode);
-			
+
 			ready = true;
 		});
 	</script>
@@ -59,7 +59,7 @@
 		width: 200px;
 		height: 300px;
 	}
-	
+
 	.container3 {
 		position: absolute;
 		top: 330px;
@@ -193,10 +193,10 @@
 
 		<div style="background-color: lightblue">Footer 1</div>
 	</d-linear-layout>
-	
+
 	<d-linear-layout class="container2">
 		<div style="background-color: lightblue">direct child, dir: V</div>
-		
+
 		<!-- Using default scrollDirection, which is "vertical" -->
 		<d-scrollable-container style="background-color: lightgreen" id="scrollContainer2"
 			class="fill scrollContainer">
@@ -283,15 +283,15 @@
 				<li>Item 100</li>
 			</ul>
 		</d-scrollable-container>
-		
+
 		<div style="background-color: lightblue">Footer 2</div>
 	</d-linear-layout>
-	
+
 	<br/>
-	
+
 	<d-linear-layout class="container3">
 		<div style="background-color: lightblue">subchild, dir: V</div>
-		
+
 		<!-- intermediate DIV as direct child of LinearLayout -->
 		<div class="fill">
 			<!-- Using default scrollDirection, which is "vertical" -->
@@ -381,13 +381,13 @@
 			</ul>
 			</d-scrollable-container>
 		</div>
-		
+
 		<div style="background-color: lightblue">Footer 3</div>
 	</d-linear-layout>
-	
+
 	<d-linear-layout class="container4">
 		<div style="background-color: lightblue">sub-subchild, dir: V</div>
-		
+
 		<!-- intermediate DIV as direct child of LinearLayout -->
 		<div class="fill">
 			<!-- a second intermediate DIV -->
@@ -480,9 +480,9 @@
 			</d-scrollable-container>
 			</div>
 		</div>
-		
+
 		<div style="background-color: lightblue">Footer 4</div>
 	</d-linear-layout>
-	
+
 </body>
 </html>

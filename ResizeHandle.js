@@ -2,7 +2,7 @@ define([
 	"delite/register",
 	"delite/Widget",
 	"dpointer/events",
-	"delite/theme!./ResizeHandle/themes/{{theme}}/ResizeHandle.css"
+	"requirejs-dplugins/css!./ResizeHandle/ResizeHandle.css"
 ], function (
 	register,
 	Widget,

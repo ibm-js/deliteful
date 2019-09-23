@@ -8,7 +8,7 @@
 
 	<title>deliteful/Combobox mobile test</title>
 
-	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
+	<link rel="stylesheet" href="../../../delite/css/defaultapp.css">
 
 	<!-- For testing purposes. Real applications should load the AMD loader directly -->
 	<script type="text/javascript" src="../boilerplate.js"></script>
@@ -33,7 +33,7 @@
 			"delite/register",
 			"deliteful/list/List",
 			"deliteful/Combobox",
-			"delite/theme!delite/themes/{{theme}}/global.css", // page level CSS
+			"requirejs-dplugins/css!delite/css/global.css", // page level CSS
 			"requirejs-domready/domReady!"
 		], function (
 		  advise,
