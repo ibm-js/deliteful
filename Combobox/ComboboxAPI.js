@@ -3,8 +3,6 @@ define([
 	"dcl/dcl",
 	"dstore/Filter",
 	"dojo/string",
-	"decor/ObservableArray",
-	"decor/Observable",
 	"delite/CssState",
 	"delite/Widget",
 	"deliteful/list/List",
@@ -13,8 +11,6 @@ define([
 	dcl,
 	Filter,
 	string,
-	ObservableArray,
-	Observable,
 	CssState,
 	Widget,
 	List,
@@ -215,7 +211,7 @@ define([
 
 		/**
 		 * Source for the inner list.
-		 * @type {dstore/Store|decor/ObservableArray|Array} Source set.
+		 * @type {dstore/Store|Array} Source set.
 		 */
 		source: null,
 
@@ -252,12 +248,11 @@ define([
 			if (!this.firstElementChild && this.textContent.trim()) {
 				var data = JSON.parse("[" + this.textContent + "]");
 				if (data.length) {
-					this.source = new ObservableArray();
+					this.source = data;
 					for (var j = 0; j < data.length; j++) {
 						if (!data[j].id) {
 							data[j].id = Math.random();
 						}
-						this.source[j] = new Observable(data[j]);
 					}
 				}
 				this.textContent = "";
