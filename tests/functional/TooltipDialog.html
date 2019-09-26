@@ -53,10 +53,11 @@
 <body>
 	<h1>TooltipDialog functional test</h1>
 	<d-dropdown-button id="top"
-			dropDown="top-tooltip" dropDownPosition="below-centered">
+			dropDown="top-tooltip" dropDownType="dialog" dropDownPosition="below-centered">
 		show tooltip dialog
 	</d-dropdown-button>
 	<d-tooltip-dialog id="top-tooltip" label="My Tooltip Dialog" style="display: none">
+		<p>Boilerplate text for testing.</p>
 		<label for="name">Name:</label> <input id="name"> <br>
 		<label for="age">Age:</label> <input id="age"> <br>
 		<label for="sex">Sex:</label> <input id="sex"> <br><br>
@@ -64,7 +65,7 @@
 	</d-tooltip-dialog>
 
 	<d-dropdown-button id="topTall"
-			dropDown="top-tall-tooltip" dropDownPosition="below-centered">
+			dropDown="top-tall-tooltip" dropDownType="dialog" dropDownPosition="below-centered">
 		show tooltip dialog with scrollbar
 	</d-dropdown-button>
 	<d-tooltip-dialog id="top-tall-tooltip" label="Tooltip With Scrollbar" style="display: none">
@@ -188,7 +189,7 @@
 	</d-tooltip-dialog>
 
 	<d-dropdown-button id="bottomTall" style="position: absolute; left: 20px; bottom: 10px;"
-			dropDown="bottom-tall-tooltip" dropDownPosition="above-centered">
+			dropDown="bottom-tall-tooltip" dropDownType="dialog" dropDownPosition="above-centered">
 		show tooltip dialog above with scrollbar
 	</d-dropdown-button>
 	<d-tooltip-dialog id="bottom-tall-tooltip" label="Tooltip With Scrollbar" style="display: none">
