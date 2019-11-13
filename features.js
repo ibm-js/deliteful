@@ -40,7 +40,7 @@
  * @module deliteful/features
  */
 define([
-	"requirejs-dplugins/has",
+	"decor/sniff",
 	"deliteful/channelBreakpoints"
 ], function (
 	has,
@@ -52,8 +52,9 @@ define([
 	if (typeof window !== "undefined") {
 		// Determine mobile or desktop by sniffing, rather than testing for TouchEvent etc.,
 		// as the latter will be true on desktop machines with touch screens.
-		// See https://stackoverflow.com/questions/3514784/what-is-the-best-way-to-detect-a-mobile-device
-		var mobile = /Mobi|Android/i.test(navigator.userAgent);
+		// See https://stackoverflow.com/questions/3514784/what-is-the-best-way-to-detect-a-mobile-device.
+		// Note that sniffing for iOS is hard, due to a misleading userAgent, so leveraging decor/sniff.
+		var mobile = /Mobi|Android/i.test(navigator.userAgent) || has("ios");
 
 		// matched by screens at least as large as the "small" breakpoint
 		var mqAboveSmall = window.matchMedia("(min-device-width: " +
