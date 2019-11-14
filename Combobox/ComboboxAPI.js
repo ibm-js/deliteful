@@ -28,7 +28,6 @@ define([
 		alt: "",
 
 		/**
-		/**
 		 * If `true`, the list of options can be filtered thanks to an editable
 		 * input element. Only used if `selectionMode` is "single".
 		 * @member {boolean} module:deliteful/Combobox#autoFilter

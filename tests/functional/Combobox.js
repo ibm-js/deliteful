@@ -571,8 +571,16 @@ define(function (require) {
 					valueNodeValueAtLatestChangeEvent: undefined
 				}, "after clicking the first option (a category)");
 			})
-		*/	.findByCssSelector("#" + comboId + "-list d-list-item-renderer:nth-of-type(2)").click().end() // "Germany"
-
+		*/
+			.execute(function (comboId) {
+				/* global lastChangeEvent: true */
+				lastChangeEvent = "no change event yet";
+				var combo = document.getElementById(comboId);
+				combo.on("change", function () {
+					lastChangeEvent = combo.value;
+				});
+			}, [comboId])
+			.findByCssSelector("#" + comboId + "-list d-list-item-renderer:nth-of-type(2)").click().end() // "Germany"
 			.sleep(500) // wait for popup to close
 			.execute(executeExpr)
 			.then(function (comboState) {
@@ -590,6 +598,12 @@ define(function (require) {
 					widgetValueAtLatestChangeEvent: "Germany",
 					valueNodeValueAtLatestChangeEvent: "Germany"
 				}, "after clicking the third option (Germany)");
+			})
+			.execute(function () {
+				return lastChangeEvent;
+			})
+			.then(function (lastChangeEvent) {
+				assert.strictEqual(lastChangeEvent, "Germany", "confirm change event fired");
 			});
 	}
 

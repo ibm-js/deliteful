@@ -189,6 +189,14 @@ define(function (require) {
 					widgetValueAtLatestChangeEvent: undefined
 				}, "after click on root node");
 			})
+			.execute(function (comboId) {
+				/* global lastChangeEvent: true */
+				lastChangeEvent = "no change event yet";
+				var combo = document.getElementById(comboId);
+				combo.on("change", function () {
+					lastChangeEvent = combo.value;
+				});
+			}, [comboId])
 			.findByCssSelector("#" + comboId + "-list d-list-item-renderer:nth-of-type(2)").click().end() // "Germany"
 			.sleep(500)
 			.execute("return getComboboxState(\"" + comboId + "\");")
@@ -198,6 +206,12 @@ define(function (require) {
 					widgetValue: "Germany",
 					valueNodeValue: "Germany"
 				}, "after clicking the third option (Germany)");
+			})
+			.execute(function () {
+				return lastChangeEvent;
+			})
+			.then(function (lastChangeEvent) {
+				assert.strictEqual(lastChangeEvent, "Germany", "confirm change event fired");
 			});
 	}
 

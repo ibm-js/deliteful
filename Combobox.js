@@ -33,7 +33,6 @@ define([
 	desktopTemplate,
 	mobileTemplate
 ) {
-
 	var isMobile = !has("desktop-like-channel");
 
 	/**
@@ -56,7 +55,7 @@ define([
 	 * Methods and properties for the desktop version, which has an <input>
 	 * and toggles and filters a List dropdown.
 	 */
-	var DesktopImplementation = dcl([FormValueWidget, ComboboxImplementation, HasDropDown], {
+	var DesktopImplementation = dcl([ComboboxImplementation, HasDropDown], {
 		template: desktopTemplate,
 
 		// Flag used for binding the readonly attribute of the input element in the template
@@ -187,7 +186,7 @@ define([
 	 * Methods and properties for the mobile version, which is essentially just a button
 	 * that displays the ComboPopup widget.
 	 */
-	var MobileImplementation = dcl([HasDropDown], {
+	var MobileImplementation = dcl([FormValueWidget, HasDropDown], {
 		template: mobileTemplate,
 
 		// Set aria-hasdropdown=dialog rather than aria-hasdropdown=menu.
@@ -267,7 +266,7 @@ define([
 			this.comboPopup = this.createComboPopup(labelledBy);
 
 			this.comboPopup.on("execute", function () {
-				this.value = this.comboPopup.value;
+				this.handleOnChange(this.comboPopup.value);
 				this.displayedValue = this.comboPopup.displayedValue;
 			}.bind(this));
 
