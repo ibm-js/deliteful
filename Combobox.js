@@ -400,7 +400,7 @@ define([
 		},
 
 		loadDropDown: function () {
-			var dropDown = isMobile ? this.createDialog() : this.list;
+			var dropDown = this.dropDown || (isMobile ? this.createDialog() : this.list);
 
 			// Since the dropdown is not a child of the Combobox, it will not inherit
 			// its dir attribute. Hence:
