@@ -46,11 +46,17 @@ define([
 			if ("list" in oldValues) {
 				this._initList();
 			}
+
 			if ("selectionMode" in oldValues) {
 				if (this.list) {
 					this.list.selectionMode = this.selectionMode === "single" ?
 						"radio" : "multiple";
 				}
+			}
+
+			if ("value" in oldValues) {
+				// Set selected items in dropdown list.  Could alternately do this when dropdown is opened.
+				this._setSelectedItems();
 			}
 		},
 
@@ -426,9 +432,9 @@ define([
 		},
 
 		_setSelectedItems: function () {
-			if (this.list.source && this.list.renderItems && this.value !== "") {
+			if (this.list && this.list.source && this.list.renderItems && this.value !== "") {
 				var selectedItems = [],
-					presetItems = this.value instanceof Array && this.value.length >= 1 ? this.value : [this.value];
+					presetItems = Array.isArray(this.value) && this.value.length >= 1 ? this.value : [this.value];
 				selectedItems = this.list.renderItems.filter(function (renderItem) {
 					return presetItems.indexOf(this._getItemValue(renderItem)) >= 0;
 				}.bind(this));

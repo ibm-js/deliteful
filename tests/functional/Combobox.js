@@ -458,15 +458,15 @@ define(function (require) {
 				// Now the first item should be selected
 				checkComboState(comboId, comboState, { // expected combo state
 					inputNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
-					widgetValue: ["Germany", "France"],
-					valueNodeValue: "Germany,France",
+					widgetValue: ["France", "Germany"],
+					valueNodeValue: "France,Germany",
 					opened: true,
 					selectedItemsCount: 2,
 					itemRenderersCount: 37,
 					inputEventCounter: 1, // incremented
 					changeEventCounter: 0, // unchanged till validation by close popup
-					widgetValueAtLatestInputEvent: ["Germany", "France"],
-					valueNodeValueAtLatestInputEvent: "Germany,France",
+					widgetValueAtLatestInputEvent: ["France", "Germany"],
+					valueNodeValueAtLatestInputEvent: "France,Germany",
 					widgetValueAtLatestChangeEvent: ["France"],
 					valueNodeValueAtLatestChangeEvent: "France"
 				}, "after SPACE on Germany after reopening");
@@ -480,17 +480,17 @@ define(function (require) {
 				// Now the selected items are Germany and France
 				checkComboState(comboId, comboState, { // expected combo state
 					inputNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
-					widgetValue: ["Germany", "France"],
-					valueNodeValue: "Germany,France",
+					widgetValue: ["France", "Germany"],
+					valueNodeValue: "France,Germany",
 					opened: false,
 					selectedItemsCount: 2,
 					itemRenderersCount: 37,
 					inputEventCounter: 0, // unchanged
 					changeEventCounter: 1, // incremented
-					widgetValueAtLatestInputEvent: ["Germany", "France"],
-					valueNodeValueAtLatestInputEvent: "Germany,France",
-					widgetValueAtLatestChangeEvent: ["Germany", "France"],
-					valueNodeValueAtLatestChangeEvent: "Germany,France"
+					widgetValueAtLatestInputEvent: ["France", "Germany"],
+					valueNodeValueAtLatestInputEvent: "France,Germany",
+					widgetValueAtLatestChangeEvent: ["France", "Germany"],
+					valueNodeValueAtLatestChangeEvent: "France,Germany"
 				}, "after ESCAPE");
 			});
 	}
@@ -701,15 +701,15 @@ define(function (require) {
 				// The click on the third item adds "Germany" to the selected items
 				checkComboState(comboId, comboState, { // expected combo state
 					inputNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
-					widgetValue: ["Germany", "France"],
-					valueNodeValue: "Germany,France",
+					widgetValue: ["France", "Germany"],
+					valueNodeValue: "France,Germany",
 					opened: true,
 					selectedItemsCount: 2,
 					itemRenderersCount: 37,
 					inputEventCounter: 1, // incremented
 					changeEventCounter: 0, // unchanged till validation by close popup
-					widgetValueAtLatestInputEvent: ["Germany", "France"],
-					valueNodeValueAtLatestInputEvent: "Germany,France",
+					widgetValueAtLatestInputEvent: ["France", "Germany"],
+					valueNodeValueAtLatestInputEvent: "France,Germany",
 					widgetValueAtLatestChangeEvent: undefined, // never received
 					valueNodeValueAtLatestChangeEvent: undefined
 				}, "after clicking the third item (Germany))");
@@ -722,17 +722,17 @@ define(function (require) {
 				// The click on the root node closes the popup
 				checkComboState(comboId, comboState, { // expected combo state
 					inputNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
-					widgetValue: ["Germany", "France"],
-					valueNodeValue: "Germany,France",
+					widgetValue: ["France", "Germany"],
+					valueNodeValue: "France,Germany",
 					opened: false,
 					selectedItemsCount: 2,
 					itemRenderersCount: 37,
 					inputEventCounter: 0, // unchanged
 					changeEventCounter: 1, // incremented
-					widgetValueAtLatestInputEvent: ["Germany", "France"],
-					valueNodeValueAtLatestInputEvent: "Germany,France",
-					widgetValueAtLatestChangeEvent: ["Germany", "France"],
-					valueNodeValueAtLatestChangeEvent: "Germany,France"
+					widgetValueAtLatestInputEvent: ["France", "Germany"],
+					valueNodeValueAtLatestInputEvent: "France,Germany",
+					widgetValueAtLatestChangeEvent: ["France", "Germany"],
+					valueNodeValueAtLatestChangeEvent: "France,Germany",
 				}, "after clicking again the root node (close)");
 			})
 			.end();
@@ -1138,6 +1138,14 @@ define(function (require) {
 			}
 		},
 
+		afterEach: function () {
+			return this.remote.execute(function () {
+				Array.prototype.forEach.call(document.querySelectorAll("d-combobox"), function (combo) {
+					combo.closeDropDown();
+				});
+			});
+		},
+
 		tests: {
 			"Combobox Form submit": function () {
 				return loadFile(this.remote, "Combobox-decl.html")
@@ -1303,15 +1311,15 @@ define(function (require) {
 						// Now France and Germany should be selected.
 						checkComboState(comboId, comboState, { // expected combo state
 							inputNodeValue: "2 selected",
-							widgetValue: ["DE", "FR"],
-							valueNodeValue: "DE,FR",
+							widgetValue: ["FR", "DE"],
+							valueNodeValue: "FR,DE",
 							opened: true,
 							selectedItemsCount: 2,
 							itemRenderersCount: 8,
 							inputEventCounter: 1, // incremented
 							changeEventCounter: 0, // still 0 till validation by close popup
-							widgetValueAtLatestInputEvent: ["DE", "FR"],
-							valueNodeValueAtLatestInputEvent: "DE,FR",
+							widgetValueAtLatestInputEvent: ["FR", "DE"],
+							valueNodeValueAtLatestInputEvent: "FR,DE",
 							widgetValueAtLatestChangeEvent: undefined, // never received
 							valueNodeValueAtLatestChangeEvent: undefined
 						}, "after first SPACE on Germany item");
@@ -1469,6 +1477,106 @@ define(function (require) {
 					return this.skip("no keyboard support");
 				}
 				return checkFilteringAutoCompleteMode(remote, "combo-autocomplete");
+			},
+
+			"programatically setting value": {
+				"single select": function () {
+					return this.remote
+						.execute(function () {
+							var combo = document.getElementById("combo1");
+							combo.value = combo.displayedValue = "Germany";
+						})
+						.findByCssSelector("#combo1 .d-combobox-arrow").click().end()
+						.sleep(500)
+						.execute(function () {
+							return Array.prototype.map.call(document.querySelectorAll(
+								"#combo1-list [role=option][aria-selected=true] .d-list-item-label"), function (label) {
+								return label.textContent.trim();
+							});
+						}).then(function (selectedItems) {
+							assert.deepEqual(selectedItems, ["Germany"]);
+						})
+						.execute(function () {
+							var combo = document.getElementById("combo1");
+							combo.closeDropDown();
+							combo.value = combo.displayedValue = "France";
+						})
+						.findByCssSelector("#combo1 .d-combobox-arrow").click().end()
+						.sleep(500)
+						.execute(function () {
+							return Array.prototype.map.call(document.querySelectorAll(
+								"#combo1-list [role=option][aria-selected=true] .d-list-item-label"), function (label) {
+								return label.textContent.trim();
+							});
+						}).then(function (selectedItems) {
+							assert.deepEqual(selectedItems, ["France"]);
+						});
+				},
+
+				"single select with filtering": function () {
+					return this.remote
+						.execute(function () {
+							var combo = document.getElementById("combo2");
+							combo.value = combo.displayedValue = "Germany";
+						})
+						.findByCssSelector("#combo2 .d-combobox-arrow").click().end()
+						.sleep(500)
+						.execute(function () {
+							return Array.prototype.map.call(document.querySelectorAll(
+								"#combo2-list [role=option][aria-selected=true] .d-list-item-label"), function (label) {
+								return label.textContent.trim();
+							});
+						}).then(function (selectedItems) {
+							assert.deepEqual(selectedItems, ["Germany"]);
+						})
+						.execute(function () {
+							var combo = document.getElementById("combo2");
+							combo.closeDropDown();
+							combo.value = combo.displayedValue = "France";
+						})
+						.findByCssSelector("#combo2 .d-combobox-arrow").click().end()
+						.sleep(500)
+						.execute(function () {
+							return Array.prototype.map.call(document.querySelectorAll(
+								"#combo2-list [role=option][aria-selected=true] .d-list-item-label"), function (label) {
+								return label.textContent.trim();
+							});
+						}).then(function (selectedItems) {
+							assert.deepEqual(selectedItems, ["France"]);
+						});
+				},
+
+				"multi select": function () {
+					return this.remote
+						.execute(function () {
+							document.getElementById("combo3").value = ["Germany", "France"];
+						})
+						.findByCssSelector("#combo3 .d-combobox-arrow").click().end()
+						.sleep(500)
+						.execute(function () {
+							return Array.prototype.map.call(document.querySelectorAll(
+								"#combo3-list [role=option][aria-selected=true] .d-list-item-label"), function (label) {
+								return label.textContent.trim();
+							});
+						}).then(function (selectedItems) {
+							assert.deepEqual(selectedItems, ["France", "Germany"]);
+						})
+						.execute(function () {
+							var combo = document.getElementById("combo3");
+							combo.closeDropDown();
+							combo.value = [];
+						})
+						.findByCssSelector("#combo3 .d-combobox-arrow").click().end()
+						.sleep(500)
+						.execute(function () {
+							return Array.prototype.map.call(document.querySelectorAll(
+								"#combo3-list [role=option][aria-selected=true] .d-list-item-label"), function (label) {
+								return label.textContent.trim();
+							});
+						}).then(function (selectedItems) {
+							assert.deepEqual(selectedItems, []);
+						});
+				}
 			}
 		}
 	});

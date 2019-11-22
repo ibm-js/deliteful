@@ -208,6 +208,18 @@ define([
 			}
 		},
 
+		refreshRendering: function (oldVals) {
+			// If my value is updated programatically, propagate it to the ComboPopup.
+			if (this.comboPopup) {
+				if ("value" in oldVals) {
+					this.comboPopup.value = this.value;
+				}
+				if ("displayedValue" in oldVals) {
+					this.comboPopup.displayedValue = this.displayedValue;
+				}
+			}
+		},
+
 		/**
 		 * Return true if the ComboPopup should be displayed in a centered Dialog,
 		 * false to display in a TooltipDialog

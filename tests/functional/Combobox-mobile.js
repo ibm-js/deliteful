@@ -257,12 +257,12 @@ define(function (require) {
 			.execute(executeExpr)
 			.then(function (comboState) {
 				checkComboState(comboId, comboState, { // expected combo state
-					widgetValue: ["China", "Germany"],
+					widgetValue: ["Germany", "China"],
 					selectedItemsCount: 2,
 					itemRenderersCount: 37,
 					inputEventCounter: 1,
 					changeEventCounter: 0,
-					widgetValueAtLatestInputEvent: ["China", "Germany"],
+					widgetValueAtLatestInputEvent: ["Germany", "China"],
 					widgetValueAtLatestChangeEvent: undefined
 				}, "after clicking option (China)");
 			})
@@ -273,8 +273,8 @@ define(function (require) {
 			.then(function (comboState) {
 				checkComboState(comboId, comboState, {
 					inputNodeValue: "2 selected",
-					widgetValue: ["China", "Germany"],
-					valueNodeValue: "China,Germany"
+					widgetValue: ["Germany", "China"],
+					valueNodeValue: "Germany,China"
 				}, "after clicking OK button (close)");
 			});
 	}
@@ -564,11 +564,17 @@ define(function (require) {
 
 	registerSuite("ComboPopup - functional", {
 		before: function () {
-			var remote = this.remote;
-
-			if (remote.environmentType.browserName.toLowerCase() === "internet explorer") {
+			if (this.remote.environmentType.browserName.toLowerCase() === "internet explorer") {
 				return this.skip("ComboPopup broken on IE");
 			}
+		},
+
+		afterEach: function () {
+			return this.remote.execute(function () {
+				Array.prototype.forEach.call(document.querySelectorAll("d-combobox"), function (combo) {
+					combo.closeDropDown();
+				});
+			});
 		},
 
 		tests: {
@@ -668,6 +674,106 @@ define(function (require) {
 				}
 
 				return checkAutoCompleteFilteringWithZeroFilterChars(remote, "combo5");
+			},
+
+			"programatically setting value": {
+				"single select": function () {
+					return this.remote
+						.execute(function () {
+							var combo = document.getElementById("combo1");
+							combo.value = combo.displayedValue = "Germany";
+						})
+						.findByCssSelector("#combo1 .d-combobox-arrow").click().end()
+						.sleep(500)
+						.execute(function () {
+							return Array.prototype.map.call(document.querySelectorAll(
+								"#combo1-list [role=option][aria-selected=true] .d-list-item-label"), function (label) {
+								return label.textContent.trim();
+							});
+						}).then(function (selectedItems) {
+							assert.deepEqual(selectedItems, ["Germany"]);
+						})
+						.execute(function () {
+							var combo = document.getElementById("combo1");
+							combo.closeDropDown();
+							combo.value = combo.displayedValue = "France";
+						})
+						.findByCssSelector("#combo1 .d-combobox-arrow").click().end()
+						.sleep(500)
+						.execute(function () {
+							return Array.prototype.map.call(document.querySelectorAll(
+								"#combo1-list [role=option][aria-selected=true] .d-list-item-label"), function (label) {
+								return label.textContent.trim();
+							});
+						}).then(function (selectedItems) {
+							assert.deepEqual(selectedItems, ["France"]);
+						});
+				},
+
+				"single select with filtering": function () {
+					return this.remote
+						.execute(function () {
+							var combo = document.getElementById("combo2");
+							combo.value = combo.displayedValue = "Germany";
+						})
+						.findByCssSelector("#combo2 .d-combobox-arrow").click().end()
+						.sleep(500)
+						.execute(function () {
+							return Array.prototype.map.call(document.querySelectorAll(
+								"#combo2-list [role=option][aria-selected=true] .d-list-item-label"), function (label) {
+								return label.textContent.trim();
+							});
+						}).then(function (selectedItems) {
+							assert.deepEqual(selectedItems, ["Germany"]);
+						})
+						.execute(function () {
+							var combo = document.getElementById("combo2");
+							combo.closeDropDown();
+							combo.value = combo.displayedValue = "France";
+						})
+						.findByCssSelector("#combo2 .d-combobox-arrow").click().end()
+						.sleep(500)
+						.execute(function () {
+							return Array.prototype.map.call(document.querySelectorAll(
+								"#combo2-list [role=option][aria-selected=true] .d-list-item-label"), function (label) {
+								return label.textContent.trim();
+							});
+						}).then(function (selectedItems) {
+							assert.deepEqual(selectedItems, ["France"]);
+						});
+				},
+
+				"multi select": function () {
+					return this.remote
+						.execute(function () {
+							document.getElementById("combo3").value = ["Germany", "France"];
+						})
+						.findByCssSelector("#combo3 .d-combobox-arrow").click().end()
+						.sleep(500)
+						.execute(function () {
+							return Array.prototype.map.call(document.querySelectorAll(
+								"#combo3-list [role=option][aria-selected=true] .d-list-item-label"), function (label) {
+								return label.textContent.trim();
+							});
+						}).then(function (selectedItems) {
+							assert.deepEqual(selectedItems, ["France", "Germany"]);
+						})
+						.execute(function () {
+							var combo = document.getElementById("combo3");
+							combo.closeDropDown();
+							combo.value = [];
+						})
+						.findByCssSelector("#combo3 .d-combobox-arrow").click().end()
+						.sleep(500)
+						.execute(function () {
+							return Array.prototype.map.call(document.querySelectorAll(
+								"#combo3-list [role=option][aria-selected=true] .d-list-item-label"), function (label) {
+								return label.textContent.trim();
+							});
+						}).then(function (selectedItems) {
+							assert.deepEqual(selectedItems, []);
+						});
+				}
 			}
 		}
 	});

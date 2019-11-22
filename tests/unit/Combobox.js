@@ -713,11 +713,11 @@ define(function (require) {
 								var item3 = combo.list.getItemRenderers()[3];
 								item3.click();
 								setTimeout(d.rejectOnError(function () {
-									checkAfterClickItem(1, 2, "item 3", ["Option 2"], ["Option 3", "Option 2"]);
+									checkAfterClickItem(1, 2, "item 3", ["Option 2"], ["Option 2", "Option 3"]);
 									combo.closeDropDown(); // this commits the change
 									setTimeout(d.callback(function () {
-										checkAfterClickItem(2, 2, "item 3", ["Option 3", "Option 2"],
-											["Option 3", "Option 2"]);
+										checkAfterClickItem(2, 2, "item 3", ["Option 2", "Option 3"],
+											["Option 2", "Option 3"]);
 									}));
 								}), delay);
 							}), delay);
@@ -788,9 +788,9 @@ define(function (require) {
 						item4.click();
 						setTimeout(d.callback(function () {
 							combo.closeDropDown();
-							assert.deepEqual(combo.value, ["CA", "US"],
-								"(multiple) Value after clicking item with label Canada should be ['CA', 'US'], " +
-								"not ['Canada', 'USA'], as defined in the custom myValue field " +
+							assert.deepEqual(combo.value, ["US", "CA"],
+								"(multiple) Value after clicking item with label Canada should be ['US', 'CA'], " +
+								"not ['USA', 'Canada'], as defined in the custom myValue field " +
 								"of the data item");
 						}), delay);
 					}), delay);
