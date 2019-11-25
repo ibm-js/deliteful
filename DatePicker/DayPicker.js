@@ -216,6 +216,11 @@ define([
 				// and the cells that are just for vertical padding.
 				this.rows.forEach(function (tr, rowIdx) {
 					Array.prototype.forEach.call(tr.children, function (td, colIdx) {
+						// Remove old nested <span> or &nbsp; from cell.
+						if (td.firstChild) {
+							td.removeChild(td.firstChild);
+						}
+
 						var d = this.dates[rowIdx] && this.dates[rowIdx][colIdx];
 						if (d) {
 							// This cell contains a date (i.e. a number from 1 - 31).
