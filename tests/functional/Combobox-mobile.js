@@ -190,11 +190,10 @@ define(function (require) {
 				}, "after click on root node");
 			})
 			.execute(function (comboId) {
-				/* global lastChangeEvent: true */
-				lastChangeEvent = "no change event yet";
+				window.lastChangeEvent = "no change event yet";
 				var combo = document.getElementById(comboId);
 				combo.on("change", function () {
-					lastChangeEvent = combo.value;
+					window.lastChangeEvent = combo.value;
 				});
 			}, [comboId])
 			.findByCssSelector("#" + comboId + "-list d-list-item-renderer:nth-of-type(2)").click().end() // "Germany"
@@ -208,7 +207,7 @@ define(function (require) {
 				}, "after clicking the third option (Germany)");
 			})
 			.execute(function () {
-				return lastChangeEvent;
+				return window.lastChangeEvent;
 			})
 			.then(function (lastChangeEvent) {
 				assert.strictEqual(lastChangeEvent, "Germany", "confirm change event fired");
