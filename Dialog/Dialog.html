@@ -2,7 +2,7 @@
 	<div class="d-dialog-header" attach-point="headerNode">
 		<div id="{{widgetId}}-label" class="d-dialog-label">{{label}}</div>
 		<button class="d-dialog-icon {{closeButtonIconClass}}" title="{{nls.close}}" aria-label="{{nls.close}}"
-			 on-click="{{closeButtonClickHandler}}" tabindex="-1"></button>
+			 on-click="{{closeButtonClickHandler}}" tabindex="-1" d-keyboard-click="true"></button>
 	</div>
 	<div class="d-dialog-container" attach-point="containerNode"></div>
 </template>

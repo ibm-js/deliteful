@@ -43,8 +43,30 @@ define(function (require) {
 					.pressKeys(keys.TAB)
 					.execute("return document.activeElement.id || document.activeElement.tagName").then(function (id) {
 						assert.strictEqual(id, "name", "focus looped back to first field");
+					})
+					.pressKeys(keys.ESCAPE)
+					.execute("return document.activeElement.innerText.trim()").then(function (text) {
+						assert.strictEqual(text, "show tooltip dialog", "escape returned focus to dropdown button");
 					});
-				// TODO: test ESC key closes dialog and sends focus back to button
+			},
+
+			empty: function () {
+				var remote = this.remote;
+				if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+					return this.skip("keyboard support problems");
+				}
+
+				return remote
+					.findById("empty").click().end()
+					.execute("return document.activeElement.getAttribute('aria-label');")
+					.then(function (label) {
+						assert.strictEqual(label, "Close", "when no interactive elements, focus goes to close button");
+					})
+					.pressKeys(keys.SPACE)
+					.execute("return document.activeElement.innerText.trim()").then(function (text) {
+						assert.strictEqual(text, "show tooltip dialog with no interactive elements",
+							"space bar returned focus to dropdown button");
+					});
 			},
 
 			scrollbars: function () {

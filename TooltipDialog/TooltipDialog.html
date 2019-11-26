@@ -4,7 +4,7 @@
 		<div attach-point="labelNode" id="{{widgetId}}-label" class="d-tooltip-dialog-label">{{label}}</div>
 		<div role="button" tabindex="-1" title="{{nls.close}}" aria-label="{{nls.close}}"
 			 attach-point="closeButtonNode" class="d-tooltip-dialog-icon {{closeButtonIconClass}}"
-			 on-click="{{closeButtonClickHandler}}"></div>
+			 on-click="{{closeButtonClickHandler}}" d-keyboard-click="true"></div>
 	</div>
 	<div attach-point="containerNode" class="d-tooltip-container"></div>
 </template>

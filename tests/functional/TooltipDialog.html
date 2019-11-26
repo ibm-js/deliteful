@@ -188,6 +188,17 @@
 		<button type="submit">OK</button>
 	</d-tooltip-dialog>
 
+	<d-dropdown-button id="empty"
+					   dropDown="empty-tooltip" dropDownType="dialog" dropDownPosition="below-centered">
+		show tooltip dialog with no interactive elements
+	</d-dropdown-button>
+	<d-tooltip-dialog id="empty-tooltip" label="No Interactive Elements" style="display: none">
+		<p>
+			This TooltipDialog has no navigable elements.
+			Focus should go to the close button.
+		</p>
+	</d-tooltip-dialog>
+
 	<d-dropdown-button id="bottomTall" style="position: absolute; left: 20px; bottom: 10px;"
 			dropDown="bottom-tall-tooltip" dropDownType="dialog" dropDownPosition="above-centered">
 		show tooltip dialog above with scrollbar

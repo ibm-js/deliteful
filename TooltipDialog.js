@@ -6,7 +6,8 @@ define([
 	"delite/handlebars!./TooltipDialog/TooltipDialog.html",
 	"requirejs-dplugins/i18n!./Dialog/nls/Dialog",
 	"requirejs-dplugins/css!./TooltipDialog/TooltipDialog.css",
-	"delite/uacss"	// TooltipDialog.less uses d-ie class
+	"delite/a11yclick",	// TooltipDialog.html uses d-keyboard-click
+	"delite/uacss"		// TooltipDialog.less uses d-ie class
 ], function (
 	register,
 	Dialog,

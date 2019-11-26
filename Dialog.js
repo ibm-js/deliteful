@@ -10,6 +10,7 @@ define([
 	"delite/handlebars!./Dialog/Dialog.html",
 	"requirejs-dplugins/i18n!./Dialog/nls/Dialog",
 	"requirejs-dplugins/css!./Dialog/Dialog.css",
+	"delite/a11yclick",	// Dialog.html uses d-keyboard-click
 	"delite/uacss"		// Dialog.css references "d-ie" class
 ], function (
 	advise,
