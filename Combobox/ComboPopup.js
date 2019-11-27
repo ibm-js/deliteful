@@ -87,11 +87,7 @@ define([
 			// if the Combobox has a down arrow icon, the list is always shown.
 			this.showList = !this.showInput || (this.inputNode && this.inputNode.value.length >= this.minFilterChars);
 			if (this.showList) {
-				if (this.showInput) {
-					this.filter(this.inputNode.value);
-				} else {
-					this.list.source = this.source;
-				}
+				this.filter(this.showInput ? this.inputNode.value : "");
 			}
 		}
 	});
