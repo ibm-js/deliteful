@@ -208,18 +208,6 @@ define([
 			}
 		},
 
-		refreshRendering: function (oldVals) {
-			// If my value is updated programatically, propagate it to the ComboPopup.
-			if (this.comboPopup) {
-				if ("value" in oldVals) {
-					this.comboPopup.value = this.value;
-				}
-				if ("displayedValue" in oldVals) {
-					this.comboPopup.displayedValue = this.displayedValue;
-				}
-			}
-		},
-
 		/**
 		 * Return true if the ComboPopup should be displayed in a centered Dialog,
 		 * false to display in a TooltipDialog
@@ -412,7 +400,14 @@ define([
 		},
 
 		loadDropDown: function () {
-			var dropDown = this.dropDown || (isMobile ? this.createDialog() : this.list);
+			// Destroy the old ComboPopup and create new one, in case properties (value,
+			// displayedValue, list, source, etc.) have been changed.
+			if (this.comboPopup) {
+				this.dropDown.destroy();
+				this.dropDown = this.comboPopup = null;
+			}
+
+			var dropDown = isMobile ? this.createDialog() : this.list;
 
 			// Since the dropdown is not a child of the Combobox, it will not inherit
 			// its dir attribute. Hence:
