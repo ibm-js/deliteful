@@ -1281,8 +1281,9 @@ define([
 				// We are in navigating inside a cell.  Return focus to the cell.
 				this._leaveActionableMode();
 			} else {
-				// Close the combobox dropdown in multiple mode.
-				this.emit("execute");
+				// Emit the ESCAPE key so that you can Combobox multiselect dropdown
+				// will close, and also a dialog containing a List.
+				this.emit("keydown", evt);
 			}
 		},
 
