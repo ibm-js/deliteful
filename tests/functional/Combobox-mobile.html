@@ -63,6 +63,9 @@
 				});
 			}
 
+			// initial blank value
+			storeTestingInfo(document.getElementById("combo0"));
+
 			// single selection mode, autoFilter=true
 			storeTestingInfo(document.getElementById("combo1"));
 
@@ -168,8 +171,24 @@
 	</p>
 </header>
 <main>
+	<label for="combo0-input">
+		id: "combo0" selectionMode: "single", autoFilter: true, blank value initially selected
+	</label>
+	<d-combobox selectionMode="single" autoFilter="true" id="combo0" name="combo0"
+				displayedValue="" value="">
+		{ "label": "" },
+		{ "label": "France" },
+		{ "label": "Germany" },
+		{ "label": "UK" },
+		{ "label": "USA" },
+		{ "label": "Canada" },
+		{ "label": "Brazil" },
+		{ "label": "China" },
+		{ "label": "Japan" }
+	</d-combobox>
+
 	<label for="combo1-input">
-		id = combo1 - Simple Combobox popup
+		id = combo1 - Simple Combobox popup, autoFilter: false, "France" initially selected
 	</label>
 	<d-combobox selectionMode="single" autoFilter="false" id="combo1" name="combo1"
 				displayedValue="France" value="France" righttextAttr="sales" categoryAttr="region">
@@ -213,7 +232,7 @@
 	</d-combobox>
 
 	<label for="combo2-input">
-		id = combo2 - Combobox popup with &lt;input&gt; (autoFilter=true)
+		id = combo2 - Combobox popup with &lt;input&gt; (autoFilter=true), "France" initially selected
 	</label>
 	<d-combobox selectionMode="single" autoFilter="true" id="combo2" name="combo2"
 				displayedValue="France" value="France" righttextAttr="sales" categoryAttr="region" showNoItems="true">
@@ -301,7 +320,7 @@
 	</d-combobox>
 
 	<label for="combo4-input">
-		id = combo4 - Combobox popup with &lt;input&gt; autoFilter=true, hasDownArrow=false, minFilterChars=3, "AutoComplete" mode
+		id = combo4 - Combobox popup with &lt;input&gt; autoFilter=true, hasDownArrow=false, minFilterChars=3,
 	</label>
 	<d-combobox selectionMode="single" autoFilter="true" hasDownArrow="false" id="combo4" name="combo4"
 				minFilterChars="3" righttextAttr="sales" categoryAttr="region" showNoItems="true">
@@ -345,7 +364,7 @@
 	</d-combobox>
 
 	<label for="combo5-input">
-		id = combo5 - Combobox popup with &lt;input&gt; (autoFilter=true), hasDownArrow=false, minFilterChars=0, "AutoComplete" mode
+		id = combo5 - Combobox popup with &lt;input&gt; (autoFilter=true), hasDownArrow=false, minFilterChars=0
 	</label>
 	<d-combobox selectionMode="single" autoFilter="true" hasDownArrow="false" id="combo5" name="combo5"
 				minFilterChars="0" righttextAttr="sales" categoryAttr="region" showNoItems="true">

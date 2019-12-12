@@ -676,6 +676,16 @@ define(function (require) {
 				return checkAutoCompleteFilteringWithZeroFilterChars(remote, "combo5");
 			},
 
+			"blank value initially selected": function () {
+				return loadFile(this.remote, "Combobox-decl.html")
+					.findByCssSelector("#combo0 .d-combobox-arrow").click().end()
+					.findByCssSelector("#combo0-list d-list-item-renderer")
+					.getAttribute("aria-selected").then(function (val) {
+						assert.strictEqual(val, "true", "aria-selected on first list item");
+					})
+					.end();
+			},
+
 			"programatically setting value": {
 				"single select": function () {
 					return this.remote

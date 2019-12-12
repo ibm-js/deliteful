@@ -716,8 +716,8 @@ define([
 		 * @param {number} count The number of items to use from the array of items, starting
 		 * from the fromIndex position
 		 * (no renderer will be created for the items that follows).
-		 * @param {Object} previousItem The item that precede the first one for which a renderer will be created.
-		 * This is only usefull for categorized lists.
+		 * @param {Object} previousItem The item that precedes the first one for which a renderer will be created.
+		 * This is only useful for categorized lists.
 		 * @return {DocumentFragment}  A DocumentFragment that contains the renderers.
 		 * The startup method of the renderers has not been called at this point.
 		 * @private

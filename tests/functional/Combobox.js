@@ -48,7 +48,6 @@ define(function (require) {
 		var res = loadFile(remote, "Combobox-decl.html")
 			.execute(comboId + ".focus();  " + executeExpr)
 			.then(function (comboState) {
-				// No selection by default
 				checkComboState(comboId, comboState, { // expected combo state
 					inputNodeValue: "France",
 					widgetValue: "France",
@@ -1228,6 +1227,16 @@ define(function (require) {
 				}
 
 				return checkKeyboardNavigationSingleSelection(remote, "combo2", true);
+			},
+
+			"blank value initially selected": function () {
+				return loadFile(this.remote, "Combobox-decl.html")
+					.findByCssSelector("#combo0 .d-combobox-arrow").click().end()
+					.findByCssSelector("#combo0-list d-list-item-renderer")
+					.getAttribute("aria-selected").then(function (val) {
+						assert.strictEqual(val, "true", "aria-selected on first list item");
+					})
+					.end();
 			},
 
 			"keyboard navigation selectionMode = multiple": function () {

@@ -79,6 +79,9 @@
 				}
 			};
 
+			// initial blank value
+			storeTestingInfo(document.getElementById("combo0"));
+
 			// single selection mode, autoFilter=true
 			storeTestingInfo(document.getElementById("combo1"));
 
@@ -201,8 +204,24 @@
 <main>
 	<form id="form1" action="processForm.html">
 
+		<label for="combo0-input">
+			id: "combo0" selectionMode: "single", autoFilter: true, blank value initially selected
+		</label>
+		<d-combobox selectionMode="single" autoFilter="true" id="combo0" name="combo0"
+					displayedValue="" value="">
+			{ "label": "" },
+			{ "label": "France" },
+			{ "label": "Germany" },
+			{ "label": "UK" },
+			{ "label": "USA" },
+			{ "label": "Canada" },
+			{ "label": "Brazil" },
+			{ "label": "China" },
+			{ "label": "Japan" }
+		</d-combobox>
+
 		<label for="combo1-input">
-			id: "combo1" selectionMode: "single", autoFilter: false
+			id: "combo1" selectionMode: "single", autoFilter: false, "France" initially selected
 		</label>
 		<d-combobox selectionMode="single" autoFilter="false" id="combo1" name="combo1"
 					displayedValue="France" value="France" righttextAttr="sales" categoryAttr="region">
@@ -246,7 +265,7 @@
 		</d-combobox>
 
 		<label for="combo2-input">
-			id: "combo2" selectionMode: "single", autoFilter: true
+			id: "combo2" selectionMode: "single", autoFilter: true, "France" initially selected
 		</label>
 		<d-combobox selectionMode="single" autoFilter="true" id="combo2" name="combo2"
 					displayedValue="France" value="France" righttextAttr="sales" categoryAttr="region">
@@ -346,7 +365,7 @@
 		</d-combobox>
 
 		<label for="combo1-disabled-input">
-			id: "combo1-disabled", selectionMode: "single", autoFilter: false, disabled
+			id: "combo1-disabled", selectionMode: "single", autoFilter: false, disabled, "France" selected
 		</label>
 		<d-combobox selectionMode="single" autoFilter="false"
 					id="combo1-disabled" name="combo1-disabled" disabled
@@ -391,7 +410,7 @@
 		</d-combobox>
 
 		<label for="combo2-disabled-input">
-			id: "combo2-disabled", selectionMode: "single", autoFilter: true, disabled
+			id: "combo2-disabled", selectionMode: "single", autoFilter: true, disabled, "France" selected
 		</label>
 		<d-combobox selectionMode="single" autoFilter="true"
 					id="combo2-disabled" name="combo2-disabled" disabled displayedValue="France" value="France"
@@ -480,7 +499,7 @@
 		</d-combobox>
 
 		<label for="combo2-custom-sel-single-input">
-			id: "combo2-custom-sel-single", selectionMode: "single", autoFilter: true, custom initial selection
+			id: "combo2-custom-sel-single", selectionMode: "single", autoFilter: true, "USA" programatically selected
 		</label>
 		<d-combobox selectionMode="single" autoFilter="true" displayedValue="France" value="France"
 					id="combo2-custom-sel-single" name="combo2-custom-sel-single"
@@ -525,7 +544,7 @@
 		</d-combobox>
 
 		<label for="combo2-custom-sel-multiple-input">
-			id: "combo2-custom-sel-multiple", selectionMode: "multiple", custom initial selection
+			id: "combo2-custom-sel-multiple", selectionMode: "multiple", "Germany" and "USA" progrma
 		</label>
 		<d-combobox selectionMode="multiple" id="combo2-custom-sel-multiple" name="combo2-custom-sel-multiple"
 					righttextAttr="sales" categoryAttr="region">
@@ -569,7 +588,7 @@
 		</d-combobox>
 
 		<label for="combo2-readonly-input">
-			id: "combo2-readonly", selectionMode: "single", autoFilter: true, readOnly
+			id: "combo2-readonly", selectionMode: "single", autoFilter: true, readOnly, "France" initially selected
 		</label>
 		<d-combobox selectionMode="single" autoFilter="true" readOnly displayedValue="France" value="France"
 					id="combo2-readonly" name="combo2-readonly" righttextAttr="sales" categoryAttr="region">
@@ -613,7 +632,8 @@
 		</d-combobox>
 
 		<label for="combo1-value-input">
-			id: "combo1-value", data items with value and label mapping, value selectionMode: "single", autoFilter: false
+			id: "combo1-value", data items with value and label mapping, value selectionMode: "single",
+			autoFilter: false, "France" initially selected
 		</label>
 		<d-combobox selectionMode="single" autoFilter="false" id="combo1-value" name="combo1-value"
 					displayedValue="France" value="FR"
@@ -629,7 +649,8 @@
 		</d-combobox>
 
 		<label for="combo2-value-input">
-			id: "combo2-value", data items with value and label mapping, value selectionMode: "single", autoFilter: true
+			id: "combo2-value", data items with value and label mapping, value selectionMode: "single",
+			autoFilter: true, "France" initially selected
 		</label>
 		<d-combobox selectionMode="single" autoFilter="true" id="combo2-value" name="combo2-value"
 					displayedValue="France" value="FR"
@@ -645,7 +666,8 @@
 		</d-combobox>
 
 		<label for="combo3-value-input">
-			id: "combo3-value", data items with value and label mapping, selectionMode: "multiple"
+			id: "combo3-value", data items with value and label mapping, selectionMode: "multiple",
+			"France" initially selected
 		</label>
 		<d-combobox selectionMode="multiple" autoFilter="false" id="combo3-value" name="combo3-value"
 					displayedValue="France" value="FR"
@@ -661,7 +683,7 @@
 		</d-combobox>
 
 		<label for="combo1-single-rtl-input">
-			id: "combo1-single-rtl", dir="rtl", selectionMode: "single", autoFilter: false
+			id: "combo1-single-rtl", dir="rtl", selectionMode: "single", autoFilter: false, "France" initially selected
 		</label>
 		<d-combobox dir="rtl" selectionMode="single" autoFilter="false"
 					id="combo1-single-rtl" name="combo1-single-rtl" displayedValue="France" value="France"
@@ -720,7 +742,8 @@
 		</d-combobox>
 
 		<label for="combo-minfilterchars0-input">
-			id: "combo-minfilterchars0", selectionMode: "single", autoFilter: true, minFilterChars: 0
+			id: "combo-minfilterchars0", selectionMode: "single", autoFilter: true, minFilterChars: 0,
+			"France" initially selected
 		</label>
 		<d-combobox selectionMode="single" autoFilter="true" minFilterChars="0"
 					id="combo-minfilterchars0" name="combo-minfilterchars0" displayedValue="France" value="France"
@@ -765,7 +788,8 @@
 		</d-combobox>
 
 		<label for="combo-minfilterchars3-input">
-			id: "combo-minfilterchars3", selectionMode: "single", autoFilter: true, minFilterChars: 3
+			id: "combo-minfilterchars3", selectionMode: "single", autoFilter: true, minFilterChars: 3,
+			"France" initially selected
 		</label>
 		<d-combobox selectionMode="single" autoFilter="true" minFilterChars="3"
 					id="combo-minfilterchars3" name="combo-minfilterchars3" displayedValue="France" value="France"

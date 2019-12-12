@@ -432,7 +432,7 @@ define([
 		},
 
 		_setSelectedItems: function () {
-			if (this.list && this.list.source && this.list.renderItems && this.value !== "") {
+			if (this.list && this.list.source && this.list.renderItems) {
 				var selectedItems = [],
 					presetItems = Array.isArray(this.value) && this.value.length >= 1 ? this.value : [this.value];
 				selectedItems = this.list.renderItems.filter(function (renderItem) {
