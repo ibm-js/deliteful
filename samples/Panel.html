@@ -16,7 +16,6 @@
 		</script>
 		<script>
 			require([
-				"deliteful/Store",
 				"requirejs-dplugins/css!delite/css/global.css",	// page level CSS
 				"deliteful/Panel",
 				"deliteful/list/List",
@@ -32,18 +31,6 @@
 		</style>
 	</head>
 	<body style="display:none">
-		<d-store id="store">
-			{"label": "list item 0", "righttext": "right text A"},
-			{"label": "list item 1", "righttext": "right text B"},
-			{"label": "list item 2", "righttext": "right text C"},
-			{"label": "list item 3", "righttext": "right text D"},
-			{"label": "list item 4", "righttext": "right text E"},
-			{"label": "list item 5", "righttext": "right text F"},
-			{"label": "list item 6", "righttext": "right text G"},
-			{"label": "list item 7", "righttext": "right text H"},
-			{"label": "list item 8", "righttext": "right text I"},
-			{"label": "list item 9", "righttext": "right text J"}
-		</d-store>
 		<d-panel label="Default Panel" style="height: 300px" id="panel" iconClass="icon-plus">
 			<div style="padding:15px; text-align: justify">
 				Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit
@@ -52,7 +39,17 @@
 				percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli
 				viris intellegam, ut fugit veritus placerat per.
 			</div>
-			<d-list id="list" selectionMode="multiple" store="store">
+			<d-list id="list" selectionMode="multiple">
+				{"label": "list item 0", "righttext": "right text A"},
+				{"label": "list item 1", "righttext": "right text B"},
+				{"label": "list item 2", "righttext": "right text C"},
+				{"label": "list item 3", "righttext": "right text D"},
+				{"label": "list item 4", "righttext": "right text E"},
+				{"label": "list item 5", "righttext": "right text F"},
+				{"label": "list item 6", "righttext": "right text G"},
+				{"label": "list item 7", "righttext": "right text H"},
+				{"label": "list item 8", "righttext": "right text I"},
+				{"label": "list item 9", "righttext": "right text J"}
 			</d-list>
 		</d-panel>
 		<d-panel label="Primary Panel" class="d-panel-primary" style="margin-top: 20px">
