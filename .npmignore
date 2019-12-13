@@ -1,0 +1,9 @@
+.bowerrc
+.gitattributes
+.jshintrc
+bower.json
+Gruntfile.js
+tests
+.idea
+intern*
+.travis.yml

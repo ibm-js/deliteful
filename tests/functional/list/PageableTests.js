@@ -1,9 +1,9 @@
-define(function (require) {
+define(function () {
 	"use strict";
 
 	var registerSuite = intern.getPlugin("interface.object").registerSuite;
-	var pollUntil = require("@theintern/leadfoot/helpers/pollUntil").default;
-	var keys = require("@theintern/leadfoot/keys").default;
+	var pollUntil = requirejs.nodeRequire("@theintern/leadfoot/helpers/pollUntil").default;
+	var keys = requirejs.nodeRequire("@theintern/leadfoot/keys").default;
 	var assert = intern.getPlugin("chai").assert;
 
 	function loadNextPage(remote, listId, pageSize, expectedActiveTextAfterLoad, comment) {
@@ -57,7 +57,7 @@ define(function (require) {
 			}
 			var listId = "pageable-prog-1";
 			return remote
-				.get(require.toUrl("deliteful/tests/functional/list/pageable-prog-1.html"))
+				.get("deliteful/tests/functional/list/pageable-prog-1.html")
 				.then(pollUntil("return ('ready' in window &&  ready "
 						+ "&& document.getElementById('" + listId + "') "
 						+ "&& !document.querySelector('#" + listId + " .d-list-container')"
@@ -109,7 +109,7 @@ define(function (require) {
 			}
 			var listId = "pageable-prog-2";
 			return remote
-				.get(require.toUrl("deliteful/tests/functional/list/pageable-prog-2.html"))
+				.get("deliteful/tests/functional/list/pageable-prog-2.html")
 				.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('" + listId + "') "
 					+ "&& !document.querySelector('#" + listId + " .d-list-container')"

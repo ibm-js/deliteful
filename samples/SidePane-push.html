@@ -6,13 +6,16 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>Side Pane Push Mode</title>
 
-	<link rel="stylesheet" href="../../delite/css/defaultapp.css">
+	<link rel="stylesheet" href="../node_modules/delite/css/defaultapp.css">
 
-	<script type="text/javascript" src="../../requirejs/require.js"></script>
+	<script type="text/javascript" src="../node_modules/requirejs/require.js"></script>
 
 	<script type="text/javascript">
 		require.config({
-			baseUrl: "../.."
+			baseUrl: "../node_modules",
+			packages: [
+				{ name: "deliteful", location: ".." }
+			]
 		});
 	</script>
 

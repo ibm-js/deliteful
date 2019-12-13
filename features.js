@@ -40,7 +40,7 @@
  * @module deliteful/features
  */
 define([
-	"decor/sniff",
+	"ibm-decor/sniff",
 	"deliteful/channelBreakpoints"
 ], function (
 	has,

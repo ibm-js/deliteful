@@ -1,15 +1,15 @@
-define(function (require) {
+define(function () {
 	"use strict";
 
 	var registerSuite = intern.getPlugin("interface.object").registerSuite;
-	var pollUntil = require("@theintern/leadfoot/helpers/pollUntil").default;
+	var pollUntil = requirejs.nodeRequire("@theintern/leadfoot/helpers/pollUntil").default;
 	var assert = intern.getPlugin("chai").assert;
-	var keys = require("@theintern/leadfoot/keys").default;
+	var keys = requirejs.nodeRequire("@theintern/leadfoot/keys").default;
 
 	registerSuite("Button - functional", {
 		before: function () {
 			return this.remote
-				.get(require.toUrl("deliteful/tests/functional/Button.html"))
+				.get("deliteful/tests/functional/Button.html")
 				.then(pollUntil("return ready ? true : null;", [],
 					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 		},

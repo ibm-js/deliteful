@@ -12,15 +12,14 @@
 		var ready = false;
 		require([
 			"requirejs-dplugins/Promise!",
-			"dstore/Memory",
-			"dstore/Trackable",
+			"dojo-dstore/Memory",
+			"dojo-dstore/Trackable",
 			"deliteful/list/PageableList",
-			"dstore/Memory",
 			"requirejs-dplugins/css!delite/css/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (Promise, Memory, Trackable, PageableList, MemoryStore) {
+		], function (Promise, Memory, Trackable, PageableList) {
 			// Custom memory store with a customizable latency
-			var CustomMemoryStore = MemoryStore.createSubclass([], {
+			var CustomMemoryStore = Memory.createSubclass([], {
 				latency: 1500,
 				fetch: function () {
 					var args = arguments;

@@ -1,7 +1,7 @@
 /** @module deliteful/Select */
 define([
 	"dcl/dcl",
-	"decor/sniff",
+	"ibm-decor/sniff",
 	"delite/register",
 	"delite/classList",
 	"delite/FormWidget",
@@ -48,7 +48,7 @@ define([
 	 * </d-select>
 	 * @example <caption>Using programmatically created store</caption>
 	 * JS:
-	 * require(["dstore/Memory", "dstore/Trackable",
+	 * require(["dojo-dstore/Memory", "dojo-dstore/Trackable",
 	 *         "deliteful/Select", "requirejs-domready/domReady!"],
 	 *   function (Memory, Trackable) {
 	 *     var store = new (Memory.createSubclass(Trackable))({});

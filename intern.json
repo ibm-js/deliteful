@@ -17,7 +17,10 @@
 		"loader": {
 			"script": "./intern-requirejs-loader.js",
 			"options": {
-				"baseUrl": "."
+				"baseUrl": "./node_modules",
+				"packages": [
+					{ "name": "deliteful", "location": ".." }
+				]
 			}
 		}
 	},
@@ -26,9 +29,9 @@
 		"loader": {
 			"script": "deliteful/intern-requirejs-loader.js",
 			"options": {
-				"baseUrl": "../../..",
+				"baseUrl": "../../../deliteful/node_modules",
 				"packages": [
-					{ "name": "intern", "location": "deliteful/node_modules/intern" }
+					{ "name": "deliteful", "location": ".." }
 				]
 			}
 		}
@@ -71,26 +74,26 @@
 	],
 
 	"functionalSuites": [
-		"./tests/functional/Accordion",
-		"./tests/functional/BoilerplateTextbox",
-		"./tests/functional/Button",
-		"./tests/functional/Checkbox",
-		"./tests/functional/Combobox",
-		"./tests/functional/Combobox-mobile",
-		"./tests/functional/DatePicker",
-		"./tests/functional/Dialog",
-		"./tests/functional/features",
-		"./tests/functional/list/all",
-		"./tests/functional/ScrollableContainer",
-		"./tests/functional/Select",
-		"./tests/functional/SidePane",
-		"./tests/functional/Slider",
-		"./tests/functional/StarRating",
-		"./tests/functional/SwapView",
-		"./tests/functional/Switch",
-		"./tests/functional/Toaster",
-		"./tests/functional/Tooltip",
-		"./tests/functional/TooltipDialog"
+		"deliteful/tests/functional/Accordion",
+		"deliteful/tests/functional/BoilerplateTextbox",
+		"deliteful/tests/functional/Button",
+		"deliteful/tests/functional/Checkbox",
+		"deliteful/tests/functional/Combobox",
+		"deliteful/tests/functional/Combobox-mobile",
+		"deliteful/tests/functional/DatePicker",
+		"deliteful/tests/functional/Dialog",
+		"deliteful/tests/functional/features",
+		"deliteful/tests/functional/list/all",
+		"deliteful/tests/functional/ScrollableContainer",
+		"deliteful/tests/functional/Select",
+		"deliteful/tests/functional/SidePane",
+		"deliteful/tests/functional/Slider",
+		"deliteful/tests/functional/StarRating",
+		"deliteful/tests/functional/SwapView",
+		"deliteful/tests/functional/Switch",
+		"deliteful/tests/functional/Toaster",
+		"deliteful/tests/functional/Tooltip",
+		"deliteful/tests/functional/TooltipDialog"
 	],
 
 	"coverage": [

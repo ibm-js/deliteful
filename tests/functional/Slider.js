@@ -1,8 +1,8 @@
-define(function (require) {
+define(function () {
 	"use strict";
 
 	var registerSuite = intern.getPlugin("interface.object").registerSuite;
-	var pollUntil = require("@theintern/leadfoot/helpers/pollUntil").default;
+	var pollUntil = requirejs.nodeRequire("@theintern/leadfoot/helpers/pollUntil").default;
 	var assert = intern.getPlugin("chai").assert;
 	var debug = false; // set to true for additional feedback on test execution (adds console messages + wait time).
 
@@ -244,7 +244,7 @@ define(function (require) {
 	 */
 	function loadFile(remote, fileName) {
 		return remote
-			.get(require.toUrl("deliteful/tests/functional/" + fileName))
+			.get("deliteful/tests/functional/" + fileName)
 			.then(pollUntil("return ('ready' in window && ready) ? true : null;", [],
 				intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 			.then(function () {

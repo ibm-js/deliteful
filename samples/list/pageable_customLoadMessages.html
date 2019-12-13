@@ -6,20 +6,24 @@
 		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 
-	<title>deliteful/list/PageableList samples.</title>
+	<title>deliteful/list/PageableList custom load message samples</title>
+
+	<script type="text/javascript" src="../../node_modules/requirejs/require.js"></script>
 
 	<script type="text/javascript">
-	require = {
-			baseUrl: "../../../",
-		};
+		require.config({
+			baseUrl: "../../node_modules",
+			packages: [
+				{ name: "deliteful", location: ".." }
+			]
+		});
 	</script>
-	<script type="text/javascript" src="../../../requirejs/require.js"></script>
 
 	<script type="text/javascript">
 		require([
 		    "delite/register",
-			"dstore/Memory",
-			"dstore/Trackable",
+			"dojo-dstore/Memory",
+			"dojo-dstore/Trackable",
 			"deliteful/list/PageableList",
 			"requirejs-dplugins/css!delite/css/global.css"	// page level CSS
 		], function (register, Memory, Trackable, PageableList) {

@@ -7,19 +7,22 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>Deliteful Mobile Application</title>
 
-	<link rel="stylesheet" href="../../../delite/css/defaultapp.css">
+	<link rel="stylesheet" href="../../node_modules/delite/css/defaultapp.css">
 	<link rel="stylesheet" href="app.css">
-	<script type="text/javascript" src="../../../requirejs/require.js"></script>
+	<script type="text/javascript" src="../../node_modules/requirejs/require.js"></script>
 	<script type="text/javascript">
 		require.config({
-			baseUrl: "../../../"
+			baseUrl: "../../node_modules",
+			packages: [
+				{ name: "deliteful", location: ".." }
+			]
 		});
 	</script>
 
 	<script type="text/javascript">
 		require([
-			"dstore/Memory",
-			"dstore/Trackable",
+			"dojo-dstore/Memory",
+			"dojo-dstore/Trackable",
 			"deliteful/ViewStack",
 			"deliteful/SidePane",
 			"deliteful/LinearLayout",

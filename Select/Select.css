@@ -34,5 +34,5 @@ fieldset[disabled] .d-select-inner {
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
-  /* defined in requirejs-dplugins/css/bootstrap/mixins.less */
+  /* defined in delite/css/bootstrap/mixins.less */
 }

@@ -73,10 +73,11 @@ See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how ins
 #### With `dstore/Memory` as source
 
 ```js
-require(["dstore/Memory", "deliteful/list/List", "requirejs-domready/domReady!"], function (Memory, List) {
+require(["dojo-dstore/Memory", "deliteful/list/List", "requirejs-domready/domReady!"], function (Memory, List) {
     // Create a memory store for the list and initialize it
-    var dataSource = new Memory({idProperty: "label", data:
-        [
+    var dataSource = new Memory({
+        idProperty: "label",
+        data: [
             { label: "France", sales: 500, profit: 50, region: "EU" },
             { label: "Germany", sales: 450, profit: 48, region: "EU" },
             { label: "UK", sales: 700, profit: 60, region: "EU" },
@@ -85,7 +86,8 @@ require(["dstore/Memory", "deliteful/list/List", "requirejs-domready/domReady!"]
             { label: "Brazil", sales: 450, profit: 30, region: "America" },
             { label: "China", sales: 500, profit: 40, region: "Asia" },
             { label: "Japan", sales: 900, profit: 100, region: "Asia" }
-    ]});
+        ]
+    });
     // A list of categorized items from dataSource, that uses the default item renderer,
     // mapping the sales property of items to righttext and using the region property
     // as the item category.
@@ -159,7 +161,7 @@ The source can be instanciate with 3 different ways.
 ##### Programmatically with a `dstore/Store`
 
 ```js
-require(["dstore/Memory", "dstore/Trackable", "deliteful/list/List"], function (Memory, Trackable, List) {
+require(["dojo-dstore/Memory", "dojo-dstore/Trackable", "deliteful/list/List"], function (Memory, Trackable, List) {
     var list = new List();
     var source = new (Memory.createSubclass([Trackable], {}))();
     var item1 = {...};
@@ -177,7 +179,7 @@ refresh its rendering accordingly.
 ##### Programmatically with an array
 
 ```js
-require(["decor/ObservableArray", "decor/Observable", "deliteful/list/List"], function (ObservableArray, Observable, List) {
+require(["ibm-decor/ObservableArray", "ibm-decor/Observable", "deliteful/list/List"], function (ObservableArray, Observable, List) {
     var list = new List();
     var source = new ObservableArray();
     var item1 = new Observable({...});
@@ -278,7 +280,7 @@ as in the following example:
 var list = new List();
 list.categoryFunc = function(item, source) {
 	return item.category;
-});
+};
 list.source = ...;
 list.source.add({label: "first item", category: "Category A"});
 list.source.add({label: "second item", category: "Category A"});

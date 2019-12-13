@@ -54,7 +54,7 @@ src="http://jsfiddle.net/ibmjs/nqM5G/embedded/result,js,html">
 ### Programmatic Instantiation
 
 ```js
-require(["dstore/Memory", "dstore/Trackable",
+require(["dojo-dstore/Memory", "dojo-dstore/Trackable",
          "deliteful/Select", "requirejs-domready/domReady!"],
   function (Memory, Trackable) {
     var select = new Select({selectionMode: "multiple"});
@@ -71,7 +71,7 @@ require(["dstore/Memory", "dstore/Trackable",
 Or with an array in source property :
 
 ```js
-require(["decor/ObservableArray", "decor/Observable",
+require(["ibm-decor/ObservableArray", "ibm-decor/Observable",
 		 "deliteful/Select", "requirejs-domready/domReady!"],
   function (ObservableArray, Observable) {
     // Create the store

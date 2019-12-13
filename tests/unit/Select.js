@@ -4,8 +4,8 @@ define(function (require) {
 	var registerSuite = intern.getPlugin("interface.object").registerSuite;
 	var assert = intern.getPlugin("chai").assert;
 	var register = require("delite/register");
-	var Memory = require("dstore/Memory");
-	var Trackable = require("dstore/Trackable");
+	var Memory = require("dojo-dstore/Memory");
+	var Trackable = require("dojo-dstore/Trackable");
 	var Select = require("deliteful/Select");
 
 	var Store = Memory.createSubclass([Trackable], {});

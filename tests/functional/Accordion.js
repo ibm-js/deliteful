@@ -1,9 +1,9 @@
-define(function (require) {
+define(function () {
 	"use strict";
 
 	var registerSuite = intern.getPlugin("interface.object").registerSuite;
-	var pollUntil = require("@theintern/leadfoot/helpers/pollUntil").default;
-	var keys = require("@theintern/leadfoot/keys").default;
+	var pollUntil = requirejs.nodeRequire("@theintern/leadfoot/helpers/pollUntil").default;
+	var keys = requirejs.nodeRequire("@theintern/leadfoot/keys").default;
 	var assert = intern.getPlugin("chai").assert;
 
 	function checkPanelIsOpen(remote, panel) {
@@ -66,7 +66,7 @@ define(function (require) {
 		before: function () {
 			var remote = this.remote;
 			return remote
-				.get(require.toUrl("deliteful/tests/functional/Accordion.html"))
+				.get("deliteful/tests/functional/Accordion.html")
 				.then(pollUntil("return ready ? true : null;", [],
 					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 		},

@@ -1,14 +1,14 @@
-define(function (require) {
+define(function () {
 	"use strict";
 
 	var registerSuite = intern.getPlugin("interface.object").registerSuite;
-	var pollUntil = require("@theintern/leadfoot/helpers/pollUntil").default;
+	var pollUntil = requirejs.nodeRequire("@theintern/leadfoot/helpers/pollUntil").default;
 	var assert = intern.getPlugin("chai").assert;
-	var keys = require("@theintern/leadfoot/keys").default;
+	var keys = requirejs.nodeRequire("@theintern/leadfoot/keys").default;
 
 	function loadFile(remote, fileName) {
 		return remote
-			.get(require.toUrl("deliteful/tests/functional/" + fileName))
+			.get("deliteful/tests/functional/" + fileName)
 			.setWindowSize(600, 1000)
 			.then(pollUntil("return ready ? true : null;", [],
 				intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));

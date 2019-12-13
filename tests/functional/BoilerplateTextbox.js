@@ -1,10 +1,10 @@
-define(function (require) {
+define(function () {
 	"use strict";
 
 	var registerSuite = intern.getPlugin("interface.object").registerSuite;
 	var assert = intern.getPlugin("chai").assert;
-	var keys = require("@theintern/leadfoot/keys").default;
-	var pollUntil = require("@theintern/leadfoot/helpers/pollUntil").default;
+	var keys = requirejs.nodeRequire("@theintern/leadfoot/keys").default;
+	var pollUntil = requirejs.nodeRequire("@theintern/leadfoot/helpers/pollUntil").default;
 
 	// Functional tests for BoilerplateTextbox.
 	// Unfortunately webdriver's imperfect keystroke simulation doesn't work well with BoilerplateTextBox's
@@ -14,7 +14,7 @@ define(function (require) {
 	registerSuite("BoilerplateTextbox functional tests", {
 		before: function () {
 			return this.remote
-				.get(require.toUrl("deliteful/tests/functional/BoilerplateTextbox.html"))
+				.get("deliteful/tests/functional/BoilerplateTextbox.html")
 				.then(pollUntil("return ready || null;", [],
 					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 		},

@@ -1,7 +1,7 @@
 /** @module deliteful/ViewStack */
 define([
 	"dcl/dcl",
-	"decor/sniff",
+	"ibm-decor/sniff",
 	"requirejs-dplugins/Promise!",
 	"delite/register",
 	"delite/classList",

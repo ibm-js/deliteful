@@ -1,8 +1,8 @@
-define(function (require) {
+define(function () {
 	"use strict";
 
 	var registerSuite = intern.getPlugin("interface.object").registerSuite;
-	var pollUntil = require("@theintern/leadfoot/helpers/pollUntil").default;
+	var pollUntil = requirejs.nodeRequire("@theintern/leadfoot/helpers/pollUntil").default;
 	var assert = intern.getPlugin("chai").assert;
 
 	// helpers
@@ -131,7 +131,7 @@ define(function (require) {
 		beforeEach: function () {
 			var remote = this.remote;
 			return remote
-				.get(require.toUrl("deliteful/tests/functional/Toaster.html"))
+				.get("deliteful/tests/functional/Toaster.html")
 				.then(pollUntil("return ('ready' in window && ready) ? true : null;", [],
 					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 		},

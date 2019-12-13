@@ -1,7 +1,7 @@
 /** @module deliteful/Combobox/ComboboxAPI */
 define([
 	"dcl/dcl",
-	"dstore/Filter",
+	"dojo-dstore/Filter",
 	"dojo/string",
 	"delite/CssState",
 	"delite/Widget",

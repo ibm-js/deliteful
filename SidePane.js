@@ -2,7 +2,7 @@
 define([
 	"dcl/dcl",
 	"dpointer/events",
-	"decor/sniff",
+	"ibm-decor/sniff",
 	"delite/register",
 	"delite/classList",
 	"delite/DisplayContainer",

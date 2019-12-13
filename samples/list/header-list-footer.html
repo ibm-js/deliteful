@@ -8,18 +8,21 @@
 
 	<title>deliteful/list/List samples.</title>
 
-	<script type="text/javascript" src="../../../requirejs/require.js"></script>
-	<link rel="stylesheet" href="../../../delite/css/defaultapp.css">
+	<script type="text/javascript" src="../../node_modules/requirejs/require.js"></script>
+	<link rel="stylesheet" href="../../node_modules/delite/css/defaultapp.css">
 	<script type="text/javascript">
 		require.config({
-			baseUrl: "../../../"
+			baseUrl: "../../node_modules",
+			packages: [
+				{ name: "deliteful", location: ".." }
+			]
 		});
 	</script>
 
 	<script type="text/javascript">
 		require([
-			"dstore/Memory",
-			"dstore/Trackable",
+			"dojo-dstore/Memory",
+			"dojo-dstore/Trackable",
 			"deliteful/list/List",
 			"deliteful/LinearLayout",
 			"requirejs-dplugins/css!delite/css/global.css"	// page level CSS

@@ -2,8 +2,8 @@ define(function (require) {
 	"use strict";
 
 	var assert = intern.getPlugin("chai").assert;
-	var Memory = require("dstore/Memory");
-	var Trackable = require("dstore/Trackable");
+	var Memory = require("dojo-dstore/Memory");
+	var Trackable = require("dojo-dstore/Trackable");
 	var Promise = require("requirejs-dplugins/Promise!");
 
 	var Store = Memory.createSubclass([Trackable], {});

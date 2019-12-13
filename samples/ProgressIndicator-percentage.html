@@ -7,11 +7,14 @@
 
 	<title>ProgressIndicator sample - percentage</title>
 
-	<script type="text/javascript" src="../../requirejs/require.js"></script>
+	<script type="text/javascript" src="../node_modules/requirejs/require.js"></script>
 
 	<script type="text/javascript">
 		require.config({
-			baseUrl: "../.."
+			baseUrl: "../node_modules",
+			packages: [
+				{ name: "deliteful", location: ".." }
+			]
 		});
 	</script>
 

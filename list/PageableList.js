@@ -4,7 +4,7 @@ define([
 	"delite/register",
 	"dojo/string",
 	"requirejs-dplugins/Promise!",
-	"decor/sniff",
+	"ibm-decor/sniff",
 	"./List",
 	"./Renderer",
 	"delite/handlebars!./List/PageableList.html",

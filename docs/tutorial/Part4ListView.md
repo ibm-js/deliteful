@@ -208,8 +208,8 @@ parameter in the `define` callback:
 
 ```js
 define([
-	"dstore/Memory", ...
-], function(Memory) {
+	"dojo-dstore/Memory", ...
+], function (Memory) {
 	...
 ```
 

@@ -1,7 +1,23 @@
 {
 	"name": "deliteful",
-	"version": "0.8.2",
-	"dependencies": {},
+	"version": "0.9.0",
+	"description": "enterprise class Web Components to be used in Web & Mobile Hybrid applications",
+	"homepage": "http://ibm-js.github.io/deliteful/",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ibm-js/deliteful"
+	},
+	"bugs": "https://github.com/ibm-js/deliteful/issues",
+	"dependencies": {
+		"dcl": "^2.0.6",
+		"ibm-decor": "0.8.x",
+		"delite": "0.9.x",
+		"dojo": "^1.15.0",
+		"dpointer": "0.5.x",
+		"dojo-dstore": "1.1.x",
+		"requirejs-domready": "2.0.x",
+		"requirejs-dplugins": "0.6.x"
+	},
 	"devDependencies": {
 		"grunt": "^1.0.4",
 		"grunt-contrib-jshint": "^2.1.0",
@@ -20,7 +36,5 @@
 			"type": "BSD",
 			"url": "https://github.com/ibm-js/deliteful/blob/master/LICENSE"
 		}
-	],
-	"bugs": "https://github.com/ibm-js/deliteful/issues",
-	"private": true
+	]
 }

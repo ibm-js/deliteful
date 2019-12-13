@@ -64,7 +64,7 @@ src="http://jsfiddle.net/ibmjs/d1sj0fkp/embedded/result,js,html">
 
 
 ```js
-require(["dstore/Memory", "dstore/Trackable",
+require(["dojo-dstore/Memory", "dojo-dstore/Trackable",
          "deliteful/Combobox", "deliteful/list/List",
          "requirejs-domready/domReady!"],
   function (Memory, Trackable, Combobox, List) {
@@ -84,7 +84,7 @@ require(["dstore/Memory", "dstore/Trackable",
 Or with an array in source property of the list :
 
 ```js
-require(["decor/ObservableArray", "decor/Observable",
+require(["ibm-decor/ObservableArray", "ibm-decor/Observable",
 		 "deliteful/Combobox", "deliteful/list/List",
 		 "requirejs-domready/domReady!"],
   function (ObservableArray, Observable, Combobox, List) {

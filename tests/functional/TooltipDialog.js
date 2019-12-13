@@ -1,16 +1,16 @@
-define(function (require) {
+define(function () {
 	"use strict";
 
 	var registerSuite = intern.getPlugin("interface.object").registerSuite;
-	var pollUntil = require("@theintern/leadfoot/helpers/pollUntil").default;
+	var pollUntil = requirejs.nodeRequire("@theintern/leadfoot/helpers/pollUntil").default;
 	var assert = intern.getPlugin("chai").assert;
-	var keys = require("@theintern/leadfoot/keys").default;
+	var keys = requirejs.nodeRequire("@theintern/leadfoot/keys").default;
 
 	registerSuite("TooltipDialog - functional", {
 		before: function () {
 			var remote = this.remote;
 
-			return remote.get(require.toUrl("deliteful/tests/functional/TooltipDialog.html"))
+			return remote.get("deliteful/tests/functional/TooltipDialog.html")
 				.then(pollUntil("return ready || null;", [], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 		},
 

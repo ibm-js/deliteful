@@ -58,8 +58,8 @@ module.exports = function (grunt) {
 							"../delite/out"
 						],
 						paths: {
-							"decor": "../../../../decor/docs/api/0.3.0/decor",
-							"delite": "../../delite/docs/api/0.4.0/delite"
+							"ibm-decor": "node_modules/ibm-decor/docs/api/0.3.0/ibm-decor",
+							"delite": "node_modules/delite/docs/api/0.4.0/delite"
 						},
 						packagePathFormat: "${name}/docs/api/${version}",
 						includeEventsInTOC: "false"

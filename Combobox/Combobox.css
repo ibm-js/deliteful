@@ -80,7 +80,6 @@ fieldset[disabled] .d-combobox-input {
   user-select: none;
 }
 .d-combobox-input:focus {
-  /* defined in requirejs-dplugins/css/bootstrap/mixins.less */
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
@@ -100,7 +99,6 @@ fieldset[disabled] .d-combobox-input {
   margin: 0;
 }
 .d-combobox-list .d-active-descendant {
-  /* defined in requirejs-dplugins/css/bootstrap/mixins.less */
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;

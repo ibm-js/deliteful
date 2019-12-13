@@ -3,7 +3,7 @@ define([
 	"dcl/dcl",
 	"delite/Widget",
 	"delite/register",
-	"decor/sniff",
+	"ibm-decor/sniff",
 	"delite/handlebars!./Toaster/Toaster.html",
 	"./ToasterMessage",
 	"requirejs-dplugins/css!./Toaster/Toaster.css"

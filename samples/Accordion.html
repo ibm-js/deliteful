@@ -8,10 +8,13 @@
 
 		<title id="pageTitle">Accordion</title>
 
-		<script src="../../requirejs/require.js"></script>
+		<script src="../node_modules/requirejs/require.js"></script>
 		<script type="text/javascript">
 			require.config({
-				baseUrl: "../.."
+				baseUrl: "../node_modules",
+				packages: [
+					{ name: "deliteful", location: ".." }
+				]
 			});
 		</script>
 

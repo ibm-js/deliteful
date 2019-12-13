@@ -1,9 +1,9 @@
-define(function (require) {
+define(function () {
 	"use strict";
 
 	var registerSuite = intern.getPlugin("interface.object").registerSuite;
-	var pollUntil = require("@theintern/leadfoot/helpers/pollUntil").default;
-	var keys = require("@theintern/leadfoot/keys").default;
+	var pollUntil = requirejs.nodeRequire("@theintern/leadfoot/helpers/pollUntil").default;
+	var keys = requirejs.nodeRequire("@theintern/leadfoot/keys").default;
 	var assert = intern.getPlugin("chai").assert;
 
 	function clickOnStar(remote, widgetId, starIndex /*first index is 1*/,
@@ -113,7 +113,7 @@ define(function (require) {
 	registerSuite("StarRating tests", {
 		before: function () {
 			return this.remote
-				.get(require.toUrl("deliteful/tests/functional/StarRating.html"))
+				.get("deliteful/tests/functional/StarRating.html")
 				.then(pollUntil("return ('ready' in window &&  ready) ? true : null", [],
 					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 		},
@@ -326,7 +326,7 @@ define(function (require) {
 				return this.skip("works manually but fails against saucelabs");
 			}
 			return remote
-				.get(require.toUrl("deliteful/tests/functional/StarRating-formback.html"))
+				.get("deliteful/tests/functional/StarRating-formback.html")
 				.then(pollUntil("return 'ready' in window && ready ? true : null;", [],
 					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 				.then(function () {
@@ -367,7 +367,7 @@ define(function (require) {
 			}
 			var remote = this.remote, id = "starrating1";
 			return remote
-				.get(require.toUrl("deliteful/tests/functional/StarRating-form.html"))
+				.get("deliteful/tests/functional/StarRating-form.html")
 				.then(pollUntil("return ('ready' in window &&  ready) ? true : null", [],
 					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 				.then(function () {

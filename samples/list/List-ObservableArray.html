@@ -8,19 +8,22 @@
 
 	<title>deliteful/list/List samples.</title>
 
-	<script type="text/javascript" src="../../../requirejs/require.js"></script>
+	<script type="text/javascript" src="../../node_modules/requirejs/require.js"></script>
 
 	<script type="text/javascript">
 		require.config({
-			baseUrl: "../../../"
+			baseUrl: "../../node_modules",
+			packages: [
+				{ name: "deliteful", location: ".." }
+			]
 		});
 	</script>
 
 	<script type="text/javascript">
 		require([
 			"deliteful/list/List", // page level CSS
-			"decor/Observable",
-			"decor/ObservableArray"
+			"ibm-decor/Observable",
+			"ibm-decor/ObservableArray"
 		], function (List, Observable, ObservableArray) {
 			var list  = new List();
 			list.id = "L";

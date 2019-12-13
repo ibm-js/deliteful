@@ -7,13 +7,16 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>Combobox</title>
 
-	<link rel="stylesheet" href="../../delite/css/defaultapp.css">
+	<link rel="stylesheet" href="../node_modules/delite/css/defaultapp.css">
 
-	<script type="text/javascript" src="../../requirejs/require.js"></script>
+	<script type="text/javascript" src="../node_modules/requirejs/require.js"></script>
 
 	<script type="text/javascript">
 		require.config({
-			baseUrl: "../.."
+			baseUrl: "../node_modules",
+			packages: [
+				{ name: "deliteful", location: ".." }
+			]
 		});
 	</script>
 
@@ -237,7 +240,7 @@
 	<d-button on-click="showResults()">Done</d-button>
 	</p>
 	<br/><br/>
-	<h4>The below is using a `slowStore`, that mimics a `dStore/Request`</h4>
+	<h4>The below is using a `slowStore`, that mimics a `dstore/Request`</h4>
 	<p>
 	<label for="comboTeamsAutoComplete-input">Your favorite team (single choice)</label><br/>
 	<span>[hasDropDown:false, source: SlowStore, filterDelay:500ms]</span>

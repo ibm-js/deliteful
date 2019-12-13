@@ -2,7 +2,7 @@ define(function (require) {
 	"use strict";
 
 	var declare = require("dojo/_base/declare");
-	var Request = require("dstore/Request");
+	var Request = require("dojo-dstore/Request");
 	var Deferred = require("dojo/Deferred");
 
 	return declare([Request], {

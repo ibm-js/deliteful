@@ -3,8 +3,8 @@ define(function (require) {
 
 	var registerSuite = intern.getPlugin("interface.object").registerSuite;
 	var assert = intern.getPlugin("chai").assert;
-	var Memory = require("dstore/Memory");
-	var Trackable = require("dstore/Trackable");
+	var Memory = require("dojo-dstore/Memory");
+	var Trackable = require("dojo-dstore/Trackable");
 	var popup = require("delite/popup");
 	var PageableList = require("deliteful/list/PageableList");
 	var ListBaseTests = require("./resources/ListBaseTests");

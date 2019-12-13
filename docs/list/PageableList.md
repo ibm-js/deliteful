@@ -48,7 +48,7 @@ See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how ins
 ### Programmatic Instantiation with a `dstore/Store` in source property
 
 ```js
-require(["dstore/Memory", "deliteful/list/PageableList", "requirejs-domready/domReady!"],
+require(["dojo-dstore/Memory", "deliteful/list/PageableList", "requirejs-domready/domReady!"],
   function (Memory, PageableList) {
   // Create a memory store for the list and initialize it
   var dataSource = new Memory({idProperty: "label", data:

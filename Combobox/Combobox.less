@@ -1,6 +1,6 @@
-@import "../../requirejs-dplugins/css/includes";
+@import "../node_modules/delite/css/includes";
 
-@import "../../requirejs-dplugins/css/variables.less";
+@import "../node_modules/delite/css/variables.less";
 
 @d-combobox-border-size: 1px;
 @d-combobox-arrow-width: 10px;
@@ -26,7 +26,7 @@
 	border-radius: @input-border-radius;
 
 	&:focus {
-		/* defined in requirejs-dplugins/css/bootstrap/mixins.less */
+		// defined in delite/css/mixins.less
 		.tab-focus();
 	}
 
@@ -150,6 +150,6 @@
 }
 
 .d-combobox-list .d-active-descendant {
-	/* defined in requirejs-dplugins/css/bootstrap/mixins.less */
+	// defined in delite/css/mixins.less
 	.tab-focus();
 }

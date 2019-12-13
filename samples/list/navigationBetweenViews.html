@@ -6,11 +6,14 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>Navigation between views using lists</title>
 
-	<script type="text/javascript" src="../../../requirejs/require.js"></script>
+	<script type="text/javascript" src="../../node_modules/requirejs/require.js"></script>
 
 	<script type="text/javascript">
 		require.config({
-			baseUrl: "../../../"
+			baseUrl: "../../node_modules",
+			packages: [
+				{ name: "deliteful", location: ".." }
+			]
 		});
 	</script>
 
