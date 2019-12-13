@@ -33,7 +33,6 @@
 						if (this.item.elementTag) {
 							var elementNode = renderNode.appendChild(this._createElement(this.item.elementTag, this.item.elementAttrs));
 							elementNode.setAttribute("tabindex", "0");
-							this.updateFocusableChildren();
 							if (this.item.label) {
 								var labelNode = renderNode.appendChild(this.ownerDocument.createElement("span"));
 								labelNode.className = "label";
