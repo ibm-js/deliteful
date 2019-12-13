@@ -204,8 +204,7 @@
 				{ "browserName": "MicrosoftEdge", "fixSessionCapabilities": false, "name": "deliteful"},
 				{ "browserName": "internet explorer", "version": "11", "fixSessionCapabilities": false, "name": "deliteful"},
 				{ "browserName": "firefox", "platform": [ "Windows 10" ], "fixSessionCapabilities": false, "name": "deliteful" },
-				{ "browserName": "chrome", "platform": [ "Windows 10" ], "fixSessionCapabilities": false, "name": "deliteful" },
-				{ "browserName": "safari", "fixSessionCapabilities": false, "name": "deliteful" }
+				{ "browserName": "chrome", "platform": [ "Windows 10" ], "fixSessionCapabilities": false, "name": "deliteful" }
 			],
 
 			"proxyPort": 9000,
