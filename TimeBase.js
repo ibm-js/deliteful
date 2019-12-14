@@ -80,7 +80,7 @@ define([
 		 * @returns {boolean}
 		 */
 		isWeekEnd: function (date) {
-			return locale.isWeekend(date);
+			return this.dateLocaleModule.isWeekend(date);
 		},
 
 		/**
@@ -92,7 +92,7 @@ define([
 			if (date.toGregorian) {
 				date = date.toGregorian();
 			}
-			return locale.format(date, {
+			return this.dateLocaleModule.format(date, {
 				selector: "date",
 				datePattern: "w"
 			});
