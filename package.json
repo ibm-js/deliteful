@@ -23,7 +23,7 @@
 		"grunt-contrib-jshint": "^2.1.0",
 		"grunt-contrib-less": "^2.0.0",
 		"grunt-contrib-uglify": "^4.0.1",
-		"intern": "^4.4.2",
+		"intern": "^4.7.1",
 		"jsdoc-amddcl": "git://github.com/ibm-js/jsdoc-amddcl.git#master",
 		"leadfoot": "1.x",
 		"requirejs": "2.1.x"
