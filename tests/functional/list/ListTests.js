@@ -865,7 +865,7 @@ define(function () {
 				}).end()
 				.pressKeys(keys.TAB)
 				.getActiveElement().getAttribute("id").then(function (value) {
-					assert.strictEqual(value, "after", "focus after shift-tab");
+					assert.strictEqual(value, "after", "focus after tab");
 				}).end()
 				.pressKeys(keys.SHIFT + keys.TAB)
 				.pressKeys(keys.SHIFT)		// release shift key
@@ -892,6 +892,10 @@ define(function () {
 				.pressKeys(keys.TAB)
 				.getActiveElement().getAttribute("id").then(function (value) {
 					assert.strictEqual(value, "apple-input2", "tabbed to second input");
+				}).end()
+				.pressKeys(keys.TAB)
+				.getActiveElement().getAttribute("id").then(function (value) {
+					assert.strictEqual(value, "apple-button", "tabbed to button");
 				}).end()
 				.pressKeys(keys.TAB)
 				.getActiveElement().getAttribute("id").then(function (value) {

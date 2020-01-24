@@ -1247,20 +1247,52 @@ define([
 		tabKeyHandler: function (evt) {
 			if (this.isNavigable(evt.target)) {
 				// We are in grid navigation mode, so this tab key needs to send focus past the entire List.
-				// Do this programatically in case List contains some tab-navigable descendants.
-				var newNode = a11y.getNextInTabbingOrder(this.containerNode || this, evt.shiftKey ? -1 : 1);
-				if (newNode) {
-					newNode.focus();
-				}
+
+				// Make sure we don't get stuck on tab stops internal to this list by temporarily setting
+				// all tab-navigable nodes to tabindex=-1.
+				var navigableNodes = this.querySelectorAll(
+					"[tabindex], a, area, button, input, object, select, textarea, iframe");
+				var removeTabIndex = [],
+					restoreTabIndex = [];
+				Array.prototype.forEach.call(navigableNodes, function (node) {
+					if (node === this.ownerDocument.activeElement || node.getAttribute("tabindex") === "-1") {
+						return;
+					} else if (node.hasAttribute("tabindex")) {
+						restoreTabIndex.push({
+							node: node,
+							originalTabindex: node.getAttribute("tabindex")
+						});
+					} else {
+						removeTabIndex.push(node);
+					}
+					node.setAttribute("tabindex", "-1");
+				}, this);
+				this.defer(function () {
+					removeTabIndex.forEach(function (node) {
+						node.removeAttribute("tabindex");
+					});
+					restoreTabIndex.forEach(function (x) {
+						x.node.setAttribute("tabindex", x.originalTabindex);
+					});
+				});
+
+				// Then, let browser handle tab key.  In simple case it will go to the element after the list,
+				// but if this is the end of the document then it will go to the address bar etc.
+				return false;
 			} else {
-				// We are in navigating inside a cell.
-				// Let tab keep work naturally except when we hit first or last tab stop in the cell,
-				// and then loop around, ala the Dialog behavior.
+				// We are in navigating inside a cell.  Let tab key work naturally except when we hit first or last tab
+				// stop in the cell, and then loop around, ala the Dialog behavior.
 				var cell = this._getFocusedCell();
-				var tabStops = a11y._getTabNavigable(cell);
-				var index = tabStops.indexOf(evt.target),
-					newIndex = (index + tabStops.length + (evt.shiftKey ? -1 : 1)) % tabStops.length;
-				tabStops[newIndex].focus();
+				if (evt.shiftKey && evt.target === a11y.getFirstInTabbingOrder(cell)) {
+					a11y.getLastInTabbingOrder(cell).focus();
+					return true;
+				} else if (!evt.shiftKey && evt.target === a11y.getLastInTabbingOrder(cell)) {
+					a11y.getFirstInTabbingOrder(cell).focus();
+					return true;
+				} else {
+					// Let browser handle it.
+					return false;
+				}
 			}
 		},
 
