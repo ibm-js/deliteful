@@ -1280,19 +1280,15 @@ define([
 				// but if this is the end of the document then it will go to the address bar etc.
 				return false;
 			} else {
-				// We are in navigating inside a cell.  Let tab key work naturally except when we hit first or last tab
-				// stop in the cell, and then loop around, ala the Dialog behavior.
+				// We are in navigating inside a cell.
+				// Let tab keep work naturally except when we hit first or last tab stop in the cell,
+				// and then loop around, ala the Dialog behavior.
 				var cell = this._getFocusedCell();
-				if (evt.shiftKey && evt.target === a11y.getFirstInTabbingOrder(cell)) {
-					a11y.getLastInTabbingOrder(cell).focus();
-					return true;
-				} else if (!evt.shiftKey && evt.target === a11y.getLastInTabbingOrder(cell)) {
-					a11y.getFirstInTabbingOrder(cell).focus();
-					return true;
-				} else {
-					// Let browser handle it.
-					return false;
-				}
+				var tabStops = a11y.getTabNavigable(cell);
+				var index = tabStops.indexOf(evt.target),
+					newIndex = (index + tabStops.length + (evt.shiftKey ? -1 : 1)) % tabStops.length;
+				tabStops[newIndex].focus();
+				return true;
 			}
 		},
 
