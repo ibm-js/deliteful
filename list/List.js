@@ -1274,7 +1274,7 @@ define([
 					restoreTabIndex.forEach(function (x) {
 						x.node.setAttribute("tabindex", x.originalTabindex);
 					});
-				});
+				}, 10);
 
 				// Then, let browser handle tab key.  In simple case it will go to the element after the list,
 				// but if this is the end of the document then it will go to the address bar etc.
