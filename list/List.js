@@ -1250,7 +1250,7 @@ define([
 
 				// Make sure we don't get stuck on tab stops internal to this list by temporarily setting
 				// all tab-navigable nodes to tabindex=-1.
-				var navigableNodes = this.keyNavContainer.querySelectorAll(
+				var navigableNodes = this.keyNavContainerNode.querySelectorAll(
 					"[tabindex], a, area, button, input, object, select, textarea, iframe");
 				var removeTabIndex = [],
 					restoreTabIndex = [];
