@@ -7,6 +7,7 @@
   -moz-user-select: none;
   cursor: default;
   line-height: 0.43em;
+  touch-action: none;
 }
 .d-view-indicator * {
   display: inline-block;

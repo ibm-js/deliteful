@@ -1,7 +1,6 @@
 /** @module deliteful/SidePane */
 define([
 	"dcl/dcl",
-	"dpointer/events",
 	"ibm-decor/sniff",
 	"delite/register",
 	"delite/classList",
@@ -9,7 +8,7 @@ define([
 	"requirejs-dplugins/Promise!",
 	"requirejs-dplugins/css!./SidePane/SidePane.css"
 ],
-	function (dcl, pointer, has, register, classList, DisplayContainer, Promise) {
+	function (dcl, has, register, classList, DisplayContainer, Promise) {
 		function prefix(v) {
 			return "-d-side-pane-" + v;
 		}
@@ -248,7 +247,6 @@ define([
 			},
 
 			postRender: function () {
-				pointer.setTouchAction(this, "pan-y");
 				this._resetInteractions();
 				setVisibility(this, false);
 			},

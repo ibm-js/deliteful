@@ -1,9 +1,9 @@
 /** @module deliteful/SwapView */
 define([
 	"dcl/dcl", "delite/register",
-	"dpointer/events", "./ViewStack",
+	"./ViewStack",
 	"requirejs-dplugins/css!./SwapView/SwapView.css"
-], function (dcl, register, dpointer, ViewStack) {
+], function (dcl, register, ViewStack) {
 	/**
 	 * SwapView container widget. Extends ViewStack to let the user swap the visible child using a swipe gesture.
 	 * You can also use the Page Up / Down keyboard keys to go to the next/previous child.
@@ -55,8 +55,6 @@ define([
 		render: function () {
 			// we want to inherit from ViewStack's CSS (including transitions).
 			this.addClass("d-view-stack");
-
-			dpointer.setTouchAction(this, "pan-y");
 		},
 
 		connectedCallback: function () {
@@ -73,7 +71,7 @@ define([
 		_pointerDownHandler: function (e) {
 			if (!this._drag) {
 				this._drag = { start: e.clientX };
-				dpointer.setPointerCapture(e.target, e.pointerId);
+				e.target.setPointerCapture(e.pointerId);
 			}
 		},
 

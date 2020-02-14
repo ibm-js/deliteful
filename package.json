@@ -13,7 +13,6 @@
 		"ibm-decor": "0.8.x",
 		"delite": "^0.9.2",
 		"dojo": "^1.15.0",
-		"dpointer": "0.5.x",
 		"dojo-dstore": "1.1.x",
 		"requirejs-domready": "2.0.x",
 		"requirejs-dplugins": "0.6.x"

@@ -1,7 +1,6 @@
 /** @module deliteful/Slider */
 define([
 	"dcl/dcl",
-	"dpointer/events",
 	"delite/register",
 	"delite/FormValueWidget",
 	"delite/CssState",
@@ -9,7 +8,6 @@ define([
 	"requirejs-dplugins/css!./Slider/Slider.css"
 ], function (
 	dcl,
-	dpointer,
 	register,
 	FormValueWidget,
 	CssState,
@@ -216,10 +214,6 @@ define([
 					this.focusNode.setAttribute("aria-valuemax", this.max);
 					this.tabStops = ["handleMin", "focusNode"];
 					this.handleMin._isActive = true;
-					// prevent default browser behavior / accept pointer events
-					// todo: use pan-x/pan-y according to this.vertical (once supported by dpointer)
-					// https://github.com/ibm-js/dpointer/issues/8
-					dpointer.setTouchAction(this, "none");
 				};
 			}),
 
@@ -509,7 +503,7 @@ define([
 						currentVal[(this.handleMin._isActive && (this._pointerCtx.target === this.focusNode)) ? 1 : 0];
 				}
 				// start capture on the target element
-				dpointer.setPointerCapture(this._pointerCtx.target, e.pointerId);
+				this._pointerCtx.target.setPointerCapture(e.pointerId);
 				e.stopPropagation();
 			},
 

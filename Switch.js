@@ -1,13 +1,12 @@
 /** @module deliteful/Switch */
 define([
 	"requirejs-dplugins/has",
-	"dpointer/events",
 	"delite/register",
 	"delite/classList",
 	"deliteful/Checkbox",
 	"delite/handlebars!./Switch/Switch.html",
 	"requirejs-dplugins/css!./Switch/Switch.css"
-], function (has, pointer, register, classList, Checkbox, template) {
+], function (has, register, classList, Checkbox, template) {
 
 	/**
 	 * A form-aware switch widget that represents a toggle switch with a sliding knob.
@@ -58,7 +57,7 @@ define([
 		_pointerDownHandler: function (e) {
 			if (!this.disabled) {
 				this._startX = this._curX = e.clientX;
-				pointer.setPointerCapture(this._knobGlassNode, e.pointerId);
+				this._knobGlassNode.setPointerCapture(e.pointerId);
 				if (!this._pHandlers) {
 					this._pHandlers = [
 						{e: "pointermove", l: this._pointerMoveHandler.bind(this)},

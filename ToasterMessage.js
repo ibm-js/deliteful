@@ -5,10 +5,9 @@ define([
 	"delite/register",
 	"delite/classList",
 	"requirejs-dplugins/Promise!",
-	"dpointer/events",
 	"./features",
 	"delite/handlebars!./Toaster/ToasterMessage.html"
-], function (dcl, Widget, register, classList, Promise, pointer, has, template) {
+], function (dcl, Widget, register, classList, Promise, has, template) {
 
 	// TODO: this could be abstracted in a separate class, so that it can be used by other widgets
 	// such as the toggle/switch.
@@ -141,7 +140,7 @@ define([
 
 		function _pointerDownHandler(event) {
 			state.startCapture(event);
-			pointer.setPointerCapture(element, event.pointerId);
+			element.setPointerCapture(event.pointerId);
 		}
 
 		function _pointerMoveHandler(event) {

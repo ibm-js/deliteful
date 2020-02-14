@@ -1,13 +1,12 @@
 /** @module deliteful/StarRating */
 define([
 	"dcl/dcl",
-	"dpointer/events",
 	"delite/register",
 	"delite/classList",
 	"delite/FormValueWidget",
 	"requirejs-dplugins/i18n!./StarRating/nls/StarRating",
 	"requirejs-dplugins/css!./StarRating/StarRating.css"
-], function (dcl, pointer, register, classList, FormValueWidget, messages) {
+], function (dcl, register, classList, FormValueWidget, messages) {
 	/**
 	 * A widget that displays a rating, usually with stars, and that allows setting a different rating value
 	 * by touching the stars.
@@ -66,7 +65,6 @@ define([
 		render: function () {
 			this.focusNode = this.ownerDocument.createElement("div");
 			this.appendChild(this.focusNode);
-			pointer.setTouchAction(this, "none");
 			// init WAI-ARIA attributes
 			this.focusNode.setAttribute("role", "slider");
 			this.focusNode.setAttribute("aria-valuemin", 0);

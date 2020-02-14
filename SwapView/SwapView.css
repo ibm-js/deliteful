@@ -3,6 +3,7 @@
   -webkit-user-select: none;
   -ms-user-select: none;
   -moz-user-select: none;
+  touch-action: pan-y;
 }
 .-d-swap-view-drag {
   overflow-x: hidden;

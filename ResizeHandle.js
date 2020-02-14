@@ -1,12 +1,10 @@
 define([
 	"delite/register",
 	"delite/Widget",
-	"dpointer/events",
 	"requirejs-dplugins/css!./ResizeHandle/ResizeHandle.css"
 ], function (
 	register,
-	Widget,
-	dpointer
+	Widget
 ) {
 
 	/**
@@ -65,7 +63,6 @@ define([
 		resizeClass: "",
 
 		postRender: function () {
-			dpointer.setTouchAction(this, "none");
 			this.on("pointerdown", this._beginSizing.bind(this));
 		},
 

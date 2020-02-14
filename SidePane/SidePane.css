@@ -5,6 +5,7 @@
   box-sizing: border-box;
   position: fixed;
   background-color: white;
+  touch-action: pan-y;
 }
 .-d-side-pane-animate {
   -webkit-transition: -webkit-transform 0.3s ease-in-out;

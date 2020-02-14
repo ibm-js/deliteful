@@ -4,6 +4,7 @@
   font-size: 2.85em;
   line-height: 1em;
   vertical-align: middle;
+  touch-action: none;
 }
 .d-star-rating.d-star-rating-hovered {
   opacity: 0.5;

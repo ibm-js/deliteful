@@ -2,11 +2,10 @@
 define([
 	"dcl/dcl",
 	"delite/register",
-	"dpointer/events",
 	"delite/Widget",
 	"delite/hc",
 	"requirejs-dplugins/css!./ViewIndicator/ViewIndicator.css"
-], function (dcl, register, dpointer, Widget) {
+], function (dcl, register, Widget) {
 
 	/**
 	 * ViewIndicator widget. Indicates which view is currently visible in a ViewStack.
@@ -50,10 +49,6 @@ define([
 					}
 				}
 			}.bind(this));
-		},
-
-		postRender: function () {
-			dpointer.setTouchAction(this, "none");
 		},
 
 		refreshRendering: function (props) {

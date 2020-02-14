@@ -4,6 +4,7 @@
   bottom: 0;
   padding: 0;
   margin: 0;
+  touch-action: none;
 }
 .d-resize-handle:not(.d-rtl) {
   right: 0;
