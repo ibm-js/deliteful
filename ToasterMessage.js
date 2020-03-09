@@ -3,11 +3,9 @@ define([
 	"dcl/dcl",
 	"delite/Widget",
 	"delite/register",
-	"delite/classList",
-	"requirejs-dplugins/Promise!",
 	"./features",
 	"delite/handlebars!./Toaster/ToasterMessage.html"
-], function (dcl, Widget, register, classList, Promise, has, template) {
+], function (dcl, Widget, register, has, template) {
 
 	// TODO: this could be abstracted in a separate class, so that it can be used by other widgets
 	// such as the toggle/switch.
@@ -481,7 +479,7 @@ define([
 			}
 
 			// toggling dismiss button visibility
-			classList.toggleClass(this._dismissButton, D_HIDDEN, !this.isDismissible());
+			this._dismissButton.classList.toggle(D_HIDDEN, !this.isDismissible());
 		},
 		_showInDom: function (toaster, animated) {
 			if (animated) {
@@ -491,7 +489,7 @@ define([
 					this.removeClass(toaster.animationInitialClass);
 					this.addClass(toaster.animationEnterClass);
 					listenAnimationEvents(this, function (element) {
-						classList.removeClass(element, toaster.animationEnterClass);
+						element.classList.remove(toaster.animationEnterClass);
 
 						// NOTE: the swipe dismissing is made possible only once the entering animation is done
 						// this is done to avoid the CSS of the animation to interfere with the swipe

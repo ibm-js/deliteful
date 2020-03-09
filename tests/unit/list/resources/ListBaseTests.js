@@ -4,7 +4,6 @@ define(function (require) {
 	var assert = intern.getPlugin("chai").assert;
 	var Memory = require("dojo-dstore/Memory");
 	var Trackable = require("dojo-dstore/Trackable");
-	var Promise = require("requirejs-dplugins/Promise!");
 
 	var Store = Memory.createSubclass([Trackable], {});
 

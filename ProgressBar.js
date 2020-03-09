@@ -2,11 +2,10 @@
 define([
 	"dcl/dcl",
 	"delite/register",
-	"delite/classList",
 	"delite/Widget",
 	"delite/handlebars!./ProgressBar/ProgressBar.html",
 	"requirejs-dplugins/css!./ProgressBar/ProgressBar.css"
-], function (dcl, register, classList, Widget, template) {
+], function (dcl, register, Widget, template) {
 	/**
 	 * A widget that displays the completion progress of a task.
 	 *
@@ -142,7 +141,7 @@ define([
 			this.msgNode.innerHTML = this.msgInvertNode.innerHTML =
 				this.formatMessage(this.position, this.value, this.max);
 			var hasExtMsg = this.displayExtMsg && this.position !== -1;
-			classList.toggleClass(this.msgNode, this.baseClass + "-msg-ext", hasExtMsg);
+			this.msgNode.classList.toggle(this.baseClass + "-msg-ext", hasExtMsg);
 			if (hasExtMsg) {
 				//set content value to be used by pseudo element d-progress-bar-msg-ext::after
 				this.msgNode.setAttribute("msg-ext", this.formatExtMsg(this.position, this.value, this.max));
@@ -155,7 +154,7 @@ define([
 			} else {
 				this.removeAttribute("aria-valuetext");
 			}
-			classList.toggleClass(this, this.baseClass + "-indeterminate", (this.position === -1));
+			this.classList.toggle(this.baseClass + "-indeterminate", (this.position === -1));
 		},
 
 		/**

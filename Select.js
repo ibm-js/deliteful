@@ -3,13 +3,12 @@ define([
 	"dcl/dcl",
 	"ibm-decor/sniff",
 	"delite/register",
-	"delite/classList",
 	"delite/FormWidget",
 	"delite/StoreMap",
 	"delite/Selection",
 	"delite/handlebars!./Select/Select.html",
 	"requirejs-dplugins/css!./Select/Select.css"
-], function (dcl, has, register, classList,
+], function (dcl, has, register,
 	FormWidget, StoreMap, Selection, template) {
 
 	/**
@@ -150,10 +149,10 @@ define([
 			// of the focus pseudo-class because the browsers give the focus
 			// to the underlying select, not to the widget.
 			this.on("focus", function (evt) {
-				classList.toggleClass(this, "d-select-focus", evt.type === "focus");
+				this.classList.toggle("d-select-focus", evt.type === "focus");
 			}.bind(this), this.valueNode);
 			this.on("blur", function (evt) {
-				classList.toggleClass(this, "d-select-focus", evt.type === "focus");
+				this.classList.toggle("d-select-focus", evt.type === "focus");
 			}.bind(this), this.valueNode);
 
 			// Keep delite/Selection's selectedItem/selectedItems in sync after

@@ -10,17 +10,11 @@
 
 	<link rel="stylesheet" href="../../node_modules/delite/css/defaultapp.css">
 
-	<script type="text/javascript" src="../../node_modules/requirejs/require.js"></script>
+	<!-- For testing purposes. Real applications should load the AMD loader directly -->
+	<script type="text/javascript" src="../boilerplate.js"></script>
 
 	<script type="text/javascript">
 		ready = false;
-
-		require.config({
-			baseUrl: "../../node_modules",
-			packages: [
-				{ name: "deliteful", location: ".." }
-			]
-		});
 
 		require([
 			"delite/register",

@@ -2,11 +2,10 @@
 define([
 	"dcl/dcl",
 	"delite/register",
-	"delite/classList",
 	"delite/FormValueWidget",
 	"requirejs-dplugins/i18n!./StarRating/nls/StarRating",
 	"requirejs-dplugins/css!./StarRating/StarRating.css"
-], function (dcl, register, classList, FormValueWidget, messages) {
+], function (dcl, register, FormValueWidget, messages) {
 	/**
 	 * A widget that displays a rating, usually with stars, and that allows setting a different rating value
 	 * by touching the stars.
@@ -251,10 +250,10 @@ define([
 
 		_updateZeroArea: function () {
 			if (this.readOnly || !this.allowZero) {
-				classList.addClass(this._zeroSettingArea, "d-hidden");
+				this._zeroSettingArea.classList.add("d-hidden");
 				delete this.focusNode.value;
 			} else {
-				classList.removeClass(this._zeroSettingArea, "d-hidden");
+				this._zeroSettingArea.classList.remove("d-hidden");
 				// _zeroSettingArea might not fill the whole widget height
 				// so pointer events can land in the underlying focus node
 				this.focusNode.value = 0;

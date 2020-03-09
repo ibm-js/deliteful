@@ -1,11 +1,10 @@
 /** @module deliteful/ResponsiveColumns */
 define([
 	"delite/register",
-	"delite/classList",
 	"delite/DisplayContainer",
 	"./channelBreakpoints",
 	"requirejs-dplugins/css!./ResponsiveColumns/ResponsiveColumns.css"
-], function (register, classList, DisplayContainer, channelBreakpoints) {
+], function (register, DisplayContainer, channelBreakpoints) {
 	/**
 	 * A container that lays out its children according to the screen width. This widget relies on CSS media queries
 	 * (http://www.w3.org/TR/css3-mediaqueries). You can define any number of screen classes by setting the breakpoints

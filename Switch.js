@@ -2,11 +2,10 @@
 define([
 	"requirejs-dplugins/has",
 	"delite/register",
-	"delite/classList",
 	"deliteful/Checkbox",
 	"delite/handlebars!./Switch/Switch.html",
 	"requirejs-dplugins/css!./Switch/Switch.css"
-], function (has, register, classList, Checkbox, template) {
+], function (has, register, Checkbox, template) {
 
 	/**
 	 * A form-aware switch widget that represents a toggle switch with a sliding knob.
@@ -77,9 +76,9 @@ define([
 				w = parseInt(cs.width, 10);
 			if (!this._drag && Math.abs(e.clientX - this._startX) > 4) {
 				this._drag = true;
-				classList.removeClass(this._innerNode, "-d-switch-transition");
-				classList.removeClass(this._pushNode, "-d-switch-transition");
-				classList.removeClass(this._innerWrapperNode, "-d-switch-transition");
+				this._innerNode.classList.remove("-d-switch-transition");
+				this._pushNode.classList.remove("-d-switch-transition");
+				this._innerWrapperNode.classList.remove("-d-switch-transition");
 			}
 			this._curX = e.clientX;
 			if (this._drag) {
@@ -119,9 +118,9 @@ define([
 			this._drag = false;
 			this._pushNode.style.width = "";
 			this._innerNode.style.transform = "none";
-			classList.addClass(this._innerNode, "-d-switch-transition");
-			classList.addClass(this._pushNode, "-d-switch-transition");
-			classList.addClass(this._innerWrapperNode, "-d-switch-transition");
+			this._innerNode.classList.add("-d-switch-transition");
+			this._pushNode.classList.add("-d-switch-transition");
+			this._innerWrapperNode.classList.add("-d-switch-transition");
 		},
 
 		_cleanHandlers: function () {

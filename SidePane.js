@@ -3,12 +3,10 @@ define([
 	"dcl/dcl",
 	"ibm-decor/sniff",
 	"delite/register",
-	"delite/classList",
 	"delite/DisplayContainer",
-	"requirejs-dplugins/Promise!",
 	"requirejs-dplugins/css!./SidePane/SidePane.css"
 ],
-	function (dcl, has, register, classList, DisplayContainer, Promise) {
+	function (dcl, has, register, DisplayContainer) {
 		function prefix(v) {
 			return "-d-side-pane-" + v;
 		}
@@ -162,7 +160,7 @@ define([
 					if (animate) {
 						this.addClass(prefix("animate"));
 						if (nextElement) {
-							classList.addClass(nextElement, prefix("animate"));
+							nextElement.classList.add(prefix("animate"));
 						}
 					}
 
@@ -256,7 +254,7 @@ define([
 					.addClass(prefix(this.mode));
 
 				if (nextElement && this._visible) {
-					classList.toggleClass(nextElement, prefix("translated"), this.mode !== "overlay");
+					nextElement.classList.toggle(prefix("translated"), this.mode !== "overlay");
 				}
 
 				if (this.mode === "reveal" && !this._visible) {
@@ -276,8 +274,8 @@ define([
 				this.removeClass([prefix("start"), prefix("end")].join(" "))
 					.addClass(prefix(this.position));
 				if (nextElement && this._visible) {
-					classList.removeClass(nextElement, [prefix("start"), prefix("end")].join(" "));
-					classList.addClass(nextElement, prefix(this.position));
+					nextElement.classList.remove(prefix("start"), prefix("end"));
+					nextElement.classList.add(prefix(this.position));
 				}
 			},
 
@@ -292,8 +290,8 @@ define([
 				this.removeClass(prefix("animate"));
 
 				if (nextElement) {
-					classList.removeClass(nextElement, prefix("animate"));
-					classList.toggleClass(nextElement, "d-rtl", this.effectiveDir === "rtl");
+					nextElement.classList.remove(prefix("animate"));
+					nextElement.classList.toggle("d-rtl", this.effectiveDir === "rtl");
 				}
 
 				if ("mode" in props) {
@@ -312,7 +310,7 @@ define([
 					this.defer(function () {
 						this.addClass(prefix("animate"));
 						if (nextElement) {
-							classList.addClass(nextElement, prefix("animate"));
+							nextElement.classList.add(prefix("animate"));
 						}
 					}, this._timing);
 				}
@@ -327,9 +325,8 @@ define([
 					if (this.mode === "push" || this.mode === "reveal") {
 						var nextElement = getNextSibling(this);
 						if (nextElement) {
-							classList.removeClass(nextElement,
-								[prefix("nottranslated"), prefix("start"), prefix("end")].join(" "));
-							classList.addClass(nextElement, [prefix(this.position), prefix("translated")].join(" "));
+							nextElement.classList.remove(prefix("nottranslated"), prefix("start"), prefix("end"));
+							nextElement.classList.add(prefix(this.position), prefix("translated"));
 						}
 					}
 				}
@@ -339,16 +336,14 @@ define([
 				if (this._visible) {
 					this._visible = false;
 					this._opening = false;
-					classList.removeClass(this.ownerDocument.body, prefix("no-select"));
+					this.ownerDocument.body.classList.remove(prefix("no-select"));
 					this.removeClass(prefix("visible"))
 						.addClass(prefix("hidden"));
 					if (this.mode === "push" || this.mode === "reveal") {
 						var nextElement = getNextSibling(this);
 						if (nextElement) {
-							classList
-								.removeClass(nextElement,
-									[prefix("translated"), prefix("start"), prefix("end")].join(" "))
-								.addClass(nextElement, [prefix(this.position), prefix("nottranslated")].join(" "));
+							nextElement.classList.remove(prefix("translated"), prefix("start"), prefix("end"));
+							nextElement.classList.add(prefix(this.position), prefix("nottranslated"));
 						}
 					}
 				}
@@ -370,7 +365,7 @@ define([
 					this._moveHandle = this.on("pointermove", this._pointerMoveHandler.bind(this));
 					this._releaseHandle = this.on("pointerup", this._pointerUpHandler.bind(this));
 
-					classList.addClass(this.ownerDocument.body, prefix("no-select"));
+					this.ownerDocument.body.classList.add(prefix("no-select"));
 				}
 			},
 
@@ -407,7 +402,7 @@ define([
 
 			_pointerUpHandler: function () {
 				this._opening = false;
-				classList.removeClass(this.ownerDocument.body, prefix("no-select"));
+				this.ownerDocument.body.classList.remove(prefix("no-select"));
 				this._resetInteractions();
 			},
 

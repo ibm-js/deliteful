@@ -2,14 +2,12 @@
 define([
 	"dcl/dcl",
 	"ibm-decor/sniff",
-	"requirejs-dplugins/Promise!",
 	"delite/register",
-	"delite/classList",
 	"delite/DisplayContainer",
 	"requirejs-dplugins/css!./ViewStack/ViewStack.css",
 	"requirejs-dplugins/css!./ViewStack/transitions/slide.css",
 	"requirejs-dplugins/css!./ViewStack/transitions/reveal.css"
-], function (dcl, has, Promise, register, classList, DisplayContainer) {
+], function (dcl, has, register, DisplayContainer) {
 	function setVisibility(node, val) {
 		if (node) {
 			if (val) {
@@ -24,7 +22,7 @@ define([
 
 	function setReverse(node) {
 		if (node) {
-			classList.addClass(node, "-d-view-stack-reverse");
+			node.classList.add("-d-view-stack-reverse");
 		}
 	}
 
@@ -223,11 +221,11 @@ define([
 			if (transition !== "none") {
 				if (origin) {
 					promises.push(this._startNodeTransition(origin));
-					classList.addClass(origin, transitionClass(transition));
+					origin.classList.add(transitionClass(transition));
 				}
 				if (target) {
 					promises.push(this._startNodeTransition(target));
-					classList.addClass(target, transitionClass(transition) + " -d-view-stack-in");
+					target.classList.add(transitionClass(transition), "-d-view-stack-in");
 				}
 				if (reverse) {
 					setReverse(origin);
@@ -237,17 +235,17 @@ define([
 				// TODO: figure out why the delay is needed
 				this.defer(function () {
 					if (target) {
-						classList.addClass(target, "-d-view-stack-transition");
+						target.classList.add("-d-view-stack-transition");
 					}
 					if (origin) {
-						classList.addClass(origin, "-d-view-stack-transition -d-view-stack-out");
+						origin.classList.add("-d-view-stack-transition", "-d-view-stack-out");
 					}
 					if (reverse) {
 						setReverse(origin);
 						setReverse(target);
 					}
 					if (target) {
-						classList.addClass(target, "-d-view-stack-in");
+						target.classList.add("-d-view-stack-in");
 					}
 				}, this._timing);
 			} else {
@@ -257,8 +255,8 @@ define([
 			}
 			return Promise.all(promises).then(function () {
 				this.removeClass("-d-view-stack-transition");
-				classList.removeClass(target, "-d-view-stack-transition -d-view-stack-in");
-				classList.removeClass(origin, "-d-view-stack-transition -d-view-stack-out");
+				target.classList.remove("-d-view-stack-transition", "-d-view-stack-in");
+				origin.classList.remove("-d-view-stack-transition", "-d-view-stack-out");
 			}.bind(this));
 		},
 

@@ -1,11 +1,9 @@
 define([
 	"delite/register",
-	"delite/classList",
 	"delite/Widget",
 	"../TimeBase"
 ], function (
 	register,
-	classList,
 	Widget,
 	TimeBase
 ) {
@@ -71,14 +69,14 @@ define([
 				// If there's a selected month, then set the "d-date-picker-selected" class on it.
 				// Otherwise, set the "d-date-picker-today" class on the present month.
 				this.cells.forEach(function (cell) {
-					classList.removeClass(cell, "d-date-picker-selected d-date-picker-today");
+					cell.classList.remove("d-date-picker-selected", "d-date-picker-today");
 				});
 
 				if (this.month >= 0) {
-					classList.addClass(this.cells[this.month], "d-date-picker-selected");
+					this.cells[this.month].classList.add("d-date-picker-selected");
 				} else {
 					var presentMonth = (new this.dateClassObj()).getMonth();
-					classList.addClass(this.cells[presentMonth], "d-date-picker-today");
+					this.cells[presentMonth].classList.add("d-date-picker-today");
 				}
 			}
 		},

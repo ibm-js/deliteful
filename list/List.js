@@ -4,7 +4,6 @@ define([
 	"delite/a11y",
 	"delite/features",
 	"delite/register",
-	"delite/classList",
 	"delite/Selection",
 	"delite/KeyNav",
 	"delite/StoreMap",
@@ -19,7 +18,6 @@ define([
 	a11y,
 	has,
 	register,
-	classList,
 	Selection,
 	KeyNav,
 	StoreMap,
@@ -354,8 +352,7 @@ define([
 
 			if ("selectionMode" in props || "type" in props) {
 				// Update aria attributes
-				classList.removeClass(this.containerNode, this._cssClasses.selectable);
-				classList.removeClass(this.containerNode, this._cssClasses.multiselectable);
+				this.containerNode.classList.remove(this._cssClasses.selectable, this._cssClasses.multiselectable);
 				this.containerNode.removeAttribute("aria-multiselectable");
 				if (this.selectionMode === "none") {
 					// update aria-selected attribute on unselected items
@@ -363,14 +360,14 @@ define([
 						var child = this.containerNode.children[i];
 						if (child.hasAttribute("aria-selected")) {
 							child.removeAttribute("aria-selected");
-							classList.removeClass(child, this._cssClasses.selected);
+							child.classList.remove(this._cssClasses.selected);
 						}
 					}
 				} else {
 					if (this.selectionMode === "single" || this.selectionMode === "radio") {
-						classList.addClass(this.containerNode, this._cssClasses.selectable);
+						this.containerNode.classList.add(this._cssClasses.selectable);
 					} else {
-						classList.addClass(this.containerNode, this._cssClasses.multiselectable);
+						this.containerNode.classList.add(this._cssClasses.multiselectable);
 						this.containerNode.setAttribute("aria-multiselectable", "true");
 					}
 					// update aria-selected attribute on unselected items
@@ -380,7 +377,7 @@ define([
 							if (child.tagName.toLowerCase() === this.itemRenderer.tag
 									&& !child.hasAttribute("aria-selected")) {
 								child.setAttribute("aria-selected", "false");
-								classList.removeClass(child, this._cssClasses.selected); // TODO: NOT NEEDED ?
+								child.classList.remove(this._cssClasses.selected); // TODO: NOT NEEDED ?
 							}
 						}
 					}
@@ -615,7 +612,7 @@ define([
 						// https://www.w3.org/TR/wai-aria-1.1/#aria-current role is for.
 						renderer.setAttribute("aria-selected", itemSelected ? "true" : "false");
 					}
-					classList.toggleClass(renderer, this._cssClasses.selected, itemSelected);
+					renderer.classList.toggle(this._cssClasses.selected, itemSelected);
 				}
 			}
 		},
@@ -872,7 +869,7 @@ define([
 			if (this.selectionMode !== "none" && (this.type === "grid" || this.type === "listbox")) {
 				var itemSelected = !!this.isSelected(item);
 				renderer.setAttribute("aria-selected", itemSelected ? "true" : "false");
-				classList.toggleClass(renderer, this._cssClasses.selected, itemSelected);
+				renderer.classList.toggle(this._cssClasses.selected, itemSelected);
 			}
 			return renderer;
 		},

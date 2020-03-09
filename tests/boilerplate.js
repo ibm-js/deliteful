@@ -1,5 +1,5 @@
 // module:
-//		delite/tests/boilerplate
+//		deliteful/tests/boilerplate
 // description:
 //		A <script src="boilerplate.js"> on your test page will
 //		load the loader (i.e. define the require() method)
@@ -36,10 +36,13 @@ if (window.location.href.indexOf("?") > -1) {
 		}
 	}
 }
+if (dir) {
+	document.documentElement.setAttribute("dir", dir);
+}
 
-// Find the <script src="boilerplate.js"> tag, to get test directory and data-config argument
-var scripts = document.getElementsByTagName("script"), script, overrides = {}, testDir;
-for (var j = 0; (script = scripts[j]); j++) {
+// Find the <script src="boilerplate.js"> tag, to get test directory.
+var scripts = document.getElementsByTagName("script"), script, testDir;
+for (var i = 0; (script = scripts[i]); i++) {
 	var src = script.getAttribute("src"),
 		match = src && src.match(/(.*|^)boilerplate\.js/i);
 	if (match) {
@@ -47,16 +50,13 @@ for (var j = 0; (script = scripts[j]); j++) {
 		// it's the same directory, or a string including a slash, ex: "../", if the test is in a subdirectory.
 		testDir = match[1];
 
-		// Sniff configuration on attribute in script element.
-		// Allows syntax like <script src="boilerplate.js data-dojo-config="parseOnLoad: true">, where the settings
-		// specified override the default settings.
-		var attr = script.getAttribute("data-config");
-		if (attr) {
-			/* jshint evil:true */
-			overrides = eval("({ " + attr + " })");
-		}
 		break;
 	}
+}
+
+// Add polyfills for IE.
+if (/Trident/.test(navigator.userAgent)) {
+	document.write("<script type='text/javascript' src='" + testDir + "ie-polyfills.js'></script>");
 }
 
 // Setup configuration options for the loader
@@ -69,31 +69,5 @@ require = {
 	locale: locale || "en-us"
 };
 
-for (var key2 in overrides) {
-	require[key2] = overrides[key2];
-}
-
-// Output the boilerplate text to load the loader.
+// Load Requirejs.
 document.write("<script type='text/javascript' src='" + testDir + "../node_modules/requirejs/require.js'></script>");
-
-// On IE9 the following inlined script will run before dojo has finished loading, leading to an error because require()
-// isn't defined yet.  Workaround it by putting the code in a separate file.
-document.write("<script type='text/javascript' src='" + testDir + "boilerplateOnload.js'></script>");
-
-/* global boilerplateOnLoad:true */
-boilerplateOnLoad = function () {
-	// This function is the first registered domReady() callback.
-
-	// RTL
-	if (dir === "rtl") {
-		// set dir=rtl on <html> node
-		document.body.parentNode.setAttribute("dir", "rtl");
-
-		// pretend all the labels are in an RTL language, because
-		// that affects how they lay out relative to inline form widgets
-		var labels = document.body.querySelectorAll("label");
-		for (var k = 0; k < labels.length; k++) {
-			labels[k].setAttribute("dir", "rtl");
-		}
-	}
-};

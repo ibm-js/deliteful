@@ -2,14 +2,12 @@
 define([
 	"dcl/dcl",
 	"ibm-decor/sniff",
-	"requirejs-dplugins/Promise!",
 	"delite/register",
-	"delite/classList",
 	"delite/DisplayContainer",
 	"./Accordion/AccordionHeader",
 	"./features",
 	"requirejs-dplugins/css!./Accordion/Accordion.css"
-], function (dcl, has, Promise, register, classList, DisplayContainer, AccordionHeader) {
+], function (dcl, has, register, DisplayContainer, AccordionHeader) {
 
 	function setVisibility(node, val) {
 		node.style.display = val ? "" : "none";
@@ -331,32 +329,34 @@ define([
 			if (params.hide) {
 				if (this._useAnimation()) {
 					// To avoid hiding the panel title bar on animation
-					classList.addClass(panel, "d-accordion-close-animation");
-					classList.removeClass(panel, "d-accordion-open-panel");
+					panel.classList.add("d-accordion-close-animation");
+					panel.classList.remove("d-accordion-open-panel");
 					panel.style.overflow = "hidden"; //To avoid scrollBar on animation
 					promise = listenAnimationEndEvent(panel).then(function () {
 						setVisibility(panel, panel.open);
-						classList.removeClass(panel, "d-accordion-close-animation");
+						panel.classList.remove("d-accordion-close-animation");
 						panel.style.overflow = "";
 					});
 				} else {
-					classList.removeClass(panel, "d-accordion-open-panel");
+					panel.classList.remove("d-accordion-open-panel");
 					setVisibility(panel, false);
 				}
 			} else {
 				if (this._useAnimation()) {
-					classList.addClass(panel, "d-accordion-open-animation");
+					panel.classList.add("d-accordion-open-animation");
 					setVisibility(panel, true);
 					panel.style.overflow = "hidden"; //To avoid scrollBar on animation
 					promise = listenAnimationEndEvent(panel).then(function () {
-						classList.addClass(panel, panel.open ? "d-accordion-open-panel" : "");
-						classList.removeClass(panel, "d-accordion-open-animation");
+						if (panel.open) {
+							panel.classList.add("d-accordion-open-panel");
+						}
+						panel.classList.remove("d-accordion-open-animation");
 
 						panel.style.overflow = "";
 						panel.style.minHeight = "";
 					});
 				} else {
-					classList.addClass(panel, "d-accordion-open-panel");
+					panel.classList.add("d-accordion-open-panel");
 					setVisibility(panel, true);
 				}
 			}

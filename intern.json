@@ -13,6 +13,10 @@
 
 	"basePath": "../",
 
+	"plugins": [
+		"../deliteful/tests/ie-polyfills.js"
+	],
+
 	"node": {
 		"loader": {
 			"script": "./intern-requirejs-loader.js",

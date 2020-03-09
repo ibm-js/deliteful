@@ -3,7 +3,6 @@ define(function (require) {
 
 	var registerSuite = intern.getPlugin("interface.object").registerSuite;
 	var assert = intern.getPlugin("chai").assert;
-	var Promise = require("requirejs-dplugins/Promise!");
 	var register = require("delite/register");
 	var Accordion = require("deliteful/Accordion");
 	var Panel = require("deliteful/Panel");
