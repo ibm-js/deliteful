@@ -71,7 +71,7 @@ define([
 		 * @member {module:deliteful/list/ItemRenderer}
 		 * @default module:deliteful/list/ItemRenderer
 		 */
-		itemRenderer: ItemRenderer,
+		ItemRenderer: ItemRenderer,
 
 		/**
 		 * The widget class to use to render category headers when the list items are categorized.
@@ -79,7 +79,7 @@ define([
 		 * @member {module:deliteful/list/CategoryRenderer}
 		 * @default module:deliteful/list/CategoryRenderer
 		 */
-		categoryRenderer: CategoryRenderer,
+		CategoryRenderer: CategoryRenderer,
 
 		/**
 		 * Default mapping between the attribute of the item retrieved from the store
@@ -374,7 +374,7 @@ define([
 					if (this.type === "grid" || this.type === "listbox") {
 						for (i = 0; i < this.containerNode.children.length; i++) {
 							child = this.containerNode.children[i];
-							if (child.tagName.toLowerCase() === this.itemRenderer.tag
+							if (child.tagName.toLowerCase() === this.ItemRenderer.tag
 									&& !child.hasAttribute("aria-selected")) {
 								child.setAttribute("aria-selected", "false");
 								child.classList.remove(this._cssClasses.selected); // TODO: NOT NEEDED ?
@@ -401,9 +401,9 @@ define([
 		computeProperties: function (props) {
 			/*jshint maxcomplexity:13*/
 			//	List attributes have been updated.
-			if ("itemRenderer" in props
+			if ("ItemRenderer" in props
 				|| (this._isCategorized()
-						&& ("categoryAttr" in props || "categoryFunc" in props || "categoryRenderer" in props))) {
+						&& ("categoryAttr" in props || "categoryFunc" in props || "CategoryRenderer" in props))) {
 				if (this._dataLoaded) {
 					this._busy = true;
 
@@ -439,7 +439,7 @@ define([
 				"#" + this.containerNode.id + " > [role=rowgroup] > [role=row] > .d-list-control-cell > *"
 			] : [
 				"#" + this.containerNode.id +
-				" > *:not(" + this.categoryRenderer.tag + "):not(.d-list-control-cell)",
+				" > *:not(" + this.CategoryRenderer.tag + "):not(.d-list-control-cell)",
 				"#" + this.containerNode.id + " > .d-list-control-cell > *"
 			];
 
@@ -483,8 +483,8 @@ define([
 		 */
 		getItemAndCategoryRenderers: function () {
 			return Array.prototype.filter.call(this.containerNode.childNodes, function (node) {
-				return node.tagName.toLowerCase() === this.itemRenderer.tag
-					|| node.tagName.toLowerCase() === this.categoryRenderer.tag;
+				return node.tagName.toLowerCase() === this.ItemRenderer.tag
+					|| node.tagName.toLowerCase() === this.CategoryRenderer.tag;
 			}, this);
 		},
 
@@ -494,7 +494,7 @@ define([
 		 */
 		getItemRenderers: function () {
 			return Array.prototype.filter.call(this.containerNode.childNodes, function (node) {
-				return node.tagName.toLowerCase() === this.itemRenderer.tag;
+				return node.tagName.toLowerCase() === this.ItemRenderer.tag;
 			}, this);
 		},
 
@@ -727,8 +727,8 @@ define([
 		 * Add an item renderer to the List, updating category renderers if needed.
 		 * This method calls the startup method on the renderer after it has been
 		 * added to the List.
-		 * @param {module:deliteful/list/ItemRenderer} The renderer to add to the list.
-		 * @param {number} atIndex The index (not counting category renderers) where to add
+		 * @param {module:deliteful/list/ItemRenderer} renderer - The renderer to add to the list.
+		 * @param {number} atIndex - The index (not counting category renderers) where to add
 		 * the item renderer in the list.
 		 * @private
 		 */
@@ -848,7 +848,7 @@ define([
 		 * @private
 		 */
 		_createItemRenderer: function (item) {
-			var renderer = new this.itemRenderer({
+			var renderer = new this.ItemRenderer({
 				item: item,
 				parentRole: this.type,
 				tabindex: "-1"
@@ -870,7 +870,7 @@ define([
 		 * @private
 		 */
 		_createCategoryRenderer: function (item) {
-			var renderer = new this.categoryRenderer({
+			var renderer = new this.CategoryRenderer({
 				item: item,
 				parentRole: this.type,
 				tabindex: "-1"
@@ -884,7 +884,7 @@ define([
 		 * @return {boolean}
 		 */
 		isCategoryRenderer: function (renderer) {
-			return renderer.tagName.toLowerCase() === this.categoryRenderer.tag;
+			return renderer.tagName.toLowerCase() === this.CategoryRenderer.tag;
 		},
 
 		/**
@@ -893,7 +893,7 @@ define([
 		 * @return {boolean}
 		 */
 		isItemRenderer: function (renderer) {
-			return renderer.tagName.toLowerCase() === this.itemRenderer.tag;
+			return renderer.tagName.toLowerCase() === this.ItemRenderer.tag;
 		},
 
 		/**
@@ -1091,7 +1091,7 @@ define([
 			var idSelector = "#" + this.containerNode.id;
 			var selector = this.type === "grid" ?
 				idSelector + " > [role=rowgroup] > [role=row], " + idSelector + " > [role=row]" :
-				idSelector + " > *:not(" + this.categoryRenderer.tag + ")";
+				idSelector + " > *:not(" + this.CategoryRenderer.tag + ")";
 			return this.querySelectorAll(selector);
 		},
 

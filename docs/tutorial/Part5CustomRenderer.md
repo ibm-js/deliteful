@@ -23,7 +23,7 @@ An item renderer is a subclass of `deliteful/list/ItemRenderer` that defines the
 Add the following code in `js/app.js`, before the `refreshPhotoList()` call:
 
 ```js
-photolist.itemRenderer = register("d-photo-item", [ItemRenderer], {
+photolist.ItemRenderer = register("d-photo-item", [ItemRenderer], {
 	template: handlebars.compile("<template role=row>" +
 		"<div role=gridcell class='d-list-cell' tabindex=-1>" +
 			"<div class='photoThumbnailBg'>" +
@@ -39,7 +39,7 @@ photolist.itemRenderer = register("d-photo-item", [ItemRenderer], {
 });
 ```
 
-This needs some explanations. The `itemRenderer` property of the deliteful List widget can be set to an instance of a
+This needs some explanations. The `ItemRenderer` property of the deliteful List widget can be set to an instance of a
 subclass of `deliteful/list/ItemRenderer`. For each element of the data source, an instance of the renderer class
 will be created. The DOM contents of each item is defined by the `template` property,
 which is parsed and processed by the [handlebars](/delite/docs/master/handlebars.md)
@@ -126,7 +126,7 @@ and this is the opportunity to show that templates can contain any JavaScript ex
 format a date:
 
 ```js
-photolist.itemRenderer = register("d-photo-item", [HTMLElement, ItemRenderer], {
+photolist.ItemRenderer = register("d-photo-item", [HTMLElement, ItemRenderer], {
 	... ,
 
 	// Formats a date in ISO 8601 format into a more readable format.

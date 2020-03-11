@@ -133,7 +133,7 @@ define([
 		computeProperties: function (oldVals) {
 			// Start on month containing this.value, or if there's no value set, then the current day.
 			if ("value" in oldVals) {
-				this.currentFocus = this.value && !isNaN(this.value) ? this.value : new this.dateClassObj();
+				this.currentFocus = this.value && !isNaN(this.value) ? this.value : new this.Date();
 			}
 
 			// If requested date is not in current month, then switch to month with requested date.
@@ -180,7 +180,7 @@ define([
 				sup.apply(this, arguments);
 
 				// Create column headers.
-				var d = this.floorToWeek(new this.dateClassObj());
+				var d = this.floorToWeek(new this.Date());
 				for (var i = 0; i < 7; i++) {
 					var cell = this.daysRow.appendChild(this.ownerDocument.createElement("div"));
 					cell.id = this.widgetId + "-day-" + i;
@@ -251,7 +251,7 @@ define([
 					today.classList.remove("d-date-picker-today");
 				}
 
-				var todayCell = this._dateToCell(new this.dateClassObj());
+				var todayCell = this._dateToCell(new this.Date());
 				if (todayCell) {
 					todayCell.classList.add("d-date-picker-today");
 				}
@@ -431,7 +431,7 @@ define([
 		 * Move to specified month.
 		 */
 		setMonth: function (month) {
-			var newDate = new this.dateClassObj(this.currentFocus.getFullYear(), month,
+			var newDate = new this.Date(this.currentFocus.getFullYear(), month,
 				this.currentFocus.getDate());
 			if (newDate.getMonth() > month) {
 				// Corner case where we try to go from March 31 --> Feb 31, and then end up on March 3.
@@ -444,7 +444,7 @@ define([
 		 * Move to specified year.
 		 */
 		setYear: function (year) {
-			var newDate = new this.dateClassObj(year, this.currentFocus.getMonth(),
+			var newDate = new this.Date(year, this.currentFocus.getMonth(),
 				this.currentFocus.getDate());
 
 			if (newDate.getMonth() > this.currentFocus.getMonth()) {

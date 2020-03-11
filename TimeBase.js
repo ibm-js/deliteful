@@ -20,7 +20,7 @@ define([
 		/**
 		 * Object with same API as native Date class.
 		 */
-		dateClassObj: Date,
+		Date: Date,
 
 		/**
 		 * Object with same API as dojo/date.
@@ -55,21 +55,21 @@ define([
 			if (obj.getTime) {
 				// obj is a Date.  Standard way to copy a Date is new Date(oldDate.getTime()), but that has problems
 				// with timezone-js around DST when dealing with a timezone different than the machine's timezone.
-				return new this.dateClassObj(obj.getFullYear(), obj.getMonth(), obj.getDate(),
+				return new this.Date(obj.getFullYear(), obj.getMonth(), obj.getDate(),
 					obj.getHours(), obj.getMinutes(), obj.getSeconds(), obj.getMilliseconds());
 			} else if (typeof obj === "number") {
 				// obj is a timestamp.
-				return new this.dateClassObj(obj);
+				return new this.Date(obj);
 			} else if (typeof obj === "string") {
 				// obj is an ISO string like "2017-10-20".
 				var d = stamp.fromISOString(obj);
 				if (d === null) {
 					throw new Error("Cannot parse date string (" + obj + ")"); // cannot build date
 				}
-				if (this.dateClassObj === Date) {
+				if (this.Date === Date) {
 					return d;
 				} else {
-					return this.newDate(d);   // from Date to this.dateClassObj
+					return this.newDate(d);   // from Date to this.Date
 				}
 			}
 		},
@@ -116,7 +116,7 @@ define([
 		 * @returns {Date}
 		 */
 		floorToDay: function (date) {
-			return new this.dateClassObj(date.getFullYear(), date.getMonth(), date.getDate());
+			return new this.Date(date.getFullYear(), date.getMonth(), date.getDate());
 		},
 
 		/**
@@ -128,7 +128,7 @@ define([
 			var fd = this.firstDayOfWeek;
 			var day = date.getDay();
 			var dayAdjust =  day >= fd ? -day + fd : -day + fd - 7;
-			return new this.dateClassObj(date.getFullYear(), date.getMonth(), date.getDate() + dayAdjust);
+			return new this.Date(date.getFullYear(), date.getMonth(), date.getDate() + dayAdjust);
 		},
 
 		/**
@@ -137,7 +137,7 @@ define([
 		 * @returns {Date}
 		 */
 		floorToMonth: function (date) {
-			return new this.dateClassObj(date.getFullYear(), date.getMonth(), 1);
+			return new this.Date(date.getFullYear(), date.getMonth(), 1);
 		},
 
 		/**
@@ -146,7 +146,7 @@ define([
 		 * @returns {boolean}
 		 */
 		isToday: function (date) {
-			var today = new this.dateClassObj();
+			var today = new this.Date();
 			return date.getFullYear() === today.getFullYear() &&
 				date.getMonth() === today.getMonth() &&
 				date.getDate() === today.getDate();

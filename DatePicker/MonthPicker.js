@@ -75,7 +75,7 @@ define([
 				if (this.month >= 0) {
 					this.cells[this.month].classList.add("d-date-picker-selected");
 				} else {
-					var presentMonth = (new this.dateClassObj()).getMonth();
+					var presentMonth = (new this.Date()).getMonth();
 					this.cells[presentMonth].classList.add("d-date-picker-today");
 				}
 			}

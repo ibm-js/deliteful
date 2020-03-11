@@ -26,7 +26,7 @@ Here is a screenshot of a list that displays items using the default renderer:
 
 ![List Example](images/List.png)
 
-Any [custom item renderer](#customRenderers) can be specified  using the `itemRenderer` property of the widget.
+Any [custom item renderer](#customRenderers) can be specified  using the `ItemRenderer` property of the widget.
 
 The widget also provides the following capabilities:
 
@@ -289,7 +289,7 @@ list.source.add({label: "third item", category: "Category B"});
 
 As with the rendering of items, the actual rendering of the categories in the list is delegated to a category renderer widget.
 The default one is `deliteful/list/CategoryRenderer`, but a custom category renderer can be specified
-using the `categoryRenderer` property of the list (see the [custom renderers](#customRenderers) section for more details).
+using the `CategoryRenderer` property of the list (see the [custom renderers](#customRenderers) section for more details).
 
 <a name="customRenderers"></a>
 ### Custom renderers
@@ -300,7 +300,7 @@ using the `categoryRenderer` property of the list (see the [custom renderers](#c
 
 The actual rendering of the items in the list is delegated to an item renderer widget.
 The default one is `deliteful/list/ItemRenderer`, but a custom item renderer can be specified
-using the `itemRenderer` property of the list.
+using the `ItemRenderer` property of the list.
 
 A custom item renderer must extend `deliteful/list/ItemRenderer`.
 It accesses the item to render in its `item` property.
@@ -309,7 +309,7 @@ It accesses the item to render in its `item` property.
 
 The actual rendering of the categories in the list is delegated to a category renderer widget.
 The default one is `deliteful/list/CategoryRenderer`, but a custom category renderer can be specified
-using the `categoryRenderer` property of the list.
+using the `CategoryRenderer` property of the list.
 
 A custom category renderer is similar to a custom item renderer, except that it extends `deliteful/list/CategoryRenderer`.
 

@@ -142,7 +142,7 @@ define([
 			// Fill in text for each grid cell.
 			if ("rows" in oldVals || "cols" in oldVals || "centeredYear" in oldVals || "year" in oldVals) {
 				var firstYear = this.centeredYear - Math.floor(this.rows * this.cols / 2);
-				var presentYear = (new this.dateClassObj()).getFullYear();
+				var presentYear = (new this.Date()).getFullYear();
 				this.cells.forEach(function (cell, idx) {
 					cell.year = firstYear + idx;
 					cell.firstChild.textContent = cell.year;

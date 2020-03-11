@@ -127,7 +127,7 @@ define([
 			// Create the DayPicker initially, and create MonthPicker and YearPicker on demand.
 			this.dayPicker = new DayPicker({
 				gridLabel: this.dayPickerLabel,
-				dateClassObj: this.dateClassObj,
+				Date: this.Date,
 				dateModule: this.dateModule,
 				dateLocaleModule: this.dateLocaleModule,
 				firstDayOfWeek: this.firstDayOfWeek,
@@ -162,7 +162,7 @@ define([
 			if (!this.monthPicker) {
 				this.monthPicker = new MonthPicker({
 					gridLabel: this.monthPickerLabel,
-					dateClassObj: this.dateClassObj,
+					Date: this.Date,
 					dateModule: this.dateModule,
 					dateLocaleModule: this.dateLocaleModule,
 					previousIconClass: this.previousIconClass,
@@ -189,7 +189,7 @@ define([
 			if (!this.yearPicker) {
 				this.yearPicker = new YearPicker({
 					gridLabel: this.yearPickerLabel,
-					dateClassObj: this.dateClassObj,
+					Date: this.Date,
 					dateModule: this.dateModule,
 					dateLocaleModule: this.dateLocaleModule,
 					previousIconClass: this.previousIconClass,
@@ -238,7 +238,7 @@ define([
 		 * Return to the day picker and set it to the year and month containing today.
 		 */
 		todayButtonClickHandler: function () {
-			var today = new this.dateClassObj();
+			var today = new this.Date();
 			this.viewStack.show(this.dayPicker);
 			this.dayPicker.focus(today);
 		},
