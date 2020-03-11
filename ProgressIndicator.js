@@ -22,9 +22,7 @@ define([
 	 * @class module:deliteful/ProgressIndicator
 	 * @augments module:delite/Widget
 	 */
-	return register("d-progress-indicator", [HTMLElement, Widget],
-		/** @lends module:deliteful/ProgressIndicator# */ {
-
+	return register("d-progress-indicator", [ HTMLElement, Widget ], /** @lends module:deliteful/ProgressIndicator# */ {
 		/**
 		 * Set to false to hide the widget and stop any ongoing animation.
 		 * Set to true to show the widget: animation automatically starts unless you set a number to the "value"
@@ -171,7 +169,7 @@ define([
 				//fast: 500ms
 				//slow: 2000ms
 				//normal: 1000ms (also default and fallback value)
-				correctedValue = (this.speed === "fast") ? 500:(this.speed === "slow") ? 2000:1000;
+				correctedValue = (this.speed === "fast") ? 500 : (this.speed === "slow") ? 2000 : 1000;
 				if (this._lapsTime !== correctedValue) {
 					this._lapsTime = correctedValue;
 				}

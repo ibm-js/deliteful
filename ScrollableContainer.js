@@ -7,8 +7,8 @@ define([
 
 	/**
 	 * A container widget with scrolling capabilities.
-	 * 
-	 * This widget can scroll its contents horizontally and/or vertically. 
+	 *
+	 * This widget can scroll its contents horizontally and/or vertically.
 	 * Its scrolling capabilities and API are provided by its parent class
 	 * `delite/Scrollable`.
 	 * @example
@@ -20,9 +20,8 @@ define([
 	 * @augments module:delite/Container
 	 * @augments module:delite/Scrollable
 	 */
-	return register("d-scrollable-container", [HTMLElement, Container, Scrollable],
-		/** @lends module:deliteful/ScrollableContainer# */{
-
+	// eslint-disable-next-line max-len
+	return register("d-scrollable-container", [ HTMLElement, Container, Scrollable ], /** @lends module:deliteful/ScrollableContainer# */ {
 		/**
 		 * The name of the CSS class of this widget.
 		 * @member {string}

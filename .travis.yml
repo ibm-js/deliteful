@@ -9,11 +9,9 @@ env:
 
 install:
    - npm install -g grunt-cli
-   - npm -g install bower
    - npm install
-   - bower install
 
 script:
-   - grunt jshint
+   - grunt eslint
    - npx intern config=@sauce
 

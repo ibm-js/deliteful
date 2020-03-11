@@ -9,7 +9,7 @@ define({
 		"next-year": "Next year",
 		"previous-year-range": "Previous range of years",
 		"next-year-range": "Next range of years",
-		today: "Today",
-		clear: "Clear"
+		"today": "Today",
+		"clear": "Clear"
 	}
 });

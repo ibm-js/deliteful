@@ -11,7 +11,6 @@ define(function (require) {
 
 	var container;
 
-	/*jshint multistr: true */
 	var html = " <d-combobox id=\"combo1\" righttextAttr=\"sales\"> \
 		{ \"label\": \"Option 0\", \"sales\": 500, \"profit\": 50, \"region\": \"EU\" }, \
 		{ \"label\": \"Option 1\", \"sales\": 450, \"profit\": 48, \"region\": \"EU\" }, \
@@ -39,7 +38,6 @@ define(function (require) {
 
 	// Second variant to test attribute mapping for label
 
-	/*jshint multistr: true */
 	var htmlMappedAttr = " <d-combobox id=\"combo1\" labelAttr=\"name\" righttextAttr=\"sales\"> \
 		{ \"name\": \"Option 0\", \"sales\": 500, \"profit\": 50, \"region\": \"EU\" }, \
 		{ \"name\": \"Option 1\", \"sales\": 450, \"profit\": 48, \"region\": \"EU\" }, \

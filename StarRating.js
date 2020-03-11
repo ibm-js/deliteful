@@ -73,7 +73,6 @@ define([
 			}
 		},
 
-		/* jshint maxcomplexity: 13 */
 		refreshRendering: function (props) {
 			if ("disabled" in props) {
 				this.toggleClass(this.baseClass + "-disabled", this.disabled);
@@ -100,7 +99,6 @@ define([
 				this._updateZeroArea();
 			}
 		},
-		/* jshint maxcomplexity: 10 */
 
 		_refreshStarsRendering: function () {
 			var createChildren = this.focusNode.children.length - 1 !== 2 * this.max;
@@ -237,8 +235,10 @@ define([
 				} else {
 					starClass += this.baseClass + "-empty";
 				}
+
+				var parent;
 				if (create) {
-					var parent = this.ownerDocument.createElement("div");
+					parent = this.ownerDocument.createElement("div");
 					parent.value = this.editHalfValues ? (i + 1) / 2 : Math.ceil((i + 1) / 2);
 					this.focusNode.appendChild(parent);
 				} else {

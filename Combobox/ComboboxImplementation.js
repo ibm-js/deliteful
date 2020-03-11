@@ -227,7 +227,6 @@ define([
 		 * @param evt
 		 */
 		inputKeydownHandler: function (evt) {
-			/* jshint maxcomplexity: 17 */
 			// deliteful issue #382: prevent the browser from navigating to
 			// the previous page when typing backspace in a readonly input
 			if (this.inputNode.readOnly && evt.key === "Backspace") {

@@ -19,8 +19,7 @@ define([
 	 * @class module:deliteful/LinearLayout
 	 * @augments module:delite/DisplayContainer
 	 */
-	return register("d-linear-layout", [HTMLElement, DisplayContainer],
-		/** @lends module:deliteful/LinearLayout# */{
+	return register("d-linear-layout", [ HTMLElement, DisplayContainer ], /** @lends module:deliteful/LinearLayout# */{
 		/**
 		 * The name of the CSS class of this widget.
 		 * @member {string}

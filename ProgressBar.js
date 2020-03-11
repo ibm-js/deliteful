@@ -169,7 +169,7 @@ define([
 		 * @param {number} max - The value that express the task is completed (maximum value).
 		 * @returns {string} The message to display.
 		 */
-		formatMessage: function (position, value, /*jshint unused: vars */max) {
+		formatMessage: function (position, value /*, max */) {
 			if (!this._numberFormat || this._prevLang !== this.lang ||
 				this._numberFormat.resolvedOptions().minimumFractionDigits !== this.fractionDigits) {
 				var options = {

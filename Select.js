@@ -8,8 +8,7 @@ define([
 	"delite/Selection",
 	"delite/handlebars!./Select/Select.html",
 	"requirejs-dplugins/css!./Select/Select.css"
-], function (dcl, has, register,
-	FormWidget, StoreMap, Selection, template) {
+], function (dcl, has, register, FormWidget, StoreMap, Selection, template) {
 
 	/**
 	 * A form-aware and store-aware widget leveraging the native HTML5 `<select>`
@@ -63,10 +62,9 @@ define([
 	 * @augments module:delite/StoreMap
 	 * @augments module:delite/Selection
 	 */
-	return register("d-select", [HTMLElement, FormWidget, Selection, StoreMap],
-		// Have to keep StoreMap after Selection to get Store definition of getIdentity function
-		/** @lends module:deliteful/Select# */ {
-
+	// Have to keep StoreMap after Selection to get Store definition of getIdentity function
+	// eslint-disable-next-line max-len
+	return register("d-select", [ HTMLElement, FormWidget, Selection, StoreMap ], /** @lends module:deliteful/Select# */ {
 		// TODO: improve doc.
 
 		// Note: the properties `store` and `query` are inherited from delite/Store, and
@@ -190,7 +188,7 @@ define([
 				// present in the current selection (widget.selectedItems).
 				for (i = 0; i < nSelectedOptions; i++) {
 					selectedOption = selectedOptions[i];
-					if (selectedItems.indexOf(selectedOption.__dataItem) === - 1) {
+					if (selectedItems.indexOf(selectedOption.__dataItem) === -1) {
 						this.selectFromEvent(event, selectedOption.__dataItem, selectedOption, true);
 					}
 				}
@@ -214,8 +212,6 @@ define([
 		},
 
 		refreshRendering: function (props) {
-			/* jshint maxcomplexity: 13 */
-
 			// Rerender the <select> content when the choices or the selection is programatically changed.
 			// However, the re-rendering must not be triggered while the user clicks items,
 			// because it would disturb user's interaction with a Select in

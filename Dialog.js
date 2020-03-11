@@ -169,8 +169,7 @@ define([
 
 				advise.after(this.moveable, "onMoveStart", function () {
 					// Lock in width/height to prevent squashing when Dialog dragged past right edge of screen.
-					var cs = getComputedStyle(this),
-						wrapper = this.parentNode;
+					var cs = getComputedStyle(this);
 					wrapper.style.width = this.style.width = cs.width;
 					wrapper.style.height = this.style.height = cs.height;
 

@@ -2,7 +2,7 @@
 define(["dcl/dcl",
 	"delite/register",
 	"delite/Widget",
-    "requirejs-dplugins/css!./Panel/Panel.css"
+	"requirejs-dplugins/css!./Panel/Panel.css"
 ], function (dcl, register, Widget) {
 
 	/**

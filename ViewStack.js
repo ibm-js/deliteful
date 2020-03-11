@@ -8,7 +8,7 @@ define([
 	"requirejs-dplugins/css!./ViewStack/transitions/slide.css",
 	"requirejs-dplugins/css!./ViewStack/transitions/reveal.css"
 ], function (dcl, has, register, DisplayContainer) {
-	function setVisibility(node, val) {
+	function setVisibility (node, val) {
 		if (node) {
 			if (val) {
 				node.style.visibility = "visible";
@@ -20,13 +20,13 @@ define([
 		}
 	}
 
-	function setReverse(node) {
+	function setReverse (node) {
 		if (node) {
 			node.classList.add("-d-view-stack-reverse");
 		}
 	}
 
-	function cleanCSS(node) {
+	function cleanCSS (node) {
 		if (node) {
 			node.className = node.className.split(/ +/).filter(function (x) {
 				return !/^-d-view-stack/.test(x);
@@ -34,11 +34,11 @@ define([
 		}
 	}
 
-	function transitionClass(s) {
+	function transitionClass (s) {
 		return "-d-view-stack-" + s;
 	}
 
-	function mix(a, b) {
+	function mix (a, b) {
 		for (var n in b) {
 			a[n] = b[n];
 		}
@@ -116,7 +116,7 @@ define([
 		_pendingChild: null,
 
 		constructor: function () {
-			this._transitionTiming = {default: 0, chrome: 20, ios: 20, android: 100, ff: 100, ie: 20};
+			this._transitionTiming = {"default": 0, "chrome": 20, "ios": 20, "android": 100, "ff": 100, "ie": 20};
 			for (var o in this._transitionTiming) {
 				if (has(o) && this._timing < this._transitionTiming[o]) {
 					this._timing = this._transitionTiming[o];
@@ -327,7 +327,7 @@ define([
 				var failsafe = this.defer(resolve, 1000);
 
 				// Set up listener for when the animation completes.
-				node.addEventListener("transitionend", function after() {
+				node.addEventListener("transitionend", function after () {
 					node.removeEventListener("transitionend", after);
 					failsafe.remove();
 					resolve();

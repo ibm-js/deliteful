@@ -1,5 +1,5 @@
-define({ root:
-	{
+define({
+	root: {
 		"aria-valuetext": "${value} stars"
 	}
 });

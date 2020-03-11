@@ -19,8 +19,8 @@ define([
 	 * @class module:deliteful/Combobox/ComboPopup
 	 * @augments module:delite/ComboboxImplementation
 	 */
-	return register("d-combo-popup",
-		[HTMLElement, ComboboxImplementation], /** @lends module:deliteful/Combobox/ComboPopup# */ {
+	// eslint-disable-next-line max-len
+	return register("d-combo-popup", [HTMLElement, ComboboxImplementation], /** @lends module:deliteful/Combobox/ComboPopup# */ {
 		baseClass: "d-combo-popup",
 
 		template: template,

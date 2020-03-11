@@ -184,7 +184,6 @@ define(function (require) {
 					"make sure number of msg retrieved by _getRemovableMsg is 0");
 			},
 
-			/*jshint maxcomplexity:11*/
 			"Checking _nonRemovableAreOnlyPersistent behaviour #1": function () {
 				// some messages are removable and some are not
 				// some messages are persistent and some are not

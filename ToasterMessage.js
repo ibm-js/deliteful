@@ -7,147 +7,146 @@ define([
 	"delite/handlebars!./Toaster/ToasterMessage.html"
 ], function (dcl, Widget, register, has, template) {
 
+	var SwipeStateMachine = function (element, callback) {
+		var MIN_HORIZONTAL = 100,       // unit = px
+			MIN_SPEED = 0.85;           // unit = px/ms
+
+		function getEventLocation (event) {
+			return { x: event.clientX, y: event.clientY };
+		}
+
+		function opacity (distance, elementWidth) {
+			return distance < elementWidth ?
+				1 - distance * 1.0 / elementWidth : 0;
+		}
+
+		function updateElement (gesture) {
+			var d = gesture.distance();
+			if (d >= 0) {
+				element.style.left = d + "px";                           // translate element
+				element.style.opacity = opacity(d, element.clientWidth); // change opacity
+			}
+		}
+
+		function resetElement () {
+			element.style.left = "";
+			element.style.opacity = ""; // TODO we should make sure this doesn't interfere with user css
+		}
+
+		function setUnderGestureCtrl () {
+			if (element.isExpirable()) {
+				element._timer.pause();
+			}
+		}
+
+		function releaseFromGestureCtrl () {
+			if (element.isExpirable()) {
+				element._timer.resume();
+			}
+		}
+
+		this.gesture = {
+			trajectory: null,
+			startTime: null,
+			endTime: null,
+
+			first: function () {
+				return this.trajectory[0];
+			},
+			last: function () {
+				var last = this.trajectory.length - 1;
+				return this.trajectory[last];
+			},
+			secondLast: function () {
+				var last = this.trajectory.length - 2;
+				return this.trajectory[last];
+			},
+
+			// gesture parameters
+			distance: function () {
+				return this.last().x - this.first().x;
+			},
+			direction: function () {
+				return this.last().x - this.secondLast().x > 0 ?
+					"right" : "left";
+			},
+			duration: function () {
+				if (this.startTime && this.endTime) {
+					return this.endTime - this.startTime;
+				}
+			},
+			speed: function () {
+				return this.distance() / this.duration();
+			},
+
+			// gesture validators
+			isLongEnough: function () {
+				return this.distance() > MIN_HORIZONTAL;
+			},
+			isFastEnough: function () {
+				return this.speed() > MIN_SPEED;
+			},
+			isDirectedToRight: function () {
+				return this.direction() === "right";
+			}
+		};
+
+		this.hasStarted = false;
+		this.hasEnded = false;
+
+		this.startCapture = function (event) {
+			this.hasStarted = true;
+			this.hasEnded = false;
+
+			var loc = getEventLocation(event);
+			this.gesture.trajectory = [loc];
+			this.gesture.startTime = new Date().getTime();
+			this.gesture.endTime = null;
+
+			setUnderGestureCtrl();
+		};
+
+		this.keepCapturing = function (event) {
+			var loc = getEventLocation(event);
+			this.gesture.trajectory.push(loc);
+			updateElement(this.gesture);
+		};
+
+		this.endCapture = function () {
+			this.hasStarted = false;
+			this.hasEnded = true;
+
+			this.gesture.endTime = new Date().getTime();
+			if (this.gesture.isFastEnough() ||
+				this.gesture.isLongEnough() && this.gesture.isDirectedToRight()) {
+				callback();
+			} else {
+				resetElement();
+				releaseFromGestureCtrl();
+			}
+
+		};
+	};
+
 	// TODO: this could be abstracted in a separate class, so that it can be used by other widgets
 	// such as the toggle/switch.
 	// TODO: this part might need some more refactoring, the updateElement/resetElement methods do not belong in
 	// the SwipeStateMachine constructor.
 	var SwipeToDismiss = function (element, callback) {
-		var SwipeStateMachine = function (element) {
+		var state = new SwipeStateMachine(element, callback);
 
-			var MIN_HORIZONTAL = 100,       // unit = px
-				MIN_SPEED = 0.85;           // unit = px/ms
-
-			function getEventLocation(event) {
-				return { x: event.clientX, y: event.clientY };
-			}
-
-			function opacity(distance, elementWidth) {
-				return distance < elementWidth ?
-					1 - distance * 1.0 / elementWidth : 0;
-			}
-
-			function updateElement(element, gesture) {
-				var d = gesture.distance();
-				if (d >= 0) {
-					element.style.left = d + "px";                           // translate element
-					element.style.opacity = opacity(d, element.clientWidth); // change opacity
-				}
-			}
-
-			function resetElement(element) {
-				element.style.left = "";
-				element.style.opacity = ""; // TODO we should make sure this doesn't interfere with user css
-			}
-
-			function setUnderGestureCtrl(element) {
-				if (element.isExpirable()) {
-					element._timer.pause();
-				}
-			}
-
-			function releaseFromGestureCtrl(element) {
-				if (element.isExpirable()) {
-					element._timer.resume();
-				}
-			}
-
-			this.gesture = {
-				trajectory: null,
-				startTime: null,
-				endTime: null,
-
-				first: function () {
-					return this.trajectory[0];
-				},
-				last: function () {
-					var last = this.trajectory.length - 1;
-					return this.trajectory[last];
-				},
-				secondLast: function () {
-					var last = this.trajectory.length - 2;
-					return this.trajectory[last];
-				},
-
-				// gesture parameters
-				distance: function () {
-					return this.last().x - this.first().x;
-				},
-				direction: function () {
-					return this.last().x - this.secondLast().x > 0 ?
-						"right" : "left";
-				},
-				duration: function () {
-					if (this.startTime && this.endTime) {
-						return this.endTime - this.startTime;
-					}
-				},
-				speed: function () {
-					return this.distance() / this.duration();
-				},
-
-				// gesture validators
-				isLongEnough: function () {
-					return this.distance() > MIN_HORIZONTAL;
-				},
-				isFastEnough: function () {
-					return this.speed() > MIN_SPEED;
-				},
-				isDirectedToRight: function () {
-					return this.direction() === "right";
-				}
-			};
-
-			this.hasStarted = false;
-			this.hasEnded = false;
-
-			this.startCapture = function (event) {
-				this.hasStarted = true;
-				this.hasEnded = false;
-
-				var loc = getEventLocation(event);
-				this.gesture.trajectory = [loc];
-				this.gesture.startTime = new Date().getTime();
-				this.gesture.endTime = null;
-
-				setUnderGestureCtrl(element);
-			};
-
-			this.keepCapturing = function (event) {
-				var loc = getEventLocation(event);
-				this.gesture.trajectory.push(loc);
-				updateElement(element, this.gesture);
-			};
-
-			this.endCapture = function () {
-				this.hasStarted = false;
-				this.hasEnded = true;
-
-				this.gesture.endTime = new Date().getTime();
-				if (this.gesture.isFastEnough() ||
-					this.gesture.isLongEnough() && this.gesture.isDirectedToRight()) {
-					callback();
-				} else {
-					resetElement(element);
-					releaseFromGestureCtrl(element);
-				}
-
-			};
-		};
-
-		var state = new SwipeStateMachine(element);
-
-		function _pointerDownHandler(event) {
+		function _pointerDownHandler (event) {
 			state.startCapture(event);
 			element.setPointerCapture(event.pointerId);
 		}
 
-		function _pointerMoveHandler(event) {
+		function _pointerMoveHandler (event) {
 			if (state.hasStarted && !state.hasEnded) {
 				state.keepCapturing(event);
 			}
 		}
 
-		function _pointerUpHandler(event) {
+		function _pointerUpHandler (event) {
 			if (state.hasStarted) {
 				state.endCapture(event);
 			}
@@ -169,17 +168,16 @@ define([
 				signalUp.remove();
 			}
 		};
-
 	};
 
 	// TODO: this could be abstracted in a separate class, so that it can be used by other widgets
 	var Timer = function (duration) {
 		var promise = new Promise(function (resolve, reject) {
 			var timer = null, _startDate = null, _remaining = null,
-			_fulfilled = false;		// NOTE: necessary because _remaining == 0 doesn't
-									// necessarily mean the timeout callback was fired immediately
+				_fulfilled = false;		// NOTE: necessary because _remaining == 0 doesn't
+			// necessarily mean the timeout callback was fired immediately
 
-			function _start(duration) {
+			function _start () {
 				_startDate = Date.now();
 				timer = setTimeout(function () {
 					_fulfilled = true;
@@ -187,13 +185,13 @@ define([
 				}, duration);
 			}
 
-			function computeRemaining() {
+			function computeRemaining () {
 				var rt = duration - Date.now() + _startDate;
 				return rt >= 0 ? rt : 0;
 			}
 
 			this.start = function () {
-				_start(duration);
+				_start();
 				return promise;
 			};
 
@@ -221,23 +219,22 @@ define([
 	};
 
 	var PauseTimerOnHover = function (element) {
-
 		var hovering = false;
-		function _pauseTimer() {
+		function _pauseTimer () {
 			if (!hovering) {
 				hovering = true;
 				element._timer.pause();
 			}
 		}
 
-		function _resumeTimer() {
+		function _resumeTimer () {
 			if (hovering) {
 				hovering = false;
 				element._timer.resume();
 			}
 		}
 
-		function _pointerUpHandler(e) {
+		function _pointerUpHandler (e) {
 			if (e.pointerType === "touch") {
 				_resumeTimer();
 			}
@@ -277,18 +274,18 @@ define([
 	};
 	var defaultType = messageTypes.info;
 
-	function normalizeType(type) {
+	function normalizeType (type) {
 		return messageTypes[type] || defaultType;
 	}
 
-	function messageTypeClass(type) {
+	function messageTypeClass (type) {
 		return "d-toaster-type-" + type;
 	}
 
 	/* message duration */
 	var defaultDuration = 2000;
 
-	function normalizeDuration(duration) {
+	function normalizeDuration (duration) {
 		return typeof duration === "number" && !isNaN(duration) ? duration : defaultDuration;
 	}
 
@@ -297,7 +294,7 @@ define([
 		"-webkit-transition": "webkitTransitionEnd"  // > chrome 1.0 , > Android 2.1 , > Safari 3.2
 	};
 
-	function whichEvent(events) {
+	function whichEvent (events) {
 		// NOTE: returns null if event is not supported
 		var fakeElement = document.createElement("fakeelement");
 		for (var event in events) {
@@ -311,7 +308,7 @@ define([
 	var animationendEvent = has("animationEndEvent"),
 		transitionendEvent = whichEvent(transitionendEvents);
 
-	function listenAnimationEvents(element, callback) {
+	function listenAnimationEvents (element, callback) {
 		var events = [animationendEvent, transitionendEvent];
 		events.forEach(function (event) {
 			if (event) { // if event is supported

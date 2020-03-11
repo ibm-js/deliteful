@@ -157,7 +157,6 @@ define(function () {
 			},
 
 			"Check toaster stacking permanent messages": function () {
-				/*jshint -W061 */
 				// check number of messages on startup
 				var remote = this.remote;
 				return remote
@@ -269,7 +268,6 @@ define(function () {
 				}
 
 				return remote
-					/*jshint -W061 */
 					.execute("return actionsTypes;") // TODO: stop using, hardcode variable names
 					.then(function (actions) {
 						return remote
@@ -289,7 +287,6 @@ define(function () {
 			"Check visibility on hover": function () {
 				var remote = this.remote;
 				return remote
-					// jshint -W061
 					.execute("return actionsHover;") // TODO: stop using, hardcode variable names
 					.then(function (actions) {
 						var action = actions.expirable3000;

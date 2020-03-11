@@ -35,7 +35,7 @@ define([
 		 * This is called from the delite/popup code, and should not be called directly.
 		 */
 		onPosition: function (/*Object*/ event) {
-			function clamp(value, min, max) {
+			function clamp (value, min, max) {
 				return Math.max(min, Math.min(max, value));
 			}
 

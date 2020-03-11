@@ -11,7 +11,6 @@ define(function (require) {
 	var Store = Memory.createSubclass([Trackable], {});
 
 	var container, MySelect;
-	/*jshint multistr: true */
 	var html = "<d-select id='select1'> \
 			</d-select>\
 			<my-select id='myselect1'> \

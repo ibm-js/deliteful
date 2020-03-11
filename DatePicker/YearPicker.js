@@ -129,7 +129,7 @@ define([
 					var row = this.grid.appendChild(this.ownerDocument.createElement("div"));
 					row.setAttribute("role", "row");
 					for (var c = 0; c < this.cols; c++) {
-						var cell = row.appendChild(this.ownerDocument.createElement("div"));
+						let cell = row.appendChild(this.ownerDocument.createElement("div"));
 						cell.setAttribute("role", "gridcell");
 
 						// Create nested element for text so vertical centering works.

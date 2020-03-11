@@ -172,9 +172,9 @@ define([
 					listener = function (a) {
 						if (a.matches) {
 							this.target.screenClass = this.class;
-							this.target.emit("change", {screenClass: this.class, mediaQueryList: mql});
+							this.target.emit("change", {screenClass: this.class, mediaQueryList: this.mql});
 						}
-					}.bind({class: sizeClasses[i], mql: mql, target: this});
+					}.bind({"class": sizeClasses[i], "mql": mql, "target": this});
 					mql.addListener(listener);
 					this._mqls.push({mql: mql, listener: listener});
 					// Initialization of screenClass
@@ -193,7 +193,7 @@ define([
 
 			},
 
-			onAddChild: function (/*jshint unused: vars */node) {
+			onAddChild: function () {
 				this.notifyCurrentValue("breakpoints");
 			},
 

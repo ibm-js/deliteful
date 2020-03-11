@@ -1,0 +1,145 @@
+{
+	"env": {
+		"browser": true,
+		"amd": true
+	},
+	"parserOptions": {
+		"sourceType": "module",
+		"ecmaVersion": 6
+	},
+	"globals": {
+		"intern": "readonly",
+		"module": "readonly",
+		"Promise": "readonly",
+		"requirejs": "readonly"
+	},
+	"rules": {
+		"semi": [
+			"error",
+			"always"
+		],
+		"no-bitwise": 0,
+		"no-cond-assign": 0,
+		"camelcase": 2,
+		"curly": 2,
+		"no-debugger": 2,
+		"eqeqeq": 2,
+		"no-eq-null": 2,
+		"no-eval": 0,
+		"no-unused-expressions": 2,
+		"guard-for-in": 0,
+		"block-scoped-var": 2,
+		"strict": 0,
+		"comma-dangle": [
+			"error",
+			"never"
+		],
+		"lines-around-directive": [
+			"error",
+			{
+				"before": "never",
+				"after": "always"
+			}
+		],
+		"object-curly-newline": [
+			"error",
+			{
+				"consistent": true
+			}
+		],
+		"object-property-newline": [
+			"error",
+			{
+				"allowAllPropertiesOnSameLine": true
+			}
+		],
+		"wrap-iife": [
+			2,
+			"any"
+		],
+		"keyword-spacing": [
+			"error",
+			{
+				"before": true
+			}
+		],
+		"key-spacing": [
+			"error",
+			{
+				"beforeColon": false
+			}
+		],
+		"no-iterator": 0,
+		"no-use-before-define": 0,
+		"comma-style": [
+			2,
+			"last"
+		],
+		"space-before-blocks": [
+			2,
+			"always"
+		],
+		"space-before-function-paren": [
+			2,
+			"always"
+		],
+		"no-trailing-spaces": [
+			2,
+			{
+				"skipBlankLines": true
+			}
+		],
+		"space-infix-ops": [
+			2,
+			{
+				"int32Hint": false
+			}
+		],
+		"no-mixed-spaces-and-tabs": 2,
+		"no-loop-func": 2,
+		"no-multi-str": 0,
+		"new-cap": 2,
+		"no-caller": 2,
+		"no-empty": 0,
+		"no-new": 2,
+		"no-plusplus": 0,
+		"no-proto": 0,
+		"no-script-url": 2,
+		"no-shadow": 2,
+		"dot-notation": 2,
+		"no-new-func": 0,
+		"no-new-wrappers": 0,
+		"no-undef": 2,
+		"no-unused-vars": 2,
+		"no-with": 0,
+		"max-len": [
+			2,
+			{
+				"code": 120,
+				"ignoreComments": true
+			}
+		],
+		"indent": [
+			"error",
+			"tab"
+		],
+		"quotes": [
+			"error",
+			"double",
+			{
+				"avoidEscape": true
+			}
+		],
+		"quote-props": [
+			"error",
+			"consistent-as-needed",
+			{
+				"keywords": true
+			}
+		],
+		"complexity": [
+			2,
+			20
+		]
+	}
+}

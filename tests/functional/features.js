@@ -36,7 +36,6 @@ define(function () {
 			return loadFile(remote, "features.html")
 				.execute("return _has")
 				.then(function (has) {
-					/* jshint maxcomplexity: 21 */
 					var platform = remote.environmentType.platformName || remote.environmentType.platform;
 					var deviceName = remote.environmentType.deviceName;
 					var browserName = remote.environmentType.browserName;

@@ -69,7 +69,6 @@ define([
 		template: template,
 
 		refreshRendering: function (props) {
-			/* jshint maxcomplexity: 11 */
 			if (("label" in props || "checkedLabel" in props || "showLabel" in props || "checked" in props) &&
 				(!this.title || this.title === ("label" in props ? props.label : this.label)
 					|| this.title === ("checkedLabel" in props ? props.checkedLabel : this.checkedLabel))) {

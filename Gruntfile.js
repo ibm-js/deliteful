@@ -3,19 +3,21 @@ module.exports = function (grunt) {
 
 	// Project configuration.
 	grunt.initConfig({
-		pkg: grunt.file.readJSON("package.json"),
+		"pkg": grunt.file.readJSON("package.json"),
 
-		jshint: {
+		"eslint": {
 			src: [
-				"**/*.js", "!{node_modules,ViewStack/transitions}/**", "!**/themes/**", "!*/css/*.js"
+				"**/*.js",
+				"!{node_modules,tests}/**",
+				"!Gruntfile.js"
 			],
 			options: {
-				jshintrc: ".jshintrc"
+				configFile: ".eslintrc.json"
 			}
 		},
 
 		// Task for compiling less files into CSS files
-		less: {
+		"less": {
 			// Compile less code for each widget
 			widgets: {
 				files: [
@@ -33,7 +35,7 @@ module.exports = function (grunt) {
 		},
 
 		// Copied from grunt web site but not tested
-		uglify: {
+		"uglify": {
 			options: {
 				banner: "/*! <%= pkg.name %> <%= grunt.template.today('yyyy-mm-dd') %> */\n"
 			},
@@ -44,7 +46,7 @@ module.exports = function (grunt) {
 		},
 
 		"jsdoc-amddcl": {
-			docs: {
+			"docs": {
 				files: [
 					{
 						src: [
@@ -66,7 +68,7 @@ module.exports = function (grunt) {
 					}
 				]
 			},
-			export: {
+			"export": {
 				files: [
 					{
 						args: [
@@ -90,7 +92,7 @@ module.exports = function (grunt) {
 	});
 
 	// Load plugins
-	grunt.loadNpmTasks("grunt-contrib-jshint");
+	grunt.loadNpmTasks("grunt-eslint");
 	grunt.loadNpmTasks("grunt-contrib-less");
 	grunt.loadNpmTasks("grunt-contrib-uglify");
 	grunt.loadNpmTasks("jsdoc-amddcl");

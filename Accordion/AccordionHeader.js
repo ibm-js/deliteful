@@ -12,8 +12,8 @@ define([
 	 * The header (aka title) that goes above each Panel of an Accordion.
 	 * @class module:deliteful/Accordion/AccordionHeader
 	 */
-	return register("d-accordion-header", [HTMLElement, Widget],
-			/** @lends module:deliteful/Accordion/AccordionHeader# */ {
+	// eslint-disable-next-line max-len
+	return register("d-accordion-header", [ HTMLElement, Widget ], /** @lends module:deliteful/Accordion/AccordionHeader# */ {
 		/**
 		 * The name of the CSS class of this widget.
 		 * @member {string}

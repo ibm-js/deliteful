@@ -9,7 +9,6 @@ define(function (require) {
 	// Note that the actual testing is done in ScrollableContainer-shared.
 
 	var container, MyScrollableContainer;
-	/*jshint multistr: true */
 	var html = "<d-scrollable-container id='sc1' \
 			style='position: absolute; width: 200px; height: 200px;'> \
 			<div id='sc1content' style='width: 2000px; height: 2000px;'></div> \

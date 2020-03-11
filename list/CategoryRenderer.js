@@ -3,7 +3,7 @@ define([
 	"delite/register",
 	"./Renderer",
 	"delite/handlebars!./List/CategoryRenderer.html",
-	"delite/handlebars!./List/GridCategoryRenderer.html",
+	"delite/handlebars!./List/GridCategoryRenderer.html"
 ], function (
 	register,
 	Renderer,
@@ -16,9 +16,8 @@ define([
 	 * @class module:deliteful/list/CategoryRenderer
 	 * @class module:deliteful/list/CategoryRenderer
 	 */
-	return register("d-list-category-renderer", [HTMLElement, Renderer],
-		 /** @lends module:deliteful/list/CategoryRenderer# */ {
-
+	// eslint-disable-next-line max-len
+	return register("d-list-category-renderer", [HTMLElement, Renderer], /** @lends module:deliteful/list/CategoryRenderer# */ {
 		/**
 		 * CSS class of a category renderer.
 		 * @member {string}

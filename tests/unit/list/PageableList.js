@@ -27,7 +27,6 @@ define(function (require) {
 		return str.replace(/\t/g, "").replace(/\n/g, "");
 	}
 
-	/* jshint maxcomplexity: 11 */
 	function assertList(l, firstItemNumber, lastItemNumber, missingItemNumbers,
 		previousPageLoader, nextPageLoader, hint) {
 		hint = hint || "";

@@ -1,5 +1,5 @@
-define({ root:
-	({
-		"close": "Close"
-	})
+define({
+	root: {
+		close: "Close"
+	}
 });

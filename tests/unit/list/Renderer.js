@@ -6,7 +6,6 @@ define(function (require) {
 	var register = require("delite/register");
 	var Renderer = require("deliteful/list/Renderer");
 
-	/* jshint nonew: false */
 	registerSuite("list/Renderer", {
 		"create subclass": function () {
 			var CorrectRenderer = register("d-correct-renderer", [HTMLElement, Renderer], {});

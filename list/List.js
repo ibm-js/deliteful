@@ -333,8 +333,6 @@ define([
 
 		refreshRendering: function (props) {
 			//	List attributes have been updated.
-			/*jshint maxcomplexity:15*/
-
 			if ("type" in props) {
 				this.getRenderers().forEach(function (renderer) {
 					renderer.parentRole = this.type;
@@ -356,8 +354,8 @@ define([
 				this.containerNode.removeAttribute("aria-multiselectable");
 				if (this.selectionMode === "none") {
 					// update aria-selected attribute on unselected items
-					for (var i = 0; i < this.containerNode.children.length; i++) {
-						var child = this.containerNode.children[i];
+					for (let i = 0; i < this.containerNode.children.length; i++) {
+						let child = this.containerNode.children[i];
 						if (child.hasAttribute("aria-selected")) {
 							child.removeAttribute("aria-selected");
 							child.classList.remove(this._cssClasses.selected);
@@ -372,8 +370,8 @@ define([
 					}
 					// update aria-selected attribute on unselected items
 					if (this.type === "grid" || this.type === "listbox") {
-						for (i = 0; i < this.containerNode.children.length; i++) {
-							child = this.containerNode.children[i];
+						for (let i = 0; i < this.containerNode.children.length; i++) {
+							let child = this.containerNode.children[i];
 							if (child.tagName.toLowerCase() === this.ItemRenderer.tag
 									&& !child.hasAttribute("aria-selected")) {
 								child.setAttribute("aria-selected", "false");
@@ -399,7 +397,6 @@ define([
 		},
 
 		computeProperties: function (props) {
-			/*jshint maxcomplexity:13*/
 			//	List attributes have been updated.
 			if ("ItemRenderer" in props
 				|| (this._isCategorized()
@@ -680,10 +677,10 @@ define([
 						}
 					}
 					this.containerNode.insertBefore(this._createRenderers(items, 0, items.length, null),
-							this.containerNode.firstElementChild);
+						this.containerNode.firstElementChild);
 				} else {
 					this.containerNode.appendChild(this._createRenderers(items, 0, items.length,
-							this._getLastRenderer().item));
+						this._getLastRenderer().item));
 				}
 			}
 			// start renderers
@@ -737,7 +734,7 @@ define([
 			if (spec.nodeRef) {
 				this.containerNode.insertBefore(renderer, spec.nodeRef);
 				if (spec.addCategoryAfter) {
-					var categoryRenderer = this._createCategoryRenderer(spec.nodeRef.item);
+					let categoryRenderer = this._createCategoryRenderer(spec.nodeRef.item);
 					this.containerNode.insertBefore(categoryRenderer, spec.nodeRef);
 					categoryRenderer.connectedCallback();
 				}
@@ -745,7 +742,7 @@ define([
 				this.containerNode.appendChild(renderer);
 			}
 			if (spec.addCategoryBefore) {
-				categoryRenderer = this._createCategoryRenderer(renderer.item);
+				let categoryRenderer = this._createCategoryRenderer(renderer.item);
 				this.containerNode.insertBefore(categoryRenderer, renderer);
 				categoryRenderer.connectedCallback();
 			}
@@ -772,8 +769,8 @@ define([
 
 			if (this._isCategorized()) {
 				var previousRenderer = result.nodeRef
-										? this._getNextRenderer(result.nodeRef, -1)
-										: this._getLastRenderer();
+					? this._getNextRenderer(result.nodeRef, -1)
+					: this._getLastRenderer();
 				if (!previousRenderer) {
 					result.addCategoryBefore = true;
 				} else {
@@ -799,7 +796,6 @@ define([
 			return result;
 		},
 
-		/*jshint maxcomplexity:12*/
 		/**
 		 * Removes a renderer from the List, updating category renderers if needed.
 		 * @param {module:deliteful/list/Renderer} renderer The renderer to remove from the list.
@@ -839,7 +835,6 @@ define([
 			this.containerNode.removeChild(renderer);
 			renderer.destroy();
 		},
-		/*jshint maxcomplexity:10*/
 
 		/**
 		 * Creates a renderer instance for an item.
@@ -983,7 +978,7 @@ define([
 		 * @param {Object[]} renderItems Ignored by this implementation.
 		 * @private
 		 */
-		itemAdded: function (index, renderItem, /*jshint unused:vars*/renderItems) {
+		itemAdded: function (index, renderItem/*, renderItems*/) {
 			var newRenderer = this._createItemRenderer(renderItem);
 			this._addItemRenderer(newRenderer, index);
 			this.notifyCurrentValue("renderItems");
@@ -997,7 +992,7 @@ define([
 		 * @param {Object[]} renderItems Ignored by this implementation.
 		 * @protected
 		 */
-		itemUpdated: function (index,  renderItem, /*jshint unused:vars*/renderItems) {
+		itemUpdated: function (index,  renderItem/*, renderItems */) {
 			var renderer = this.getItemRendererByIndex(index);
 			if (renderer) {
 				renderer.item = renderItem;

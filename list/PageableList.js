@@ -252,7 +252,6 @@ define([
 		_focusLastListItem: false,
 
 		computeProperties: function (props) {
-			/*jshint maxcomplexity: 15*/
 			if (this.pageLength > 0) {
 				if ("_busy" in props || "hideOnPageLoad" in props || "autoPaging" in props || "showNoItems" in props
 					|| "_previousRecordsMayExist" in props || "_nextRecordsMayExist" in props) {

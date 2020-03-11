@@ -9,11 +9,11 @@ define([
 	"requirejs-dplugins/css!./Accordion/Accordion.css"
 ], function (dcl, has, register, DisplayContainer, AccordionHeader) {
 
-	function setVisibility(node, val) {
+	function setVisibility (node, val) {
 		node.style.display = val ? "" : "none";
 	}
 
-	function listenAnimationEndEvent(element) {
+	function listenAnimationEndEvent (element) {
 		return new Promise(function (resolve) {
 			var handler = element.on(has("animationEndEvent"), function () {
 				handler.remove();
@@ -254,7 +254,6 @@ define([
 		},
 
 		refreshRendering: function (props) {
-			/* jshint maxcomplexity: 14 */
 			if ("selectedChildId" in props && this.selectedChildId) {
 				var childNode = this.ownerDocument.getElementById(this.selectedChildId);
 				if (childNode) {
@@ -518,14 +517,14 @@ define([
 			var headers = this.getHeaders();
 
 			// Return next (offset=1) or previous (offset=-1) header, with looping.
-			function nextPrevHeader(header, offset) {
+			function nextPrevHeader (header, offset) {
 				var idx = headers.indexOf(header),
 					newIdx = (idx + headers.length + offset) % headers.length;
 				return headers[newIdx];
 			}
 
 			// Return the new header to navigate to given the specified focusedHeader and the keydown event.
-			function headerKeystrokeHandler(focusedHeader, evt) {
+			function headerKeystrokeHandler (focusedHeader) {
 				switch (((evt.ctrlKey || evt.metaKey) ? "Ctrl-" : "") + evt.key) {
 				case "ArrowDown":
 					return nextPrevHeader(focusedHeader, 1);
@@ -543,7 +542,7 @@ define([
 			}
 
 			// Return the new header to navigate to given the specified focused panel and the keydown event.
-			function panelKeystrokeHandler(focusedPanel, evt) {
+			function panelKeystrokeHandler (focusedPanel) {
 				if (evt.ctrlKey || evt.metaKey) {
 					if (evt.key === "PageUp") {
 						return focusedPanel.headerNode;
@@ -557,11 +556,11 @@ define([
 			var focusedHeader = this._getEnclosingHeader(evt.target);
 			var newHeader;
 			if (focusedHeader) {
-				newHeader =  headerKeystrokeHandler(focusedHeader, evt);
+				newHeader = headerKeystrokeHandler(focusedHeader);
 			} else {
 				var focusedPanel = this._getEnclosingPanel(evt.target);
 				if (focusedPanel) {
-					newHeader = panelKeystrokeHandler(focusedPanel, evt);
+					newHeader = panelKeystrokeHandler(focusedPanel);
 				}
 			}
 			if (newHeader) {
