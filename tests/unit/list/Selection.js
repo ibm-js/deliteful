@@ -32,8 +32,8 @@ define(function (require) {
 			list.deliver();
 
 			assert.isNotNull(selectionChangeEvent);
-			assert.isNull(selectionChangeEvent.oldValue, 0, "event1 old selection");
-			assert.strictEqual(selectionChangeEvent.newValue.label, "item 1", "event1 new selection label");
+			assert.deepEqual(selectionChangeEvent.oldValue, [], "event1 old selection");
+			assert.deepEqual(selectionChangeEvent.newValue, [list.getItemRendererByIndex(0).item], "event1 new select");
 			assert.strictEqual(selectionChangeEvent.renderer, firstItem, "event1 renderer");
 			assert.strictEqual(selectionChangeEvent.triggerEvent.key, "Spacebar", "event1 triggerEvent");
 			selectionChangeEvent = null;
@@ -46,8 +46,10 @@ define(function (require) {
 			list.deliver();
 
 			assert.isNotNull(selectionChangeEvent);
-			assert.strictEqual(selectionChangeEvent.oldValue.label, "item 1", "event2 old selection label");
-			assert.strictEqual(selectionChangeEvent.newValue.label, "item 2", "event2 new selection label 1");
+			assert.deepEqual(selectionChangeEvent.oldValue,
+				[list.getItemRendererByIndex(0).item], "event2 oldValue");
+			assert.deepEqual(selectionChangeEvent.newValue,
+				[list.getItemRendererByIndex(0).item, list.getItemRendererByIndex(1).item], "event2 newValue");
 			assert.strictEqual(selectionChangeEvent.renderer, secondItem, "event2 renderer");
 			assert.strictEqual(selectionChangeEvent.triggerEvent.key, "Spacebar", "event2 triggerEvent");
 			selectionChangeEvent = null;
@@ -60,8 +62,10 @@ define(function (require) {
 			list.deliver();
 
 			assert.isNotNull(selectionChangeEvent);
-			assert.strictEqual(selectionChangeEvent.oldValue.label, "item 2", "event3 old selection label 1");
-			assert.strictEqual(selectionChangeEvent.newValue.label, "item 2", "event3 new selection label");
+			assert.deepEqual(selectionChangeEvent.oldValue,
+				[list.getItemRendererByIndex(0).item, list.getItemRendererByIndex(1).item], "event3 oldValue");
+			assert.deepEqual(selectionChangeEvent.newValue,
+				[list.getItemRendererByIndex(1).item], "event3 newValue");
 			assert.strictEqual(selectionChangeEvent.renderer, firstItem, "event3 renderer");
 			assert.strictEqual(selectionChangeEvent.triggerEvent.key, "Spacebar", "event3 triggerEvent");
 			selectionChangeEvent = null;
@@ -370,7 +374,7 @@ define(function (require) {
 				list.setSelected(list.getItemRendererByIndex(0).item, true);
 				list.setSelected(list.getItemRendererByIndex(1).item, true);
 				assert.deepEqual(list.selectedItems,
-					[list.getItemRendererByIndex(1).item, list.getItemRendererByIndex(0).item]);
+					[list.getItemRendererByIndex(0).item, list.getItemRendererByIndex(1).item]);
 				list.selectionMode = "none";
 				list.deliver();
 				assert.deepEqual(list.selectedItems, []);
