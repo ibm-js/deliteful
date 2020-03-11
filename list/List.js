@@ -383,6 +383,19 @@ define([
 					}
 				}
 			}
+
+			if ("selectedItems" in props && this.selectionMode !== "none") {
+				this.getItemRenderers().forEach(function (renderer) {
+					var itemSelected = !!this.isSelected(renderer.item);
+					if (this.type === "grid" || this.type === "listbox") {
+						// According to https://www.w3.org/TR/wai-aria/states_and_properties#aria-selected
+						// aria-selected shouldn't be set on role=menuitem nodes.  That's what the future
+						// https://www.w3.org/TR/wai-aria-1.1/#aria-current role is for.
+						renderer.setAttribute("aria-selected", itemSelected ? "true" : "false");
+					}
+					renderer.classList.toggle(this._cssClasses.selected, itemSelected);
+				}, this);
+			}
 		},
 
 		computeProperties: function (props) {
@@ -591,31 +604,6 @@ define([
 		},
 
 		//////////// delite/Selection implementation ///////////////////////////////////////
-
-		/**
-		 * Updates renderers when the selection has changed.
-		 * @param {Object[]} items The items which renderers must be updated.
-		 * @protected
-		 */
-		updateRenderers: function (items) {
-			if (this.selectionMode === "none") {
-				return;
-			}
-			for (var i = 0; i < items.length; i++) {
-				var currentItem = items[i];
-				var renderer = this.getRendererByItemId(this.getIdentity(currentItem));
-				if (renderer) {
-					var itemSelected = !!this.isSelected(currentItem);
-					if (this.type === "grid" || this.type === "listbox") {
-						// According to https://www.w3.org/TR/wai-aria/states_and_properties#aria-selected
-						// aria-selected shouldn't be set on role=menuitem nodes.  That's what the future
-						// https://www.w3.org/TR/wai-aria-1.1/#aria-current role is for.
-						renderer.setAttribute("aria-selected", itemSelected ? "true" : "false");
-					}
-					renderer.classList.toggle(this._cssClasses.selected, itemSelected);
-				}
-			}
-		},
 
 		/**
 		 * Always returns true so that no keyboard modifier is needed when selecting / deselecting items.

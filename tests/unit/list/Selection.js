@@ -29,6 +29,7 @@ define(function (require) {
 			// Selection event on first item (select)
 			firstItem.emit("keydown", {key: "Spacebar"});
 			firstItem.emit("keyup", {key: "Spacebar"});
+			list.deliver();
 
 			assert.isNotNull(selectionChangeEvent);
 			assert.isNull(selectionChangeEvent.oldValue, 0, "event1 old selection");
@@ -42,6 +43,7 @@ define(function (require) {
 			// Selection event on second item (select)
 			secondItem.emit("keydown", {key: "Spacebar"});
 			secondItem.emit("keyup", {key: "Spacebar"});
+			list.deliver();
 
 			assert.isNotNull(selectionChangeEvent);
 			assert.strictEqual(selectionChangeEvent.oldValue.label, "item 1", "event2 old selection label");
@@ -55,6 +57,7 @@ define(function (require) {
 			// Selection event on first item (deselect)
 			firstItem.emit("keydown", {key: "Spacebar"});
 			firstItem.emit("keyup", {key: "Spacebar"});
+			list.deliver();
 
 			assert.isNotNull(selectionChangeEvent);
 			assert.strictEqual(selectionChangeEvent.oldValue.label, "item 2", "event3 old selection label 1");
@@ -84,6 +87,7 @@ define(function (require) {
 			// Selection event on first item (select)
 			firstItem.emit("keydown", {key: "Spacebar"});
 			firstItem.emit("keyup", {key: "Spacebar"});
+			list.deliver();
 
 			assert.isNotNull(selectionChangeEvent);
 			assert.strictEqual(selectionChangeEvent.oldValue, null, "event1 old selection");
@@ -97,6 +101,7 @@ define(function (require) {
 			// Selection event on second item (select)
 			secondItem.emit("keydown", {key: "Spacebar"});
 			secondItem.emit("keyup", {key: "Spacebar"});
+			list.deliver();
 
 			assert.isNotNull(selectionChangeEvent);
 			assert.strictEqual(selectionChangeEvent.oldValue.label, "item 1", "event2 old selection");
@@ -111,6 +116,7 @@ define(function (require) {
 			// Selection event on second item (deselect)
 			secondItem.emit("keydown", {key: "Spacebar"});
 			secondItem.emit("keyup", {key: "Spacebar"});
+			list.deliver();
 
 			assert.isNotNull(selectionChangeEvent);
 			assert.strictEqual(selectionChangeEvent.oldValue.label, "item 2", "event3 old selection");
@@ -139,6 +145,7 @@ define(function (require) {
 			// Selection event on first item (select)
 			firstItem.emit("keydown", {key: "Spacebar"});
 			firstItem.emit("keyup", {key: "Spacebar"});
+			list.deliver();
 
 			assert.isNotNull(selectionChangeEvent);
 			assert.strictEqual(selectionChangeEvent.oldValue, null, "event1 old selection");
@@ -152,6 +159,7 @@ define(function (require) {
 			// Selection event on second item (select)
 			secondItem.emit("keydown", {key: "Spacebar"});
 			secondItem.emit("keyup", {key: "Spacebar"});
+			list.deliver();
 
 			assert.isNotNull(selectionChangeEvent);
 			assert.strictEqual(selectionChangeEvent.oldValue.label, "item 1", "event2 old selection");
@@ -165,6 +173,7 @@ define(function (require) {
 			// Selection event on second item (does not deselect)
 			secondItem.emit("keydown", {key: "Spacebar"});
 			secondItem.emit("keyup", {key: "Spacebar"});
+			list.deliver();
 
 			assert.isNull(selectionChangeEvent);
 			assert.strictEqual(firstItem.getAttribute("aria-selected"), "false");
@@ -183,6 +192,7 @@ define(function (require) {
 			// select first item
 			firstItem.emit("keydown", {key: "Spacebar"});
 			firstItem.emit("keyup", {key: "Spacebar"});
+			list.deliver();
 
 			// now listen to selection-change event and remove the selected item from the store
 			list.on("selection-change", function (event) {
@@ -206,6 +216,7 @@ define(function (require) {
 			// select first item
 			firstItem.emit("keydown", {key: "Spacebar"});
 			firstItem.emit("keyup", {key: "Spacebar"});
+			list.deliver();
 
 			assert(list.isSelected(firstItem.item), "item selected before move");
 			list.source.put(firstItem.item, {beforeId: thirdItem.item.id});
@@ -234,6 +245,7 @@ define(function (require) {
 			// select first item
 			firstItem.emit("keydown", {key: "Spacebar"});
 			firstItem.emit("keyup", {key: "Spacebar"});
+			list.deliver();
 
 			assert(firstItem.className.indexOf("d-selected") >= 0, "d-selected class expected");
 			assert.strictEqual(firstItem.getAttribute("aria-selected"), "true",
@@ -259,6 +271,7 @@ define(function (require) {
 			// select first item
 			firstItem.emit("keydown", {key: "Spacebar"});
 			firstItem.emit("keyup", {key: "Spacebar"});
+			list.deliver();
 
 			assert(firstItem.className.indexOf("d-selected") >= 0, "d-selected class expected");
 			assert.strictEqual(firstItem.getAttribute("aria-selected"), "true",
@@ -285,6 +298,7 @@ define(function (require) {
 				// select first item
 				firstItem.emit("keydown", {key: "Spacebar"});
 				firstItem.emit("keyup", {key: "Spacebar"});
+				list.deliver();
 
 				assert(firstItem.className.indexOf("d-selected") >= 0, "d-selected class expected");
 				assert.strictEqual(firstItem.getAttribute("aria-selected"), "true",
@@ -419,6 +433,7 @@ define(function (require) {
 				// select first item
 				firstItem.emit("keydown", {key: "Spacebar"});
 				firstItem.emit("keyup", {key: "Spacebar"});
+				list.deliver();
 
 				// list
 				assert.isFalse(list.containerNode.hasAttribute("aria-multiselectable"),

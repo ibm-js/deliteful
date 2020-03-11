@@ -215,7 +215,16 @@ define([
 
 		refreshRendering: function (props) {
 			/* jshint maxcomplexity: 13 */
-			if ("renderItems" in props) {
+
+			// Rerender the <select> content when the choices or the selection is programatically changed.
+			// However, the re-rendering must not be triggered while the user clicks items,
+			// because it would disturb user's interaction with a Select in
+			// multiple mode (#510): with more options than the available height, after
+			// scrolling and clicking an item, the rerendered Select may not have
+			// the same scroll amount as before the click, which isn't ergonomical.
+			// (Differently, in single selection mode, the popup closes right after
+			// the interactive selection.)
+			if ("renderItems" in props || ("selectedItems" in props && !this._duringInteractiveSelection)) {
 				// Populate the select with the items retrieved from the store.
 				var renderItems = this.renderItems;
 				var n = renderItems ? renderItems.length : 0;
@@ -290,23 +299,6 @@ define([
 				return sup.call(this, dataItem);
 			};
 		}),
-
-		updateRenderers: function () {
-			// Override of delite/Selection's method.
-			// Trigger rerendering from scratch, in order to keep the rendering
-			// in sync with the selection state of items. This method gets called
-			// by delite/Selection after changes of selection state. However, the
-			// re-rendering must not be triggered while the user clicks items,
-			// because it would disturb user's interaction with a Select in
-			// multiple mode (#510): with more options than the available height, after
-			// scrolling and clicking an item, the rerendered Select may not have
-			// the same scroll amount as before the click, which isn't ergonomical.
-			// (Differently, in single selection mode, the popup closes right after
-			// the interactive selection.)
-			if (!this._duringInteractiveSelection) {
-				this.notifyCurrentValue("renderItems");
-			}
-		},
 
 		value: dcl.prop({
 			set: function (value) {

@@ -155,6 +155,7 @@ define(function (require) {
 
 		// Now check in multiple selection mode
 		select.selectionMode = "multiple";
+		select.selectedItems = [];
 		select.setSelected(dataItems[0], true);
 		select.setSelected(dataItems[1], true);
 		select.deliver();
