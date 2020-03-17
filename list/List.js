@@ -415,7 +415,7 @@ define([
 			}
 		},
 
-		postRender: function () {
+		afterInitializeRendering: function () {
 			// moving down to the containerNode any aria attribute that has been set to the root node.
 			for (var i = 0; i < this.attributes.length; i++) {
 				if (/^aria-/.test(this.attributes[i].name)) {
@@ -683,10 +683,6 @@ define([
 						this._getLastRenderer().item));
 				}
 			}
-			// start renderers
-			this.findCustomElements(this.containerNode).forEach(function (w) {
-				w.connectedCallback();
-			});
 		},
 
 		/**
@@ -736,7 +732,6 @@ define([
 				if (spec.addCategoryAfter) {
 					let categoryRenderer = this._createCategoryRenderer(spec.nodeRef.item);
 					this.containerNode.insertBefore(categoryRenderer, spec.nodeRef);
-					categoryRenderer.connectedCallback();
 				}
 			} else {
 				this.containerNode.appendChild(renderer);
@@ -744,9 +739,7 @@ define([
 			if (spec.addCategoryBefore) {
 				let categoryRenderer = this._createCategoryRenderer(renderer.item);
 				this.containerNode.insertBefore(categoryRenderer, renderer);
-				categoryRenderer.connectedCallback();
 			}
-			renderer.connectedCallback();
 		},
 
 		/**

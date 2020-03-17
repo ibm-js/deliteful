@@ -463,7 +463,6 @@ define([
 			} else {
 				wrapper.appendChild(this);
 			}
-			this.connectedCallback();
 
 			// starting timer
 			if (this.isExpirable()) {
@@ -538,7 +537,7 @@ define([
 			this._isRemoved = true;
 		},
 		template: template,
-		postRender: function () {
+		afterInitializeRendering: function () {
 			// TODO this should be done only if this.isDismissible()
 			// but at this stage this.isDismissible() ouput is wrong because members have not been initialized yet
 

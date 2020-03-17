@@ -90,14 +90,6 @@ define([
 					"radio" : "multiple";
 
 				this._initHandlers();
-
-				// TODO
-				// This is a workaround waiting for a proper mechanism (at the level
-				// of delite/Store - delite/StoreMap) to allow a store-based widget
-				// to delegate the store-related functions to a parent widget (delite#323).
-				if (!this.list.attached) {
-					this.list.connectedCallback();
-				}
 			}
 		},
 

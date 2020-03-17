@@ -33,7 +33,7 @@ define([
 			this.checked = this._initState;
 		},
 
-		postRender: function () {
+		afterInitializeRendering: function () {
 			// CssState does not handle focused property any more
 			this.on("focus", function () {
 				this.addClass("d-focused");

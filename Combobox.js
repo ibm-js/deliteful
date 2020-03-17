@@ -202,7 +202,7 @@ define([
 			};
 		}),
 
-		postRender: function () {
+		afterInitializeRendering: function () {
 			if (this._focusOnRender) {
 				this.focus();
 			}

@@ -117,7 +117,7 @@ define([
 
 		_numOpenPanels: 0,
 
-		postRender: function () {
+		afterInitializeRendering: function () {
 			this._panelList = [];
 
 			// Declarative case (panels specified declaratively inside the declarative Accordion).

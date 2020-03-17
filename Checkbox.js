@@ -33,7 +33,7 @@ define([
 
 		template: template,
 
-		postRender: function () {
+		afterInitializeRendering: function () {
 			this._lbl4 = null;
 			this.on("click", this._inputClickHandler.bind(this), this.focusNode);
 			this.on("change", this._inputClickHandler.bind(this), this.focusNode);

@@ -166,7 +166,7 @@ define([
 			};
 		}),
 
-		postRender: function () {
+		afterInitializeRendering: function () {
 			this._setChildrenVisibility();
 		},
 

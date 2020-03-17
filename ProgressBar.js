@@ -94,7 +94,7 @@ define([
 
 		template: template,
 
-		postRender: function () {
+		afterInitializeRendering: function () {
 			// TODO: move this code to the template
 			this.setAttribute("aria-valuemin", 0);
 		},

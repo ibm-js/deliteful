@@ -62,7 +62,7 @@ define([
 		 */
 		resizeClass: "",
 
-		postRender: function () {
+		afterInitializeRendering: function () {
 			this.on("pointerdown", this._beginSizing.bind(this));
 		},
 

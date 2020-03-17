@@ -175,7 +175,7 @@ define([
 			}
 		},
 
-		render: dcl.superCall(function (sup) {
+		initializeRendering: dcl.superCall(function (sup) {
 			return function () {
 				sup.apply(this, arguments);
 

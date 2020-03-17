@@ -239,7 +239,7 @@ define([
 			resolve();
 		},
 
-		preRender: function () {
+		beforeInitializeRendering: function () {
 			this._transitionTiming = { "default": 0, "chrome": 20, "ios": 20, "android": 100, "ff": 100 };
 			for (var o in this._transitionTiming) {
 				if (has(o) && this._timing < this._transitionTiming[o]) {
@@ -248,7 +248,7 @@ define([
 			}
 		},
 
-		postRender: function () {
+		afterInitializeRendering: function () {
 			this._resetInteractions();
 			setVisibility(this, false);
 		},

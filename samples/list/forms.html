@@ -38,7 +38,7 @@
 		) {
 			var MyCustomRenderer = register("d-dataform-item", [ItemRenderer], {
 				counter: 1,
-				render: function () {
+				initializeRendering: function () {
 					this.setAttribute("role", "row");
 					var renderNode = this.renderNode = this.ownerDocument.createElement("div");
 					renderNode.setAttribute("role", "gridcell");

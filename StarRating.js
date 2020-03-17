@@ -61,7 +61,7 @@ define([
 		_hovering: false,
 		_otherEventsHandles: [],
 
-		render: function () {
+		initializeRendering: function () {
 			this.focusNode = this.ownerDocument.createElement("div");
 			this.appendChild(this.focusNode);
 			// init WAI-ARIA attributes

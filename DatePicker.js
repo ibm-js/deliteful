@@ -123,7 +123,7 @@ define([
 		 */
 		monthSelected: false,
 
-		postRender: function () {
+		afterInitializeRendering: function () {
 			// Create the DayPicker initially, and create MonthPicker and YearPicker on demand.
 			this.dayPicker = new DayPicker({
 				gridLabel: this.dayPickerLabel,

@@ -242,7 +242,7 @@ define([
 			}
 		},
 
-		preRender: function () {
+		beforeInitializeRendering: function () {
 			// If the control seems to contain JSON, then parse it as our data source.
 			if (!this.firstElementChild && this.textContent.trim()) {
 				var data = JSON.parse("[" + this.textContent + "]");
@@ -276,8 +276,8 @@ define([
 			};
 		}),
 
-		// If no list specified, then create default one.  Do it after arguments parsed but before
-		// template instantiated (simply because ComboPopup template references {{list.id}}.
+		// If no list specified, create default one.  Do before template instantiated,
+		// because ComboPopup template references {{list.id}}.
 		connectedCallback: dcl.before(function () {
 			if (!this.list) {
 				var regexp = /^(?!_)(\w)+(?=Attr$|Func$)/;
@@ -286,11 +286,14 @@ define([
 				};
 
 				// attributes
-				this._parsedAttributes.filter(function (attr) {
-					return regexp.test(attr.prop);
-				}).forEach(function (item) {
-					listArgs[item.prop] = item.value;
-				}.bind(this));
+				var attr, idx = 0;
+				while ((attr = this.attributes[idx++])) {
+					var name = attr.name.toLowerCase();	// note: will be lower case already except for IE9
+					var parsedAttr = this.parseAttribute(name, attr.value);
+					if (parsedAttr && regexp.test(parsedAttr.prop)) {
+						listArgs[parsedAttr.prop] = parsedAttr.value;
+					}
+				}
 
 				// properties
 				for (var prop in this) {

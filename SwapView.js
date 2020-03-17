@@ -52,7 +52,7 @@ define([
 			this.on("keydown", this._keyDownHandler.bind(this));
 		},
 
-		render: function () {
+		initializeRendering: function () {
 			// we want to inherit from ViewStack's CSS (including transitions).
 			this.addClass("d-view-stack");
 		},

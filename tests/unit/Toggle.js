@@ -15,7 +15,7 @@ define(function (require) {
 	var container,
 		widget,
 		MyWidget = register("my-widget", [HTMLElement, Toggle], {
-			preRender: function () { this.focusNode = this; }
+			beforeInitializeRendering: function () { this.focusNode = this; }
 		}),
 		html = "<my-widget id='cb1'></my-widget><my-widget id='cb2' checked='true' value='foo'></my-widget>";
 

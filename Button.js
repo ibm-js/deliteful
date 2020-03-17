@@ -94,7 +94,7 @@ define([
 			}.bind(this));
 		},
 
-		preRender: function () {
+		beforeInitializeRendering: function () {
 			// Get label from innerHTML, and then clear it since we are to put the label in a <span>
 			if (!this.label) {
 				this.label = this.textContent.trim();
@@ -102,7 +102,7 @@ define([
 			}
 		},
 
-		postRender: function () {
+		afterInitializeRendering: function () {
 			// Make SPACE/ENTER key cause button click event.
 			a11yclick(this);
 		},

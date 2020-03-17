@@ -39,7 +39,7 @@ define([
 
 		template: template,
 
-		postRender: function () {
+		afterInitializeRendering: function () {
 			this.on("pointerdown", this._pointerDownHandler.bind(this), this._knobGlassNode);
 			this.on("click", this._clickPreventer.bind(this), this._knobGlassNode);
 		},

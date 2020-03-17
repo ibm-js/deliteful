@@ -243,7 +243,7 @@ define([
 	 * by boilerplate text.
 	 *
 	 * The editable areas and boilerplate text are children of this widget and must exist by the time
-	 * `render()` completes.
+	 * `initializeRendering()` completes.
 	 */
 	var BoilerplateTextbox = register("d-boilerplate-textbox", [HTMLElement, Container, FormValueWidget], {
 		baseClass: "d-boilerplate-textbox",
@@ -255,7 +255,7 @@ define([
 			this.on("delite-deactivated", this.deactivatedHandler.bind(this));
 		},
 
-		postRender: function () {
+		afterInitializeRendering: function () {
 			this.on("input", this.nestedInputHandler.bind(this), this.containerNode);
 			this.on("change", this.nestedChangeHandler.bind(this), this.containerNode);
 			this.on("completed", this.completedHandler.bind(this), this.containerNode);

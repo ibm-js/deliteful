@@ -134,7 +134,7 @@ define([
 
 		template: template,
 
-		postRender: function () {
+		afterInitializeRendering: function () {
 			this.lineNodeList = this.linesNode.querySelectorAll("line");
 			var symbolId = this.widgetId + "-symbol";
 			this.symbolNode.id = symbolId;

@@ -36,7 +36,7 @@ define([
 		 */
 		month: -1,
 
-		render: function () {
+		initializeRendering: function () {
 			// Make 3x4 grid of abbreviated month names (Jan, Feb, Mar, ...).
 			this.setAttribute("role", "grid");
 			var row;

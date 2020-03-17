@@ -1,6 +1,6 @@
 {
 	"name": "deliteful",
-	"version": "0.9.5",
+	"version": "0.9.6",
 	"description": "enterprise class Web Components to be used in Web & Mobile Hybrid applications",
 	"homepage": "http://ibm-js.github.io/deliteful/",
 	"repository": {
@@ -10,8 +10,8 @@
 	"bugs": "https://github.com/ibm-js/deliteful/issues",
 	"dependencies": {
 		"dcl": "^2.0.6",
-		"delite": "^0.9.2",
-		"dojo": "^1.15.0",
+		"delite": "^0.9.5",
+		"dojo": "^1.16.2",
 		"dojo-dstore": "1.1.x",
 		"ibm-decor": "0.8.x",
 		"requirejs-domready": "2.0.x",

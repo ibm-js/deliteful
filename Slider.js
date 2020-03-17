@@ -204,7 +204,7 @@ define([
 
 		template: template,
 
-		render: dcl.superCall(function (sup) {
+		initializeRendering: dcl.superCall(function (sup) {
 			return function () {
 				sup.call(this);
 				if (!this.valueNode.parentNode) {
@@ -378,7 +378,7 @@ define([
 			this.on("keyup", this.keyUpHandler.bind(this));
 		},
 
-		postRender: function () {
+		afterInitializeRendering: function () {
 			if (this.valueNode.value) { // INPUT value
 				// browser back button or value coded on INPUT
 				// the valueNode value has precedence over the widget markup value

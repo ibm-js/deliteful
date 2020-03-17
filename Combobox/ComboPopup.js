@@ -34,7 +34,7 @@ define([
 		// Whether or not to display the list.  Computed value.
 		showList: false,
 
-		postRender: function () {
+		afterInitializeRendering: function () {
 			this._showOrHideList();
 		},
 
