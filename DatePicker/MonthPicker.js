@@ -1,16 +1,22 @@
 define([
+	"luxon",
 	"delite/register",
 	"delite/Widget",
 	"../TimeBase"
 ], function (
+	luxon,
 	register,
 	Widget,
 	TimeBase
 ) {
 	"use strict";
 
+	var DateTime = luxon.DateTime,
+		Info = luxon.Info;
+
 	/**
 	 * Dispatched when user clicks a month (even if it's the currently selected month).
+	 * evt.month is a number from 1 to 12.
 	 * @example
 	 * document.addEventListener("month-selected", function (evt) {
 	 *      console.log("selected month", evt.month);
@@ -32,7 +38,7 @@ define([
 		gridLabel: "",
 
 		/**
-		 * Currently selected month.  This month gets the d-date-picker-selected class.
+		 * Currently selected month, 1-based.  This month gets the d-date-picker-selected class.
 		 */
 		month: -1,
 
@@ -40,7 +46,7 @@ define([
 			// Make 3x4 grid of abbreviated month names (Jan, Feb, Mar, ...).
 			this.setAttribute("role", "grid");
 			var row;
-			var months = this.dateLocaleModule.getNames("months", "abbr");
+			var months = Info.months("short");
 			this.cells = months.map(function (month, idx) {
 				if (idx % 3 === 0) {
 					row = this.appendChild(this.ownerDocument.createElement("div"));
@@ -48,7 +54,7 @@ define([
 				}
 				var cell = row.appendChild(this.ownerDocument.createElement("div"));
 				cell.setAttribute("role", "gridcell");
-				cell.month = idx;
+				cell.month = idx + 1;
 
 				// Store text in a nested element so vertical centering works.
 				var cellText = cell.appendChild(this.ownerDocument.createElement("span"));
@@ -73,10 +79,10 @@ define([
 				});
 
 				if (this.month >= 0) {
-					this.cells[this.month].classList.add("d-date-picker-selected");
+					this.cells[this.month - 1].classList.add("d-date-picker-selected");
 				} else {
-					var presentMonth = (new this.Date()).getMonth();
-					this.cells[presentMonth].classList.add("d-date-picker-today");
+					var presentMonth = DateTime.local().month;
+					this.cells[presentMonth - 1].classList.add("d-date-picker-today");
 				}
 			}
 		},

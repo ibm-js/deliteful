@@ -1,10 +1,12 @@
 define([
+	"luxon",
 	"dojo/_base/kernel",
 	"delite/register",
 	"delite/Widget",
 	"../TimeBase",
 	"delite/handlebars!./YearPicker.html"
 ], function (
+	luxon,
 	dojo,
 	register,
 	Widget,
@@ -12,6 +14,8 @@ define([
 	template
 ) {
 	"use strict";
+
+	var DateTime = luxon.DateTime;
 
 	/**
 	 * Dispatched when user clicks a year (even if it's the currently selected year).
@@ -45,7 +49,7 @@ define([
 		 *  Year displayed in center of grid.
 		 * @member {number}
 		 */
-		centeredYear: 0,
+		centeredYear: DateTime.local().year,
 
 		/**
 		 * CSS class for icon to go to previous month or year.
@@ -142,7 +146,7 @@ define([
 			// Fill in text for each grid cell.
 			if ("rows" in oldVals || "cols" in oldVals || "centeredYear" in oldVals || "year" in oldVals) {
 				var firstYear = this.centeredYear - Math.floor(this.rows * this.cols / 2);
-				var presentYear = (new this.Date()).getFullYear();
+				var presentYear = DateTime.local().year;
 				this.cells.forEach(function (cell, idx) {
 					cell.year = firstYear + idx;
 					cell.firstChild.textContent = cell.year;
@@ -163,22 +167,13 @@ define([
 		},
 
 		/**
-		 * Formats the given year label, i.e. in Japanese 2016年 not just 2016.
+		 * Formats the given year label.
 		 * @param {number} year - Year to format.
 		 * @returns {string}
 		 */
 		formatYearLabel: function (year) {
-			var bundle = this.dateLocaleModule._getGregorianBundle();
-
-			// Create a date Object for specified year avoiding timezone issues and also handling
-			// dates from 0-99AD.  Note that "new Date(80, 1, 0)" maps to 1980, not 80.
-			var date = new Date(2000, 5, 0);
-			date.setFullYear(year);
-
-			return this.dateLocaleModule.format(date, {
-				selector: "date",
-				datePattern: bundle["dateFormatItem-y"]
-			});
+			var date = DateTime.fromObject({ year: year });
+			return date.toLocaleFormat({year: "numeric"});
 		},
 
 		/**
@@ -189,18 +184,8 @@ define([
 		 *		Range ends on this date.
 		 */
 		formatYearRange: function (startYear, endYear) {
-			// Hardcode patterns for year ranges, since they are not available from the CLDR data.
-			var pattern;
-			switch (dojo.locale) {
-			case "ja":
-				pattern = "{{1}}～{{2}}";
-				break;
-			default:
-				pattern = "{{1}}-{{2}}";
-			}
-
-			return pattern.replace("{{1}}", this.formatYearLabel(startYear))
-				.replace("{{2}}", this.formatYearLabel(endYear));
+			// Should be using Interval.toLocaleString() but I couldn't get it to work.
+			return startYear + "-" + endYear;
 		}
 	});
 });

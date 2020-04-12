@@ -1,19 +1,21 @@
 define([
-	"dojo/i18n",
 	"dcl/dcl",
+	"luxon",
 	"delite/register",
 	"delite/KeyNav",
 	"../TimeBase",
 	"delite/handlebars!./DayPicker.html"
 ], function (
-	i18n,
 	dcl,
+	luxon,
 	register,
 	KeyNav,
 	TimeBase,
 	template
 ) {
 	"use strict";
+
+	const DateTime = luxon.DateTime;
 
 	/**
 	 * Main view of the DatePicker, used for picking the day or opening the MonthPicker or YearPicker.
@@ -25,15 +27,15 @@ define([
 
 		/**
 		 * Selected date.
-		 * @member {Date}
+		 * @member {DateTime}
 		 */
 		value: null,
 
 		/**
-		 * Date object containing the currently focused date, or the date that would be focused
+		 * DateTime object containing the currently focused date, or the date that would be focused
 		 * if the calendar itself was focused.   Also indicates which year and month to display,
 		 * i.e. the current "page" the calendar is on.
-		 * @member {Date}
+		 * @member {DateTime}
 		 */
 		currentFocus: null,
 
@@ -53,7 +55,7 @@ define([
 
 		/**
 		 * Multi-dimensional array for each date in the calendar grid.  Computed based on `this.currentFocus`.
-		 * @member {Date[][]}
+		 * @member {DateTime[][]}
 		 * @readonly
 		 */
 		dates: null,
@@ -122,10 +124,10 @@ define([
 
 		// Helper function to convert date to a hash key.
 		_dateToHashKey: function (date) {
-			return date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
+			return date.year + "-" + date.month + "-" + date.day;
 		},
 
-		// Helper function to map from Date to the table cell representing that date.
+		// Helper function to map from DateTime to the table cell representing that DateTime.
 		_dateToCell: function (date) {
 			return this._dayCells && this._dayCells[this._dateToHashKey(date)];
 		},
@@ -133,7 +135,7 @@ define([
 		computeProperties: function (oldVals) {
 			// Start on month containing this.value, or if there's no value set, then the current day.
 			if ("value" in oldVals) {
-				this.currentFocus = this.value && !isNaN(this.value) ? this.value : new this.Date();
+				this.currentFocus = this.value && !isNaN(this.value) ? this.value : DateTime.local();
 			}
 
 			// If requested date is not in current month, then switch to month with requested date.
@@ -141,8 +143,8 @@ define([
 			// previous months, but it keeps us out of trouble with processing clicks of next/previous month
 			// buttons.
 			if ("currentFocus" in oldVals && this.currentFocus) {
-				this.currentMonth = this.currentFocus.getMonth();
-				this.currentYear = this.currentFocus.getFullYear();
+				this.currentMonth = this.currentFocus.month;
+				this.currentYear = this.currentFocus.year;
 				this.deliverComputing();	// if month/year changed, run next if() block before refreshRendering()
 			}
 
@@ -157,10 +159,8 @@ define([
 				var startDate = this.floorToWeek(startOfMonth);
 
 				// Then, compute the number of weeks to display. Will be between 4 (ex: Feb 2015) and 6 (ex: May 2015).
-				var endDate = this.dateModule.add(startOfMonth, "month", 1);
-				endDate = this.dateModule.add(endDate, "day", 6);
-				endDate = this.floorToWeek(endDate);
-				var rowCount = this.dateModule.difference(startDate, endDate, "week");
+				var endDate = this.floorToWeek(startOfMonth.plus({month: 1, day: 6}));
+				var rowCount = endDate.diff(startDate, "weeks").weeks;
 
 				// Finally, compute the array of dates that the calendar should show.
 				this.dates = [];
@@ -169,7 +169,7 @@ define([
 					this.dates.push([]);
 					for (var col = 0; col < 7; col++) {
 						this.dates[row].push(d);
-						d = this.addAndFloor(d, "day", 1);
+						d = d.plus({day: 1}).startOf("day");
 					}
 				}
 			}
@@ -180,13 +180,13 @@ define([
 				sup.apply(this, arguments);
 
 				// Create column headers.
-				var d = this.floorToWeek(new this.Date());
+				var d = this.floorToWeek(DateTime.local());
 				for (var i = 0; i < 7; i++) {
 					var cell = this.daysRow.appendChild(this.ownerDocument.createElement("div"));
 					cell.id = this.widgetId + "-day-" + i;
 					cell.textContent = this.formatColumnHeaderLabel(d);
 					cell.setAttribute("role", "rowheader");
-					d.setDate(d.getDate() + 1);
+					d = d.plus({day: 1});
 				}
 
 				// Create table rows.
@@ -251,7 +251,7 @@ define([
 					today.classList.remove("d-date-picker-today");
 				}
 
-				var todayCell = this._dateToCell(new this.Date());
+				var todayCell = this._dateToCell(DateTime.local());
 				if (todayCell) {
 					todayCell.classList.add("d-date-picker-today");
 				}
@@ -286,74 +286,60 @@ define([
 
 		/**
 		 * Computes the column header label for the specified date.
-		 * @param {Date} d
+		 * @param {DateTime} d
 		 * @returns {string}
 		 * @protected
 		 */
 		formatColumnHeaderLabel: function (d) {
-			return this.dateLocaleModule.getNames("days", "narrow", "standAlone")[d.getDay()];
+			return d.toLocaleString({ weekday: "narrow" });
 		},
 
 		/**
 		 * Compute the label for a grid cell.  Should be just the number, ex: 9 not 9日.
-		 * @param {Date} d - The date to format.
+		 * @param {DateTime} d - The date to format.
 		 * @param {number} row - The row that displays the current date.
 		 * @param {number} col - The column that displays the current date.
 		 * @returns {string}
 		 * @protected
 		 */
 		formatGridCellLabel: function (d) {
-			return this.dateLocaleModule.format(d, {
-				selector: "date",
-				datePattern: "d"
-			});
+			return d.toLocaleString({ day: "numeric" });
 		},
 
 		/**
 		 * Styles the CSS classes to the node that displays a cell.
 		 * @param {Element} node - The DOM node that displays the cell in the grid.
-		 * @param {Date} date - The date displayed by this cell.
+		 * @param {} date - The date displayed by this cell.
 		 */
 		styleGridCell: function (node, date) {
-			node.classList.toggle("d-date-picker-other-month", date.getMonth() !== this.currentFocus.getMonth());
+			node.classList.toggle("d-date-picker-other-month", date.month !== this.currentFocus.month);
 		},
 
 		/**
-		 * Convert Date to string.  Used to set aria-label of each cell.
-		 * @param {Date} d
+		 * Convert DateTime to string.  Used to set aria-label of each cell.
+		 * @param {DateTime} d
 		 * @returns {string}
 		 */
 		formatDateAriaLabel: function (d) {
-			return this.dateLocaleModule.format(d, {
-				selector: "date",
-				formatLength: "long"
-			});
+			return d.toLocaleString(DateTime.DATE_FULL);
 		},
 
 		/**
 		 * Formats the given month label.
-		 * @param {Date} date - Date to format.
+		 * @param {DateTime} date - DateTime to format.
 		 * @returns {string}
 		 */
 		formatMonthLabel: function (date) {
-			return this.dateLocaleModule.format(date, {
-				selector: "date",
-				datePattern: "MMMM"
-			});
+			return date.toLocaleString({ month: "long" });
 		},
 
 		/**
-		 * Formats the given year label, i.e. in Japanese 2016年 not just 2016.
-		 * @param {Date} date - Date to format.
+		 * Formats the given year label.
+		 * @param {DateTime} date - DateTime to format.
 		 * @returns {string}
 		 */
 		formatYearLabel: function (date) {
-			var bundle = this.dateLocaleModule._getGregorianBundle();
-			var yearPattern = bundle["dateFormatItem-y"];
-			return this.dateLocaleModule.format(date, {
-				selector: "date",
-				datePattern: yearPattern
-			});
+			return date.toLocaleString({ year: "numeric" });
 		},
 
 		////////////////////////////////////////////
@@ -392,7 +378,7 @@ define([
 		 * @param {Event} event
 		 */
 		nextMonthClickHandler: function () {
-			this.focus(this.dateModule.add(this.currentFocus, "month", 1));
+			this.focus(this.currentFocus.plus({month: 1}));
 		},
 
 		/**
@@ -400,7 +386,7 @@ define([
 		 * @param {Event} event
 		 */
 		previousMonthClickHandler: function () {
-			this.focus(this.dateModule.add(this.currentFocus, "month", -1));
+			this.focus(this.currentFocus.minus({month: 1}));
 		},
 
 		/**
@@ -416,7 +402,7 @@ define([
 		 * @param {Event} event
 		 */
 		nextYearClickHandler: function () {
-			this.setYear(this.currentFocus.getFullYear() + 1);
+			this.setYear(this.currentFocus.year + 1);
 		},
 
 		/**
@@ -424,19 +410,14 @@ define([
 		 * @param {Event} event
 		 */
 		previousYearClickHandler: function () {
-			this.setYear(this.currentFocus.getFullYear() - 1);
+			this.setYear(this.currentFocus.year - 1);
 		},
 
 		/**
 		 * Move to specified month.
 		 */
 		setMonth: function (month) {
-			var newDate = new this.Date(this.currentFocus.getFullYear(), month,
-				this.currentFocus.getDate());
-			if (newDate.getMonth() > month) {
-				// Corner case where we try to go from March 31 --> Feb 31, and then end up on March 3.
-				newDate = this.dateModule.add(newDate, "day", -1 * (newDate.getDate() + 1));
-			}
+			var newDate = this.currentFocus.set({month: month});
 			this.focus(newDate);
 		},
 
@@ -444,14 +425,7 @@ define([
 		 * Move to specified year.
 		 */
 		setYear: function (year) {
-			var newDate = new this.Date(year, this.currentFocus.getMonth(),
-				this.currentFocus.getDate());
-
-			if (newDate.getMonth() > this.currentFocus.getMonth()) {
-				// Corner case where we try to go from Feb 29 to a year without Feb 29.
-				newDate = this.dateModule.add(newDate, "day", -1 * (newDate.getDate() + 1));
-			}
-
+			var newDate = this.currentFocus.set({year: year});
 			this.focus(newDate);
 		},
 
@@ -466,40 +440,35 @@ define([
 		descendantSelector: ".d-date-picker-date",
 
 		previousKeyHandler: function () {
-			this.focus(this.dateModule.add(this.currentFocus, "day", -1));
+			this.focus(this.currentFocus.minus({day: 1}));
 		},
 
 		nextKeyHandler: function () {
-			this.focus(this.dateModule.add(this.currentFocus, "day", 1));
+			this.focus(this.currentFocus.plus({day: 1}));
 		},
 
 		upKeyHandler: function () {
-			this.focus(this.dateModule.add(this.currentFocus, "week", -1));
+			this.focus(this.currentFocus.minus({week: 1}));
 		},
 
 		downKeyHandler: function () {
-			this.focus(this.dateModule.add(this.currentFocus, "week", 1));
+			this.focus(this.currentFocus.plus({week: 1}));
 		},
 
 		pageUpKeyHandler: function (event) {
-			this.focus(this.dateModule.add(this.currentFocus, event.ctrlKey || event.shiftKey ? "year" : "month", -1));
+			this.focus(this.currentFocus.minus(event.ctrlKey || event.shiftKey ? {year: 1} : {month: 1}));
 		},
 
 		pageDownKeyHandler: function (event) {
-			this.focus(this.dateModule.add(this.currentFocus,  event.ctrlKey || event.shiftKey ? "year" : "month", 1));
+			this.focus(this.currentFocus.plus(event.ctrlKey || event.shiftKey ? {year: 1} : {month: 1}));
 		},
 
 		homeKeyHandler: function () {
-			// Go to first day of current month.
-			this.currentFocus.setDate(1);
-			this.focus(this.currentFocus);
+			this.focus(this.currentFocus.startOf("month"));
 		},
 
 		endKeyHandler: function () {
-			// Go to last day of current month.
-			this.currentFocus.setMonth(this.currentFocus.getMonth() + 1);
-			this.currentFocus.setDate(0);
-			this.focus(this.currentFocus);
+			this.focus(this.currentFocus.endOf("month"));
 		},
 
 		enterKeyHandler: function (event) {

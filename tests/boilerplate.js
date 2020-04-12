@@ -63,9 +63,10 @@ if (/Trident/.test(navigator.userAgent)) {
 /* global require:true */
 require = {
 	baseUrl: testDir + "../node_modules/",
-	packages: [
-		{ name: "deliteful", location: ".." }
-	],
+	paths: {
+		deliteful: "..",
+		luxon: "../node_modules/luxon/build/amd/luxon"
+	},
 	locale: locale || "en-us"
 };
 

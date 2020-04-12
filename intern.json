@@ -22,9 +22,10 @@
 			"script": "./intern-requirejs-loader.js",
 			"options": {
 				"baseUrl": "./node_modules",
-				"packages": [
-					{ "name": "deliteful", "location": ".." }
-				]
+				"paths": {
+					"deliteful": "..",
+					"luxon": "./node_modules/luxon/build/amd/luxon"
+				}
 			}
 		}
 	},
@@ -34,9 +35,10 @@
 			"script": "deliteful/intern-requirejs-loader.js",
 			"options": {
 				"baseUrl": "../../../deliteful/node_modules",
-				"packages": [
-					{ "name": "deliteful", "location": ".." }
-				]
+				"paths": {
+					"deliteful": "..",
+					"luxon": "../../../deliteful/node_modules/luxon/build/amd/luxon"
+				}
 			}
 		}
 	},

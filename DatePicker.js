@@ -1,4 +1,5 @@
 define([
+	"luxon",
 	"delite/register",
 	"delite/Widget",
 	"deliteful/TimeBase",
@@ -9,6 +10,7 @@ define([
 	"requirejs-dplugins/i18n!./DatePicker/nls/DatePicker",
 	"requirejs-dplugins/css!./DatePicker/DatePicker.css"
 ], function (
+	luxon,
 	register,
 	Widget,
 	TimeBase,
@@ -19,6 +21,8 @@ define([
 	messages
 ) {
 	"use strict";
+
+	var DateTime = luxon.DateTime;
 
 	/**
 	 * Small calendar to be used as a dropdown, designed for picking a date.
@@ -32,7 +36,7 @@ define([
 
 		/**
 		 * Selected date.
-		 * @member {Date}
+		 * @member {DateTime}
 		 */
 		value: null,
 
@@ -127,9 +131,6 @@ define([
 			// Create the DayPicker initially, and create MonthPicker and YearPicker on demand.
 			this.dayPicker = new DayPicker({
 				gridLabel: this.dayPickerLabel,
-				Date: this.Date,
-				dateModule: this.dateModule,
-				dateLocaleModule: this.dateLocaleModule,
 				firstDayOfWeek: this.firstDayOfWeek,
 				previousIconClass: this.previousIconClass,
 				nextIconClass: this.nextIconClass,
@@ -162,9 +163,6 @@ define([
 			if (!this.monthPicker) {
 				this.monthPicker = new MonthPicker({
 					gridLabel: this.monthPickerLabel,
-					Date: this.Date,
-					dateModule: this.dateModule,
-					dateLocaleModule: this.dateLocaleModule,
 					previousIconClass: this.previousIconClass,
 					nextIconClass: this.nextIconClass
 				});
@@ -189,9 +187,6 @@ define([
 			if (!this.yearPicker) {
 				this.yearPicker = new YearPicker({
 					gridLabel: this.yearPickerLabel,
-					Date: this.Date,
-					dateModule: this.dateModule,
-					dateLocaleModule: this.dateLocaleModule,
 					previousIconClass: this.previousIconClass,
 					nextIconClass: this.nextIconClass,
 					previousYearRangeButtonLabel: this.previousYearRangeButtonLabel,
@@ -232,13 +227,12 @@ define([
 			this.dayPicker.focus();
 		},
 
-
 		/**
 		 * Handler for click of today button.
 		 * Return to the day picker and set it to the year and month containing today.
 		 */
 		todayButtonClickHandler: function () {
-			var today = new this.Date();
+			var today = DateTime.local();
 			this.viewStack.show(this.dayPicker);
 			this.dayPicker.focus(today);
 		},

@@ -5,6 +5,8 @@ define(function () {
 	var pollUntil = requirejs.nodeRequire("@theintern/leadfoot/helpers/pollUntil").default;
 	var assert = intern.getPlugin("chai").assert;
 	var keys = requirejs.nodeRequire("@theintern/leadfoot/keys").default;
+	var luxon = require("luxon"),
+		DateTime = luxon.DateTime;
 
 	registerSuite("DatePicker - functional", {
 		before: function () {
@@ -17,7 +19,7 @@ define(function () {
 		tests: {
 			"basic mouse navigation": function () {
 				return this.remote
-					.execute("document.getElementById('calendar1').value = new Date(2000, 1, 1);")
+					.execute("document.getElementById('calendar1').value = DateTime.local(2000, 2, 1);")
 
 					// Try month back/forward buttons on day view.
 					.findByCssSelector(".d-date-picker-header .d-date-picker-button").click().click().end()
@@ -63,7 +65,7 @@ define(function () {
 			"selection": {
 				"current month": function () {
 					return this.remote
-						.execute("document.getElementById('calendar1').value = new Date(2000, 0, 1);")
+						.execute("document.getElementById('calendar1').value = DateTime.local(2000, 1, 1);")
 						.findByCssSelector("[role=row]:nth-child(3) [role=gridcell]:nth-child(4)")
 						.getVisibleText().then(function (day) {
 							assert.strictEqual(day.trim(), "5", "Jan 5");
@@ -81,7 +83,7 @@ define(function () {
 				"previous month": function () {
 					// Select a day from previous month (and year).
 					return this.remote
-						.execute("document.getElementById('calendar1').value = new Date(2000, 0, 1);")
+						.execute("document.getElementById('calendar1').value = DateTime.local(2000, 1, 1);")
 						.findByCssSelector("[role=gridcell]:nth-child(1)").getVisibleText().then(function (day) {
 							assert.strictEqual(day.trim(), "26", "Dec 26");
 						})
@@ -107,7 +109,7 @@ define(function () {
 
 				"next month": function () {
 					return this.remote
-						.execute("document.getElementById('calendar1').value = new Date(2000, 0, 1);")
+						.execute("document.getElementById('calendar1').value = DateTime.local(2000, 1, 1);")
 						.findByCssSelector("[role=row]:last-child [role=gridcell]:last-child")
 						.getVisibleText().then(function (day) {
 							assert.strictEqual(day.trim(), "5", "Feb 5");
@@ -136,7 +138,7 @@ define(function () {
 			"month picker": {
 				"click currently selected month": function () {
 					return this.remote
-						.execute("document.getElementById('calendar1').value = new Date(2000, 1, 1);")
+						.execute("document.getElementById('calendar1').value = DateTime.local(2000, 2, 1);")
 
 						// Open the month view.
 						.findByCssSelector(".d-day-picker .d-date-picker-header .d-date-picker-button:nth-child(2)")
@@ -184,7 +186,7 @@ define(function () {
 				"select first month": function () {
 					// Reopen month picker and click first month.
 					return this.remote
-						.execute("document.getElementById('calendar1').value = new Date(2000, 1, 1);")
+						.execute("document.getElementById('calendar1').value = DateTime.local(2000, 2, 1);")
 						.findByCssSelector(".d-day-picker .d-date-picker-header .d-date-picker-button:nth-child(2)")
 						.click().end()
 						.sleep(500)
@@ -222,7 +224,7 @@ define(function () {
 				"select last month": function () {
 					// Reopen month picker and click last month.
 					return this.remote
-						.execute("document.getElementById('calendar1').value = new Date(2000, 1, 1);")
+						.execute("document.getElementById('calendar1').value = DateTime.local(2000, 2, 1);")
 						.findByCssSelector(".d-day-picker .d-date-picker-header .d-date-picker-button:nth-child(2)")
 						.click().end()
 						.sleep(500)
@@ -261,7 +263,7 @@ define(function () {
 			"year picker": {
 				"click currently selected year": function () {
 					return this.remote
-						.execute("document.getElementById('calendar1').value = new Date(2000, 1, 1);")
+						.execute("document.getElementById('calendar1').value = DateTime.local(2000, 2, 1);")
 
 						// Open the year view.
 						.findByCssSelector(".d-day-picker .d-date-picker-footer .d-date-picker-button:nth-child(2)")
@@ -310,7 +312,7 @@ define(function () {
 
 				"navigation": function () {
 					return this.remote
-						.execute("document.getElementById('calendar1').value = new Date(2000, 1, 1);")
+						.execute("document.getElementById('calendar1').value = DateTime.local(2000, 2, 1);")
 
 						// Open the year view.
 						.findByCssSelector(".d-day-picker .d-date-picker-footer .d-date-picker-button:nth-child(2)")
@@ -390,26 +392,26 @@ define(function () {
 
 			"external buttons": {
 				"today button": function () {
-					var today = new Date();
+					var today = DateTime.local();
 					return this.remote
-						.execute("document.getElementById('calendar1').value = new Date(2000, 1, 1);")
+						.execute("document.getElementById('calendar1').value = DateTime.local(2000, 2, 1);")
 						.findByCssSelector(".-d-datepicker-today-button").click().end()
 						.sleep(500)
 						.findByCssSelector(".d-day-picker .d-date-picker-header .d-label")
 						.getVisibleText().then(function (month) {
-							var currentMonth = today.toLocaleString("en-us", {month: "long"});
+							var currentMonth = today.toLocaleString({month: "long"});
 							assert.strictEqual(month, currentMonth, "current month");
 						}).end()
 						.findByCssSelector(".d-day-picker .d-date-picker-footer .d-label")
 						.getVisibleText().then(function (year) {
-							var currentYear = "" + today.getFullYear();
+							var currentYear = "" + today.year;
 							assert.strictEqual(year, currentYear, "current year");
 						}).end();
 				},
 
 				"clear button": function () {
 					return this.remote
-						.execute("document.getElementById('calendar1').value = new Date(2000, 1, 1);")
+						.execute("document.getElementById('calendar1').value = DateTime.local(2000, 2, 1);")
 						.findByCssSelector("[role=row]:nth-child(3) [role=gridcell]:nth-child(4)").click().end()
 						.findByCssSelector("#value").getVisibleText().then(function (text) {
 							assert.strictEqual(text, "2000-02-09", "after selecting value");
@@ -433,7 +435,7 @@ define(function () {
 				tests: {
 					"arrows and selection": function () {
 						return this.remote
-							.execute("document.getElementById('calendar1').value = new Date(2000, 0, 22);")
+							.execute("document.getElementById('calendar1').value = DateTime.local(2000, 0, 22);")
 							.findById("before").click().end()
 							.pressKeys(keys.TAB) // Press TAB -> DatePicker
 							.getActiveElement().getVisibleText().then(function (text) {
@@ -516,7 +518,7 @@ define(function () {
 
 					"home and end": function () {
 						return this.remote
-							.execute("document.getElementById('calendar1').value = new Date(2000, 0, 15);")
+							.execute("document.getElementById('calendar1').value = DateTime.local(2000, 0, 15);")
 							.findById("before").click().end()
 							.pressKeys(keys.TAB) // Press TAB -> DatePicker
 							.getActiveElement().getVisibleText().then(function (text) {
@@ -541,7 +543,7 @@ define(function () {
 						}
 
 						return this.remote
-							.execute("document.getElementById('calendar1').value = new Date(2000, 0, 31);")
+							.execute("document.getElementById('calendar1').value = DateTime.local(2000, 0, 31);")
 							.findById("before").click().end()
 							.pressKeys(keys.TAB) // Press TAB -> DatePicker
 							.getActiveElement().getVisibleText().then(function (text) {

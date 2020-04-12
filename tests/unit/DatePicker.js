@@ -4,11 +4,13 @@ define(function (require) {
 	var registerSuite = intern.getPlugin("interface.object").registerSuite;
 	var assert = intern.getPlugin("chai").assert;
 	var DatePicker = require("deliteful/DatePicker");
+	var luxon = require("luxon"),
+		DateTime = luxon.DateTime;
 
 	registerSuite("DatePicker", {
 		layout: function () {
 			var dp = new DatePicker({
-				value: new Date(2000, 1, 1)
+				value: DateTime.local(2000, 2, 1)
 			});
 			dp.deliver();
 
@@ -37,5 +39,4 @@ define(function (require) {
 			assert.strictEqual(dp.querySelectorAll("[role=row]").length, 7, "# of rows including header");
 		}
 	});
-
 });

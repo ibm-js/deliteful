@@ -18,19 +18,22 @@
 
 		require([
 			"delite/register",
-			"dojo/date/stamp",
+			"luxon",
 			"deliteful/DatePicker"
 		], function (
 			register,
-			stamp
+			luxon
 		) {
+			// Set global for use by test
+			DateTime = luxon.DateTime;
+
 			register.deliver();
 			ready = true;
 
 			onChange = function (evt) {
 				var calendar = document.getElementById("calendar1");
 				document.getElementById("value").textContent = calendar.value ?
-					stamp.toISOString(calendar.value, {selector: "date"}) : "";
+					calendar.value.toISODate() : "";
 			};
 		});
 	</script>
