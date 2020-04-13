@@ -155,7 +155,7 @@ define([
 
 				// Compute the Sunday for the week that includes the first day
 				// of the month.
-				var startOfMonth = this.floorToMonth(this.currentFocus);
+				var startOfMonth = this.currentFocus.startOf("month");
 				var startDate = this.floorToWeek(startOfMonth);
 
 				// Then, compute the number of weeks to display. Will be between 4 (ex: Feb 2015) and 6 (ex: May 2015).
