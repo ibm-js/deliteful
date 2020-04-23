@@ -1,14 +1,16 @@
 import register from "delite/register";
-import ItemRenderer from "deliteful/list/ItemRenderer";
+import Widget from "delite/Widget";
 import List from "deliteful/list/List";
+import { html } from "lit-html";
 
-const MyCustomRenderer = register("d-data-form-item", [ ItemRenderer ], {
+register("d-data-form-item", [ HTMLElement, Widget ], {
 	item: null,
 
 	counter: 1,
 
 	initializeRendering: function () {
 		this.setAttribute("role", "row");
+		this.className = "d-list-item";
 		var renderNode = this.renderNode = this.ownerDocument.createElement("div");
 		renderNode.setAttribute("role", "gridcell");
 		renderNode.setAttribute("class", "d-list-cell");
@@ -45,6 +47,9 @@ const MyCustomRenderer = register("d-data-form-item", [ ItemRenderer ], {
 });
 
 export default register("d-data-form", [ List ], {
-	ItemRenderer: MyCustomRenderer,
+	renderItem: function (item) {
+		return html`<d-data-form-item .item="${item}"></d-data-form-item>`;
+	},
+
 	copyAllItemProps: true
 });

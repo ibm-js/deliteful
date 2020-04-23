@@ -81,64 +81,20 @@ export default {
 					assert.isTrue(list.classList.contains("d-list"));
 				},
 
-				"getItemRenderers": function () {
-					var list = this.parent.list;
-					var nodeList = list.getItemRenderers();
-					assert.deepEqual(nodeList, [].slice.call(list.containerNode.children));
-				},
-
-				"getRendererByItemId": function () {
-					var list = this.parent.list;
-					var children = list.containerNode.children;
-					assert.strictEqual(list.getRendererByItemId(list.source.data[0].id),
-						children[0], "first renderer");
-					assert.strictEqual(list.getRendererByItemId(list.source.data[1].id),
-						children[1], "second renderer");
-					assert.strictEqual(list.getRendererByItemId(list.source.data[2].id),
-						children[2], "third renderer");
-					assert.isNull(list.getRendererByItemId("I'm not an existing id"), "non list item");
-				},
-
-				"getItemRendererIndex": function () {
-					var list = this.parent.list;
-					var children = list.containerNode.children;
-					assert.strictEqual(0, list.getItemRendererIndex(children[0]), "first renderer");
-					assert.strictEqual(1, list.getItemRendererIndex(children[1]), "second renderer");
-					assert.strictEqual(2, list.getItemRendererIndex(children[2]), "second renderer");
-					assert.strictEqual(-1, list.getItemRendererIndex(list), "non list renderer");
-				},
-
 				"getEnclosingRenderer": function () {
 					var list = this.parent.list;
-					var children = list.containerNode.children;
+					var children = list.querySelector("[role=grid]").children;
 					assert.strictEqual(list.getEnclosingRenderer(children[0]), children[0], "first");
 					assert.strictEqual(list.getEnclosingRenderer(children[0].children[0]), children[0], "second");
 					assert.isNull(list.getEnclosingRenderer(list), "third");
-				},
-
-				"_renderNewItems": function () {
-					var list = this.parent.list;
-					list._renderNewItems([ { label: "item a" }, { label: "item b" }, { label: "item c" } ], true);
-					var children = list.containerNode.children;
-					assert.strictEqual(children.length, 6, "nb of items");
-					assert.strictEqual(children[0].item.label, "item a", "first added 1");
-					assert.strictEqual(children[1].item.label, "item b", "first added 2");
-					assert.strictEqual(children[2].item.label, "item c", "firstd added 3");
-					list._renderNewItems([ { label: "item d" }, { label: "item e" }, { label: "item f" } ], false);
-					children = list.containerNode.children;
-					assert.strictEqual(children.length, 9, "nb of items 2");
-					assert.strictEqual(children[6].item.label, "item d", "last added 1");
-					assert.strictEqual(children[7].item.label, "item e", "last added 2");
-					assert.strictEqual(children[8].item.label, "item f", "last added 3");
 				},
 
 				"update item label": function () {
 					var list = this.parent.list;
 					list.source.put({ label: "item a" }, { id: list.source.data[0].id });
 					list.deliver();
-					var renderer = list.containerNode.children[0];
-					assert.strictEqual(renderer.item.label, "item a");
-					assert.strictEqual(renderer.firstElementChild.children[1].innerHTML, "item a");
+					var renderer = list.querySelector("[role=grid]").children[0];
+					assert.strictEqual(renderer.firstElementChild.children[1].textContent, "item a");
 				},
 
 				"update item: add, update and remove icon": function () {
@@ -146,40 +102,28 @@ export default {
 					// add
 					list.source.put({ label: "item a", iconclass: "my-icon" }, { id: list.source.data[0].id });
 					list.deliver();
-					var renderer = list.containerNode.children[0];
-					assert.strictEqual(renderer.item.label, "item a");
+					var renderer = list.querySelector("[role=grid]").children[0];
 					assert.strictEqual(renderer.firstElementChild.getAttribute("role"), "gridcell");
-					assert.strictEqual(renderer.firstElementChild.firstChild.className, "d-list-item-icon my-icon");
+					assert.strictEqual(renderer.firstElementChild.firstElementChild.className, "d-list-item-icon my-icon");
 					assert.strictEqual(renderer.firstElementChild.children[1].className, "d-list-item-label");
-					assert.strictEqual(renderer.firstElementChild.children[1].innerHTML, "item a");
+					assert.strictEqual(renderer.firstElementChild.children[1].textContent, "item a");
 					// update
 					list.source.put({ label: "item a", iconclass: "my-other-icon" },
 						{ id: list.source.data[0].id });
 					list.deliver();
-					renderer = list.containerNode.children[0];
-					assert.strictEqual(renderer.item.label, "item a");
+					renderer = list.querySelector("[role=grid]").children[0];
 					assert.strictEqual(renderer.firstElementChild.getAttribute("role"), "gridcell");
-					assert.strictEqual(renderer.firstElementChild.firstChild.className,
+					assert.strictEqual(renderer.firstElementChild.firstElementChild.className,
 						"d-list-item-icon my-other-icon");
 					assert.strictEqual(renderer.firstElementChild.children[1].className, "d-list-item-label");
-					assert.strictEqual(renderer.firstElementChild.children[1].innerHTML, "item a");
+					assert.strictEqual(renderer.firstElementChild.children[1].textContent, "item a");
 					// remove
 					list.source.put({ label: "item a" }, { id: list.source.data[0].id });
 					list.deliver();
-					renderer = list.containerNode.children[0];
-					assert.strictEqual(renderer.item.label, "item a");
+					renderer = list.querySelector("[role=grid]").children[0];
 					assert.strictEqual(renderer.firstElementChild.getAttribute("role"), "gridcell");
 					assert.strictEqual(renderer.firstElementChild.children[1].className, "d-list-item-label");
-					assert.strictEqual(renderer.firstElementChild.children[1].innerHTML, "item a");
-				},
-
-				"item category attribute is not undefined by StoreMap": function () {
-					var list = this.parent.list;
-					list.destroy();
-					list = new ListConstructor({ source: new Store() });
-					list.placeAt(document.body);
-					list.source.add({ label: "item 1", category: "category 1" });
-					assert.strictEqual(list.containerNode.children[0].item.category, "category 1");
+					assert.strictEqual(renderer.firstElementChild.children[1].textContent, "item a");
 				},
 
 				"query-success event": function () {
@@ -227,7 +171,6 @@ export default {
 					setTimeout(def.callback(function () {
 						assert.isNotNull(queryErrorEvt);
 						assert.strictEqual(queryErrorEvt.error, "Query Error X", "error message");
-						assert.strictEqual(list.containerNode.getAttribute("aria-busy"), "false", "aria-busy");
 					}), 100);
 				},
 
@@ -244,8 +187,7 @@ export default {
 						var focusedElement = document.activeElement;
 						assert.isNotNull(focusedElement, "active element not null");
 						assert.isDefined(focusedElement, "active element defined");
-						assert.strictEqual("item 1", focusedElement.parentNode.item.label,
-							"focused element label");
+						assert.strictEqual(focusedElement.textContent.trim(), "item 1", "focused element label");
 					}), 10);
 				},
 
@@ -257,7 +199,7 @@ export default {
 					// while the list is detached.  That likely doesn't work.
 					list.parentNode.removeChild(list);
 					document.body.appendChild(list);
-					assert.strictEqual(list.containerNode.getAttribute("aria-busy"), "false",
+					assert.strictEqual(list.querySelector("[role=grid]").getAttribute("aria-busy"), "false",
 						"aria-busy false attr #1");
 
 					// Same test but with delays
@@ -266,29 +208,27 @@ export default {
 					setTimeout(def.rejectOnError(function () {
 						document.body.appendChild(list);
 						setTimeout(def.callback(function () {
-							assert.strictEqual(list.containerNode.getAttribute("aria-busy"), "false",
+							assert.strictEqual(list.querySelector("[role=grid]").getAttribute("aria-busy"), "false",
 								"aria-busy false attr #2");
 						}), 10);
 					}), 10);
 				},
 
-				"show/hide no items node depending of list's containerNode children": function () {
+				"show/hide no items node depending of list's children": function () {
 					var list = this.parent.list;
 					list.showNoItems = true;
 					list.deliver();
 					while (list.source.data.length > 0) {
-						list.source.remove(list.source.data[0].id);
+						list.source.removeSync(list.source.data[0].id);
 					}
 					list.deliver();
-					assert.isNotNull(list.querySelector(".d-list-no-items[d-shown='true']"),
-						".d-list-no-items must be visible");
+					assert.match(list.textContent, /Nothing to show./, "list content");
 
 					// adding again children to the list.
 					list.source.add({ label: "item 1" });
 					list.source.add({ label: "item 2" });
 					list.deliver();
-					assert.isNotNull(list.querySelector(".d-list-no-items[d-shown='false']"),
-						".d-list-no-items must be hidden");
+					assert.notMatch(list.textContent, /Nothing to show./, "list content");
 				},
 
 				"check loading panel": function () {
@@ -299,19 +239,11 @@ export default {
 					}
 					list._busy = true;
 					list.deliver();
-					assert.isNotNull(list.querySelector(".d-list-container[d-shown='false']"),
-						".d-list-container must be hidden");
-					assert.isNotNull(list.querySelector(".d-list-no-items[d-shown='false']"),
-						".d-list-no-items must be hidden");
-					assert.isNotNull(list.querySelector(".d-list-loading-panel[d-shown='true']"),
+					assert.isNotNull(list.querySelector(".d-list-loading-panel"),
 						".d-list-loading-panel must be visible");
 					list._busy = false;
 					list.deliver();
-					assert.isNotNull(list.querySelector(".d-list-container[d-shown='true']"),
-						".d-list-container must be visible");
-					assert.isNotNull(list.querySelector(".d-list-no-items[d-shown='false']"),
-						".d-list-no-items must be hidden");
-					assert.isNotNull(list.querySelector(".d-list-loading-panel[d-shown='false']"),
+					assert.isNull(list.querySelector(".d-list-loading-panel"),
 						".d-list-loading-panel must be hidden");
 				}
 			},

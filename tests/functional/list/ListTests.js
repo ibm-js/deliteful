@@ -6,7 +6,7 @@ define(function () {
 	var keys = requirejs.nodeRequire("@theintern/leadfoot/keys").default;
 	var assert = intern.getPlugin("chai").assert;
 
-	function basicTest(remote, testPage, listId, numberOfItemsExpected, numberOfCategoriesExpected, itemTag) {
+	function basicTest(remote, testPage, listId, numberOfItemsExpected, numberOfCategoriesExpected, itemSelector) {
 		return remote
 			.get("deliteful/tests/functional/list/"+ testPage)
 			.then(pollUntil("return ('ready' in window &&  ready "
@@ -19,8 +19,8 @@ define(function () {
 			.then(function () {
 				return remote.execute(
 					"return {" +
-				"	items: document.querySelectorAll('#" + listId + " " + itemTag + "').length," +
-				"	categories: document.querySelectorAll('#" + listId + " d-list-category-renderer').length," +
+				"	items: document.querySelectorAll('#" + listId + " " + itemSelector + "').length," +
+				"	categories: document.querySelectorAll('#" + listId + " .d-list-category').length," +
 				"}").then(function (result) {
 					assert.strictEqual(result.items, numberOfItemsExpected,
 						listId + " number of list items");
@@ -32,27 +32,27 @@ define(function () {
 
 	registerSuite("List tests", {
 		"list-prog-1.html": function () {
-			return basicTest(this.remote, "list-prog-1.html", "list-prog-1", 100, 0, "d-list-item-renderer");
+			return basicTest(this.remote, "list-prog-1.html", "list-prog-1", 100, 0, ".d-list-item");
 		},
 
 		"list-mark-1.html": function () {
-			return basicTest(this.remote, "list-mark-1.html", "list-mark-1", 10, 0, "d-list-item-renderer");
+			return basicTest(this.remote, "list-mark-1.html", "list-mark-1", 10, 0, ".d-list-item");
 		},
 
 		"list-mark-2.html": function () {
-			return basicTest(this.remote, "list-mark-2.html", "list-mark-2", 10, 0, "d-list-item-renderer");
+			return basicTest(this.remote, "list-mark-2.html", "list-mark-2", 10, 0, ".d-list-item");
 		},
 
 		"list-mark-3.html": function () {
-			return basicTest(this.remote, "list-mark-3.html", "list-mark-3", 10, 2, "d-list-item-renderer");
+			return basicTest(this.remote, "list-mark-3.html", "list-mark-3", 10, 2, ".d-list-item");
 		},
 
 		"list-mark-4.html": function () {
-			return basicTest(this.remote, "list-mark-4.html", "list-mark-4", 10, 0, "d-list-item-renderer");
+			return basicTest(this.remote, "list-mark-4.html", "list-mark-4", 10, 0, ".d-list-item");
 		},
 
 		"list-cust-1.html": function () {
-			return basicTest(this.remote, "list-cust-1.html", "list-cust-1", 40, 0, "d-custom-nav-item");
+			return basicTest(this.remote, "list-cust-1.html", "list-cust-1", 40, 0, ".d-list-item");
 		},
 
 		"selectionMode 'none'": function () {

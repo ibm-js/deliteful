@@ -1,10 +1,20 @@
 import register from "delite/register";
-import ItemRenderer from "deliteful/list/ItemRenderer";
+import Widget from "delite/Widget";
 import List from "deliteful/list/List";
-import template from "delite/handlebars!deliteful/samples/list/templates/BlankItemRenderer.html";
+import { html } from "lit-html";
 
-var MyCustomRenderer = register("d-configuration-item", [ ItemRenderer ], {
-	template: template,
+register("d-configuration-item", [ HTMLElement, Widget ], {
+	initializeRendering: function () {
+		this.setAttribute("role", "row");
+		this.className = "d-list-item";
+
+		const div = this.ownerDocument.createElement("div");
+		div.setAttribute("role", "gridcell");
+		div.className = "d-list-cell";
+		div.tabIndex = -1;
+		this.appendChild(div);
+	},
+
 	refreshRendering: function (oldVals) {
 		if ("item" in oldVals) {
 			var renderNode = this.firstElementChild;
@@ -34,6 +44,9 @@ var MyCustomRenderer = register("d-configuration-item", [ ItemRenderer ], {
 });
 
 export default register("d-configuration", [ List ], {
-	ItemRenderer: MyCustomRenderer,
+	renderItem: function (item) {
+		return html`<d-configuration-item .item="${item}"></d-configuration-item>`;
+	},
+
 	copyAllItemProps: true
 });

@@ -1,8 +1,0 @@
-<!-- Template: deliteful/list/Loader (d-list-loader)-->
-<template requires="deliteful/ProgressIndicator"
-	class="d-list-loader {{this.loading ? 'd-loading' : ''}}" role="button" aria-labelledby="{{widgetId}}-label" aria-disabled="{{loading}}">
-    <div class="d-spacer"></div>
-    <d-progress-indicator class="d-list-loader-progress-indicator" active={{loading}} d-hidden="{{!this.loading}}" attach-point="progressNode"></d-progress-indicator>
-    <div class="d-list-loader-label" id="{{widgetId}}-label" attach-point="labelNode">{{label}}</div>
-    <div class="d-spacer"></div>
-</template>

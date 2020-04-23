@@ -10,15 +10,13 @@ var list = null;
 var Store = Memory.createSubclass([ Trackable ], {});
 
 function checkCategory (node, expectedCategory) {
-	assert.strictEqual(node.tagName, "D-LIST-CATEGORY-RENDERER");
-	assert.isTrue(node.classList.contains("d-list-category"), "d-list-category");
-	assert.strictEqual(node.textContent, expectedCategory, "node.textContent");
+	assert.include(node.className, "d-list-category");
+	assert.strictEqual(node.textContent.trim(), expectedCategory, "node.textContent");
 }
 
 function checkItem (node, expectedLabel) {
-	assert.strictEqual(node.tagName, "D-LIST-ITEM-RENDERER");
-	assert.strictEqual(node.className, "d-list-item");
-	assert.strictEqual(node.getElementsByClassName("d-list-item-label")[0].innerHTML, expectedLabel, "label");
+	assert.include(node.className, "d-list-item");
+	assert.strictEqual(node.querySelector(".d-list-item-label").textContent.trim(), expectedLabel, "label");
 }
 
 registerSuite("list/Categories", {
@@ -45,7 +43,7 @@ registerSuite("list/Categories", {
 
 	tests: {
 		"categorized items": function () {
-			var children = list.containerNode.children;
+			var children = list.querySelectorAll("[role=row]");
 			assert.strictEqual(children.length, 12);
 			checkCategory(children[0], "A");
 			checkItem(children[1], "item 1");
@@ -67,8 +65,8 @@ registerSuite("list/Categories", {
 			list.source.remove(list.source.data[0].id);
 			list.source.remove(list.source.data[0].id);
 			list.deliver();
-			var children = list.containerNode.children;
-			assert.strictEqual(children.length, 8);
+			var children = list.querySelectorAll("[role=row]");
+			assert.strictEqual(children.length, 8, "children after first remove");
 			checkCategory(children[0], "B");
 			checkItem(children[1], "item 4");
 			checkItem(children[2], "item 5");
@@ -77,27 +75,33 @@ registerSuite("list/Categories", {
 			checkItem(children[5], "item 7");
 			checkItem(children[6], "item 8");
 			checkItem(children[7], "item 9");
+
 			// remove the three last items
 			list.source.remove(list.source.data[list.source.data.length - 1].id);
 			list.source.remove(list.source.data[list.source.data.length - 1].id);
 			list.source.remove(list.source.data[list.source.data.length - 1].id);
-			children = list.containerNode.children;
-			assert.strictEqual(children.length, 4);
+			list.deliver();
+			children = list.querySelectorAll("[role=row]");
+			assert.strictEqual(children.length, 4, "children after second remove");
 			checkCategory(children[0], "B");
 			checkItem(children[1], "item 4");
 			checkItem(children[2], "item 5");
 			checkItem(children[3], "item 6");
+
 			// remove two items
 			list.source.remove(list.source.data[0].id);
 			list.source.remove(list.source.data[0].id);
-			children = list.containerNode.children;
-			assert.strictEqual(children.length, 2);
+			list.deliver();
+			children = list.querySelectorAll("[role=row]");
+			assert.strictEqual(children.length, 2, "children after third remove");
 			checkCategory(children[0], "B");
 			checkItem(children[1], "item 6");
+
 			// remove the last item
 			list.source.remove(list.source.data[0].id);
-			children = list.containerNode.children;
-			assert.strictEqual(children.length, 0);
+			list.deliver();
+			children = list.querySelectorAll("[role=row]");
+			assert.strictEqual(children.length, 0, "children after last remove");
 		},
 
 		"remove all items from category (middle of list)": function () {
@@ -106,7 +110,7 @@ registerSuite("list/Categories", {
 			list.source.remove(list.source.data[3].id);
 			list.source.remove(list.source.data[3].id);
 			list.deliver();
-			var children = list.containerNode.children;
+			var children = list.querySelectorAll("[role=row]");
 			assert.strictEqual(children.length, 8);
 			checkCategory(children[0], "A");
 			checkItem(children[1], "item 1");
@@ -122,7 +126,7 @@ registerSuite("list/Categories", {
 			// add at the bottom of the list
 			list.source.add({ category: "C", label: "item a" });
 			list.deliver();
-			var children = list.containerNode.children;
+			var children = list.querySelectorAll("[role=row]");
 			assert.strictEqual(children.length, 13);
 			checkCategory(children[0], "A");
 			checkItem(children[1], "item 1");
@@ -137,10 +141,11 @@ registerSuite("list/Categories", {
 			checkItem(children[10], "item 8");
 			checkItem(children[11], "item 9");
 			checkItem(children[12], "item a");
+
 			// add at the top of the last category
 			list.source.add({ category: "C", label: "item b" }, { beforeId: list.source.data[6].id });
 			list.deliver();
-			children = list.containerNode.children;
+			children = list.querySelectorAll("[role=row]");
 			assert.strictEqual(children.length, 14);
 			checkCategory(children[0], "A");
 			checkItem(children[1], "item 1");
@@ -156,10 +161,11 @@ registerSuite("list/Categories", {
 			checkItem(children[11], "item 8");
 			checkItem(children[12], "item 9");
 			checkItem(children[13], "item a");
+
 			// add in the middle of the second category
 			list.source.add({ category: "B", label: "item c" }, { beforeId: list.source.data[4].id });
 			list.deliver();
-			children = list.containerNode.children;
+			children = list.querySelectorAll("[role=row]");
 			assert.strictEqual(children.length, 15);
 			checkCategory(children[0], "A");
 			checkItem(children[1], "item 1");
@@ -176,10 +182,11 @@ registerSuite("list/Categories", {
 			checkItem(children[12], "item 8");
 			checkItem(children[13], "item 9");
 			checkItem(children[14], "item a");
+
 			// add at the top of the list
 			list.source.add({ category: "A", label: "item d" }, { beforeId: list.source.data[0].id });
 			list.deliver();
-			children = list.containerNode.children;
+			children = list.querySelectorAll("[role=row]");
 			assert.strictEqual(children.length, 16);
 			checkCategory(children[0], "A");
 			checkItem(children[1], "item d");
@@ -203,7 +210,7 @@ registerSuite("list/Categories", {
 			// add at the bottom of the list
 			list.source.add({ category: "D", label: "item a" });
 			list.deliver();
-			var children = list.containerNode.children;
+			var children = list.querySelectorAll("[role=row]");
 			assert.strictEqual(children.length, 14);
 			checkCategory(children[0], "A");
 			checkItem(children[1], "item 1");
@@ -219,10 +226,11 @@ registerSuite("list/Categories", {
 			checkItem(children[11], "item 9");
 			checkCategory(children[12], "D");
 			checkItem(children[13], "item a");
+
 			// add at the top of the list
 			list.source.add({ category: "E", label: "item b" }, { beforeId: list.source.data[0].id });
 			list.deliver();
-			children = list.containerNode.children;
+			children = list.querySelectorAll("[role=row]");
 			assert.strictEqual(children.length, 16);
 			checkCategory(children[0], "E");
 			checkItem(children[1], "item b");
@@ -240,10 +248,11 @@ registerSuite("list/Categories", {
 			checkItem(children[13], "item 9");
 			checkCategory(children[14], "D");
 			checkItem(children[15], "item a");
+
 			// add in the middle of the list
 			list.source.add({ category: "F", label: "item c" }, { beforeId: list.source.data[8].id });
 			list.deliver();
-			children = list.containerNode.children;
+			children = list.querySelectorAll("[role=row]");
 			assert.strictEqual(children.length, 19);
 			checkCategory(children[0], "E");
 			checkItem(children[1], "item b");
@@ -269,7 +278,7 @@ registerSuite("list/Categories", {
 		"custom category attribute": function () {
 			list.categoryAttr = "label";
 			list.deliver();
-			var children = list.containerNode.children;
+			var children = list.querySelectorAll("[role=row]");
 			assert.strictEqual(children.length, 18);
 			checkCategory(children[0], "item 1");
 			checkItem(children[1], "item 1");
@@ -296,7 +305,7 @@ registerSuite("list/Categories", {
 				return item.label;
 			};
 			list.deliver();
-			var children = list.containerNode.children;
+			var children = list.querySelectorAll("[role=row]");
 			assert.strictEqual(children.length, 18);
 			checkCategory(children[0], "item 1");
 			checkItem(children[1], "item 1");
@@ -329,27 +338,12 @@ registerSuite("list/Categories", {
 			list.source.add({ category: "A", label: "item 5" });
 			list.source.add({ category: "A", label: "item 6" });
 			list.deliver();
-			var children = list.containerNode.children;
+			var children = list.querySelectorAll("[role=row]");
 			assert.strictEqual(children.length, 4);
 			checkCategory(children[0], "A");
 			checkItem(children[1], "item 4");
 			checkItem(children[2], "item 5");
 			checkItem(children[3], "item 6");
-			list._renderNewItems([
-				{ category: "A", label: "item 1" },
-				{ category: "A", label: "item 2" },
-				{ category: "A", label: "item 3" }
-			], true);
-			list.deliver();
-			children = list.containerNode.children;
-			assert.strictEqual(children.length, 7);
-			checkCategory(children[0], "A");
-			checkItem(children[1], "item 1");
-			checkItem(children[2], "item 2");
-			checkItem(children[3], "item 3");
-			checkItem(children[4], "item 4");
-			checkItem(children[5], "item 5");
-			checkItem(children[6], "item 6");
 		}
 	},
 

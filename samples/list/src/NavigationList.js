@@ -1,13 +1,20 @@
 import register from "delite/register";
-import ItemRenderer from "deliteful/list/ItemRenderer";
 import List from "deliteful/list/List";
-import template from "delite/handlebars!deliteful/samples/list/templates/NavigationItemRenderer.html";
-// Custom item renderer that renders a navigation button
-const NavigationItemRenderer = register("d-navigation-item", [ ItemRenderer ], {
-	template: template
-});
+import { html } from "lit-html";
 
 export default register("d-navigation-list", [ List ], {
-	ItemRenderer: NavigationItemRenderer,
+	renderItem: function (item) {
+		return html`
+			<div role="row" .item="${item}">
+				<div role="gridcell" class="d-list-cell" tabindex="-1">
+					<div role='button' tabindex='0'>
+					<div class='d-list-item-label'>${item.label}</div>
+					<div class='d-list-item-right-icon'></div>
+					</div>
+				</div>
+			</div>
+		`;
+	},
+
 	copyAllItemProps: true
 });

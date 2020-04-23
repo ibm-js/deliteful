@@ -17,59 +17,56 @@ var testHelper = {
 		list.selectionMode = "multiple";
 		list.deliver();
 		var selectionChangeEvent = null;
-		var firstItem = list.containerNode.children[0];
-		var secondItem = list.containerNode.children[1];
+		var firstItem = list.querySelector(`[role=${list.type}] > *:nth-child(1)`);
+		var secondItem = list.querySelector(`[role=${list.type}] > *:nth-child(2)`);
 		list.on("selection-change", function (event) {
 			selectionChangeEvent = event;
 		});
 		assert.isTrue(firstItem.classList.contains("d-list-item"));
 
 		// Selection event on first item (select)
-		firstItem.emit("keydown", { key: "Spacebar" });
-		firstItem.emit("keyup", { key: "Spacebar" });
+		list.emit("keydown", { key: "Spacebar" }, firstItem);
+		list.emit("keyup", { key: "Spacebar" }, firstItem);
 		list.deliver();
 
-		assert.isNotNull(selectionChangeEvent);
+		assert.isNotNull(selectionChangeEvent, "selectionChangeEvent 1");
 		assert.deepEqual(selectionChangeEvent.oldValue, [], "event1 old selection");
-		assert.deepEqual(selectionChangeEvent.newValue, [ list.getItemRendererByIndex(0).item ], "event1 new select");
+		assert.deepEqual(selectionChangeEvent.newValue, [ list.source.fetchSync()[0] ], "event1 new select");
 		assert.strictEqual(selectionChangeEvent.renderer, firstItem, "event1 renderer");
-		assert.strictEqual(selectionChangeEvent.triggerEvent.key, "Spacebar", "event1 triggerEvent");
 		selectionChangeEvent = null;
 		assert.strictEqual(firstItem.getAttribute("aria-selected"), "true");
 		assert.strictEqual(secondItem.getAttribute("aria-selected"), "false");
 
 		// Selection event on second item (select)
-		secondItem.emit("keydown", { key: "Spacebar" });
-		secondItem.emit("keyup", { key: "Spacebar" });
+		list.emit("keydown", { key: "Spacebar" }, secondItem);
+		list.emit("keyup", { key: "Spacebar" }, secondItem);
 		list.deliver();
 
-		assert.isNotNull(selectionChangeEvent);
+		assert.isNotNull(selectionChangeEvent, "selectionChangeEvent 2");
 		assert.deepEqual(selectionChangeEvent.oldValue,
-			[ list.getItemRendererByIndex(0).item ], "event2 oldValue");
+			[ list.source.fetchSync()[0] ], "event2 oldValue");
 		assert.deepEqual(selectionChangeEvent.newValue,
-			[ list.getItemRendererByIndex(0).item, list.getItemRendererByIndex(1).item ], "event2 newValue");
+			[ list.source.fetchSync()[0], list.source.fetchSync()[1] ], "event2 newValue");
 		assert.strictEqual(selectionChangeEvent.renderer, secondItem, "event2 renderer");
-		assert.strictEqual(selectionChangeEvent.triggerEvent.key, "Spacebar", "event2 triggerEvent");
 		selectionChangeEvent = null;
 		assert.strictEqual(firstItem.getAttribute("aria-selected"), "true");
 		assert.strictEqual(secondItem.getAttribute("aria-selected"), "true");
 
 		// Selection event on first item (deselect)
-		firstItem.emit("keydown", { key: "Spacebar" });
-		firstItem.emit("keyup", { key: "Spacebar" });
+		list.emit("keydown", { key: "Spacebar" }, firstItem);
+		list.emit("keyup", { key: "Spacebar" }, firstItem);
 		list.deliver();
 
-		assert.isNotNull(selectionChangeEvent);
+		assert.isNotNull(selectionChangeEvent, "selectionChangeEvent 3");
 		assert.deepEqual(selectionChangeEvent.oldValue,
-			[ list.getItemRendererByIndex(0).item, list.getItemRendererByIndex(1).item ], "event3 oldValue");
+			[ list.source.fetchSync()[0], list.source.fetchSync()[1] ], "event3 oldValue");
 		assert.deepEqual(selectionChangeEvent.newValue,
-			[ list.getItemRendererByIndex(1).item ], "event3 newValue");
+			[ list.source.fetchSync()[1] ], "event3 newValue");
 		assert.strictEqual(selectionChangeEvent.renderer, firstItem, "event3 renderer");
-		assert.strictEqual(selectionChangeEvent.triggerEvent.key, "Spacebar", "event3 triggerEvent");
 		selectionChangeEvent = null;
-		//
-		assert.strictEqual(firstItem.getAttribute("aria-selected"), "false");
-		assert.strictEqual(secondItem.getAttribute("aria-selected"), "true");
+
+		assert.strictEqual(firstItem.getAttribute("aria-selected"), "false", "firstItem aria-selected");
+		assert.strictEqual(secondItem.getAttribute("aria-selected"), "true", "secondItem aria-selected");
 	},
 
 	"selectionMode 'single'": function (isListbox) {
@@ -79,52 +76,49 @@ var testHelper = {
 		list.selectionMode = "single";
 		list.deliver();
 		var selectionChangeEvent = null;
-		var firstItem = list.containerNode.children[0];
-		var secondItem = list.containerNode.children[1];
+		var firstItem = list.querySelector(`[role=${list.type}] > *:nth-child(1)`);
+		var secondItem = list.querySelector(`[role=${list.type}] > *:nth-child(2)`);
 		list.on("selection-change", function (event) {
 			selectionChangeEvent = event;
 		});
 		assert.isTrue(firstItem.classList.contains("d-list-item"));
 
 		// Selection event on first item (select)
-		firstItem.emit("keydown", { key: "Spacebar" });
-		firstItem.emit("keyup", { key: "Spacebar" });
+		list.emit("keydown", { key: "Spacebar" }, firstItem);
+		list.emit("keyup", { key: "Spacebar" }, firstItem);
 		list.deliver();
 
 		assert.isNotNull(selectionChangeEvent);
 		assert.strictEqual(selectionChangeEvent.oldValue, null, "event1 old selection");
 		assert.strictEqual(selectionChangeEvent.newValue.label, "item 1", "event1 new selection");
 		assert.strictEqual(selectionChangeEvent.renderer, firstItem, "event1 renderer");
-		assert.strictEqual(selectionChangeEvent.triggerEvent.key, "Spacebar", "event1 triggerEvent");
 		selectionChangeEvent = null;
 		assert.strictEqual(firstItem.getAttribute("aria-selected"), "true");
 		assert.strictEqual(secondItem.getAttribute("aria-selected"), "false");
 
 		// Selection event on second item (select)
-		secondItem.emit("keydown", { key: "Spacebar" });
-		secondItem.emit("keyup", { key: "Spacebar" });
+		list.emit("keydown", { key: "Spacebar" }, secondItem);
+		list.emit("keyup", { key: "Spacebar" }, secondItem);
 		list.deliver();
 
 		assert.isNotNull(selectionChangeEvent);
 		assert.strictEqual(selectionChangeEvent.oldValue.label, "item 1", "event2 old selection");
 		assert.strictEqual(selectionChangeEvent.newValue.label, "item 2", "event2 new selection");
 		assert.strictEqual(selectionChangeEvent.renderer, secondItem, "event2 renderer");
-		assert.strictEqual(selectionChangeEvent.triggerEvent.key, "Spacebar", "event2 triggerEvent");
 		selectionChangeEvent = null;
 		assert.strictEqual(firstItem.getAttribute("aria-selected"), "false");
 
 		assert.strictEqual(secondItem.getAttribute("aria-selected"), "true");
 
 		// Selection event on second item (deselect)
-		secondItem.emit("keydown", { key: "Spacebar" });
-		secondItem.emit("keyup", { key: "Spacebar" });
+		list.emit("keydown", { key: "Spacebar" }, secondItem);
+		list.emit("keyup", { key: "Spacebar" }, secondItem);
 		list.deliver();
 
 		assert.isNotNull(selectionChangeEvent);
 		assert.strictEqual(selectionChangeEvent.oldValue.label, "item 2", "event3 old selection");
 		assert.strictEqual(selectionChangeEvent.newValue, null, "event3 new selection");
 		assert.strictEqual(selectionChangeEvent.renderer, secondItem, "event3 renderer");
-		assert.strictEqual(selectionChangeEvent.triggerEvent.key, "Spacebar", "event3 triggerEvent");
 		selectionChangeEvent = null;
 		assert.strictEqual(firstItem.getAttribute("aria-selected"), "false");
 		assert.strictEqual(secondItem.getAttribute("aria-selected"), "false");
@@ -137,49 +131,47 @@ var testHelper = {
 		list.selectionMode = "radio";
 		list.deliver();
 		var selectionChangeEvent = null;
-		var firstItem = list.containerNode.children[0];
-		var secondItem = list.containerNode.children[1];
+		var firstItem = list.querySelector(`[role=${list.type}] > *:nth-child(1)`);
+		var secondItem = list.querySelector(`[role=${list.type}] > *:nth-child(2)`);
 		list.on("selection-change", function (event) {
 			selectionChangeEvent = event;
 		});
 		assert.isTrue(firstItem.classList.contains("d-list-item"));
 
 		// Selection event on first item (select)
-		firstItem.emit("keydown", { key: "Spacebar" });
-		firstItem.emit("keyup", { key: "Spacebar" });
+		list.emit("keydown", { key: "Spacebar" }, firstItem);
+		list.emit("keyup", { key: "Spacebar" }, firstItem);
 		list.deliver();
 
 		assert.isNotNull(selectionChangeEvent);
 		assert.strictEqual(selectionChangeEvent.oldValue, null, "event1 old selection");
 		assert.strictEqual(selectionChangeEvent.newValue.label, "item 1", "event1 new selection");
 		assert.strictEqual(selectionChangeEvent.renderer, firstItem, "event1 renderer");
-		assert.strictEqual(selectionChangeEvent.triggerEvent.key, "Spacebar", "event1 triggerEvent");
 		selectionChangeEvent = null;
 		assert.strictEqual(firstItem.getAttribute("aria-selected"), "true");
 		assert.strictEqual(secondItem.getAttribute("aria-selected"), "false");
 
 		// Selection event on second item (select)
-		secondItem.emit("keydown", { key: "Spacebar" });
-		secondItem.emit("keyup", { key: "Spacebar" });
+		list.emit("keydown", { key: "Spacebar" }, secondItem);
+		list.emit("keyup", { key: "Spacebar" }, secondItem);
 		list.deliver();
 
 		assert.isNotNull(selectionChangeEvent);
 		assert.strictEqual(selectionChangeEvent.oldValue.label, "item 1", "event2 old selection");
 		assert.strictEqual(selectionChangeEvent.newValue.label, "item 2", "event2 new selection");
 		assert.strictEqual(selectionChangeEvent.renderer, secondItem, "event2 renderer");
-		assert.strictEqual(selectionChangeEvent.triggerEvent.key, "Spacebar", "event2 triggerEvent");
 		selectionChangeEvent = null;
-		assert.strictEqual(firstItem.getAttribute("aria-selected"), "false");
-		assert.strictEqual(secondItem.getAttribute("aria-selected"), "true");
+		assert.strictEqual(firstItem.getAttribute("aria-selected"), "false", "firstItem aria-selected");
+		assert.strictEqual(secondItem.getAttribute("aria-selected"), "true", "secondItem aria-selected");
 
 		// Selection event on second item (does not deselect)
-		secondItem.emit("keydown", { key: "Spacebar" });
-		secondItem.emit("keyup", { key: "Spacebar" });
+		list.emit("keydown", { key: "Spacebar" }, secondItem);
+		list.emit("keyup", { key: "Spacebar" }, secondItem);
 		list.deliver();
 
 		assert.isNull(selectionChangeEvent);
-		assert.strictEqual(firstItem.getAttribute("aria-selected"), "false");
-		assert.strictEqual(secondItem.getAttribute("aria-selected"), "true");
+		assert.strictEqual(firstItem.getAttribute("aria-selected"), "false", "firstItem aria-selected");
+		assert.strictEqual(secondItem.getAttribute("aria-selected"), "true", "secondItem aria-selected");
 	},
 
 	"delete selected item": function (isListbox) {
@@ -189,21 +181,21 @@ var testHelper = {
 		list.selectionMode = "single";
 		list.deliver();
 		var selectionChangeEvent = null;
-		var firstItem = list.containerNode.children[0];
+		var firstItem = list.querySelector(`[role=${list.type}] > *:nth-child(1)`);
 
 		// select first item
-		firstItem.emit("keydown", { key: "Spacebar" });
-		firstItem.emit("keyup", { key: "Spacebar" });
+		list.emit("keydown", { key: "Spacebar" }, firstItem);
+		list.emit("keyup", { key: "Spacebar" }, firstItem);
 		list.deliver();
 
 		// now listen to selection-change event and remove the selected item from the store
 		list.on("selection-change", function (event) {
 			selectionChangeEvent = event;
 		});
-		list.source.remove(firstItem.item.id);
-		assert.isNotNull(selectionChangeEvent);
-		assert.strictEqual("item 1", selectionChangeEvent.oldValue.label);
-		assert.isNull(selectionChangeEvent.newValue);
+		list.source.remove(list.source.fetchSync()[0].id);
+		assert.isNotNull(selectionChangeEvent, "selectionChangeEvent");
+		assert.strictEqual(selectionChangeEvent.oldValue.label, "item 1");
+		assert.isNull(selectionChangeEvent.newValue, "selectionChangeEvent.newValue");
 	},
 
 	"move selected item": function (isListbox) {
@@ -212,17 +204,20 @@ var testHelper = {
 		}
 		list.selectionMode = "single";
 		list.deliver();
-		var firstItem = list.containerNode.children[0];
-		var thirdItem = list.containerNode.children[2];
 
 		// select first item
-		firstItem.emit("keydown", { key: "Spacebar" });
-		firstItem.emit("keyup", { key: "Spacebar" });
+		var firstItem = list.querySelector(`[role=${list.type}] > *:nth-child(1)`);
+		list.emit("keydown", { key: "Spacebar" }, firstItem);
+		list.emit("keyup", { key: "Spacebar" }, firstItem);
+		list.deliver();
+		assert(list.isSelected(firstItem.item), "item selected before move");
+
+		// move first item
+		var thirdItem = list.querySelector(`[role=${list.type}] > *:nth-child(3)`);
+		list.source.put(firstItem.item, { beforeId: thirdItem.item.id });
 		list.deliver();
 
-		assert(list.isSelected(firstItem.item), "item selected before move");
-		list.source.put(firstItem.item, { beforeId: thirdItem.item.id });
-		var secondItem = list.containerNode.children[1];
+		var secondItem = list.querySelector(`[role=${list.type}] > *:nth-child(2)`);
 		assert(list.isSelected(secondItem.item), "item selected after move");
 		assert(secondItem.getAttribute("aria-selected"),
 			"item selected after move (aria-selected attribute)");
@@ -234,22 +229,22 @@ var testHelper = {
 		}
 		list.selectionMode = "single";
 		list.deliver();
-		assert(list.containerNode.className.indexOf("d-selectable") >= 0, "d-selectable class");
-		assert(list.containerNode.className.indexOf("d-multiselectable") === -1,
-			"d-multiselectable class");
-		assert.isFalse(list.containerNode.hasAttribute("aria-multiselectable"),
+		assert.include(list.querySelector(`[role=${list.type}]`).className, "d-selectable", "list class");
+		assert.notInclude(list.querySelector(`[role=${list.type}]`).className, "d-multiselectable",
+			"list class");
+		assert.isFalse(list.querySelector(`[role=${list.type}]`).hasAttribute("aria-multiselectable"),
 			"no aria-multiselectable attribute expected");
-		var firstItem = list.containerNode.children[0];
-		assert(firstItem.className.indexOf("d-selected") === -1, "no d-selected class expected");
+		var firstItem = list.querySelector(`[role=${list.type}] > *:nth-child(1)`);
+		assert.notInclude(firstItem.className, "d-selected", "firstItem class");
 		assert.strictEqual(firstItem.getAttribute("aria-selected"), "false",
 			"no aria-selected attribute 'false' expected on first item");
 
 		// select first item
-		firstItem.emit("keydown", { key: "Spacebar" });
-		firstItem.emit("keyup", { key: "Spacebar" });
+		list.emit("keydown", { key: "Spacebar" }, firstItem);
+		list.emit("keyup", { key: "Spacebar" }, firstItem);
 		list.deliver();
 
-		assert(firstItem.className.indexOf("d-selected") >= 0, "d-selected class expected");
+		assert.include(firstItem.className, "d-selected", "firstItem class");
 		assert.strictEqual(firstItem.getAttribute("aria-selected"), "true",
 			"aria-selected attribute 'true' expected on first item after selection");
 	},
@@ -260,22 +255,22 @@ var testHelper = {
 		}
 		list.selectionMode = "radio";
 		list.deliver();
-		assert(list.containerNode.className.indexOf("d-selectable") >= 0, "d-selectable class");
-		assert(list.containerNode.className.indexOf("d-multiselectable") === -1,
-			"d-multiselectable class");
+		assert.include(list.querySelector(`[role=${list.type}]`).className, "d-selectable", "list className");
+		assert.notInclude(list.querySelector(`[role=${list.type}]`).className, "d-multiselectable",
+			"list className");
 		assert.isFalse(list.hasAttribute("aria-multiselectable"),
 			"no aria-multiselectable attribute expected");
-		var firstItem = list.containerNode.children[0];
-		assert(firstItem.className.indexOf("d-selected") === -1, "no d-selected class expected");
+		var firstItem = list.querySelector(`[role=${list.type}] > *:nth-child(1)`);
+		assert.notInclude(firstItem.className, "d-selected", "no d-selected class expected");
 		assert.strictEqual(firstItem.getAttribute("aria-selected"), "false",
 			"no aria-selected attribute 'false' expected on first item");
 
 		// select first item
-		firstItem.emit("keydown", { key: "Spacebar" });
-		firstItem.emit("keyup", { key: "Spacebar" });
+		list.emit("keydown", { key: "Spacebar" }, firstItem);
+		list.emit("keyup", { key: "Spacebar" }, firstItem);
 		list.deliver();
 
-		assert(firstItem.className.indexOf("d-selected") >= 0, "d-selected class expected");
+		assert.include(firstItem.className, "d-selected", "d-selected class expected");
 		assert.strictEqual(firstItem.getAttribute("aria-selected"), "true",
 			"aria-selected attribute 'true' expected on first item after selection");
 	},
@@ -287,22 +282,22 @@ var testHelper = {
 			}
 			list.selectionMode = "multiple";
 			list.deliver();
-			assert(list.containerNode.className.indexOf("d-selectable") === -1, "d-selectable class");
-			assert(list.containerNode.className.indexOf("d-multiselectable") >= 0,
-				"d-multiselectable class");
-			assert.strictEqual(list.containerNode.getAttribute("aria-multiselectable"), "true",
+			assert.notInclude(list.querySelector(`[role=${list.type}]`).className, "d-selectable", "list class");
+			assert.include(list.querySelector(`[role=${list.type}]`).className, "d-multiselectable",
+				"list class");
+			assert.strictEqual(list.querySelector(`[role=${list.type}]`).getAttribute("aria-multiselectable"), "true",
 				"aria-multiselectable attribute expected");
-			var firstItem = list.containerNode.children[0];
-			assert(firstItem.className.indexOf("d-selected") === -1, "no d-selected class expected");
+			var firstItem = list.querySelector(`[role=${list.type}] > *:nth-child(1)`);
+			assert.notInclude(firstItem.className, "d-selected", "firstItem.className");
 			assert.strictEqual(firstItem.getAttribute("aria-selected"), "false",
 				"aria-selected attribute expected on first item");
 
 			// select first item
-			firstItem.emit("keydown", { key: "Spacebar" });
-			firstItem.emit("keyup", { key: "Spacebar" });
+			list.emit("keydown", { key: "Spacebar" }, firstItem);
+			list.emit("keyup", { key: "Spacebar" }, firstItem);
 			list.deliver();
 
-			assert(firstItem.className.indexOf("d-selected") >= 0, "d-selected class expected");
+			assert.include(firstItem.className, "d-selected", "firstItem.className");
 			assert.strictEqual(firstItem.getAttribute("aria-selected"), "true",
 				"aria-selected attribute expected on first item after selection");
 		}
@@ -350,29 +345,29 @@ registerSuite("list/Selection", {
 
 		"selectionMode 'none'": function () {
 			var selectionChangeEvent = null;
-			var firstItem = list.containerNode.children[0];
+			var firstItem = list.querySelector(`[role=${list.type}] > *:nth-child(1)`);
 			list.selectionMode = "none";
 			list.deliver();
 			list.on("selection-change", function (event) {
 				selectionChangeEvent = event;
 			});
-			assert.isTrue(firstItem.classList.contains("d-list-item"));
+			assert.include(firstItem.className, "d-list-item", "firstItem.className");
 
 			// Selection event on first item (no effect)
-			firstItem.emit("keydown", { key: "Spacebar" });
-			firstItem.emit("keyup", { key: "Spacebar" });
+			list.emit("keydown", { key: "Spacebar" }, firstItem);
+			list.emit("keyup", { key: "Spacebar" }, firstItem);
 
 			assert.isNull(selectionChangeEvent);
-			assert.isTrue(firstItem.classList.contains("d-list-item"));
+			assert.include(firstItem.className, "d-list-item", "firstItem.className again");
 		},
 
 		"revert selection to 'none' clears selection": function () {
 			list.selectionMode = "multiple";
 			list.deliver();
-			list.setSelected(list.getItemRendererByIndex(0).item, true);
-			list.setSelected(list.getItemRendererByIndex(1).item, true);
+			list.setSelected(list.source.fetchSync()[0], true);
+			list.setSelected(list.source.fetchSync()[1], true);
 			assert.deepEqual(list.selectedItems,
-				[ list.getItemRendererByIndex(0).item, list.getItemRendererByIndex(1).item ]);
+				[ list.source.fetchSync()[0], list.source.fetchSync()[1] ]);
 			list.selectionMode = "none";
 			list.deliver();
 			assert.deepEqual(list.selectedItems, []);
@@ -421,87 +416,104 @@ registerSuite("list/Selection", {
 		"aria properties and classes when selection mode is none": function () {
 			list.selectionMode = "none";
 			list.deliver();
-			assert(list.containerNode.className.indexOf("d-selectable") === -1, "d-selectable class");
-			assert(list.containerNode.className.indexOf("d-multiselectable") === -1, "d-multiselectable class");
-			var firstItem = list.containerNode.children[0];
-			assert(firstItem.className.indexOf("d-selected") === -1, "no d-selected class expected");
+			assert.notInclude(list.querySelector(`[role=${list.type}]`).className, "d-selectable", "list.className");
+			assert.notInclude(list.querySelector(`[role=${list.type}]`).className, "d-multiselectable",
+				"list.className");
+			var firstItem = list.querySelector(`[role=${list.type}] > *:nth-child(1)`);
+			assert.notInclude(firstItem.className, "d-selected", "firstItem.className");
 		},
 
 		"aria properties and classes updated when selection mode is changed": function () {
 			list.selectionMode = "single";
 			list.deliver();
-			var firstItem = list.containerNode.children[0];
 
 			// select first item
-			firstItem.emit("keydown", { key: "Spacebar" });
-			firstItem.emit("keyup", { key: "Spacebar" });
+			var firstItem = list.querySelector(`[role=${list.type}] > *:nth-child(1)`);
+			list.emit("keydown", { key: "Spacebar" }, firstItem);
+			list.emit("keyup", { key: "Spacebar" }, firstItem);
 			list.deliver();
 
 			// list
-			assert.isFalse(list.containerNode.hasAttribute("aria-multiselectable"),
+			assert.isFalse(list.querySelector(`[role=${list.type}]`).hasAttribute("aria-multiselectable"),
 				"A: no aria-multiselectable attribute expected");
-			assert(list.containerNode.className.indexOf("d-multiselectable") === -1,
+			assert.notInclude(list.querySelector(`[role=${list.type}]`).className, "d-multiselectable",
 				"A: d-multiselectable class");
-			assert(list.containerNode.className.indexOf("d-selectable") >= 0, "A: d-selectable class");
+			assert.include(list.querySelector(`[role=${list.type}]`).className, "d-selectable", "A: d-selectable class");
+
 			// first item
 			assert.strictEqual(firstItem.getAttribute("aria-selected"), "true",
 				"A: aria-selected attribute expected on first item");
-			assert(firstItem.className.indexOf("d-selected") >= 0, "A: d-selected class on first item");
+			assert.include(firstItem.className, "d-selected", "A: d-selected class on first item");
+
 			// second item
-			assert.strictEqual(list.containerNode.children[1].getAttribute("aria-selected"), "false",
+			var secondItem = list.querySelector(`[role=${list.type}] > *:nth-child(2)`);
+			assert.strictEqual(secondItem.getAttribute("aria-selected"), "false",
 				"A: aria-selected 'false' expected on second item");
-			assert(list.containerNode.children[1].className.indexOf("d-selected") === -1,
-				"A: no d-selected class on second item");
+			assert.notInclude(secondItem.className, "d-selected", "A: no d-selected class on second item");
+
 			// third item
-			assert.strictEqual(list.containerNode.children[2].getAttribute("aria-selected"), "false",
+			var thirdItem = list.querySelector(`[role=${list.type}] > *:nth-child(3)`);
+			assert.strictEqual(thirdItem.getAttribute("aria-selected"), "false",
 				"A: aria-selected 'false' expected on third item");
-			assert(list.containerNode.children[2].className.indexOf("d-selected") === -1,
-				"A: no d-selected class on third item");
+			assert.notInclude(thirdItem.className, "d-selected", "A: no d-selected class on third item");
+
 			list.selectionMode = "multiple";
 			list.deliver();
+
 			// list
-			assert(list.containerNode.hasAttribute("aria-multiselectable"),
+			assert(list.querySelector(`[role=${list.type}]`).hasAttribute("aria-multiselectable"),
 				"B: aria-multiselectable attribute expected");
-			assert(list.containerNode.className.indexOf("d-multiselectable") >= 0, "B: d-multiselectable class");
-			assert(list.containerNode.className.indexOf("d-selectable") === -1, "B: d-selectable class");
+			assert.include(list.querySelector(`[role=${list.type}]`).className, "d-multiselectable",
+				"B: d-multiselectable class");
+			assert.notInclude(list.querySelector(`[role=${list.type}]`).className, "d-selectable",
+				"B: d-selectable class");
+
 			// first item
-			assert.strictEqual(list.containerNode.children[0].getAttribute("aria-selected"), "true",
+			var firstItem = list.querySelector(`[role=${list.type}] > *:nth-child(1)`);
+			assert.strictEqual(firstItem.getAttribute("aria-selected"), "true",
 				"B: aria-selected attribute expected on first item");
-			assert(list.containerNode.children[0].className.indexOf("d-selected") >= 0,
-				"B: d-selected class on first item");
+			assert.include(firstItem.className, "d-selected", "B: d-selected class on first item");
+
 			// second item
-			assert.strictEqual(list.containerNode.children[1].getAttribute("aria-selected"), "false",
+			var secondItem = list.querySelector(`[role=${list.type}] > *:nth-child(2)`);
+			assert.strictEqual(secondItem.getAttribute("aria-selected"), "false",
 				"B: aria-selected attribute expected on second item");
-			assert(list.containerNode.children[1].className.indexOf("d-selected") === -1,
-				"B: d-selected class on second item");
+			assert.notInclude(secondItem.className, "d-selected", "B: d-selected class on second item");
+
 			// third item
-			assert.strictEqual(list.containerNode.children[2].getAttribute("aria-selected"), "false",
+			var thirdItem = list.querySelector(`[role=${list.type}] > *:nth-child(3)`);
+			assert.strictEqual(thirdItem.getAttribute("aria-selected"), "false",
 				"B: aria-selected attribute expected on third item");
-			assert(list.containerNode.children[2].className.indexOf("d-selected") === -1,
-				"B: d-selected class on third item");
+			assert.notInclude(thirdItem.className, "d-selected", "B: d-selected class on third item");
+
 			list.selectionMode = "none";
 			list.deliver();
+
 			// list
-			assert.isFalse(list.containerNode.hasAttribute("aria-multiselectable"),
+			assert.isFalse(list.querySelector(`[role=${list.type}]`).hasAttribute("aria-multiselectable"),
 				"C: no aria-multiselectable attribute expected");
-			assert(list.containerNode.className.indexOf("d-multiselectable") === -1,
+			assert.notInclude(list.querySelector(`[role=${list.type}]`).className, "d-multiselectable",
 				"C: d-multiselectable class");
-			assert(list.containerNode.className.indexOf("d-selectable") === -1, "C: d-selectable class");
+			assert.notInclude(list.querySelector(`[role=${list.type}]`).className, "d-selectable",
+				"C: d-selectable class");
+
 			// first item
-			assert.isFalse(list.containerNode.children[0].hasAttribute("aria-selected"),
+			var firstItem = list.querySelector(`[role=${list.type}] > *:nth-child(1)`);
+			assert.isFalse(firstItem.hasAttribute("aria-selected"),
 				"C: no aria-selected attribute expected on first item");
-			assert(list.containerNode.children[0].className.indexOf("d-selected") === -1,
-				"C: d-selected class on first item");
+			assert.notInclude(firstItem.className, "d-selected", "C: d-selected class on first item");
+
 			// second item
-			assert.isFalse(list.containerNode.children[1].hasAttribute("aria-selected"),
+			var secondItem = list.querySelector(`[role=${list.type}] > *:nth-child(2)`);
+			assert.isFalse(secondItem.hasAttribute("aria-selected"),
 				"C: no aria-selected attribute expected on second item");
-			assert(list.containerNode.children[1].className.indexOf("d-selected") === -1,
-				"C: d-selected class on second item");
+			assert.notInclude(secondItem.className, "d-selected", "C: d-selected class on second item");
+
 			// third item
-			assert.isFalse(list.containerNode.children[2].hasAttribute("aria-selected"),
+			var thirdItem = list.querySelector(`[role=${list.type}] > *:nth-child(3)`);
+			assert.isFalse(thirdItem.hasAttribute("aria-selected"),
 				"C: no aria-selected attribute expected on third item");
-			assert(list.containerNode.children[2].className.indexOf("d-selected") === -1,
-				"C: d-selected class on third item");
+			assert.notInclude(thirdItem.className, "d-selected", "C: d-selected class on third item");
 		}
 	},
 

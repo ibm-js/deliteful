@@ -1,21 +1,31 @@
 import register from "delite/register";
-import ItemRenderer from "deliteful/list/ItemRenderer";
+import { html } from "lit-html";
 import List from "deliteful/list/List";
 
-import bookTemplate from "delite/handlebars!deliteful/tests/functional/list/templates/BookRenderer.html";
-import bookStoreTemplate from "delite/handlebars!deliteful/tests/functional/list/templates/BookStoreRenderer.html";
-
-var BookRenderer = register("d-book-item", [ItemRenderer], {
-	template: bookTemplate
-});
-var BookStoreRenderer = register("d-book-store", [ItemRenderer], {
-	template: bookStoreTemplate
-});
-
 export default register("d-book-list", [ List ], {
-	ItemRenderer: BookRenderer,
+	renderItem: function (item) {
+		return html`
+			<div role="row" class="d-list-item">
+				<div role="gridcell" class="d-list-cell" tabindex="-1">
+					<div tabindex="0">${item.title}</div>
+					<div class="d-spacer"></div>
+					<div tabindex="0">ISBN: ${item.isbn}</div>
+				</div>
+			</div>
+		`;
+	},
 
-	CategoryRenderer: BookStoreRenderer,
+	renderCategory: function (item) {
+		return html`
+			<div role="row" class="d-list-item">
+				<div role="columnheader" class="d-list-cell" tabindex="-1">
+					<div tabindex="0">${item.category}</div>
+					<div class="d-spacer"></div>
+					<a tabindex="-1" href="${item.bookstoreUrl}">${item.bookstoreUrl}</a>
+				</div>
+			</div>
+		`;
+	},
 
 	categoryAttr: "bookstore",
 

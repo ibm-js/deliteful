@@ -1,14 +1,18 @@
 import register from "delite/register";
-import ItemRenderer from "deliteful/list/ItemRenderer";
 import List from "deliteful/list/List";
-import template from "delite/handlebars!deliteful/samples/list/templates/CustomItemRenderer.html";
-
-const MyCustomRenderer = register("d-cust-item", [ ItemRenderer ], {
-	template: template
-});
+import { html } from "lit-html";
 
 export default register("d-cust-item-list", [ List ], {
-	ItemRenderer: MyCustomRenderer,
-	categoryAttr: "cat",
+	renderItem: function (item) {
+		return html`
+			<div role="row" class="d-list-item">
+				<div role="gridcell" class="d-list-cell" tabindex="-1">
+				<div tabindex='0'>${item.title}</div>
+				<div class='d-spacer'></div>
+				<div tabindex='0'>ISBN: ${item.isbn}</div>
+				</div>
+			</div>
+		`;
+	},
 	copyAllItemProps: true
 });

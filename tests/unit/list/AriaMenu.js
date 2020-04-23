@@ -20,9 +20,9 @@ registerSuite("list/AriaMenu", {
 	tests: {
 		"aria properties for role=menu": function () {
 			assert.strictEqual(list.type, "menu", "role");
-			assert.strictEqual(list.containerNode.hasAttribute("aria-readonly"), false,
+			assert.strictEqual(list.querySelector("[role=menu]").hasAttribute("aria-readonly"), false,
 				"aria-readonly only for role=grid");
-			assert.strictEqual(list.containerNode.children[0].getAttribute("role"), "menuitem",
+			assert.strictEqual(list.querySelector("[role=menu]").children[0].getAttribute("role"), "menuitem",
 				"first renderer role");
 		},
 
@@ -34,13 +34,13 @@ registerSuite("list/AriaMenu", {
 			list.selectionMode = "single";
 			list.selectedItem = data[0];
 			list.deliver();
-			var firstItem = list.containerNode.children[0];
+			var firstItem = list.querySelector("[role=menu]").children[0];
 			assert.match(firstItem.className, /d-selected/, "d-selected class on firstItem");
 
 			list.selectedItem = data[1];
 			list.deliver();
 			assert.notMatch(firstItem.className, /d-selected/, "d-selected class removed from firstItem");
-			var secondItem = list.containerNode.children[1];
+			var secondItem = list.querySelector("[role=menu]").children[1];
 			assert.match(secondItem.className, /d-selected/, "d-selected class on secondItem");
 		},
 
@@ -48,9 +48,10 @@ registerSuite("list/AriaMenu", {
 			list.type = "grid";
 			list.deliver();
 			assert.strictEqual(list.type, "grid", "role");
-			assert.strictEqual(list.containerNode.children[0].getAttribute("role"), "row", "first renderer role");
-			assert.strictEqual(list.containerNode.children[0].firstElementChild.getAttribute("role"), "gridcell",
-				"first gridcell role");
+			assert.strictEqual(list.querySelector("[role=grid]").children[0].getAttribute("role"),
+				"row", "first renderer role");
+			assert.strictEqual(list.querySelector("[role=grid]").children[0].firstElementChild.getAttribute("role"),
+				"gridcell", "first gridcell role");
 		}
 	},
 

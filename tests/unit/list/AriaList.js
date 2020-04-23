@@ -18,19 +18,20 @@ registerSuite("list/AriaList", {
 	tests: {
 		"aria properties for role=grid": function () {
 			assert.strictEqual(list.type, "grid", "role");
-			assert(list.containerNode.hasAttribute("aria-readonly"), "aria-readonly for role=grid");
-			assert.strictEqual(list.containerNode.children[0].getAttribute("role"), "row", "first renderer role");
-			assert.strictEqual(list.containerNode.children[0].firstElementChild.getAttribute("role"), "gridcell",
-				"first gridcell role");
+			assert(list.querySelector("[role=grid]").hasAttribute("aria-readonly"), "aria-readonly for role=grid");
+			assert.strictEqual(list.querySelector("[role=grid]").children[0].getAttribute("role"),
+				"row", "first renderer role");
+			assert.strictEqual(list.querySelector("[role=grid]").children[0].firstElementChild.getAttribute("role"),
+				"gridcell", "first gridcell role");
 		},
 
 		"aria properties for role=list": function () {
 			list.type = "list";
 			list.deliver();
 			assert.strictEqual(list.type, "list", "role");
-			assert.strictEqual(list.containerNode.hasAttribute("aria-readonly"), false,
+			assert.strictEqual(list.querySelector("[role=list]").hasAttribute("aria-readonly"), false,
 				"aria-readonly only for role=grid");
-			assert.strictEqual(list.containerNode.children[0].getAttribute("role"), "listitem",
+			assert.strictEqual(list.querySelector("[role=list]").children[0].getAttribute("role"), "listitem",
 				"first renderer role");
 		},
 
@@ -40,11 +41,12 @@ registerSuite("list/AriaList", {
 			list.type = "grid";
 			list.deliver();
 			assert.strictEqual(list.type, "grid", "role");
-			assert.strictEqual(list.containerNode.getAttribute("aria-readonly"), "true",
+			assert.strictEqual(list.querySelector("[role=grid]").getAttribute("aria-readonly"), "true",
 				"aria-readonly for role=grid");
-			assert.strictEqual(list.containerNode.children[0].getAttribute("role"), "row", "first renderer role");
-			assert.strictEqual(list.containerNode.children[0].firstElementChild.getAttribute("role"), "gridcell",
-				"first gridcell role");
+			assert.strictEqual(list.querySelector("[role=grid]").children[0].getAttribute("role"),
+				"row", "first renderer role");
+			assert.strictEqual(list.querySelector("[role=grid]").children[0].firstElementChild.getAttribute("role"),
+				"gridcell", "first gridcell role");
 		}
 	},
 
