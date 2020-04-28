@@ -8,25 +8,15 @@
 
 	<title>deliteful/list/List samples.</title>
 
-	<script type="text/javascript" src="../../node_modules/requirejs/require.js"></script>
+	<script type="text/javascript" src="../../dist/functional-tests.js"></script>
 
 	<script type="text/javascript">
-		require.config({
-			baseUrl: "../../node_modules",
-			packages: [
-				{ name: "deliteful", location: ".." }
-			]
-		});
-	</script>
-
-	<script type="text/javascript">
-		require([
+		delitefulRequire([
 			"dojo-dstore/Memory",
 			"dojo-dstore/Trackable",
-			"deliteful/list/List",
-			"requirejs-dplugins/css!delite/css/global.css"	// page level CSS
+			"deliteful/list/List"
 		], function (Memory, Trackable, List) {
-			var Store = Memory.createSubclass([Trackable], {});
+			var Store = Memory.createSubclass([ Trackable ], {});
 			var list = new List();
 			list.source = new Store();
 			list.setAttribute("aria-label", "Sample list with custom itemToRenderItem method");
@@ -36,11 +26,11 @@
 					righttext: item.title.split(" ")[0]
 				};
 			};
-			list.source.add({title: "first item"});
-			list.source.add({title: "second item"});
-			list.source.add({title: "third item"});
-			list.source.add({title: "fourth item"});
-			list.source.add({title: "fifth item"});
+			list.source.add({ title: "first item" });
+			list.source.add({ title: "second item" });
+			list.source.add({ title: "third item" });
+			list.source.add({ title: "fourth item" });
+			list.source.add({ title: "fifth item" });
 			list.placeAt(document.body);
 
 			document.body.style.display = "";
@@ -48,6 +38,7 @@
 	</script>
 </head>
 <body style="display: none" role="application">
-	This sample demonstrate how to extend the itemToRenderItem method to map a custom item to the one expected by the default item renderer.
+This sample demonstrate how to extend the itemToRenderItem method to map a custom item to the one expected by the
+default item renderer.
 </body>
 </html>

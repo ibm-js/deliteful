@@ -7,38 +7,23 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 
 	<title>deliteful/list/List samples.</title>
-
-	<script type="text/javascript" src="../../node_modules/requirejs/require.js"></script>
-
-	<script type="text/javascript">
-		require.config({
-			baseUrl: "../../node_modules",
-			packages: [
-				{ name: "deliteful", location: ".." }
-			]
-		});
-	</script>
-
-	<script type="text/javascript">
-		require([
-			"deliteful/list/List",
-			"requirejs-dplugins/css!delite/css/global.css", // page level CSS
-			"requirejs-domready/domReady!"
-		], function () {
-			document.body.style.display = "";
-		});
-	</script>
 </head>
 <body style="display: none" role="application">
-	This sample demonstrate how to populate the list default store using markup.
+This sample demonstrate how to populate the list default store using markup.
 
+<d-list aria-label="Sample list with default store populated using markup">
+	{"label": "first item"},
+	{"label": "second item"},
+	{"label": "third item"},
+	{"label": "fourth item"},
+	{"label": "fifth item"}
+</d-list>
 
-	<d-list arial-label="Sample list with default store populated using markup">
-		{"label": "first item"},
-		{"label": "second item"},
-		{"label": "third item"},
-		{"label": "fourth item"},
-		{"label": "fifth item"}
-	</d-list>
+<!-- Don't define the d-list custom element until after the markup is present.
+	Otherwise Chrome tries to read the d-list textContent before it's been downloaded! -->
+<script type="text/javascript" src="../../dist/functional-tests.js"></script>
+<script type="text/javascript">
+	document.body.style.display = "";
+</script>
 </body>
 </html>

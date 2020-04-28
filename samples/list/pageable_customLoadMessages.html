@@ -8,31 +8,20 @@
 
 	<title>deliteful/list/PageableList custom load message samples</title>
 
-	<script type="text/javascript" src="../../node_modules/requirejs/require.js"></script>
+	<script type="text/javascript" src="../../dist/functional-tests.js"></script>
 
 	<script type="text/javascript">
-		require.config({
-			baseUrl: "../../node_modules",
-			packages: [
-				{ name: "deliteful", location: ".." }
-			]
-		});
-	</script>
-
-	<script type="text/javascript">
-		require([
-		    "delite/register",
+		delitefulRequire([
 			"dojo-dstore/Memory",
 			"dojo-dstore/Trackable",
-			"deliteful/list/PageableList",
-			"requirejs-dplugins/css!delite/css/global.css"	// page level CSS
-		], function (register, Memory, Trackable, PageableList) {
-			var Store = Memory.createSubclass([Trackable], {});
+			"deliteful/list/PageableList"
+		], function (Memory, Trackable, PageableList) {
+			var Store = Memory.createSubclass([ Trackable ], {});
 			var list = new PageableList();
 			list.setAttribute("aria-label", "Sample pageable list with custom loader messages");
 			list.source = new Store();
 			for (var i = 0; i < 100; i++) {
-				list.source.add({label: "item " + i});
+				list.source.add({ label: "item " + i });
 			}
 			list.style.height = "200px";
 			list.pageLength = 20;
@@ -46,6 +35,6 @@
 	</script>
 </head>
 <body style="display: none" role="application">
-	This sample demonstrate a pageable list with custom loader messages.
+This sample demonstrate a pageable list with custom loader messages.
 </body>
 </html>

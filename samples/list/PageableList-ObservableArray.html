@@ -8,24 +8,15 @@
 
 	<title>deliteful/list/Pageablelist samples.</title>
 
-	<script type="text/javascript" src="../../node_modules/requirejs/require.js"></script>
+	<script type="text/javascript" src="../../dist/functional-tests.js"></script>
 
 	<script type="text/javascript">
-		require.config({
-			baseUrl: "../../node_modules",
-			packages: [
-				{ name: "deliteful", location: ".." }
-			]
-		});
-	</script>
-
-	<script type="text/javascript">
-		require([
-			"deliteful/list/PageableList", // page level CSS
+		delitefulRequire([
+			"deliteful/list/PageableList",
 			"ibm-decor/ObservableArray",
 			"ibm-decor/Observable"
 		], function (PageableList, ObservableArray, Observable) {
-			var list  = new PageableList();
+			var list = new PageableList();
 			list.id = "L";
 
 			list.source = new ObservableArray();
@@ -34,12 +25,12 @@
 			var arr = [];
 
 			for (var i = 0; i < 100; i++) {
-				arr.push(new Observable({title:"Programmatic item of order " + i}));
+				arr.push(new Observable({ title: "Programmatic item of order " + i }));
 			}
 
 			//called when the all the items have been displayed to get more
-			list.on("new-query-asked", function(evt) {
-				evt.setPromise(new Promise (function (resolve) {
+			list.on("new-query-asked", function (evt) {
+				evt.setPromise(new Promise(function (resolve) {
 					window.setTimeout(function () {
 						var size = list.source.length;
 						if (size + 2 * (evt.end - evt.start) < arr.length) {
@@ -49,10 +40,10 @@
 						}
 						resolve(list.source.slice(evt.start, evt.end));
 					}, 1000);
-				}))
+				}));
 			});
 
-			for (i =0; i < 20; i++){
+			for (i = 0; i < 20; i++) {
 				list.source.set(i, arr[i]);
 			}
 
@@ -73,7 +64,9 @@
 </head>
 <body style="display: none" role="application">
 <d-linear-layout style="width: 100%; height: 100%">
-	<h1 class="header"><div>Example to use PageableList with ObservableArray</div></h1>
+	<h1 class="header">
+		<div>Example to use PageableList with ObservableArray</div>
+	</h1>
 </d-linear-layout>
 </body>
 </html>

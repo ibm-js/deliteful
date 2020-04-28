@@ -8,25 +8,16 @@
 
 	<title>Table</title>
 
-	<script type="text/javascript" src="../../boilerplate.js"></script>
+	<script type="text/javascript" src="../../webpack-boilerplate.js"></script>
 
 	<script type="text/javascript">
 		var ready = false;
-		require([
-			"delite/on",
-			"delite/register",
-			"deliteful/list/ItemRenderer",
-			"deliteful/list/List",
-			"delite/handlebars!deliteful/tests/functional/list/templates/ComplexRowRenderer.html",
-			"requirejs-dplugins/css!delite/css/global.css"	// page level CSS
-		], function (on, register, ItemRenderer, List, complexRowTemplate) {
-			var ComplexRowRenderer = register("complex-row", [ItemRenderer], {
-				template: complexRowTemplate
-			});
-			var list = new List({
+		delitefulRequire([
+			"deliteful/tests/functional/list/src/ComplexList"
+		], function (ComplexList) {
+			var list = new ComplexList({
 				id: "table-2",
-				ItemRenderer: ComplexRowRenderer,
-				copyAllItemProps: true,
+
 				source: [
 					{id: "apple", title: "Apple"},
 					{id: "orange", title: "Orange"},
@@ -35,7 +26,7 @@
 			});
 			list.placeAt(document.getElementById("listPlaceholder"), "replace");
 
-			on(document.body, "keydown", function (e) {
+			document.body.addEventListener("keydown", function (e) {
 				document.getElementById("keydownEvent").textContent = e.key;
 			});
 

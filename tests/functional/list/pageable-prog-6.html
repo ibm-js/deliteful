@@ -6,16 +6,14 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>Pageable List</title>
 
-	<script type="text/javascript" src="../../boilerplate.js"></script>
+	<script type="text/javascript" src="../../webpack-boilerplate.js"></script>
 
 	<script type="text/javascript">
 		var ready = false;
-		require([
+		delitefulRequire([
 			"dojo-dstore/Memory",
 			"dojo-dstore/Trackable",
-			"deliteful/list/PageableList",
-			"requirejs-dplugins/css!delite/css/global.css",	// page level CSS
-			"requirejs-domready/domReady!"
+			"deliteful/list/PageableList"
 		], function (Memory, Trackable, PageableList) {
 			// Custom memory store with a customizable latency
 			var CustomMemoryStore = Memory.createSubclass([], {

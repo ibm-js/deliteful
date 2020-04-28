@@ -6,20 +6,10 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>Lists</title>
 
-	<script type="text/javascript" src="../../boilerplate.js"></script>
-
-	<script type="text/javascript">
-		var ready = false;
-		require([
-		  "delite/register",
-			"deliteful/list/List",
-			"requirejs-dplugins/css!delite/css/global.css",	// page level CSS
-			"requirejs-domready/domReady!"
-		], function (register) {
-			register.deliver();
-			ready = true;
-		});
+	<script>
+		ready = false;
 	</script>
+
 	<style>
 		html {
 			width: 100%;
@@ -46,5 +36,12 @@
 	</d-list>
 	<br>
 	<button onclick="var list = document.getElementById('list-mark-3'); list.categoryAttr = (list.categoryAttr === 'righttext' ? 'label' : 'righttext');">Toggle category attribute between righttext and label.</button>
+
+	<!-- Don't define the d-list custom element until after the markup is present.
+		Otherwise Chrome tries to read the d-list textContent before it's been downloaded! -->
+	<script type="text/javascript" src="../../webpack-boilerplate.js"></script>
+	<script type="text/javascript">
+		ready = true
+	</script>
 </body>
 </html>

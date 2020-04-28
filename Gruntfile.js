@@ -1,3 +1,5 @@
+const webpackConfig = require("./webpack.config.js");
+
 /*global module */
 module.exports = function (grunt) {
 
@@ -34,15 +36,8 @@ module.exports = function (grunt) {
 			}
 		},
 
-		// Copied from grunt web site but not tested
-		"uglify": {
-			options: {
-				banner: "/*! <%= pkg.name %> <%= grunt.template.today('yyyy-mm-dd') %> */\n"
-			},
-			build: {
-				src: "src/<%= pkg.name %>.js",
-				dest: "build/<%= pkg.name %>.min.js"
-			}
+		"webpack": {
+			config: webpackConfig
 		},
 
 		"jsdoc-amddcl": {
@@ -96,6 +91,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks("grunt-contrib-less");
 	grunt.loadNpmTasks("grunt-contrib-uglify");
 	grunt.loadNpmTasks("jsdoc-amddcl");
+	grunt.loadNpmTasks("grunt-webpack");
 
 	// Aliases
 	grunt.registerTask("default", ["less"]);

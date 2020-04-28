@@ -8,42 +8,32 @@
 
 	<title>deliteful/list/List samples.</title>
 
-	<script type="text/javascript" src="../../node_modules/requirejs/require.js"></script>
+	<script type="text/javascript" src="../../dist/functional-tests.js"></script>
 
 	<script type="text/javascript">
-		require.config({
-			baseUrl: "../../node_modules",
-			packages: [
-				{ name: "deliteful", location: ".." }
-			]
-		});
-	</script>
-
-	<script type="text/javascript">
-		require([
-			"delite/register",
+		delitefulRequire([
 			"dojo-dstore/Memory",
 			"dojo-dstore/Trackable",
-			"deliteful/list/ItemRenderer",
-			"deliteful/list/List",
-			"delite/handlebars!deliteful/samples/list/templates/CustomItemRenderer.html",
-			"requirejs-dplugins/css!delite/css/global.css", // page level CSS
-			"requirejs-domready/domReady!"
-		], function (register, Memory, Trackable, ItemRenderer, List, template) {
-			var Store = Memory.createSubclass([Trackable], {});
-			var MyCustomRenderer = register("d-book-item", [ItemRenderer], {
-				template: template
-			});
-			var list = new List();
+			"deliteful/samples/list/src/CustomItemList"
+		], function (Memory, Trackable, CustomItemList) {
+			var Store = Memory.createSubclass([ Trackable ], {});
+			var list = new CustomItemList();
 			list.source = new Store();
 			list.setAttribute("aria-label", "Sample list with custom item renderer");
-			list.ItemRenderer = MyCustomRenderer;
-			list.copyAllItemProps = true;
-			list.source.add({title: "Dojo: The Definitive Guide", isbn: "0596516487"});
-			list.source.add({title: "Dojo: Using the Dojo JavaScript Library to Build Ajax Applications", isbn: "0132358042"});
-			list.source.add({title: "Practical Dojo Projects (Expert's Voice in Web Development)", isbn: "1430210664"});
-			list.source.add({title: "The Dojo Toolkit: Visual QuickStart Guide", isbn: "0321605128"});
-			list.source.add({title: "Mastering Dojo: JavaScript and Ajax Tools for Great Web Experiences", isbn: "1934356115"});
+			list.source.add({ title: "Dojo: The Definitive Guide", isbn: "0596516487" });
+			list.source.add({
+				title: "Dojo: Using the Dojo JavaScript Library to Build Ajax Applications",
+				isbn: "0132358042"
+			});
+			list.source.add({
+				title: "Practical Dojo Projects (Expert's Voice in Web Development)",
+				isbn: "1430210664"
+			});
+			list.source.add({ title: "The Dojo Toolkit: Visual QuickStart Guide", isbn: "0321605128" });
+			list.source.add({
+				title: "Mastering Dojo: JavaScript and Ajax Tools for Great Web Experiences",
+				isbn: "1934356115"
+			});
 			list.placeAt(document.body);
 
 			document.body.style.display = "";
@@ -60,6 +50,6 @@
 	</style>
 </head>
 <body style="display: none" role="application">
-	This sample demonstrate how to write a custom item renderer.
+This sample demonstrate how to write a custom item renderer.
 </body>
 </html>

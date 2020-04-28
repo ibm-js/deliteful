@@ -1,10 +1,8 @@
-define(function (require) {
-	"use strict";
+import List from "deliteful/list/List";
+import ListBaseTests from "./resources/ListBaseTests";
 
-	var registerSuite = intern.getPlugin("interface.object").registerSuite;
-	var List = require("deliteful/list/List");
-	var ListBaseTests = require("./resources/ListBaseTests");
+var registerSuite = intern.getPlugin("interface.object").registerSuite;
 
-	registerSuite("list/List", ListBaseTests.buildSuite(List));
+registerSuite("list/List", ListBaseTests.buildSuite(List));
 
-});
+

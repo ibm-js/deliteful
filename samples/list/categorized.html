@@ -8,35 +8,24 @@
 
 	<title>deliteful/list/List samples.</title>
 
-	<script type="text/javascript" src="../../node_modules/requirejs/require.js"></script>
+	<script type="text/javascript" src="../../dist/functional-tests.js"></script>
 
 	<script type="text/javascript">
-		require.config({
-			baseUrl: "../../node_modules",
-			packages: [
-				{ name: "deliteful", location: ".." }
-			]
-		});
-	</script>
-
-	<script type="text/javascript">
-		require([
+		delitefulRequire([
 			"dojo-dstore/Memory",
 			"dojo-dstore/Trackable",
-			"deliteful/list/List",
-			"requirejs-dplugins/css!delite/css/global.css",	// page level CSS
-			"requirejs-domready/domReady!"
+			"deliteful/list/List"
 		], function (Memory, Trackable, List) {
-			var Store = Memory.createSubclass([Trackable], {});
+			var Store = Memory.createSubclass([ Trackable ], {});
 			var list = new List();
 			list.source = new Store();
 			list.setAttribute("aria-label", "Sample categorized list");
 			list.categoryAttr = "category";
-			list.source.add({label: "first item", category: "Category A"});
-			list.source.add({label: "second item", category: "Category A"});
-			list.source.add({label: "third item", category: "Category A"});
-			list.source.add({label: "fourth item", category: "Category B"});
-			list.source.add({label: "fifth item", category: "Category B"});
+			list.source.add({ label: "first item", category: "Category A" });
+			list.source.add({ label: "second item", category: "Category A" });
+			list.source.add({ label: "third item", category: "Category A" });
+			list.source.add({ label: "fourth item", category: "Category B" });
+			list.source.add({ label: "fifth item", category: "Category B" });
 			list.placeAt(document.body);
 
 			document.body.style.display = "";
@@ -44,6 +33,6 @@
 	</script>
 </head>
 <body style="display: none" role="application">
-	This sample demonstrate a categorized list.
+This sample demonstrate a categorized list.
 </body>
 </html>

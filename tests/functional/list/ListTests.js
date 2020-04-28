@@ -52,7 +52,7 @@ define(function () {
 		},
 
 		"list-cust-1.html": function () {
-			return basicTest(this.remote, "list-cust-1.html", "list-cust-1", 40, 0, "d-customnav-item");
+			return basicTest(this.remote, "list-cust-1.html", "list-cust-1", 40, 0, "d-custom-nav-item");
 		},
 
 		"selectionMode 'none'": function () {

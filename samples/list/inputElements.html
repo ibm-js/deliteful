@@ -8,63 +8,35 @@
 
 	<title>deliteful/list/List samples.</title>
 
-	<script type="text/javascript" src="../../node_modules/requirejs/require.js"></script>
+	<script type="text/javascript" src="../../dist/functional-tests.js"></script>
 
 	<script type="text/javascript">
-		require.config({
-			baseUrl: "../../node_modules",
-			packages: [
-				{ name: "deliteful", location: ".." }
-			]
-		});
-	</script>
-
-	<script type="text/javascript">
-		require([
-			"delite/register",
-			"deliteful/list/ItemRenderer",
-			"deliteful/list/List",
-			"delite/handlebars!deliteful/samples/list/templates/BlankItemRenderer.html",
-			"requirejs-dplugins/css!delite/css/global.css"	// page level CSS
-		], function (register, ItemRenderer, List, template) {
-			var MyCustomRenderer = register("d-configuration-item", [ItemRenderer], {
-				template: template,
-				refreshRendering: function (oldVals) {
-					if ("item" in oldVals) {
-						var renderNode = this.firstElementChild;
-						renderNode.innerHTML = "";
-						if (this.item.elementTag) {
-							var elementNode = renderNode.appendChild(this._createElement(this.item.elementTag, this.item.elementAttrs));
-							elementNode.setAttribute("tabindex", "0");
-							if (this.item.label) {
-								var labelNode = renderNode.appendChild(this.ownerDocument.createElement("span"));
-								labelNode.className = "label";
-								labelNode.innerHTML = this.item.label;
-								elementNode.setAttribute("aria-label", this.item.label);
-								// Set the label attribute that key search uses
-								elementNode.label = this.item.label;
-							}
-						}
-					}
-				},
-				_createElement: function (tag, attributes) {
-					var elementNode = this.ownerDocument.createElement(tag);
-					for (var key in attributes) {
-						elementNode[key] = attributes[key];
-					}
-					return elementNode;
-				}
-			});
-			var list = new List({
-				ItemRenderer: MyCustomRenderer,
-				copyAllItemProps: true,
+		delitefulRequire([
+			"deliteful/samples/list/src/InputElementList"
+		], function (InputElementList) {
+			var list = new InputElementList({
 				source: [
-					{elementTag: "A", elementAttrs: {href: "http://en.wikipedia.org/wiki/Wikipedia:About", innerHTML: "About"}},
-					{label: "Multitasking gestures", elementTag: "INPUT", elementAttrs: {type: "checkbox", value: "multitasking"}},
-					{label: "Volume", elementTag: "INPUT", elementAttrs: {type: "range"}},
-					{label: "Login", elementTag: "INPUT", elementAttrs: {type: "text"}},
-					{label: "Apex ringtone", elementTag: "INPUT", elementAttrs: {type: "radio", name: "ringtone", value: "apex", checked: true}},
-					{label: "Beacon ringtone", elementTag: "INPUT", elementAttrs: {type: "radio", name: "ringtone", value: "beacon"}}
+					{
+						elementTag: "A",
+						elementAttrs: { href: "http://en.wikipedia.org/wiki/Wikipedia:About", innerHTML: "About" }
+					},
+					{
+						label: "Multitasking gestures",
+						elementTag: "INPUT",
+						elementAttrs: { type: "checkbox", value: "multitasking" }
+					},
+					{ label: "Volume", elementTag: "INPUT", elementAttrs: { type: "range" } },
+					{ label: "Login", elementTag: "INPUT", elementAttrs: { type: "text" } },
+					{
+						label: "Apex ringtone",
+						elementTag: "INPUT",
+						elementAttrs: { type: "radio", name: "ringtone", value: "apex", checked: true }
+					},
+					{
+						label: "Beacon ringtone",
+						elementTag: "INPUT",
+						elementAttrs: { type: "radio", name: "ringtone", value: "beacon" }
+					}
 				]
 			});
 			list.setAttribute("aria-label", "Sample list of input elements");
@@ -89,7 +61,7 @@
 	</style>
 </head>
 <body style="display: none" role="application">
-	This sample demonstrate a custom item renderer that displays various input elements.
-	<p>
+This sample demonstrate a custom item renderer that displays various input elements.
+<p>
 </body>
 </html>

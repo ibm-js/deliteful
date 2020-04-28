@@ -8,29 +8,19 @@
 
 	<title>deliteful/list/List samples.</title>
 
-	<script type="text/javascript" src="../../node_modules/requirejs/require.js"></script>
+	<script type="text/javascript" src="../../dist/functional-tests.js"></script>
 	<link rel="stylesheet" href="../../node_modules/delite/css/defaultapp.css">
-	<script type="text/javascript">
-		require.config({
-			baseUrl: "../../node_modules",
-			packages: [
-				{ name: "deliteful", location: ".." }
-			]
-		});
-	</script>
 
 	<script type="text/javascript">
-		require([
+		delitefulRequire([
 			"dojo-dstore/Memory",
 			"dojo-dstore/Trackable",
-			"deliteful/list/List",
-			"deliteful/LinearLayout",
-			"requirejs-dplugins/css!delite/css/global.css"	// page level CSS
-		], function (Memory, Trackable, List) {
-			var Store = Memory.createSubclass([Trackable], {});
+			"deliteful/LinearLayout"
+		], function (Memory, Trackable) {
+			var Store = Memory.createSubclass([ Trackable ], {});
 			list.source = new Store();
 			for (var i = 0; i < 50; i++) {
-				list.source.add({label: "Item #" + i});
+				list.source.add({ label: "Item #" + i });
 			}
 			document.body.style.display = "";
 		});
@@ -40,6 +30,7 @@
 			width: 100%;
 			height: 100%;
 		}
+
 		.header, .footer {
 			background-color: #CECECE;
 			padding-left: 0.1em;

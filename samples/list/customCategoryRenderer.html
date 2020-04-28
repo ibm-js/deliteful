@@ -8,47 +8,28 @@
 
 	<title>deliteful/list/List samples.</title>
 
-	<script type="text/javascript" src="../../node_modules/requirejs/require.js"></script>
+	<script type="text/javascript" src="../../dist/functional-tests.js"></script>
 
 	<script type="text/javascript">
-		require.config({
-			baseUrl: "../../node_modules",
-			packages: [
-				{ name: "deliteful", location: ".." }
-			]
-		});
-	</script>
-
-	<script type="text/javascript">
-		require([
-			"delite/register",
+		delitefulRequire([
 			"dojo-dstore/Memory",
 			"dojo-dstore/Trackable",
-			"deliteful/list/CategoryRenderer",
-			"deliteful/list/List",
-			"delite/handlebars!deliteful/samples/list/templates/CustomCategoryRenderer.html",
-			"requirejs-dplugins/css!delite/css/global.css", // page level CSS
-			"requirejs-domready/domReady!"
-		], function (register, Memory, Trackable, CategoryRenderer, List, template) {
-			var Store = Memory.createSubclass([Trackable], {});
-			var MyCustomRenderer = register("d-cust-category", [CategoryRenderer], {
-				template: template
-			});
-			var list = new List();
+			"deliteful/samples/list/src/CustomCategoryList"
+		], function (Memory, Trackable, CustomCategoryList) {
+			var Store = Memory.createSubclass([ Trackable ], {});
+			var list = new CustomCategoryList();
 			list.source = new Store();
 			list.setAttribute("aria-label", "Sample list with custom category renderer");
-			list.categoryAttr = "cat";
-			list.CategoryRenderer = MyCustomRenderer;
-			list.source.add({label: "Apple", cat: "Fruit"});
-			list.source.add({label: "Apricot", cat: "Fruit"});
-			list.source.add({label: "Banana", cat: "Fruit"});
-			list.source.add({label: "Orange", cat: "Fruit"});
-			list.source.add({label: "Pear", cat: "Fruit"});
-			list.source.add({label: "Strawberry", cat: "Fruit"});
-			list.source.add({label: "Brussel sprout", cat: "Vegetable"});
-			list.source.add({label: "Cabbage", cat: "Vegetable"});
-			list.source.add({label: "Kale", cat: "Vegetable"});
-			list.source.add({label: "Lettuce", cat: "Vegetable"});
+			list.source.add({ label: "Apple", cat: "Fruit" });
+			list.source.add({ label: "Apricot", cat: "Fruit" });
+			list.source.add({ label: "Banana", cat: "Fruit" });
+			list.source.add({ label: "Orange", cat: "Fruit" });
+			list.source.add({ label: "Pear", cat: "Fruit" });
+			list.source.add({ label: "Strawberry", cat: "Fruit" });
+			list.source.add({ label: "Brussel sprout", cat: "Vegetable" });
+			list.source.add({ label: "Cabbage", cat: "Vegetable" });
+			list.source.add({ label: "Kale", cat: "Vegetable" });
+			list.source.add({ label: "Lettuce", cat: "Vegetable" });
 			list.placeAt(document.body);
 
 			document.body.style.display = "";
@@ -62,6 +43,7 @@
 			color: white;
 			height: 45px;
 		}
+
 		.categoryLink {
 			color: white;
 			font-size: small;
@@ -69,6 +51,6 @@
 	</style>
 </head>
 <body style="display: none" role="application">
-	This sample demonstrate how to write a custom category renderer.
+This sample demonstrate how to write a custom category renderer.
 </body>
 </html>

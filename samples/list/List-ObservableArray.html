@@ -8,34 +8,25 @@
 
 	<title>deliteful/list/List samples.</title>
 
-	<script type="text/javascript" src="../../node_modules/requirejs/require.js"></script>
+	<script type="text/javascript" src="../../dist/functional-tests.js"></script>
 
 	<script type="text/javascript">
-		require.config({
-			baseUrl: "../../node_modules",
-			packages: [
-				{ name: "deliteful", location: ".." }
-			]
-		});
-	</script>
-
-	<script type="text/javascript">
-		require([
-			"deliteful/list/List", // page level CSS
+		delitefulRequire([
+			"deliteful/list/List",
 			"ibm-decor/Observable",
 			"ibm-decor/ObservableArray"
 		], function (List, Observable, ObservableArray) {
-			var list  = new List();
+			var list = new List();
 			list.id = "L";
 
 			list.source = new ObservableArray();
 			var arr = [];
 
 			for (var i = 0; i < 100; i++) {
-				arr.push({title:"Programmatic item of order " + i});
+				arr.push({ title: "Programmatic item of order " + i });
 			}
 
-			for (i =0; i < 5; i++){
+			for (i = 0; i < 5; i++) {
 				var obj = new Observable(arr[i]);
 				Observable.observe(obj, function (changeRecords) {
 					console.log("Observe User");
@@ -56,7 +47,9 @@
 </head>
 <body style="display: none" role="application">
 <d-linear-layout style="width: 100%; height: 100%">
-	<h1 class="header"><div>Example to use List with ObservableArray</div></h1>
+	<h1 class="header">
+		<div>Example to use List with ObservableArray</div>
+	</h1>
 </d-linear-layout>
 </body>
 </html>

@@ -7,3 +7,4 @@ tests
 .idea
 intern*
 .travis.yml
+dist/

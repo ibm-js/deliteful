@@ -2,48 +2,21 @@
 <html>
 <head>
 	<meta name="viewport"
-		content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>Navigation between views using lists</title>
 
-	<script type="text/javascript" src="../../node_modules/requirejs/require.js"></script>
-
 	<script type="text/javascript">
-		require.config({
-			baseUrl: "../../node_modules",
-			packages: [
-				{ name: "deliteful", location: ".." }
-			]
-		});
+		actionHandler = function (event) {
+			if ((event.type === "keydown" && event.key === "Spacebar") || event.type === "click") {
+				var renderer = event.currentTarget.getEnclosingRenderer(event.target);
+				if (renderer && renderer.item.moveto) {
+					document.getElementById("viewStack").show(renderer.item.moveto);
+				}
+			}
+		};
 	</script>
 
-	<script type="text/javascript">
-		require([
-			"delite/register",
-			"deliteful/list/ItemRenderer",
-			"delite/handlebars!deliteful/samples/list/templates/NavigationItemRenderer.html",
-			"deliteful/ViewStack",
-			"requirejs-dplugins/css!delite/css/global.css"	// page level CSS
-		], function(register, ItemRenderer, template){
-			// Custom item renderer that renders a navigation button
-			NavigationItemRenderer = register("d-navigation-item", [ItemRenderer], {
-				template: template
-			});
-			require([
-				"deliteful/list/List",
-				"requirejs-domready/domReady!"], function () {
-				actionHandler = function(event) {
-					if ((event.type === "keydown" && event.key === "Spacebar") || event.type === "click") {
-						var renderer = event.currentTarget.getEnclosingRenderer(event.target);
-						if (renderer && renderer.item.moveto) {
-							document.getElementById("viewStack").show(renderer.item.moveto);
-						}
-					}
-				};
-				document.body.style.display = "";
-			});
-		});
-	</script>
 	<style>
 		html {
 			height: 100%;
@@ -61,15 +34,15 @@
 			width: 100%;
 		}
 
-		.d-list-item-label {
+		.d-navigation-list-item-label {
 			float: left;
 		}
 
-		.d-list-item-right-icon {
+		.d-navigation-list-item-right-icon {
 			float: right;
 		}
 
-		.d-list-item-right-icon::after {
+		.d-navigation-list-item-right-icon::after {
 			color: grey;
 			content: ">";
 		}
@@ -79,88 +52,96 @@
 <d-view-stack id="viewStack">
 	<div id="view1">
 		<h1>List 1</h1>
-		<d-list id="list1" arial-label="navigation list 1" movetoAttr="moveTo" ItemRenderer="NavigationItemRenderer"
-				onclick="actionHandler(event)" onkeydown="actionHandler(event)">
+		<d-navigation-list id="list1" arial-label="navigation list 1" movetoAttr="moveTo"
+						   onclick="actionHandler(event)" onkeydown="actionHandler(event)">
 			{"label": "To list 2", "righticonclass": "rightIcon", "moveTo": "view2"},
 			{"label": "To list 3", "righticonclass": "rightIcon", "moveTo": "view3"},
 			{"label": "To list 4", "righticonclass": "rightIcon", "moveTo": "view4"},
 			{"label": "To list 5", "righticonclass": "rightIcon", "moveTo": "view5"},
 			{"label": "To list 6", "righticonclass": "rightIcon", "moveTo": "view6"},
 			{"label": "To list 7", "righticonclass": "rightIcon", "moveTo": "view7"}
-		</d-list>
+		</d-navigation-list>
 	</div>
 	<div id="view2">
 		<h1>List 2</h1>
-		<d-list id="list2" arial-label="navigation list 2" movetoAttr="moveTo" ItemRenderer="NavigationItemRenderer"
-				onclick="actionHandler(event)" onkeydown="actionHandler(event)">
+		<d-navigation-list id="list2" arial-label="navigation list 2" movetoAttr="moveTo"
+						   onclick="actionHandler(event)" onkeydown="actionHandler(event)">
 			{"label": "To list 1", "righticonclass": "rightIcon", "moveTo": "view1"},
 			{"label": "To list 3", "righticonclass": "rightIcon", "moveTo": "view3"},
 			{"label": "To list 4", "righticonclass": "rightIcon", "moveTo": "view4"},
 			{"label": "To list 5", "righticonclass": "rightIcon", "moveTo": "view5"},
 			{"label": "To list 6", "righticonclass": "rightIcon", "moveTo": "view6"},
 			{"label": "To list 7", "righticonclass": "rightIcon", "moveTo": "view7"}
-		</d-list>
+		</d-navigation-list>
 	</div>
 	<div id="view3">
 		<h1>List 3</h1>
-		<d-list id="list3" arial-label="navigation list 3" movetoAttr="moveTo" ItemRenderer="NavigationItemRenderer"
-				onclick="actionHandler(event)" onkeydown="actionHandler(event)">
+		<d-navigation-list id="list3" arial-label="navigation list 3" movetoAttr="moveTo"
+						   onclick="actionHandler(event)" onkeydown="actionHandler(event)">
 			{"label": "To list 1", "righticonclass": "rightIcon", "moveTo": "view1"},
 			{"label": "To list 2", "righticonclass": "rightIcon", "moveTo": "view2"},
 			{"label": "To list 4", "righticonclass": "rightIcon", "moveTo": "view4"},
 			{"label": "To list 5", "righticonclass": "rightIcon", "moveTo": "view5"},
 			{"label": "To list 6", "righticonclass": "rightIcon", "moveTo": "view6"},
 			{"label": "To list 7", "righticonclass": "rightIcon", "moveTo": "view7"}
-		</d-list>
+		</d-navigation-list>
 	</div>
 	<div id="view4">
 		<h1>List 4</h1>
-		<d-list id="list4" arial-label="navigation list 4" movetoAttr="moveTo" ItemRenderer="NavigationItemRenderer"
-				onclick="actionHandler(event)" onkeydown="actionHandler(event)">
+		<d-navigation-list id="list4" arial-label="navigation list 4" movetoAttr="moveTo"
+						   onclick="actionHandler(event)" onkeydown="actionHandler(event)">
 			{"label": "To list 1", "righticonclass": "rightIcon", "moveTo": "view1"},
 			{"label": "To list 2", "righticonclass": "rightIcon", "moveTo": "view2"},
 			{"label": "To list 3", "righticonclass": "rightIcon", "moveTo": "view3"},
 			{"label": "To list 5", "righticonclass": "rightIcon", "moveTo": "view5"},
 			{"label": "To list 6", "righticonclass": "rightIcon", "moveTo": "view6"},
 			{"label": "To list 7", "righticonclass": "rightIcon", "moveTo": "view7"}
-		</d-list>
+		</d-navigation-list>
 	</div>
 	<div id="view5">
 		<h1>List 5</h1>
-		<d-list id="list5" arial-label="navigation list 5" movetoAttr="moveTo" ItemRenderer="NavigationItemRenderer"
-				onclick="actionHandler(event)" onkeydown="actionHandler(event)">
+		<d-navigation-list id="list5" arial-label="navigation list 5" movetoAttr="moveTo"
+						   onclick="actionHandler(event)" onkeydown="actionHandler(event)">
 			{"label": "To list 1", "righticonclass": "rightIcon", "moveTo": "view1"},
 			{"label": "To list 2", "righticonclass": "rightIcon", "moveTo": "view2"},
 			{"label": "To list 3", "righticonclass": "rightIcon", "moveTo": "view3"},
 			{"label": "To list 4", "righticonclass": "rightIcon", "moveTo": "view4"},
 			{"label": "To list 6", "righticonclass": "rightIcon", "moveTo": "view6"},
 			{"label": "To list 7", "righticonclass": "rightIcon", "moveTo": "view7"}
-		</d-list>
+		</d-navigation-list>
 	</div>
 	<div id="view6">
 		<h1>List 6</h1>
-		<d-list id="list6" arial-label="navigation list 6" movetoAttr="moveTo" ItemRenderer="NavigationItemRenderer"
-				onclick="actionHandler(event)" onkeydown="actionHandler(event)">
+		<d-navigation-list id="list6" arial-label="navigation list 6" movetoAttr="moveTo"
+						   onclick="actionHandler(event)" onkeydown="actionHandler(event)">
 			{"label": "To list 1", "righticonclass": "rightIcon", "moveTo": "view1"},
 			{"label": "To list 2", "righticonclass": "rightIcon", "moveTo": "view2"},
 			{"label": "To list 3", "righticonclass": "rightIcon", "moveTo": "view3"},
 			{"label": "To list 4", "righticonclass": "rightIcon", "moveTo": "view4"},
 			{"label": "To list 5", "righticonclass": "rightIcon", "moveTo": "view5"},
 			{"label": "To list 7", "righticonclass": "rightIcon", "moveTo": "view7"}
-		</d-list>
+		</d-navigation-list>
 	</div>
 	<div id="view7">
 		<h1>List 7</h1>
-		<d-list id="list7" arial-label="navigation list 7" movetoAttr="moveTo" ItemRenderer="NavigationItemRenderer"
-				onclick="actionHandler(event)" onkeydown="actionHandler(event)">
+		<d-navigation-list id="list7" arial-label="navigation list 7" movetoAttr="moveTo"
+						   onclick="actionHandler(event)" onkeydown="actionHandler(event)">
 			{"label": "To list 1", "righticonclass": "rightIcon", "moveTo": "view1"},
 			{"label": "To list 2", "righticonclass": "rightIcon", "moveTo": "view2"},
 			{"label": "To list 3", "righticonclass": "rightIcon", "moveTo": "view3"},
 			{"label": "To list 4", "righticonclass": "rightIcon", "moveTo": "view4"},
 			{"label": "To list 5", "righticonclass": "rightIcon", "moveTo": "view5"},
 			{"label": "To list 6", "righticonclass": "rightIcon", "moveTo": "view6"}
-		</d-list>
+		</d-navigation-list>
 	</div>
 </d-view-stack>
+
+<!-- Don't define the d-navigation-list custom element until after the markup is present.
+	Otherwise Chrome tries to read the d-navigation-list textContent before it's been downloaded! -->
+<script type="text/javascript" src="../../dist/functional-tests.js"></script>
+<script type="text/javascript">
+	document.body.style.display = "";
+</script>
+
 </body>
 </html>

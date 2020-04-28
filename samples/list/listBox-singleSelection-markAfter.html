@@ -8,25 +8,15 @@
 
 	<title>deliteful/list/List samples.</title>
 
-	<script type="text/javascript" src="../../node_modules/requirejs/require.js"></script>
+	<script type="text/javascript" src="../../dist/functional-tests.js"></script>
 
 	<script type="text/javascript">
-		require.config({
-			baseUrl: "../../node_modules",
-			packages: [
-				{ name: "deliteful", location: ".." }
-			]
-		});
-	</script>
-
-	<script type="text/javascript">
-		require([
+		delitefulRequire([
 			"dojo-dstore/Memory",
 			"dojo-dstore/Trackable",
-			"deliteful/list/List",
-			"requirejs-dplugins/css!delite/css/global.css"	// page level CSS
+			"deliteful/list/List"
 		], function (Memory, Trackable, List) {
-			var Store = Memory.createSubclass([Trackable], {});
+			var Store = Memory.createSubclass([ Trackable ], {});
 			var console = document.createElement("div");
 			console.innerHTML = "Click to select an item.";
 			document.body.appendChild(console);
@@ -35,11 +25,11 @@
 			list.selectionMode = "single";
 			list.source = new Store();
 			list.setAttribute("aria-label", "Sample list with single selection mode enabled and selection checkmarks displayed after the items");
-			list.source.add({label: "first item"});
-			list.source.add({label: "second item"});
-			list.source.add({label: "third item"});
-			list.source.add({label: "fourth item"});
-			list.source.add({label: "fifth item"});
+			list.source.add({ label: "first item" });
+			list.source.add({ label: "second item" });
+			list.source.add({ label: "third item" });
+			list.source.add({ label: "fourth item" });
+			list.source.add({ label: "fifth item" });
 			list.on("selection-change", function (event) {
 				if (event.newValue) {
 					console.innerHTML = "Current selection: " + event.newValue.label;
@@ -61,6 +51,7 @@
 	</style>
 </head>
 <body style="display: none" role="application">
-	This sample demonstrate a list with listbox aria role, single selection mode enabled and custom CSS to display a selection mark after the currently selected item(s).
+This sample demonstrate a list with listbox aria role, single selection mode enabled and custom CSS to display a
+selection mark after the currently selected item(s).
 </body>
 </html>

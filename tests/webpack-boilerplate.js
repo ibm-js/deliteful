@@ -1,0 +1,65 @@
+// module:
+//		deliteful/tests/boilerplate
+// description:
+//		A <script src="boilerplate.js"> on your test page will
+//		load the loader (i.e. define the require() method)
+//
+//		In addition, by URL flags you can specify:
+//			- locale=... to set the locale
+//			- dir=rtl to set the page to RTL mode
+//
+//		You should NOT be using this in a production environment.  Rather, load
+//		the AMD loader directly, for example:
+//
+//		<script src="requirejs/require.js">
+
+
+// Parse the URL, get parameters
+var dir = "",
+	locale;
+if (window.location.href.indexOf("?") > -1) {
+	var str = window.location.href.substr(window.location.href.indexOf("?") + 1).split(/#/);
+	var ary = str[0].split(/&/);
+	for (var i = 0; i < ary.length; i++) {
+		var split = ary[i].split("="),
+			key = split[0],
+			value = (split[1] || "").replace(/[^\w]/g, "");	// replace() to prevent XSS attack
+		switch (key) {
+		case "locale":
+			// locale string | null
+			locale = value;
+			break;
+		case "dir":
+			// rtl | null
+			dir = value;
+			break;
+		}
+	}
+}
+if (dir) {
+	document.documentElement.setAttribute("dir", dir);
+}
+
+// Find the <script src="webpack-boilerplate.js"> tag, to get tests directory.
+var scripts = document.getElementsByTagName("script"), script, testDir;
+for (var i = 0; (script = scripts[i]); i++) {
+	var src = script.getAttribute("src"),
+		match = src && src.match(/(.*|^)webpack-boilerplate\.js/i);
+	if (match) {
+		// Sniff location of delite/tests directory relative to this test file.  testDir will be an empty string if
+		// it's the same directory, or a string including a slash, ex: "../", if the test is in a subdirectory.
+		testDir = match[1];
+
+		break;
+	}
+}
+
+// Add polyfills for IE and legacy Edge.
+if (/Trident/.test(navigator.userAgent)) {
+	document.write("<script type='text/javascript' src='" + testDir + "ie-polyfills.js'></script>");
+	document.write("<script type='text/javascript' src='" + testDir +
+		"../node_modules/@webcomponents/custom-elements/custom-elements.min.js'></script>");
+}
+
+// Load the webpack bundle.
+document.write("<script type='text/javascript' src='" + testDir + "../dist/functional-tests.js'></script>");

@@ -53,7 +53,6 @@
 		"deliteful/tests/unit/LinearLayout-horizontal-3width",
 		"deliteful/tests/unit/LinearLayout-horizontal-mixedwidth",
 		"deliteful/tests/unit/LinearLayout-vertical",
-		"deliteful/tests/unit/list/all",
 		"deliteful/tests/unit/ProgressBar",
 		"deliteful/tests/unit/ProgressIndicator",
 		"deliteful/tests/unit/RadioButton",
@@ -90,7 +89,6 @@
 		"deliteful/tests/functional/DatePicker",
 		"deliteful/tests/functional/Dialog",
 		"deliteful/tests/functional/features",
-		"deliteful/tests/functional/list/all",
 		"deliteful/tests/functional/ScrollableContainer",
 		"deliteful/tests/functional/Select",
 		"deliteful/tests/functional/SidePane",
@@ -134,12 +132,22 @@
 	},
 
 	"configs": {
+		"list": {
+			"description": "Run the list tests.",
+			"suites": "deliteful/dist/unit-tests",
+			"functionalSuites": "deliteful/tests/functional/list/all"
+		},
+
 		"chrome-debug": {
 			"description": "Run locally with Chrome visible and leave it open at end",
 			"leaveRemoteOpen": true,
 			"environments": [
 				{ "browser": "chrome", "fixSessionCapabilities": false }
 			]
+		},
+
+		"list-chrome-debug": {
+			"extends": ["list", "chrome-debug"]
 		},
 
 		"firefox": {
@@ -228,6 +236,10 @@
 			"tunnel": "saucelabs"
 		},
 
+		"list-sauce": {
+			"extends": ["list", "sauce"]
+		},
+
 		"sauce-chrome": {
 			"description": "Run tests on Chrome/Windows 10 on SauceLabs",
 			"environments": [
@@ -271,6 +283,10 @@
 			"coverage": null
 		},
 
+		"list-sauce-ie": {
+			"extends": ["list", "sauce-ie"]
+		},
+
 		"sauce-safari": {
 			"description": "Run tests on Safari (Mac) on SauceLabs",
 			"environments": [
@@ -306,6 +322,5 @@
 			],
 			"coverage": null
 		}
-
 	}
 }

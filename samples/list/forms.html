@@ -8,90 +8,27 @@
 
 	<title>deliteful/list/List samples.</title>
 
-	<script type="text/javascript" src="../../node_modules/requirejs/require.js"></script>
+	<script type="text/javascript" src="../../dist/functional-tests.js"></script>
 
 	<script type="text/javascript">
-		require.config({
-			baseUrl: "../../node_modules",
-			packages: [
-				{ name: "deliteful", location: ".." }
-			]
-		});
-	</script>
-
-	<script type="text/javascript">
-		require([
-			"dcl/dcl",
-			"delite/register",
+		delitefulRequire([
 			"dojo-dstore/Memory",
 			"dojo-dstore/Trackable",
-			"deliteful/list/ItemRenderer",
-			"deliteful/list/List",
-			"requirejs-dplugins/css!delite/css/global.css"	// page level CSS
+			"deliteful/samples/list/src/DataForm"
 		], function (
-			dcl,
-			register,
 			Memory,
 			Trackable,
-			ItemRenderer,
-			List
+			DataForm
 		) {
-			var MyCustomRenderer = register("d-dataform-item", [ItemRenderer], {
-				counter: 1,
-				initializeRendering: function () {
-					this.setAttribute("role", "row");
-					var renderNode = this.renderNode = this.ownerDocument.createElement("div");
-					renderNode.setAttribute("role", "gridcell");
-					renderNode.setAttribute("class", "d-list-cell");
-					renderNode.setAttribute("tabindex", "-1");
-					this.appendChild(renderNode);
-					this._firstNameNode = this.appendField("First name");
-					this._lastNameNode = this.appendField("Last name");
-					this._dateOfBirthNode = this.appendField("Date of birth");
-					var button = this.ownerDocument.createElement("button");
-					button.innerHTML = "Update record";
-					button.onclick = function () {
-						alert("record updated");
-					};
-					renderNode.appendChild(button);
-				},
-				appendField: function(name) {
-					var label = this.ownerDocument.createElement("label");
-					label.className = "label";
-					label.innerHTML = name + ":";
-					this.renderNode.appendChild(label);
-					var input = this.ownerDocument.createElement("input");
-					input.id = this.widgetId + "-" + this.counter++;
-					label.setAttribute("for", input.id);
-					this.renderNode.appendChild(input);
-					return input;
-				},
-				item: dcl.prop({
-					set: function (item) {
-						this._set("item", item);
-						this._firstNameNode.value = this.item.firstName;
-						this._lastNameNode.value = this.item.lastName;
-						this._dateOfBirthNode.value = this.item.dateOfBirth;
-					},
-					get: function () {
-						return this._get("item");
-					},
-					enumerable: true,
-					configurable: true
-				})
-			});
-
-			var Store = Memory.createSubclass([Trackable], {});
+			var Store = Memory.createSubclass([ Trackable ], {});
 			var source = new Store();
-			source.add({firstName: "John", lastName: "Doe", dateOfBirth: "12/01/1967"});
-			source.add({firstName: "Jane", lastName: "Doe", dateOfBirth: "03/04/1973"});
-			source.add({firstName: "Paul", lastName: "Smith", dateOfBirth: "11/10/1982"});
-			source.add({firstName: "Anthony", lastName: "Platters", dateOfBirth: "08/15/1964"});
-			source.add({firstName: "Lydia", lastName: "Melrose", dateOfBirth: "07/03/1982"});
+			source.add({ firstName: "John", lastName: "Doe", dateOfBirth: "12/01/1967" });
+			source.add({ firstName: "Jane", lastName: "Doe", dateOfBirth: "03/04/1973" });
+			source.add({ firstName: "Paul", lastName: "Smith", dateOfBirth: "11/10/1982" });
+			source.add({ firstName: "Anthony", lastName: "Platters", dateOfBirth: "08/15/1964" });
+			source.add({ firstName: "Lydia", lastName: "Melrose", dateOfBirth: "07/03/1982" });
 
-			var list = new List({
-				ItemRenderer: MyCustomRenderer,
-				copyAllItemProps: true,
+			var list = new DataForm({
 				source: source
 			});
 			list.setAttribute("aria-label", "Sample list which items are data forms");
@@ -102,13 +39,13 @@
 		});
 	</script>
 	<style type="text/css">
- 		input {
- 			margin-right: 10px;
- 		}
+		input {
+			margin-right: 10px;
+		}
 	</style>
 </head>
 <body style="display: none" role="application">
-	This sample demonstrate a list which items are data forms.
-	<p>
+This sample demonstrate a list which items are data forms.
+<p>
 </body>
 </html>

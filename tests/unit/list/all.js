@@ -1,11 +1,11 @@
 //Listing of all the List unit tests
-define([
-	"./List",
-	"./Renderer",
-	"./Selection",
-	"./AriaListbox",
-	"./AriaMenu",
-	"./AriaList",
-	"./Categories",
-	"./PageableList"
-]);
+module.exports = [
+	require("./List"),
+	require("./Renderer"),
+	require("./Selection"),
+	require("./AriaListbox"),
+	require("./AriaMenu"),
+	require("./AriaList"),
+	require("./Categories"),
+	require("./PageableList")
+];

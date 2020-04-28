@@ -6,27 +6,17 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>Lists</title>
 
-	<script type="text/javascript" src="../../boilerplate.js"></script>
+	<script type="text/javascript" src="../../webpack-boilerplate.js"></script>
 
 	<script type="text/javascript">
 		var ready = false;
-		require([
-			"delite/register",
+		delitefulRequire([
 			"dojo-dstore/Memory",
 			"dojo-dstore/Trackable",
-			"deliteful/list/ItemRenderer",
-			"deliteful/list/List",
-			"delite/handlebars!deliteful/tests/functional/list/templates/CustomItemRenderer1.html",
-			"requirejs-dplugins/css!delite/css/global.css",	// page level CSS
-			"requirejs-domready/domReady!"
-		], function (register, Memory, Trackable, ItemRenderer, List, template) {
-			// Custom item renderer with custom keyboard navigation order
-			var MyCustomRenderer = register("d-customnav-item", [HTMLElement, ItemRenderer], {
-				template: template
-			});
-			var list = new List();
+			"deliteful/tests/functional/list/src/CustomList1"
+		], function (Memory, Trackable, CustomList1) {
+			var list = new CustomList1();
 			list.id = "list-cust-1";
-			list.ItemRenderer = MyCustomRenderer;
 			list.source = new (Memory.createSubclass([Trackable], {}))();
 			list.style.height = "200px";
 			list.placeAt("listPlaceholder");
@@ -36,6 +26,7 @@
 			ready = true;
 		});
 	</script>
+
 	<style>
 		html {
 			width: 100%;

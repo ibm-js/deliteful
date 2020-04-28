@@ -6,22 +6,8 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>Lists</title>
 
-	<script type="text/javascript" src="../../boilerplate.js"></script>
-
-	<script type="text/javascript">
-		var ready = false;
-		require([
-			"requirejs-dplugins/css!delite/css/global.css"	// page level CSS
-		], function () {
-			require([
-				"delite/register",
-				"deliteful/list/List",
-				"requirejs-domready/domReady!"
-			], function (register) {
-				register.deliver();
-				ready = true;
-			});
-		});
+	<script>
+		ready = false;
 	</script>
 
 	<style>
@@ -48,5 +34,12 @@
 		{"label": "list item 8", "righttext": "right text I"},
 		{"label": "list item 9", "righttext": "right text J"}
 	</d-list>
+
+	<!-- Don't define the d-list custom element until after the markup is present.
+		Otherwise Chrome tries to read the d-list textContent before it's been downloaded! -->
+	<script type="text/javascript" src="../../webpack-boilerplate.js"></script>
+	<script type="text/javascript">
+		ready = true
+	</script>
 </body>
 </html>
