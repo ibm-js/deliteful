@@ -40,7 +40,7 @@ if (dir) {
 	document.documentElement.setAttribute("dir", dir);
 }
 
-// Find the <script src="boilerplate.js"> tag, to get test directory.
+// Find the <script src="boilerplate.js"> tag, to get tests directory.
 var scripts = document.getElementsByTagName("script"), script, testDir;
 for (var i = 0; (script = scripts[i]); i++) {
 	var src = script.getAttribute("src"),
@@ -57,6 +57,8 @@ for (var i = 0; (script = scripts[i]); i++) {
 // Add polyfills for IE.
 if (/Trident/.test(navigator.userAgent)) {
 	document.write("<script type='text/javascript' src='" + testDir + "ie-polyfills.js'></script>");
+	document.write("<script type='text/javascript' src='" + testDir +
+		"../node_modules/@webcomponents/custom-elements/custom-elements.min.js'></script>");
 }
 
 // Setup configuration options for the loader

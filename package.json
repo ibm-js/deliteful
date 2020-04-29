@@ -9,21 +9,21 @@
 	},
 	"bugs": "https://github.com/ibm-js/deliteful/issues",
 	"dependencies": {
-		"dcl": "^2.0.6",
-		"delite": "^0.9.5",
+		"dcl": "^2.0.11",
+		"delite": "^0.9.7",
 		"dojo": "^1.16.2",
 		"dojo-dstore": "1.1.x",
-		"ibm-decor": "0.8.x",
+		"ibm-decor": "^0.8.1",
 		"luxon": "^1.23.0",
 		"requirejs-domready": "2.0.x",
-		"requirejs-dplugins": "0.6.x"
+		"requirejs-dplugins": "0.7.x"
 	},
 	"devDependencies": {
-		"grunt": "^1.0.4",
+		"grunt": "^1.1.0",
 		"grunt-contrib-less": "^2.0.0",
 		"grunt-contrib-uglify": "^4.0.1",
 		"grunt-eslint": "^22.0.0",
-		"intern": "^4.7.1",
+		"intern": "^4.8.4",
 		"jsdoc-amddcl": "git://github.com/ibm-js/jsdoc-amddcl.git#master",
 		"leadfoot": "1.x",
 		"requirejs": "2.1.x"

@@ -13,10 +13,6 @@
 
 	"basePath": "../",
 
-	"plugins": [
-		"../deliteful/tests/ie-polyfills.js"
-	],
-
 	"node": {
 		"loader": {
 			"script": "./intern-requirejs-loader.js",
@@ -40,7 +36,12 @@
 					"luxon": "../../../deliteful/node_modules/luxon/build/amd/luxon"
 				}
 			}
-		}
+		},
+
+		"plugins": [
+			"../delite/tests/ie-polyfills.js",
+			"../delite/node_modules/@webcomponents/custom-elements/custom-elements.min.js"
+		]
 	},
 
 	"suites": [
@@ -117,7 +118,7 @@
 			"firefox",
 			"internet explorer",
 			"MicrosoftEdge",
-			{"name": "chrome", "version": "79.0.3945.36" }
+			{"name": "chrome", "version": "81.0.4044.69" }
 		]
 	},
 
