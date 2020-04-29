@@ -435,7 +435,7 @@ define(function () {
 				tests: {
 					"arrows and selection": function () {
 						return this.remote
-							.execute("document.getElementById('calendar1').value = DateTime.local(2000, 0, 22);")
+							.execute("document.getElementById('calendar1').value = DateTime.local(2000, 1, 22);")
 							.findById("before").click().end()
 							.pressKeys(keys.TAB) // Press TAB -> DatePicker
 							.getActiveElement().getVisibleText().then(function (text) {
@@ -518,7 +518,7 @@ define(function () {
 
 					"home and end": function () {
 						return this.remote
-							.execute("document.getElementById('calendar1').value = DateTime.local(2000, 0, 15);")
+							.execute("document.getElementById('calendar1').value = DateTime.local(2000, 1, 15);")
 							.findById("before").click().end()
 							.pressKeys(keys.TAB) // Press TAB -> DatePicker
 							.getActiveElement().getVisibleText().then(function (text) {
@@ -543,7 +543,7 @@ define(function () {
 						}
 
 						return this.remote
-							.execute("document.getElementById('calendar1').value = DateTime.local(2000, 0, 31);")
+							.execute("document.getElementById('calendar1').value = DateTime.local(2000, 1, 31);")
 							.findById("before").click().end()
 							.pressKeys(keys.TAB) // Press TAB -> DatePicker
 							.getActiveElement().getVisibleText().then(function (text) {
