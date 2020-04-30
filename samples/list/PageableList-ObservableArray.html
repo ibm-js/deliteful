@@ -21,11 +21,10 @@
 
 	<script type="text/javascript">
 		require([
-			'requirejs-dplugins/Promise!',
 			"deliteful/list/PageableList", // page level CSS
 			"ibm-decor/ObservableArray",
 			"ibm-decor/Observable"
-		], function (Promise, PageableList, ObservableArray, Observable) {
+		], function (PageableList, ObservableArray, Observable) {
 			var list  = new PageableList();
 			list.id = "L";
 
