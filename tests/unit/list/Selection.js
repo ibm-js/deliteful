@@ -31,7 +31,8 @@ var testHelper = {
 
 		assert.isNotNull(selectionChangeEvent, "selectionChangeEvent 1");
 		assert.deepEqual(selectionChangeEvent.oldValue, [], "event1 old selection");
-		assert.deepEqual(selectionChangeEvent.newValue, [ list.source.fetchSync()[0] ], "event1 new select");
+		assert.deepEqual(selectionChangeEvent.newValue.map(item => item.__item), [ list.source.fetchSync()[0] ],
+			"event1 new select");
 		assert.strictEqual(selectionChangeEvent.renderer, firstItem, "event1 renderer");
 		selectionChangeEvent = null;
 		assert.strictEqual(firstItem.getAttribute("aria-selected"), "true");
@@ -43,9 +44,9 @@ var testHelper = {
 		list.deliver();
 
 		assert.isNotNull(selectionChangeEvent, "selectionChangeEvent 2");
-		assert.deepEqual(selectionChangeEvent.oldValue,
+		assert.deepEqual(selectionChangeEvent.oldValue.map(item => item.__item),
 			[ list.source.fetchSync()[0] ], "event2 oldValue");
-		assert.deepEqual(selectionChangeEvent.newValue,
+		assert.deepEqual(selectionChangeEvent.newValue.map(item => item.__item),
 			[ list.source.fetchSync()[0], list.source.fetchSync()[1] ], "event2 newValue");
 		assert.strictEqual(selectionChangeEvent.renderer, secondItem, "event2 renderer");
 		selectionChangeEvent = null;
@@ -58,9 +59,9 @@ var testHelper = {
 		list.deliver();
 
 		assert.isNotNull(selectionChangeEvent, "selectionChangeEvent 3");
-		assert.deepEqual(selectionChangeEvent.oldValue,
+		assert.deepEqual(selectionChangeEvent.oldValue.map(item => item.__item),
 			[ list.source.fetchSync()[0], list.source.fetchSync()[1] ], "event3 oldValue");
-		assert.deepEqual(selectionChangeEvent.newValue,
+		assert.deepEqual(selectionChangeEvent.newValue.map(item => item.__item),
 			[ list.source.fetchSync()[1] ], "event3 newValue");
 		assert.strictEqual(selectionChangeEvent.renderer, firstItem, "event3 renderer");
 		selectionChangeEvent = null;

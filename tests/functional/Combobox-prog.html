@@ -10,18 +10,14 @@
 
 	<link rel="stylesheet" href="../../node_modules/delite/css/defaultapp.css">
 
-	<!-- For testing purposes. Real applications should load the AMD loader directly -->
-	<script type="text/javascript" src="../boilerplate.js"></script>
+	<!-- For testing purposes.  Real applications should use webpack directly. -->
+	<script type="text/javascript" src="../webpack-boilerplate.js"></script>
 
 	<script type="text/javascript">
-		require([
+		delitefulRequire([
 			"dojo-dstore/Memory",
 			"delite/register",
-			"deliteful/Combobox",
-			"deliteful/RadioButton",
-			"deliteful/Checkbox",
-			"requirejs-dplugins/css!delite/css/global.css", // page level CSS
-			"requirejs-domready/domReady!"
+			"deliteful/Combobox"
 		], function (Memory, register, Combobox) {
 			register.deliver();
 

@@ -150,7 +150,7 @@ define(function () {
 			.findByCssSelector("#" + comboId + "_dropdown input").getAttribute("aria-controls").then(function (listId) {
 				// Use aria-owns attribute to find the <d-list>, and then spot check that the <d-list>
 				// contents are correct.
-				return remote.findByCssSelector("#" + listId + " d-list-item-renderer:nth-child(2)")
+				return remote.findByCssSelector("#" + listId + " [role=option]:nth-child(2)")
 					.getVisibleText().then(function (value) {
 						// Spot check that the <d-list> contents are OK.
 						assert.match(value.trim(), /^France/, "item renderer #1");
@@ -196,7 +196,7 @@ define(function () {
 					window.lastChangeEvent = combo.value;
 				});
 			}, [comboId])
-			.findByCssSelector("#" + comboId + "-list d-list-item-renderer:nth-of-type(2)").click().end() // "Germany"
+			.findByCssSelector("#" + comboId + "-list [role=option]:nth-child(3)").click().end() // "Germany"
 			.sleep(500)
 			.execute("return getComboboxState(\"" + comboId + "\");")
 			.then(function (comboState) {
@@ -238,7 +238,7 @@ define(function () {
 					widgetValueAtLatestChangeEvent: undefined
 				}, "after click on root node");
 			})
-			.findByCssSelector("#" + comboId + "-list d-list-item-renderer:nth-of-type(2)").click().end() // "Germany"
+			.findByCssSelector("#" + comboId + "-list [role=option]:nth-child(3)").click().end() // "Germany"
 			.sleep(500)
 			.execute(executeExpr)
 			.then(function (comboState) {
@@ -252,7 +252,7 @@ define(function () {
 					widgetValueAtLatestChangeEvent: undefined
 				}, "after clicking option (Germany)");
 			})
-			.findByCssSelector("#" + comboId + "-list d-list-item-renderer:nth-of-type(7)").click().end() // "China"
+			.findByCssSelector("#" + comboId + "-list [role=option]:nth-child(10)").click().end() // "China"
 			.sleep(500)
 			.execute(executeExpr)
 			.then(function (comboState) {
@@ -679,7 +679,7 @@ define(function () {
 			"blank value initially selected": function () {
 				return loadFile(this.remote, "Combobox-decl.html")
 					.findByCssSelector("#combo0 .d-combobox-arrow").click().end()
-					.findByCssSelector("#combo0-list d-list-item-renderer")
+					.findByCssSelector("#combo0-list [role=option]")
 					.getAttribute("aria-selected").then(function (val) {
 						assert.strictEqual(val, "true", "aria-selected on first list item");
 					})

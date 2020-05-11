@@ -578,7 +578,7 @@ define(function () {
 					window.lastChangeEvent = combo.value;
 				});
 			}, [comboId])
-			.findByCssSelector("#" + comboId + "-list d-list-item-renderer:nth-of-type(2)").click().end() // "Germany"
+			.findByCssSelector("#" + comboId + "-list [role=option]:nth-child(3)").click().end() // "Germany"
 			.sleep(500) // wait for popup to close
 			.execute(executeExpr)
 			.then(function (comboState) {
@@ -673,7 +673,7 @@ define(function () {
 					valueNodeValueAtLatestChangeEvent: undefined
 				}, "after clicking the first item (a category)");
 			})
-		*/	.findByCssSelector("#" + comboId + "-list d-list-item-renderer").click().end() // "France"
+		*/	.findByCssSelector("#" + comboId + "-list [role=option]").click().end() // "France"
 			.sleep(10)
 			.execute(executeExpr)
 			.then(function (comboState) {
@@ -693,7 +693,7 @@ define(function () {
 					valueNodeValueAtLatestChangeEvent: undefined
 				}, "after clicking the second item (France))");
 			})
-			.findByCssSelector("#" + comboId + "-list d-list-item-renderer:nth-of-type(2)").click().end() // "Germany"
+			.findByCssSelector("#" + comboId + "-list [role=option]:nth-child(3)").click().end() // "Germany"
 			.sleep(500)
 			.execute(executeExpr)
 			.then(function (comboState) {
@@ -745,11 +745,8 @@ define(function () {
 			.sleep(500)
 			.pressKeys(keys.END)
 			.sleep(500)
-			// combo1.list.getBottomDistance(combo1.list.getItemRenderers()
-			// [combo1.list.getItemRenderers().length - 1]);
 			.execute("return " + comboId + ".list.getBottomDistance(" + comboId +
-				".list.getItemRenderers()[" + comboId +
-				".list.getItemRenderers().length - 1]);")
+				".list.querySelectorAll('[role=option]')[" + comboId + ".list.querySelectorAll('[role=option]').length - 1]);")
 			.then(function (value) {
 				assert.strictEqual(value, 0,
 					"After navigating to last list item, list should be at max. " +
@@ -1108,7 +1105,7 @@ define(function () {
 			.sleep(250)
 			.end()
 			.execute("storeTestingInfo(document.getElementById(\"" + comboId + "\"));")
-			.findByCssSelector("#" + comboId + "-list d-list-item-renderer").click().end() // "Germany"
+			.findByCssSelector("#" + comboId + "-list [role=option]").click().end() // "Germany"
 			.sleep(250)
 			.execute(executeExpr)
 			.then(function (comboState) { // We get full list.
@@ -1232,7 +1229,7 @@ define(function () {
 			"blank value initially selected": function () {
 				return loadFile(this.remote, "Combobox-decl.html")
 					.findByCssSelector("#combo0 .d-combobox-arrow").click().end()
-					.findByCssSelector("#combo0-list d-list-item-renderer")
+					.findByCssSelector("#combo0-list [role=option]")
 					.getAttribute("aria-selected").then(function (val) {
 						assert.strictEqual(val, "true", "aria-selected on first list item");
 					})

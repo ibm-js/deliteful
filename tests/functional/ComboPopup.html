@@ -17,113 +17,6 @@
 			margin-bottom: 20px;
 		}
 	</style>
-
-	<!-- For testing purposes. Real applications should load the AMD loader directly -->
-	<script type="text/javascript" src="../boilerplate.js"></script>
-
-	<script type="text/javascript">
-		// global variables used by the automatic functional tests test:
-		var ready = false; // set to true when the test page is ready
-		var storeTestingInfo;
-
-		require([
-		  	"dcl/advise",
-			"delite/register",
-			"deliteful/list/List",
-			"deliteful/Combobox/ComboPopup",
-			"requirejs-dplugins/css!delite/css/global.css", // page level CSS
-			"requirejs-domready/domReady!"
-		], function (
-		  advise,
-		  register
-		) {
-			register.deliver();
-
-			// Store information for use in the automatic functional test
-			function storeTestingInfo(combo) {
-				// Store ids for item cells such that the automatic functional test
-				// can retrieve them.
-				advise.after(combo, "openDropDown", function () {
-			  		var comboPopup = combo.comboPopup;
-					if (!comboPopup.init) {
-						comboPopup._inputEventCounter = 0;
-						comboPopup._changeEventCounter = 0;
-						comboPopup.on("input", function () {
-							comboPopup._inputEventCounter++;
-							comboPopup._widgetValueAtLatestInputEvent = comboPopup.value;
-						});
-						comboPopup.on("change", function () {
-							comboPopup._changeEventCounter++;
-							comboPopup._widgetValueAtLatestChangeEvent = comboPopup.value;
-						});
-						comboPopup.init = true;
-					}
-				});
-			}
-
-			// single selection mode, autoFilter=true
-			storeTestingInfo(document.getElementById("combo1"));
-
-			// single selection mode, autoFilter=true
-			storeTestingInfo(document.getElementById("combo2"));
-
-			// multiple selection mode
-			storeTestingInfo(document.getElementById("combo3"));
-
-			// auto complete mode, min filter char = 3
-			storeTestingInfo(document.getElementById("combo4"));
-
-			// auto complete mode, min filter char = 0
-			storeTestingInfo(document.getElementById("combo5"));
-
-			// Used by the automatic functional test, for ComboPopups in both
-			// single and multiple selection modes.
-			getComboPopupState = function (comboId) {
-				var comboPopup = document.getElementById(comboId).comboPopup;
-				var inputEventCounter = comboPopup._inputEventCounter;
-				var changeEventCounter = comboPopup._changeEventCounter;
-				// Reset the counters such that at next call only the new events
-				// are counted. This is convenient, because it allows to change parts of
-				// the automatic test without needing to update the expected values for
-				// counters in the remaining testing sequence.
-				comboPopup._inputEventCounter = 0;
-				comboPopup._changeEventCounter = 0;
-
-				var activeDescendantNode = document.getElementById(
-						comboPopup.inputNode.getAttribute("aria-activedescendant"));
-
-				// Store ids for item cells such that the automatic functional test
-				// can retrieve them.
-				var itemRenderers = comboPopup.list.getItemRenderers();
-				var i;
-				for (i = 0; i < itemRenderers.length; i++) {
-					itemRenderers[i].id = comboId + "_item" + i;
-				}
-				var categoryRenderers = comboPopup.list.querySelectorAll("." + comboPopup.list._cssClasses.category);
-				for (i = 0; i < categoryRenderers.length; i++) {
-					categoryRenderers.item(i).id = comboId + "_category" + i;
-				}
-
-				return {
-					inputNodeValue: comboPopup.inputNode.value,
-					widgetValue: comboPopup.value,
-					selectedItemsCount: comboPopup.list.selectedItems.length,
-					itemRenderersCount: comboPopup.list.getItemRenderers().length,
-					inputEventCounter: inputEventCounter,
-					changeEventCounter: changeEventCounter,
-					widgetValueAtLatestInputEvent: comboPopup._widgetValueAtLatestInputEvent,
-					widgetValueAtLatestChangeEvent: comboPopup._widgetValueAtLatestChangeEvent,
-					selectionMode: comboPopup.selectionMode,
-					autoFilter: comboPopup.autoFilter,
-					multipleChoiceNoSelectionMsg: comboPopup.multipleChoiceNoSelectionMsg,
-					multipleChoiceMsg: comboPopup.multipleChoiceMsg,
-					activeDescendant: activeDescendantNode && activeDescendantNode.textContent.trim()
-				};
-			};
-
-			ready = true;
-		});
-	</script>
 </head>
 <body>
 <header>
@@ -355,5 +248,113 @@
 		{ "label": "Japan30", "sales": 900, "profit": 100, "region": "Asia" }
 	</d-combo-popup>
 </main>
+
+<script>
+	window.forceComboboxMobile = true;
+</script>
+
+<!-- For testing purposes.  Real applications should use webpack directly. -->
+<script type="text/javascript" src="../webpack-boilerplate.js"></script>
+
+<script type="text/javascript">
+	// global variables used by the automatic functional tests test:
+	var ready = false; // set to true when the test page is ready
+	var storeTestingInfo;
+
+	delitefulRequire([
+		"dcl/advise",
+		"delite/register"
+	], function (
+		advise,
+		register
+	) {
+		register.deliver();
+
+		// Store information for use in the automatic functional test
+		function storeTestingInfo(combo) {
+			// Store ids for item cells such that the automatic functional test
+			// can retrieve them.
+			advise.after(combo, "openDropDown", function () {
+				var comboPopup = combo.comboPopup;
+				if (!comboPopup.init) {
+					comboPopup._inputEventCounter = 0;
+					comboPopup._changeEventCounter = 0;
+					comboPopup.on("input", function () {
+						comboPopup._inputEventCounter++;
+						comboPopup._widgetValueAtLatestInputEvent = comboPopup.value;
+					});
+					comboPopup.on("change", function () {
+						comboPopup._changeEventCounter++;
+						comboPopup._widgetValueAtLatestChangeEvent = comboPopup.value;
+					});
+					comboPopup.init = true;
+				}
+			});
+		}
+
+		// single selection mode, autoFilter=true
+		storeTestingInfo(document.getElementById("combo1"));
+
+		// single selection mode, autoFilter=true
+		storeTestingInfo(document.getElementById("combo2"));
+
+		// multiple selection mode
+		storeTestingInfo(document.getElementById("combo3"));
+
+		// auto complete mode, min filter char = 3
+		storeTestingInfo(document.getElementById("combo4"));
+
+		// auto complete mode, min filter char = 0
+		storeTestingInfo(document.getElementById("combo5"));
+
+		// Used by the automatic functional test, for ComboPopups in both
+		// single and multiple selection modes.
+		getComboPopupState = function (comboId) {
+			var comboPopup = document.getElementById(comboId).comboPopup;
+			var inputEventCounter = comboPopup._inputEventCounter;
+			var changeEventCounter = comboPopup._changeEventCounter;
+			// Reset the counters such that at next call only the new events
+			// are counted. This is convenient, because it allows to change parts of
+			// the automatic test without needing to update the expected values for
+			// counters in the remaining testing sequence.
+			comboPopup._inputEventCounter = 0;
+			comboPopup._changeEventCounter = 0;
+
+			var activeDescendantNode = document.getElementById(
+				comboPopup.inputNode.getAttribute("aria-activedescendant"));
+
+			// Store ids for item cells such that the automatic functional test
+			// can retrieve them.
+			var itemRenderers = comboPopup.list.querySelectorAll("[role=option]");
+			var i;
+			for (i = 0; i < itemRenderers.length; i++) {
+				itemRenderers[i].id = comboId + "_item" + i;
+			}
+			var categoryRenderers = comboPopup.list.querySelectorAll("." + comboPopup.list._cssClasses.category);
+			for (i = 0; i < categoryRenderers.length; i++) {
+				categoryRenderers.item(i).id = comboId + "_category" + i;
+			}
+
+			return {
+				inputNodeValue: comboPopup.inputNode.value,
+				widgetValue: comboPopup.value,
+				selectedItemsCount: comboPopup.list.selectedItems.length,
+				itemRenderersCount: comboPopup.list.querySelectorAll("[role=option]").length,
+				inputEventCounter: inputEventCounter,
+				changeEventCounter: changeEventCounter,
+				widgetValueAtLatestInputEvent: comboPopup._widgetValueAtLatestInputEvent,
+				widgetValueAtLatestChangeEvent: comboPopup._widgetValueAtLatestChangeEvent,
+				selectionMode: comboPopup.selectionMode,
+				autoFilter: comboPopup.autoFilter,
+				multipleChoiceNoSelectionMsg: comboPopup.multipleChoiceNoSelectionMsg,
+				multipleChoiceMsg: comboPopup.multipleChoiceMsg,
+				activeDescendant: activeDescendantNode && activeDescendantNode.textContent.trim()
+			};
+		};
+
+		ready = true;
+	});
+</script>
+
 </body>
 </html>

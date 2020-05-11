@@ -98,10 +98,13 @@ const storybook = developmentMode => ({
 		alias: {
 			// myself (exception because not in node_modules)
 			/* global __dirname */
-			deliteful: __dirname,
+			"deliteful": __dirname,
+
+			// fix issues when dstore/Request tries to load dojo/request
+			"dojo/request": "dojo/request/xhr",
 
 			// third party aliases
-			dcl: "dcl/amd"
+			"dcl": "dcl/amd"
 		}
 	},
 	resolveLoader: {
@@ -119,10 +122,15 @@ const storybook = developmentMode => ({
 	},
 	plugins: [
 		// Get dojo (accessed via dstore) to work.
-		new webpack.NormalModuleReplacementPlugin(/has!dom-addeventlistener\?\:/,
+		new webpack.NormalModuleReplacementPlugin(/has!.*dom-addeventlistener\?\:/,
 			resource => { resource.request = "empty-module"; } ),
 		new webpack.NormalModuleReplacementPlugin(/has!config-deferredInstrumentation\?.\/promise\/instrumentation/,
 			resource => { resource.request = "dojo/promise/instrumentation"; } ),
+		new webpack.NormalModuleReplacementPlugin(/has!dom\?..\/selector\/_loader/,
+			resource => { resource.request = "empty-module"; } ),
+		new webpack.NormalModuleReplacementPlugin(/host-browser\?..\/_base\/window/,
+			resource => { resource.request = "dojo/_base/window"; } ),
+
 
 		// Get decor/Observable to load.  TODO: remove the "object-observe-api" check; it's always false.
 		// Or, just remove support for ObservableArray altogether.

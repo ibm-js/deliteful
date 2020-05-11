@@ -75,7 +75,6 @@
 		"deliteful/tests/unit/ViewStack",
 		"deliteful/tests/unit/SwapView",
 		"deliteful/tests/unit/ViewIndicator",
-		"deliteful/tests/unit/Combobox",
 		"deliteful/tests/unit/channelBreakpoints"
 	],
 
@@ -84,8 +83,6 @@
 		"deliteful/tests/functional/BoilerplateTextbox",
 		"deliteful/tests/functional/Button",
 		"deliteful/tests/functional/Checkbox",
-		"deliteful/tests/functional/Combobox",
-		"deliteful/tests/functional/Combobox-mobile",
 		"deliteful/tests/functional/DatePicker",
 		"deliteful/tests/functional/Dialog",
 		"deliteful/tests/functional/features",
@@ -132,10 +129,14 @@
 	},
 
 	"configs": {
-		"list": {
-			"description": "Run the list tests.",
+		"webpack": {
+			"description": "Run the webpack tests.",
 			"suites": "deliteful/dist/unit-tests",
-			"functionalSuites": "deliteful/tests/functional/list/all"
+			"functionalSuites": [
+				"deliteful/tests/functional/Combobox",
+				"deliteful/tests/functional/Combobox-mobile",
+				"deliteful/tests/functional/list/all"
+			]
 		},
 
 		"chrome-debug": {

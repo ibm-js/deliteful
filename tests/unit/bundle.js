@@ -1,4 +1,5 @@
 module.exports = [
-	// Initially just add the list tests.
+	// Tests for components that have been converted to Webpack.
+	require("./Combobox"),
 	require("./list/all")
 ];

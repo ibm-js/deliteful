@@ -378,7 +378,7 @@ export default register("d-list", mixins, /** @lends module:deliteful/list/List#
 			`;
 		} else {
 			return html`
-				<div role="heading" class="d-list-category" .item="${item}">${item.category}</div>
+				<div role="heading" class="d-list-category d-list-cell" .item="${item}">${item.category}</div>
 			`;
 		}
 	},
@@ -402,7 +402,7 @@ export default register("d-list", mixins, /** @lends module:deliteful/list/List#
 
 			return html`
 				<div role="row" aria-selected="${ifDefined(ariaSelected)}" class="${classMap(classes)}"
-						@click="${evt => this.handleSelection(evt, item.__item, evt.currentTarget)}"
+						@click="${evt => this.handleSelection(evt, item, evt.currentTarget)}"
 						d-keyboard-click="true" .item="${item}">
 					<div role="gridcell" class="d-list-cell" tabindex="-1">
 						<div class="d-list-item-icon ${item.iconclass}" aria-hidden="true" role="presentation"></div>
@@ -431,7 +431,7 @@ export default register("d-list", mixins, /** @lends module:deliteful/list/List#
 			return html`
 				<div role="${role}" aria-selected="${ifDefined(ariaSelected)}" class="${classMap(classes)}"
 						tabindex="-1"
-						@click="${evt => this.handleSelection(evt, item.__item, evt.currentTarget)}"
+						@click="${evt => this.handleSelection(evt, item, evt.currentTarget)}"
 						d-keyboard-click="true" .item="${item}">
 					<div class="d-list-item-icon ${item.iconclass}" aria-hidden="true" role="presentation"></div>
 					<div class="d-list-item-label">${item.label}</div>
@@ -525,8 +525,6 @@ export default register("d-list", mixins, /** @lends module:deliteful/list/List#
 	 */
 	handleSelection: function (event, item, renderer) {
 		this.selectFromEvent(event, item, renderer, true);
-		event.stopPropagation();
-		event.preventDefault();
 	},
 
 	//////////// Private methods ///////////////////////////////////////
@@ -583,7 +581,7 @@ export default register("d-list", mixins, /** @lends module:deliteful/list/List#
 		return function (index, renderItems, keepSelection) {
 			// If the removed item is selected, then deselect it.
 			// Call selectFromEvent() to fire selection-change event.
-			const item = renderItems[index].__item;
+			const item = renderItems[index];
 			if (this.isSelected(item) && !keepSelection) {
 				this.selectFromEvent(null, item, null, true);
 			}
