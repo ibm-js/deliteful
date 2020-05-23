@@ -347,20 +347,21 @@ export default register("d-pageable-list", [ List ], /** @lends module:deliteful
 		`;
 	},
 
-	refreshRendering: function (props) {
-		// If user [keyboard] clicked the "next page" button, move focus to last visible list item.
-		// Important if we just hid that button because there are no more pages.
-		// Likewise if focus was on the "first page" button.
-		// This code is positioned to run after the "next page" / "previous page" buttons are hidden/shown
-		// because hiding/showing buttons can scroll list items in/out of view.
-		var renderer;
-		if ("_focusFirstListItem" in props) {
-			renderer = this._getFirstVisibleRenderer();
-		} else if ("_focusLastListItem" in props) {
-			renderer = this._getLastVisibleRenderer();
-		}
-		if (renderer) {
-			this.navigateTo(this.type === "grid" ? renderer.firstElementChild : renderer);
+	refreshRendering: function (props, justRendered) {
+		if (!justRendered) {
+			// If user [keyboard] clicked the "next page" button, move focus to last visible list item.
+			// Important if we just hid that button because there are no more pages.
+			// Likewise if focus was on the "first page" button.
+			// This code is positioned to run after the "next page" / "previous page" buttons are hidden/shown
+			// because hiding/showing buttons can scroll list items in/out of view.
+			const renderer = "_focusFirstListItem" in props ? this._getFirstVisibleRenderer() :
+				"_focusLastListItem" in props ? this._getLastVisibleRenderer() : null;
+			if (renderer) {
+				const target = this.type === "grid" ? renderer.firstElementChild : renderer;
+				if (target) {
+					this.navigateTo(target);
+				}
+			}
 		}
 	},
 
