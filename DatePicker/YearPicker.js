@@ -1,13 +1,11 @@
 define([
 	"luxon",
-	"dojo/_base/kernel",
 	"delite/register",
 	"delite/Widget",
 	"../TimeBase",
 	"delite/handlebars!./YearPicker.html"
 ], function (
 	luxon,
-	dojo,
 	register,
 	Widget,
 	TimeBase,
