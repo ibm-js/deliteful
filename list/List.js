@@ -262,6 +262,9 @@ export default register("d-list", mixins, /** @lends module:deliteful/list/List#
 			this._displayedPanel = (this._busy) ? "loading-panel" :
 				(this.renderItems && this.renderItems.length > 0) ?
 					"list" : ((this.showNoItems) ? "no-items" : "none");
+
+			// The previously focused child is probably about to be removed, so remove reference.
+			this._previousFocusedChild = null;
 		}
 
 		// Set descendantSelector() to navigate to cells, except when the cells contain a single control, in which
