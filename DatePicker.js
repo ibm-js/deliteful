@@ -1,5 +1,5 @@
 define([
-	"luxon",
+	"luxon/datetime",
 	"delite/register",
 	"delite/Widget",
 	"deliteful/TimeBase",
@@ -10,7 +10,7 @@ define([
 	"requirejs-dplugins/i18n!./DatePicker/nls/DatePicker",
 	"requirejs-dplugins/css!./DatePicker/DatePicker.css"
 ], function (
-	luxon,
+	DateTime,
 	register,
 	Widget,
 	TimeBase,
@@ -21,8 +21,6 @@ define([
 	messages
 ) {
 	"use strict";
-
-	var DateTime = luxon.DateTime;
 
 	/**
 	 * Small calendar to be used as a dropdown, designed for picking a date.

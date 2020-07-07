@@ -1,21 +1,19 @@
 define([
 	"dcl/dcl",
-	"luxon",
+	"luxon/datetime",
 	"delite/register",
 	"delite/KeyNav",
 	"../TimeBase",
 	"delite/handlebars!./DayPicker.html"
 ], function (
 	dcl,
-	luxon,
+	DateTime,
 	register,
 	KeyNav,
 	TimeBase,
 	template
 ) {
 	"use strict";
-
-	const DateTime = luxon.DateTime;
 
 	/**
 	 * Main view of the DatePicker, used for picking the day or opening the MonthPicker or YearPicker.

@@ -1,19 +1,17 @@
 define([
-	"luxon",
+	"luxon/datetime",
 	"delite/register",
 	"delite/Widget",
 	"../TimeBase",
 	"delite/handlebars!./YearPicker.html"
 ], function (
-	luxon,
+	DateTime,
 	register,
 	Widget,
 	TimeBase,
 	template
 ) {
 	"use strict";
-
-	var DateTime = luxon.DateTime;
 
 	/**
 	 * Dispatched when user clicks a year (even if it's the currently selected year).

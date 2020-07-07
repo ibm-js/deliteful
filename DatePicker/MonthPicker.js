@@ -1,18 +1,17 @@
 define([
-	"luxon",
+	"luxon/datetime",
+	"luxon/info",
 	"delite/register",
 	"delite/Widget",
 	"../TimeBase"
 ], function (
-	luxon,
+	DateTime,
+	Info,
 	register,
 	Widget,
 	TimeBase
 ) {
 	"use strict";
-
-	var DateTime = luxon.DateTime,
-		Info = luxon.Info;
 
 	/**
 	 * Dispatched when user clicks a month (even if it's the currently selected month).

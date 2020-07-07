@@ -47,7 +47,6 @@
 	"suites": [
 		"deliteful/tests/unit/Accordion",
 		"deliteful/tests/unit/Checkbox",
-		"deliteful/tests/unit/DatePicker",
 		"deliteful/tests/unit/LinearLayout-direction",
 		"deliteful/tests/unit/LinearLayout-horizontal",
 		"deliteful/tests/unit/LinearLayout-horizontal-3width",
@@ -63,7 +62,6 @@
 		"deliteful/tests/unit/Slider",
 		"deliteful/tests/unit/StarRating",
 		"deliteful/tests/unit/Switch",
-		"deliteful/tests/unit/TimeBase",
 		"deliteful/tests/unit/Toaster",
 		"deliteful/tests/unit/ToasterMessage",
 		"deliteful/tests/unit/ToasterMessage-insert-show-hide-remove",
@@ -83,7 +81,6 @@
 		"deliteful/tests/functional/BoilerplateTextbox",
 		"deliteful/tests/functional/Button",
 		"deliteful/tests/functional/Checkbox",
-		"deliteful/tests/functional/DatePicker",
 		"deliteful/tests/functional/Dialog",
 		"deliteful/tests/functional/features",
 		"deliteful/tests/functional/ScrollableContainer",
@@ -135,7 +132,8 @@
 			"functionalSuites": [
 				"deliteful/tests/functional/Combobox",
 				"deliteful/tests/functional/Combobox-mobile",
-				"deliteful/tests/functional/list/all"
+				"deliteful/tests/functional/list/all",
+				"deliteful/tests/functional/DatePicker"
 			]
 		},
 

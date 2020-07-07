@@ -1,12 +1,10 @@
 define([
 	"dcl/dcl",
-	"luxon"
+	"luxon/datetime"
 ], function (
 	dcl,
-	luxon
+	DateTime
 ) {
-	var DateTime = luxon.DateTime;
-
 	/**
 	 * Mixin with time methods.
 	 */
