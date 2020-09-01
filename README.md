@@ -4,7 +4,7 @@ This project provides a predefined set of custom UI elements working on both des
 
 The deliteful custom elements are based on the [delite](http://ibm-js.github.io/delite/) project.
 
-The project supports the following browsers/platforms: FF31+, Chrome latest, IE9/10+, Safari 7+,  Android 4.1+, iOS6+, WindowsPhone8+. 
+The project supports the following browsers/platforms: FF31+, Chrome latest, IE11, Safari 7+,  Android 4.1+, iOS6+. 
 
 More details on the project [home page](http://ibm-js.github.io/deliteful/).
 
@@ -29,19 +29,28 @@ All contributions require a [Dojo Foundation CLA](http://dojofoundation.org/abou
 
 ## Installation
 
-_Bower_ release installation:
+_Npm_ release installation:
 
-    $ bower install deliteful
+    $ npm install deliteful
 
 _Manual_ master installation:
 
     $ git clone git://github.com/ibm-js/deliteful.git
 
-Then install dependencies with bower (or manually from github if you prefer to):
+Then install dependencies with npm (or manually from github if you prefer to):
 
 	$ cd deliteful
-	$ bower install
+	$ npm install
 
+## Development
+
+Commands for developers:
+
+```
+$ npx webpack
+$ npx intern                    (run most of the tests)
+$ npx intern config=@webpack    (run the tests for modules built using webpack)
+``` 
 ## Documentation
 
 Documentation is available at the [deliteful website](http://ibm-js.github.io/deliteful/).
