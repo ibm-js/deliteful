@@ -134,7 +134,6 @@
 			"suites": "deliteful/dist/unit-tests",
 			"functionalSuites": [
 				"deliteful/tests/functional/Combobox",
-				"deliteful/tests/functional/Combobox-mobile",
 				"deliteful/tests/functional/list/all"
 			]
 		},

@@ -1,0 +1,36 @@
+<template requires="deliteful/list/List">
+	<div class="d-combobox-anchor" role="combobox" aria-expanded="{{opened}}" attach-point="popupStateNode">
+		<input id="{{this.id || this.widgetId}}-input" class="d-combobox-input"
+			   attach-point="inputNode,focusNode"
+			   autocomplete="off" autocorrect="off" autocapitalize="none"
+			   aria-autocomplete="list"
+			   type="text"
+			   placeholder="{{searchPlaceHolder}}"
+			   on-keydown="{{inputKeydownHandler}}"
+			   on-input="{{inputInputHandler}}"
+			   on-change="{{inputChangeHandler}}"
+			   on-click="{{inputClickHandler}}">
+		<input class="d-hidden"
+			   attach-point="valueNode"
+			   readonly name="{{name}}" value="{{value}}">
+		<span class="d-combobox-arrow" d-shown="{{hasDownArrow}}"
+			  attach-point="buttonNode" aria-hidden="true"></span>
+	</div>
+	<d-list
+		attach-point="list"
+		categoryAttr="{{categoryAttr}}"
+		categoryFunc="{{categoryFunc}}"
+		class="d-popup d-combobox-list"
+		id="{{(this.id || this.widgetId) + '-list'}}"
+		itemToRenderItem="{{itemToRenderItem}}"
+		selectionMode="{{this.selectionMode === 'single' ? 'radio' : 'multiple'}}"
+		showNoItems="true"
+		style="display: none"
+		type="listbox"
+		on-keynav-child-navigated="{{listKeynavChildNavigatedHandler}}"
+		on-click="{{listClickHandler}}"
+		on-execute="{{listExecuteHandler}}"
+		on-selection-change="{{listSelectionChangeHandler}}"
+		on-query-success="{{listQuerySuccessHandler}}"
+	></d-list>
+</template>

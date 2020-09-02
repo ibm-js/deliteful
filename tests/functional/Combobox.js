@@ -1127,13 +1127,6 @@ define(function () {
 	}
 
 	registerSuite("Combobox - functional", {
-		before: function () {
-			if (this.remote.environmentType.platformName === "iOS") {
-				// Skip all the tests on mobile because they aren't designed to interact w/the ComboPopup.
-				return this.skip("test designed for desktop Combobox, not mobile");
-			}
-		},
-
 		afterEach: function () {
 			return this.remote.execute(function () {
 				Array.prototype.forEach.call(document.querySelectorAll("d-combobox"), function (combo) {
