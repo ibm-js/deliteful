@@ -81,12 +81,6 @@ const storybook = developmentMode => ({
 			},
 			{
 				test: /\.js$/,
-				exclude: /node_modules/,
-				use: babelLoader
-			},
-			{
-				// Nothing in node_modules needs to be transpiled *except* for lit-html.
-				test: /node_modules[\\\/]lit-html[\\\/].*\.js$/,
 				use: babelLoader
 			}
 		]
