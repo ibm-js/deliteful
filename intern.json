@@ -147,8 +147,8 @@
 			]
 		},
 
-		"list-chrome-debug": {
-			"extends": ["list", "chrome-debug"]
+		"webpack-chrome-debug": {
+			"extends": ["webpack", "chrome-debug"]
 		},
 
 		"firefox": {
@@ -237,8 +237,8 @@
 			"tunnel": "saucelabs"
 		},
 
-		"list-sauce": {
-			"extends": ["list", "sauce"]
+		"webpack-sauce": {
+			"extends": ["webpack", "sauce"]
 		},
 
 		"sauce-chrome": {
@@ -284,8 +284,8 @@
 			"coverage": null
 		},
 
-		"list-sauce-ie": {
-			"extends": ["list", "sauce-ie"]
+		"webpack-sauce-ie": {
+			"extends": ["webpack", "sauce-ie"]
 		},
 
 		"sauce-safari": {
