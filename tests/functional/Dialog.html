@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<meta name="viewport"
@@ -100,149 +100,153 @@
 	</script>
 </head>
 <body>
-	<h1>Dialog functional test</h1>
+	<header>
+		<h1>Dialog functional test</h1>
+	</header>
 
-	<label for="input">input to focus:</label>
-	<input id="input">
+	<main>
+		<label for="input">input to focus:</label>
+		<input id="input">
 
-	<button id="short" onclick="document.getElementById('short-dialog').open();">
-		show dialog
-	</button>
-	<d-dialog id="short-dialog" label="My Dialog" style="display: none">
-		<p>Boilerplate text for testing.</p>
-		<label for="name">Name:</label> <input id="name"> <br>
-		<label for="age">Age:</label> <input id="age"> <br>
-		<label for="sex">Sex:</label> <input id="sex"> <br><br>
-		<button type="button" onclick="document.getElementById('short-dialog').emit('execute');">OK</button>
-	</d-dialog>
-
-	<button id="tall" onclick="document.getElementById('tall-dialog').open();">
-		show dialog with scrollbar
-	</button>
-	<d-dialog id="tall-dialog" label="My Dialog With Scrollbar" style="display: none">
-		<p>
-			I'm a tall Dialog.<br>
-			I should get a scrollbar and my borders should remain on the screen.
-		</p>
-		<label for="name2">Name:</label> <input id="name2"> <br>
-		<label for="age2">Age:</label> <input id="age2"> <br>
-		<label for="sex2">Sex:</label> <input id="sex2"> <br><br>
-		<br>
-		<button id="nested" onclick="document.getElementById('nested-dialog').open();">
-			show nested dialog
+		<button id="short" onclick="document.getElementById('short-dialog').open();">
+			show dialog
 		</button>
-		<div id="fields"></div>
-		<button type="button" onclick="document.getElementById('tall-dialog').emit('execute');">OK</button>
-	</d-dialog>
+		<d-dialog id="short-dialog" label="My Dialog" style="display: none">
+			<p>Boilerplate text for testing.</p>
+			<label for="name">Name:</label> <input id="name"> <br>
+			<label for="age">Age:</label> <input id="age"> <br>
+			<label for="sex">Sex:</label> <input id="sex"> <br><br>
+			<button type="button" onclick="document.getElementById('short-dialog').emit('execute');">OK</button>
+		</d-dialog>
 
-	<d-dialog id="nested-dialog" label="Nested Dialog" style="display: none">
-		I'm a nested Dialog.<br>
-		<label for="name3">Name:</label> <input id="name3"> <br>
-		<label for="age3">Age:</label> <input id="age3"> <br>
-		<label for="sex3">Sex:</label> <input id="sex3"> <br><br>
-		<br>
-		<button type="button" onclick="document.getElementById('nested-dialog').emit('execute');">OK</button>
-	</d-dialog>
+		<button id="tall" onclick="document.getElementById('tall-dialog').open();">
+			show dialog with scrollbar
+		</button>
+		<d-dialog id="tall-dialog" label="My Dialog With Scrollbar" style="display: none">
+			<p>
+				I'm a tall Dialog.<br>
+				I should get a scrollbar and my borders should remain on the screen.
+			</p>
+			<label for="name2">Name:</label> <input id="name2"> <br>
+			<label for="age2">Age:</label> <input id="age2"> <br>
+			<label for="sex2">Sex:</label> <input id="sex2"> <br><br>
+			<br>
+			<button id="nested" onclick="document.getElementById('nested-dialog').open();">
+				show nested dialog
+			</button>
+			<div id="fields"></div>
+			<button type="button" onclick="document.getElementById('tall-dialog').emit('execute');">OK</button>
+		</d-dialog>
+
+		<d-dialog id="nested-dialog" label="Nested Dialog" style="display: none">
+			I'm a nested Dialog.<br>
+			<label for="name3">Name:</label> <input id="name3"> <br>
+			<label for="age3">Age:</label> <input id="age3"> <br>
+			<label for="sex3">Sex:</label> <input id="sex3"> <br><br>
+			<br>
+			<button type="button" onclick="document.getElementById('nested-dialog').emit('execute');">OK</button>
+		</d-dialog>
 
 
-	<button id="vertical" onclick="document.getElementById('y-resize-dialog').open();">
-		show vertically resizable dialog
-	</button>
-	<d-dialog id="y-resize-dialog" label="Vertically Resizable Dialog" resizeAxis="y" style="display: none">
-		I'm a vertically resizable Dialog.<br>
-		<label for="nameV">Name:</label> <input id="nameV"> <br>
-		<label for="ageV">Age:</label> <input id="ageV"> <br>
-		<label for="sexV">Sex:</label> <input id="sexV"> <br><br>
-		<br>
-		<button type="button" onclick="document.getElementById('y-resize-dialog').emit('execute');">OK</button>
-	</d-dialog>
+		<button id="vertical" onclick="document.getElementById('y-resize-dialog').open();">
+			show vertically resizable dialog
+		</button>
+		<d-dialog id="y-resize-dialog" label="Vertically Resizable Dialog" resizeAxis="y" style="display: none">
+			I'm a vertically resizable Dialog.<br>
+			<label for="nameV">Name:</label> <input id="nameV"> <br>
+			<label for="ageV">Age:</label> <input id="ageV"> <br>
+			<label for="sexV">Sex:</label> <input id="sexV"> <br><br>
+			<br>
+			<button type="button" onclick="document.getElementById('y-resize-dialog').emit('execute');">OK</button>
+		</d-dialog>
 
-	<button id="horizontal" onclick="document.getElementById('x-resize-dialog').open();">
-		show horizontally resizable dialog
-	</button>
-	<d-dialog id="x-resize-dialog" label="Horizontally Resizable Dialog" resizeAxis="x" style="display: none">
-		I'm a horizontally resizable Dialog.<br>
-		<label for="nameH">Name:</label> <input id="nameH"> <br>
-		<label for="ageH">Age:</label> <input id="ageH"> <br>
-		<label for="sexH">Sex:</label> <input id="sexH"> <br><br>
-		<br>
-		<button type="button" onclick="document.getElementById('y-resize-dialog').emit('execute');">OK</button>
-	</d-dialog>
+		<button id="horizontal" onclick="document.getElementById('x-resize-dialog').open();">
+			show horizontally resizable dialog
+		</button>
+		<d-dialog id="x-resize-dialog" label="Horizontally Resizable Dialog" resizeAxis="x" style="display: none">
+			I'm a horizontally resizable Dialog.<br>
+			<label for="nameH">Name:</label> <input id="nameH"> <br>
+			<label for="ageH">Age:</label> <input id="ageH"> <br>
+			<label for="sexH">Sex:</label> <input id="sexH"> <br><br>
+			<br>
+			<button type="button" onclick="document.getElementById('y-resize-dialog').emit('execute');">OK</button>
+		</d-dialog>
 
-	<button id="full" onclick="document.getElementById('xy-resize-dialog').open();">
-		show fully resizable dialog
-	</button>
-	<d-dialog id="xy-resize-dialog" label="Fully Resizable Dialog" resizeAxis="xy" style="display: none">
-		I'm a fully resizable Dialog.<br>
-		<label for="nameVH">Name:</label> <input id="nameVH"> <br>
-		<label for="ageVH">Age:</label> <input id="ageVH"> <br>
-		<label for="sexVH">Sex:</label> <input id="sexVH"> <br><br>
-		<br>
-		<button type="button" onclick="document.getElementById('y-resize-dialog').emit('execute');">OK</button>
-	</d-dialog>
+		<button id="full" onclick="document.getElementById('xy-resize-dialog').open();">
+			show fully resizable dialog
+		</button>
+		<d-dialog id="xy-resize-dialog" label="Fully Resizable Dialog" resizeAxis="xy" style="display: none">
+			I'm a fully resizable Dialog.<br>
+			<label for="nameVH">Name:</label> <input id="nameVH"> <br>
+			<label for="ageVH">Age:</label> <input id="ageVH"> <br>
+			<label for="sexVH">Sex:</label> <input id="sexVH"> <br><br>
+			<br>
+			<button type="button" onclick="document.getElementById('y-resize-dialog').emit('execute');">OK</button>
+		</d-dialog>
 
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-		magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-		pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-		laborum.
-	</p>
+		<p>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+			magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+			pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+			laborum.
+		</p>
 
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-		magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-		pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-		laborum.
-	</p>
+		<p>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+			magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+			pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+			laborum.
+		</p>
 
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-		magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-		pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-		laborum.
-	</p>
+		<p>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+			magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+			pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+			laborum.
+		</p>
 
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-		magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-		pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-		laborum.
-	</p>
+		<p>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+			magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+			pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+			laborum.
+		</p>
 
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-		magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-		pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-		laborum.
-	</p>
+		<p>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+			magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+			pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+			laborum.
+		</p>
 
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-		magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-		pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-		laborum.
-	</p>
+		<p>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+			magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+			pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+			laborum.
+		</p>
 
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-		magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-		pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-		laborum.
-	</p>
+		<p>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+			magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+			pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+			laborum.
+		</p>
 
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-		magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-		pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-		laborum.
-	</p>
+		<p>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+			magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+			pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+			laborum.
+		</p>
+	</main>
 </body>
 </html>
