@@ -815,8 +815,8 @@ define(function () {
 			.then(function (value) {
 				assert.isTrue(value.isAligned, comboId + "'s popup alignment #1");
 			})
-			.pressKeys(keys.BACKSPACE) // Delete the 2 chars of "France" -> "Fran"
-			.pressKeys(keys.BACKSPACE)
+			.findByCssSelector("#" + comboId + " input").click().end()	// Needed for webdriver on IE, even though already focused.
+			.pressKeys(keys.BACKSPACE + keys.BACKSPACE) // Delete the 2 chars of "France" -> "Fran"
 			.sleep(500)
 			.execute("return isAligned(\"" + comboId + "\", \"" + position + "\")")
 			.then(function (value) {
