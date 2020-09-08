@@ -12,6 +12,7 @@ const map = {
 
 	"deliteful/Checkbox": require("deliteful/Checkbox"),
 	"deliteful/Combobox": require("deliteful/Combobox"),
+	"deliteful/Dialog": require("deliteful/Dialog"),
 	"deliteful/LinearLayout": require("deliteful/LinearLayout"),
 	"deliteful/RadioButton": require("deliteful/RadioButton"),
 	"deliteful/ViewStack": require("deliteful/ViewStack"),
