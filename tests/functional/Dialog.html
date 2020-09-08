@@ -38,65 +38,6 @@
 
 	<script type="text/javascript">
 		var ready = false; // set to true when the test page is ready
-		require([
-			"dojo-dstore/Memory",
-			"delite/register",
-			"deliteful/Dialog",
-			"deliteful/Combobox",
-			"requirejs-domready/domReady!"
-		], function (
-			Memory,
-			register,
-			Dialog,
-			Combobox
-		) {
-			var dataSource = new Memory({
-				idProperty: "label",
-				data: [
-					{ label: "France", sales: 500, profit: 50, region: "EU" },
-					{ label: "Germany", sales: 450, profit: 48, region: "EU" },
-					{ label: "UK", sales: 700, profit: 60, region: "EU" },
-					{ label: "USA", sales: 2000, profit: 250, region: "America" },
-					{ label: "Canada", sales: 600, profit: 30, region: "America" },
-					{ label: "Brazil", sales: 450, profit: 30, region: "America" },
-					{ label: "China", sales: 500, profit: 40, region: "Asia" },
-					{ label: "Japan", sales: 900, profit: 100, region: "Asia" }
-				]
-			});
-
-			register.deliver();
-
-			var fields = document.getElementById("fields");
-			for (var i = 0; i < 100; i++) {
-				var id = "field" + i;
-
-				var label = document.createElement("label");
-				label.setAttribute("for", id);
-				label.textContent = "Field " + i;
-				fields.appendChild(label);
-				switch (i % 2) {
-					case 0:
-						var input = document.createElement("input");
-						input.setAttribute("id", id);
-						fields.appendChild(input);
-						break;
-					case 1:
-						fields.appendChild(new Combobox({
-							id: id,
-							autoFilter: true,
-							displayedValue: "France",
-							value: "France",
-							source: dataSource,
-							righttextAttr: "sales",
-							categoryAttr: "region"
-						}));
-						label.setAttribute("for", id + "-input");
-						break;
-				}
-				fields.appendChild(document.createElement("br"));
-			}
-			ready = true;
-		});
 	</script>
 </head>
 <body>
@@ -248,5 +189,69 @@
 			laborum.
 		</p>
 	</main>
+
+	<!-- For testing purposes.  Real applications should use webpack directly. -->
+	<script type="text/javascript" src="../webpack-boilerplate.js"></script>
+
+	<script type="text/javascript">
+		delitefulRequire([
+			"dojo-dstore/Memory",
+			"delite/register",
+			"deliteful/Dialog",
+			"deliteful/Combobox"
+		], function (
+			Memory,
+			register,
+			Dialog,
+			Combobox
+		) {
+			var dataSource = new Memory({
+				idProperty: "label",
+				data: [
+					{ label: "France", sales: 500, profit: 50, region: "EU" },
+					{ label: "Germany", sales: 450, profit: 48, region: "EU" },
+					{ label: "UK", sales: 700, profit: 60, region: "EU" },
+					{ label: "USA", sales: 2000, profit: 250, region: "America" },
+					{ label: "Canada", sales: 600, profit: 30, region: "America" },
+					{ label: "Brazil", sales: 450, profit: 30, region: "America" },
+					{ label: "China", sales: 500, profit: 40, region: "Asia" },
+					{ label: "Japan", sales: 900, profit: 100, region: "Asia" }
+				]
+			});
+
+			register.deliver();
+
+			var fields = document.getElementById("fields");
+			for (var i = 0; i < 100; i++) {
+				var id = "field" + i;
+
+				var label = document.createElement("label");
+				label.setAttribute("for", id);
+				label.textContent = "Field " + i;
+				fields.appendChild(label);
+				switch (i % 2) {
+				case 0:
+					var input = document.createElement("input");
+					input.setAttribute("id", id);
+					fields.appendChild(input);
+					break;
+				case 1:
+					fields.appendChild(new Combobox({
+						id: id,
+						autoFilter: true,
+						displayedValue: "France",
+						value: "France",
+						source: dataSource,
+						righttextAttr: "sales",
+						categoryAttr: "region"
+					}));
+					label.setAttribute("for", id + "-input");
+					break;
+				}
+				fields.appendChild(document.createElement("br"));
+			}
+			ready = true;
+		});
+	</script>
 </body>
 </html>
