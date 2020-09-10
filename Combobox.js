@@ -1,15 +1,20 @@
 /** @module deliteful/Combobox */
+import { html } from "lit-html";
+import { ifDefined } from "lit-html/directives/if-defined";
 import dcl from "dcl/dcl";
+import has from "ibm-decor/sniff";
 import register from "delite/register";
 import HasDropDown from "delite/HasDropDown";
 import StoreMap from "delite/StoreMap";
-import template from "delite/handlebars!./Combobox/Combobox.html";
 import messages from "requirejs-dplugins/i18n!./Combobox/nls/Combobox";
 import "./Combobox/Combobox.css";
 import string from "dojo/string";
 import Filter from "dojo-dstore/Filter";
-import FormValueWidget from "delite/FormValueWidget";
+import LitFormValueWidget from "delite/LitFormValueWidget";
 import CssState from "delite/CssState";
+
+// Used in template.
+import "./list/List";
 
 // Counter used to generate unique ids for the dropdown items, so that aria-activedescendant is set to
 // a reasonable value.
@@ -89,13 +94,11 @@ function getvalue (map, item, key, store) {
  *
  * @class module:deliteful/Combobox
  */
-const supers = [ HTMLElement, FormValueWidget, CssState, HasDropDown ];
+const supers = [ HTMLElement, LitFormValueWidget, CssState, HasDropDown ];
 export default register("d-combobox", supers, /** @lends module:deliteful/Combobox# */ {
 	declaredClass: "deliteful/Combobox",
 
 	baseClass: "d-combobox",
-
-	template: template,
 
 	/**
 	 * Corresponds to the native HTML `<input>` element's attribute.
@@ -364,10 +367,124 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 		configurable: true
 	}),
 
-	// The Combobox widget is a special component where we don't need to move the
-	// aria attributes from the root element to the focusNode. So here we're
-	// overriding this property to false, disabling the move procedure.
-	moveAriaAttributes: false,
+	// Node holding user input or currently selected value.
+	focusNode: dcl.prop({
+		get: function () {
+			return this.querySelector("input");
+		}
+	}),
+
+	// Hidden node used for form submission.
+	valueNode: dcl.prop({
+		get: function () {
+			return this.querySelector("input[hidden]");
+		}
+	}),
+
+	// Node to set aria-controls etc. attributes on.
+	popupStateNode: dcl.prop({
+		get: function () {
+			return this.querySelector("[role=combobox]");
+		}
+	}),
+
+	// Tell HasDropDown which button opens the dropdown.
+	buttonNode: dcl.prop({
+		get: function () {
+			return this.querySelector(".d-combobox-arrow");
+		}
+	}),
+
+	// Used to set list's source and query.  Eventually this should be done from the template.
+	list: dcl.prop({
+		get: function () {
+			return this.querySelector("d-list");
+		}
+	}),
+
+	/**
+	 * Render the Combobox, including the dropdown list.
+	 * @returns {TemplateResult}
+	 */
+	render: function () {
+		return html`
+			${this.renderAnchor()}
+			${this.renderList()}
+		`;
+	},
+
+	/**
+	 * Render the the <input> with the button to open the dropdown.
+	 * @returns {TemplateResult}
+	 */
+	renderAnchor: function () {
+		const listbox = this.list && this.list.querySelector("[role=listbox]");
+
+		const mobile = has("ios") || has("android");
+
+		// The arrow is normally invisible to screen readers, but for mobile the user needs to be able to navigate
+		// to it, as they have no other way to open the dropdown without typing in a search string.
+		const arrow = this.hasDownArrow ?
+			(mobile ? html`<span class="d-combobox-arrow" role="button" aria-label="${messages.toggle}"></span>` :
+				html`<span class="d-combobox-arrow" aria-hidden="true"></span>`) : null;
+
+		return html`
+			<div class="d-combobox-anchor">
+				<input
+					id="${this.id || this.widgetId}-input"
+					class="d-combobox-input"
+					autocomplete="off"
+					autocorrect="off"
+					autocapitalize="none"
+					aria-autocomplete="list"
+					aria-controls="${ifDefined(listbox && listbox.id)}"
+					aria-expanded="${this.opened}"
+					disabled="${ifDefined(this.disabled ? "true" : undefined)}"
+					placeholder="${ifDefined(this.searchPlaceHolder || undefined)}"
+					readonly="${ifDefined(this._inputReadOnly ? "true" : undefined)}"
+					role="combobox"
+					tabindex="${this.tabIndex}"
+					type="text"
+					.value="${this.displayedValue}"
+					@keydown="${this.inputKeydownHandler.bind(this)}"
+					@input="${this.inputInputHandler.bind(this)}"
+					@change="${this.inputChangeHandler.bind(this)}"
+					@click="${this.inputClickHandler.bind(this)}">
+				<input hidden name="${this.name}" value="${this.value}"
+					disabled="${ifDefined(this.disabled ? "true" : undefined)}">
+				${arrow}
+			</div>
+		`;
+	},
+
+	/**
+	 * Render an empty list as the dropdown.  Other code will set the list's source and query.
+	 */
+	renderList: function () {
+		// Notes about focusDescendants:
+		//	- in single selection mode, keep focus on <input> for filtering.
+		//	- In multiple selection mode, move focus to list to make JAWS work.
+		return html`
+			<d-list
+				.ariaLabel="${this.getLabel()}"
+				.categoryAttr="${this.categoryAttr}"
+				.categoryFunc="${this.categoryFunc}"
+				class="d-popup d-combobox-list"
+				id="${this.id || this.widgetId}-list"
+				.focusDescendants="${this.selectionMode === "multiple"}"
+				.itemToRenderItem="${this.itemToRenderItem.bind(this)}"
+				.selectionMode="${this.selectionMode === "single" ? "radio" : "multiple"}"
+				.showNoItems="${true}"
+				style="display: none"
+				type="listbox"
+				@keynav-child-navigated="${this.listKeynavChildNavigatedHandler.bind(this)}"
+				@click="${this.listClickHandler.bind(this)}"
+				@execute="${this.listExecuteHandler.bind(this)}"
+				@selection-change="${this.listSelectionChangeHandler.bind(this)}"
+				@query-success="${this.listQuerySuccessHandler.bind(this)}"
+			></d-list>
+		`;
+	},
 
 	afterFormResetCallback: function () {
 		if (this.value !== this.valueNode.value) {
@@ -472,23 +589,8 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 	},
 
 	refreshRendering: function (oldValues) {
-		if ("_inputReadOnly" in oldValues) {
-			// Note: Can't just put readonly={{_inputReadOnly}} in the template because we need to override
-			// when delite/FormWidget sets the <input>'s readonly attribute based on this.readOnly.
-			this.inputNode.readOnly = this._inputReadOnly;
-		}
-
-		// Update <input>'s value if necessary, but don't update the value because the user
-		// typed a character into the <input> as that will move the caret to the end of the
-		// <input>.
-		if ("displayedValue" in oldValues) {
-			if (this.displayedValue !== this.inputNode.value) {
-				this.inputNode.value = this.displayedValue;
-			}
-		}
-
 		if ("value" in oldValues) {
-			// Set selected items in dropdown list.  Could alternately do this when dropdown is opened.
+			// Update which list item(s) are selected.
 			this._setSelectedItems();
 		}
 	},
@@ -513,7 +615,7 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 	 */
 	_showOrHideList: function (suppressChangeEvent) {
 		// Compute whether or not to show the list.
-		var inputElement = this.inputNode;
+		var inputElement = this.focusNode;
 		var showList = inputElement.value.length >= this.minFilterChars;
 		if (showList) {
 			this.openDropDown();
@@ -525,33 +627,23 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 	openDropDown: dcl.superCall(function (sup) {
 		return function () {
 			// Adjust the dropdown contents to be filtered by the current value of the <input>.
-			this.filter(this.inputNode.value);
+			this.filter(this.focusNode.value);
 
 			var promise = sup.apply(this, arguments);
 
 			return promise.then(function () {
-				// For single mode, keep focus on <input>, so user can type a search string.
-				// But for multiple mode, send focus to the List, to make JAWS work.
-				this.dropDown.focusDescendants = this.selectionMode === "multiple";
-
-				// Aria-owns and aria-controls must point to the role=listbox, not the wrapper node.
-				// See https://www.w3.org/TR/wai-aria-practices/#combobox.
-				this.setAttribute("aria-owns", this.list.widgetId + "-container");
-				this.inputNode.setAttribute("aria-controls", this.list.widgetId + "-container");
+				// Remove aria-owns set by HasDropDown.  We set aria-controls in template instead.
+				this.focusNode.removeAttribute("aria-owns");
 
 				this._updateScroll(undefined, true);	// sets this.list.navigatedDescendant
 				this._setActiveDescendant(this.list.navigatedDescendant);
-
-				// Avoid spurious error from accessibility DOM scanning tool.
-				this.dropDown.tabIndex = -1;
 			}.bind(this));
 		};
 	}),
 
 	closeDropDown: dcl.superCall(function (sup) {
 		return function (focus, suppressChangeEvent) {
-			this.inputNode.removeAttribute("aria-activedescendant");
-			this.inputNode.removeAttribute("aria-controls");
+			this.focusNode.removeAttribute("aria-activedescendant");
 
 			// Closing the dropdown represents a commit interaction, unless the dropdown closes
 			// automatically because the user backspaced, in which case suppressChangeEvent is true.
@@ -560,8 +652,6 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 			}
 
 			sup.apply(this, arguments);
-
-			// TODO: destroy dropdown?
 		};
 	}),
 
@@ -570,8 +660,9 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 	 * @returns {any}
 	 */
 	getLabel: function () {
-		var labelNode = (this.focusNode.id &&
-			this.ownerDocument.querySelector("label[for=" + this.focusNode.id + "]")) ||
+		var inputId = (this.id || this.widgetId) + "-input";
+		var labelNode = (inputId &&
+			this.ownerDocument.querySelector("label[for=" + inputId + "]")) ||
 			(this.hasAttribute("aria-labelledby") &&
 				this.ownerDocument.getElementById(this.getAttribute("aria-labelledby")));
 		return labelNode ? labelNode.textContent.trim() : (this.getAttribute("aria-label") || "");
@@ -580,21 +671,10 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 	loadDropDown: function () {
 		var dropDown = this.list;
 
-		dropDown.setAttribute("aria-label", this.getLabel());
-
 		this.dropDown = dropDown; // delite/HasDropDown's property
 
 		return dropDown;
 	},
-
-
-	// TODO: handle the situation the list has a null/undefined store.
-	// Would be nice to have a global policy for all subclasses of
-	// delite/Store (in terms of error feedback).
-	// TODO: future mechanism at the level of delite/Store-delite/StoreMap
-	// to allow delegation from host widget to a different widget - to get
-	// a clean mechanism to support all possible use-cases. (Probably also
-	// requires changes in List).
 
 	// Avoid that List gives focus to list items when navigating, which would
 	// blur the input field used for entering the filtering criteria.
@@ -609,7 +689,6 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 			this._justFocused = false;
 		});
 	},
-
 
 	listKeynavChildNavigatedHandler: function (evt) {
 		var navigatedChild = evt.newValue; // never null
@@ -704,7 +783,7 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 				nd.id = "d-combobox-item-" + idCounter++;
 			}
 
-			this.inputNode.setAttribute("aria-activedescendant", nd.id);
+			this.focusNode.setAttribute("aria-activedescendant", nd.id);
 		}
 	},
 
@@ -715,7 +794,7 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 	inputKeydownHandler: function (evt) {
 		// deliteful issue #382: prevent the browser from navigating to
 		// the previous page when typing backspace in a readonly input
-		if (this.inputNode.readOnly && evt.key === "Backspace") {
+		if (this.focusNode.readOnly && evt.key === "Backspace") {
 			evt.stopPropagation();
 			evt.preventDefault();
 		} else if (evt.key === "Enter") {
@@ -771,7 +850,7 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 		// change event. But there's no equivalent on Safari / iOS...
 
 		// save what user typed at each keystroke.
-		this.displayedValue = this.inputNode.value;
+		this.displayedValue = this.focusNode.value;
 
 		// Clear value.  No value until user selects something from dropdown again.
 		this.value = "";
@@ -851,9 +930,10 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 			this.value = value;
 		}
 
-		// FormWidget.refreshRendering() also updates valueNode.value, but we need to
-		// make sure this is already done when FormValueWidget.handleOnInput() runs.
-		this.valueNode.value = value.toString();
+		// Make sure valueNode.value is set when FormValueWidget.handleOnInput() runs.
+		if (this.valueNode) {
+			this.valueNode.value = value.toString();
+		}
 		this.handleOnInput(this.value); // emit "input" event
 	},
 
@@ -914,7 +994,7 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 	},
 
 	_setSelectedItems: function () {
-		if (this.list.source && this.list.renderItems) {
+		if (this.list && this.list.source && this.list.renderItems) {
 			var selectedItems = [],
 				presetItems = Array.isArray(this.value) && this.value.length >= 1 ? this.value : [ this.value ];
 			selectedItems = this.list.renderItems.filter(function (renderItem) {
@@ -989,6 +1069,7 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 
 		return renderItem;
 	},
+
 	getIdentity: function (item) {
 		return this.source.getIdentity ? this.source.getIdentity(item) :
 			item.id !== undefined ? item.id : this.source.indexOf(item);

@@ -49,7 +49,7 @@ define(function () {
 			.execute(comboId + ".focus();  " + executeExpr)
 			.then(function (comboState) {
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: "France",
+					focusNodeValue: "France",
 					widgetValue: "France",
 					valueNodeValue: "France",
 					opened: false,
@@ -69,7 +69,7 @@ define(function () {
 			.then(function (comboState) {
 				// the first ARROW_DOWN only opens the dropdown.
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: "France",
+					focusNodeValue: "France",
 					widgetValue: "France",
 					valueNodeValue: "France",
 					opened: true,
@@ -89,7 +89,7 @@ define(function () {
 			.then(function (comboState) {
 				// Now the second option (Germany) should be selected
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: "Germany",
+					focusNodeValue: "Germany",
 					widgetValue: "Germany",
 					valueNodeValue: "Germany",
 					opened: true,
@@ -109,7 +109,7 @@ define(function () {
 			.then(function (comboState) {
 				// Now the first option should be selected again
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: "France",
+					focusNodeValue: "France",
 					widgetValue: "France",
 					valueNodeValue: "France",
 					opened: true,
@@ -129,7 +129,7 @@ define(function () {
 			.then(function (comboState) {
 				// Now the second option should be selected
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: "Germany",
+					focusNodeValue: "Germany",
 					widgetValue: "Germany",
 					valueNodeValue: "Germany",
 					opened: true,
@@ -150,7 +150,7 @@ define(function () {
 			.then(function (comboState) {
 				// Now the second option should be selected
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: "Germany",
+					focusNodeValue: "Germany",
 					widgetValue: "Germany",
 					valueNodeValue: "Germany",
 					opened: false,
@@ -173,7 +173,7 @@ define(function () {
 				.then(function (comboState) {
 					// Just reopens the dropdown. No other state change.
 					checkComboState(comboId, comboState, { // expected combo state
-						inputNodeValue: "Germany",
+						focusNodeValue: "Germany",
 						widgetValue: "Germany",
 						valueNodeValue: "Germany",
 						opened: true,
@@ -203,7 +203,7 @@ define(function () {
 					// input node now showing just the "u" character, and the list now
 					// has only 2 item renderers (UK and USA).
 					checkComboState(comboId, comboState, { // expected combo state
-						inputNodeValue: "u",
+						focusNodeValue: "u",
 						widgetValue: "",
 						valueNodeValue: "",
 						opened: true,
@@ -224,7 +224,7 @@ define(function () {
 					// input node now showing just the "u" character, and the list now
 					// has only 2 item renderers (UK and USA).
 					checkComboState(comboId, comboState, { // expected combo state
-						inputNodeValue: "u ",
+						focusNodeValue: "u ",
 						widgetValue: "",
 						valueNodeValue: "",
 						opened: true,
@@ -244,7 +244,7 @@ define(function () {
 				.then(function (comboState) {
 					// Now again just UK and USA are rendered.
 					checkComboState(comboId, comboState, { // expected combo state
-						inputNodeValue: "UK",
+						focusNodeValue: "UK",
 						widgetValue: "UK",
 						valueNodeValue: "UK",
 						opened: true,
@@ -265,7 +265,7 @@ define(function () {
 				.execute(executeExpr)
 				.then(function (comboState) {
 					checkComboState(comboId, comboState, { // expected combo state
-						inputNodeValue: "UK",
+						focusNodeValue: "UK",
 						widgetValue: "UK",
 						valueNodeValue: "UK",
 						opened: false,
@@ -298,7 +298,7 @@ define(function () {
 				// (holds for the widget's delite/Selection API just as for the
 				// native select).
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
+					focusNodeValue: comboState.multipleChoiceNoSelectionMsg,
 					widgetValue: [],
 					valueNodeValue: "",
 					opened: false,
@@ -318,7 +318,7 @@ define(function () {
 			.then(function (comboState) {
 				// No option selected, the first ARROW_DOWN only opens the dropdown and focuses the first item.
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
+					focusNodeValue: comboState.multipleChoiceNoSelectionMsg,
 					widgetValue: [],
 					valueNodeValue: "",
 					opened: true,
@@ -338,7 +338,7 @@ define(function () {
 			.then(function (comboState) {
 				// Now the first item should be selected
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: "France",
+					focusNodeValue: "France",
 					widgetValue: ["France"],
 					valueNodeValue: "France",
 					opened: true,
@@ -357,7 +357,7 @@ define(function () {
 			.then(function (comboState) {
 				// Now there should be no selection again
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
+					focusNodeValue: comboState.multipleChoiceNoSelectionMsg,
 					widgetValue: [],
 					valueNodeValue: "",
 					opened: true,
@@ -376,7 +376,7 @@ define(function () {
 			.then(function (comboState) {
 				// Now the first item should be selected
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: "France",
+					focusNodeValue: "France",
 					widgetValue: ["France"],
 					valueNodeValue: "France",
 					opened: true,
@@ -396,7 +396,7 @@ define(function () {
 			.then(function (comboState) {
 				// Now there should be no selection again
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: "France",
+					focusNodeValue: "France",
 					widgetValue: ["France"],
 					valueNodeValue: "France",
 					opened: false,
@@ -416,7 +416,7 @@ define(function () {
 				// After closing the popup with ENTER, ARROW_DOWN only reopens it.
 				// No state change, except the open state of the popup.
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: "France",
+					focusNodeValue: "France",
 					widgetValue: ["France"],
 					valueNodeValue: "France",
 					opened: true,
@@ -435,7 +435,7 @@ define(function () {
 			.then(function (comboState) {
 				// Navigates to next item (Germany).
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: "France",
+					focusNodeValue: "France",
 					widgetValue: ["France"],
 					valueNodeValue: "France",
 					opened: true,
@@ -456,7 +456,7 @@ define(function () {
 			.then(function (comboState) {
 				// Now the first item should be selected
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
+					focusNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
 					widgetValue: ["France", "Germany"],
 					valueNodeValue: "France,Germany",
 					opened: true,
@@ -478,7 +478,7 @@ define(function () {
 			.then(function (comboState) {
 				// Now the selected items are Germany and France
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
+					focusNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
 					widgetValue: ["France", "Germany"],
 					valueNodeValue: "France,Germany",
 					opened: false,
@@ -508,7 +508,7 @@ define(function () {
 				// The first option should be the one selected,
 				// the popup is closed initially
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: "France",
+					focusNodeValue: "France",
 					widgetValue: "France",
 					valueNodeValue: "France",
 					opened: false,
@@ -531,7 +531,7 @@ define(function () {
 				// The first option should be the one selected,
 				// the first click just opens the dropdown.
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: "France",
+					focusNodeValue: "France",
 					widgetValue: "France",
 					valueNodeValue: "France",
 					opened: true,
@@ -556,7 +556,7 @@ define(function () {
 			.then(function (comboState) {
 				// The click on the first item does not change the state because it is a category
 				checkComboState(comboId, comboState,{ // expected combo state
-					inputNodeValue: "France",
+					focusNodeValue: "France",
 					widgetValue: "France",
 					valueNodeValue: "France",
 					opened: true,
@@ -583,7 +583,7 @@ define(function () {
 			.execute(executeExpr)
 			.then(function (comboState) {
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: "Germany",
+					focusNodeValue: "Germany",
 					widgetValue: "Germany",
 					valueNodeValue: "Germany",
 					opened: false,
@@ -617,7 +617,7 @@ define(function () {
 			.then(function (comboState) {
 				// No item should be selected, the popup is closed initially.
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
+					focusNodeValue: comboState.multipleChoiceNoSelectionMsg,
 					widgetValue: [],
 					valueNodeValue: "",
 					opened: false,
@@ -638,7 +638,7 @@ define(function () {
 			.then(function (comboState) {
 				// Clicking the root node just opens the dropdown. No other state change.
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
+					focusNodeValue: comboState.multipleChoiceNoSelectionMsg,
 					widgetValue: [],
 					valueNodeValue: "",
 					opened: true,
@@ -659,7 +659,7 @@ define(function () {
 			.then(function (comboState) {
 				// The click on the first item does not change the state because it is a category
 				checkComboState(comboId, comboState,{ // expected combo state
-					inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
+					focusNodeValue: comboState.multipleChoiceNoSelectionMsg,
 					widgetValue: [],
 					valueNodeValue: "",
 					opened: true,
@@ -679,7 +679,7 @@ define(function () {
 			.then(function (comboState) {
 				// The click on the second item selects "France"
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: "France",
+					focusNodeValue: "France",
 					widgetValue: ["France"],
 					valueNodeValue: "France",
 					opened: true,
@@ -699,7 +699,7 @@ define(function () {
 			.then(function (comboState) {
 				// The click on the third item adds "Germany" to the selected items
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
+					focusNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
 					widgetValue: ["France", "Germany"],
 					valueNodeValue: "France,Germany",
 					opened: true,
@@ -720,7 +720,7 @@ define(function () {
 			.then(function (comboState) {
 				// The click on the root node closes the popup
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
+					focusNodeValue: string.substitute(comboState.multipleChoiceMsg, {items: 2}),
 					widgetValue: ["France", "Germany"],
 					valueNodeValue: "France,Germany",
 					opened: false,
@@ -872,7 +872,7 @@ define(function () {
 			.execute(executeExpr)
 			.then(function (comboState) {
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: "France",
+					focusNodeValue: "France",
 					widgetValue: "France",
 					valueNodeValue: "France",
 					opened: true,
@@ -890,7 +890,7 @@ define(function () {
 			.execute(executeExpr)
 			.then(function (comboState) { // Filtering happened.
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: "Franc",
+					focusNodeValue: "Franc",
 					widgetValue: "",
 					valueNodeValue: "",
 					opened: true,
@@ -912,7 +912,7 @@ define(function () {
 			.execute(executeExpr)
 			.then(function (comboState) { // We get full list again.
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: "",
+					focusNodeValue: "",
 					widgetValue: "",
 					valueNodeValue: "",
 					opened: true,
@@ -930,7 +930,7 @@ define(function () {
 			.execute(executeExpr)
 			.then(function (comboState) { // We get full list.
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: "U",
+					focusNodeValue: "U",
 					widgetValue: "",
 					valueNodeValue: "",
 					opened: true,
@@ -955,7 +955,7 @@ define(function () {
 			.execute(executeExpr)
 			.then(function (comboState) {
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: "France",
+					focusNodeValue: "France",
 					widgetValue: "France",
 					valueNodeValue: "France",
 					opened: false, // click() does not open the popup.
@@ -973,7 +973,7 @@ define(function () {
 			.execute(executeExpr)
 			.then(function (comboState) { // Filtering happened.
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: "Franc",
+					focusNodeValue: "Franc",
 					widgetValue: "",
 					valueNodeValue: "",
 					opened: true,
@@ -993,7 +993,7 @@ define(function () {
 			.execute(executeExpr)
 			.then(function (comboState) {
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: "Fr",
+					focusNodeValue: "Fr",
 					widgetValue: "",
 					valueNodeValue: "",
 					opened: false,
@@ -1011,7 +1011,7 @@ define(function () {
 			.execute(executeExpr)
 			.then(function (comboState) { // We get full list.
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: "Fra",
+					focusNodeValue: "Fra",
 					widgetValue: "",
 					valueNodeValue: "",
 					opened: true,
@@ -1040,7 +1040,7 @@ define(function () {
 			.execute(executeExpr)
 			.then(function (comboState) {
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: "",
+					focusNodeValue: "",
 					widgetValue: "",
 					valueNodeValue: "",
 					opened: false, // click() does not open the popup.
@@ -1061,7 +1061,7 @@ define(function () {
 			.execute(executeExpr)
 			.then(function (comboState) { // Filtering happened.
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: "germ",
+					focusNodeValue: "germ",
 					widgetValue: "",
 					valueNodeValue: "",
 					opened: true,
@@ -1079,7 +1079,7 @@ define(function () {
 			.execute(executeExpr)
 			.then(function (comboState) {
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: "germw",
+					focusNodeValue: "germw",
 					widgetValue: "",
 					valueNodeValue: "",
 					opened: true,
@@ -1110,7 +1110,7 @@ define(function () {
 			.execute(executeExpr)
 			.then(function (comboState) { // We get full list.
 				checkComboState(comboId, comboState, { // expected combo state
-					inputNodeValue: "Germany",
+					focusNodeValue: "Germany",
 					widgetValue: "Germany",
 					valueNodeValue: "Germany",
 					opened: false,
@@ -1249,7 +1249,7 @@ define(function () {
 					.then(function (comboState) {
 						// France initially selcted
 						checkComboState(comboId, comboState, { // expected combo state
-							inputNodeValue: "France",
+							focusNodeValue: "France",
 							widgetValue: ["FR"],
 							valueNodeValue: "FR",
 							opened: false,
@@ -1269,7 +1269,7 @@ define(function () {
 					.then(function (comboState) {
 						// ARROW_DOWN opens the dropdown and focuses France
 						checkComboState(comboId, comboState, { // expected combo state
-							inputNodeValue: "France",
+							focusNodeValue: "France",
 							widgetValue: ["FR"],
 							valueNodeValue: "FR",
 							opened: true,
@@ -1288,7 +1288,7 @@ define(function () {
 					.then(function (comboState) {
 						// Change the navigated/highlighted item of the List.
 						checkComboState(comboId, comboState, { // expected combo state
-							inputNodeValue: "France",
+							focusNodeValue: "France",
 							widgetValue: ["FR"],
 							valueNodeValue: "FR",
 							opened: true,
@@ -1309,7 +1309,7 @@ define(function () {
 					.then(function (comboState) {
 						// Now France and Germany should be selected.
 						checkComboState(comboId, comboState, { // expected combo state
-							inputNodeValue: "2 selected",
+							focusNodeValue: "2 selected",
 							widgetValue: ["FR", "DE"],
 							valueNodeValue: "FR,DE",
 							opened: true,
@@ -1328,7 +1328,7 @@ define(function () {
 					.then(function (comboState) {
 						// Now only France should be selected.
 						checkComboState(comboId, comboState, { // expected combo state
-							inputNodeValue: "France",
+							focusNodeValue: "France",
 							widgetValue: ["FR"],
 							valueNodeValue: "FR",
 							opened: true,
@@ -1348,7 +1348,7 @@ define(function () {
 					.then(function (comboState) {
 						// Now nothing should be selected.
 						checkComboState(comboId, comboState, { // expected combo state
-							inputNodeValue: comboState.multipleChoiceNoSelectionMsg,
+							focusNodeValue: comboState.multipleChoiceNoSelectionMsg,
 							widgetValue: [],
 							valueNodeValue: "",
 							opened: true,
@@ -1433,12 +1433,12 @@ define(function () {
 					.pressKeys(keys.BACKSPACE) // "F"
 					.pressKeys(keys.BACKSPACE) // "" - At this stage the popup should be closed.
 					.pressKeys("Germany")		// At this point popup should be open w/one entry marked Germany.
-					.execute("return document.getElementById('combo2-value').inputNode.value;").then(function (value) {
+					.execute("return document.getElementById('combo2-value').focusNode.value;").then(function (value) {
 						assert.strictEqual(value, "Germany", "<input> after typed Germany");
 					})
 					.pressKeys(keys.ARROW_DOWN)
 					.pressKeys(keys.ENTER)		// Select "Germany".
-					.execute("return document.getElementById('combo2-value').inputNode.value;").then(function (value) {
+					.execute("return document.getElementById('combo2-value').focusNode.value;").then(function (value) {
 						assert.strictEqual(value, "Germany", "<input> after selected Germany");
 					})
 					.execute("return document.getElementById('combo2-value').value;").then(function (value) {

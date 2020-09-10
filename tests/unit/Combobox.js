@@ -76,7 +76,6 @@ var dataSourceWithValue =  [
 ];
 
 var inputCSS = "d-combobox-input";
-var hiddenInputCSS = "d-hidden";
 var nOptions = 10;
 
 function initSource(combo, trackable) {
@@ -93,6 +92,7 @@ function createCombobox(id, trackable, multiple) {
 	var combo = new Combobox({id: id, selectionMode: selectionMode});
 	initSource(combo, trackable);
 	combo.placeAt(container);
+	combo.deliver();
 	return combo;
 }
 
@@ -101,6 +101,7 @@ function createMyCombobox(id, trackable) {
 	initSource(combo, trackable);
 	//container.appendChild(combo);
 	combo.placeAt(container);
+	combo.deliver();
 	return combo;
 }
 
@@ -144,7 +145,12 @@ function checkCombobox(combo, test, trackableStore) {
 
 	var d = test.async(5000);
 
-	combo.list.on("query-success", d.rejectOnError(function () {
+	// Make sure combobox is rendered.
+	combo.deliver();
+
+	var handle = combo.list.on("query-success", d.rejectOnError(function () {
+		handle.remove();
+
 		combo.list.deliver();
 
 		var item2 = combo.list.querySelectorAll("[role=option]")[2];
@@ -193,18 +199,17 @@ function checkDefaultValues(combo) {
 	assert.strictEqual(combo.selectionMode, "single", "combo.selectionMode");
 	assert.strictEqual(combo.filterMode, "startsWith", "combo.filterMode");
 	assert.isTrue(combo.ignoreCase, "combo.ignoreCase");
-	assert.strictEqual(combo.inputNode.placeholder, "Search", combo.inputNode.placeholder);
+	assert.strictEqual(combo.focusNode.placeholder, "Search", combo.focusNode.placeholder);
 }
 
 var CommonTestCases = {
 	"Default CSS": function () {
 		var combo = document.getElementById("combo1");
-		assert.isTrue(combo.inputNode.classList.contains(inputCSS),
+		assert.isTrue(combo.focusNode.classList.contains(inputCSS),
 			"Expecting " + inputCSS +
 				" CSS class on inner input element of combo.id: " + combo.id);
-		assert.isTrue(combo.valueNode.classList.contains(hiddenInputCSS),
-			"Expecting " + hiddenInputCSS +
-				" CSS class on inner valueNode (hidden input) of combo.id: " + combo.id);
+		assert.isTrue(combo.valueNode.hasAttribute("hidden"),
+			"Expecting hidden attribute on inner valueNode (hidden input) of combo.id: " + combo.id);
 
 		combo = document.getElementById("mycombo1");
 
@@ -212,12 +217,11 @@ var CommonTestCases = {
 			combo = createMyCombobox("mycombo1");
 		} // else the declarative case
 
-		assert.isTrue(combo.inputNode.classList.contains(inputCSS),
+		assert.isTrue(combo.focusNode.classList.contains(inputCSS),
 			"Expecting " + inputCSS +
 				" CSS class on inner input element of combo.id: " + combo.id);
-		assert.isTrue(combo.valueNode.classList.contains(hiddenInputCSS),
-			"Expecting " + hiddenInputCSS +
-				" CSS class on inner valueNode (hidden input) of combo.id: " + combo.id);
+		assert.isTrue(combo.valueNode.hasAttribute("hidden"),
+			"Expecting hidden attribute on inner valueNode (hidden input) of combo.id: " + combo.id);
 	},
 
 	"Default values": function () {
@@ -395,15 +399,16 @@ registerSuite("deliteful/Combobox: programatic", {
 					displayedValue: "Germany",
 					value: "Germany"
 				});
+				combo.placeAt(container);
 				combo.deliver();
 				assert.strictEqual(combo.displayedValue, "Germany", "initial displayedValue");
-				assert.strictEqual(combo.inputNode.value, "Germany", "initial inputNode.value");
+				assert.strictEqual(combo.focusNode.value, "Germany", "initial focusNode.value");
 
 				combo.value = "Japan";
 				combo.displayedValue = "Japan";
 				combo.deliver();
 				assert.strictEqual(combo.displayedValue, "Japan", "changed displayedValue");
-				assert.strictEqual(combo.inputNode.value, "Japan", "changed inputNode.value");
+				assert.strictEqual(combo.focusNode.value, "Japan", "changed focusNode.value");
 			},
 
 			"label": function () {
@@ -428,17 +433,18 @@ registerSuite("deliteful/Combobox: programatic", {
 					value: "DE",
 					displayedValue: "Germany"
 				});
+				combo.placeAt(container);
 				combo.deliver();
 				assert.strictEqual(combo.value, "DE", "initial value");
 				assert.strictEqual(combo.displayedValue, "Germany", "initial displayedValue");
-				assert.strictEqual(combo.inputNode.value, "Germany", "initial inputNode.value");
+				assert.strictEqual(combo.focusNode.value, "Germany", "initial focusNode.value");
 
 				combo.value = "CA";
 				combo.displayedValue = "Canada";
 				combo.deliver();
 				assert.strictEqual(combo.value, "CA", "changed value");
 				assert.strictEqual(combo.displayedValue, "Canada", "changed displayedValue");
-				assert.strictEqual(combo.inputNode.value, "Canada", "changed inputNode.value");
+				assert.strictEqual(combo.focusNode.value, "Canada", "changed focusNode.value");
 			},
 
 			"blank label": function () {
@@ -457,10 +463,11 @@ registerSuite("deliteful/Combobox: programatic", {
 					value: "blank",
 					displayedValue: ""
 				});
+				combo.placeAt(container);
 				combo.deliver();
 				assert.strictEqual(combo.value, "blank", "initial value");
 				assert.strictEqual(combo.displayedValue, "", "initial displayedValue");
-				assert.strictEqual(combo.inputNode.value, "", "initial inputNode.value");
+				assert.strictEqual(combo.focusNode.value, "", "initial focusNode.value");
 
 				combo.value = "M";
 				combo.displayedValue = "male";
@@ -472,7 +479,7 @@ registerSuite("deliteful/Combobox: programatic", {
 
 				assert.strictEqual(combo.value, "blank", "changed value");
 				assert.strictEqual(combo.displayedValue, "", "changed displayedValue");
-				assert.strictEqual(combo.inputNode.value, "", "changed inputNode.value");
+				assert.strictEqual(combo.focusNode.value, "", "changed focusNode.value");
 			}
 		},
 
@@ -498,6 +505,7 @@ registerSuite("deliteful/Combobox: programatic", {
 					labelAttr: "name",
 					value: []
 				});
+				combo1.placeAt(container);
 				combo1.deliver();
 				assert.strictEqual(combo1.displayedValue, combo1.multipleChoiceNoSelectionMsg, "value = []");
 
@@ -508,6 +516,7 @@ registerSuite("deliteful/Combobox: programatic", {
 					displayedValue: "Japan",
 					value: ["Japan"]
 				});
+				combo2.placeAt(container);
 				combo2.deliver();
 				assert.strictEqual(combo2.displayedValue, "Japan", "value = ['Japan']");
 
@@ -518,6 +527,7 @@ registerSuite("deliteful/Combobox: programatic", {
 					labelAttr: "name",
 					value: ["Canada", "Brazil"]
 				});
+				combo3.placeAt(container);
 				combo3.deliver();
 				assert.strictEqual(combo3.displayedValue, combo3.multipleChoiceMsg.replace("${items}", 2),
 					"value = [a, b]");
@@ -548,6 +558,7 @@ registerSuite("deliteful/Combobox: programatic", {
 					value: [],
 					displayedValue: "should be ignored"
 				});
+				combo1.placeAt(container);
 				combo1.deliver();
 				assert.strictEqual(combo1.displayedValue, combo1.multipleChoiceNoSelectionMsg, "value = []");
 
@@ -559,6 +570,7 @@ registerSuite("deliteful/Combobox: programatic", {
 					value: ["DE"],
 					displayedValue: "Germany"
 				});
+				combo2.placeAt(container);
 				combo2.deliver();
 				assert.strictEqual(combo2.displayedValue, "Germany", "initial displayedValue");
 
@@ -570,6 +582,7 @@ registerSuite("deliteful/Combobox: programatic", {
 					value: ["JP", "FR"],
 					displayedValue: "should be ignored"
 				});
+				combo3.placeAt(container);
 				combo3.deliver();
 				assert.strictEqual(combo3.displayedValue, combo3.multipleChoiceMsg.replace("${items}", 2),
 					"value = [a, b]");
@@ -668,7 +681,7 @@ registerSuite("deliteful/Combobox: programatic", {
 			var combo = createCombobox("combo-d-1", false /* trackable */, true /* selectionMode=multiple */);
 
 			// While we are here, make sure that multiselection Combobox's <input> is readonly.
-			assert(combo.inputNode.readOnly, "readonly");
+			assert(combo.focusNode.readOnly, "readonly");
 
 			var changeCounter = 0, inputCounter = 0;
 			var changeValue = null, inputValue = null;
@@ -763,6 +776,7 @@ registerSuite("deliteful/Combobox: programatic", {
 			// of the store data items.
 			var combo = new Combobox({valueAttr: "myValue", source: dataSourceWithValue});
 			combo.placeAt(container);
+			combo.deliver();
 
 			var d = this.async(1000);
 
@@ -808,6 +822,7 @@ registerSuite("deliteful/Combobox: programatic", {
 				selectionMode: "multiple"
 			});
 			combo.placeAt(container);
+			combo.deliver();
 
 			var d = this.async(1000);
 
@@ -852,7 +867,7 @@ registerSuite("deliteful/Combobox: programatic", {
 		// 	combo.deliver();
 
 		// 	// Check displayed label, widget value and submitted value are still null.
-		// 	assert.strictEqual(combo.inputNode.value, "", "combo.inputNode.value");
+		// 	assert.strictEqual(combo.focusNode.value, "", "combo.focusNode.value");
 		// 	assert.strictEqual(combo.value, "", "combo.value");
 		// 	assert.strictEqual(combo.valueNode.value, "", "combo.valueNode.value");
 		// 	// Check widget source got list'source while the latter was set to null.
