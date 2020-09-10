@@ -822,10 +822,10 @@
 			// can retrieve them.
 
 			var activeDescendantNode = document.getElementById(
-				combo.inputNode.getAttribute("aria-activedescendant"));
+				combo.focusNode.getAttribute("aria-activedescendant"));
 
 			return {
-				inputNodeValue: combo.inputNode.value,
+				focusNodeValue: combo.focusNode.value,
 				widgetValue: combo.value,
 				valueNodeValue: combo.valueNode.value,
 				opened: combo.opened,

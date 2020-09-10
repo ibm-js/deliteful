@@ -218,6 +218,11 @@ export default register("d-list", mixins, /** @lends module:deliteful/list/List#
 	 */
 	loadingMessage: "",
 
+	/**
+	 * Hook to set aria-label on node with listbox etc. role.
+	 */
+	ariaLabel: "",
+
 	// CSS classes internally referenced by the List widget
 	_cssClasses: {
 		cell: "d-list-cell",
@@ -348,7 +353,7 @@ export default register("d-list", mixins, /** @lends module:deliteful/list/List#
 	 * @returns {TemplateResult}
 	 */
 	renderList: function () {
-		const { _busy, renderItems, selectionMode, tabIndex, type, widgetId } = this;
+		const { _busy, ariaLabel, renderItems, selectionMode, tabIndex, type, widgetId } = this;
 
 		const classes = {
 			"d-list-container": true,
@@ -362,8 +367,9 @@ export default register("d-list", mixins, /** @lends module:deliteful/list/List#
 		return html`
 			<div id="${widgetId}-container" role="${type}" class="${classMap(classes)}" tabindex="${tabIndex}"
 				 aria-readonly="${ifDefined(type === "grid" ? "true" : undefined)}" aria-busy="${_busy}"
-				 aria-multiselectable="${ifDefined(selectionMode === "multiple" ? "true" : undefined)}">
-				 
+				 aria-multiselectable="${ifDefined(selectionMode === "multiple" ? "true" : undefined)}"
+				 aria-label="${ifDefined(ariaLabel || undefined)}"
+			>
 				 ${ repeat(renderItems, item => this.getIdentity(item), (item, idx) => html`
 					${ firstInCategory(idx) ? this.renderCategory(item) : null }
 					${ this.renderItem(item) }
