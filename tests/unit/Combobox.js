@@ -9,7 +9,7 @@ import Combobox from "deliteful/Combobox";
 
 var container;
 
-var html = " <d-combobox id=\"combo1\" righttextAttr=\"sales\"> \
+var html1 = "<d-combobox id=\"combo1\" righttextAttr=\"sales\"> \
 	{ \"label\": \"Option 0\", \"sales\": 500, \"profit\": 50, \"region\": \"EU\" }, \
 	{ \"label\": \"Option 1\", \"sales\": 450, \"profit\": 48, \"region\": \"EU\" }, \
 	{ \"label\": \"Option 2\", \"sales\": 700, \"profit\": 60, \"region\": \"EU\" }, \
@@ -20,8 +20,9 @@ var html = " <d-combobox id=\"combo1\" righttextAttr=\"sales\"> \
 	{ \"label\": \"Option 7\", \"sales\": 900, \"profit\": 100, \"region\": \"Asia\" }, \
 	{ \"label\": \"Option 8\", \"sales\": 500, \"profit\": 40, \"region\": \"EU\" }, \
 	{ \"label\": \"Option 9\", \"sales\": 900, \"profit\": 100, \"region\": \"EU\" } \
-	</d-combobox> \
-	<my-combobox id=\"mycombo1\" righttextAttr=\"sales\"> \
+	</d-combobox>";
+
+var html2 = "<my-combobox id=\"mycombo1\" righttextAttr=\"sales\"> \
 	{ \"label\": \"Option 0\", \"sales\": 500, \"profit\": 50, \"region\": \"EU\" }, \
 	{ \"label\": \"Option 1\", \"sales\": 450, \"profit\": 48, \"region\": \"EU\" }, \
 	{ \"label\": \"Option 2\", \"sales\": 700, \"profit\": 60, \"region\": \"EU\" }, \
@@ -36,7 +37,7 @@ var html = " <d-combobox id=\"combo1\" righttextAttr=\"sales\"> \
 
 // Second variant to test attribute mapping for label
 
-var htmlMappedAttr = " <d-combobox id=\"combo1\" labelAttr=\"name\" righttextAttr=\"sales\"> \
+var htmlMappedAttr1 = "<d-combobox id=\"combo1\" labelAttr=\"name\" righttextAttr=\"sales\"> \
 	{ \"name\": \"Option 0\", \"sales\": 500, \"profit\": 50, \"region\": \"EU\" }, \
 	{ \"name\": \"Option 1\", \"sales\": 450, \"profit\": 48, \"region\": \"EU\" }, \
 	{ \"name\": \"Option 2\", \"sales\": 700, \"profit\": 60, \"region\": \"EU\" }, \
@@ -47,8 +48,9 @@ var htmlMappedAttr = " <d-combobox id=\"combo1\" labelAttr=\"name\" righttextAtt
 	{ \"name\": \"Option 7\", \"sales\": 900, \"profit\": 100, \"region\": \"Asia\" }, \
 	{ \"name\": \"Option 8\", \"sales\": 500, \"profit\": 40, \"region\": \"EU\" }, \
 	{ \"name\": \"Option 9\", \"sales\": 900, \"profit\": 100, \"region\": \"EU\" } \
-	</d-combobox> \
-	<my-combobox id=\"mycombo1\" labelAttr=\"name\" righttextAttr=\"sales\"> \
+	</d-combobox>";
+
+var htmlMappedAttr2 = "<my-combobox id=\"mycombo1\" labelAttr=\"name\" righttextAttr=\"sales\"> \
 	{ \"name\": \"Option 0\", \"sales\": 500, \"profit\": 50, \"region\": \"EU\" }, \
 	{ \"name\": \"Option 1\", \"sales\": 450, \"profit\": 48, \"region\": \"EU\" }, \
 	{ \"name\": \"Option 2\", \"sales\": 700, \"profit\": 60, \"region\": \"EU\" }, \
@@ -141,7 +143,7 @@ function checkCombobox(combo, test, trackableStore) {
 		combo.notifyCurrentValue("source");
 	}
 
-	var d = test.async(1000);
+	var d = test.async(5000);
 
 	combo.openDropDown().then(d.rejectOnError(function () {
 		var item2 = combo.list.querySelectorAll("[role=option]")[2];
@@ -245,28 +247,41 @@ registerSuite("deliteful/Combobox: markup", {
 	},
 
 	tests: {
-		"Initialization": function () {
-			container.innerHTML = html;
+		"Initialization 1": function () {
+			container.innerHTML = html1;
 			register.deliver();
 
 			var combo = document.getElementById("combo1");
-			checkCombobox(combo, this);
-
-			var combo1 = document.getElementById("mycombo1");
-			checkCombobox(combo1, this);
+			return checkCombobox(combo, this);
 		},
 
-		"Attribute mapping for label": function () {
+		"Initialization 2": function () {
+			container.innerHTML = html2;
+			register.deliver();
+
+			var combo = document.getElementById("mycombo1");
+			return checkCombobox(combo, this);
+		},
+
+		"Attribute mapping for label 1": function () {
 			// Check the attribute mapping for label
 
-			container.innerHTML = htmlMappedAttr;
+			container.innerHTML = htmlMappedAttr1;
 			register.deliver();
 
 			var combo = document.getElementById("combo1");
-			checkCombobox(combo, this);
+			return checkCombobox(combo, this);
+		},
 
-			var combo1 = document.getElementById("mycombo1");
-			checkCombobox(combo1, this);
+
+		"Attribute mapping for label 2": function () {
+			// Check the attribute mapping for label
+
+			container.innerHTML = htmlMappedAttr2;
+			register.deliver();
+
+			var combo = document.getElementById("mycombo1");
+			return checkCombobox(combo, this);
 		}
 	}
 });
@@ -275,7 +290,7 @@ registerSuite("deliteful/Combobox: markup (common tests)", {
 	beforeEach: function () {
 		container = document.createElement("div");
 		document.body.appendChild(container);
-		container.innerHTML = html;
+		container.innerHTML = html1 + html2;
 		register.deliver();
 	},
 
@@ -297,20 +312,24 @@ registerSuite("deliteful/Combobox: programatic", {
 	},
 
 	tests: {
-		"Store.add/remove/put (user's trackable Memory store)": function () {
+		"Store.add/remove/put (user's trackable Memory store) 1": function () {
 			var combo = createCombobox("combo-a-1", true);
-			checkCombobox(combo, this);
-
-			combo = createMyCombobox("combo-a-2", true);
-			checkCombobox(combo, this);
+			return checkCombobox(combo, this);
 		},
 
-		"Store.add (user's non-trackable Memory store)": function () {
-			var combo = createCombobox("combo-b-1", false);
-			checkCombobox(combo, this);
+		"Store.add/remove/put (user's trackable Memory store) 2": function () {
+			var combo = createMyCombobox("combo-a-2", true);
+			return checkCombobox(combo, this);
+		},
 
-			combo = createMyCombobox("combo-b-2", false);
-			checkCombobox(combo, this);
+		"Store.add (user's non-trackable Memory store) 1": function () {
+			var combo = createCombobox("combo-b-1", false);
+			return checkCombobox(combo, this);
+		},
+
+		"Store.add (user's non-trackable Memory store) 2": function () {
+			var combo = createMyCombobox("combo-b-2", false);
+			return checkCombobox(combo, this);
 		},
 
 		"Attribute mapping for label": function () {
