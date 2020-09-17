@@ -16,6 +16,8 @@ import CssState from "delite/CssState";
 // Used in template.
 import "./list/List";
 
+const mobile = has("ios") || has("android");
+
 // Counter used to generate unique ids for the dropdown items, so that aria-activedescendant is set to
 // a reasonable value.
 var idCounter = 1;
@@ -420,8 +422,6 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 	renderAnchor: function () {
 		const listbox = this.list && this.list.querySelector("[role=listbox]");
 
-		const mobile = has("ios") || has("android");
-
 		// The arrow is normally invisible to screen readers, but for mobile the user needs to be able to navigate
 		// to it, as they have no other way to open the dropdown without typing in a search string.
 		const arrow = this.hasDownArrow ?
@@ -598,6 +598,19 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 	dropDownPosition: function () {
 		return [ "below", "above" ];
 	},
+
+	_dropDownClickHandler: dcl.superCall(function (sup) {
+		return function () {
+			sup.apply(this, arguments);
+
+			// Put focus on the <input>, unless this is a multi-select where we focus the dropdown.
+			// Also, don't focus the <input> on mobile because we don't want the keyboard to pop up
+			// when the user just wants to select a value from the dropdown.
+			if (this.selectionMode !== "multiple" && !mobile) {
+				this.defer(this.focus.bind(this));
+			}
+		};
+	}),
 
 	// HasDropDown#_dropDownKeyUpHandler() override.
 	// Do not call openDropDown if widget does not have a down arrow shown (auto-complete mode).
