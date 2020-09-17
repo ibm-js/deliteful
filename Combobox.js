@@ -599,6 +599,17 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 		return [ "below", "above" ];
 	},
 
+	_dropDownClickHandler: dcl.superCall(function (sup) {
+		return function () {
+			sup.apply(this, arguments);
+
+			// Put focus on the <input>, unless this is a multi-select where we focus the dropdown.
+			if (this.selectionMode !== "multiple") {
+				this.defer(this.focus.bind(this));
+			}
+		};
+	}),
+
 	// HasDropDown#_dropDownKeyUpHandler() override.
 	// Do not call openDropDown if widget does not have a down arrow shown (auto-complete mode).
 	// In this mode the popup will open when the user typed something and text.length > this.minFilterChars.
