@@ -2,9 +2,6 @@
   display: flex;
   align-items: stretch;
 }
-.d-linear-layout > * {
-  position: relative;
-}
 .-d-linear-layout-v {
   flex-direction: column;
 }
