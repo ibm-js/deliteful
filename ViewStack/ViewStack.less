@@ -1,19 +1,33 @@
 @import "../node_modules/delite/css/includes";
+
+// CSS for resting state, when only one child is visible.
+// Don't use position:relative since that clips dropdowns.
+
 .d-view-stack {
+  height: 100%;
+  display: flex;
+  align-items: stretch;
+
+  > * {
+    flex: 1;
+    .box-sizing(border-box);
+  }
+}
+
+// CSS during transitions.
+// Note that -d-view-stack-transition is applied to both the root node and the children.
+
+.d-view-stack.-d-view-stack-transition {
   height: 100%;
   display: block;
   .box-sizing(border-box);
   position: relative; // Enables clipping
-}
-
-.d-view-stack > * {
-  .box-sizing(border-box);
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
-.-d-view-stack-transition {
   overflow-x: hidden; // Avoid horizontal scroll bar on slide animation.
   overflow-y: hidden; // Avoid vertical scroll bar on flip animation.
+
+  > * {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
 }

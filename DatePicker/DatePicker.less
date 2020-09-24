@@ -1,14 +1,15 @@
 @import "../node_modules/delite/css/includes";
 
 .d-date-picker {
-	display: inline-block;
+	display: inline-flex;
+	align-items: stretch;
+	flex-direction: column;
 
 	// Override ViewStack's display:block and height:100%.
 	// Also set width so DatePicker is constant width regardless of which panel is displayed
 	// (day picker, month picker, year picker), and which month of the day picker is displayed.
 	.d-view-stack {
-		display: inline-block;
-		height: auto;
+		flex: 1;
 		min-height: 300px;
 		min-width: 300px;
 	}

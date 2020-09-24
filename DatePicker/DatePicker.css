@@ -1,5 +1,7 @@
 .d-date-picker {
-  display: inline-block;
+  display: inline-flex;
+  align-items: stretch;
+  flex-direction: column;
   border: solid black 1px;
   background: white;
   -webkit-touch-callout: none;
@@ -9,8 +11,7 @@
   user-select: none;
 }
 .d-date-picker .d-view-stack {
-  display: inline-block;
-  height: auto;
+  flex: 1;
   min-height: 300px;
   min-width: 300px;
 }
