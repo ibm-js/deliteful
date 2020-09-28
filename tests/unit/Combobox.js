@@ -75,7 +75,6 @@ var dataSourceWithValue =  [
 	{ label: "Japan", myValue: "JP", sales: 900, profit: 100, region: "Asia" }
 ];
 
-var outerCSS = "d-combobox";
 var inputCSS = "d-combobox-input";
 var hiddenInputCSS = "d-hidden";
 var nOptions = 10;
@@ -145,7 +144,9 @@ function checkCombobox(combo, test, trackableStore) {
 
 	var d = test.async(5000);
 
-	combo.openDropDown().then(d.rejectOnError(function () {
+	combo.list.on("query-success", d.rejectOnError(function () {
+		combo.list.deliver();
+
 		var item2 = combo.list.querySelectorAll("[role=option]")[2];
 		item2.click();
 
@@ -163,16 +164,16 @@ function checkCombobox(combo, test, trackableStore) {
 				"combo.value equal to combo.valueNode.value after selecting item2 on combo.id: " +
 					combo.id);
 			var dataObj = combo.list.selectedItem.__item;
-			var itemLabel = combo.list.labelFunc ?
-				combo.list.labelFunc(dataObj) : dataObj[combo.list.labelAttr];
+			var itemLabel = combo.labelFunc ?
+				combo.labelFunc(dataObj) : dataObj[combo.labelAttr];
 			assert.strictEqual(itemLabel, "Option 2",
 				"label of combo.list.selectedItem after selecting item2 on combo.id: " + combo.id);
 			assert.strictEqual(combo.list.selectedItems.length, 1,
 				"combo.list.selectedItems.length after selecting item2 on combo.id: " +
 					combo.id);
 			dataObj = combo.list.selectedItems[0].__item;
-			itemLabel = combo.list.labelFunc ?
-				combo.list.labelFunc(dataObj) : dataObj[combo.list.labelAttr];
+			itemLabel = combo.labelFunc ?
+				combo.labelFunc(dataObj) : dataObj[combo.labelAttr];
 			assert.strictEqual(itemLabel, "Option 2",
 				"label of combo.list.selectedItems[2] after selecting item2 on combo.id: " +
 					combo.id);
@@ -181,13 +182,15 @@ function checkCombobox(combo, test, trackableStore) {
 		}), delay);
 	}));
 
+	// Open dropdown and trigger list to load.
+	combo.openDropDown();
+
 	return d;
 }
 
 function checkDefaultValues(combo) {
 	assert.strictEqual(combo.autoFilter, false, "combo.autoFilter");
 	assert.strictEqual(combo.selectionMode, "single", "combo.selectionMode");
-	assert.strictEqual(combo.baseClass, outerCSS, "combo.baseClass");
 	assert.strictEqual(combo.filterMode, "startsWith", "combo.filterMode");
 	assert.isTrue(combo.ignoreCase, "combo.ignoreCase");
 	assert.strictEqual(combo.inputNode.placeholder, "Search", combo.inputNode.placeholder);
@@ -196,9 +199,6 @@ function checkDefaultValues(combo) {
 var CommonTestCases = {
 	"Default CSS": function () {
 		var combo = document.getElementById("combo1");
-		assert.isTrue(combo.classList.contains(outerCSS),
-			"Expecting " + outerCSS +
-				" CSS class on outer element of combo.id: " + combo.id);
 		assert.isTrue(combo.inputNode.classList.contains(inputCSS),
 			"Expecting " + inputCSS +
 				" CSS class on inner input element of combo.id: " + combo.id);
@@ -212,9 +212,6 @@ var CommonTestCases = {
 			combo = createMyCombobox("mycombo1");
 		} // else the declarative case
 
-		assert.isTrue(combo.classList.contains(outerCSS),
-			"Expecting " + outerCSS +
-				" CSS class on outer element of combo.id: " + combo.id);
 		assert.isTrue(combo.inputNode.classList.contains(inputCSS),
 			"Expecting " + inputCSS +
 				" CSS class on inner input element of combo.id: " + combo.id);
@@ -354,8 +351,7 @@ registerSuite("deliteful/Combobox: programatic", {
 
 			var d = this.async(2000);
 
-			// need to open the popup so the list gets the source.
-			combo.openDropDown().then(d.rejectOnError(function () {
+			combo.on("query-success", d.rejectOnError(function () {
 				assert.strictEqual(combo.list.querySelectorAll("[role=option]").length, 8,
 					"Number of options after adding 8 options on combo.id: " + combo.id);
 				assert.strictEqual(combo.value, "",
@@ -371,6 +367,9 @@ registerSuite("deliteful/Combobox: programatic", {
 						"combo.value after adding 8 options on combo.id: " + combo.id);
 				}), delay);
 			}));
+
+			// need to open the popup so the list gets the source.
+			combo.openDropDown();
 
 			return d;
 		},
@@ -611,7 +610,11 @@ registerSuite("deliteful/Combobox: programatic", {
 				combo.dispatchEvent(e);
 			}
 
-			combo.openDropDown().then(d.rejectOnError(function () {
+			var handle = combo.list.on("query-success", d.rejectOnError(function () {
+				handle.remove();
+
+				combo.list.deliver();
+
 				assert.strictEqual(changeCounter, 0,
 					"Just opening the dropdown should not emit any change event");
 				assert.strictEqual(inputCounter, 0,
@@ -645,6 +648,7 @@ registerSuite("deliteful/Combobox: programatic", {
 				setTimeout(d.rejectOnError(function () {
 					checkAfterClickItem(1, 1, "item 2 of " + combo.id, "Option 2");
 					combo.openDropDown().then(d.rejectOnError(function () {
+						combo.list.deliver();
 						var item3 = combo.list.querySelectorAll("[role=option]")[3];
 						item3.click(); // automatically closes the dropdown (asynchronously)
 						setTimeout(d.callback(function () {
@@ -653,6 +657,9 @@ registerSuite("deliteful/Combobox: programatic", {
 					}));
 				}), delay);
 			}));
+
+			// Open dropdown and trigger list to load.
+			combo.openDropDown();
 
 			return d;
 		},
@@ -695,7 +702,11 @@ registerSuite("deliteful/Combobox: programatic", {
 				combo.dispatchEvent(e);
 			}
 
-			combo.openDropDown().then(d.rejectOnError(function () {
+			var handle = combo.list.on("query-success", d.rejectOnError(function () {
+				handle.remove();
+
+				combo.list.deliver();
+
 				assert.strictEqual(changeCounter, 0,
 					"Just opening the dropdown should not emit any change event");
 				assert.strictEqual(inputCounter, 0,
@@ -722,6 +733,7 @@ registerSuite("deliteful/Combobox: programatic", {
 				setTimeout(d.rejectOnError(function () {
 					checkAfterClickItem(0, 1, "item 2", null, ["Option 2"]);
 					combo.closeDropDown(); // this commits the change
+
 					combo.openDropDown().then(d.rejectOnError(function () {
 						setTimeout(d.rejectOnError(function () {
 							checkAfterClickItem(1, 1, "item 2", ["Option 2"], ["Option 2"]);
@@ -740,6 +752,9 @@ registerSuite("deliteful/Combobox: programatic", {
 				}), delay);
 			}));
 
+			// Open dropdown and trigger list to load.
+			combo.openDropDown();
+
 			return d;
 		},
 
@@ -751,7 +766,11 @@ registerSuite("deliteful/Combobox: programatic", {
 
 			var d = this.async(1000);
 
-			combo.openDropDown().then(d.rejectOnError(function () {
+			var handle = combo.list.on("query-success", d.rejectOnError(function () {
+				handle.remove();
+
+				combo.list.deliver();
+
 				var item3 = combo.list.querySelectorAll("[role=option]")[3];
 				item3.click();
 
@@ -762,6 +781,7 @@ registerSuite("deliteful/Combobox: programatic", {
 						"(single) Value after clicking item with label USA should be US, " +
 						"not USA, as defined in the custom myValue field of the data item");
 					combo.openDropDown().then(d.rejectOnError(function () {
+						combo.list.deliver();
 						var item4 = combo.list.querySelectorAll("[role=option]")[4];
 						item4.click();
 						setTimeout(d.callback(function () {
@@ -772,6 +792,9 @@ registerSuite("deliteful/Combobox: programatic", {
 					}));
 				}), delay);
 			}));
+
+			// Open dropdown and trigger list to reload.
+			combo.openDropDown();
 
 			return d;
 		},
@@ -788,7 +811,8 @@ registerSuite("deliteful/Combobox: programatic", {
 
 			var d = this.async(1000);
 
-			combo.openDropDown().then(d.rejectOnError(function () {
+			combo.list.on("query-success", d.rejectOnError(function () {
+				combo.list.deliver();
 				var item3 = combo.list.querySelectorAll("[role=option]")[3];
 				assert.isNotNull(item3, "item3");
 
@@ -810,6 +834,7 @@ registerSuite("deliteful/Combobox: programatic", {
 					}), delay);
 				}), delay);
 			}));
+			combo.openDropDown();
 
 			return d;
 		}

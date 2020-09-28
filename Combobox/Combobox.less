@@ -35,7 +35,7 @@
 	}
 }
 
-.d-combobox {
+.d-combobox-anchor {
 	display: inline-block;
 	position: relative;
 	vertical-align: middle;
@@ -74,35 +74,7 @@
 	}
 }
 
-.d-combo-popup-tooltip-dialog .d-tooltip-container {
-	// Override default TooltipDialog padding.
-	padding: 0;
-}
-
-.d-combo-popup {
-	display: flex;
-	flex-direction: column;
-	align-items: stretch;
-	background-color: white;
-
-	input {
-		width: 100%
-	}
-
-	.d-list {
-		flex: 1;
-	}
-}
-
-.d-combo-popup-button-container {
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	padding: 5px;
-}
-
-// Applies to both the input inside the root node and the input
-// conditionally present inside the popup
+// Input inside the root node.
 .d-combobox-input {
 	color: inherit;
 	font-family: inherit;
@@ -127,11 +99,7 @@
 	}
 
 	.d-combobox-input-styles;
-}
 
-/* Applies to the input inside the root node but does not apply */
-/* to the input conditionally present inside the popup */
-.d-combobox .d-combobox-input {
 	height: 100%;
 	vertical-align: inherit;
 

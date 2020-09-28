@@ -158,9 +158,7 @@ define([
 		 */
 		enableDrag: function () {
 			if (!this.moveable) {
-				var wrapper = popup.createWrapper(this);
-
-				this.moveable = new Moveable(wrapper, {
+				this.moveable = new Moveable(this, {
 					handle: this.headerNode,
 					area: "padding",
 					within: true,
@@ -170,8 +168,8 @@ define([
 				advise.after(this.moveable, "onMoveStart", function () {
 					// Lock in width/height to prevent squashing when Dialog dragged past right edge of screen.
 					var cs = getComputedStyle(this);
-					wrapper.style.width = this.style.width = cs.width;
-					wrapper.style.height = this.style.height = cs.height;
+					this.style.width = cs.width;
+					this.style.height = cs.height;
 
 					this.emit("delite-dragged");
 				}.bind(this));
@@ -189,10 +187,9 @@ define([
 		moveIntoView: function () {
 			// Note: all positions relative to document (not to viewport).
 			var viewport = Viewport.getEffectiveBox(),
-				wrapper = this.parentNode,
 				bcr = this.headerNode.getBoundingClientRect(),
-				curTop = parseFloat(wrapper.style.top),
-				curLeft = parseFloat(wrapper.style.left),
+				curTop = parseFloat(this.style.top),
+				curLeft = parseFloat(this.style.left),
 				minTop = viewport.t,
 				minLeft = viewport.l + 50 - bcr.width,
 				maxTop = Math.max(viewport.t + viewport.h - bcr.height, 0),
@@ -201,8 +198,8 @@ define([
 			if (curTop < 0 || curTop > maxTop || curLeft < minLeft || curLeft > maxLeft) {
 				var top = Math.min(Math.max(curTop, minTop), maxTop),
 					left = Math.min(Math.max(curLeft, minLeft), maxLeft);
-				wrapper.style.top = top  + "px";
-				wrapper.style.left = left + "px";
+				this.style.top = top  + "px";
+				this.style.left = left + "px";
 
 				this.emit("popup-after-position");
 			}

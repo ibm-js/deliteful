@@ -1,6 +1,0 @@
-<template attach-point="buttonNode">
-	<input id="{{this.id || this.widgetId}}-input" type="button" class="d-combobox-input"
-		   attach-point="inputNode, focusNode, popupStateNode" value="{{displayedValue}}">
-	<span class="d-combobox-arrow" d-shown="{{hasDownArrow}}" aria-hidden="true"></span>
-	<input class="d-hidden" attach-point="valueNode" readonly name="{{name}}" value="{{value}}">
-</template>
