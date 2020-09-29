@@ -721,6 +721,8 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 		if (this.selectionMode === "single") {
 			var rend = this.list.getEnclosingRenderer(evt.target);
 			if (rend && this.isItemRenderer(rend)) {
+				evt.preventDefault();
+				evt.stopPropagation();
 				this.defer(function () {
 					// deferred such that the user can see the selection feedback
 					// before the dropdown closes.
