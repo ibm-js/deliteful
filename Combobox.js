@@ -618,7 +618,7 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 	_dropDownKeyUpHandler: dcl.superCall(function (sup) {
 		return function () {
 			if (this.hasDownArrow) {
-				sup.call(this);
+				sup.apply(this, arguments);
 			}
 		};
 	}),
