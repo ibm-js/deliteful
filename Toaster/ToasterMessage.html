@@ -1,5 +1,6 @@
 <template class="{{ messageTypeClass }}" touch-action="none">
-	<button type="button" class="d-toaster-dismiss" attach-point="_dismissButton"></button>
+	<button type="button" class="d-toaster-dismiss" d-shown="{{ isDismissible() }}"
+		on-pointerdown="{{ dismiss }}"></button>
 	<span class="d-toaster-message-content">
 		{{ message }}
 	</span>

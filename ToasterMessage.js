@@ -390,7 +390,6 @@ define([
 			configurable: true
 		}),
 
-		_dismissButton: null,
 		/**
 		 * Indicates whether the message can be dismissed. Is one of ["on", "off", "auto"].
 		 * If "auto", `isDismissible` adopts a default behaviour that depends
@@ -415,7 +414,7 @@ define([
 		 */
 		dismiss: function (animation) { // called when dismiss button is clicked or swipe detected
 			var parent = this.getParent();
-			this._hideInDom(parent, !!animation, animation);
+			this._hideInDom(parent, typeof animation === "string", animation);
 		},
 
 		// states
@@ -473,9 +472,6 @@ define([
 					toaster.notifyCurrentValue("messages");
 				}.bind(this));
 			}
-
-			// toggling dismiss button visibility
-			this._dismissButton.classList.toggle(D_HIDDEN, !this.isDismissible());
 		},
 		_showInDom: function (toaster, animated) {
 			if (animated) {
@@ -539,19 +535,13 @@ define([
 		template: template,
 		afterInitializeRendering: function () {
 			// TODO this should be done only if this.isDismissible()
-			// but at this stage this.isDismissible() ouput is wrong because members have not been initialized yet
+			// but at this stage this.isDismissible() output is wrong because members have not been initialized yet
 
 			// setting up the swipe to dismiss listener
 			this.swipeToDismiss = new SwipeToDismiss(this, function () {
 				this.dismiss(D_SWIPEOUT);
 			}.bind(this));
 
-			// setting up click listener for dismiss button
-			if (this._dismissButton !== null) {
-				this.on("pointerdown", function () {
-					this.dismiss();
-				}.bind(this), this._dismissButton);
-			}
 			// setting up pause timer on hover listener
 			this.pauseTimerOnHover = new PauseTimerOnHover(this);
 		}
