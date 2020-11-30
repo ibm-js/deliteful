@@ -10,7 +10,7 @@
 	"bugs": "https://github.com/ibm-js/deliteful/issues",
 	"dependencies": {
 		"dcl": "^2.0.11",
-		"delite": "^0.9.10",
+		"delite": "^0.9.15",
 		"dojo": "^1.10.0",
 		"dojo-dstore": "1.1.x",
 		"ibm-decor": "^0.8.1",
