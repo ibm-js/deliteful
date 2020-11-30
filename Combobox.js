@@ -41,8 +41,8 @@ function getvalue (map, item, key, store) {
  * The property `selectionMode` allows to choose between single and multiple
  * choice modes.
  *
- * In single selection mode, if the property `autoFilter` is set to `true`
- * (default is `false`) the widget allows to type one or more characters which
+ * If the property `autoFilter` is set to `true` (default is `false`)
+ * the widget allows to type one or more characters which
  * are used for filtering the shown list items. By default, the filtering is
  * case-insensitive, and an item is shown if its label contains the entered
  * string. The default filtering policy can be customized thanks to the
@@ -50,8 +50,7 @@ function getvalue (map, item, key, store) {
  *
  * The `value` property of the widget contains:
  *
- * - Single selection mode: the value of the selected list items. By default, the
- * value of the first item is selected.
+ * - Single selection mode: the value of the selected list items.  Defaults to `""`.
  * - Multiple selection mode: an array containing the values of the selected items.
  * Defaults to `[]`.
  *
@@ -62,8 +61,7 @@ function getvalue (map, item, key, store) {
  * of the selected items. Defaults to `""`.
  *
  * By default, the `label` field of the list render item is used as item value.
- * A different field can be specified by using attribute mapping for `value` on the
- * List instance.
+ * A different field can be specified by using attribute mapping for `value`.
  *
  * Remark: the option items must be added, removed or updated exclusively using
  * List's store API.  Direct operations using the DOM API are not supported.
@@ -110,29 +108,19 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 
 	/**
 	 * If `true`, the list of options can be filtered thanks to an editable
-	 * input element. Only used if `selectionMode` is "single".
+	 * input element.
 	 * @member {boolean} module:deliteful/Combobox#autoFilter
 	 * @default false
 	 */
 	autoFilter: false,
 
 	/**
-	 * Consists in the default query to apply to the source.
-	 * It can be a `function` or a `Object`.
+	 * Default query to apply to the source.  It can be a `function` or a `Object`.
 	 * If it is a function, then it's invoked and the list's query will get the return value.
 	 * If it is an Object, it's assigned to the list's query directly.
 	 * It can be overridden depending of store used and the strategy to apply.
 	 */
 	defaultQuery: {},
-
-	/**
-	 * If set to true, the widget will not respond to user input and will not be included in form submission.
-	 * FormWidget automatically updates `valueNode`'s and `focusNode`'s `disabled` property to match the widget's
-	 * `disabled` property.
-	 * @member {boolean}
-	 * @default false
-	 */
-	disabled: false,
 
 	/**
 	 * Text displayed by the Combobox (as opposed to the internal value).
@@ -148,8 +136,7 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 	filterDelay: 0,
 
 	/**
-	 * The chosen filter mode. Only used if `autoFilter` is `true` and
-	 * `selectionMode` is `"single"`.
+	 * The chosen filter mode. Only used if `autoFilter` is `true`.
 	 *
 	 * Valid values are:
 	 *
@@ -171,8 +158,8 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 
 	/**
 	 * If `true`, the filtering of list items ignores case when matching possible items.
-	 * Only used if `autoFilter` is `true` and `selectionMode` is `"single"`.
-	 * @member {boolean} module:deliteful/Combobox#autoFilter
+	 * Only used if `autoFilter` is `true`.
+	 * @member {boolean}
 	 * @default true
 	 */
 	ignoreCase: true,
@@ -184,7 +171,7 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 	 * - if minFilterChars = 0
 	 * -- show the dropdown on pointer down.
 	 * -- show the dropdown even if the user clears the input field.
-	 * - if minFilterChars = 1
+	 * - if minFilterChars >= 1
 	 * -- do not show the dropdown on pointer down.
 	 * -- clearing the input field will close the dropdown.
 	 * @type {number}
@@ -193,7 +180,8 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 	minFilterChars: 1,
 
 	/**
-	 * The text displayed in the input element when no option is selected.
+	 * For non-filterable Combobox with selectionMode=multiple,
+	 * the text displayed in the input element when no option is selected.
 	 * The default value is provided by the "multiple-choice-no-selection" key of
 	 * the message bundle. This message can contains placeholders for the
 	 * Combobox attributes to be replaced by their runtime value. For example, the
@@ -205,7 +193,8 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 	multipleChoiceMsg: messages["multiple-choice"],
 
 	/**
-	 * The text displayed in the input element when no option is selected.
+	 * For non-filterable Combobox with selectionMode=multiple,
+	 * the text displayed in the input element when no option is selected.
 	 * The default value is provided by the "multiple-choice-no-selection" key of
 	 * the message bundle.
 	 * @member {string}
@@ -214,45 +203,13 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 	multipleChoiceNoSelectionMsg: messages["multiple-choice-no-selection"],
 
 	/**
-	 * Name used when submitting form; same as "name" attribute or plain HTML elements.
-	 * @member {string}
-	 */
-	name: "",
-
-	/**
-	 * The text displayed in the OK button when the combobox popup contains such a button.
-	 * The default value is provided by the "ok-button-label" key of
-	 * the message bundle.
-	 * @member {string}
-	 * @default "OK"
-	 */
-	okMsg: messages["ok-button-label"],
-
-	/**
-	 * If true, this widget won't respond to user input.  Similar to `disabled` except
-	 * `readOnly` form values are submitted.  FormValueWidget automatically updates
-	 * `focusNode`'s `readOnly` property to match the widget's `readOnly` property.
-	 * @member {boolean}
-	 * @default false
-	 */
-	readOnly: false,
-
-	/**
-	 * Sets the `required` property of the focus nodes, or their `aria-required` attribute if they do not support
-	 * the `required` property.
-	 * @member {boolean}
-	 * @default false
-	 */
-	required: false,
-
-	/**
 	 * The value of the placeholder attribute of the input element used
 	 * for filtering the list of options. The default value is provided by the
 	 * "search-placeholder" key of the message bundle.
 	 * @member {string}
 	 * @default "Search"
 	 */
-	searchPlaceHolder: messages["search-placeholder"],
+	placeholder: messages["search-placeholder"],
 
 	/**
 	 * The chosen selection mode.
@@ -440,7 +397,7 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 					aria-controls="${ifDefined(listbox && listbox.id)}"
 					aria-expanded="${this.opened}"
 					disabled="${ifDefined(this.disabled ? "true" : undefined)}"
-					placeholder="${ifDefined(this.searchPlaceHolder || undefined)}"
+					placeholder="${ifDefined(this.placeholder || undefined)}"
 					readonly="${ifDefined(this._inputReadOnly ? "true" : undefined)}"
 					role="combobox"
 					tabindex="${this.tabIndex}"
@@ -461,9 +418,6 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 	 * Render an empty list as the dropdown.  Other code will set the list's source and query.
 	 */
 	renderList: function () {
-		// Notes about focusDescendants:
-		//	- in single selection mode, keep focus on <input> for filtering.
-		//	- In multiple selection mode, move focus to list to make JAWS work.
 		return html`
 			<d-list
 				.ariaLabel="${this.getLabel()}"
@@ -471,7 +425,7 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 				.categoryFunc="${this.categoryFunc}"
 				class="d-popup d-combobox-list"
 				id="${this.id || this.widgetId}-list"
-				.focusDescendants="${this.selectionMode === "multiple"}"
+				.focusDescendants="${false}"
 				.itemToRenderItem="${this.itemToRenderItem.bind(this)}"
 				.selectionMode="${this.selectionMode === "single" ? "radio" : "multiple"}"
 				.showNoItems="${true}"
@@ -543,6 +497,7 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 
 	// Leave focus in the original <input>.
 	focusOnPointerOpen: false,
+	focusOnKeyboardOpen: false,
 
 	/**
 	 * Handle clicks on the `<input>`.
@@ -562,11 +517,7 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 	},
 
 	computeProperties: function (oldValues) {
-		this._inputReadOnly = this.readOnly || !this.autoFilter || this.selectionMode === "multiple";
-
-		// Leave focus in the original <input>, except for multi-select mode, where you need to
-		// focus the list to get JAWS to work.
-		this.focusOnKeyboardOpen = this.selectionMode === "multiple";
+		this._inputReadOnly = this.readOnly || !this.autoFilter;
 
 		// If value was specified as a string (like during creation from markup),
 		// but selectionMode === multiple, need to convert it to an array.
@@ -579,10 +530,10 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 		}
 
 		// Set this.displayedValue based on this.value.
-		if ("value" in oldValues) {
-			if (this.selectionMode === "multiple" && this.value.length === 0) {
+		if ("value" in oldValues && this.selectionMode === "multiple" && !this.autoFilter) {
+			if (this.value.length === 0) {
 				this.displayedValue = this.multipleChoiceNoSelectionMsg;
-			} else if (this.selectionMode === "multiple" && this.value.length > 1) {
+			} else if (this.value.length > 1) {
 				this.displayedValue = string.substitute(this.multipleChoiceMsg, { items: this.value.length });
 			}
 		}
@@ -603,10 +554,10 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 		return function () {
 			sup.apply(this, arguments);
 
-			// Put focus on the <input>, unless this is a multi-select where we focus the dropdown.
-			// Also, don't focus the <input> on mobile because we don't want the keyboard to pop up
+			// Put focus on the <input>.
+			// Except, don't focus the <input> on mobile because we don't want the keyboard to pop up
 			// when the user just wants to select a value from the dropdown.
-			if (this.selectionMode !== "multiple" && !mobile) {
+			if (!mobile) {
 				this.defer(this.focus.bind(this));
 			}
 		};
@@ -665,6 +616,12 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 			}
 
 			sup.apply(this, arguments);
+
+			// For multi-select with auto-filter, the <input> never shows what the selected value is.
+			// To avoid confusion, clear the filter string the user typed.
+			if (this.selectionMode === "multiple" && this.autoFilter) {
+				this.displayedValue = "";
+			}
 		};
 	}),
 
@@ -689,8 +646,8 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 		return dropDown;
 	},
 
-	// Avoid that List gives focus to list items when navigating, which would
-	// blur the input field used for entering the filtering criteria.
+	// Override KeyNav#focusDescendants to not give list items focus when navigating,
+	// since that would blur the input field used for entering the filtering criteria.
 	focusDescendants: false,
 
 	focus: function () {
@@ -738,8 +695,8 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 		evt.stopPropagation();
 	},
 
-	listSelectionChangeHandler: function () {
-		this._validateInput();
+	listSelectionChangeHandler: function (evt) {
+		this._validateInput(evt);
 		this.handleOnInput(this.value); // emit "input" event
 	},
 
@@ -812,32 +769,14 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 		if (this.focusNode.readOnly && evt.key === "Backspace") {
 			evt.stopPropagation();
 			evt.preventDefault();
-		} else if (evt.key === "Enter") {
+		} else if (evt.key === "Enter" || (evt.key === "Spacebar" && !this.autoFilter)) {
 			evt.stopPropagation();
 			evt.preventDefault();
-			if (this.selectionMode === "multiple") {
-				// Path for closing multi-select dropdown.
-				this.closeDropDown(true/*refocus*/);
-			} else {
-				// Delegate handling to the list.  This allows subclasses to implement hierarchical menus etc.
-				var activeDescendant = this.opened && this.list.querySelector(".d-active-descendant");
-				if (activeDescendant) {
-					activeDescendant.click();
-				}
-			}
-		} else if (evt.key === "Spacebar" && this.opened) {
-			// Simply forwarding the key event to List doesn't allow toggling
-			// the selection, because List's mechanism is based on the event target
-			// which here is the input element outside the List. TODO: see deliteful #500.
-			if (this.selectionMode === "multiple") {
-				var rend = this.list.getEnclosingRenderer(this.list.navigatedDescendant);
-				if (rend) {
-					this.list.selectFromEvent(evt, rend.item, rend, true);
-				}
-			}
-			if (this.selectionMode === "multiple" || !this.autoFilter) {
-				evt.stopPropagation();
-				evt.preventDefault();
+
+			// Delegate handling to the list.  This allows subclasses to implement hierarchical menus etc.
+			var activeDescendant = this.opened && this.list.querySelector(".d-active-descendant");
+			if (activeDescendant) {
+				activeDescendant.click();
 			}
 		} else if (evt.key === "ArrowDown" || evt.key === "ArrowUp" ||
 			evt.key === "PageDown" || evt.key === "PageUp" ||
@@ -852,10 +791,19 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 	 * @param evt
 	 */
 	inputInputHandler: function (evt) {
+		// Stop the spurious "input" events emitted while the user types
+		// such that only the "input" events emitted via LitFormValueWidget.handleOnInput()
+		// bubble to widget's root node.
+		evt.stopPropagation();
+		evt.preventDefault();
+
 		if (this._justFocused) {
 			// Ignore spurious "input" event on IE when focusing an <input> with a placeholder.
 			return;
 		}
+
+		// save what user typed at each keystroke.
+		this.displayedValue = this.focusNode.value;
 
 		// TODO
 		// Would be nice to also have an "incrementalFilter" boolean property.
@@ -864,16 +812,20 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 		// where pressing the search key of the virtual keyboard also triggers a
 		// change event. But there's no equivalent on Safari / iOS...
 
-		// save what user typed at each keystroke.
-		this.displayedValue = this.focusNode.value;
+		if (this.selectionMode === "single") {
+			// Clear value.  No value until user selects something from dropdown again.
+			this.value = "";
 
-		// Clear value.  No value until user selects something from dropdown again.
-		this.value = "";
-		this._valueSetByUserInput = true;
-		if (this.list.selectedItems.length > 0) {
-			this.list.selectedItems = [];
+			if (this.list.selectedItems.length > 0) {
+				this.list.selectedItems = [];
+			}
+
+			this.handleOnInput(this.value); // if we just cleared this.value then emit "input" event
 		}
-		this.handleOnInput(this.value); // if we just cleared this.value then emit "input" event
+
+		// Must set this for dropdown list to be filtered by value in <input>.
+		// Furthermore, it must be done after the code above that clears this.vale.
+		this._valueSetByUserInput = true;
 
 		if (this._timeoutHandle !== undefined) {
 			this._timeoutHandle.remove();
@@ -884,12 +836,6 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 			// the dropdown closed just because the user backspaced while typing in the <input>.
 			this._showOrHideList(true);
 		}.bind(this), this.filterDelay);
-
-		// Stop the spurious "input" events emitted while the user types
-		// such that only the "input" events emitted via FormValueWidget.handleOnInput()
-		// bubble to widget's root node.
-		evt.stopPropagation();
-		evt.preventDefault();
 	},
 
 	/**
@@ -904,14 +850,18 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 		evt.preventDefault();
 	},
 
-	_validateInput: function () {
+	_validateInput: function (evt) {
 		if (this.selectionMode === "single") {
 			this._validateSingle();
 		} else {
-			this._validateMultiple();
+			this._validateMultiple(evt);
 		}
 	},
 
+	/**
+	 * Called for single-select when the user has selected an option in the dropdown.
+	 * @private
+	 */
 	_validateSingle: function () {
 		var selectedItem = this.list.selectedItem;
 		// selectedItem non-null because List in radio selection mode, but
@@ -920,34 +870,34 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 		this.value = selectedItem ? this._getItemValue(selectedItem) : "";
 	},
 
-	_validateMultiple: function () {
-		var n;
-		var selectedItems = this.list.selectedItems;
-		n = selectedItems ? selectedItems.length : 0;
-		var value = [];
-		if (n > 1) {
-			this.displayedValue = string.substitute(this.multipleChoiceMsg, { items: n });
-			for (var i = 0; i < n; i++) {
-				value.push(selectedItems[i] ? this._getItemValue(selectedItems[i]) : "");
-			}
-		} else if (n === 1) {
-			var selectedItem = this.list.selectedItem;
-			this.displayedValue = this._getItemLabel(selectedItem);
-			value.push(this._getItemValue(selectedItem));
-		} else { // no option selected
-			this.displayedValue = this.multipleChoiceNoSelectionMsg;
+	/**
+	 * Called for multi-select when the user has toggled an option in the dropdown.
+	 * @private
+	 */
+	_validateMultiple: function (evt) {
+		// If the list is filtered, this.list.selectedItems is a subset of all the selected items.
+		// Therefore, need to operate based on which option was toggled.
+		// Update this.value, intentionally creating a new array rather than modifying the old one.
+		const toggledValue = this._getItemValue(evt.renderer.item);
+		if (this.value.includes(toggledValue)) {
+			this.value = this.value.filter(value => value !== toggledValue);
+		} else {
+			this.value = [...this.value, toggledValue];
 		}
 
-		// Only set this.value if the value has changed.  Otherwise it's a spurious
-		// notification.  Stateful doesn't detect that two arrays are deep-equal because
-		// ["foo"] !== ["foo"]
-		if (!this.value || this.value.join(",") !== value.join(",")) {
-			this.value = value;
+		// Set the displayed value to represent the selection, unless filtering is enabled,
+		// in which case we shouldn't overwrite the user's filter, so the user can do more filtering.
+		if (!this.autoFilter) {
+			const selectedItems = this.list.selectedItems;
+			const n = selectedItems.length;
+			this.displayedValue = n === 0 ? this.multipleChoiceNoSelectionMsg :
+				n === 1 ? this._getItemLabel(selectedItems[0]) :
+					string.substitute(this.multipleChoiceMsg, { items: n });
 		}
 
-		// Make sure valueNode.value is set when FormValueWidget.handleOnInput() runs.
+		// Make sure valueNode.value is set when LitFormValueWidget.handleOnInput() runs.
 		if (this.valueNode) {
-			this.valueNode.value = value.toString();
+			this.valueNode.value = this.value.toString();
 		}
 		this.handleOnInput(this.value); // emit "input" event
 	},
@@ -1008,6 +958,10 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 			this.defaultQuery() : this.defaultQuery;
 	},
 
+	/**
+	 * Mark which item(s) in the dropdown list are selected.
+	 * @private
+	 */
 	_setSelectedItems: function () {
 		if (this.list && this.list.source && this.list.renderItems) {
 			var selectedItems = [],
@@ -1017,39 +971,50 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 			}.bind(this));
 
 			this.list.selectedItems = selectedItems;
-			if (selectedItems.length) {
-				this._validateInput();
-			}
 		}
 	},
 
 	/**
-	 * Scrolls the list inside the popup such that the specified item, or
-	 * the first selected item if no item is specified, is visible.
+	 * Scrolls the list to either:
+	 *
+	 * 	1) the specified item
+	 *	2) the first selected item
+	 *  3) the first item
+	 *
+	 * If `navigate` is true, navigates to the item that it scrolls to.
+	 *
+	 * Note: Since List is in focus-less mode, it does not give focus to
+	 * navigated items, thus the browser does not autoscroll.
+	 * TODO: see deliteful #498
 	 * @private
 	 */
 	_updateScroll: function (item, navigate) {
-		// Since List is in focus-less mode, it does not give focus to
-		// navigated items, thus the browser does not autoscroll.
-		// TODO: see deliteful #498
-
 		if (!item) {
-			var selectedItems = this.list.selectedItems;
-			item = selectedItems && selectedItems.length > 0 ?
-				selectedItems[0] : null;
+			const selectedItems = this.list.selectedItems;
+			item = selectedItems && selectedItems[0];
 		}
-		if (item) {
-			// Make the first selected item (if any) visible.
-			// Must be done after sup.apply, because List.getBottomDistance
-			// relies on dimensions which are not available if the DOM nodes
-			// are not (yet) visible, hence the popup needs to be shown before.
-			var id = this.list.getIdentity(item);
-			var renderer = this.getRendererByItemId(id);
+
+		if (this.selectionMode === "single") {
+			if (item) {
+				const renderer = this.getRendererByItemId(this.list.getIdentity(item));
+
+				if (renderer) {
+					this.list.scrollBy({ y: this.list.getBottomDistance(renderer) });
+					if (navigate) {
+						// Don't call navigateTo() in single-select mode; it causes the search string to be overwritten
+						// by the navigated value.
+						this.list.navigatedDescendant = this.list.type === "grid" ?
+							renderer.firstElementChild : renderer;
+					}
+				} // null if the list is empty because no item matches the auto-filtering
+			}
+		} else {
+			const renderer = item ? this.getRendererByItemId(this.list.getIdentity(item)) : this.getFirstRenderer();
+
 			if (renderer) {
 				this.list.scrollBy({ y: this.list.getBottomDistance(renderer) });
 				if (navigate) {
-					this.list.navigatedDescendant = this.list.type === "grid" ?
-						renderer.firstElementChild : renderer;
+					this.list.navigateTo(this.list.type === "grid" ? renderer.firstElementChild : renderer);
 				}
 			} // null if the list is empty because no item matches the auto-filtering
 		}
@@ -1058,6 +1023,10 @@ export default register("d-combobox", supers, /** @lends module:deliteful/Combob
 	getRendererByItemId: function (id) {
 		var renderers = Array.from(this.list.querySelectorAll("[role=option]"));
 		return renderers.find(renderer => this.list.getIdentity(renderer.item) === id);
+	},
+
+	getFirstRenderer: function () {
+		return this.list.querySelector("[role=option]");
 	},
 
 	// Even though the List (currently) runs the query, Combobox is in charge of converting items to renderItems.

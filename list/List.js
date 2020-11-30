@@ -758,11 +758,11 @@ export default register("d-list", mixins, /** @lends module:deliteful/list/List#
 
 	previousKeyHandler: function (evt) {
 		if (this.type !== "grid") {
-			return;
+			return false;		// indicates key not handled
 		}
 		// Ignore arrow keys if not focused on a grid cell.
 		if (!this.isNavigable(evt.target)) {
-			return;
+			return false;		// indicates key not handled
 		}
 
 		var focusedCell = this._getFocusedCell();
@@ -773,11 +773,12 @@ export default register("d-list", mixins, /** @lends module:deliteful/list/List#
 
 	nextKeyHandler: function (evt) {
 		if (this.type !== "grid") {
-			return;
+			return false;		// indicates key not handled
 		}
+
 		// Ignore arrow keys if not focused on a grid cell.
 		if (!this.isNavigable(evt.target)) {
-			return;
+			return false;		// indicates key not handled
 		}
 
 		var focusedCell = this._getFocusedCell();
@@ -852,9 +853,6 @@ export default register("d-list", mixins, /** @lends module:deliteful/list/List#
 				// Switch from grid navigation mode to navigation inside cell.
 				this._enterActionableMode();
 			}
-		} else {
-			// Close the combobox dropdown in multiple mode.
-			this.emit("execute");
 		}
 	},
 
