@@ -142,7 +142,7 @@
 			"description": "Run locally with Chrome visible and leave it open at end",
 			"leaveRemoteOpen": true,
 			"environments": [
-				{ "browser": "chrome", "fixSessionCapabilities": false }
+				{ "browser": "chrome", "fixSessionCapabilities": true }
 			]
 		},
 

@@ -168,6 +168,9 @@ define(function () {
 		// Additional tests for autoFilter=true
 		if (autoFilter) {
 			res = res
+				.pressKeys(keys.SHIFT + keys.TAB)	// First do proper keyboard focus.  Highlights "germany" in <input>.
+				.pressKeys(keys.SHIFT)
+				.pressKeys(keys.TAB)
 				.pressKeys(keys.ARROW_DOWN)
 				.execute(executeExpr)
 				.then(function (comboState) {
@@ -189,14 +192,7 @@ define(function () {
 					assert.match(comboState.activeDescendant, /^Germany/,
 						"activeDescendant after after ARROW_DOWN following ESCAPE");
 				})
-				.pressKeys(keys.BACKSPACE) // Delete the 7 chars of "Germany"
-				.pressKeys(keys.BACKSPACE)
-				.pressKeys(keys.BACKSPACE)
-				.pressKeys(keys.BACKSPACE)
-				.pressKeys(keys.BACKSPACE)
-				.pressKeys(keys.BACKSPACE)
-				.pressKeys(keys.BACKSPACE)
-				.pressKeys("u") // filters all countries but UK and USA
+				.pressKeys("u") // Clear "germany" and type "u".  Filters all countries but UK and USA.
 				.execute(executeExpr)
 				.then(function (comboState) {
 					// Reopens the dropdown. No other state change, except the
@@ -1207,15 +1203,6 @@ define(function () {
 					return this.skip("no keyboard support");
 				}
 
-				if (remote.environmentType.browserName.toLowerCase() === "internet explorer") {
-					// TODO: This test fails on IE because the backspace to clear "France" doesn't work since
-					// the caret is at the beginning of the <input> rather than the end.  (Note the test is
-					// complicated because it opens the dropdown first and then does backspace.)
-					// Actually I'm not sure how the test is passing on other browsers
-					// https://github.com/ibm-js/deliteful/issues/689
-					return this.skip("caret in wrong position, backspace doesn't work");
-				}
-
 				return checkKeyboardNavigationSingleSelection(remote, "combo2", true);
 			},
 
@@ -1406,33 +1393,21 @@ define(function () {
 
 			"popup position after filter": function () {
 				var remote = this.remote;
-				if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
-					return this.skip("no keyboard support");
-				}
-
 				return checkPopupPosition(remote, "combo2-custom-sel-single", "above");
 			},
 
 			"select item with currently displayed value": function () {
 				var remote = this.remote;
 
-				if (remote.environmentType.browserName.toLowerCase() === "internet explorer") {
-					// TODO: This test fails on IE because the backspace to clear "France" doesn't work.
-					return this.skip("caret in wrong position, backspace doesn't work");
-				}
 				if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 					return this.skip("no keyboard support");
 				}
 
 				return loadFile(remote, "Combobox-decl.html")
 					.execute("document.getElementById('combo2-value').focus();")
-					.pressKeys(keys.BACKSPACE) // "Franc"
-					.pressKeys(keys.BACKSPACE) // "Fran"
-					.pressKeys(keys.BACKSPACE) // "Fra"
-					.pressKeys(keys.BACKSPACE) // "Fr"
-					.pressKeys(keys.BACKSPACE) // "F"
-					.pressKeys(keys.BACKSPACE) // "" - At this stage the popup should be closed.
-					.pressKeys("Germany")		// At this point popup should be open w/one entry marked Germany.
+					.pressKeys(keys.SHIFT + keys.TAB)	// Do proper keyboard focus.  Highlights "France" in <input>.
+					.pressKeys(keys.SHIFT).pressKeys(keys.TAB)
+					.pressKeys("Germany")		// Replace "France" with "Germany".
 					.execute("return document.getElementById('combo2-value').focusNode.value;").then(function (value) {
 						assert.strictEqual(value, "Germany", "<input> after typed Germany");
 					})
@@ -1448,9 +1423,6 @@ define(function () {
 
 			"check for number of request (using SlowStore)": function () {
 				var remote = this.remote;
-				if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
-					return this.skip("no keyboard support");
-				}
 				return checkRequestCount(remote, "combo-slowstore");
 			},
 
