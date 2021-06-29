@@ -71,17 +71,17 @@ define([
 				switch (this.resizeAxis.toLowerCase()) {
 				case "xy":
 					this._resizeX = this._resizeY = true;
-					this.resizeClass = this.effectiveDir === "ltr" ? "d-resize-nwse" : "d-resize-nesw";
+					this.resizeClass = "d-resize-xy";
 					break;
 				case "x":
 					this._resizeX = true;
 					this._resizeY = false;
-					this.resizeClass = "d-resize-ew";
+					this.resizeClass = "d-resize-x";
 					break;
 				case "y":
 					this._resizeY = true;
 					this._resizeX = false;
-					this.resizeClass = "d-resize-ns";
+					this.resizeClass = "d-resize-y";
 					break;
 				}
 			}
