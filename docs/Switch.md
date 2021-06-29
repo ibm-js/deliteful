@@ -92,7 +92,6 @@ In addition, the following classes are used in combination with the classes abov
 |----------|----------|
 |d-checked|Switch widget node in checked state
 |d-focused|Switch widget node in focus state
-|d-rtl|Switch node in right-to-left configuration
 
 ### Customizing the appearance of the Switch
 

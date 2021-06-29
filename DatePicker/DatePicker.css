@@ -46,15 +46,11 @@
 }
 .d-date-picker .d-caret-previous::before {
   content: "<";
-}
-.d-rtl.d-date-picker .d-caret-previous::before {
-  content: ">";
+  transform: scaleX(1 /*rtl:-1*/);
 }
 .d-date-picker .d-caret-next::before {
   content: ">";
-}
-.d-rtl.d-date-picker .d-caret-next::before {
-  content: "<";
+  transform: scaleX(1 /*rtl:-1*/);
 }
 .d-date-picker [role=grid] {
   display: flex;

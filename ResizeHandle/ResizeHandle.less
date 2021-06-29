@@ -2,13 +2,8 @@
 	position: absolute;
 	z-index: 20;
 	bottom: 0;
-	&:not(.d-rtl) {
-		right: 0;
-	}
-	&.d-rtl {
-		left: 0;
-		transform: scaleX(-1);   	// flip the icon
-	}
+	right: 0;
+	transform: scaleX(1 /*rtl:-1*/);   	// flip the icon in RTL
 	padding: 0;
 	margin: 0;
 

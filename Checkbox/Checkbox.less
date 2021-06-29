@@ -55,14 +55,12 @@
 		.d-checkbox-focused();
 	}
 	.d-checkbox-icon::before {
+		left: 0;
 		display: inline-block;
 		text-align: center;
 		content: "\00A0";			// non-breaking space
 		font-family: Times;			// just in case app is using a custom font
 		.d-checkbox-before-styles();
-	}
-	&.d-rtl .d-checkbox-icon::before {
-		right: 0px;
 	}
 	&.d-checked .d-checkbox-icon::before {
 		content: "\2714";   		// check mark

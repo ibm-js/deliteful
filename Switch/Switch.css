@@ -34,20 +34,12 @@
   right: 50%;
   text-align: center;
 }
-.d-switch.d-rtl .d-switch-leading {
-  left: 50%;
-  right: auto;
-}
 .d-switch-trailing {
   background: #eeeeee;
   font-weight: bold;
   color: #555555;
   left: 50%;
   text-align: center;
-}
-.d-switch.d-rtl .d-switch-trailing {
-  right: 50%;
-  left: auto;
 }
 .-d-switch-knob {
   width: 30px;

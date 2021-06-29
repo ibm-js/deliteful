@@ -294,7 +294,6 @@ define([
 
 			if (nextElement) {
 				nextElement.classList.remove(prefix("animate"));
-				nextElement.classList.toggle("d-rtl", this.effectiveDir === "rtl");
 			}
 
 			if ("mode" in props) {

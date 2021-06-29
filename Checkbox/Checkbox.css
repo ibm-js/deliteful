@@ -12,6 +12,7 @@
   outline-offset: -2px;
 }
 .d-checkbox .d-checkbox-icon::before {
+  left: 0;
   display: inline-block;
   text-align: center;
   content: "\00A0";
@@ -25,9 +26,6 @@
   width: 1em;
   line-height: 1em;
   font-size: 1em;
-}
-.d-checkbox.d-rtl .d-checkbox-icon::before {
-  right: 0px;
 }
 .d-checkbox.d-checked .d-checkbox-icon::before {
   content: "\2714";

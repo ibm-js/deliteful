@@ -99,7 +99,6 @@ In addition, the following classes are used in combination with the classes abov
 |d-checked|Checkbox and checkmark nodes in checked state
 |d-focused|Checkbox widget node in focus state
 |d-disabled|Checkbox and checkmark nodes in disabled state
-|d-rtl|Checkbox and checkmark nodes in right-to-left configuration
 
 <a name="events"></a>
 ## Element Events

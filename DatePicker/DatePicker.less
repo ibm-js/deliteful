@@ -63,15 +63,11 @@
 	}
 	.d-caret-previous::before {
 		content: "<";
-		.d-rtl& {
-			content: ">";
-		}
+		transform: scaleX(1 /*rtl:-1*/);
 	}
 	.d-caret-next::before {
 		content: ">";
-		.d-rtl& {
-			content: "<";
-		}
+		transform: scaleX(1 /*rtl:-1*/);
 	}
 
 	// Styling for each panel's grid (grid of days, months, or years).
