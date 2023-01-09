@@ -15,7 +15,7 @@
 		"dojo-dstore": "1.1.x",
 		"ibm-decor": "^0.8.1",
 		"lit-html": "^1.2.1",
-		"luxon": "^1.23.0",
+		"luxon": "^2.5.2",
 		"requirejs-domready": "2.0.x",
 		"requirejs-dplugins": "0.7.x"
 	},
