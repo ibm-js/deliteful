@@ -27,7 +27,7 @@
 		"babel-eslint": "^10.1.0",
 		"babel-loader": "^8.1.0",
 		"clean-webpack-plugin": "^3.0.0",
-		"css-loader": "^3.5.3",
+		"css-loader": "^6.8.1",
 		"empty-module": "0.0.2",
 		"eslint-loader": "^4.0.2",
 		"grunt": "^1.1.0",
