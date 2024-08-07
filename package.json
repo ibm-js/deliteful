@@ -41,7 +41,7 @@
 		"leadfoot": "1.x",
 		"less-loader": "^6.0.0",
 		"raw-loader": "^4.0.1",
-		"requirejs": "2.1.x",
+		"requirejs": "2.3.x",
 		"sass-loader": "^8.0.2",
 		"style-loader": "^1.2.1",
 		"webpack": "^5.92.0",
