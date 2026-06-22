@@ -20,12 +20,12 @@
 		"requirejs-dplugins": "0.7.x"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.9.0",
-		"@babel/preset-env": "^7.9.5",
+		"@babel/core": "^8.0.1",
+		"@babel/preset-env": "^8.0.2",
 		"@webcomponents/custom-elements": "^1.4.1",
 		"amdi18n-loader": "^0.9.3",
 		"babel-eslint": "^10.1.0",
-		"babel-loader": "^8.1.0",
+		"babel-loader": "^10.1.1",
 		"clean-webpack-plugin": "^3.0.0",
 		"css-loader": "^6.8.1",
 		"empty-module": "0.0.2",
